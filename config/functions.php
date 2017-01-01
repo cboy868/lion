@@ -28,7 +28,7 @@ function getFullAction()
 	return $currentPermission;
 }
 
-function focus($category_id, $limit, $imgSize)
+function focus($category_id, $limit, $imgSize=null)
 {
 	return Focus::getFocusByCategory($category_id, $limit, $imgSize);
 }
