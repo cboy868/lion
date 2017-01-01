@@ -63,25 +63,26 @@ class Menu extends ActiveRecord
                     ->orderBy('sort desc')
                     ->asArray()
                     ->all();
-        foreach ($menus as $k => &$v) {
-            if (empty($v['auth_name'])) {
-                continue;
-            }
-            $code = explode('/', $v['auth_name']);
 
+        $enablePrettyUrl = Yii::$app->urlManager->enablePrettyUrl;
 
-            $v['url'] = Url::toRoute(['/admin/' . $v['auth_name']]);
+        if ($enablePrettyUrl) {
+            foreach ($menus as $k => &$v) {
+                if (empty($v['auth_name'])) {
+                    continue;
+                }
+                $v['url'] = Url::toRoute(['/admin/' . $v['auth_name']]);
+            }unset($v);
+        } else {
+            foreach ($menus as $k => &$v) {
+                if (empty($v['auth_name'])) {
+                    continue;
+                }
+                $auth_name = substr_replace($v['auth_name'], '/admin', strpos($v['auth_name'], '/'), 0);
+                $v['url'] = Url::toRoute(['/'.$auth_name]);
+            }unset($v);
+        }
 
-            // p($code);die;
-            // $v['url'] = Url::toRoute(['/'.$code[1].'/'.$code[2]]);
-            // if (strpos($code[0], '@')) {
-            //     $arr = explode('@', $code[0]);
-            //     $code[0] = $arr[1];
-            //     $v['url'] = Url::toRoute(['/'.$code[0].'/'.$code[1].'/'.$code[2]]);
-            // }
-            
-        }unset($v);
-        
         $menus = \yii\helpers\ArrayHelper::index($menus, 'id');
         $menus = \app\core\helpers\Tree::recursion($menus,0,1);
         // p($menus);

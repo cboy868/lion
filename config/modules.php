@@ -34,9 +34,6 @@ return [
     'cms' => [//shop模块，把所有有关商品之类的东西放面下面
         'class' => 'app\modules\cms\Module',
     ],
-    'backup' => [
-        'class' => 'spanjeta\modules\backup\Module',
-    ],
     'focus' => [
         'class' => 'app\modules\focus\Module',
     ]

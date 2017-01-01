@@ -468,33 +468,15 @@ AdminAsset::register($this);
                         <ul class="submenu nav-show" style="display: block;">
                         <?php foreach ($list as $k => $v): ?>
                             <li class="<?php if ($v['id'] == \Yii::$app->request->get('mod')) { echo 'active'; } ?>" rel="">
+                            <?php if (Yii::$app->urlManager->enablePrettyUrl): ?>
                                 <a href="<?=Url::toRoute(['/admin/cms/' . $v['module'], 'mod'=>$v['id']]);?>"><i class="menu-icon fa "></i><?=$v['name']?></a>
+                            <?php else: ?>
+                                <a href="<?=Url::toRoute(['/cms/admin/' . $v['module'], 'mod'=>$v['id']]);?>"><i class="menu-icon fa "></i><?=$v['name']?></a>
+                            <?php endif ?>
                                 <b class="arrow"></b>
                             </li>
                         <?php endforeach ?>
 
-
-
-
-
-                           <!--  <li class="" rel="">
-                                <a href="/admin/shop/meal/index"><i class="menu-icon fa "></i>菜品</a>
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="p-menu hsub open">
-                                <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-caret-right"></i>基础数据 <b class="arrow fa fa-angle-down"></b></a>
-                                <b class="arrow"></b>
-                                <ul class="submenu nav-show" style="display: block;">
-                                    <li class="" rel="shop/mix-cate/index">
-                                        <a href="/admin/shop/mix-cate/index"><i class="menu-icon fa fa-caret-right"></i>食材原料分类</a>
-                                        <b class="arrow"></b>
-                                    </li>
-                                    <li class="" rel="shop/mix/index">
-                                        <a href="/admin/shop/mix/index"><i class="menu-icon fa fa-caret-right"></i>食材原料</a>
-                                        <b class="arrow"></b>
-                                    </li>
-                                </ul>
-                            </li> -->
                         </ul>
                     </li>
                 
