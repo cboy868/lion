@@ -1,0 +1,35 @@
+{
+  "name": "lion",
+  "homepage": "https://github.com/cboy868/lion",
+  "authors": [
+    "cboy <cboy868@163.com>"
+  ],
+  "description": "lion",
+  "main": "",
+  "keywords": [
+    "lion"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootbox.js": "bootbox#^4.4.0",
+    "bootstrap-select": "^1.11.2",
+    "datetimepicker": "^2.5.4",
+    "font-awesome": "^4.6.3",
+    "footable": "^3.1.2",
+    "Jcrop": "^2.0.4",
+    "jquery-colorbox": "^1.6.4",
+    "jquery-ui": "^1.12.1",
+    "plupload": "^2.1.9",
+    "todc-bootstrap": "^3.0.2",
+    "ueditor": "^1.4.3",
+    "validate": "^0.10.0",
+    "jquery-treetable": "^3.2.0",
+    "zTree": "^3.5.24",
+    "echarts": "^3.2.3",
+    "jquery-form": "^3.46.0",
+    "jQuery-contextMenu": "^2.2.4",
+    "FooTable": "git@github.com:fooplugins/FooTable.git#^3.1.3",
+    "webuploader": "*",
+    "Validate": "https://github.com/DiegoLopesLima/Validate.git#^1.1.2"
+  }
+}

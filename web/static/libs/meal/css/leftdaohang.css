@@ -1,0 +1,34 @@
+
+
+#nav-dh {
+	float:left;
+	width:30%;
+	text-align:center;
+	top:50px;
+	position:fixed;
+	background-color: #fafafa;
+	padding-bottom:100%;
+}
+
+#nav-dh a {
+	color:#666;
+	display: block;
+	font-size: 14px;
+	padding:15% 0;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-left: solid 3px #fafafa;
+	border-bottom:solid 1px #ededed;
+}
+
+#nav-dh a:hover {
+	background: #fff;
+    border-left: solid 3px #d27a82;
+}
+
+#nav-dh .current a {
+	background: #fff;
+	color: #333;
+	border-left: solid 3px #d27a82;
+}
+

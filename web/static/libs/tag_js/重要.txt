@@ -1,0 +1,13 @@
+			$(input_element).bind('blur', function (e) {
+				e.preventDefault();
+				if (selected_index === -1) {
+					if ($(input_element).val() !== '') {
+						addTag($(input_element).val());
+					}
+				}
+				resizeInput();
+				e.stopPropagation();
+				hideOptions();
+			});
+
+229行之下的代码做过修改,以使鼠标离开时，也会把tag添加上

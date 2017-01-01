@@ -1,0 +1,189 @@
+.hs-orange{
+    background-color:#ff8a00;
+}
+.hs-orange2{
+    background-color: #FFFACD;
+}
+.hs-nomargin{
+    margin: 0;
+}
+.hs-nomargin li{
+    text-align: center;
+    background-color: #F7F7F7;
+}
+.hs-nomargin li.active{
+     background-color: #fff;
+}   
+
+.button.hs-cancel{
+  background-color: #fff;
+  border:1px solid #ccc;
+  color:#666;
+}
+
+.button.hs-ok{
+  background-color: #ff8a00;
+  border:1px solid #ccc;
+  color:#fff;
+}
+
+.item-after .hs-btn{
+    color: #ff8a00;
+    border: none;
+    background-color: #fff;
+}
+.item-after .hs-input{
+    width:2rem;
+    text-align: center;
+}
+
+.list-block .list-group-title{
+    z-index: 0;
+}
+
+.bar-tab{
+    height: 2.5rem;
+}
+
+.list-block .item-title.label{
+    width:5rem;
+}
+
+.button.hs-btn{
+  height:2rem;
+  line-height:2rem;
+}
+
+.left {
+    float: left;
+}
+.car_all {
+    margin: 2px 7px 0 6px;
+    font-family: "Helvetica Neue","Microsoft Yahei",sans-serif;
+}
+
+.car_copies {
+    line-height: 12px;
+    margin-top: 15px;
+    color: #a4a4a4;
+    font-size: 14px;
+    border-left: 2px solid #a4a4a4;
+    padding-left: 6px;
+}
+
+.car_btn {
+    background: #ff8a00;
+    float: right;
+    width: 120px;
+    color: #fff;
+    height: 100%;
+    font-size: 18px;
+}
+
+#food_car {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 0;
+    z-index: 22;
+    width: 100%;
+    height: 1.9rem;
+    line-height: 1.9rem;
+    background: rgba(0,0,0,0.7);
+    border-top: 1px solid #fff;
+}
+.pointer, input[type=button], input[type=submit] {
+    cursor: pointer;
+}
+.center {
+    text-align: center;
+}
+.clof, a.clof, a:visited.clof {
+    color: #FFF;
+}
+.food_car_icon {
+    margin: 4px 0 0 15px;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    display: inline-block;
+    background: url(res_icon.png) no-repeat;
+    background-size: 100%;
+    background-position: center -80px;
+}
+
+.bar.hs-bar {
+    height: 8.2rem;
+}
+
+.user_center {
+    overflow: hidden;
+    padding: 3%;
+    height: 8.2rem;
+    background: url(myself_bg.jpg);
+    background-size: 100%;
+}
+.user_img_box {
+    margin: 15px auto 0;
+    width: 68px;
+    height: 68px;
+    border: 2px solid #fce840;
+    border-radius: 35px;
+    background: #FFF;
+    overflow: hidden;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+.center {
+    text-align: center;
+}
+
+p.buttons-row, .buttons-tab {
+    margin:auto;
+}
+ 
+div.mytab .button{
+      border: 1px solid #fff;
+      height:1.45rem;
+      line-height: 1.45rem;
+      margin-top:0.35rem;
+      margin-bottom: 0.4rem;
+      color:#fff;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+}
+div.mytab .button.active {
+    border-color: #fff;
+    background-color: #fff;
+    color:#ff8a00;
+}
+
+.panel dl{
+    margin-top:0.1rem;
+    margin-bottom: 0.1rem;
+  }
+  .panel dl dt{
+    margin-left: 0.5rem;
+  }
+
+  .panel dl dd{
+    margin-left: 1rem;
+  }
+
+  .panel dl dd .button {
+    border: 1px solid #666;
+    color: #666;
+    display: inline-block;
+    border-radius: .15rem;
+    line-height: 1.05rem;
+    padding: 0 .3rem;
+    height: 1.15rem;
+    background-color: #eee;
+    border: none;
+}
+.panel dl dd a.active{
+  color:#ff8a00;
+  border: 1px solid #ff8a00;
+  background-color: #fff;
+}
