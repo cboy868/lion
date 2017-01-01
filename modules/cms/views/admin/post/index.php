@@ -12,8 +12,8 @@ use app\assets\FootableAsset;
 /* @var $searchModel app\modules\cms\models\PostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $modinfo->name . '管理 <font color="red">【ID:'.$modinfo->id.'】</font>';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $modinfo->name;
+$this->params['breadcrumbs'][] = $this->title . '管理 <font color="red">【ID:'.$modinfo->id.'】</font>';;
 FootableAsset::register($this);
 
 ?>
@@ -228,12 +228,12 @@ $category_id = Yii::$app->getRequest()->get('category_id');
         // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
-
             [
                 'label' => '标题',
                 'value' => function($model){
                     return "<img src='".$model->getThumb('36x36')."'>" . $model->title;
-                }
+                },
+                'format' => 'raw'
             ],
             'author',
             'created_by',
