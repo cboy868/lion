@@ -196,7 +196,8 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 // 'format'=> 'raw',
                 'value' => function($model){
                     return "<img src='".$model->getThumb('36x36')."'>" . $model->name;
-                }
+                },
+                'format' => 'raw'
             ],
             // 'name',
             'category.name',
@@ -209,7 +210,8 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'label' => 'intro',
                 'value' => function($model){
                     return $model->intro;
-                }
+                },
+                'format' => 'raw'
             ],
             // 'skill:ntext',
             // 'unit',

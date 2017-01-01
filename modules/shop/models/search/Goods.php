@@ -48,7 +48,7 @@ class Goods extends GoodsModel
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 1,
+                'pageSize' => 20,
             ],
         ]);
 

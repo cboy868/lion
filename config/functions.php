@@ -73,3 +73,8 @@ function links($rows)
 	$list = Links::find()->asArray()->all();
 	return $list;
 }
+
+function url($params)
+{
+	return Url::toRoute($params);
+}

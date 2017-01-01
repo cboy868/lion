@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\HomeAsset;
 use yii\helpers\Url;
 
@@ -58,7 +57,7 @@ HomeAsset::register($this);
 
                 </div>
                 <nav class="navbar">
-                      <form class="navbar-form navbar-right" role="search">
+                      <form class="navbar-form pull-right" role="search">
                         <div class="form-group">
                           <input type="text" class="form-control" placeholder="Search">
                         </div>
@@ -203,17 +202,21 @@ HomeAsset::register($this);
                     </div>
 
                     <div class="col-md-3" style="text-align:left">
-                            <h4>Latest NEWS</h4>
-                            <div class="block-content" style="display: block; text-align:left;">
-                            <ul class="bottom-menu">
-                             <?php 
-                                $lists = postList(5);
-                             ?>
-                             <?php foreach ($lists as $v): ?>
-                                <li><a href="<?=$v['url']?>" target="_blank"><?=$v['title']?></a></li>
-                             <?php endforeach ?>
-                            </ul>
+                        <div class="bottom-menu-column ">
+                            <div class="col-md-12">
+                                <h4>Latest NEWS</h4>
+                                <div class="block-content" style="display: block; text-align:left;">
+                                <ul class="bottom-menu">
+                                 <?php 
+                                    $lists = postList(5);
+                                 ?>
+                                 <?php foreach ($lists as $v): ?>
+                                    <li><a href="<?=$v['url']?>" target="_blank"><?=$v['title']?></a></li>
+                                 <?php endforeach ?>
+                                </ul>
+                                </div>
                             </div>
+                        </div>
                     </div>
                 
                     <!-- <div class="col-md-3">

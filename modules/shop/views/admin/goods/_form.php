@@ -33,6 +33,7 @@ SelectAsset::register($this);
 
     <?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'skill')->textArea(['maxlength' => true])->label('附加') ?>
 
      <div class="panel panel-default">
       <div class="panel-heading">

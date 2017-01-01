@@ -322,6 +322,7 @@ class GoodsController extends BackController
                 $num = $sku['num'];
 
 
+                Yii::$app->db->createCommand()->delete('{{%shop_sku}}', ['goods_id'=>$id])->execute();
                 if ($price && count(array_filter($price))>0) {
                     $price = array_filter($price);
                     $sku_md = [];
@@ -364,6 +365,10 @@ class GoodsController extends BackController
 
                 $result = AvRel::parsePost($model->category_id, $model->id);
                 if ($result) {
+
+
+                    Yii::$app->db->createCommand()->delete('{{%shop_av_rel}}', ['goods_id'=>$id])->execute();
+
                     Yii::$app->db->createCommand()->batchInsert(
                         AvRel::tableName(), 
                         ['attr_id','av_id', 'category_id', 'goods_id'], 

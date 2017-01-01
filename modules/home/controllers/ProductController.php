@@ -10,6 +10,10 @@ use yii\filters\VerbFilter;
 use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
 use app\modules\shop\models\search\Goods as GoodsSearch;
+use app\core\models\Attachment;
+use app\core\models\AttachmentRel;
+use app\core\models\TagRel;
+use app\modules\shop\models\AvRel;
 
 class ProductController extends \app\core\web\HomeController
 {
@@ -44,23 +48,62 @@ class ProductController extends \app\core\web\HomeController
             'models' => $models,
             'page' => $page,
             'searchModel' => $searchModel,
-            // 'dataProvider' => $dataProvider,
             'cates'       => $cates,
             'current_cate' => Yii::$app->getRequest()->get('category_id')
         ]);
 
-
-
-
-     //    $cates = Category::find()->asArray()->all();
-
-
-    	// return $this->render('index', ['cates'=>$cates]);
     }
 
     public function actionView($id)
     {
-        return $this->render('view');
+
+        $model = Goods::findOne($id);
+
+        $goods = $model->toArray();
+
+        $goods['small'] = Attachment::getById($goods['thumb'], '50*50');
+        $goods['middle'] = Attachment::getById($goods['thumb'], '425x350');
+        $goods['big'] = Attachment::getById($goods['thumb'], '600x730');
+
+        $attr = $this->getAttr($model);
+
+        $imgs = AttachmentRel::getByRes('goods', $id);
+
+        $rels = $this->getSeries($id);
+
+
+
+        return $this->render('view', [
+            'data'=>$goods, 
+            'attr'=> $attr['attr'], 
+            'imgs'=>$imgs,
+            'series' => $rels
+            ]);
+    }
+
+    /**
+     * @name 取系列产品
+     */
+    private function getSeries($goods_id)
+    {
+        $rels = TagRel::getReleted('goods', $goods_id);
+
+        $models = Goods::find()->where(['id'=>$rels])->asArray()->all();
+
+        foreach ($models as &$v) {
+            $v['img'] = Attachment::getById($v['thumb'], '200x200');
+        }unset($v);
+
+
+        return $models;
+    }
+
+    /**
+     * @name 获取属性 
+     */
+    private function getAttr($model)
+    {
+        return AvRel::getAv($model);
     }
 
 

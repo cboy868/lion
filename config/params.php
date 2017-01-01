@@ -113,7 +113,10 @@ $params = [
             'waterPosition' => '9',//9宫格方式
             'thumb' => [
                 'tiny' => '36*36',
-                'small' => '100*100'
+                'small' => '50*50',
+                'series' => '200x200',
+                'middle' => '425x350',
+                'big' => '600x730'
             ]
         ],
         'shop_goods_tpl' => [
