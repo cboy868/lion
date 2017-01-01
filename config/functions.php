@@ -36,6 +36,9 @@ function focus($category_id, $limit, $imgSize=null)
 	return Focus::getFocusByCategory($category_id, $limit, $imgSize);
 }
 
+/**
+ * @name 取文章列表 
+ */
 function postList($mod, $category_id=0, $rows)
 {
 	$class = '\app\modules\cms\models\mods\Post' . $mod;
