@@ -39,7 +39,7 @@ function focus($category_id, $limit, $imgSize=null)
 /**
  * @name 取文章列表 
  */
-function postList($mod, $category_id=0, $rows)
+function postList($mod, $category_id=0, $rows=null)
 {
 	$class = '\app\modules\cms\models\mods\Post' . $mod;
 
