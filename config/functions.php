@@ -28,6 +28,9 @@ function getFullAction()
 	return $currentPermission;
 }
 
+/**
+ * @name 取焦点图
+ */
 function focus($category_id, $limit, $imgSize=null)
 {
 	return Focus::getFocusByCategory($category_id, $limit, $imgSize);
