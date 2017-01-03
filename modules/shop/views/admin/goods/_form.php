@@ -35,12 +35,11 @@ SelectAsset::register($this);
 
     <?= $form->field($model, 'skill')->textArea(['maxlength' => true])->label('附加') ?>
 
+    <?php if (isset($imgs)): ?>
      <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">已上传图片</h3>
       </div>
-
-      <?php if (isset($imgs)): ?>
           <div class="panel-body">
             <?php foreach ($imgs as $img): ?>
                 <div class="col-xs-3 col-md-2">
@@ -51,9 +50,9 @@ SelectAsset::register($this);
             <?php endforeach ?>
 
           </div>
+        </div>
       <?php endif ?>
-      
-    </div>
+
 
 
     <div class="form-group field-goods-pic required">
