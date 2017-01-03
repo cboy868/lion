@@ -126,7 +126,7 @@ $this->title = 'PRODUCTS';
                         <div class="item col-md-3 nova-mg-pd">
                             <div class="nova-product-images"> 
                                 <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="product-image">
-                                    <div class="margin-image"><img src="<?=Attachment::getById($goods['thumb'], '186x186')?>" alt="<?=$goods['name']?>"></div>
+                                    <div class="margin-image"><img src="<?=Attachment::getById($goods['thumb'], '310x310')?>" alt="<?=$goods['name']?>"></div>
                                 </a>
                                 <div class="descriptions-hidden">       
                                     <div class="quick-whl"> 
