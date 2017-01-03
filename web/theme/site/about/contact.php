@@ -37,8 +37,8 @@
 
 <div class="main-container col1-layout home-content-container">
 <ol class="breadcrumb" style="margin-bottom:0;text-align:left;8px 5px 8px 20px;margin:0">
-  <li><a href="<?=url(['/'])?>">Home</a></li>
-  <li class="active">Contact Us</li>
+  <li><a href="<?=url(['/'])?>">HOME</a></li>
+  <li class="active">CONTACT US</li>
 </ol>
 <div class="main home-content">
     <div class="row columns-layout nova-mg-pd">

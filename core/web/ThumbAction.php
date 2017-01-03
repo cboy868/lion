@@ -20,7 +20,7 @@ class ThumbAction extends Action
         $path = dirname($parse[0]);
         $size = explode('x', basename($parse[0]));
 
-        Image::thumbnail($path . '/' . $ori_name, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_INSET)->save($thumb);
+        Image::thumbnail($path . '/' . $ori_name, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_OUTBOUND)->save($thumb);
         $uri = $_SERVER['REQUEST_URI'];
 
         return $this->controller->redirect([$uri]);

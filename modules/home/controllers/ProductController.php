@@ -27,14 +27,22 @@ class ProductController extends \app\core\web\HomeController
     public function actionIndex()
     {
 
+        $params = Yii::$app->request->queryParams;
 
         $searchModel = new GoodsSearch();
 
-        $params = Yii::$app->request->queryParams;
+
+        if (isset($params['avid'])) {
+            $goods_ids = AvRel::getGoodsIdByAvId($params['avid']);
+            $params["Goods"]['id'] = $goods_ids;
+        }
+
 
         if ($params['category_id']) {
             $params["Goods"]['category_id'] = $params['category_id'];
         }
+
+        $params['psize'] = isset($params['psize']) ? $params['psize'] : 12;
 
         $dataProvider = $searchModel->search($params);
 
@@ -43,16 +51,24 @@ class ProductController extends \app\core\web\HomeController
 
         $cates = $this->getCates();
 
+        $attrs = AvRel::attrs();
 
-        return $this->render('index', [
+
+        $params['mode'] = isset($params['mode']) ? $params['mode'] : 'list';
+
+
+        return $this->render('index_' . $params['mode'], [
             'models' => $models,
             'page' => $page,
             'searchModel' => $searchModel,
             'cates'       => $cates,
-            'current_cate' => Yii::$app->getRequest()->get('category_id')
+            'current_cate' => Yii::$app->getRequest()->get('category_id'),
+            'attrs' => $attrs,
+            'get' => $params
         ]);
 
     }
+
 
     public function actionView($id)
     {
@@ -68,6 +84,7 @@ class ProductController extends \app\core\web\HomeController
         $attr = $this->getAttr($model);
 
         $imgs = AttachmentRel::getByRes('goods', $id);
+
 
         $rels = $this->getSeries($id);
 

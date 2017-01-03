@@ -31,11 +31,11 @@ jQuery(function() {
 			   jQuery(this).removeClass("hover").find('ul:first').stop(true, true).delay(300).fadeOut(300, "easeInCubic");
 			  })
 	}	
-	jQuery(".item").hover(function() {
-		jQuery(".descriptions-hidden", this).transition({"display":"block"});
-	}, function() {
-		jQuery(".descriptions-hidden", this).transition({"display":"none"});
-	});	
+	// jQuery(".item").hover(function() {
+	// 	jQuery(".descriptions-hidden", this).transition({"display":"block"});
+	// }, function() {
+	// 	jQuery(".descriptions-hidden", this).transition({"display":"none"});
+	// });	
 	// Sort by dropdown
 	jQuery(".sorter .sort-by").mouseenter(function() {
 			jQuery(this).click();
@@ -100,17 +100,17 @@ jQuery(function() {
 		});
 	
 	
-	jQuery('.ajaxcart_colorbox').live('mouseenter', function(){
-		jQuery(this).colorbox({
-			iframe:true,
-			opacity:	0.8,
-			width:"402",
-			height:"200"
-		});
-	});	
-   jQuery('.quickview_small').live('mouseenter', function(){
-   	jQuery(this).colorbox({iframe:true, width:"780px", height:"480px", opacity:0.8});
-   	});	
+	// jQuery('.ajaxcart_colorbox').live('mouseenter', function(){
+	// 	jQuery(this).colorbox({
+	// 		iframe:true,
+	// 		opacity:	0.8,
+	// 		width:"402",
+	// 		height:"200"
+	// 	});
+	// });	
+   // jQuery('.quickview_small').live('mouseenter', function(){
+   // 	jQuery(this).colorbox({iframe:true, width:"780px", height:"480px", opacity:0.8});
+   // 	});	
 	// Add (+/-) Button Number Incrementers 
 	jQuery(".button-qty").on("click", function() {
 	  var $button = jQuery(this);

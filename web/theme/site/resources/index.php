@@ -37,8 +37,8 @@ font-size: 10pt;}
 
 <div class="main-container col1-layout home-content-container">
     <ol class="breadcrumb" style="margin-bottom:0;text-align:left;8px 5px 8px 20px;margin:0">
-      <li><a href="<?=url(['/'])?>">Home</a></li>
-      <li class="active">Resources</li>
+      <li><a href="<?=url(['/'])?>">HOME</a></li>
+      <li class="active">RESOURCES</li>
     </ol>
     <div class="main home-content">
         <div class="row columns-layout nova-mg-pd">

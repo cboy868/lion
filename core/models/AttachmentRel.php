@@ -139,7 +139,6 @@ class AttachmentRel extends \yii\db\ActiveRecord
                             ->asArray()
                             ->all();
 
-
         $query = Attachment::find()->where([
             'id'=>\yii\helpers\ArrayHelper::getColumn($rel, 'attach_id'),
             ]);
@@ -148,7 +147,7 @@ class AttachmentRel extends \yii\db\ActiveRecord
             $query->andFilterWhere(['not in', 'id', $out]);
         }
 
-        $list = $query->asArray()->all();
+        $list = $query->orderBy('id DESC')->asArray()->all();
 
 
         $type = $type ? $type.'@' : '';

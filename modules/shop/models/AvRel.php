@@ -169,17 +169,24 @@ class AvRel extends \app\core\db\ActiveRecord
         return $query->all();
     }
 
-    public static function attrs($category_id, $filters=[])
+    public static function attrs($category_id=null, $filters=[])
     {
-        $list = self::find()->where(['category_id'=>$category_id])->andFilterWhere(['not in', 'attr_id', $filters])->all();
+
+        $models = self::find()->filterWhere(['category_id'=>$category_id])->andFilterWhere(['not in', 'attr_id', $filters]);
+        $list = $models->all();
+
+        $avs = [];
+        foreach ($list as $v) {
+            $avs[$v->av_id][] = $v;
+        }
 
         $result = [];
-
         foreach ($list as $k => $v) {
 
             $val[$v->attr_id][$v->av_id] = [
                 'val' => $v->val->val,
                 'id'  => $v->av_id,
+                'num' => count($avs[$v->av_id])
             ];
 
             $result[$v->attr_id] = [
@@ -188,6 +195,7 @@ class AvRel extends \app\core\db\ActiveRecord
                 "child" => $val[$v->attr_id],
             ];
         }
+
 
         $attr_ids = array_keys($result);
 
@@ -202,6 +210,16 @@ class AvRel extends \app\core\db\ActiveRecord
 
         return $result;
     }   
+
+
+    public static function getGoodsIdByAvId($avid)
+    {
+
+        $list = self::find()->where(['av_id'=>$avid])->asArray()->all();
+
+        return ArrayHelper::getColumn($list, 'goods_id');
+    }
+
 
     // public static function filterShicai()
     // {

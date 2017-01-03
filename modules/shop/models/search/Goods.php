@@ -18,8 +18,8 @@ class Goods extends GoodsModel
     public function rules()
     {
         return [
-            [['id', 'category_id', 'thumb', 'is_recommend', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'intro', 'skill', 'unit'], 'safe'],
+            [['category_id', 'thumb', 'is_recommend', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'intro', 'skill', 'unit', 'id'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -44,17 +44,19 @@ class Goods extends GoodsModel
     {
         $query = GoodsModel::find();
 
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => isset($params['psize']) ? $params['psize'] : 12,
             ],
         ]);
 
+
         if (!($this->load($params) && $this->validate())) {
+
             return $dataProvider;
         }
+
 
         $query->andFilterWhere([
             'id' => $this->id,

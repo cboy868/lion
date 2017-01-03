@@ -18,14 +18,25 @@ ul.nav-tabs>li>a{
 ul.nav-tabs>li.active>a{
     color: #E28903;
 }
+#gal1 .zoomGalleryActive{
+    border:1px solid #999;
+}
+#gal1 a{
+    display: block;
+    float: left;
+    height: 50px;
+    margin-left: 2px;
+    border: 1px solid #ccc;
+}
+
 
 </style>
 
 
 <div class="main-container col1-layout home-content-container">
     <ol class="breadcrumb" style="margin-bottom:0;text-align:left;8px 5px 8px 20px;margin:0">
-      <li><a href="<?=url(['/'])?>">Home</a></li>
-      <li><a href="<?=url(['/home/product'])?>">products</a></li>
+      <li><a href="<?=url(['/'])?>">HOME</a></li>
+      <li><a href="<?=url(['/home/product'])?>">PRODUCTS</a></li>
       <li class="active"><?=$data['name']?></li>
     </ol>
     <div class="main home-content">
@@ -45,16 +56,22 @@ ul.nav-tabs>li.active>a{
 
                                     <div class="product-image" id="preview">
                                             <div class='jqzoom' id='spec-n1'>
-                                                <img id="zoom_01" src='<?=$imgs[0]['path'] . '/600x730@' . $imgs[0]['name']?>' data-image="<?=$imgs[0]['path'] . '/600x730@' . $imgs[0]['name']?>" height="350" width="425" />
+                                                <img id="zoom_01" src='<?=$imgs[0]['path'] . '/425x350@' . $imgs[0]['name']?>' data-zoom-image="<?=$imgs[0]['path'] . '/850x700@' . $imgs[0]['name']?>" />
                                             </div>
                                             <div id='spec-n5'>
                                                 <div class=control id='spec-left'>
                                                     <img src="/theme/site/static/elevatezoom/images/left.gif" />
                                                 </div>
                                                 <div id='spec-list'>
-                                                    <ul class='list-h'>
+                                                    <ul class='list-h' id="gal1">
                                                         <?php foreach ($imgs as $img): ?>
-                                                            <li><img src="<?=$img['path'] . '/600x730@' . $img['name']?>" data-src="<?=$img['path'] . '/600x730@' . $img['name']?>"> </li>
+
+                                                            <a href="#" class="elevatezoom-gallery" data-image="<?=$img['path'] . '/425x350@' . $img['name']?>" data-zoom-image="<?=$img['path'] . '/850x700@' . $img['name']?>">
+                                                            <img id="" src="<?=$img['path'] . '/50x50@' . $img['name']?>" >
+                                                            </a>
+
+
+                                                           <!--  <li><img src="<?=$img['path'] . '/425x350@' . $img['name']?>" data-src="<?=$img['path'] . '/850x700@' . $img['name']?>"> </li> -->
                                                         <?php endforeach ?>
 
                                                        <!--  <li><img src="/theme/site/static/img/rs_tn1big.jpg" data-src="./theme/site/static/img/rs_tn1big.jpg"> </li>
@@ -160,18 +177,8 @@ ul.nav-tabs>li.active>a{
 jQuery(document).ready(function() {
 
     zoom();
-    $('.list-h img').mouseover(function(){
-        var src = $(this).attr('src');
-        var dsrc = $(this).data('src');
-
-        $('#zoom_01').attr('src', src);
-        $('#zoom_01').attr('data-image', dsrc);
-        zoom();
-
-    });
-
+    
     jQuery().UItoTop({ easingType: 'easeOutQuart' });    
-
 });  
 
 
@@ -179,10 +186,13 @@ var zoom = function(){
     $('#zoom_01').elevateZoom({
     zoomType: "inner",
     cursor: "crosshair",
+    gallery             : "gal1",
     zoomWindowFadeIn: 500,
     zoomWindowFadeOut: 750
    }); 
+
 }
+
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['zoom'], \yii\web\View::POS_END); ?>  
 
