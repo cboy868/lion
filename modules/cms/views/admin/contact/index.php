@@ -9,7 +9,7 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\cms\models\ContactSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '联系管理';
+$this->title = '联系邮箱';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

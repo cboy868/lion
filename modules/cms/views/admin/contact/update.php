@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\cms\models\Contact */
 
 $this->title = ' ' . ' ' . $model->email;
-$this->params['breadcrumbs'][] = ['label' => 'Contacts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '联系邮箱', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '编辑';
 ?>
 
 <div class="page-content">

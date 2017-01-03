@@ -7,7 +7,7 @@ use app\core\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\cms\models\Contact */
 
-$this->title = $model->id;
+$this->title = $model->email;
 $this->params['breadcrumbs'][] = ['label' => '详细信息', 'url' => ['index']];
 ?>
 
