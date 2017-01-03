@@ -1,5 +1,6 @@
 <?php return array (
-  'seo_title' => '标题',
+  'theme' => 'site',
+  'seo_title' => '某某某的网站',
   'seo_keywords' => 'keywords',
-  'seo_description' => 'des',
+  'seo_description' => '一些简单的描述',
 ) ;

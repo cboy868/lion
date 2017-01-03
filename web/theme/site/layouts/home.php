@@ -15,10 +15,10 @@ HomeAsset::register($this);
     <head lang="<?= Yii::$app->language ?>">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <title><?= Html::encode($this->title) ?></title>
+        <title><?= Html::encode($this->title) ?>   <?=g('seo_title')?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="keywords" content="">
+        <meta name="description" content="<?=g('seo_description')?>">
+        <meta name="keywords" content="<?=g('seo_keywords')?>">
         <meta name="robots" content="INDEX,FOLLOW">
 
         <meta charset="<?= Yii::$app->charset ?>">

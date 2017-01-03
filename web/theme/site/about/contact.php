@@ -1,3 +1,6 @@
+<?php
+    $this->title = 'CONTACT US';
+?>
 <style type="text/css">
     .panel-group .panel{
         border-radius:1px;

@@ -1,6 +1,9 @@
 <?php 
 use app\assets\ZoomAsset;
 ZoomAsset::register($this);
+
+
+$this->title = $data['name'];
 ?>
 
 <style type="text/css">

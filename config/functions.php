@@ -78,3 +78,9 @@ function url($params)
 {
 	return Url::toRoute($params);
 }
+
+function g($name)
+{
+
+	return Yii::$app->params[$name];
+}

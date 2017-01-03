@@ -1,6 +1,8 @@
 <?php 
 use app\web\theme\site\widgets\Slide;
 use app\modules\focus\models\Focus;
+
+$this->title = 'HOME';
 ?>
 
 <?=Slide::widget(['options'=>['cate'=>1, 'limit'=>3, 'size'=>'1200x300']]) ?>

@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use app\core\models\Attachment;
 use yii\widgets\LinkPager;
 
+$this->title = 'PRODUCTS';
 ?>
 
 <style type="text/css">

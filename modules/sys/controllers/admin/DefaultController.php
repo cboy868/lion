@@ -150,7 +150,7 @@ class DefaultController extends \app\core\web\BackController
             $path = Yii::getAlias('@app/config/setting.php');
             @file_put_contents($path, $content);
 
-            return $this->redirect('?r=set/default/index');
+            return $this->redirect(['index']);
         }
 
         $settings = ArrayHelper::group($settings, 'smodule');
