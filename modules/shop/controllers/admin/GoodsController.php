@@ -59,7 +59,7 @@ class GoodsController extends BackController
 
         $params = Yii::$app->request->queryParams;
 
-        if ($params['category_id']) {
+        if (isset($params['category_id'])) {
             $params["Goods"]['category_id'] = $params['category_id'];
         }
 
