@@ -6,7 +6,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\cms\models\Contact */
 
-$this->title = ' ' . ' ' . $model->id;
+$this->title = ' ' . ' ' . $model->email;
 $this->params['breadcrumbs'][] = ['label' => 'Contacts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
