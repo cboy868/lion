@@ -13,7 +13,6 @@ class WebuploadAction extends Action
     public function init()
     {
 
-        echo 'sss';die;
         $this->controller->enableCsrfValidation = false;
         parent::init();
     }
