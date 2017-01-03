@@ -16,7 +16,7 @@ use yii\web\AssetBundle;
 class FootableAsset extends AssetBundle
 {
 
-    public $sourcePath = '@bower/footable';
+    public $sourcePath = '@bower/FooTable';
 
     public $css = [
         'compiled/footable.bootstrap.min.css',
