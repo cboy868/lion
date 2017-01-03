@@ -18,10 +18,6 @@ use yii\captcha\Captcha;
 
     <?= $form->field($model, 'intro')->textarea(['rows' => 6]) ?>
 
-     <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                    'captchaAction' => '/admin/cms/contact/captcha',
-                    'template' => '<div class="row"><div class="col-lg-3">{input}</div><div class="col-lg-3">{image}</div></div>',
-                ]) ?>
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
