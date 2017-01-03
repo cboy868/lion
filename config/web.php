@@ -31,7 +31,7 @@ $config = [
 
         'user' => [
             'identityClass' => 'app\modules\user\models\User',
-            'loginUrl' => '/home/default/login',
+            'loginUrl' => ['admin/default/login'],//'?r=admin/default/login',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [

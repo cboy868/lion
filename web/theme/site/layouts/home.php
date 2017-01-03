@@ -242,7 +242,8 @@ HomeAsset::register($this);
             <div class="footer">
                 <div class="row nova-mg-pd">        
                     <div class="col-xs-12 col-sm-6 col-md-8 nova-mg-pd">                    
-                        <address>© 2015 Eleganza Tiles, Inc. All Rights Reserved.</address>
+                        <address>© 2015 Eleganza Tiles, Inc. All Rights Reserved.<span><a href="<?=url(['/admin/default/login'])?>">管理中心</a></span></address>
+
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-4 payment-logo nova-mg-pd">
                                      
