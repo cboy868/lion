@@ -130,7 +130,6 @@ class Upload extends Component{
 
 
 
-            p($img_config);die;
             $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
 
             if (isset($img_config['water'])) {//水印
