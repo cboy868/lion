@@ -100,26 +100,6 @@ $params = [
                 'tiny' => '36*36',
             ]
         ],
-        'shop_goods' => [
-            'imageWater' => true,
-            'water' => true,
-            'db' => true,//是否存入数据库
-            // 'savePath' => 'upload',
-            'imageMaxSize'  => '2048000',
-            'imageAllowFiles' => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
-            'imagePathFormat' => "/upload/image/{yyyy}{mm}{dd}/{time}{rand:3}",
-            'waterMark' => 'upload/image/201602/tiny_1454577701904.jpg',
-            'textMark' => '这里是文字水印',
-            'waterPosition' => '9',//9宫格方式
-            'thumb' => [
-                'tiny' => '36*36',
-                'small' => '50*50',
-                'series' => '200x200',
-                'middle' => '425x350',
-                'bigger' => '310x310',
-                'big' => '600x730'
-            ]
-        ],
         'shop_goods_tpl' => [
             'imageWater' => true,
             'water' => true,

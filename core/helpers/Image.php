@@ -38,8 +38,8 @@ class Image extends \yii\imagine\Image {
         foreach ($thumb as $k => $v) {
             $size = explode('*', $v);
             $thumb_path = $dir. '/' . $size[0] .'x'. $size[1] . '@' . $basename;
-            // self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_INSET)->save($thumb_path);
-            self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_OUTBOUND)->save($thumb_path);
+            self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_INSET)->save($thumb_path);
+            // self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_OUTBOUND)->save($thumb_path);
         }
 
         return true;
@@ -52,8 +52,15 @@ class Image extends \yii\imagine\Image {
     {
         $filePath = $event->filePath;
 
-        $config = Yii::$app->params['image'];
+        $params = Yii::$app->params;
+        $current_params = Yii::$app->controller->module->params;
+
+        $params = ArrayHelper::merge($params, $current_params);
+
+        $config = $params['image'];
         $watermark = isset($config[$event->res]['waterMark']) ? $config[$event->res]['waterMark'] : $config['common']['waterMark'];
+
+        $watermark = Yii::getAlias('@app/web' . $watermark);
 
         if (!is_file($watermark)) {
             return ;

@@ -127,11 +127,13 @@ class Upload extends Component{
 
 
             $img_config = $this->getConfig();
-            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
 
             if (isset($img_config['water'])) {//水印
                 $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'water'], null, false);
             }
+
+            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+            
 
             $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
 
