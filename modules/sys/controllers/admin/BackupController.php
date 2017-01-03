@@ -552,11 +552,12 @@ class BackupController extends \app\core\web\BackController {
 	{
 		$list_files = glob($this->getPath() . $ext);
 
+		$list = [];
 		if ($list_files) {
 			$list = array_map('basename', $list_files);
 			sort($list);
 		}
 
-		return $list ? $list : [];
+		return $list;
 	}
 }
