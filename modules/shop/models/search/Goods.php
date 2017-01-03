@@ -47,6 +47,42 @@ class Goods extends GoodsModel
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+
+        if (!($this->load($params) && $this->validate())) {
+
+            return $dataProvider;
+        }
+
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'category_id' => $this->category_id,
+            'thumb' => $this->thumb,
+            'price' => $this->price,
+            'is_recommend' => $this->is_recommend,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'intro', $this->intro])
+            ->andFilterWhere(['like', 'skill', $this->skill])
+            ->andFilterWhere(['like', 'unit', $this->unit]);
+
+        return $dataProvider;
+    }
+    public function homeSearch($params)
+    {
+        $query = GoodsModel::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
                 'pageSize' => isset($params['psize']) ? $params['psize'] : 12,
             ],
         ]);

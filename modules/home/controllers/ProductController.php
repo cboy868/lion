@@ -38,13 +38,13 @@ class ProductController extends \app\core\web\HomeController
         }
 
 
-        if ($params['category_id']) {
+        if (isset($params['category_id'])) {
             $params["Goods"]['category_id'] = $params['category_id'];
         }
 
         $params['psize'] = isset($params['psize']) ? $params['psize'] : 12;
 
-        $dataProvider = $searchModel->search($params);
+        $dataProvider = $searchModel->homeSearch($params);
 
         $models = $dataProvider->getModels();
         $page = $dataProvider->getPagination();

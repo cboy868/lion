@@ -67,9 +67,9 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            // 'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => require(__DIR__ . '/rules.php'),
+            // 'rules' => require(__DIR__ . '/rules.php'),
         ],
         'authManager' => [
             'class' => 'app\modules\sys\rbac\DbManager',
