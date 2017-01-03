@@ -14,23 +14,13 @@ use app\modules\sys\models\ImageConfig;
 $this->title = 'Image Configs';
 $this->params['breadcrumbs'][] = $this->title;
 
+\app\assets\TagAsset::register($this);
 
 ?>
 
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
-        <div class="page-header">
-            <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
-
         <div class="row">
 
             <div class="col-xs-12 image-config-index">
@@ -57,9 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <?= $form->field($model, 'is_thumb')->radioList(['0'=>'否', '1'=>'是']) ?>
 
-                            <?= $form->field($model, 'thumb_mode')->radioList(['1'=>'补白', '2'=>'居中']) ?>
+                            <?php // $form->field($model, 'thumb_mode')->radioList(['1'=>'补白', '2'=>'居中']) ?>
 
-                            <?= $form->field($model, 'thumb_config')->textarea(['rows' => 6])->hint('格式为 100x100;如需要多个缩略图，请换行输入，每行一条缩略规则') ?>
+                            <?= $form->field($model, 'thumb_config')->textarea(['class'=>'inputTagator form-control'])->hint('格式为 100x100;如需要多个缩略图，请用半角逗号","分隔') ?>
 
                             <?= $form->field($model, 'water_mod')->radioList(['1'=>'图片', '2'=>'文字']) ?>
 
@@ -98,9 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <?= $form->field($model, 'water_text')->textInput(['maxlength' => true]) ?>
 
-                            <?= $form->field($model, 'water_opacity')->textInput(['value'=>100]) ?>
-
-
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-3">
                                     <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
@@ -117,15 +104,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <!-- Tab panes -->
                 
-
-
-
-
-
-
-
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+<?php $this->beginBlock('tag') ?>  
+
+$(function () {
+    tag();
+});
+
+function tag()
+{
+    if ($('.inputTagator').data('tagator') === undefined) {
+        $('.inputTagator').tagator({
+            autocomplete: []
+        });
+        $('.activate_tagator').val('销毁 tagator');
+    } else {
+        $('.inputTagator').tagator('destroy');
+        $('.activate_tagator').val('激活 tagator');
+    }
+}
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['tag'], \yii\web\View::POS_END); ?>  

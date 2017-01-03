@@ -129,7 +129,12 @@ class Upload extends Component{
             $img_config = $this->getConfig();
 
             if (isset($img_config['water'])) {//水印
-                $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'water'], null, false);
+                if ($img_config['water_mod'] == 'image') {
+                    $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'water'], null, false);
+                } else {
+                    $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'textWater'], null, false);
+                }
+                
             }
 
             $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
@@ -161,6 +166,7 @@ class Upload extends Component{
     public function getConfig($field=null)
     {
         $params = Yii::$app->params;
+
         $current_params = Yii::$app->controller->module->params;
 
         $params = ArrayHelper::merge($params, $current_params);

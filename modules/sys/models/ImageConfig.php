@@ -95,9 +95,43 @@ class ImageConfig extends \app\core\db\ActiveRecord
     {
         $list = self::find()->asArray()->all();
 
-        p($list);die;
+        $config = [];
 
-        $content = var_export($info, true);
-            $content = '<?php return ' . $content . ' ;';
+        foreach ($list as $v) {
+            $config['image'][$v['res_name']] = [
+                'water' => $v['water_pos'] != -1 ? 1 : 0,
+                'water_mod' => $v['water_mod'] == 1 ? 'image' : 'text',
+                'water_image' => $v['water_image'],
+                'water_text'  => $v['water_text'],
+                'water_pos'   => $v['water_pos'],
+                'thumb' => explode(',', $v['thumb_config'])
+            ];
+        };
+
+
+        $content = var_export($config, true);
+        $content = '<?php return ' . $content . ';';
+
+        $path = Yii::getAlias('@app/config/thumb.php');
+        @file_put_contents($path, $content);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

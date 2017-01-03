@@ -28,6 +28,22 @@ $params = [
             'textMark' => '这里是文字水印'
     	],
 
+        'imgconfig' => [
+            'imageWater' => true,
+            'db' => true,//是否存入数据库
+            // 'savePath' => 'upload',
+            'imageMaxSize'  => '2048000',
+            'imageAllowFiles' => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
+            'imagePathFormat' => "/upload/image/{yyyy}{mm}{dd}/{time}{rand:3}",
+            'waterMark' => 'upload/image/201602/tiny_1454577701904.jpg',
+            'textMark' => '这里是文字水印',
+            'waterPosition' => '9',//9宫格方式
+            'thumb' => [
+                'tiny' => '45*45',
+                'small'=>'100*100',
+            ]
+        ],
+
         'avatar' => [
             'imageWater' => true,
             'db' => true,//是否存入数据库
@@ -121,7 +137,7 @@ $params = [
     ],
 ];
 
-return array_merge($setting, $params);
+return \yii\helpers\ArrayHelper::merge($setting, $params, $thumb);
 
 
 

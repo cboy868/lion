@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = ['label' => $modinfo->name, 'url' => ['index','
         'model' => $model,
         'attributes' => [
             'id',
-            'author_id',
             'category_id',
             'title',
             'thumb',
