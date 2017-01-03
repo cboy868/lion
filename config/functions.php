@@ -63,8 +63,12 @@ function postDetail($mod, $id)
 	$class = '\app\modules\cms\models\mods\Post' . $mod;
 	$dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
 
-	$post = $class::findOne($id)->toArray();
+	$model = $class::findOne($id);
+	$model->view_all += 1;
+	$model->save();
+	$post = $model->toArray();
 	$data = $dataClass::findOne($id)->toArray();
+
 	return array_merge($post, $data);
 }
 
