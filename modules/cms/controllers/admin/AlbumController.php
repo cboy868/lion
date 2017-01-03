@@ -43,6 +43,15 @@ class AlbumController extends BackController
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'web-upload' => [
+                'class' => 'app\core\web\WebuploadAction',
+            ]
+        ];
+    }
+
     /**
      * Lists all Album models.
      * @return mixed

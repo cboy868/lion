@@ -1,6 +1,7 @@
 <?php
 
 $setting = require(__DIR__ . '/setting.php');
+$thumb = require(__DIR__ . '/thumb.php');
 
 $params = [
     'adminEmail' => 'cboy868@163.com',

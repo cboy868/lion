@@ -140,8 +140,8 @@ class DefaultController extends \app\core\web\BackController
             }
 
 
-            $dbConfig = var_export($dbConfig, true);
-            $dbConfig = '<?php return ' . $dbConfig . ' ;';
+            // $dbConfig = var_export($dbConfig, true);
+            // $dbConfig = '<?php return ' . $dbConfig . ' ;';
 
 
             $content = var_export($info, true);
