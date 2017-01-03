@@ -39,16 +39,20 @@ SelectAsset::register($this);
       <div class="panel-heading">
         <h3 class="panel-title">已上传图片</h3>
       </div>
-      <div class="panel-body">
-        <?php foreach ($imgs as $img): ?>
-            <div class="col-xs-3 col-md-2">
-                <a href="#" class="thumbnail">
-                  <img src="<?=$img['url']?>" alt="<?=$img['title']?>" rid="<?=$img['id']?>">
-                </a>
-              </div>
-        <?php endforeach ?>
 
-      </div>
+      <?php if (isset($imgs)): ?>
+          <div class="panel-body">
+            <?php foreach ($imgs as $img): ?>
+                <div class="col-xs-3 col-md-2">
+                    <a href="#" class="thumbnail">
+                      <img src="<?=$img['url']?>" alt="<?=$img['title']?>" rid="<?=$img['id']?>">
+                    </a>
+                  </div>
+            <?php endforeach ?>
+
+          </div>
+      <?php endif ?>
+      
     </div>
 
 
