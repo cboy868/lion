@@ -233,15 +233,15 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'template' => '{update} {delete} {view}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
-                        $url = Url::toRoute(['/admin/cms/album/update', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
+                        $url = Url::toRoute(['update', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑'] );
                     },
                     'view' => function($url, $model, $key) {
-                        $url = Url::toRoute(['/admin/cms/album/view', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
+                        $url = Url::toRoute(['view', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看'] );
                     },
                     'delete' => function($url, $model, $key) {
-                        $url = Url::toRoute(['/admin/cms/album/delete', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
+                        $url = Url::toRoute(['delete', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
                     },
                 ],
