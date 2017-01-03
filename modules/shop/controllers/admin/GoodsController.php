@@ -260,6 +260,7 @@ class GoodsController extends BackController
                 'model' => $model,
                 'attrs' => $attrs,
                 'specs' => $specs,
+                'tags' => '',
                 'tables' => ['data'=>$datas, 'labels'=>array_keys($avs)],
             ]);
         }
