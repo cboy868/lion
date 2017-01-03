@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'attrs'=>$attrs, 
 					'specs' => $specs,
 					'tables' => $tables,
+					'tags' => $tags,
 					'av' => []
 			    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
