@@ -4,6 +4,7 @@ namespace app\core\helpers;
 
 use Yii;
 use Imagine\Image\ManipulatorInterface;
+// use yii\helpers\ArrayHelper;
 
 class Image extends \yii\imagine\Image {
 
@@ -22,17 +23,20 @@ class Image extends \yii\imagine\Image {
             return ;
         }
 
-        $params = Yii::$app->params;
-        $current_params = Yii::$app->controller->module->params;
+        // $params = Yii::$app->params;
+        // $current_params = Yii::$app->controller->module->params;
 
-        $params = ArrayHelper::merge($params, $current_params);
+        // $params = ArrayHelper::merge($params, $current_params);
 
 
-        if (!isset($params['image'][$event->res]['thumb'])) {
-            return ;
-        }
+        // if (!isset($params['image'][$event->res]['thumb'])) {
+        //     return ;
+        // }
 
-        $thumb = $params['image'][$event->res]['thumb'];
+        // $thumb = $params['image'][$event->res]['thumb'];
+
+
+        $thumb = self::getConfig($event->res, 'thumb');
 
         foreach ($thumb as $k => $v) {
             $size = explode('x', $v);
@@ -44,6 +48,29 @@ class Image extends \yii\imagine\Image {
         return true;
     }
 
+
+
+    public static function getConfig($res, $field=null)
+    {
+        $params = Yii::$app->params['image'];
+
+        $current_params = Yii::$app->controller->module->params['image'];
+
+        $configs = ArrayHelper::merge($params, $current_params);
+
+        $current_config = $configs[$res] ? $configs[$res] : [];
+
+
+        $config = array_merge($current_config, $configs['common']);
+
+        if ($field) {
+            return $config[$field];
+            // return isset($config[$field]) ? $config[$field] : Yii::$app->params['image']['common'][$field];
+        } else {
+            return $config;
+        }
+    }
+
     /**
      * @图片水印
      */
@@ -51,14 +78,10 @@ class Image extends \yii\imagine\Image {
     {
         $filePath = $event->filePath;
 
-        $params = Yii::$app->params;
-        $current_params = Yii::$app->controller->module->params;
+        $config = self::getConfig($event->res);
+        $watermark = $config['water_image'];
+        $pos = $config['water_pos'];
 
-        $params = ArrayHelper::merge($params, $current_params);
-
-        $config = $params['image'];
-        $watermark = isset($config[$event->res]['water_image']) ? $config[$event->res]['water_image'] : $config['common']['water_image'];
-        $pos = isset($config[$event->res]['water_pos']) ? $config[$event->res]['water_pos'] : $config['common']['water_pos'];
 
         $watermark = Yii::getAlias('@app/web' . $watermark);
         $start = self::getPos($filePath, $watermark, $pos);
@@ -86,8 +109,10 @@ class Image extends \yii\imagine\Image {
     {
         $filePath = $event->filePath;
 
-        $config = Yii::$app->params['image'];
-        $watermark = $config[$event->res]['water_text'] ? $config[$event->res]['water_text'] : $config['common']['water_text'];
+        $config = self::getConfig($event->res);
+        $watermark = $config['water_text'];
+        $pos = $config['water_pos'];
+
 
         if (!$watermark) {
             return ;
@@ -101,8 +126,6 @@ class Image extends \yii\imagine\Image {
 
         $font_size = 40;
 
-
-        $pos = isset($config[$event->res]['water_pos']) ? $config[$event->res]['water_pos'] : $config['common']['water_pos'];
         $start = self::getPos($filePath, $watermark, $pos, $font_size);
 
         @copy($filePath, $originPath);
@@ -133,7 +156,7 @@ class Image extends \yii\imagine\Image {
             case 1:
             case 4:
             case 7:
-                $x = 0;
+                $x = 10;
                 break;
             case 2:
             case 5:
@@ -143,7 +166,7 @@ class Image extends \yii\imagine\Image {
             case 3:
             case 6:
             case 9:
-                $x = $fileSize[0] - $waterSize[0];
+                $x = $fileSize[0] - $waterSize[0]-10;
             default:
                 # code...
                 break;
@@ -153,7 +176,7 @@ class Image extends \yii\imagine\Image {
             case 1:
             case 2:
             case 3:
-                $y = 0;
+                $y = 10;
                 break;
             case 4:
             case 5:
@@ -163,7 +186,7 @@ class Image extends \yii\imagine\Image {
             case 7:
             case 8:
             case 9:
-                $y = $fileSize[1] - $waterSize[1];
+                $y = $fileSize[1] - $waterSize[1]-10;
             default:
                 # code...
                 break;

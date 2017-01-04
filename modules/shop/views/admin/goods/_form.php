@@ -158,9 +158,7 @@ SelectAsset::register($this);
 
 
 	<div class="form-group">
-        <div class="col-sm-offset-2 col-sm-3">
-            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
-        </div>
+            <?=  Html::submitButton('保 存', ['class' => 'btn btn-info btn-lg', 'style'=>'margin: 20px 0;width: 200px;']) ?>
     </div>
     
     <?php ActiveForm::end(); ?>

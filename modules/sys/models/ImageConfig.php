@@ -23,6 +23,14 @@ use yii\behaviors\TimestampBehavior;
 class ImageConfig extends \app\core\db\ActiveRecord
 {
 
+    public static $resname = [
+        'common' => '公共',
+        'goods' => '商品',
+        'focus' => '焦点图',
+        'post'  => '文章',
+        'album' => '图集'
+    ];
+
     public static $water_pos = [
         -1 => '关闭',
         0 => '随机',

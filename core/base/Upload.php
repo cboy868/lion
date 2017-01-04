@@ -165,16 +165,18 @@ class Upload extends Component{
      */
     public function getConfig($field=null)
     {
-        $params = Yii::$app->params;
+        $params = Yii::$app->params['image'];
 
-        $current_params = Yii::$app->controller->module->params;
+        $current_params = Yii::$app->controller->module->params['image'];
 
-        $params = ArrayHelper::merge($params, $current_params);
+        $configs = ArrayHelper::merge($params, $current_params);
 
-        $config = isset($params['image'][$this->res]) ? $params['image'][$this->res] : $params['image']['common'];
+        $current_config = $configs[$this->res] ? $configs[$this->res] : [];
+        $config = array_merge($current_config, $configs['common']);
 
         if ($field) {
-            return isset($config[$field]) ? $config[$field] : Yii::$app->params['image']['common'][$field];
+            return $config[$field];
+            // return isset($config[$field]) ? $config[$field] : Yii::$app->params['image']['common'][$field];
         } else {
             return $config;
         }

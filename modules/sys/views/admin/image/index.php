@@ -11,7 +11,7 @@ use app\modules\sys\models\ImageConfig;
 /* @var $searchModel app\modules\sys\models\ImageConfigSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Image Configs';
+$this->title = '图片参数配置';
 $this->params['breadcrumbs'][] = $this->title;
 
 \app\assets\TagAsset::register($this);
@@ -23,8 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="row">
 
+        <?php if (Yii::$app->session->hasFlash('success')): ?>
+            <p class="alert alert-success" style="margin-top:20px;"><?=Yii::$app->session->getFlash('success');?></p>
+        <?php endif ?>
             <div class="col-xs-12 image-config-index">
-
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
 
@@ -37,6 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="tab-content">
+
+                        <p class="text-danger" style="margin-top:20px;">注：本选项参数为基础设置，其它选项图片参数如未设置，则使用本选项参数。</p>
+
 
                         <?php $i=1;foreach ($models as $k=>$model): ?>
                             <div role="tabpanel" class="tab-pane <?php if($i==1){echo 'active';}?>" id="<?=$k?>">

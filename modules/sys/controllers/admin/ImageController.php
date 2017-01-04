@@ -15,10 +15,6 @@ use app\core\base\Upload;
  */
 class ImageController extends BackController
 {
-    public static $resname = [
-        'goods' => '商品',
-        'focus' => '焦点图'
-    ];
 
     public function behaviors()
     {
@@ -41,16 +37,17 @@ class ImageController extends BackController
 
         
 
-        $models = ImageConfig::find()->where(['res_name'=>array_keys(self::$resname)])->indexBy('res_name')->all();
+        $models = ImageConfig::find()->where(['res_name'=>array_keys(ImageConfig::$resname)])->indexBy('res_name')->all();
 
         $request = Yii::$app->request;
 
-        foreach (self::$resname as $k => $v) {
+        foreach (ImageConfig::$resname as $k => $v) {
             if (!isset($models[$k])) {
                 $models[$k] = new ImageConfig();
                 $models[$k]->loadDefaultValues();
             }
         }
+
 
         if ($request->isPost) {
 
@@ -63,12 +60,15 @@ class ImageController extends BackController
                     $upload->save();
                     $info = $upload->getInfo();
                     $models[$res_name]->water_image = $info['path'] . '/' . $info['fileName'];
+                 } else {
+                    unset($models[$res_name]->water_image);
                  }
                  
                  if ($models[$res_name]->save()) {
-
                     ImageConfig::writeFile();
-                    
+
+                    Yii::$app->session->setFlash('success', '恭喜 参数配置成功。');
+
                     return $this->redirect(['index']);
                  }
             }
@@ -77,7 +77,7 @@ class ImageController extends BackController
 
         return $this->render('index', [
             'models' => $models,
-            'res'    => self::$resname
+            'res'    => ImageConfig::$resname
         ]);
     }
     
