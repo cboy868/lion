@@ -15,10 +15,11 @@ use yii\web\View;
  */
 class ColorBoxAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@bower/jquery-colorbox';
+
     public $js = [
-        '/static/libs/colorbox/jquery.colorbox-min.js',
+        'jquery.colorbox-min.js',
+        'i18n/jquery.colorbox-zh-CN.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -106,7 +106,7 @@ $(function(){
         }, 'json');
     });
 
-    $('.c-img').colorbox({slideshow:true,transition:'none',width:"75%", height:"75%"});
+    $('.c-img').colorbox({rel:'c-img',slideshow:true,transition:'none',width:"75%", height:"75%"});
     
 })  
 <?php $this->endBlock() ?>  
