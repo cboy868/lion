@@ -27,5 +27,6 @@ class PluploaduiAssets extends AssetBundle
 
     public $depends = [
         'app\assets\JqueryuiAsset',
+        // 'app\assets\TodcAsset'
     ];
 }

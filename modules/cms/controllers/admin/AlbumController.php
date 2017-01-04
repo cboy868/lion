@@ -13,7 +13,8 @@ use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\mod\models\Module;
-
+use app\modules\cms\models\AlbumImage;
+use app\modules\cms\models\AlbumImageSearch;
 
 /**
  * AlbumController implements the CRUD actions for Album model.
@@ -47,10 +48,11 @@ class AlbumController extends BackController
     {
         return [
             'web-upload' => [
-                'class' => 'app\core\web\WebuploadAction',
+                'class' => 'app\core\web\AlbumUploadAction',
             ]
         ];
     }
+
 
     /**
      * Lists all Album models.
@@ -70,11 +72,9 @@ class AlbumController extends BackController
         $searchModel = new $class;
 
         $params = Yii::$app->request->queryParams;
-
         $params[$c]['category_id'] = Yii::$app->request->get('category_id');
-
-
         $dataProvider = $searchModel->search($params);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -107,15 +107,51 @@ class AlbumController extends BackController
      * @return mixed
      * @name 图集详细
      */
-    public function actionView($id)
+    public function actionView($id, $mod)
     {
 
-        $mod = Yii::$app->getRequest()->get('mod');
+        // $mod = Yii::$app->request->get('mod');
+        // $tree = $this->getCates($mod);
+
+        $modInfo = Module::findOne($mod);
+
+        // $class = '\app\modules\cms\models\mods\Album' . $mod . 'Search';
+        // $c = 'Album' . $mod . 'Search';
+
+        // $searchModel = new $class;
+
+        // $params = Yii::$app->request->queryParams;
+        // $params[$c]['category_id'] = Yii::$app->request->get('category_id');
+        // $dataProvider = $searchModel->search($params);
+
+
+
+        // $mod = Yii::$app->getRequest()->get('mod');
+
+        // return $this->render('view', [
+        //     'dataProvider' => $dataProvider,
+        //     'model' => $this->findModel($id, $mod),
+        //     'modinfo' => $this->modInfo,
+        // ]);
+
+
+
+        $searchModel = new AlbumImageSearch;
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['AlbumImageSearch']['mod'] = $mod;
+        $params['AlbumImageSearch']['album_id'] = $id;
+
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('view', [
-            'model' => $this->findModel($id, $mod),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'album' => $this->findModel($id, $mod),
             'modinfo' => $this->modInfo,
         ]);
+
     }
 
     /**
@@ -149,9 +185,9 @@ class AlbumController extends BackController
 
             $model->created_by = Yii::$app->user->identity->id;
             $model->save();
-            return $this->redirect(['index', 'mod'=>$mod]);
+            return $this->redirect(['view', 'mod'=>$mod, 'id'=>$model->id]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
                 'modinfo' => $this->modInfo,
                 'attach'=> $attach,
@@ -181,12 +217,10 @@ class AlbumController extends BackController
         // 返回查询结果的所有行
         $attach = $command->queryAll();
 
-
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'mod'=>$mod]);
+            return $this->redirect(['index', 'mod'=>$mod]);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
                 'modinfo' => $this->modInfo,
                 'attach'=> $attach,
@@ -201,6 +235,12 @@ class AlbumController extends BackController
      * @return mixed
      * @name 删除图集
      */
+    public function actionDelImg($id, $mod, $album_id)
+    {
+        $this->findImg($id)->delete();
+        return $this->redirect(['view', 'mod'=>$mod, 'id'=>$album_id]);
+    }
+
     public function actionDelete($id, $mod)
     {
         $this->findModel($id, $mod)->delete();
@@ -251,6 +291,36 @@ class AlbumController extends BackController
     }
 
     /**
+     * @name 排序
+     */
+    public function actionSort($mod, $album_id)
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        $connection = Yii::$app->db;
+
+        foreach ($ids as $k => $v) {
+            $connection->createCommand()
+                          ->update(
+                            AlbumImage::tableName(), 
+                            ['sort' => $k], 
+                            ['id'=>$v])
+                          ->execute();
+        }
+
+        return $this->json();
+    }
+
+    public function actionCover($mod, $album_id, $id)
+    {
+        $model = $this->findModel($album_id, $mod);
+        $model->thumb = $id;
+        $model->save();
+
+        return $this->json();
+    }
+
+    /**
      * Finds the Album model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -261,6 +331,15 @@ class AlbumController extends BackController
     {
         $class = '\app\modules\cms\models\mods\Album' . $mod;
         if (($model = $class::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findImg($id)
+    {
+        if (($model = AlbumImage::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

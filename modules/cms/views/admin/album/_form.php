@@ -32,17 +32,6 @@ $class = '\\'.get_class($model);
 
     <?= $form->field($model, 'intro')->textArea(['class'=>'form-control new']) ?>
 
-    <?php if ($model->isNewRecord): ?>
-        <?= $form->field($model, 'id')->dropDownList(ArrayHelper::map($class::find()->asArray()->all(), 'id', 'title'), ['class'=>'old form-control'])->label('相册') ?>
-
-        <div class="form-group field-goods-pic required">
-            <label class="control-label col-md-2" for="goods-pic" >图片集</label>
-            <div class="col-md-10">
-                <?php echo Webup::widget(['options'=>['res_name'=>'goods', 'id'=>'goods']]);?>
-            </div>
-            <div class="help-block"></div>
-        </div>
-    <?php endif ?>
 
     <?php foreach ($attach as $k => $v): ?>
         <?php if ($v['html'] == 'input'): ?>

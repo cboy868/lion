@@ -40,11 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-xs-8">
                         <div class="tab-content">
 
-                        <p class="text-danger" style="margin-top:20px;">注：本选项参数为基础设置，其它选项图片参数如未设置，则使用本选项参数。</p>
-
-
                         <?php $i=1;foreach ($models as $k=>$model): ?>
+
                             <div role="tabpanel" class="tab-pane <?php if($i==1){echo 'active';}?>" id="<?=$k?>">
+
+                            <?php if ($k == 'common'): ?>
+                                <p class="text-danger" style="margin-top:20px;"><?=$k?>注：本选项参数为公共设置，其它选项图片参数如未设置，则使用本项参数。</p>
+                            <?php endif ?>
 
                             <?php $form = ActiveForm::begin(); ?>
 

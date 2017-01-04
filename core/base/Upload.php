@@ -123,8 +123,9 @@ class Upload extends Component{
                 'filePath' => $filePath,
                 'use' => $this->use ? $this->use : null
             ];
-            $event = new UploadEvent($info);
 
+
+            $event = new UploadEvent($info);
 
             $img_config = $this->getConfig();
 
@@ -139,8 +140,7 @@ class Upload extends Component{
 
             $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
             
-
-            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+            // $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
 
             $this->trigger(self::EVENT_AFTER_UPLOAD, $event);
         }

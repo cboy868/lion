@@ -14,6 +14,7 @@ class Image extends \yii\imagine\Image {
      */
     public static function thumb($event)
     {
+
         $filePath = $event->filePath;
 
         $dir = dirname($filePath);
@@ -23,23 +24,19 @@ class Image extends \yii\imagine\Image {
             return ;
         }
 
-        // $params = Yii::$app->params;
-        // $current_params = Yii::$app->controller->module->params;
-
-        // $params = ArrayHelper::merge($params, $current_params);
-
-
-        // if (!isset($params['image'][$event->res]['thumb'])) {
-        //     return ;
-        // }
-
-        // $thumb = $params['image'][$event->res]['thumb'];
-
-
         $thumb = self::getConfig($event->res, 'thumb');
+        $thumb = array_filter($thumb);
 
+        if (!is_array($thumb)) {
+            return false;
+        }
+        
         foreach ($thumb as $k => $v) {
             $size = explode('x', $v);
+
+            if (!is_numeric($size[0]) || !is_numeric($size[1])) {
+                continue;
+            }
             $thumb_path = $dir. '/' . $size[0] .'x'. $size[1] . '@' . $basename;
             self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_INSET)->save($thumb_path);
             // self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_OUTBOUND)->save($thumb_path);
@@ -47,7 +44,6 @@ class Image extends \yii\imagine\Image {
 
         return true;
     }
-
 
 
     public static function getConfig($res, $field=null)
@@ -60,8 +56,7 @@ class Image extends \yii\imagine\Image {
 
         $current_config = $configs[$res] ? $configs[$res] : [];
 
-
-        $config = array_merge($current_config, $configs['common']);
+        $config = array_merge($configs['common'], $current_config);
 
         if ($field) {
             return $config[$field];
@@ -84,9 +79,13 @@ class Image extends \yii\imagine\Image {
 
 
         $watermark = Yii::getAlias('@app/web' . $watermark);
-        $start = self::getPos($filePath, $watermark, $pos);
 
         if (!is_file($watermark)) {
+            return ;
+        }
+        $start = self::getPos($filePath, $watermark, $pos);
+
+        if (!$start) {
             return ;
         }
 
@@ -113,20 +112,18 @@ class Image extends \yii\imagine\Image {
         $watermark = $config['water_text'];
         $pos = $config['water_pos'];
 
-
         if (!$watermark) {
             return ;
         }
-        $basename = basename($filePath);
-        $dirname = dirname($filePath);
-
-        $originPath = $dirname . '/' . 'ori_' . $basename;
-
-        $fontFile = Yii::getAlias('@app/web/static/font/simsun.ttc');
 
         $font_size = 40;
-
         $start = self::getPos($filePath, $watermark, $pos, $font_size);
+        if (!$start) {
+            return ;
+        }
+
+        $originPath = dirname($filePath) . '/' . 'ori_' . basename($filePath);
+        $fontFile = Yii::getAlias('@app/web/static/font/simsun.ttc');
 
         @copy($filePath, $originPath);
         self::text($filePath, $watermark, $fontFile,$start, ['size'=>$font_size])->save($filePath);
@@ -144,6 +141,10 @@ class Image extends \yii\imagine\Image {
         } else {
             $waterSize[0] = self::utf8_strlen($water) * $font_size;
             $waterSize[1] = $font_size;
+        }
+
+        if ($fileSize[0] <= $waterSize[0] || $fileSize[1] <= $waterSize[1]) {
+            return false;
         }
 
 

@@ -27,5 +27,17 @@
         2 => '380x265',
       ),
     ),
+    'album' => 
+    array (
+      'water' => 1,
+      'water_mod' => 'image',
+      'water_image' => '/upload/image/20170104/1483535644559.jpeg',
+      'water_text' => '',
+      'water_pos' => '0',
+      'thumb' => 
+      array (
+        0 => '380x265',
+      ),
+    ),
   ),
 );

@@ -4,6 +4,7 @@ namespace app\modules\cms\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\core\models\Attachment;
 
 /**
  * This is the model class for table "{{%album}}".
@@ -76,5 +77,10 @@ class Album extends \app\core\db\ActiveRecord
             'updated_at' => '相册修改时间',
             'status' => '状态',
         ];
+    }
+
+    public function getImg($size)
+    {
+        return AlbumImage::getById($this->thumb, $size);
     }
 }

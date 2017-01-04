@@ -143,6 +143,8 @@ $(function() {
             },
             formData: {
                 res_name: $wrap.find('.res_name').val(),
+                album_id: $wrap.find('.album_id').val(),
+                mod: $wrap.find('.mod').val(),
                 _csrf : $('meta[name="csrf-token"]').attr('content')
             },
             dnd: '#dndArea',

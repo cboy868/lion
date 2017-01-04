@@ -16,7 +16,7 @@ use yii\base\Widget;
 class Webup extends Widget {
    
     public $options = [
-            'res_name' => 'ad',
+            // 'res_name' => 'ad',
     ];
 
     /**
@@ -26,8 +26,6 @@ class Webup extends Widget {
 
         $this->options['server'] = \yii\helpers\Url::toRoute(['web-upload']);
         $this->options['id'] = isset($this->options['id']) ? $this->options['id'] : '';
-
-
 
         WAsset::register($this->view);
 

@@ -5,6 +5,11 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 use app\modules\cms\models\Category;
+use app\core\helpers\StringHelper;
+
+
+use yii\widgets\LinkPager;
+
 
 
 /* @var $this yii\web\View */
@@ -20,21 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
-        <div class="page-header">
-            <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create','mod'=>Yii::$app->request->get('mod')], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
-
 
         <?php 
             Modal::begin([
-                'header' => '添增',
+                'header' => '新增',
                 'id' => 'modalAdd',
                 // 'size' => 'modal'
             ]) ;
@@ -62,41 +56,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
             </div>
-<style type="text/css">
-    .rmenu {
-        position: absolute;
-        top: 28px;
-        right: 0px;
-        list-style: none;
-        z-index: 100;
-        border: 1px solid #ccc;
-        padding:0;
-        display: none;
-        background:#fff;
-        /*padding-top: 30px;*/
-    }
-
-    .rmenu li{
-        height: 30px;
-        padding: 0 10px;
-        line-height: 30px;
-    }
-
-    .rmenu hr{
-        height: 1px;
-        padding: 0;
-        margin: 0;
-        border-top: 1px solid #aaa;
-    }
-    table.table{
-        margin-bottom: 5px;
-    }
-</style>
 <?php 
 $mod = Yii::$app->getRequest()->get('mod');
 $category_id = Yii::$app->getRequest()->get('category_id');
  ?>
-            <div class="col-xs-2">
+            <div class="col-sm-12 col-md-2">
                  <ul class="nav nav-list">
                      <?=  Html::a('<i class="fa fa-plus"></i> 添加顶级分类', ['create-cate','mod'=>$mod], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%']) ?>
                      <li>
@@ -204,73 +168,40 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 
             </div>
             <div class="col-xs-10 album-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
-        // 'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn'],
+            <div class="row">
 
-            'id',
-            'created_by',
-            'author',
-            'category_id',
-            'title',
-            'thumb',
-            // 'sort',
-            // 'view_all',
-            // 'com_all',
-            // 'photo_num',
-            // 'recommend',
-            // 'created_at',
-            // 'updated_at',
-            // 'status',
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header'=>'操作',
-                'template' => '{update} {delete} {view}',
-                'buttons' => [
-                    'update' => function($url, $model, $key) {
-                        $url = Url::toRoute(['update', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑'] );
-                    },
-                    'view' => function($url, $model, $key) {
-                        $url = Url::toRoute(['view', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看'] );
-                    },
-                    'delete' => function($url, $model, $key) {
-                        $url = Url::toRoute(['delete', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
-                    },
-                ],
-               'headerOptions' => ['width' => '240']
-            ]
-        ],
-    ]); ?>
+            <?php foreach ($dataProvider->getModels() as $k => $model): ?>
+                <div class="col-sm-4 col-md-3">
+                    <div class="thumbnail">
+                        <a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>">
+                            <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>">
+                        </a>
+                        <div class="caption">
+                            <h4><a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>"><?=StringHelper::truncate($model->title,20)?></a></h4>
 
+                            <p><a href="<?=Url::toRoute(['delete', 'id'=>$model->id, 'mod'=>$mod])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a> 
+                            <a href="<?=Url::toRoute(['update', 'id'=>$model->id, 'mod'=>$mod])?>" class="btn btn-success modalEditButton" role="button"><i class="fa fa-pencil"></i></a></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
 
-        <?php 
-            $category = Category::find()->asArray()->all();
-            $options = [];
-            foreach ($category as $k => $v) {
-                if (!$v['is_leaf']) {
-                    $options[$v['id']]['disabled'] = true;
-                }
-            }
-        ?>
-        <div class="row">
-            
-            <div class="col-md-3 bach-wrap" style="display:none;">
-                <?=Html::dropDownList('category_id', null, Category::selTree(), ['class'=>'form-control move', 'options' => $options, 'prompt'=>'选中项移动到'])?>
+              <div class="col-sm-4 col-md-3">
+                <div class="thumbnail" style="cursor: pointer;">
+                <a href="<?=Url::toRoute(['create', 'mod'=>$mod])?>" class="modalAddButton">
+                  <img src="/static/images/plus.png">
+                </a>
+                </div>
+              </div>
             </div>
-            <div class="col-md-2 bach-wrap" style="display:none;padding:0">
-                <button class="delAll btn btn-default" style="width:100%;"> <i class="fa fa-trash"></i> 选中项删除</button>
-            </div>
-        </div>
-        
-        
+
+            <?php 
+                echo LinkPager::widget([
+                    'pagination' => $dataProvider->getPagination(),
+                ]);
+             ?>
+
             <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->

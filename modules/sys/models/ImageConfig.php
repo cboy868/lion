@@ -112,8 +112,13 @@ class ImageConfig extends \app\core\db\ActiveRecord
                 'water_image' => $v['water_image'],
                 'water_text'  => $v['water_text'],
                 'water_pos'   => $v['water_pos'],
-                'thumb' => explode(',', $v['thumb_config'])
+                // 'thumb' => explode(',', $v['thumb_config'])
             ];
+
+
+            if ($v['thumb_config']) {
+                $config['image'][$v['res_name']]['thumb'] = explode(',', $v['thumb_config']);
+            }
         };
 
 
@@ -124,22 +129,4 @@ class ImageConfig extends \app\core\db\ActiveRecord
         @file_put_contents($path, $content);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

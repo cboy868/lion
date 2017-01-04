@@ -141,6 +141,9 @@ class UploadAction extends Action
 
         $up = Upload::getInstanceByName($fieldName, $res_name);
         $up->use = $use;
+
+        $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+        
         $up->save();
 
         $info = $up->getInfo();

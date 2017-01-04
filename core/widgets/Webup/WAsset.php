@@ -25,6 +25,11 @@ class WAsset extends AssetBundle
     {
         $this->sourcePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
     }
+
+    public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ];
 }
 
 

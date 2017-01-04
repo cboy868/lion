@@ -4,10 +4,12 @@
 use app\core\helpers\ArrayHelper;
 use app\core\models\Attachment;
 use app\core\helpers\Url;
+use app\core\helpers\StringHelper;
 
 
 use app\modules\focus\models\Focus;
 use app\modules\cms\models\Links;
+
 
 //  按格式打印数组
 function p($arr)
@@ -88,3 +90,32 @@ function g($name)
 
 	return Yii::$app->params[$name];
 }
+
+function utf8_strlen($string = null) {
+     // 将字符串分解为单元
+    preg_match_all("/./us", $string, $match);
+     // 返回单元个数
+    return count($match[0]);
+}
+/**
+ * @name 截取 
+ */
+function truncate($string, $length, $suffix = '...', $encoding = null, $asHtml = false)
+{
+	return StringHelper::truncate($string, $length, $suffix, $encoding, $asHtml);
+}
+
+/**
+ * 截取字符串
+ */
+// function cutstr($str, $len, $suffix='...')
+// {
+// 	$length = utf8_strlen($str);
+// 	$str = mb_substr($str, 0, $len,'utf-8');
+
+// 	if ($length > $len) {
+// 		retrun $str . $suffix;
+// 	}
+
+// 	return $str;
+// }

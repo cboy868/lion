@@ -29,11 +29,30 @@ class m161129_121955_album extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(1)
         ], $tableOptions);
 
+
+        $this->createTable('{{%album_image}}', [
+            'id' => $this->primaryKey(),
+            'album_id' => $this->integer(),
+            'mod' => $this->integer(),//所属模块 
+            'author_id' => $this->integer(),
+            'title' => $this->string(255), //标题
+            'path' => $this->string(255), //路径
+            'name' => $this->string(255), //真实图片名 加上path为图片地址
+            'sort'  => $this->integer(),
+            'view_all' => $this->integer()->defaultValue(0),
+            'com_all' => $this->integer()->defaultValue(0),
+            'desc'  => $this->text(),//描述
+            'ext'   => $this->string(64),
+            'created_at' => $this->integer()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1)//1正常 -1被删除
+        ], $tableOptions);
+
     }
 
     public function down()
     {
         $this->dropTable('{{%album}}');
+        $this->dropTable('{{%album_image}}');
     }
 
     /*
