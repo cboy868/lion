@@ -125,12 +125,19 @@ class Attachment extends \yii\db\ActiveRecord
         return ['count'=>$count, 'list'=>$list];
     }
 
-    public function getImg($type='')
+    public function getImg($size='')
     {
-        return $type ? $this->path . '/' . $type . '@' . $this->name : $this->path . '/' . $this->name;
+        if ($size) {
+            $file = $this->path . '/' . $size . '@' . $this->name;
+            if (is_file(Yii::getAlias('@app/web'.$file))) {
+                return $file;
+            }
+        }
+        return $this->path . '/' . $this->name;
+        // return $type ? $this->path . '/' . $type . '@' . $this->name : $this->path . '/' . $this->name;
     }
 
-    public static function getById($id, $type='', $default='')
+    public static function getById($id, $size='', $default='')
     {
         $model = self::findOne($id);
 
@@ -138,6 +145,14 @@ class Attachment extends \yii\db\ActiveRecord
             return $default;
         }
 
-        return $type ? $model->path . '/' . $type . '@' . $model->name : $model->path . '/' . $model->name;
+        if ($size) {
+            $file = $model->path . '/' . $size . '@' . $model->name;
+
+            if (is_file(Yii::getAlias('@app/web'.$file))) {
+                return $file;
+            }
+        }
+
+        return $model->path . '/' . $model->name;
     }
 }
