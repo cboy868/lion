@@ -352,19 +352,19 @@ AdminAsset::register($this);
                             </a>
 
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
+                                <!-- <li>
+                                    <a href="<?=Url::toRoute(['/admin/sys/default/index'])?>">
                                         <i class="ace-icon fa fa-cog"></i>
                                         网站设置
                                     </a>
-                                </li>
+                                </li> -->
 
-                                <li>
+                                <!-- <li>
                                     <a href="profile.html">
                                         <i class="ace-icon fa fa-user"></i>
                                         个人中心
                                     </a>
-                                </li>
+                                </li> -->
 
                                 <li class="divider"></li>
 
