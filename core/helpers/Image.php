@@ -57,7 +57,7 @@ class Image extends \yii\imagine\Image {
 
         $configs = ArrayHelper::merge($params, $current_params);
 
-        $current_config = $configs[$res] ? $configs[$res] : [];
+        $current_config = isset($configs[$res]) ? $configs[$res] : [];
 
         $config = array_merge($configs['common'], $current_config);
 

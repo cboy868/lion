@@ -171,7 +171,7 @@ class Upload extends Component{
 
         $configs = ArrayHelper::merge($params, $current_params);
 
-        $current_config = $configs[$this->res] ? $configs[$this->res] : [];
+        $current_config = isset($configs[$this->res]) ? $configs[$this->res] : [];
         $config = array_merge($current_config, $configs['common']);
 
         if ($field) {
