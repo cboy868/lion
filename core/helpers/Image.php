@@ -27,7 +27,7 @@ class Image extends \yii\imagine\Image {
         $thumb = self::getConfig($event->res, 'thumb');
         $thumb = array_filter($thumb);
 
-
+        // p($thumb);die;
 
         if (!is_array($thumb)) {
             return false;

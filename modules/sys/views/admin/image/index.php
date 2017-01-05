@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div role="tabpanel" class="tab-pane <?php if($i==1){echo 'active';}?>" id="<?=$k?>">
 
                             <?php if ($k == 'common'): ?>
-                                <p class="text-danger" style="margin-top:20px;"><?=$k?>注：本选项参数为公共设置，其它选项图片参数如未设置，则使用本项参数。</p>
+                                <p class="text-danger" style="margin-top:20px;">注：本选项参数为公共设置，其它选项图片参数如未设置，则使用本项参数。</p>
                             <?php endif ?>
 
                             <?php $form = ActiveForm::begin(); ?>
