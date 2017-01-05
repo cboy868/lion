@@ -27,11 +27,14 @@ class Image extends \yii\imagine\Image {
         $thumb = self::getConfig($event->res, 'thumb');
         $thumb = array_filter($thumb);
 
+
+
         if (!is_array($thumb)) {
             return false;
         }
         
         foreach ($thumb as $k => $v) {
+            $v = str_replace('X', 'x', $v);
             $size = explode('x', $v);
 
             if (!is_numeric($size[0]) || !is_numeric($size[1])) {
