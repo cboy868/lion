@@ -7,10 +7,10 @@ use yii;
 /**
  * Default controller for the `wechat` module
  */
-class MgController extends \app\core\web\Controller
+class MemberController extends \app\core\web\Controller
 {
 
-    public $layout = "@app/core/views/layouts/mg.php";
+    public $layout = "@app/core/views/layouts/member.php";
 
     public function beforeAction($action)
     {
@@ -35,7 +35,7 @@ class MgController extends \app\core\web\Controller
     public function ignoreLogin()
     {
     	return [
-    		'site/login','site/captcha','site/logout'
+    		//'site/login','site/captcha','site/logout'
     	];
     }
 }

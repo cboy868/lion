@@ -54,6 +54,7 @@ class Image extends \yii\imagine\Image {
 
         $configs = Yii::$app->params['image'];
 
+
         $current_config = isset($configs[$res]) ? $configs[$res] : [];
 
         $config = array_merge($configs['common'], $current_config);

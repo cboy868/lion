@@ -10,8 +10,8 @@
       'water_pos' => '5',
       'thumb' => 
       array (
-        0 => '36X36',
-        1 => '100x36',
+        0 => '100x36',
+        1 => '36x36',
       ),
     ),
     'focus' => 
@@ -38,6 +38,19 @@
       'thumb' => 
       array (
         0 => '380x265',
+      ),
+    ),
+    'avatar' => 
+    array (
+      'water' => 1,
+      'water_mod' => 'image',
+      'water_image' => NULL,
+      'water_text' => '',
+      'water_pos' => '0',
+      'thumb' => 
+      array (
+        0 => '45x45',
+        1 => '100x100',
       ),
     ),
   ),

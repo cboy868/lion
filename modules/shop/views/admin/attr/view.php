@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 use app\core\widgets\GridView;
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = ['label' => '属性列表', 'url' => ['index']]
                             'method' => 'post',
                         ],
                     ]) ?>
-                    <?= Html::a('添加属性值', ['/admin/shop/attr/create-val', 'tid'=>$model->type_id,'aid'=>$model->id], ['class' => 'btn btn-info btn-xs modalAddButton']) ?>
+                    <?= Html::a('添加属性值', ['create-val', 'tid'=>$model->type_id,'aid'=>$model->id], ['class' => 'btn btn-info btn-xs modalAddButton']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -90,7 +90,11 @@ $this->params['breadcrumbs'][] = ['label' => '属性列表', 'url' => ['index']]
                 'label' => '封面',
                 'value' => function($model){
                     $img = "<img src='%s' width=36 height=36>";
-                    $src = Url::toRoute(['/media/thumb', 'src'=>"36x36".$model->thumb]);
+                    $dir = dirname($model->thumb);
+                    $file = basename($model->thumb);
+
+                    $src = $dir .'/36x36@'. $file;
+                    // $src = $model->thumb;//Url::toRoute(['/media/thumb', 'src'=>"36x36".$model->thumb]);
                     return sprintf($img, $src);
                 },
                 'format'=>'raw'
@@ -101,11 +105,11 @@ $this->params['breadcrumbs'][] = ['label' => '属性列表', 'url' => ['index']]
                 'template' => '{update} {delete}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
-                        $uri = Url::toRoute(['/admin/shop/attr/update-val', 'id'=>$model->id]);
+                        $uri = Url::toRoute(['update-val', 'id'=>$model->id]);
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $uri, ['title' => '编辑', 'class'=>'modalEditButton'] );
                     },
                     'delete' => function($url, $model, $key) {
-                        $uri = Url::toRoute(['/admin/shop/attr/delete-val', 'id'=>$model->id]);
+                        $uri = Url::toRoute(['delete-val', 'id'=>$model->id]);
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $uri, ['title' => '删除', "ria-label"=>"删除", "data-confirm"=>"您确定要删除此项吗？", "data-method"=>"post", "data-pjax"=>"0"] );
                     }
                 ],

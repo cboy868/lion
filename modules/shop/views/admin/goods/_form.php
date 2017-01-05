@@ -3,10 +3,9 @@
 use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\modules\shop\models\Category;
-// use app\assets\PluploaduiAssets;
 USE app\core\widgets\Ueditor;
 use app\core\widgets\Webup\Webup;
-
+use app\core\helpers\Url;
 use app\assets\SelectAsset;
 
 
@@ -16,7 +15,11 @@ SelectAsset::register($this);
 // \wdteam\webuploader\Webuploader::widget(); 
 // PluploaduiAssets::register($this);
 ?>
-
+<style type="text/css">
+.pic div.thumbnail.active{
+border-color:#337ab7;
+}
+</style>
 <div class="goods-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -40,19 +43,21 @@ SelectAsset::register($this);
       <div class="panel-heading">
         <h3 class="panel-title">已上传图片</h3>
       </div>
-          <div class="panel-body">
+
+          <div class="panel-body row">
             <?php foreach ($imgs as $img): ?>
-                <div class="col-xs-3 col-md-2">
-                    <a href="#" class="thumbnail">
+                <div class="col-xs-3 col-md-2 pic" >
+                    <div href="#" class="thumbnail <?php if ($model->thumb == $img['id']): ?>active<?php endif ?>">
                       <img src="<?=$img['url']?>" alt="<?=$img['title']?>" rid="<?=$img['id']?>">
-                    </a>
+                      <a class="btn btn-danger btn-sm del" href="<?=Url::toRoute(['del-img'])?>"><span class="fa fa-trash"></span></a>
+                      <a class="btn btn-success btn-sm cover"><span class="fa fa-flag"></span>封面</a>
+                    </div>
                   </div>
             <?php endforeach ?>
 
           </div>
         </div>
       <?php endif ?>
-
 
 
     <div class="form-group field-goods-pic required">
@@ -151,12 +156,6 @@ SelectAsset::register($this);
             <?php endif ?>
 
 
-
-
-
-
-
-
 	<div class="form-group">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-info btn-lg', 'style'=>'margin: 20px 0;width: 200px;']) ?>
     </div>
@@ -228,3 +227,53 @@ function tag()
       })
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['spec'], \yii\web\View::POS_END); ?>  
+
+<?php $this->beginBlock('img') ?>  
+$(function(){
+
+    $('.del').click(function(e){
+        e.preventDefault();
+        var that = this;
+        if (!confirm('确定要删除此图片?')){
+            return 
+        }
+
+        var url = $(this).attr('href');
+        var thumb = $(this).siblings('img').attr('rid');
+        var _csrf = $('meta[name=csrf-token]').attr('content');
+        var that = this;
+
+        $.post(url, {_csrf:_csrf, thumb:thumb}, function(xhr){
+            if (xhr.status) {
+                $(that).closest('.pic').fadeOut();
+            } else {
+                alert(xhr.info);
+            }
+        },'json');
+
+    });
+    $('.cover').click(function(e){
+        e.preventDefault();
+        var that = this;
+
+        var url = "<?=Url::toRoute(['cover'])?>";
+        var _csrf = $('meta[name=csrf-token]').attr('content');
+        var goods_id = <?=$model->id?>;
+        var thumb = $(this).siblings('img').attr('rid');
+
+        if (thumb == <?=$model->thumb?>) {
+            return ;
+        }
+
+
+        $.post(url, {_csrf:_csrf,goods_id:goods_id,thumb:thumb}, function(xhr){
+            if (xhr.status) {
+                $('.thumbnail').removeClass('active');
+                $(that).closest('.thumbnail').addClass('active');
+            }
+        }, 'json');
+    });
+    
+})  
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['img'], \yii\web\View::POS_END); ?>  

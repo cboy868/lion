@@ -14,7 +14,7 @@ use app\modules\shop\models\Attr;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php if ($model->category_id): ?>
+    <?php if ($model->type_id): ?>
         <?= $form->field($model, 'type_id')->hiddenInput(['value'=>$model->type_id])->label(false) ?>
     <?php else: ?>
         <?= $form->field($model, 'type_id')->dropDownList(ArrayHelper::map(Type::find()->all(), 'id', 'title')) ?>

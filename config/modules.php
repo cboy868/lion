@@ -10,6 +10,9 @@ return [
     'm' => [
         'class' => 'app\modules\m\Module',
     ],
+    'member' => [
+        'class' => 'app\modules\member\Module',
+    ],
     'install' => [
         'class' => 'app\modules\install\Module',
     ],

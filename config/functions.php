@@ -104,18 +104,3 @@ function truncate($string, $length, $suffix = '...', $encoding = null, $asHtml =
 {
 	return StringHelper::truncate($string, $length, $suffix, $encoding, $asHtml);
 }
-
-/**
- * 截取字符串
- */
-// function cutstr($str, $len, $suffix='...')
-// {
-// 	$length = utf8_strlen($str);
-// 	$str = mb_substr($str, 0, $len,'utf-8');
-
-// 	if ($length > $len) {
-// 		retrun $str . $suffix;
-// 	}
-
-// 	return $str;
-// }

@@ -10,8 +10,6 @@ class Module extends \app\core\base\Module
     {
         parent::init();
 
-        // custom initialization code goes here
     }
-    
    
 }

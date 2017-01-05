@@ -141,6 +141,7 @@ class AttachmentRel extends \yii\db\ActiveRecord
 
         $query = Attachment::find()->where([
             'id'=>\yii\helpers\ArrayHelper::getColumn($rel, 'attach_id'),
+            'status' => Attachment::STATUS_ACTIVE
             ]);
 
         if (!empty($out[0])) {
@@ -148,7 +149,6 @@ class AttachmentRel extends \yii\db\ActiveRecord
         }
 
         $list = $query->orderBy('id DESC')->asArray()->all();
-
 
         $type = $type ? $type.'@' : '';
 
@@ -169,6 +169,7 @@ class AttachmentRel extends \yii\db\ActiveRecord
 
         $query = Attachment::find()->where([
             'id'=>\yii\helpers\ArrayHelper::getColumn($rel, 'attach_id'),
+            'status' => Attachment::STATUS_ACTIVE
             ]);
 
         $list = $query->all();

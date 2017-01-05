@@ -28,7 +28,8 @@ class ImageConfig extends \app\core\db\ActiveRecord
         'goods' => '商品',
         'focus' => '焦点图',
         'post'  => '文章',
-        'album' => '图集'
+        'album' => '图集',
+        'avatar'=> '头像'
     ];
 
     public static $water_pos = [

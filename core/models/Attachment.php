@@ -24,6 +24,9 @@ use yii\behaviors\TimestampBehavior;
 class Attachment extends \yii\db\ActiveRecord
 {
 
+    const STATUS_DEL = -1;
+    const STATUS_ACTIVE = 1;
+
     public $url;
     /**
      * @inheritdoc
@@ -112,7 +115,7 @@ class Attachment extends \yii\db\ActiveRecord
     public static function getImgByUserId($user_id, $offset=0, $limit=20)
     {
 
-        $option = ['author_id'=>$user_id, 'status'=>1];
+        $option = ['author_id'=>$user_id, 'status'=>self::STATUS_ACTIVE];
         $count = self::find()->where($option)->count();
 
         $list = self::find()->where($option)

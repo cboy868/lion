@@ -463,6 +463,21 @@ class GoodsController extends BackController
         }
     }
 
+
+    public function actionCover()
+    {
+        $post = Yii::$app->getRequest()->post();
+
+        $model = self::findModel($post['goods_id']);
+        $model->thumb = $post['thumb'];
+        if ($model->save()) {
+            return $this->json();
+        } 
+
+        return $this->json(null, '修改封面失败', 0);
+
+    }
+
     /**
      * Deletes an existing Goods model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -475,6 +490,20 @@ class GoodsController extends BackController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDelImg()
+    {
+        $post = Yii::$app->getRequest()->post();
+
+        $model = Attachment::findOne($post['thumb']);
+        $model->status = Attachment::STATUS_DEL;
+        if ($model->save()) {
+            return $this->json();
+        }
+        
+
+        return $this->json(null, '图片删除失败', 0);
     }
 
     /**
