@@ -17,6 +17,7 @@ use Yii;
 use yii\web\UploadedFile;
 use yii\base\Component;
 use app\core\helpers\ArrayHelper;
+use app\core\helpers\Image;
 
 
 class Upload extends Component{
@@ -127,7 +128,8 @@ class Upload extends Component{
 
             $event = new UploadEvent($info);
 
-            $img_config = $this->getConfig();
+            // $img_config = $this->getConfig();
+            $img_config = Image::getConfig($this->res);
 
             if (isset($img_config['water'])) {//水印
                 if ($img_config['water_mod'] == 'image') {
@@ -163,24 +165,24 @@ class Upload extends Component{
     /**
      * @name 取配置 目前在config/params.php中
      */
-    public function getConfig($field=null)
-    {
-        $params = Yii::$app->params['image'];
+    // public function getConfig($field=null)
+    // {
+    //     $params = Yii::$app->params['image'];
 
-        $current_params = Yii::$app->controller->module->params['image'];
+    //     $current_params = Yii::$app->controller->module->params['image'];
 
-        $configs = ArrayHelper::merge($params, $current_params);
+    //     $configs = ArrayHelper::merge($params, $current_params);
 
-        $current_config = isset($configs[$this->res]) ? $configs[$this->res] : [];
-        $config = array_merge($current_config, $configs['common']);
+    //     $current_config = isset($configs[$this->res]) ? $configs[$this->res] : [];
+    //     $config = array_merge($current_config, $configs['common']);
 
-        if ($field) {
-            return $config[$field];
-            // return isset($config[$field]) ? $config[$field] : Yii::$app->params['image']['common'][$field];
-        } else {
-            return $config;
-        }
-    }
+    //     if ($field) {
+    //         return $config[$field];
+    //         // return isset($config[$field]) ? $config[$field] : Yii::$app->params['image']['common'][$field];
+    //     } else {
+    //         return $config;
+    //     }
+    // }
 
     /**
      * @name 获取全路径文件名
@@ -190,7 +192,7 @@ class Upload extends Component{
         //替换日期事件
         $t = time();
         $d = explode('-', date("Y-y-m-d-H-i-s"));
-        $format = $this->getConfig('imagePathFormat');
+        $format = Image::getConfig($this->res,'imagePathFormat');
         $format = str_replace("{yyyy}", $d[0], $format);
         $format = str_replace("{yy}", $d[1], $format);
         $format = str_replace("{mm}", $d[2], $format);
@@ -223,8 +225,9 @@ class Upload extends Component{
      */
     private function isTooBig()
     {
-        $maxSize = $this->getConfig('imageMaxSize')? $this->getConfig('imageMaxSize') : 2048000;
+        // $maxSize = $this->getConfig('imageMaxSize')? $this->getConfig('imageMaxSize') : 2048000;
 
+        $maxSize = Image::getConfig($this->res, 'imageMaxSize');
         $this->size = $this->uploader->size;
 
         return  $this->uploader->size > $maxSize;
@@ -235,7 +238,8 @@ class Upload extends Component{
      */
     private function notAllow()
     {
-        $allowFiels = $this->getConfig('imageAllowFiles');
+        // $allowFiels = $this->getConfig('imageAllowFiles');
+        $allowFiels = Image::getConfig($this->res, 'imageAllowFiles');
 
         $ext = $this->getExtension();
 

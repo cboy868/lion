@@ -11,7 +11,7 @@ class Module extends \app\core\base\Module
         parent::init();
         
 
-        \Yii::configure($this, require(__DIR__ . '/config.php'));
+        // \Yii::configure($this, require(__DIR__ . '/config.php'));
 
         // custom initialization code goes here
     }

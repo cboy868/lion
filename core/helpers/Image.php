@@ -51,11 +51,8 @@ class Image extends \yii\imagine\Image {
 
     public static function getConfig($res, $field=null)
     {
-        $params = Yii::$app->params['image'];
 
-        $current_params = Yii::$app->controller->module->params['image'];
-
-        $configs = ArrayHelper::merge($params, $current_params);
+        $configs = Yii::$app->params['image'];
 
         $current_config = isset($configs[$res]) ? $configs[$res] : [];
 

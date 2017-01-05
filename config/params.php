@@ -44,6 +44,14 @@ $params = [
             // 'savePath' => 'upload',
         ],
 
+        'shop_attr' => [
+            'water' => false,
+            'thumb' => [
+                'tiny' => '36*36',
+                'small' => '100*100'
+            ]
+        ],
+
      //    'avatar' => [
      //        'imageWater' => true,
      //        'db' => true,//是否存入数据库
