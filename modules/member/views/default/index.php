@@ -36,7 +36,7 @@ MemberAsset::register($this);
   </div>
   <div class="head-l">
     <a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
-    <a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;
+    <!-- <a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp; -->
     <a class="button button-little bg-red" href="login.html"><span class="icon-power-off"></span> 退出登录</a> 
   </div>
 </div>
@@ -44,6 +44,7 @@ MemberAsset::register($this);
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>个人中心</h2>
   <ul style="display:block">
+    <li><a href="column.html" target="right"><span class="icon-caret-right"></span>我的设置</a></li>
     <li><a href="info.html" target="right"><span class="icon-caret-right"></span>我的文章</a></li>
     <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>我的图集</a></li>
     <li><a href="page.html" target="right"><span class="icon-caret-right"></span>我的收藏</a></li>  
@@ -61,10 +62,10 @@ MemberAsset::register($this);
 <ul class="bread">
   <li><a href="{:U('Index/info')}" target="right" class="icon-home"> 首页</a></li>
   <li><a href="##" id="a_leader_txt">网站信息</a></li>
-  <li><b>当前语言：</b><span style="color:red;">中文</php></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
+  <li><b>当前语言：</b><span style="color:red;">中文</php></span> <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> --> </li>
 </ul>
 <div class="admin">
-  <iframe scrolling="auto" rameborder="0" src="<?=Url::toRoute(['panel'])?>" name="right" width="100%" height="100%"></iframe>
+  <iframe scrolling="auto" rameborder="0" src="<?=Url::toRoute(['/member/default/panel'])?>" name="right" width="100%" height="100%"></iframe>
 </div>
 <?php $this->beginBlock('nav') ?>
 $(function(){

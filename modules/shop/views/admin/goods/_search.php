@@ -14,6 +14,8 @@ use app\core\widgets\ActiveForm;
     <?php $form = ActiveForm::searchBegin(); ?>
 
     <?= $form->field($model, 'name') ?>
+    
+    <?= $form->field($model, 'serial') ?>
 
     <?php // $form->field($model, 'is_recommend')->radioList(['否','是']) ?>
 

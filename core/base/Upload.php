@@ -137,7 +137,6 @@ class Upload extends Component{
                 } else {
                     $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'textWater'], null, false);
                 }
-                
             }
 
             $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
@@ -162,27 +161,6 @@ class Upload extends Component{
     }
 
    
-    /**
-     * @name 取配置 目前在config/params.php中
-     */
-    // public function getConfig($field=null)
-    // {
-    //     $params = Yii::$app->params['image'];
-
-    //     $current_params = Yii::$app->controller->module->params['image'];
-
-    //     $configs = ArrayHelper::merge($params, $current_params);
-
-    //     $current_config = isset($configs[$this->res]) ? $configs[$this->res] : [];
-    //     $config = array_merge($current_config, $configs['common']);
-
-    //     if ($field) {
-    //         return $config[$field];
-    //         // return isset($config[$field]) ? $config[$field] : Yii::$app->params['image']['common'][$field];
-    //     } else {
-    //         return $config;
-    //     }
-    // }
 
     /**
      * @name 获取全路径文件名

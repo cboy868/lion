@@ -35,6 +35,7 @@ class Sku extends \app\core\db\ActiveRecord
             [['goods_id', 'num', 'created_at'], 'integer'],
             [['price'], 'number'],
             [['name', 'av'], 'string', 'max' => 255],
+            [['serial'], 'string', 'max' => 200],
         ];
     }
 
@@ -50,6 +51,7 @@ class Sku extends \app\core\db\ActiveRecord
             'price' => '价格',
             'name' => '规格名',
             'av' => '规格',
+            'serial' => '序列号',
             'created_at' => 'Created At',
         ];
     }

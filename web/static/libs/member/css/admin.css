@@ -1,6 +1,5 @@
 body{ color:#333; font-size:13px;}
 input,select,textarea{color:#333;}
-.bg{ width:100%; height:100%; position:absolute; background:url(../images/bg.jpg) }
 .panel{background:#fff;}
 form .form-group:last-child{padding-bottom:0;}
 .passcode{position:absolute;right:0;bottom:0;height:32px;margin:1px;border-left:solid 1px #ddd;text-align:center;line-height:32px;border-radius:0 4px 4px 0;}
@@ -72,7 +71,25 @@ input[type="checkbox"], input[type="radio"]{ width:15px; height:15px; vertical-a
 
 textarea[name=content]{width:100%; height:500px; border:1px solid #ddd; border-radius:3px; -webkit-border-radius:3px;}
 
+.profile {
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    right: 0;
+    bottom: 0;
+    top: 87px;
+    overflow: auto;
+}
 
+.alert {
+    margin-bottom: 20px;
+}
 
+.border-back, .border-back .button, .border-back .tab-nav li a, .border-back .tab-body, .button.bg-back, .selected.border-back, .pointer.border-back li, .nav.border-back .active a, .nav.nav-tabs.border-back, .nav-main.border-back a, .nav-main.border-back .nav-head, .pagination.border-back li, .pager.border-back a {
+    border-color: #b5cfd9;
+}
+.bg-back, .border-back .button.active, .pointer.border-back .active, .nav-pills.border-back .active a, .nav-main.border-back .nav-head, .pagination.border-back .active {
+    background-color: #f2f9fd;
+}
 
 

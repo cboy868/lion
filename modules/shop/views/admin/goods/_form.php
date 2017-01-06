@@ -28,6 +28,8 @@ border-color:#337ab7;
 
     <?= $form->field($model, 'category_id')->hiddenInput(['value'=>Yii::$app->getRequest()->get('category_id')])->label(false)?>
 
+    <?= $form->field($model, 'serial')->textInput()->label()->hint('序列号如不填写，则自动生成')?>
+
     <?= $form->field($model,'intro')->widget('app\core\widgets\Ueditor\Ueditor',['option' =>['res_name'=>'goods', 'use'=>'ue'] ]);?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>

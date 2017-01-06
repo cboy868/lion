@@ -19,7 +19,7 @@ class Goods extends GoodsModel
     {
         return [
             [['category_id', 'thumb', 'is_recommend', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'intro', 'skill', 'unit', 'id'], 'safe'],
+            [['name', 'intro', 'skill', 'unit', 'id', 'serial'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -58,9 +58,11 @@ class Goods extends GoodsModel
         }
 
 
+
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
+            'serial' => $this->serial,
             'thumb' => $this->thumb,
             'price' => $this->price,
             'is_recommend' => $this->is_recommend,

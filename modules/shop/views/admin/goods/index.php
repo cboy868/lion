@@ -201,6 +201,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
             ],
             // 'name',
             'category.name',
+            'serial',
             // 'thumb',
             // 'intro:ntext',
 

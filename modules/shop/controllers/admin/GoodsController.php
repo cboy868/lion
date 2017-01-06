@@ -142,6 +142,12 @@ class GoodsController extends BackController
             $outerTransaction = Yii::$app->db->beginTransaction();
 
 
+            if (!$model->serial) {
+               $serial = 'L%sT%s';
+                $model->serial = sprintf($serial, str_pad($model->category_id, 3, '0', STR_PAD_LEFT), str_pad($model->id, 4, '0', STR_PAD_LEFT));
+                $model->save();
+            }
+
              try {
                  $this->tagCreate($info['Goods']['tags'], $model->id);
 
@@ -167,6 +173,7 @@ class GoodsController extends BackController
                     $price = array_filter($price);
                     $sku_md = [];
                     $sku_model = new Sku;
+                    $i = 1;;
                     foreach ($price as $k => $v) {
 
                         //处理规格名
@@ -189,9 +196,11 @@ class GoodsController extends BackController
                         $sku_md[$k]->name = $spec_name;
                         $sku_md[$k]->av = $k;
                         $sku_md[$k]->num = $num[$k];
-
+                        $sku_md[$k]->serial = $model->serial . sprintf('P%s', str_pad($i,5,'0',STR_PAD_LEFT));
                         $sku_md[$k]->save();
                     }
+
+                    $i++;
 
                 } else {
                     $sku_model = new Sku;
@@ -199,6 +208,7 @@ class GoodsController extends BackController
                     $sku_model->price = $model->price;
                     $sku_model->name = $model->name;
                     $sku_model->av = '0:0';
+                    $sku_model->serial = $model->serial . sprintf('P%s', str_pad(1,5,'0',STR_PAD_LEFT));
                     $sku_model->save();
                 }
 
@@ -299,14 +309,21 @@ class GoodsController extends BackController
 
         $info = $req->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
 
             $outerTransaction = Yii::$app->db->beginTransaction();
 
-             try {
-                 $this->tagCreate($info['Goods']['tags'], $model->id);
 
-                 if (isset($info['mid']) && count($info['mid']) > 0) {
+            if (!$model->serial) {
+                $serial = 'L%sT%s';
+                $model->serial = sprintf($serial, str_pad($model->category_id, 3, '0', STR_PAD_LEFT), str_pad($model->id, 4, '0', STR_PAD_LEFT));
+            }
+            $model->save();
+
+            try {
+                $this->tagCreate($info['Goods']['tags'], $model->id);
+
+                if (isset($info['mid']) && count($info['mid']) > 0) {
                     $mids = $info['mid'];
                     $titles = $info['title'];
 
@@ -322,12 +339,12 @@ class GoodsController extends BackController
                 $price = $sku['price'];
                 $num = $sku['num'];
 
-
                 Yii::$app->db->createCommand()->delete('{{%shop_sku}}', ['goods_id'=>$id])->execute();
                 if ($price && count(array_filter($price))>0) {
                     $price = array_filter($price);
                     $sku_md = [];
                     $sku_model = new Sku;
+                    $i = 1;
                     foreach ($price as $k => $v) {
 
                         //处理规格名
@@ -350,8 +367,10 @@ class GoodsController extends BackController
                         $sku_md[$k]->name = $spec_name;
                         $sku_md[$k]->av = $k;
                         $sku_md[$k]->num = $num[$k];
-
+                        $sku_md[$k]->serial = $model->serial . sprintf('P%s', str_pad($i,5,'0',STR_PAD_LEFT));
                         $sku_md[$k]->save();
+
+                        $i++;
                     }
 
                 } else {
@@ -360,13 +379,13 @@ class GoodsController extends BackController
                     $sku_model->price = $model->price;
                     $sku_model->name = $model->name;
                     $sku_model->av = '0:0';
+                    $sku_model->serial = $model->serial . sprintf('P%s', str_pad(1,5,'0',STR_PAD_LEFT));
                     $sku_model->save();
                 }
 
 
                 $result = AvRel::parsePost($model->category_id, $model->id);
                 if ($result) {
-
 
                     Yii::$app->db->createCommand()->delete('{{%shop_av_rel}}', ['goods_id'=>$id])->execute();
 
@@ -376,6 +395,7 @@ class GoodsController extends BackController
                         $result
                     )->execute();
                 }
+
 
                 $outerTransaction->commit();
 

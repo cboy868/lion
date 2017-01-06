@@ -120,6 +120,10 @@ ul.nav-tabs>li.active>a{
                                                         <col>
                                                         </colgroup>
                                                         <tbody>
+                                                                <tr class="first odd">
+                                                                    <th class="label">SKU:</th>
+                                                                    <td class="data last" style="vertical-align: middle;"><?=$data['serial']?></td>
+                                                                </tr>
                                                             <?php foreach ($attr as $k => $v): ?>
                                                                 <tr class="first odd">
                                                                     <th class="label"><?=$v['attr_name']?></th>

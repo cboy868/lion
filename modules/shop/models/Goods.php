@@ -46,11 +46,11 @@ class Goods extends \app\core\db\ActiveRecord
     {
         return [
             [['category_id', 'thumb', 'num', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['intro', 'skill'], 'string'],
+            [['intro', 'skill', 'serial'], 'string'],
             [['price'], 'number'],
             // ['name', 'unique',  'message' => '此菜品已存在，请确定'],
             [['name', 'price'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['name',], 'string', 'max' => 255],
             [['unit'], 'string', 'max' => 100]
         ];
     }
@@ -84,6 +84,7 @@ class Goods extends \app\core\db\ActiveRecord
             'recommend' => '是否推荐',
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
+            'serial' => '序列号'
         ];
     }
 

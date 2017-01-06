@@ -32,6 +32,7 @@ class m161006_121900_shop extends Migration
         $this->createTable('{{%shop_goods}}', [
             'id' => $this->primaryKey(),
             'category_id' => $this->integer(),
+            'serial' => $this->string(200),
             'name' => $this->string(255),
             'thumb' => $this->integer(),
             'intro' => $this->text(),//介绍
@@ -48,6 +49,7 @@ class m161006_121900_shop extends Migration
         $this->createTable('{{%shop_sku}}', [
             'id' => $this->primaryKey(),//id
             'goods_id' => $this->integer()->notNull(),
+            'serial' => $this->string(200),
             'num'   => $this->integer(),
             'price'=> $this->decimal(10,2),
             'name' => $this->string(255),//sku名称
