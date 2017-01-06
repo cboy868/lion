@@ -166,7 +166,7 @@ ul.nav-tabs>li.active>a{
                                                 </a>
                                             </div>
                                         </div>
-                                        <h3 class="product-name"><?=$v['name']?></h3>
+                                        <h3 class="product-name"><?=$v['name']?> (SKU:<?=$v['serial']?>)</h3>
                                     </div> 
                                 <?php endforeach ?>
                                 </div>

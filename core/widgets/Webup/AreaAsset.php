@@ -18,7 +18,7 @@ class AreaAsset extends AssetBundle
 
 	public $js = [
         'webuploader.nolog.min.js',
-        'upload.js'
+        'albumupload.js'
     ];
    
     public function init()

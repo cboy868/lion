@@ -18,7 +18,6 @@ return [
     'home/default/<action:(.+)>.html'=> 'home/default/<action>',
     'home/default/<action:(.+)>'=> 'home/default/<action>',
 
-
     'home/product.html'=> 'home/product/index',
     'home/product'=> 'home/product/index',
     'home/product/<action:(.+)>.html'=> 'home/product/<action>',

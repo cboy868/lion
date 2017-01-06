@@ -110,36 +110,11 @@ class AlbumController extends BackController
     public function actionView($id, $mod)
     {
 
-        // $mod = Yii::$app->request->get('mod');
-        // $tree = $this->getCates($mod);
-
         $modInfo = Module::findOne($mod);
-
-        // $class = '\app\modules\cms\models\mods\Album' . $mod . 'Search';
-        // $c = 'Album' . $mod . 'Search';
-
-        // $searchModel = new $class;
-
-        // $params = Yii::$app->request->queryParams;
-        // $params[$c]['category_id'] = Yii::$app->request->get('category_id');
-        // $dataProvider = $searchModel->search($params);
-
-
-
-        // $mod = Yii::$app->getRequest()->get('mod');
-
-        // return $this->render('view', [
-        //     'dataProvider' => $dataProvider,
-        //     'model' => $this->findModel($id, $mod),
-        //     'modinfo' => $this->modInfo,
-        // ]);
-
-
 
         $searchModel = new AlbumImageSearch;
 
         $params = Yii::$app->request->queryParams;
-
         $params['AlbumImageSearch']['mod'] = $mod;
         $params['AlbumImageSearch']['album_id'] = $id;
 

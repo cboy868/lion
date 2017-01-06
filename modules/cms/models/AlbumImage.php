@@ -97,8 +97,16 @@ class AlbumImage extends \yii\db\ActiveRecord
         $model->author_id = Yii::$app->user->id;
         $model->album_id = $post['album_id'];
         $model->mod = $post['mod'];
-
         $model->save();
+
+        $class = '\app\modules\cms\models\mods\Album' . $post['mod'];
+
+        $album = $class::findOne($post['album_id']);
+
+        if (!$album->thumb) {
+            $album->thumb = $model->id;
+            $album->save();
+        }
 
         return $event->sender->mid = $model->id;
 
