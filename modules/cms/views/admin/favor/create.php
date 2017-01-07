@@ -5,10 +5,10 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\AlbumImage */
+/* @var $model app\modules\cms\models\Favor */
 
-$this->title = 'Create Album Image';
-$this->params['breadcrumbs'][] = ['label' => 'Album Images', 'url' => ['index']];
+$this->title = 'Create Favor';
+$this->params['breadcrumbs'][] = ['label' => 'Favors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div><!-- /.page-header -->
 
 		<div class="row">
-			<div class="col-xs-12 album-image-create">
+			<div class="col-xs-12 favor-create">
 				<?= $this->render('_form', [
 			        'model' => $model,
 			    ]) ?>

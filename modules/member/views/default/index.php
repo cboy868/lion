@@ -44,11 +44,10 @@ MemberAsset::register($this);
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>个人中心</h2>
   <ul style="display:block">
-    <li><a href="column.html" target="right"><span class="icon-caret-right"></span>我的设置</a></li>
+    <li><a href="<?=Url::toRoute(['/member/user/profile/index'])?>" target="right"><span class="icon-caret-right"></span>我的设置</a></li>
     <li><a href="info.html" target="right"><span class="icon-caret-right"></span>我的文章</a></li>
     <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>我的图集</a></li>
-    <li><a href="page.html" target="right"><span class="icon-caret-right"></span>我的收藏</a></li>  
-    <li><a href="adv.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>   
+    <li><a href="<?=Url::toRoute(['/member/cms/favor/index'])?>" target="right"><span class="icon-caret-right"></span>我的收藏</a></li>  
     <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>     
     <li><a href="column.html" target="right"><span class="icon-caret-right"></span>查看历史记录</a></li>
   </ul>   

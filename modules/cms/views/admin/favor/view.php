@@ -5,10 +5,10 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\AlbumImage */
+/* @var $model app\modules\cms\models\Favor */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Album Images', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Favors', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -31,25 +31,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Album Images', 'url' => ['index']]
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-10 album-image-view">
+            <div class="col-xs-10 favor-view">
                     
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'album_id',
-            'mod',
-            'author_id',
+            'user_id',
+            'res_name',
+            'res_id',
             'title',
-            'path',
-            'name',
-            'sort',
-            'view_all',
-            'com_all',
-            'desc:ntext',
-            'ext',
+            'res_url:url',
             'created_at',
-            'status',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

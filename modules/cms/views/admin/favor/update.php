@@ -4,10 +4,10 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\AlbumImage */
+/* @var $model app\modules\cms\models\Favor */
 
 $this->title = ' ' . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Album Images', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Favors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = 'Update';
 		</div><!-- /.page-header -->
 
 		<div class="row">
-			<div class="col-xs-12 album-image-update">
+			<div class="col-xs-12 favor-update">
 				 <?= $this->render('_form', [
 				        'model' => $model,
 				    ]) ?>

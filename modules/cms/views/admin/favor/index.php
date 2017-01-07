@@ -6,12 +6,11 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\cms\models\AlbumImageSearch */
+/* @var $searchModel app\modules\cms\models\FavorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Album Images';
+$this->title = '收藏';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -36,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <div class="col-xs-12 album-image-index">
+            <div class="col-xs-12 favor-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -44,22 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'album_id',
-            'mod',
-            'author_id',
+            'user.username',
+            'res_name',
+            'res_id',
             'title',
-            // 'path',
-            // 'name',
-            // 'sort',
-            // 'view_all',
-            // 'com_all',
-            // 'desc:ntext',
-            // 'ext',
+            'res_url:url',
             // 'created_at',
-            // 'status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -26,45 +26,12 @@ class ProductController extends \app\core\web\HomeController
      */
     public function actionIndex()
     {
-
-        $params = Yii::$app->request->queryParams;
-
-        $searchModel = new GoodsSearch();
-
-
-        if (isset($params['avid'])) {
-            $goods_ids = AvRel::getGoodsIdByAvId($params['avid']);
-            $params["Goods"]['id'] = $goods_ids;
-        }
-
-
-        if (isset($params['category_id'])) {
-            $params["Goods"]['category_id'] = $params['category_id'];
-        }
-
-        $params['psize'] = isset($params['psize']) ? $params['psize'] : 12;
-
-        $dataProvider = $searchModel->homeSearch($params);
-
-        $models = $dataProvider->getModels();
-        $page = $dataProvider->getPagination();
-
         $cates = $this->getCates();
-
         $attrs = AvRel::attrs();
 
-
-        $params['mode'] = isset($params['mode']) ? $params['mode'] : 'list';
-
-
-        return $this->render('index_' . $params['mode'], [
-            'models' => $models,
-            'page' => $page,
-            'searchModel' => $searchModel,
+        return $this->render('@app/web/theme/site/product/index', [
             'cates'       => $cates,
-            'current_cate' => Yii::$app->getRequest()->get('category_id'),
             'attrs' => $attrs,
-            'get' => $params
         ]);
 
     }

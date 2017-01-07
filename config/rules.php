@@ -10,7 +10,6 @@ return [
     'admin/default/<action:(.+)>'=> 'admin/default/<action>',
 
 
-
     'home.html'=> 'home/default/index',
     'home'=> 'home/default/index',
     'home/default.html'=> 'home/default/index',
@@ -82,6 +81,16 @@ return [
     'home/<module:(.+)>/<controller:(.+)>'=> '<module>/home/<controller>/index',
     'home/<module:(.+)>.html'=> '<module>/home/default/index',
     'home/<module:(.+)>'=> '<module>/home/default/index',
+
+    'member'=> 'member/default/index',
+    'member/default'=> 'member/default/index',
+    'member/default/<action:(.+)>'=> 'member/default/<action>',
+    'member/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/member/<controller>/<action>',
+    'member/<module:(.+)>/<controller:(.+)>/<action:(.+)>'=> '<module>/member/<controller>/<action>',
+    'member/<module:(.+)>/<controller:(.+)>.html'=> '<module>/member/<controller>/index',
+    'member/<module:(.+)>/<controller:(.+)>'=> '<module>/member/<controller>/index',
+    'member/<module:(.+)>.html'=> '<module>/member/default/index',
+    'member/<module:(.+)>'=> '<module>/member/default/index',
 
 
     // 'install/<module:(.+)>'=> '<module>/install/default/index',

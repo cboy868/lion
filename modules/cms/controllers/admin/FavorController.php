@@ -3,16 +3,17 @@
 namespace app\modules\cms\controllers\admin;
 
 use Yii;
-use app\modules\cms\models\AlbumImage;
-use app\modules\cms\models\AlbumImageSearch;
+use app\modules\cms\models\Favor;
+use app\modules\cms\models\FavorSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
- * ImageController implements the CRUD actions for AlbumImage model.
+ * FavorController implements the CRUD actions for Favor model.
  */
-class ImageController extends BackController
+class FavorController extends BackController
 {
     public function behaviors()
     {
@@ -27,12 +28,13 @@ class ImageController extends BackController
     }
 
     /**
-     * Lists all AlbumImage models.
+     * Lists all Favor models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AlbumImageSearch();
+
+        $searchModel = new FavorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +44,7 @@ class ImageController extends BackController
     }
 
     /**
-     * Displays a single AlbumImage model.
+     * Displays a single Favor model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +56,13 @@ class ImageController extends BackController
     }
 
     /**
-     * Creates a new AlbumImage model.
+     * Creates a new Favor model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new AlbumImage();
+        $model = new Favor();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +74,7 @@ class ImageController extends BackController
     }
 
     /**
-     * Updates an existing AlbumImage model.
+     * Updates an existing Favor model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +93,7 @@ class ImageController extends BackController
     }
 
     /**
-     * Deletes an existing AlbumImage model.
+     * Deletes an existing Favor model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +106,15 @@ class ImageController extends BackController
     }
 
     /**
-     * Finds the AlbumImage model based on its primary key value.
+     * Finds the Favor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AlbumImage the loaded model
+     * @return Favor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AlbumImage::findOne($id)) !== null) {
+        if (($model = Favor::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
