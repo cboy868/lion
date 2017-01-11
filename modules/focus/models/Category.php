@@ -30,7 +30,8 @@ class Category extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['intro'], 'string'],
-            [['title'], 'string', 'max' => 100]
+            [['title'], 'string', 'max' => 100],
+            [['thumb'], 'safe']
         ];
     }
 
@@ -43,6 +44,7 @@ class Category extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => '标题',
             'intro' => '描述',
+            'thumb' => '封面'
         ];
     }
 
@@ -50,4 +52,5 @@ class Category extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Focus::className(), ['category_id'=>'id'])->limit($limit);
     }
+
 }

@@ -9,6 +9,9 @@ use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\core\base\Upload;
+
+use app\modules\focus\models\Category;
+use app\modules\focus\models\CategorySearch;
 /**
  * AdminController implements the CRUD actions for Focus model.
  */
@@ -21,7 +24,7 @@ class DefaultController extends BackController
      */
     public function actionIndex()
     {
-        $searchModel = new FocusSearch();
+        $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -36,10 +39,18 @@ class DefaultController extends BackController
      * @return mixed
      * @name 焦点图详情
      */
-    public function actionView($id)
+    public function actionList($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        $searchModel = new FocusSearch();
+
+        $params = Yii::$app->request->queryParams;
+        $params['FocusSearch']['category_id'] = $params['id'];
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'category' => self::findCategoryModel($id)
         ]);
     }
 
@@ -49,9 +60,10 @@ class DefaultController extends BackController
      * @return mixed
      * @name 添加焦点图
      */
-    public function actionCreate()
+    public function actionCreate($category_id)
     {
         $model = new Focus();
+        $model->category_id = $category_id;
         if ($model->load(Yii::$app->request->post())) {
              $upload = Upload::getInstance($model, 'image', 'focus');
 
@@ -62,7 +74,9 @@ class DefaultController extends BackController
              }
              
              if ($model->save()) {
-                return $this->redirect(['index']);
+
+                $model->updateCategoryThumb();
+                return $this->redirect(['list', 'id'=>$category_id]);
              }
         }
         return $this->renderAjax('create', [
@@ -91,12 +105,42 @@ class DefaultController extends BackController
              }
 
             if ($model->save()) {
-                return $this->redirect(['index']);
+                $model->updateCategoryThumb();
+                return $this->redirect(['list', 'id'=>$model->category_id]);
              }
         }
         return $this->renderAjax('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSort($id)
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        $connection = Yii::$app->db;
+
+        foreach ($ids as $k => $v) {
+            $connection->createCommand()
+                          ->update(
+                            Focus::tableName(), 
+                            ['sort' => $k], 
+                            ['id'=>$v])
+                          ->execute();
+        }
+
+        return $this->json();
+    }
+
+    public function actionCover($category_id, $focus_id)
+    {
+        $model = $this->findModel($focus_id);
+
+        $category = $this->findCategoryModel($category_id);
+        $category->thumb = $model->image;
+        $category->save();
+
+        return $this->json();
     }
 
     /**
@@ -123,6 +167,69 @@ class DefaultController extends BackController
     protected function findModel($id)
     {
         if (($model = Focus::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    //------------------------------ category -------------------------
+
+     public function actionCreateCate()
+    {
+
+        $model = new Category();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->renderAjax('create-cate', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Updates an existing Category model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @name 更新分类
+     */
+    public function actionUpdateCate($id)
+    {
+
+        $model = $this->findCategoryModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->renderAjax('update-cate', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Deletes an existing Category model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @name 删除
+     */
+    public function actionDeleteCate($id)
+    {
+        $this->findCategoryModel($id)->delete();
+
+        $condition = 'category_id='.$id;
+        Yii::$app->db->createCommand()->delete('{{%focus}}', $condition)->execute();
+
+        return $this->redirect(['index']);
+    }
+
+    protected function findCategoryModel($id)
+    {
+        if (($model = Category::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

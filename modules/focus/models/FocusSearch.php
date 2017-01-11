@@ -44,7 +44,7 @@ class FocusSearch extends Focus
         $query = Focus::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->orderBy('sort asc'),
         ]);
 
         if (!($this->load($params) && $this->validate())) {

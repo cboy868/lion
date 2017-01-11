@@ -24,7 +24,6 @@ ZoomAsset::register($this);
         border-top: 0;
     }
     .caption ul{
-        /*height: 54px;*/ 
         margin:0px 5px;
         padding: 3px 0;
     }

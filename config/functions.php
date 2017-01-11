@@ -104,3 +104,8 @@ function truncate($string, $length, $suffix = '...', $encoding = null, $asHtml =
 {
 	return StringHelper::truncate($string, $length, $suffix, $encoding, $asHtml);
 }
+
+function defaultImg()
+{
+	return '/static/images/default.png';
+}

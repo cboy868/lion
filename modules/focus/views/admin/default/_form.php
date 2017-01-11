@@ -14,18 +14,7 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class' => 'form-horizontal']]); 
     ?>
 
-    <?php 
-        $category = Category::find()->asArray()->all();
-        $options = [];
-        foreach ($category as $k => $v) {
-                $options[$v['id']]['intro'] = $v['intro'];
-        }
-        $cates = ArrayHelper::map($category, 'id', 'title');
-
-        $intro = $category[0]['intro'];
-    ?>
-
-    <?= $form->field($model, 'category_id')->dropDownList($cates, ['options'=>$options, 'class'=>'form-control sel']) ?>
+    <?= $form->field($model, 'category_id')->hiddenInput()->label(false) ?>
     
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

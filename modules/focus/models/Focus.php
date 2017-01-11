@@ -90,6 +90,18 @@ class Focus extends \yii\db\ActiveRecord
         return $this->hasOne(Category::className(), ['id'=>'category_id']);
     }
 
+    public function updateCategoryThumb()
+    {
+        $category = $this->category;
+
+        if (!$category->thumb) {
+            $category->thumb = $this->image;
+            $category->save();
+        }
+
+        return true;
+    }
+
     public static function getFocusByCategory($category, $rows=5, $size=null)
     {
 
