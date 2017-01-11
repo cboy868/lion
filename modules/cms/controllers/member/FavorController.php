@@ -38,6 +38,19 @@ class FavorController extends MemberController
         return $this->redirect(['index']);
     }
 
+
+    public function actionCreate()
+    {
+        $post = Yii::$app->request->post();
+
+        if (Favor::create($post['res_name'], $post['res_id'], $post['res_url'], $post['title'])) {
+            return $this->json();
+        }
+
+        return $this->json(null, '收藏失败', -1);
+        
+    }
+
     /**
      * Finds the Favor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

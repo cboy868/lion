@@ -57,23 +57,52 @@ class ActiveForm extends \yii\widgets\ActiveForm
     }
 
 
-    public static function remoteBegin($config=null)
+    // public static function remoteBegin($config=null)
+    // {
+    //     if(is_null($config)) {
+    //         $config = [
+    //             'fieldConfig'=>[
+    //                 'template' => '{label}<div class="col-sm-10">{input}{hint}{error}</div>',
+    //                 'labelOptions' => [
+    //                     'class' => 'control-label col-sm-2'
+    //                 ],
+    //                 'inputOptions' =>['class'=>'form-control'],
+    //                 'hintOptions' =>['class'=>'input-note']
+    //             ],
+    //             // 'action' => ['index'],
+    //             'options'=> [
+    //                 'class' => 'form-horizontal rform', 'id'=>'rform'
+    //             ]
+    //         ];
+    //     }
+    //     return parent::begin($config);
+    // }
+
+    public static function memberBegin($config=null)
     {
         if(is_null($config)) {
             $config = [
                 'fieldConfig'=>[
-                    'template' => '{label}<div class="col-sm-10">{input}{hint}{error}</div>',
+                    'template' => '{label}<div class="field">{input}{hint}{error}</div>',
                     'labelOptions' => [
-                        'class' => 'control-label col-sm-2'
+                        'class' => 'label'
                     ],
-                    'inputOptions' =>['class'=>'form-control']
+                    'inputOptions' =>['class'=>'input', 'size'=>30],
+                    'hintOptions' =>['class'=>'input-note']
                 ],
                 // 'action' => ['index'],
                 'options'=> [
-                    'class' => 'form-horizontal rform', 'id'=>'rform'
+                    'class' => 'form-x'
                 ]
             ];
         }
         return parent::begin($config);
     }
+
+
+
+
+
+
+
 }

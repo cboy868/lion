@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\MemberAsset;
+use app\modules\member\models\Member;
 
 MemberAsset::register($this);
 ?>
@@ -32,12 +33,12 @@ MemberAsset::register($this);
 
 <div class="header bg-main">
   <div class="logo margin-big-left fadein-top">
-    <h1><img src="/static/libs/member/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
+    <h1><img src="<?=Member::getAvatar()?>" class="radius-circle rotate-hover" height="50" alt="" />会员中心</h1>
   </div>
-  <div class="head-l">
-    <a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
+  <div class="head-l float-right button-group">
+    <a class="button button-little bg-green" href="<?=Url::toRoute(['/'])?>" target="_blank"><span class="icon-home"></span> 网站首页</a> &nbsp;&nbsp;
     <!-- <a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp; -->
-    <a class="button button-little bg-red" href="login.html"><span class="icon-power-off"></span> 退出登录</a> 
+    <a class="button button-little bg-red" href="<?=Url::toRoute(['default/logout'])?>" data-method="post"><span class="icon-power-off"></span> 退出登录</a> 
   </div>
 </div>
 <div class="leftnav">

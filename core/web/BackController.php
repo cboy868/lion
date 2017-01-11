@@ -55,7 +55,7 @@ class BackController extends \app\core\web\Controller
     public function ignoreLogin()
     {
     	return [
-    		'admin/default/login','admin/default/captcha','admin/default/index'
+    		'admin/default/login','admin/default/captcha'//,'admin/default/index'
     	];
     }
 

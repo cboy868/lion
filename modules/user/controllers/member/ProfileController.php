@@ -12,6 +12,8 @@ use app\core\web\MemberController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\core\base\Upload;
+use app\modules\user\models\PasswdForm;
+
 
 /**
  * DefaultController implements the CRUD actions for User model.
@@ -42,15 +44,25 @@ class ProfileController extends MemberController
 
         $attach = UserField::find()->asArray()->all();
 
-
         $post = Yii::$app->request->post();
 
+        $pwd = new PasswdForm();
+
+        if ($pwd->load($post)) {
+            if ($pwd->pwd()) {
+                Yii::$app->getSession()->setFlash('success', '密码修改成功');
+            } else {
+                Yii::$app->getSession()->setFlash('error', '密码修改失败');
+            }
+        }
 
         if ($addition->load($post)) {
             $outerTransaction = Yii::$app->db->beginTransaction();
             try {
                 $addition->load($post);
                 $addition->save();
+                $model->load($post);
+                $model->save();
 
                 $outerTransaction->commit();
             } catch (Exception $e) {
@@ -59,20 +71,16 @@ class ProfileController extends MemberController
             }
 
             return $this->redirect(['index']);
-        } else {
-            return $this->render('index', [
-                'model' => $model,
-                'attach' => $attach,
-                'addition' => $addition,
-            ]);
         }
+
+        return $this->render('index', [
+            'model' => $model,
+            'attach' => $attach,
+            'addition' => $addition,
+            'pwd' => $pwd
+        ]);
     }
 
-
-    public function actionUpdate($id)
-    {
-        
-    }
 
     protected function findModel($id)
     {
@@ -88,7 +96,6 @@ class ProfileController extends MemberController
 
         $user_id = Yii::$app->user->id;
 
-
         if (($model = Addition::findOne($user_id)) !== null) {
             return $model;
         } else {
@@ -97,7 +104,6 @@ class ProfileController extends MemberController
             if ($model->save()) {
                 return $this->findAddition($user_id);
             }
-
 
             throw new NotFoundHttpException('The requested page does not exist.');
 
@@ -111,26 +117,23 @@ class ProfileController extends MemberController
     {
         $user_id = Yii::$app->user->id;
 
+
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
 
         if (\Yii::$app->request->isPost) {
 
-            $res_name = 'avatar';
-            $use = '';
-
-            $upload = Upload::getInstanceByName('__avatar1', $res_name);
-            $upload->use = $use ? $use : null;
-
+            $upload = Upload::getInstanceByName('__avatar1', 'avatar');
+            $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
             $upload->save();
 
             $info = $upload->getInfo();
 
-            $avatar = $info['mid'];
-
             $model = $this->findModel($user_id);
             $model->avatar = $info['mid'];
+
             $model->save();
+
 
             return [
                 'sourceUrl'  => true,

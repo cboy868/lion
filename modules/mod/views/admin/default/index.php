@@ -42,15 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'module',
             'name',
-            'dir',
-            'link',
+            // 'dir',
+            // 'link',
             'order',
             'showLabel',
-            'logo',
+            // 'logo',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete} {view} {field}',
+                'template' => '{delete} {view} {field}',
                 'buttons' => [
                     'field' => function($url, $model, $key) {
                         return Html::a('<span class="fa fa-table"></span>字段管理', $url, ['title' => '权限用户', 'class'=>'btn btn-success btn-xs'] );

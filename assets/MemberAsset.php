@@ -21,10 +21,10 @@ class MemberAsset extends AssetBundle
         'static/libs/member/css/admin.css',
     ];
     public $js = [
-        'static/libs/member/js/jquery.js',
+        // 'static/libs/member/js/jquery.js',
         'static/libs/member/js/pintuer.js',
     ];
     public $depends = [
-        // 'yii\web\YiiAsset',
+        'yii\web\YiiAsset',
     ];
 }

@@ -5,6 +5,7 @@ namespace app\modules\member\models;
 use Yii;
 use yii\base\Model;
 use app\modules\user\models\User;
+use yii\captcha\Captcha;
 /**
  * LoginForm is the model behind the login form.
  *
@@ -16,6 +17,7 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $verifyCode;
 
     private $_user;
 
@@ -31,6 +33,8 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+
+            ['verifyCode', 'captcha', 'captchaAction'=>'/member/default/captcha'],
         ];
     }
 
@@ -39,7 +43,8 @@ class LoginForm extends Model
         return [
             'username' => '用户名',
             'password' => '密码',
-            'rememberMe' => '下次自动登录'
+            'rememberMe' => '下次自动登录',
+            'verifyCode' => '验证码',
         ];
     }
 
@@ -56,7 +61,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, '用户名或密码不正确.');
             }
         }
     }

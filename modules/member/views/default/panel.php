@@ -67,7 +67,7 @@
             <div class="panel-head"><strong>图集</strong></div>
             <div class="line-middle" style="margin-top:10px;">
 
-                <div class="xm3 xb2">
+                <div class="xm2 xb1">
                     <div class="media clearfix">
                         <a href="#">
                             <img src="/static/libs/member/images/face.jpg" class="radius img-responsive" alt="...">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 
-                <div class="xm3 xb2">
+                <div class="xm2 xb1">
                     <div class="media clearfix">
                         <a href="#">
                             <img src="/static/libs/member/images/face.jpg" class="radius img-responsive" alt="...">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="xm3 xb2">
+                <div class="xm2 xb1">
                     <div class="media clearfix">
                         <a href="#">
                             <img src="/static/libs/member/images/face.jpg" class="radius img-responsive" alt="...">
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="xm3 xb2">
+                <div class="xm2 xb1">
                     <div class="media clearfix">
                         <a href="#">
                             <img src="/static/libs/member/images/face.jpg" class="radius img-responsive" alt="...">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="xm3 xb2">
+                <div class="xm2 xb1">
                     <div class="media clearfix">
                         <a href="#">
                             <img src="/static/libs/member/images/face.jpg" class="radius img-responsive" alt="...">
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="xm3 xb2">
+                <div class="xm2 xb1">
                     <div class="media clearfix">
                         <a href="#">
                             <img src="/static/libs/member/images/face.jpg" class="radius img-responsive" alt="...">

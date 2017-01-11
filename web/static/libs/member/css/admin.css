@@ -8,7 +8,7 @@ ul,li{ list-style-type:none;}
 .lefter{position:relative;float:left;width:180px;margin-right:-180px;background:#e6f2fb;text-align:center;}
 .righter{float:right;width:100%;padding-top:15px;background:#e6f2fb;}
 .mainer{margin-left:180px;}
-.field-icon-right .icon{ bottom:0px; top:auto}
+/*.field-icon-right .icon{ bottom:0px; top:auto}*/
 .logo{ float:left; color:#FFF; margin-top:10px; line-height:45px;}
 .logo img{ float:left; margin-right:10px;}
 .loginbox { background:url(../images/tmbg-white.png); border:0px;}
@@ -45,7 +45,7 @@ ul,li{ list-style-type:none;}
 .bread{ margin-left:190px; margin-top:4px;}
 .bread li{ float:left;}
 .label label{ font-weight:normal; color:#333;}
-.form-group{ margin-bottom:12px;}
+.form-group, .input-inline{ margin-bottom:12px;}
 .button{ padding:10px 15px;}
 .form-group .field .file{ background:#FFF; border:0px;}
 .form-group .field input[type=radio]{ vertical-align:middle; line-height:35px; margin-right:5px;}
@@ -91,5 +91,14 @@ textarea[name=content]{width:100%; height:500px; border:1px solid #ddd; border-r
 .bg-back, .border-back .button.active, .pointer.border-back .active, .nav-pills.border-back .active a, .nav-main.border-back .nav-head, .pagination.border-back .active {
     background-color: #f2f9fd;
 }
+.has-error .help-block{color:red;}
+
+ .has-error{
+    color:#e33;
+ }
+.has-error .input{
+    border-color: #e33;
+}
+
 
 

@@ -4,6 +4,8 @@ namespace app\modules\cms\models;
 
 use Yii;
 use app\modules\user\models\User;
+use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "{{%favor}}".
  *
@@ -32,6 +34,17 @@ class Favor extends \app\core\db\ActiveRecord
         return '{{%favor}}';
     }
 
+    public function behaviors() {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    Contact::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -39,7 +52,7 @@ class Favor extends \app\core\db\ActiveRecord
     {
         return [
             [['user_id', 'res_id', 'created_at'], 'integer'],
-            [['created_at'], 'required'],
+            [['user_id'], 'required'],
             [['res_name', 'title'], 'string', 'max' => 200],
             [['res_url'], 'string', 'max' => 255],
         ];
@@ -60,6 +73,34 @@ class Favor extends \app\core\db\ActiveRecord
             'res_url' => '资源连接',
             'created_at' => '添加时间',
         ];
+    }
+
+    /**
+     * @name 添加收藏
+     */
+    public static function create($res_name, $res_id, $res_url, $title)
+    {
+        $model = new self;
+
+        $model->user_id = Yii::$app->user->id;
+        $model->res_name = $res_name;
+        $model->res_id = $res_id;
+        $model->res_url = $res_url;
+        $model->title = $title;
+
+        if ($model->save()) {
+            return $model;
+        }
+
+        p($model->getErrors());die;
+
+        return null;
+
+    }
+
+    public static function getCountByRes($res_name, $res_id)
+    {
+        return self::find()->where(['res_name'=>$res_name, 'res_id'=>$res_id])->count();
     }
 
     public function getUser()

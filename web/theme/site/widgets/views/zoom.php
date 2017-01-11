@@ -4,72 +4,95 @@ ZoomAsset::register($this);
 
 ?>
 <style type="text/css">
-.jqzoom{ width:450px; height:350px; position:relative;}
-.list-h li{ float:left;}
-#spec-n5{width:450px; height:56px; padding-top:6px; overflow:hidden;}
-#spec-left{width:10px; height:45px; float:left; cursor:pointer; margin-top:5px;}
-#spec-right{width:10px; height:45px; float:left;cursor:pointer; margin-top:5px;}
-#spec-list{ width:400px; float:left; overflow:hidden; margin-left:2px; display:inline;margin-right:6px;}
-#spec-list ul li{ float:left; margin-right:0px; display:inline; width:62px;}
-#spec-list ul li img{ padding:2px ; border:1px solid #ccc; width:50px; height:50px;}
-ul.nav-tabs>li>a{
-    font-size: 16px;
-}
-ul.nav-tabs>li.active>a{
-    color: #E28903;
-}
-#gal1 .zoomGalleryActive{
-    border:1px solid #999;
-}
-#gal1 a{
-    display: block;
-    float: left;
-    height: 50px;
-    margin-left: 2px;
-    border: 1px solid #ccc;
-}
+    a.thumbnail{
+        border-bottom: 1px solid #eee;
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+    .caption{
+        position: relative;
+        overflow: hidden;
+
+        background-color: #fff;
+        width: 100%;
+        text-align: right;
+        filter: alpha(opacity=70);
+        -moz-opacity: 0.7;
+        opacity: 0.7;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        border-top: 0;
+    }
+    .caption ul{
+        /*height: 54px;*/ 
+        margin:0px 5px;
+        padding: 3px 0;
+    }
+    .caption ul img{
+        margin-left:3px;
+    }
+    .caption ul img{
+        border:1px solid #ccc;
+    }
+    .caption .imgpre,.caption .imgnext{
+        position: absolute;
+        top: 0;
+        cursor: pointer;
+    }
+
+    .caption .imgpre{
+        left: 0;
+    }
+
+    .caption .imgnext{
+        right: 0;
+    }
+    #gal a.active{
+        border:#ccc 3px solid;
+    }
+
+    
 </style>
 
-<div class="product-image" id="preview">
-    <div class='jqzoom' id='spec-n1'>
-        <img id="zoom_01" src='<?=$imgs[0]['path'] . '/425x350@' . $imgs[0]['name']?>' data-zoom-image="<?=$imgs[0]['path'] . '/850x700@' . $imgs[0]['name']?>" />
-    </div>
-    <div id='spec-n5'>
-        <div class=control id='spec-left'>
-            <img src="/theme/site/static/elevatezoom/images/left.gif" />
-        </div>
-        <div id='spec-list'>
-            <ul class='list-h' id="gal1">
-                <?php foreach ($imgs as $img): ?>
 
-                    <a href="#" class="elevatezoom-gallery" data-image="<?=$img['path'] . '/425x350@' . $img['name']?>" data-zoom-image="<?=$img['path'] . '/850x700@' . $img['name']?>">
-                    <img id="" src="<?=$img['path'] . '/50x50@' . $img['name']?>" >
-                    </a>
-                <?php endforeach ?>
-            </ul>
-        </div>
-        <div class=control id='spec-right'>
-            <img src="/theme/site/static/elevatezoom/images/right.gif" />
-        </div>
+<div class="col-xs-12 col-md-5">
+    <a href="#" class="thumbnail" >
+      <img id="zoom" src='<?=$imgs[0]['path'] . '/450x450@' . $imgs[0]['name']?>' data-zoom-image="<?=$imgs[0]['path'] . '/800x800@' . $imgs[0]['name']?>" />
+    </a>
+    <div class="caption ">
+        <ul id="gal">
+            <?php foreach ($imgs as $img): ?>
+                <a href="#" class="elevatezoom-gallery" data-image="<?=$img['path'] . '/450x450@' . $img['name']?>" data-zoom-image="<?=$img['path'] . '/800x800@' . $img['name']?>">
+                <img src="<?=$img['path'] . '/50x50@' . $img['name']?>" >
+                </a>
+            <?php endforeach ?>
+            <div style="clear:both;"></div>
+        </ul>
+    <div style="clear:both;"></div>
+
     </div>
 </div>
 
-<?php $this->beginBlock('zoom') ?>  
-jQuery(document).ready(function() {
 
+<?php $this->beginBlock('zoom') ?>  
+
+$(function(){
     zoom();
-    
-    jQuery().UItoTop({ easingType: 'easeOutQuart' });    
-});  
+    jQuery().UItoTop({ easingType: 'easeOutQuart' });   
+})
 
 
 var zoom = function(){
-    $('#zoom_01').elevateZoom({
-    zoomType: "inner",
+    $('#zoom').elevateZoom({
+    //zoomType: "inner",
     cursor: "crosshair",
-    gallery             : "gal1",
+    gallery             : "gal",
     zoomWindowFadeIn: 500,
-    zoomWindowFadeOut: 750
+    zoomWindowFadeOut: 750,
+    zoomWindowWidth: 200,
+    zoomWindowHeight: 200,
+    galleryActiveClass:'active',
+    borderSize:0,
    }); 
 
 }

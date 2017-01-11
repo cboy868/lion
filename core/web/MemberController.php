@@ -12,6 +12,12 @@ class MemberController extends \app\core\web\Controller
 
     public $layout = "@app/core/views/layouts/member.php";
 
+
+    public function init()
+    {
+        Yii::$app->user->loginUrl = ['member/default/login'];
+    }
+
     public function beforeAction($action)
     {
 
@@ -35,7 +41,7 @@ class MemberController extends \app\core\web\Controller
     public function ignoreLogin()
     {
     	return [
-    		//'site/login','site/captcha','site/logout'
+            'member/default/login','member/default/captcha'
     	];
     }
 }

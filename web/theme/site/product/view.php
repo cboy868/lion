@@ -25,11 +25,10 @@ $this->title = $data['name'];
                             </div>  
                               
                             <div class="row nova-mg-pd">
-                                <div class="product-img-box col-md-5 nova-mg-pd">
+                                
 
                                 <?php echo Zoom::widget(['imgs'=>$imgs]);?>
                                    
-                                </div>
                                 <div class="product-shop col-md-7 nova-mg-pd">
                                     <div class="row nova-mg-pd">
                                         <div class="col-md-8 nova-pd-right">

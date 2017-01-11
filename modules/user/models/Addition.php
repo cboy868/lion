@@ -49,7 +49,7 @@ class Addition extends \app\core\db\ActiveRecord
     public function rules()
     {
         $rules = [
-            [['user_id'], 'required'],
+            [['user_id', 'real_name'], 'required'],
             [['user_id', 'gender', 'height'], 'integer'],
             [['birth'], 'safe'],
             [['weight'], 'number'],
