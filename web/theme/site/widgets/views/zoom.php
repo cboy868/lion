@@ -29,7 +29,7 @@ ZoomAsset::register($this);
         padding: 3px 0;
     }
     .caption ul img{
-        margin-left:3px;
+        margin:1px;
     }
     .caption ul img{
         border:1px solid #ccc;
@@ -47,8 +47,12 @@ ZoomAsset::register($this);
     .caption .imgnext{
         right: 0;
     }
+    #gal a{
+        display: inline-block;
+        border:#fff 1px solid;
+    }
     #gal a.active{
-        border:#ccc 3px solid;
+        border:#ccc 1px solid;
     }
 
     
