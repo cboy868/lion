@@ -7,6 +7,8 @@ use yii\behaviors\TimestampBehavior;
 use app\core\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use app\core\models\Attachment;
+use app\modules\user\models\Addition;
+
 
 /**
  * User model
@@ -215,5 +217,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAvatar($size)
     {
         return Attachment::getById($this->avatar, $size);
+    }
+
+    public function getAddition()
+    {
+        return $this->hasOne(Addition::className(), ['user_id' => 'id']);
     }
 }

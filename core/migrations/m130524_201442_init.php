@@ -43,6 +43,7 @@ class m130524_201442_init extends Migration
         $this->createTable('{{%user_addition}}', [
             'user_id' => $this->primaryKey(),
             'real_name' => $this->string(200),
+            'logins'    => $this->integer(),
             'gender'    => $this->smallInteger(1)->defaultValue(1);//1男 2女
             'birth'     => $this->date(),
             'height'    => $this->integer(),//厘米
@@ -54,6 +55,11 @@ class m130524_201442_init extends Migration
             'address'   => $this->text(),//现住址
             'intro'     => $this->text() //个人介绍
         ], $tableOptions);
+        $this->createTable('{{%user_log}}', [
+            'user_id' => $this->integer(),
+            'login_date' => $this->dateTime(),
+            'login_ip' => $this->string(100),
+        ], $tableOptions);
     }
 
     public function down()
@@ -61,5 +67,6 @@ class m130524_201442_init extends Migration
         $this->dropTable('{{%user}}');
         $this->dropTable('{{%user_field}}');
         $this->dropTable('{{%user_addition}}');
+        $this->dropTable('{{%user_log}}');
     }
 }

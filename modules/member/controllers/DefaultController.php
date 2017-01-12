@@ -7,6 +7,9 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\member\models\LoginForm;
 use app\modules\cms\models\Favor;
+use app\modules\user\models\Log;
+use app\modules\user\models\Addition;
+use app\modules\user\models\Log as LoginLog;
 
 class DefaultController extends \app\core\web\MemberController
 {
@@ -108,7 +111,12 @@ class DefaultController extends \app\core\web\MemberController
 
     public function actionPanel()
     {
-        return $this->render('panel');
+
+        return $this->render('panel', [
+                'log' => Log::getLast(),
+                'addition' => Yii::$app->user->identity->addition,
+                'user' => Yii::$app->user->identity
+            ]);
     }
 
 
@@ -121,6 +129,7 @@ class DefaultController extends \app\core\web\MemberController
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            LoginLog::create();
             return $this->goBack();
         } else {
             return $this->render('login', [

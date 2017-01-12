@@ -6,6 +6,7 @@ use yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\admin\models\LoginForm;
+use app\modules\user\models\Log as LoginLog;
 
 class DefaultController extends \app\core\web\BackController
 {
@@ -42,6 +43,8 @@ class DefaultController extends \app\core\web\BackController
      */
     public function actionIndex()
     {
+
+        $a = LoginLog::getLast();
         return $this->render('index');
     }
 
@@ -56,6 +59,7 @@ class DefaultController extends \app\core\web\BackController
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            LoginLog::create();
             return $this->goBack();
         } else {
             return $this->render('login', [

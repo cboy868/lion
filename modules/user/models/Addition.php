@@ -4,6 +4,7 @@ namespace app\modules\user\models;
 
 use Yii;
 use app\core\helpers\ArrayHelper;
+use app\modules\user\models\User;
 /**
  * This is the model class for table "{{%user_addition}}".
  *
@@ -50,7 +51,7 @@ class Addition extends \app\core\db\ActiveRecord
     {
         $rules = [
             [['user_id', 'real_name'], 'required'],
-            [['user_id', 'gender', 'height'], 'integer'],
+            [['user_id', 'gender', 'height', 'logins'], 'integer'],
             [['birth'], 'safe'],
             [['weight'], 'number'],
             [['address', 'hobby', 'native_place', 'intro'], 'string'],
@@ -78,6 +79,12 @@ class Addition extends \app\core\db\ActiveRecord
             'hobby' => '业余爱好',
             'native_place' => '籍贯',
             'intro' => '个人介绍',
+            'logins' => '登录次数'
         ] + $this->fields;
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }
