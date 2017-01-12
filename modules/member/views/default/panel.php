@@ -1,11 +1,12 @@
 <?php 
+use yii\helpers\Url;
 ?>
 <div class="profile">
     <div class="line-big">
         <div class="xm3">
             <div class="panel border-back">
                 <div class="panel-body text-center">
-                    <img src="/static/libs/member/images/face.jpg" width="120" class="radius-circle">
+                    <img src="<?=$user->getAvatar('200x200')?>" width="120" class="radius-circle">
                     <br> <?=$user->username?>
                 </div>
 
@@ -15,10 +16,15 @@
             <div class="panel">
                 <div class="panel-head"><strong>统计</strong></div>
                 <ul class="list-group">
-                    <li><span class="float-right badge bg-red">88</span><span class="icon-user"></span> 文章</li>
+                    
+                    <li>
+                        <a href="<?=Url::toRoute(['cms/favor/index'])?>">
+                        <span class="float-right badge bg-main"><?=$total['favor']?></span><span class="icon-shopping-cart"></span> 收藏
+                        </a>
+                    </li>
+                    <!-- <li><span class="float-right badge bg-red">88</span><span class="icon-user"></span> 文章</li>
                     <li><span class="float-right badge bg-main">828</span><span class="icon-file"></span> 图集</li>
-                    <li><span class="float-right badge bg-main">828</span><span class="icon-shopping-cart"></span> 收藏</li>
-                    <li><span class="float-right badge bg-main">828</span><span class="icon-file-text"></span> 留言</li>
+                    <li><span class="float-right badge bg-main">828</span><span class="icon-file-text"></span> 留言</li> -->
                 </ul>
             </div>
             <br>

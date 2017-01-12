@@ -22,7 +22,21 @@ class FavorController extends MemberController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $params = Yii::$app->request->queryParams;
+
+        $params['res'] = $params['res'] ? $params['res'] : 'goods';
+
+        $params['FavorSearch']['res_name'] = $params['res'];
+        $params['FavorSearch']['user_id'] = Yii::$app->user->id;
+
+        $searchModel = new FavorSearch();
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index', [
+                'res' => Favor::$res,
+                'params' => $params,
+                'dataProvider' => $dataProvider
+            ]);
     }
 
     /**
@@ -33,8 +47,14 @@ class FavorController extends MemberController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
+        if ($model->user_id == Yii::$app->user->id) {
+            $model->delete();
+            Yii::$app->getSession()->setFlash('success', '删除成功');
+        } else {
+            Yii::$app->getSession()->setFlash('error', '您无权进行此操作');
+        }
         return $this->redirect(['index']);
     }
 

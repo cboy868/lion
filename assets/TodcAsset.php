@@ -16,7 +16,7 @@ class TodcAsset extends AssetBundle
         'dist/css/todc-bootstrap.min.css'
     ];
     public $js = [
-        'dist/js/bootstrap.min.js'
+        // 'dist/js/bootstrap.min.js'
     ];
 }
 

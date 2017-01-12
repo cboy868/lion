@@ -359,12 +359,12 @@ AdminAsset::register($this);
                                     </a>
                                 </li> -->
 
-                                <!-- <li>
-                                    <a href="profile.html">
+                                <li>
+                                    <a href="<?=Url::toRoute(['/member'])?>">
                                         <i class="ace-icon fa fa-user"></i>
                                         个人中心
                                     </a>
-                                </li> -->
+                                </li>
 
                                 <li class="divider"></li>
 

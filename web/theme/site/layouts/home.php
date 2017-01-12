@@ -5,7 +5,9 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\assets\HomeAsset;
 use yii\helpers\Url;
+use app\assets\FontawesomeAsset;
 
+FontawesomeAsset::register($this);
 HomeAsset::register($this);
 ?>
 

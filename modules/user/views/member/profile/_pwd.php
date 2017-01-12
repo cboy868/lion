@@ -9,9 +9,9 @@ use app\core\widgets\ActiveForm;
 
 
     <div class="xb6 xl12">
-        <?= $form->field($model, 'oldpassword')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'repassword')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'oldpassword')->passwordInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'repassword')->passwordInput(['maxlength' => true]) ?>
     </div>
     
 

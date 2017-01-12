@@ -1,63 +1,56 @@
 <?php 
-
-use app\assets\TooltipAsset;
-
 use app\core\helpers\Url;
-TooltipAsset::register($this);
-
-$this->registerJsFile('@web/static/site/fav.js', ['depends'=>['yii\web\YiiAsset'], 'position'=> yii\web\View::POS_END]);
 ?>
-
-
-<span class="tooltip" title="This is my span's tooltip message!">Some text</span>
- 
-<a href="#" class="fav" res-name="goods" res-id="12" title="标题">点此收藏 (<span class="favcnt">12</span>)</a>
+<style type="text/css">
+	.list-group li, .list-link a{
+		padding: 0;
+	}
+	.list-group, .list-link{
+		border:none;
+	}
+</style>
 
 <div class="tab">
+
+<?php if (Yii::$app->getSession()->hasFlash('success')): ?>
+     <p class="bg-main" style="padding:15px 20px">
+        提示: <?=Yii::$app->getSession()->getFlash('success')?>
+    </p>
+<?php endif ?>
+<?php if (Yii::$app->getSession()->hasFlash('error')): ?>
+     <p class="bg-dot" style="padding:15px 20px">
+        提示: <?=Yii::$app->getSession()->getFlash('error')?>
+    </p>
+<?php endif ?>
 	<div class="tab-head">
 		<strong>我的收藏</strong> <span class="tab-more"></span>
 		<ul class="tab-nav">
-			<li class="active"><a href="#tab-start">产品</a> </li>
-			<li><a href="#tab-css">文章</a> </li>
-			<li><a href="#tab-units">图集</a> </li>
+		<?php foreach ($res as $k=>$v): ?>
+			<li class="<?php if ($params['res'] == $k): ?>active<?php endif ?>">
+				<a href="<?=Url::toRoute(['index', 'res'=>$k])?>"><?=$v?></a> 
+			</li>
+		<?php endforeach ?>
 		</ul>
 	</div>
 	<div class="tab-body">
 		<div class="tab-panel active" id="tab-start">
-			<div class="list-link">
-				<a href="#"><span class="float-right badge bg-main"></span> <button class="float-right badge bg-main">删除</button> 第二个 <small>(2017-02)</small></a> 
-				<a href="#" class="active"><span class="float-right badge bg-main"></span> <button class="float-right badge bg-main">删除</button> 第二个 <small>(2017-02)</small></a>
-			</div>
-		</div>
-		<div class="tab-panel" id="tab-css">
-			<div class="list-link">
-				<a href="#"><span class="float-right badge bg-main"></span> <button class="float-right badge bg-main">删除</button> 第二个 <small>(2017-02)</small></a> 
-				<a href="#" class="active"><span class="float-right badge bg-main"></span> <button class="float-right badge bg-main">删除</button> 第二个 <small>(2017-02)</small></a>
-			</div>
-		</div>
-		<div class="tab-panel" id="tab-units">
-			<div class="list-link">
-				<a href="#"><span class="float-right badge bg-main"></span> <button class="float-right badge bg-main">删除</button> 第二个 <small>(2017-02)</small></a> 
-				<a href="#" class="active"><span class="float-right badge bg-main"></span> <button class="float-right badge bg-main">删除</button> 第二个 <small>(2017-02)</small></a>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<?php $i=0;foreach ($dataProvider->getModels() as $k => $v): ?>
+					<tr>
+						<td class="list-link">
+							<a href="<?=$v['res_url']?>"   target="_blank"><?=$v['title']?></a>
+						</td>
+						<td width="40">
+							<a href="<?=Url::toRoute(['delete', 'id'=>$v['id']])?>" class="float-right badge bg-main del" aria-label="删除" data-confirm="您确定要删除此收藏吗？" data-method="post" data-pjax="0">
+							<span class="glyphicon glyphicon-trash"></span>删除
+							</a> 
+						</td>
+					</tr>
+					<?php $i++;endforeach ?>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
 
-
-
-
-<?php $this->beginBlock('fav') ?> 
-$(function(){
-	$('.fav').click(function(){
-		var res_name = $(this).attr('res-name');
-		var res_id = $(this).attr('res-id');
-		var title = $(this).attr('title');
-		var res_url = document.location.href;
-		var _csrf = $('meta[name=csrf-token]').attr('content');
-		var url = "<?=Url::toRoute(['/member/default/favor'])?>"
-		$('.fav').fav(res_name, res_id, res_url, title, _csrf, url);
-	});
-})  
-<?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['fav'], \yii\web\View::POS_END); ?>  

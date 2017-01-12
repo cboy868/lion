@@ -69,7 +69,6 @@ class DefaultController extends \app\core\web\MemberController
     public function actionFavor()
     {
 
-
         $post = Yii::$app->request->post();
 
         $filter = [
@@ -112,10 +111,15 @@ class DefaultController extends \app\core\web\MemberController
     public function actionPanel()
     {
 
+
+        $total['favor'] = Favor::find()->where(['user_id'=>Yii::$app->user->id])->count();
+
+
         return $this->render('panel', [
                 'log' => Log::getLast(),
                 'addition' => Yii::$app->user->identity->addition,
-                'user' => Yii::$app->user->identity
+                'user' => Yii::$app->user->identity,
+                'total' => $total,
             ]);
     }
 

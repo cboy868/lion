@@ -23,6 +23,7 @@ class m130524_201442_init extends Migration
             'mobile' => $this->string(60),//手机号
             'avatar' => $this->integer(),//头像
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'is_staff' => $this->smallInteger(1)->notNull(),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);

@@ -3,6 +3,10 @@
 use yii\helpers\Url;
 use app\core\models\Attachment;
 use yii\widgets\LinkPager;
+use app\assets\TooltipAsset;
+
+TooltipAsset::register($this);
+$this->registerJsFile('@web/static/site/fav.js', ['depends'=>['yii\web\YiiAsset'], 'position'=> yii\web\View::POS_END]);
 ?>
 
 <div class="toolbar">
@@ -59,13 +63,9 @@ use yii\widgets\LinkPager;
                 <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="product-image">
                     <div class="margin-image"><img src="<?=Attachment::getById($goods['thumb'], '310x310')?>" alt="<?=$goods['name']?>"></div>
                 </a>
-                <div class="descriptions-hidden">       
+                <div class="descriptions-hidden" style="display:none;">       
                     <div class="quick-whl"> 
-                        <a title="Wishlist" class="add_to_wishlist_small " href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" data-id="<?=$goods['id']?>"><i class="icon-wishlist"></i></a> 
-                        <a title="Compare" class="add_to_compare_small" href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" data-id="<?=$goods['id']?>"><i class="icon-compare"></i></a> 
-                        <div class="quickview-box">
-                        <a class="quickview_small" href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" data-id="<?=$goods['id']?>"><i class="icon-search"></i></a> 
-                        </div> 
+                        <a class="add_to_wishlist_small fav" href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-lg fa-heart"></i></a> 
                     </div>  
                 </div>
             </div>
@@ -95,3 +95,29 @@ use yii\widgets\LinkPager;
         </div>
     </div>
 </div>
+
+
+<?php $this->beginBlock('fav') ?> 
+$(function(){
+    $('.item').mouseover(function(){
+        $('.descriptions-hidden', this).show();
+    });
+    $('.item').mouseleave(function(){
+        $('.descriptions-hidden', this).hide();
+    })
+
+    $('.fav').click(function(e){
+        e.preventDefault();
+
+        var res_name = 'goods';
+        var res_id = $(this).data('id');
+        var title = $(this).attr('title');
+        var res_url = $(this).attr('href');
+        var _csrf = $('meta[name=csrf-token]').attr('content');
+        var url = "<?=Url::toRoute(['/member/default/favor'])?>"
+        $('.fav').fav(res_name, res_id, res_url, title, _csrf, url);
+    });
+})  
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['fav'], \yii\web\View::POS_END); ?>  
+

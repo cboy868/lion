@@ -47,8 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'user.username',
             'res_name',
             'res_id',
-            'title',
-            'res_url:url',
+            [
+                'label' => '资源名',
+                'value' => function($data){
+                    return Html::a($data->title, Yii::$app->request->hostInfo . $data->res_url, ['target'=>'_blank']);
+                },
+                'format' => 'raw'
+            ],
             // 'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],

@@ -38,6 +38,9 @@ MemberAsset::register($this);
   <div class="head-l float-right button-group">
     <a class="button button-little bg-green" href="<?=Url::toRoute(['/'])?>" target="_blank"><span class="icon-home"></span> 网站首页</a> &nbsp;&nbsp;
     <!-- <a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp; -->
+    <?php if (Yii::$app->user->identity->is_staff): ?>
+      <a class="button button-little bg-blue" href="<?=Url::toRoute(['/admin'])?>" data-method="post"> 管理中心</a> 
+    <?php endif ?>
     <a class="button button-little bg-red" href="<?=Url::toRoute(['default/logout'])?>" data-method="post"><span class="icon-power-off"></span> 退出登录</a> 
   </div>
 </div>
@@ -45,11 +48,12 @@ MemberAsset::register($this);
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>个人中心</h2>
   <ul style="display:block">
+    <li><a href="<?=Url::toRoute(['/member/default/panel'])?>" target="right"><span class="icon-caret-right"></span>操作面板</a></li>
     <li><a href="<?=Url::toRoute(['/member/user/profile/index'])?>" target="right"><span class="icon-caret-right"></span>我的设置</a></li>
-    <li><a href="info.html" target="right"><span class="icon-caret-right"></span>我的文章</a></li>
-    <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>我的图集</a></li>
+    <!-- <li><a href="info.html" target="right"><span class="icon-caret-right"></span>我的文章</a></li> -->
+    <!-- <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>我的图集</a></li> -->
     <li><a href="<?=Url::toRoute(['/member/cms/favor/index'])?>" target="right"><span class="icon-caret-right"></span>我的收藏</a></li>  
-    <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>     
+    <!-- <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>      -->
     <li><a href="column.html" target="right"><span class="icon-caret-right"></span>查看历史记录</a></li>
   </ul>   
   <!-- <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
@@ -61,8 +65,8 @@ MemberAsset::register($this);
 </div>
 <ul class="bread">
   <li><a href="{:U('Index/info')}" target="right" class="icon-home"> 首页</a></li>
-  <li><a href="##" id="a_leader_txt">网站信息</a></li>
-  <li><b>当前语言：</b><span style="color:red;">中文</php></span> <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> --> </li>
+  <li><a href="##" id="a_leader_txt">个人中心</a></li>
+  <!-- <li><b>当前语言：</b><span style="color:red;">中文</php></span> --> <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> --> </li>
 </ul>
 <div class="admin">
   <iframe scrolling="auto" rameborder="0" src="<?=Url::toRoute(['/member/default/panel'])?>" name="right" width="100%" height="100%"></iframe>

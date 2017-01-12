@@ -29,6 +29,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = -1;
     const STATUS_ACTIVE = 10;
 
+    const STAFF_YES = 1;
+    const STAFF_NO  = 0;
+
     /**
      * @inheritdoc
      */
@@ -52,7 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'required'],
-            [['status', 'created_at', 'updated_at', 'avatar'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'avatar', 'is_staff'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['mobile',], 'string', 'max' => 15, 'min'=>8],
             [['auth_key'], 'string', 'max' => 32],
@@ -79,6 +82,7 @@ class User extends ActiveRecord implements IdentityInterface
             'mobile' => '联系方式',
             'created_at' => '添加时间',
             'updated_at' => '添加时间',
+            'is_staff' => '是否是员工'
         ];
     }
 

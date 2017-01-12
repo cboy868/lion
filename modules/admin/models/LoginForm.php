@@ -31,6 +31,8 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+
+            ['username', 'validateStaff']
         ];
     }
 
@@ -59,6 +61,18 @@ class LoginForm extends Model
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
+    }
+
+    public function validateStaff($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+
+            if ($user->is_staff != User::STAFF_YES) {
+                $this->addError($attribute, '您无权进行此操作。');
+            }
+        }
+        
     }
 
     /**
