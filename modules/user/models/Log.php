@@ -64,8 +64,16 @@ class Log extends \app\core\db\ActiveRecord
         $model->save();
 
         $addition = Addition::find()->where(['user_id'=>Yii::$app->user->id])->one();
-        $addition->logins += 1;
+        if (!$addition) {
+            $addition = new Addition();
+            $addition->user_id = Yii::$app->user->id;
+            $addition->logins = 1;
+        } else {
+            $addition->logins += 1;
+        }
+
         $addition->save();
+
     }
 
 }

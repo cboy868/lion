@@ -45,14 +45,14 @@ $config = [
             'transport' => [  
                'class' => 'Swift_SmtpTransport',  
                'host' => 'smtp.163.com',  //每种邮箱的host配置不一样
-               'username' => '18501179465@163.com',  
-               'password' => 'zxn252',
+               'username' => 'cboy868@163.com',  
+               'password' => '77d^5l6',
                'port' => '25',  
                'encryption' => 'tls',  
             ],   
             'messageConfig'=>[  
                'charset'=>'UTF-8',  
-               'from'=>['18501179465@163.com'=>'admin']  
+               'from'=>['cboy868@163.com'=>'某公司']  
             ],  
         ],
 

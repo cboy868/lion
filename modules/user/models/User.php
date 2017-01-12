@@ -218,9 +218,9 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    public function getAvatar($size)
+    public function getAvatar($size, $default=null)
     {
-        return Attachment::getById($this->avatar, $size);
+        return Attachment::getById($this->avatar, $size, $default);
     }
 
     public function getAddition()

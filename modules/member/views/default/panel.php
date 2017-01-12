@@ -6,7 +6,7 @@ use yii\helpers\Url;
         <div class="xm3">
             <div class="panel border-back">
                 <div class="panel-body text-center">
-                    <img src="<?=$user->getAvatar('200x200')?>" width="120" class="radius-circle">
+                    <img src="<?=$user->getAvatar('200x200', '/static/images/default.png')?>" width="120" class="radius-circle">
                     <br> <?=$user->username?>
                 </div>
 
