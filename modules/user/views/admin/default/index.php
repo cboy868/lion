@@ -24,10 +24,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+
+
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+
+                    <?=  Html::a('<i class="fa fa-trash"></i> 清除不活跃用户', ['drop'], [
+                                'class' => 'btn btn-danger btn-sm new-menu', 
+                                'data-confirm'=>"此操作不可恢复，请慎重？", 
+                                'data-method'=>"post"]) 
+                    ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
+<?php if (Yii::$app->session->has('success')): ?>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <strong>恭喜!</strong> <?=Yii::$app->session->getFlash('success')?>
+    </div>
+<?php endif ?>
 
         <div class="row">
             <div class="col-xs-12">

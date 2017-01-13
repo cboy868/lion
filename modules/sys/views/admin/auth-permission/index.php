@@ -92,27 +92,3 @@ $(function(){
 })
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['auth'], \yii\web\View::POS_END); ?>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -27,6 +27,7 @@ class DefaultController extends BackController
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'drop' => ['post'],
                 ],
             ],
         ];
@@ -57,6 +58,9 @@ class DefaultController extends BackController
     {
         $users = Log::nonActiveUsers(185, 2);
         User::dropBatch($users);
+
+        Yii::$app->getSession()->setFlash('success', '操作成功');
+        return $this->redirect(['index']);
     }
   
     /**
