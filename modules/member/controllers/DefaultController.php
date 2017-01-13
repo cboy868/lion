@@ -41,14 +41,17 @@ class DefaultController extends \app\core\web\MemberController
         ];
     }
 
+
     public function actions()
     {       
-        return  [   
-                'captcha' => 
-                   [
-                       'class' => 'yii\captcha\CaptchaAction',
-                       'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                   ],  //默认的写法
+        return  [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+               'class' => 'yii\captcha\CaptchaAction',
+               'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],  //默认的写法
             // 'captcha' => [
             //             'class' => 'yii\captcha\CaptchaAction',
             //             'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,

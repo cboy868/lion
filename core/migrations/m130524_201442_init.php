@@ -61,6 +61,14 @@ class m130524_201442_init extends Migration
             'login_date' => $this->dateTime(),
             'login_ip' => $this->string(100),
         ], $tableOptions);
+
+        $this->createTable('{{%user_token}}', [
+            'id' => $this->primaryKey(),
+            'user_id'    => $this->integer()->notNull(),
+            'code'       => $this->string(32)->notNull(),
+            'created_at' => $this->integer()->notNull(),
+            'type'       => $this->smallInteger()->notNull(),//1注册,2找回密码
+        ], $tableOptions);
     }
 
     public function down()
@@ -69,5 +77,6 @@ class m130524_201442_init extends Migration
         $this->dropTable('{{%user_field}}');
         $this->dropTable('{{%user_addition}}');
         $this->dropTable('{{%user_log}}');
+        $this->dropTable('{{%user_token}}');
     }
 }

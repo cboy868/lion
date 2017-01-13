@@ -50,6 +50,7 @@ return [
     'm/default/<action:(.+)>'=> 'm/default/<action>',
 
     'login' => 'admin/default/login',
+    'member/login' => 'member/default/login',
 
     '/upload/<t:(.+)>' => '/home/default/thumb',  //生成缩略图用的东西，配合nginx使用,nginx配置如下
 

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use app\core\widgets\ActiveForm;
 use yii\captcha\Captcha;
 
-$this->title = '登录后台管理';
+$this->title = '找回密码';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -13,25 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
     body{background: url(/static/libs/member/images/bg.jpg);}
 </style>
 <div class="container">
-
-
-
-
-
     <div class="line bouncein" style="padding-top:100px;">
         <div class="xs6 xm4 xs3-move xm4-move">
-
-            <?php if (Yii::$app->getSession()->hasFlash('success')): ?>
-                 <p class="bg-main" style="padding:15px 20px">
-                    提示: <?=Yii::$app->getSession()->getFlash('success')?>
-                </p>
-            <?php endif ?>
-            <?php if (Yii::$app->getSession()->hasFlash('error')): ?>
-                 <p class="bg-dot" style="padding:15px 20px">
-                    提示: <?=Yii::$app->getSession()->getFlash('error')?>
-                </p>
-            <?php endif ?>
-
             <div class="site-login">
 
                 <?php $form = ActiveForm::memberBegin([
@@ -42,25 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]); ?>
 
                 <div class="panel loginbox">
-                    <div class="text-center margin-big padding-big-top"><h1>后台管理中心</h1></div>
+                    <div class="text-center margin-big padding-big-top"><h1>忘记密码</h1></div>
                     <div class="panel-body" style="padding:30px; padding-bottom:10px; padding-top:10px;">
 
                         <?php $form->fieldConfig['template'] = "{label}<div class=\"field field-icon-right\">{input}<span class=\"icon icon-user margin-small\"></span>{error}</div>"; ?>
-                        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                        <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-
-                        <?php $form->fieldConfig['template'] = "{label}<div class=\"field field-icon-right\">{input}<span class=\"icon icon-key margin-small\"></span>{error}</div>"; ?>
-                        <?= $form->field($model, 'password')->passwordInput() ?>
-
+                        
                         <?php $form->fieldConfig['template'] = "{label}<div class=\"field\">{input}{hint}{error}</div>"; ?>
 
 
-
                         <?= $form->field($model, 'verifyCode')->textInput() ?>
-                        <?php echo Captcha::widget(['name'=>'captchaimg','captchaAction'=>'default/captcha','imageOptions'=>['id'=>'captchaimg', 'title'=>'换一个', 'alt'=>'换一个', 'style'=>'cursor:pointer;'],'template'=>'{image}']); ?>
-                        <?= $form->field($model, 'rememberMe')->checkbox([
-                            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                        ]) ?>
+                        <?php echo Captcha::widget(['name'=>'captchaimg','captchaAction'=>'/member/default/captcha','imageOptions'=>['id'=>'captchaimg', 'title'=>'换一个', 'alt'=>'换一个', 'style'=>'cursor:pointer;'],'template'=>'{image}']); ?>
 
 
                         <div class="form-group">
