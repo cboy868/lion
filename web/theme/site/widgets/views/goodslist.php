@@ -7,7 +7,6 @@ use yii\widgets\LinkPager;
 use app\assets\TooltipAsset;
 
 TooltipAsset::register($this);
-$this->registerJsFile('@web/static/site/fav.js', ['depends'=>['yii\web\YiiAsset'], 'position'=> yii\web\View::POS_END]);
 ?>
 <div class="toolbar">
     <div class="sorter">
@@ -75,19 +74,19 @@ $this->registerJsFile('@web/static/site/fav.js', ['depends'=>['yii\web\YiiAsset'
                     <div class="price-box">
                         <p class="minimal-price">
                             <span class="price-label">Starting at:</span>
-                            <span class="price" id="product-minimal-price-1490">$<?=$goods['price']?></span>
+                            <span class="price">$<?=$goods['price']?></span>
                         </p>
                     </div>
                     <div class="desc std">
                     <?=$goods['intro']?>
-                        <a href="?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="link-learn">Learn More</a>
+                        <!-- <a href="?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="link-learn">Learn More</a> -->
                     </div>                                      
                 </div>
             </div>
 
             <div class="act-box">                   
                 <ul class="add-to-links">
-                    <li><a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-heart"></i></a></li>
+                    <li><a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-heart"></i></a></li>
             </ul>
             </div>
         </div>
@@ -113,23 +112,33 @@ $this->registerJsFile('@web/static/site/fav.js', ['depends'=>['yii\web\YiiAsset'
 
 <?php $this->beginBlock('fav') ?> 
 $(function(){
-    $('.item').mouseover(function(){
-        $('.descriptions-hidden', this).show();
-    });
-    $('.item').mouseleave(function(){
-        $('.descriptions-hidden', this).hide();
-    })
-
     $('.fav').click(function(e){
         e.preventDefault();
 
-        var res_name = 'goods';
+        var res_name = $(this).data('res');
         var res_id = $(this).data('id');
         var title = $(this).attr('title');
         var res_url = $(this).attr('href');
         var _csrf = $('meta[name=csrf-token]').attr('content');
-        var url = "<?=Url::toRoute(['/member/default/favor'])?>"
-        $('.fav').fav(res_name, res_id, res_url, title, _csrf, url);
+        var url = "<?php echo Url::toRoute(['/member/default/favor'])?>";
+
+        var favObj = $(this);
+        var data = {res_name:res_name,res_id:res_id,title:title,res_url:res_url,_csrf:_csrf};
+
+        $.post(url, data, function(xhr){
+            if (xhr.status) {
+                favObj.tooltipster({})
+                .tooltipster('content', xhr.info)
+                .tooltipster('open');
+
+            } else {
+                favObj.tooltipster({})
+                .tooltipster('content', xhr.info)
+                .tooltipster('open');
+            }
+        },'json');
+
+
     });
 })  
 <?php $this->endBlock() ?>  

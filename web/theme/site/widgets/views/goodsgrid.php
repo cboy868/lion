@@ -6,7 +6,6 @@ use yii\widgets\LinkPager;
 use app\assets\TooltipAsset;
 
 TooltipAsset::register($this);
-$this->registerJsFile('@web/static/site/fav.js', ['depends'=>['yii\web\YiiAsset'], 'position'=> yii\web\View::POS_END]);
 ?>
 
 <div class="toolbar">
@@ -65,7 +64,7 @@ $this->registerJsFile('@web/static/site/fav.js', ['depends'=>['yii\web\YiiAsset'
                 </a>
                 <div class="descriptions-hidden" style="display:none;">       
                     <div class="quick-whl"> 
-                        <a class="add_to_wishlist_small fav" href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-lg fa-heart"></i></a> 
+                        <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-lg fa-heart"></i></a>
                     </div>  
                 </div>
             </div>
@@ -109,13 +108,28 @@ $(function(){
     $('.fav').click(function(e){
         e.preventDefault();
 
-        var res_name = 'goods';
+        var res_name = $(this).data('res');
         var res_id = $(this).data('id');
         var title = $(this).attr('title');
         var res_url = $(this).attr('href');
         var _csrf = $('meta[name=csrf-token]').attr('content');
-        var url = "<?=Url::toRoute(['/member/default/favor'])?>"
-        $('.fav').fav(res_name, res_id, res_url, title, _csrf, url);
+        var url = "<?php echo Url::toRoute(['/member/default/favor'])?>";
+
+        var favObj = $(this);
+        var data = {res_name:res_name,res_id:res_id,title:title,res_url:res_url,_csrf:_csrf};
+
+        $.post(url, data, function(xhr){
+            if (xhr.status) {
+                favObj.tooltipster({})
+                .tooltipster('content', xhr.info)
+                .tooltipster('open');
+
+            } else {
+                favObj.tooltipster({})
+                .tooltipster('content', xhr.info)
+                .tooltipster('open');
+            }
+        },'json');
     });
 })  
 <?php $this->endBlock() ?>  
