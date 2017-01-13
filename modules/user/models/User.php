@@ -227,4 +227,25 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Addition::className(), ['user_id' => 'id']);
     }
+    public static function drop($user_id)
+    {
+        $model = self::findOne($user_id);
+        if (!$model) {
+            return;
+        }
+        $model->status = self::STATUS_DELETED;
+        $model->save();
+    }
+    public static function dropBatch($users)
+    {
+        $connection = Yii::$app->db;
+        $connection->createCommand()
+                    ->update(
+                        self::tableName(),
+                        ['status'=>self::STATUS_DELETED],
+                        ['id'=>$users]
+                    )->execute();
+    }
+
+    
 }

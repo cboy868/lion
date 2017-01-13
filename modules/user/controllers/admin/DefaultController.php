@@ -12,6 +12,9 @@ use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
+use app\modules\user\models\Log;
+
 /**
  * DefaultController implements the CRUD actions for User model.
  */
@@ -45,6 +48,16 @@ class DefaultController extends BackController
         ]);
     }
 
+
+    /**
+     * @name 删除非活跃用户
+     * 假删除
+     */
+    public function actionDrop()
+    {
+        $users = Log::nonActiveUsers(185, 2);
+        User::dropBatch($users);
+    }
   
     /**
      * Displays a single User model.
