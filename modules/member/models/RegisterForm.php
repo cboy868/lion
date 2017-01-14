@@ -1,19 +1,22 @@
 <?php
 
-namespace app\modules\user\models;
+namespace app\modules\member\models;
 
 use Yii;
 use yii\base\Model;
+use yii\captcha\Captcha;
+use app\modules\user\models\User;
 
 /**
  * Signup form
  */
-class UserForm extends Model
+class RegisterForm extends Model
 {
     public $username;
     public $email;
     public $password;
     public $repassword;
+    public $verifyCode;
 
     /**
      * @inheritdoc
@@ -30,12 +33,17 @@ class UserForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\modules\user\models\User', 'message' => '此邮箱已被使用'],
+            ['email', 'unique', 'targetClass' => '\app\modules\user\models\User', 'message' => '此邮箱已注册，如果忘记密码，请尝试找回密码'],
 
             // ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['password', 'required'],
 
-            ['repassword', 'compare', 'compareAttribute'=>'password']
+            ['repassword', 'required'],
+            ['repassword', 'compare', 'compareAttribute'=>'password'],
+
+            ['verifyCode', 'required'],
+            ['verifyCode', 'captcha', 'captchaAction'=>'/member/default/captcha'],
 
         ];
     }
@@ -44,9 +52,10 @@ class UserForm extends Model
     {
       return array(
         'username'=> '用户名',
-        'email' => '邮箱',
-        'password' => '注册密码',
+        'email' => '常用邮箱',
+        'password' => '密码',
         'repassword' => '再次输入密码',
+        'verifyCode' => '验证码',
       );
     }
 
@@ -58,6 +67,7 @@ class UserForm extends Model
      */
     public function create()
     {
+
         if ($this->validate()) {
             $user = new User();
             $user->username = $this->username;
@@ -65,12 +75,12 @@ class UserForm extends Model
             $this->password = $this->password ? $this->password : '999999';
             $user->setPassword($this->password);
             $user->generateAuthKey();
-            $user->is_staff = User::STAFF_YES;
+            $user->is_staff = User::STAFF_NO;
+            $user->status = User::STATUS_REGISTER;
             if ($user->save()) {
                 return $user;
             }
         }
-
-        return null;
+        return false;
     }
 }

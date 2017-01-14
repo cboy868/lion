@@ -4,6 +4,7 @@ namespace app\core\web;
 
 
 use yii;
+use yii\helpers\Url;
 
 /**
  * Default controller for the `wechat` module
@@ -23,6 +24,7 @@ class MemberController extends \app\core\web\Controller
 
     public function beforeAction($action)
     {
+        Yii::$app->setHomeUrl(Url::toRoute(['/member']));
         //检查不需要登录的action 如 site/login site/captcha
         if (in_array($action->uniqueID, $this->ignoreLogin()))
         {
@@ -51,7 +53,8 @@ class MemberController extends \app\core\web\Controller
             'member/user/default/forget',
             'member/user/default/token',
             'member/user/default/confirm',
-            'member/default/error'
+            'member/default/error',
+            'member/default/reg'
     	];
     }
 }

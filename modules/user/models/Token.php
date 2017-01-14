@@ -18,7 +18,7 @@ class Token extends \app\core\db\ActiveRecord
 
     const TYPE_RESET = 2;
     const TYPE_REGISTER = 1;
-    const TYPE_DELETE = 1;
+    const TYPE_DELETE = -1;
     /**
      * @inheritdoc
      */
@@ -62,5 +62,19 @@ class Token extends \app\core\db\ActiveRecord
             'created_at' => 'Created At',
             'type' => 'Type',
         ];
+    }
+
+
+    public static function create($user, $type)
+    {
+        $token = new self;
+        $token->code = Yii::$app->security->generateRandomString();
+        $token->user_id = $user->id;
+        $token->type = $type;//Token::TYPE_REGISTER;
+        if ($token->save()){
+            return $token;
+        }
+
+        return false;
     }
 }

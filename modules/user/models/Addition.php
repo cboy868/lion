@@ -87,4 +87,12 @@ class Addition extends \app\core\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    public static function create($user)
+    {
+        $addition = new self;
+        $addition->user_id = $user->id;
+        $addition->save();
+        return $addition;
+    }
 }

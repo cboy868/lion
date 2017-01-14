@@ -7,9 +7,39 @@ use app\modules\user\models\ForgetForm;
 use app\modules\user\models\Token;
 use app\modules\user\models\PasswdForm;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
+use app\modules\user\models\User;
 
 class DefaultController extends \app\core\web\MemberController
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['forget', 'confirm', 'token'],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['forget', 'confirm', 'token'],
+                        'allow' => true,
+                    ],
+                    
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+
     public function actionIndex()
     {
         return $this->render('index');
@@ -22,6 +52,7 @@ class DefaultController extends \app\core\web\MemberController
     {
         $model = new ForgetForm();
         if ($model->load(Yii::$app->request->post()) && $model->create()) {
+            Yii::$app->getSession()->setFlash('success', '已发送修改密码连接至您的邮箱，请及时修改');
             return $this->goBack();
         } else {
             return $this->render('forget', [
@@ -30,11 +61,44 @@ class DefaultController extends \app\core\web\MemberController
         }
     }
 
+    // public function actionSuccess()
+    // {
+    //     if (Yii::$app->getSession()->hasFlash('success')) {
+    //         return $this->render('success');
+    //     } else {
+    //         return $this->goHome();
+    //     }
+        
+    // }
+
     /**
      * @name 注册后邮箱确认页面
      */
-    public function actionConfirm()
+    public function actionConfirm($code)
     {
+        $model = Token::find()->where(['code'=>$code, 'type'=>Token::TYPE_REGISTER])->one();
+
+        if (!$model) {
+            throw new NotFoundHttpException('连接不存在或已过期', 1);
+        }
+        
+        $outerTransaction = Yii::$app->db->beginTransaction();
+
+        try {
+            $user = User::findOne($model->user_id);
+
+            $user->status = User::STATUS_ACTIVE;
+            $user->save();
+            $model->type = Token::TYPE_DELETE;
+            $model->save();
+
+            $outerTransaction->commit();
+
+            return $this->redirect(['/member/default/login']);
+        } catch (Exception $e) {
+            throw new NotFoundHttpException($e->getMessage(), 1);
+            $outerTransaction->rollBack();
+        }
 
     }
 
@@ -46,13 +110,12 @@ class DefaultController extends \app\core\web\MemberController
         $model = Token::find()->where(['code'=>$code, 'type'=>Token::TYPE_RESET])->one();
 
         //不能为空
-
         if (!$model) {
-            throw new NotFoundHttpException(Yii::t('yii', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
         //不可过期
         if ($model->created_at < strtotime('-3 day')) {
-            throw new NotFoundHttpException('页面已过期.');
+            throw new NotFoundHttpException(Yii::t('app', 'Page Expired.'));
         }
 
         $pwd = new PasswdForm();

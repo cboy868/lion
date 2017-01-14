@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m170106_085056_favor extends Migration
+class m170113_163111_comment extends Migration
 {
     public function up()
     {
@@ -11,20 +11,24 @@ class m170106_085056_favor extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        $this->createTable('{{%favor}}', [
+        $this->createTable('{{%comment}}', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer(),
+            'from' => $this->integer(),
+            'to' => $this->integer(),
             'res_name' => $this->string(200),
             'res_id'   => $this->integer(),
-            'title'     => $this->string(200),
-            'res_url'   => $this->string(255),
-            'created_at' => $this->integer()->notNull()
+            'pid'       => $this->integer()->defaultValue(0),
+            'content'   => $this->text(),
+            'privacy'   => $this->smallInteger(1)->defaultValue(0),//悄悄话之类的东西, 0为公开
+            'status'    => $this->smallInteger(1)->defaultValue(0), //状态，删除、待审、发布
+            'created_at'=> $this->integer()->notNull()
+
         ], $tableOptions);
     }
 
     public function down()
     {
-        $this->dropTable('{{%favor}}');
+        $this->dropTable('{{%comment}}');
     }
 
     /*

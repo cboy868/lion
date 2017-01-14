@@ -28,6 +28,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = -1;
     const STATUS_ACTIVE = 10;
+    const STATUS_REGISTER = 0;//注册待激活状态
 
     const STAFF_YES = 1;
     const STAFF_NO  = 0;
@@ -63,8 +64,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['email','mobile'], 'unique'],
             [['email'], 'email'],
             [['password_reset_token'], 'unique'],
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'default', 'value' => self::STATUS_REGISTER],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_REGISTER]],
         ];
     }
 
