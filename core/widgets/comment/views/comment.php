@@ -97,7 +97,7 @@ FormAsset::register($this);
 
 					        <div class="form-group">
 						        <div class="col-sm-3">
-						        	<?=  Html::submitButton('保 存', ['class' => 'btn btn-info btn-block']) ?>	
+						        	<?=  Html::submitButton('保 存', ['class' => 'btn btn-info btn-block comment', "data-loading-text"=>"评论提交, 请稍后..."]) ?>	
 						        </div>
 						    </div>
 					        
@@ -112,7 +112,11 @@ FormAsset::register($this);
 
 <?php $this->beginBlock('form') ?>  
 $(function(){
+
 	$('#<?=$model->formName()?>').ajaxForm({
+		beforeSubmit: function(){
+			btn = $('.comment').button('loading');
+		},
 		success:function(xhr, statusText){
 			if (xhr.status == true) {
 				var comment = xhr.data['comment'];
@@ -126,9 +130,22 @@ $(function(){
 				  '</div>'
 
 				$('.list-group').append(html);
+				btn.button('reset');
 			}
 		}
 	});
 })  
+
+
+
+
+
+
+
+
+
+
+
+
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['form'], \yii\web\View::POS_END); ?>
