@@ -227,7 +227,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn'],
+            //['class' => 'yii\grid\CheckboxColumn'],
             [
                 'label' => '标题',
                 'value' => function($model){

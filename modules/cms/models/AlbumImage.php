@@ -4,6 +4,7 @@ namespace app\modules\cms\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\modules\mod\models\Code;
 
 /**
  * This is the model class for table "{{%attachment}}".
@@ -98,6 +99,8 @@ class AlbumImage extends \yii\db\ActiveRecord
         $model->album_id = $post['album_id'];
         $model->mod = $post['mod'];
         $model->save();
+
+        Code::createObj('album', $post['mod']);
 
         $class = '\app\modules\cms\models\mods\Album' . $post['mod'];
 

@@ -16,6 +16,8 @@ use app\modules\mod\models\Module;
 use app\modules\cms\models\AlbumImage;
 use app\modules\cms\models\AlbumImageSearch;
 
+use app\modules\mod\models\Code;
+
 /**
  * AlbumController implements the CRUD actions for Album model.
  */
@@ -61,10 +63,14 @@ class AlbumController extends BackController
      */
     public function actionIndex()
     {
+
         $mod = Yii::$app->request->get('mod');
         $tree = $this->getCates($mod);
 
         $modInfo = Module::findOne($mod);
+
+
+        Code::createObj('album', $mod);
 
         $class = '\app\modules\cms\models\mods\Album' . $mod . 'Search';
         $c = 'Album' . $mod . 'Search';
@@ -140,6 +146,7 @@ class AlbumController extends BackController
 
         $modInfo = Module::findOne($mod);
 
+        Code::createObj('post', $mod);
 
         $attach = [];
         $command = (new \yii\db\Query())
@@ -304,6 +311,8 @@ class AlbumController extends BackController
      */
     protected function findModel($id, $mod)
     {
+        Code::createObj('album', $mod);
+
         $class = '\app\modules\cms\models\mods\Album' . $mod;
         if (($model = $class::findOne($id)) !== null) {
             return $model;

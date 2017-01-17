@@ -87,87 +87,87 @@ class Module extends \yii\db\ActiveRecord
     }
 
 
-    public static function createModel($model, $mod)
-    {
+//     public static function createModel($model, $mod)
+//     {
 
-        $ori_table = $model::tableName();
-        $table = str_replace('}}', '_' . $mod . '}}', $ori_table);
-
-
-        $class = '\\' . $model::className();
-
-        $table_name = $class::getTableSchema()->name . '_' . $mod;
-
-        $c = Yii::getAlias('@'.str_replace('\\', '/', $model));
-        $dir = dirname($c) . '/mods/';
-
-        $class = basename($c) . $mod;
-        $filename = $class . '.php';
-
-        $data = <<<'CLASS'
-<?php
-
-namespace app\modules\cms\models\mods;
-
-use app\modules\mod\models\Field;
-use app\core\helpers\ArrayHelper;
+//         $ori_table = $model::tableName();
+//         $table = str_replace('}}', '_' . $mod . '}}', $ori_table);
 
 
-class %s extends \%s
-{
-    public $fields;
+//         $class = '\\' . $model::className();
 
-    public function init()
-    {
+//         $table_name = $class::getTableSchema()->name . '_' . $mod;
 
-        $mod = \Yii::$app->getRequest()->get('mod');
-        $fields = Field::find()->where(['table'=>"%s"])->asArray()->all();
+//         $c = Yii::getAlias('@'.str_replace('\\', '/', $model));
+//         $dir = dirname($c) . '/mods/';
 
-        $this->fields = ArrayHelper::map($fields, 'name', 'title');
-        parent::init();
+//         $class = basename($c) . $mod;
+//         $filename = $class . '.php';
 
-    }
+//         $data = <<<'CLASS'
+// <?php
 
-    public static function tableName()
-    {
-        return "%s";
-    }
+// namespace app\modules\cms\models\mods;
+
+// use app\modules\mod\models\Field;
+// use app\core\helpers\ArrayHelper;
 
 
-    public function attributeLabels()
-    {
-        $attr = parent::attributeLabels();
+// class %s extends \%s
+// {
+//     public $fields;
 
-        return $attr +$this->fields;
-    }
+//     public function init()
+//     {
+
+//         $mod = \Yii::$app->getRequest()->get('mod');
+//         $fields = Field::find()->where(['table'=>"%s"])->asArray()->all();
+
+//         $this->fields = ArrayHelper::map($fields, 'name', 'title');
+//         parent::init();
+
+//     }
+
+//     public static function tableName()
+//     {
+//         return "%s";
+//     }
 
 
-    public function rules()
-    {
-        $rules = parent::rules();
-        return array_merge($rules, [[array_keys($this->fields), 'safe']]);
-    }
-}
-CLASS;
+//     public function attributeLabels()
+//     {
+//         $attr = parent::attributeLabels();
+
+//         return $attr +$this->fields;
+//     }
 
 
-        $data = sprintf($data, $class, $model, $table_name, $table);
+//     public function rules()
+//     {
+//         $rules = parent::rules();
+//         return array_merge($rules, [[array_keys($this->fields), 'safe']]);
+//     }
+// }
+// CLASS;
 
-        FileHelper::createDirectory($dir);
 
-        if(!file_put_contents($dir . $filename, $data)) {
-            return false;
-        }
+//         $data = sprintf($data, $class, $model, $table_name, $table);
 
-        $search_filename = $class . 'Search.php';
+//         FileHelper::createDirectory($dir);
 
-        if (is_file($c . 'Search.php')) {
-            $search = file_get_contents($c . 'Search.php');
-            $search = str_replace(basename($c), $class, $search);
-            $search = str_replace('models', 'models\\mods', $search);
-            file_put_contents($dir . $search_filename, $search);
-        }
-    }
+//         if(!file_put_contents($dir . $filename, $data)) {
+//             return false;
+//         }
+
+//         $search_filename = $class . 'Search.php';
+
+//         if (is_file($c . 'Search.php')) {
+//             $search = file_get_contents($c . 'Search.php');
+//             $search = str_replace(basename($c), $class, $search);
+//             $search = str_replace('models', 'models\\mods', $search);
+//             file_put_contents($dir . $search_filename, $search);
+//         }
+//     }
 
     public static function createTable($table, $mod)
     {
@@ -178,8 +178,6 @@ CLASS;
     public static function deleteTable($table, $mod)
     {
         $sql = "drop table " . $table . '_' . $mod;
-
-        
 
         Yii::$app->db->createCommand($sql)->execute();
         
@@ -194,28 +192,28 @@ CLASS;
         Yii::$app->db->createCommand($field_sql)->execute();
     }
 
-    public static function deleteFile($model, $mod)
-    {
+    // public static function deleteFile($model, $mod)
+    // {
 
-        // 类文件
-        $c = Yii::getAlias('@'.str_replace('\\', '/', $model));
-        $dir = dirname($c) . '/mods/';
-        $class = basename($c) . $mod;
-        $filename = $class . '.php';
+    //     // 类文件
+    //     $c = Yii::getAlias('@'.str_replace('\\', '/', $model));
+    //     $dir = dirname($c) . '/mods/';
+    //     $class = basename($c) . $mod;
+    //     $filename = $class . '.php';
 
-        //查找文件
-        $search_filename = $class . 'Search.php';
+    //     //查找文件
+    //     $search_filename = $class . 'Search.php';
 
 
-        // if (is_file($dir . $filename)) {
-            @unlink($dir . $filename);
-        // }
+    //     // if (is_file($dir . $filename)) {
+    //         @unlink($dir . $filename);
+    //     // }
 
-        // if (is_file($dir . $search_filename)) {
-            @unlink($dir . $search_filename);
-        // }
+    //     // if (is_file($dir . $search_filename)) {
+    //         @unlink($dir . $search_filename);
+    //     // }
 
-    }
+    // }
 
     public static function deleteMod($model)
     {
@@ -235,7 +233,7 @@ CLASS;
         $tables = Yii::$app->controller->module->params['table'][$module->module];
 
         foreach ($tables as $k => $model) {
-            self::createModel($model::className(), $module->id);
+            // self::createModel($model::className(), $module->id);
             self::createTable($k, $module->id);
         }
 
