@@ -132,20 +132,10 @@ $(function(){
 				$('.list-group').append(html);
 				btn.button('reset');
 			}
+			return false;
 		}
 	});
 })  
-
-
-
-
-
-
-
-
-
-
-
 
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['form'], \yii\web\View::POS_END); ?>
