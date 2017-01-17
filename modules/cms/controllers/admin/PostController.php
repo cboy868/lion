@@ -129,9 +129,7 @@ class PostController extends BackController
         $dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
         $dataModel = new $dataClass;
 
-
         $modInfo = Module::findOne($mod);
-
 
         $attach = [];
         $command = (new \yii\db\Query())

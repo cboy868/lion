@@ -20,7 +20,7 @@
     "jquery-colorbox": "^1.6.4",
     "jquery-ui": "^1.12.1",
     "plupload": "^2.1.9",
-    "todc-bootstrap": "^3.0.2",
+    // "todc-bootstrap": "^3.0.2",
     "ueditor": "^1.4.3",
     "validate": "^0.10.0",
     "jquery-treetable": "^3.2.0",

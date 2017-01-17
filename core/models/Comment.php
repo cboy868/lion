@@ -3,7 +3,8 @@
 namespace app\core\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use app\modules\user\models\User;
 /**
  * This is the model class for table "{{%comment}}".
  *
@@ -22,7 +23,7 @@ class Comment extends \app\core\db\ActiveRecord
 {
 
     const STATUS_DRAFT = 1;//待审
-    const STATUS_DELETE = -1;
+    const STATUS_DELETE = -1;//删除
     const STATUS_PUBLISH = 2;//发布
 
     const PRIVACY_PUBLIC = 0;//公开
@@ -44,7 +45,7 @@ class Comment extends \app\core\db\ActiveRecord
         return [
             [['from', 'to', 'res_id', 'pid', 'privacy', 'status', 'created_at'], 'integer'],
             [['content'], 'string'],
-            [['created_at'], 'required'],
+            [['content', 'to', 'res_name', 'res_id', 'privacy'], 'required'],
             [['res_name'], 'string', 'max' => 200],
         ];
     }
@@ -68,6 +69,23 @@ class Comment extends \app\core\db\ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
+        ];
+    }
+
+    public function getFromUser()
+    {
+        return $this->hasOne(User::className(), ['id'=>'from']);
+    }
+
     public static function getByRes($res_name, $res_id, $limit=null)
     {
 
@@ -76,6 +94,19 @@ class Comment extends \app\core\db\ActiveRecord
     public function create($res_name, $res_id, $content, $privacy)
     {
 
+    }
+
+    public function beforeSave($insert)
+    {
+
+        if (parent::beforeSave($insert)) {
+            // $this->from = isset(Yii::$app->user->id) ? Yii::$app->user->id : 0;
+            // $this->status = self::STATUS_DRAFT;
+            return true;
+        }
+
+        return false;
+        
     }
 
 

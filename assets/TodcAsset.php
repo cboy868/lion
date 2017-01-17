@@ -10,10 +10,11 @@ use yii\web\AssetBundle;
  */
 class TodcAsset extends AssetBundle
 {
-	public $sourcePath = '@bower/todc-bootstrap';
+	public $basePath = '@webroot';
+    public $baseUrl = '@web';
 
     public $css = [
-        'dist/css/todc-bootstrap.min.css'
+        'static/libs/todc-bootstrap-3.3.7/css/todc-bootstrap.min.css'
     ];
     public $js = [
         // 'dist/js/bootstrap.min.js'
@@ -22,6 +23,8 @@ class TodcAsset extends AssetBundle
 
 
 
+
+// todc-bootstrap-3.3.7
 
 
 

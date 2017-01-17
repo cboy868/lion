@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 /**
  * Ueditor Widget
  *
@@ -45,7 +46,6 @@ class Ueditor extends InputWidget {
 
     public $option = [];
 
-    public $serverUrl;
 
     public $readyEvent;
 
@@ -53,23 +53,28 @@ class Ueditor extends InputWidget {
      * Initializes the widget.
      */
     public function init() {
-        parent::init();
-        if (empty($this->id)) {
-            $this->id = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
-        }
-        if (empty($this->name)) {
-            $this->name = $this->hasModel() ? Html::getInputName($this->model, $this->attribute) : $this->id;
-        }
-        if (empty($this->value) && $this->hasModel() && $this->model->hasAttribute($this->attribute)) {
-            $this->value = $this->model->getAttribute($this->attribute);
+
+        if (isset($this->options['id'])) {
+            $this->id = $this->options['id'];
+        } else {
+            $this->id = $this->hasModel() ? Html::getInputId($this->model,$this->attribute) : $this->id;
         }
 
         $option = $this->option;
         $res_name = isset($option['res_name']) ? $option['res_name'] : '';
         $use = isset($option['use']) ? $option['use'] : '';
-        $this->serverUrl = Url::toRoute(['ue-upload', 'res_name'=>$res_name, 'use'=>$use]);
-        
-        $this->jsOptions['serverUrl'] = $this->serverUrl;
+        $serverUrl = Url::toRoute(['ue-upload', 'res_name'=>$res_name, 'use'=>$use]);
+
+        $jsOptions = [
+            'serverUrl' => $serverUrl,
+            'initialFrameWidth' => '100%',
+            'initialFrameHeight' => '400',
+            'lang' => (strtolower(\Yii::$app->language) == 'en-us') ? 'en' : 'zh-cn',
+        ];
+
+        $this->jsOptions = ArrayHelper::merge($jsOptions, $this->jsOptions);
+
+        parent::init();
 
     }
 
@@ -77,34 +82,20 @@ class Ueditor extends InputWidget {
      * Renders the widget.
      */
     public function run() {
-
-        UAsset::register($this->view);
         $this->registerScripts();
 
-        if ($this->renderTag) {
-            return $this->renderTag();
+        if ($this->hasModel()) {
+            return Html::activeTextarea($this->model, $this->attribute, ['id' => $this->id]);
+        } else {
+            return Html::textarea($this->id, $this->value, ['id' => $this->id]);
         }
     }
 
-    public function renderTag() {
-        $id = $this->id;
-        $content = $this->value;
-        $name = $this->name;
-        $style = $this->style ? " style=\"{$this->style}\"" : '';
-        return <<<EOF
-<script id="{$id}" name="{$name}"$style type="text/plain">{$content}</script>
-EOF;
-    }
-
+    
     public function registerScripts() {
+        UAsset::register($this->view);
         $jsonOptions = Json::encode($this->jsOptions);
         $script = "UE.getEditor('{$this->id}', " . $jsonOptions . ")";
-
-        // var_dump($this->readyEvent);die;
-        if ($this->readyEvent) {
-            $script .= ".ready(function(){{$this->readyEvent}})";
-        }
-        $script .= ';';
         $this->view->registerJs($script, View::POS_READY);
     }
 

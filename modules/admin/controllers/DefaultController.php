@@ -16,6 +16,7 @@ class DefaultController extends \app\core\web\BackController
         return [
             'access' => [
                 'class' => AccessControl::className(),
+                'only' => ['login', 'error', 'signup','logout', 'index'],
                 'rules' => [
                     [
                         'actions' => ['login', 'error', 'signup'],
@@ -34,6 +35,18 @@ class DefaultController extends \app\core\web\BackController
                     'logout' => ['post'],
                 ],
             ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'comment' => [
+                'class' => 'app\core\widgets\comment\CommentAction',
+            ],
+            'ue-upload' => [
+                'class' => 'app\core\widgets\Ueditor\UploadAction',
+            ]
         ];
     }
 
@@ -73,6 +86,11 @@ class DefaultController extends \app\core\web\BackController
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionTest()
+    {
+        return $this->render('test');
     }
 
 }

@@ -28,7 +28,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
             'inputOptions' =>['class'=>'form-control']
         ];
 
-    public $options = ['class' => 'form-horizontal rform', 'id'=>'rform'];
+    public $options = ['class' => 'form-horizontal'];
 
 
 
