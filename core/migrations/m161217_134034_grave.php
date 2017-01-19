@@ -13,10 +13,10 @@ class m161217_134034_grave extends Migration
         }
         $this->createTable('{{%grave}}', [
             'id' => $this->primaryKey(),
-            'pid'=> $this->integer(),
+            'pid'=> $this->integer()->defaultValue(0),
             'level'=> $this->smallInteger()->notNull()->defaultValue(1),//树级
             'code' => $this->string(255),
-            'name' => $this->string(255),
+            'name' => $this->string(255)->notNull(),
             'thumb' => $this->integer(), //存图片的id
             'intro' => $this->text(),//墓区的介绍
             'area_totle' => $this->float(),//总建筑面积

@@ -39,5 +39,11 @@ return [
     ],
     'focus' => [
         'class' => 'app\modules\focus\Module',
+    ],
+    'memorial' => [
+        'class' => 'app\modules\memorial\Module',
+    ],
+    'grave' => [
+        'class' => 'app\modules\grave\Module',
     ]
 ];
