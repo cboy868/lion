@@ -3,6 +3,7 @@
 namespace app\modules\memorial\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%memorial}}".
@@ -24,6 +25,13 @@ use Yii;
  */
 class Memorial extends \app\core\db\ActiveRecord
 {
+    const PRIVACY_PUBLIC = 0;
+    const PRIVACY_FRIENDS = 1;
+    const PRIVACY_PRIVATE = 2;
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_DELETE = -1;
+
     /**
      * @inheritdoc
      */
@@ -42,6 +50,14 @@ class Memorial extends \app\core\db\ActiveRecord
             [['user_id', 'tomb_id', 'privacy', 'view_all', 'com_all', 'tpl', 'status', 'updated_at', 'created_at'], 'integer'],
             [['intro'], 'string'],
             [['title', 'cover'], 'string', 'max' => 255],
+        ];
+    }
+
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className()
         ];
     }
 
@@ -65,5 +81,13 @@ class Memorial extends \app\core\db\ActiveRecord
             'updated_at' => '更新时间',
             'created_at' => '添加时间',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        parent::beforeSave($insert);
+        $this->user_id = Yii::$app->user->id;
+
+        return true;
     }
 }

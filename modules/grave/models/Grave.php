@@ -5,6 +5,7 @@ namespace app\modules\grave\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\traits\TreeTrait;
+use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%grave}}".
  *
@@ -26,8 +27,16 @@ use app\core\traits\TreeTrait;
  */
 class Grave extends \app\core\db\ActiveRecord
 {
-    
+
     use TreeTrait;
+
+
+     // -1删除 1建设中,2销售中,3售完
+    const STATUS_DELETE = -1;
+    const STATUS_BUILD = 1;
+    const STATUS_SALE = 2;
+    const STATUS_FINISH = 3;
+
     /**
      * @inheritdoc
      */
@@ -85,4 +94,58 @@ class Grave extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
         ];
     }
+
+
+    public static function getSta($status = null)
+    {
+        $sta = [
+            self::STATUS_DELETE => '删除',
+            self::STATUS_BUILD  => '建设中',
+            self::STATUS_SALE   => '销售中',
+            self::STATUS_FINISH => '售完'
+        ];
+
+
+        if ($status === null) {
+            return $sta;
+        }
+
+
+        if (isset($sta[$status])) {
+            return $sta[$status];
+        }
+
+        return null;
+    }
+
+    public function beforeSave($insert)
+    {
+
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        if ($insert) {
+
+            if (!$this->pid) {
+                $this->pid = 0;
+                $this->level = 1;
+                return true;
+            }
+
+            $parent = self::findOne($this->pid);
+            $this->name = $parent->name . $this->name;
+
+        }
+
+        return true;
+    }
+
+    public function getThumb($size='', $default='')
+    {
+        return Attachment::getById($this->thumb, $size, $default);
+    }
+
+
+
 }

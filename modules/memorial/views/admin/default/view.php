@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index
             'user_id',
             'tomb_id',
             'title',
-            'custom_title',
             'cover',
             'intro:ntext',
             'privacy',
@@ -48,8 +47,8 @@ $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index
             'com_all',
             'tpl',
             'status',
-            'updated_at',
-            'created_at',
+            'updated_at:datetime',
+            'created_at:datetime',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

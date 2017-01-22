@@ -3,6 +3,7 @@
 namespace app\modules\grave\controllers\admin;
 
 use Yii;
+use yii\helpers\Url;
 use app\modules\grave\models\Grave;
 use app\modules\grave\models\GraveSearch;
 use app\core\web\BackController;
@@ -32,13 +33,39 @@ class DefaultController extends BackController
      */
     public function actionIndex()
     {
+
+        $cates = $this->getGraves();
+
         $searchModel = new GraveSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $params = Yii::$app->request->queryParams;
+        $params['pid'] = isset($params['pid']) ? $params['pid'] : 0;
+        $params['GraveSearch']['pid'] = $params['pid'];
+
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'cates' => $cates,
+            'params' => $params
+
         ]);
+    }
+
+
+    private function getGraves()
+    {
+        $tree = Grave::sortTree(['is_leaf'=>0]);
+
+        foreach ($tree as $k => &$v) {
+            $v['url'] =Url::toRoute(['index', 'pid'=>$v['id'], 'mod'=>$mod]);
+        }
+
+        $tree = \yii\helpers\ArrayHelper::index($tree, 'id');
+        $tree = \app\core\helpers\Tree::recursion($tree,0,1);
+
+        return $tree;
     }
 
     /**
@@ -63,7 +90,7 @@ class DefaultController extends BackController
         $model = new Grave();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'pid' => $model->pid]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +109,7 @@ class DefaultController extends BackController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'pid' => $model->pid]);
         } else {
             return $this->render('update', [
                 'model' => $model,

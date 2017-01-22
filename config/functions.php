@@ -9,6 +9,7 @@ use app\core\helpers\StringHelper;
 
 use app\modules\focus\models\Focus;
 use app\modules\cms\models\Links;
+use app\modules\mod\models\Code;
 
 
 //  按格式打印数组
@@ -43,6 +44,7 @@ function focus($category_id, $limit, $imgSize=null)
  */
 function postList($mod, $category_id=0, $rows=null)
 {
+	Code::createObj('post', $mod);
 	$class = '\app\modules\cms\models\mods\Post' . $mod;
 
 	$list = $class::find()->where(['category_id'=>$category_id])->limit($rows)->asArray()->all();
@@ -62,6 +64,7 @@ function postList($mod, $category_id=0, $rows=null)
 
 function postDetail($mod, $id)
 {
+	Code::createObj('post', $mod);
 	$class = '\app\modules\cms\models\mods\Post' . $mod;
 	$dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
 
