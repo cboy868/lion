@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\grave\models\GraveSearch */
@@ -27,10 +28,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::encode($this->title) ?> 
                 <small>
                     墓区管理页面
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
+        <?php 
+            Modal::begin([
+                'header' => '添增',
+                'id' => 'modalAdd',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="modalContent"></div>';
+
+            Modal::end();
+        ?>
+
+        <?php 
+            Modal::begin([
+                'header' => '编辑',
+                'id' => 'modalEdit',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="editContent"></div>';
+
+            Modal::end();
+        ?>
 
 
         <div class="row">
@@ -39,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
             </div>
+
             <?php $pid = $params['pid']; ?>
 
             <div class="col-xs-2">
@@ -103,11 +129,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-10 grave-index">
             <div class="rows">
+                <div class="col-xs-12">
+                    <?php if(Yii::$app->session->hasFlash('success')): ?>
+                    <div class="alert alert-success" style="word-break: break-all;word-wrap: break-word;">
+                        <?php echo Yii::$app->session->getFlash('success'); ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if(Yii::$app->session->hasFlash('error')): ?>
+                    <div class="alert alert-danger" style="word-break: break-all;word-wrap: break-word;">
+                        <?php echo Yii::$app->session->getFlash('error'); ?>
+                    </div>
+                    <?php endif; ?>
+                </div>
                 <?php foreach ($dataProvider->getModels() as $k => $grave): ?>
                     <div class="col-xs-4">
                         <div class="panel panel-success">
                           <div class="panel-heading text-center">
-                            <a href="#"><strong><?=$grave->name?></strong></a>
+                          <?php if ($grave->is_leaf): ?>
+                            <a href="<?=Url::toRoute(['admin/tomb/index', 'grave_id'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
+                          <?php else: ?>
+                            <a href="<?=Url::toRoute(['index', 'pid'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
+                          <?php endif ?>
                           </div>
                           <div class="panel-body no-padding">
 
@@ -129,15 +172,19 @@ $this->params['breadcrumbs'][] = $this->title;
                           </div>
                           <div class="panel-footer">
                               <div class="row">
-                                  <div class="col-xs-6 text-left">
-                                      <a href="#"><i class="fa
-                                              fa-edit"></i> 编辑</a>
+                                  <div class="col-xs-4 text-left">
+                                      <a href="<?=Url::toRoute(['update', 'id'=>$grave->id])?>" class="modalEditButton"><i class="fa fa-edit"></i> 编辑</a>
                                   </div>
 
                                   <?php if ($grave->is_leaf): ?>
-                                      <div class="col-xs-6 text-right">
-                                          <a href="#"><i class="fa
-                                                  fa-plus"></i> 添加墓位</a>
+                                      <div class="col-xs-8 text-right">
+
+                                          <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$grave->id])?>"><i class="fa fa-plus"></i> 添加墓位</a>
+                                         <a href="<?=Url::toRoute(['delete', 'id'=>$grave->id])?>" 
+                                         style="color:red;" data-confirm="您确定要删除此项吗？" 
+                                         data-method="post" data-pjax="0"><i class="fa fa-trash"></i>
+                                         </a>
+
                                       </div>
                                   <?php endif ?>
                               </div>
@@ -147,9 +194,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach ?>
 
             </div>
-                
-
-
 
 
                 <div class="hr hr-18 dotted hr-double"></div>

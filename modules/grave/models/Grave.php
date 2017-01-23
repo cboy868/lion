@@ -63,11 +63,12 @@ class Grave extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'level', 'thumb', 'status', 'user_id', 'sort', 'is_leaf', 'created_at'], 'integer'],
+            [['pid', 'level', 'status', 'user_id', 'sort', 'is_leaf', 'created_at'], 'integer'],
             [['intro'], 'string'],
             [['area_totle', 'area_use', 'price'], 'number'],
             [['name'], 'required'],
             [['code', 'name'], 'string', 'max' => 255],
+            ['thumb', 'safe']
         ];
     }
 
@@ -125,14 +126,13 @@ class Grave extends \app\core\db\ActiveRecord
             return false;
         }
 
+        if (!$this->pid) {
+            $this->pid = 0;
+            $this->level = 1;
+            return true;
+        }
+
         if ($insert) {
-
-            if (!$this->pid) {
-                $this->pid = 0;
-                $this->level = 1;
-                return true;
-            }
-
             $parent = self::findOne($this->pid);
             $this->name = $parent->name . $this->name;
 

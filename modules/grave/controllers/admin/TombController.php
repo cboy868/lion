@@ -3,11 +3,15 @@
 namespace app\modules\grave\controllers\admin;
 
 use Yii;
+use app\modules\grave\models\Grave;
 use app\modules\grave\models\Tomb;
 use app\modules\grave\models\TombSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
+
+use app\modules\grave\models\TombForm;
 
 /**
  * TombController implements the CRUD actions for Tomb model.
@@ -33,11 +37,17 @@ class TombController extends BackController
     public function actionIndex()
     {
         $searchModel = new TombSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $params = Yii::$app->request->queryParams;
+
+        $params['TombSearch']['grave_id'] = $params['grave_id'];
+        $dataProvider = $searchModel->search($params);
+
+        $grave = Grave::findOne($params['grave_id']);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'grave' => $grave
         ]);
     }
 
@@ -60,11 +70,21 @@ class TombController extends BackController
      */
     public function actionCreate()
     {
-        $model = new Tomb();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new TombForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->create()) {
+
+            return $this->redirect(['index', 'grave_id' => $model->grave_id]);
+            
         } else {
+
+            $grave_id = Yii::$app->request->get('grave_id');
+
+            if ($grave_id) {
+                $model->grave_id = $grave_id;
+            }
+
             return $this->render('create', [
                 'model' => $model,
             ]);

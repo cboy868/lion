@@ -45,7 +45,10 @@ class TombSearch extends Tomb
         $query = Tomb::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->orderBy('row asc, col asc'),
+            'pagination' => [
+                'pageSize' => 10000,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

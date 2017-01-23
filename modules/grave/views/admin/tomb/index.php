@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use app\core\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\grave\models\TombSearch */
@@ -14,15 +15,57 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
+<style type="text/css">
+    .table ul {
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-left: 40px;
+    list-style-image: none;
+    list-style-type: none;
+    white-space: nowrap;
+    padding: 0px;
+}
+.table ul li {
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    width: 40px;
+    float: left;
+}
+.table ul li span {
+    padding: 0px;
+    display: block;
+    height: 14px;
+    width: 40px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    line-height: 14px;
+    text-align: center;
+    color: #000000;
+    font-size: 12px;
+}
+.table ul li img {
+    padding: 0px;
+    display: block;
+    height: 24px;
+    width: 24px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    border: 1px solid #FFF;
+}
+</style>
 
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
+                <?=  Html::encode($grave->name) ?> 墓位管理
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
@@ -37,34 +80,37 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-xs-12 tomb-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
-        // 'filterModel' => $searchModel,
-        'columns' => [
-            'id',
-            'tomb_no',
-            // 'hole',
-            'price',
-            // 'cost',
-            // 'area_total',
-            // 'area_use',
-            // 'user_id',
-            // 'customer_id',
-            // 'agent_id',
-            // 'agency_id',
-            'guide_id',
-            // 'sale_time',
-            // 'note:ntext',
-            // 'thumb',
-            // 'created_at',
-            'status',
+            <?php 
+                $models = $dataProvider->getModels();
+                $result = ArrayHelper::index($models, 'id', 'row');
+             ?>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+
+             <table class="table">
+                <?php foreach ($result as $k=>$models):?>
+                 <tr>
+                     <td>
+                        <div class="pull-left"><?=$k?>排</div>
+                         <ul>
+                            <?php foreach ($models as $model): ?>
+                             <li>
+                                 <div>
+                                     <a href="#">
+                                         <img src="/static/images/t.gif" width="26" height="26">
+                                     </a>
+                                     <span><?=$model->col?>号</span>
+                                 </div>
+                             </li>
+                            <?php endforeach ?>
+                         </ul>
+                     </td>
+                 </tr>
+                <?php endforeach ?>
+             </table>
+
+
+
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->

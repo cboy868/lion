@@ -3,6 +3,7 @@
 namespace app\modules\grave\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%grave_tomb}}".
@@ -31,6 +32,8 @@ use Yii;
  */
 class Tomb extends \app\core\db\ActiveRecord
 {
+    const STATUS_DELETE = -1;
+    
     /**
      * @inheritdoc
      */
@@ -39,17 +42,29 @@ class Tomb extends \app\core\db\ActiveRecord
         return '{{%grave_tomb}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id', 'agent_id', 'agency_id', 'guide_id', 'thumb', 'created_at', 'status'], 'integer'],
+            [['grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id', 'agent_id', 'agency_id', 'guide_id', 'created_at', 'status'], 'integer'],
             [['price', 'cost', 'area_total', 'area_use'], 'number'],
-            [['sale_time'], 'safe'],
+            [['sale_time', 'thumb'], 'safe'],
             [['note'], 'string'],
-            [['created_at'], 'required'],
+            [['grave_id', 'tomb_no', 'row', 'col', 'price'], 'required'],
             [['special'], 'string', 'max' => 100],
             [['tomb_no'], 'string', 'max' => 255],
         ];
@@ -83,5 +98,13 @@ class Tomb extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'status' => '状态',
         ];
+    }
+
+    /**
+     * @name 添加墓位
+     */
+    public function create()
+    {
+
     }
 }

@@ -4,11 +4,13 @@ namespace app\modules\grave\controllers\admin;
 
 use Yii;
 use yii\helpers\Url;
+use app\modules\grave\models\Tomb;
 use app\modules\grave\models\Grave;
 use app\modules\grave\models\GraveSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\core\base\Upload;
 
 /**
  * DefaultController implements the CRUD actions for Grave model.
@@ -89,13 +91,25 @@ class DefaultController extends BackController
     {
         $model = new Grave();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'pid' => $model->pid]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+
+            $up = Upload::getInstance($model, 'thumb', 'grave');
+            if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $up->save();
+                $info = $up->getInfo();
+                $model->thumb = $info['mid'];
+            }
+
+            if ($model->save(false)) {
+                return $this->redirect(['index', 'pid' => $model->pid]);
+            }
+            
         }
+        return $this->renderAjax('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -108,13 +122,25 @@ class DefaultController extends BackController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'pid' => $model->pid]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $up = Upload::getInstance($model, 'thumb', 'grave');
+            if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $up->save();
+                $info = $up->getInfo();
+                $model->thumb = $info['mid'];
+            }
+
+            if ($model->save(false)) {
+                return $this->redirect(['index', 'pid' => $model->pid]);
+            }
+
         }
+
+        return $this->renderAjax('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -125,9 +151,23 @@ class DefaultController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
-        return $this->redirect(['index']);
+        if (!$model->is_leaf) {
+            Yii::$app->getSession()->setFlash('error', '尚有子元素，不可删除。');
+            return $this->redirect(['index']);
+        }
+
+        $tombs = Tomb::find()->where(['grave_id'=>$id])->all();
+        if ($tombs) {
+            Yii::$app->getSession()->setFlash('error', '请先删除此墓区下墓位。');
+            return $this->redirect(['index']);
+        }
+
+        $model->delete();
+        Yii::$app->getSession()->setFlash('success', '墓区删除成功。');
+        
+        return $this->redirect(['index', 'pid'=>$model->pid]);
     }
 
     /**
