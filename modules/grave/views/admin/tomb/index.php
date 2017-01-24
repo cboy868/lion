@@ -81,7 +81,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-12 tomb-index">
 
-            <?php 
+                <div class="tfram">
+                    
+                </div>
+
+           <!--  <?php 
                 $models = $dataProvider->getModels();
                 $result = ArrayHelper::index($models, 'id', 'row');
              ?>
@@ -106,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                      </td>
                  </tr>
                 <?php endforeach ?>
-             </table>
+             </table> -->
 
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->

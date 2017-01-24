@@ -46,14 +46,33 @@ class TombController extends BackController
 
         if ($grave) {
             $parents = $grave->getParents();
-
-            p($parents);die;
         }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'grave' => $grave,
+        ]);
+    }
+
+    public function actionList(){
+        $searchModel = new TombSearch();
+
+        $params = Yii::$app->request->queryParams;
+
+        if (!$params['grave_id']) {
+            return '';
+        }
+
+
+        $params['TombSearch']['grave_id'] = $params['grave_id'];
+
+
+        $dataProvider = $searchModel->search($params);
+
+
+        return $this->renderAjax('list', [
+            'dataProvider' => $dataProvider
         ]);
     }
 

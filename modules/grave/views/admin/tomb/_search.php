@@ -13,11 +13,13 @@ use app\modules\grave\models\Grave;
 
 <div class="tomb-search">
 
-    <?php $form = ActiveForm::searchBegin(); ?>
+    <?php $form = ActiveForm::searchBegin(); 
+        $form->action = Url::toRoute(['list']);
+
+    ?>
 
     <div class="selgroup" style="margin-bottom:20px;">
     <?php 
-
 
 
         $gs = Grave::find()->where(['<>', 'status', Grave::STATUS_DELETE])
@@ -31,19 +33,20 @@ use app\modules\grave\models\Grave;
         }
 
      ?>
+        <input class="grave_id"  type="hidden" />
         <?= $form->field($model, 'grave_id')->dropDownList(Grave::selTree(['pid'=>0]), ['class'=>'form-control input-sm selg', 'prompt'=>'--选择墓区--', 'options' => $options]); ?>
     </div>
 
-    <?= $form->field($model, 'row') ?>
+    <?= $form->field($model, 'row')->textInput(['class'=>'form-control srow']) ?>
 
-    <?= $form->field($model, 'col') ?>
+    <?= $form->field($model, 'col')->textInput(['class'=>'form-control scol']) ?>
 
-     <?= $form->field($model, 'tomb_no'); ?>
+     <?php //echo $form->field($model, 'tomb_no'); ?>
 
-    <?= $form->field($model, 'customer_id') ?>
+    <?= $form->field($model, 'customer_id')->textInput(['class'=>'form-control scus']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>
+        <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm bsearch', 'type'=>'button']) ?>
         <?= Html::a('<i class="fa fa-reply"></i>  重置',Url::toRoute(['index']),['class'=>'btn btn-danger btn-sm']);?>
     </div>
 
@@ -56,6 +59,24 @@ use app\modules\grave\models\Grave;
 <?php $this->beginBlock('cate') ?>  
 $(function(){
 
+    $(".srow, .scol, scus").blur(function(e){
+        e.preventDefault();
+
+        if ($('.grave_id').val() != '') {
+            $('.bsearch').trigger('click');
+        }
+        
+    });
+    
+    $('.bsearch').click(function(e){
+        e.preventDefault();
+        var da = $(this).closest('form').serialize();
+        var grave_id = $('.grave_id').val();
+
+        console.log("<?=Url::toRoute(['list'])?>?grave_id="+ grave_id + '&' + da);
+        $('.tfram').load("<?=Url::toRoute(['list'])?>?grave_id="+ grave_id + '&' + da);
+
+    });
     $(document).on('change', '.selg', function(e){
         e.preventDefault();
 
@@ -65,7 +86,12 @@ $(function(){
 
 
         if (leaf == 1) {
-            location.href = "<?=Url::toRoute(['index'])?>?grave_id=" + grave_id;
+            // $('.tfram').attr('src', "<?=Url::toRoute(['list'])?>?grave_id=" + grave_id)
+
+            $('.grave_id').val(grave_id);
+            $('.tfram').load("<?=Url::toRoute(['list'])?>?grave_id=" + grave_id);
+            return ;
+            // location.href = "<?=Url::toRoute(['index'])?>?grave_id=" + grave_id;
         }
 
         $.get("<?=Url::toRoute(['sel-grave'])?>?grave_id=" + grave_id, {}, function(xhr){
@@ -86,11 +112,6 @@ $(function(){
         },'json')
 
     })
-
-
-
-
-
 
 })  
 <?php $this->endBlock() ?>  
