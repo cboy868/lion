@@ -10,9 +10,6 @@ use app\core\helpers\ArrayHelper;
 /* @var $searchModel app\modules\grave\models\TombSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '墓位管理';
-$this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 <style type="text/css">
@@ -60,33 +57,35 @@ $this->params['breadcrumbs'][] = $this->title;
 }
 </style>
 
-<div class="page-content">
-    <!-- /section:settings.box -->
-    <div class="page-content-area">
-        <div class="page-header">
-            <h1>
-                <?=  isset($grave) ? Html::encode($grave->name) : '' ?> 墓位管理
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
 
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
-                </div>
-            </div>
+<?php 
+    $models = $dataProvider->getModels();
+    $result = ArrayHelper::index($models, 'id', 'row');
+ ?>
+ <?php if (!$models): ?>
+     <p>此墓区不存在墓位</p>
+ <?php endif ?>
 
-            <div class="col-xs-12 tomb-index">
+ <table class="table">
+    <?php foreach ($result as $k=>$models):?>
+     <tr>
+         <td>
+            <div class="pull-left"><?=$k?>排</div>
+             <ul>
+                <?php foreach ($models as $model): ?>
+                 <li>
+                     <div>
+                         <a href="#">
+                             <img src="/static/images/t.gif" width="26" height="26" title="<?=$model->tomb_no?>">
+                         </a>
+                         <span><?=$model->col?>号</span>
+                     </div>
+                 </li>
+                <?php endforeach ?>
+             </ul>
+         </td>
+     </tr>
+    <?php endforeach ?>
+ </table>
 
-                <div class="tfram">
-                    
-                </div>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.page-content-area -->
-</div>
-
+    <div class="hr hr-18 dotted hr-double"></div>
