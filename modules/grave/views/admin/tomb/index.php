@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-                <?=  Html::encode($grave->name) ?> 墓位管理
+                <?=  isset($grave) ? Html::encode($grave->name) : '' ?> 墓位管理
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
@@ -85,7 +85,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 $models = $dataProvider->getModels();
                 $result = ArrayHelper::index($models, 'id', 'row');
              ?>
-
 
              <table class="table">
                 <?php foreach ($result as $k=>$models):?>
@@ -108,8 +107,6 @@ $this->params['breadcrumbs'][] = $this->title;
                  </tr>
                 <?php endforeach ?>
              </table>
-
-
 
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->

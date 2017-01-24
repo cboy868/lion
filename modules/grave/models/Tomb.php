@@ -32,7 +32,16 @@ use yii\behaviors\TimestampBehavior;
  */
 class Tomb extends \app\core\db\ActiveRecord
 {
+
+    // 1删除,1闲置，2预定，3定金 4全款，5 部分安葬 6全部安葬 7单葬
     const STATUS_DELETE = -1;
+    const STATUS_EMPTY = 1;
+    const STATUS_PRE = 2;
+    const STATUS_DEPOSIT = 3;
+    const STATUS_PAYOK = 4;
+    const STATUS_PART = 5;
+    const STATUS_ALL = 6;
+    const STATUS_SINGLE = 7;
     
     /**
      * @inheritdoc
@@ -100,11 +109,25 @@ class Tomb extends \app\core\db\ActiveRecord
         ];
     }
 
-    /**
-     * @name 添加墓位
-     */
-    public function create()
+    public static function getSta($status = null)
     {
+        $sta = [
+            self::STATUS_DELETE => '删除',
+            self::STATUS_EMPTY => '闲置',
+            self::STATUS_PRE => '预定',
+            self::STATUS_DEPOSIT => '定金',
+            self::STATUS_PAYOK => '全款',
+            self::STATUS_PART => '部分安葬',
+            self::STATUS_ALL => '全部安葬',
+            self::STATUS_SINGLE => '单葬'
+        ];
+
+        if ($status == null) {
+            return $sta;
+        }
+
+        return isset($sta[$status]) ? $sta[$status] : '';
 
     }
+
 }

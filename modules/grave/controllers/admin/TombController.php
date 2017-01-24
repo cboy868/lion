@@ -44,11 +44,42 @@ class TombController extends BackController
 
         $grave = Grave::findOne($params['grave_id']);
 
+        if ($grave) {
+            $parents = $grave->getParents();
+
+            p($parents);die;
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'grave' => $grave
+            'grave' => $grave,
         ]);
+    }
+
+    public function actionSelGrave($grave_id)
+    {
+        $graves = Grave::find()->where(['pid'=>$grave_id])
+                               ->andWhere(['<>', 'status', Grave::STATUS_DELETE])
+                               ->select(['id', 'name', 'is_leaf'])
+                               ->asArray()
+                               ->all();
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $status = true;
+        $info=null;
+        if (!$graves) {
+            $status = false;
+            $info = '墓区可能存在问题';
+        }
+
+        return [
+            'status' => $status,
+            'info' => $info,
+            'data' => $graves
+        ];
+
     }
 
     /**

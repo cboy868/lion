@@ -5,6 +5,7 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
+use app\modules\Grave\models\Tomb;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\grave\models\GraveSearch */
@@ -71,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  <ul class="nav nav-list">
                      <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create','mod'=>$mod], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%']) ?>
                      <li class="<?php if ($pid == 0) { echo 'active'; } ?>" >
-                         <a href="<?=Url::toRoute(['index', 'pid'=>0])?>" class="dropdown-toggle">
+                         <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
                             <span class="menu-text">所有大区</span>
                         </a>
@@ -144,7 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php foreach ($dataProvider->getModels() as $k => $grave): ?>
                     <div class="col-xs-4">
-                        <div class="panel panel-success">
+                        <div class="panel panel-info">
                           <div class="panel-heading text-center">
                           <?php if ($grave->is_leaf): ?>
                             <a href="<?=Url::toRoute(['admin/tomb/index', 'grave_id'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
@@ -152,19 +153,34 @@ $this->params['breadcrumbs'][] = $this->title;
                             <a href="<?=Url::toRoute(['index', 'pid'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
                           <?php endif ?>
                           </div>
-                          <div class="panel-body no-padding">
+                          <div class="panel-body no-padding" style="height:110px">
 
                             <div class="row">
                                 <div class="col-sm-6">
+
+                              <?php if ($grave->is_leaf): ?>
+                                <a href="<?=Url::toRoute(['admin/tomb/index', 'grave_id'=>$grave->id])?>">
                                     <img src="<?=$grave->getThumb('200x400', '/static/images/default.png')?>" class="img-thumbnail">
+                                </a>
+                              <?php else: ?>
+                                <a href="<?=Url::toRoute(['index', 'pid'=>$grave->id])?>">
+                                    <img src="<?=$grave->getThumb('200x400', '/static/images/default.png')?>" class="img-thumbnail">
+                                </a>
+                              <?php endif ?>
+
+
+                                    
                                 </div>
                                 <div class="col-sm-6">
                                     <ul style="padding-left:0">
-                                        <li>总数：<code>213</code></li>
-                                        <li>闲置：<code>84个</code></li>
-                                        <li>全款：<code>66个</code></li>
-                                        <li>部分安葬：<code>11个</code></li>
-                                        <li>全部安葬：<code>52个</code></li>
+                                        <?php $cnt =  $grave->staCount();
+                                        $sta = Tomb::getSta();
+                                        ?>
+                                        <li>总数：<code><?=array_sum($cnt)?>个</code></li>
+                                        <?php foreach ($cnt as $k => $v): ?>
+                                            <li><?=$sta[$k]?>：<code><?=$v?>个</code></li>
+                                        <?php endforeach ?>
+                                        
                                     </ul>
                                 </div>
                             </div>
@@ -180,6 +196,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                       <div class="col-xs-8 text-right">
 
                                           <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$grave->id])?>"><i class="fa fa-plus"></i> 添加墓位</a>
+                                          &nbsp;
                                          <a href="<?=Url::toRoute(['delete', 'id'=>$grave->id])?>" 
                                          style="color:red;" data-confirm="您确定要删除此项吗？" 
                                          data-method="post" data-pjax="0"><i class="fa fa-trash"></i>

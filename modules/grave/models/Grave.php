@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\traits\TreeTrait;
 use app\core\models\Attachment;
+
 /**
  * This is the model class for table "{{%grave}}".
  *
@@ -144,6 +145,31 @@ class Grave extends \app\core\db\ActiveRecord
     public function getThumb($size='', $default='')
     {
         return Attachment::getById($this->thumb, $size, $default);
+    }
+
+    public function staCount($type = 'total')
+    {
+        // $tombs = Tomb::find()->where(['grave_id'=>$this->id])
+        //                      ->andWhere(['<>', 'status', TOMB::STATUS_DELETE])
+        //                      ->select(['id', 'status'])
+        //                      ->asArray()
+        //                      ->all();
+
+        $counts = Tomb::find()->where(['grave_id'=>$this->id])
+                             ->andWhere(['<>', 'status', TOMB::STATUS_DELETE])
+                             ->groupBy('status')
+                             ->select(['status','COUNT(*) as cnt'])
+                             ->indexBy('status')
+                             ->asArray()
+                             ->all();
+        $cnt = [];
+        foreach ($counts as $k => $val) {
+            $total += $val['cnt'];
+            $cnt[$k] = $val['cnt'];
+        }
+
+        return $cnt;
+
     }
 
 
