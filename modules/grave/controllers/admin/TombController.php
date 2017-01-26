@@ -64,12 +64,10 @@ class TombController extends BackController
             return '';
         }
 
-
         $params['TombSearch']['grave_id'] = $params['grave_id'];
-
-
         $dataProvider = $searchModel->search($params);
 
+        // $this->layout = false;
 
         return $this->renderAjax('list', [
             'dataProvider' => $dataProvider
@@ -171,6 +169,24 @@ class TombController extends BackController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionOption($id)
+    {
+
+
+        $tomb= Tomb::findOne($id);
+        $options = $tomb->getOptions();
+
+        $desc_tpl = "墓位号:<code>%s</code> 价格:<code>¥%.2f</code> 穴数:<code>%d</code>";
+        $desc = sprintf($desc_tpl, $tomb->tomb_no, $tomb->price, $tomb->hole);
+
+
+        return $this->renderAjax('option', [
+                'tomb' => $tomb,
+                'options' => $options,
+                'desc' => $desc
+            ]);
     }
 
     /**

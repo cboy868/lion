@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\traits\TreeTrait;
 use app\core\models\Attachment;
+use app\core\traits\ThumbTrait;
 
 /**
  * This is the model class for table "{{%grave}}".
@@ -30,6 +31,7 @@ class Grave extends \app\core\db\ActiveRecord
 {
 
     use TreeTrait;
+    use ThumbTrait;
 
 
      // -1删除 1建设中,2销售中,3售完
@@ -142,10 +144,10 @@ class Grave extends \app\core\db\ActiveRecord
         return true;
     }
 
-    public function getThumb($size='', $default='')
-    {
-        return Attachment::getById($this->thumb, $size, $default);
-    }
+    // public function getThumb($size='', $default='')
+    // {
+    //     return Attachment::getById($this->thumb, $size, $default);
+    // }
 
     public function staCount($type = 'total')
     {

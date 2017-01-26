@@ -4,6 +4,7 @@ namespace app\core\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\core\helpers\Image;
 
 /**
  * This is the model class for table "{{%attachment}}".
@@ -140,6 +141,9 @@ class Attachment extends \yii\db\ActiveRecord
         // return $type ? $this->path . '/' . $type . '@' . $this->name : $this->path . '/' . $this->name;
     }
 
+    /**
+     * todo 如果缩略图不存在，则生成
+     */
     public static function getById($id, $size='', $default='')
     {
         $model = self::findOne($id);
@@ -150,10 +154,15 @@ class Attachment extends \yii\db\ActiveRecord
 
         if ($size) {
             $file = $model->path . '/' . $size . '@' . $model->name;
+            $thumb_path = Yii::getAlias('@app/web'.$file);
 
-            if (is_file(Yii::getAlias('@app/web'.$file))) {
-                return $file;
+            if (!is_file($thumb_path)) {
+                $srcFile = Yii::getAlias('@app/web'.$model->path . '/' . $model->name);
+                $size = explode('x', str_replace('X', 'x', $size));
+                Image::autoThumb($srcFile, $thumb_path, $size);
             }
+
+            return $file;
         }
 
         return $model->path . '/' . $model->name;

@@ -5,7 +5,7 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use app\core\helpers\ArrayHelper;
-
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\grave\models\TombSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -65,7 +65,18 @@ use app\core\helpers\ArrayHelper;
  <?php if (!$models): ?>
      <p>此墓区不存在墓位</p>
  <?php endif ?>
+<?php 
+    Modal::begin([
+        'header' => '业务操作',
+        'id' => 'modalAdd',
+        'size' => Modal::SIZE_LARGE,
+        'footer' => '<button class="btn btn-info" data-dismiss="modal">取消</button>',
+    ]) ;
 
+    echo '<div id="modalContent"></div>';
+
+    Modal::end();
+?>
  <table class="table">
     <?php foreach ($result as $k=>$models):?>
      <tr>
@@ -75,7 +86,7 @@ use app\core\helpers\ArrayHelper;
                 <?php foreach ($models as $model): ?>
                  <li>
                      <div>
-                         <a href="#">
+                         <a href="<?=Url::toRoute(['option', 'id'=>$model->id])?>" class="modalAddButton">
                              <img src="/static/images/t.gif" width="26" height="26" title="<?=$model->tomb_no?>">
                          </a>
                          <span><?=$model->col?>号</span>
@@ -89,3 +100,28 @@ use app\core\helpers\ArrayHelper;
  </table>
 
     <div class="hr hr-18 dotted hr-double"></div>
+
+
+
+
+<?php $this->beginBlock('mod') ?>  
+$(function(){
+   $('.modalAddButton').click(function(e){
+        e.preventDefault();
+        //加载完再显示，看着舒服一点
+        $('#modalAdd').find('#modalContent')
+                    .load($(this).attr('href'),function(){
+                        $('#modalAdd').modal('show');
+                    });
+    });
+})  
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['mod'], \yii\web\View::POS_END); ?>  
+
+
+
+
+
+
+
+

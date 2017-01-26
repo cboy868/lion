@@ -26,7 +26,22 @@ MemberAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+
+<!-- 
+<ul class="bread" style="">
+  <li><a href="<?=Url::toRoute(['/member/default/panel'])?>" target="right" class="icon-home"> 首页</a></li>
+  <li><a href="##" id="a_leader_txt">个人中心</a></li>
+</ul> -->
+<?php
+echo Breadcrumbs::widget([
+	'options' => ['class'=>'bread', 'style'=>'background-color:#f2f9fd;margin-left:0;border-bottom: 1px solid #b5cfd9;'],
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    'encodeLabels' => false
+]);
+?><!-- /.breadcrumb -->
+<div style="margin:15px;">
 <?=$content?>
+</div>
 <?php $this->endBody() ?>
 </body>
 </html>

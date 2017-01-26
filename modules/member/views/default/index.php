@@ -55,6 +55,11 @@ MemberAsset::register($this);
     <li><a href="<?=Url::toRoute(['/member/cms/favor/index'])?>" target="right"><span class="icon-caret-right"></span>我的收藏</a></li>  
     <!-- <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>      -->
     <li><a href="column.html" target="right"><span class="icon-caret-right"></span>查看历史记录</a></li>
+
+    <li>
+      <a href="<?=Url::toRoute(['/member/memorial'])?>" target="right" class="float-left" target="right"><span class="icon-caret-right"></span>纪念馆</a> 
+      <a href="<?=Url::toRoute(['/member/memorial/default/create'])?>" class="float-right" style="margin-right:20px;" target="right">添加</a>
+    </li>
   </ul>   
   <!-- <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
@@ -63,11 +68,6 @@ MemberAsset::register($this);
     <li><a href="cate.html" target="right"><span class="icon-caret-right"></span>分类管理</a></li>        
   </ul>   -->
 </div>
-<ul class="bread">
-  <li><a href="{:U('Index/info')}" target="right" class="icon-home"> 首页</a></li>
-  <li><a href="##" id="a_leader_txt">个人中心</a></li>
-  <!-- <li><b>当前语言：</b><span style="color:red;">中文</php></span> --> <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> --> </li>
-</ul>
 <div class="admin">
   <iframe scrolling="auto" rameborder="0" src="<?=Url::toRoute(['/member/default/panel'])?>" name="right" width="100%" height="100%"></iframe>
 </div>
@@ -78,7 +78,7 @@ $(function(){
       $(this).toggleClass("on"); 
   })
   $(".leftnav ul li a").click(function(){
-        $("#a_leader_txt").text($(this).text());
+        //$("#a_leader_txt").text($(this).text());
         $(".leftnav ul li a").removeClass("on");
         $(this).addClass("on");
   })
