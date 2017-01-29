@@ -54,12 +54,108 @@ class m161217_134034_grave extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(1),//-1删除,1闲置，2预定，3定金 4全款，5 部分安葬 6全部安葬
         ], $tableOptions);
 
+        $this->createTable('{{%grave_dead}}', [
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
+            'tomb_id' => $this->integer()->notNull(),
+            'memorial_id' => $this->integer(),
+            'dead_name'=> $this->string(255)->notNull(),
+            'second_name' => $this->string(255),//
+            'dead_title' => $this->string()->notNull(),//关系吧 比如母亲、父亲
+            'serial' =>$this->integer(),//逝者编号
+            'gender' =>$this->smallInteger(1),//1 男  2女
+            'birth_place'=> $this->string(255),
+            'birth'  =>  $this->date(),//取身份证上的
+            'fete'   => $this->date(),//取阳历  //一些纪念日如果想用阴历，可在纪念日中添加
+            'is_alive'=> $this->smallInteger(1),
+            'is_adult' => $this->smallInteger(1),// 是否成人
+            'age' => $this->smallInteger(),
+            'follow_id' => $this->integer(),//携子的id
+            'desc' => $this->text(),//生平
+            'is_ins' => $this->smallInteger(1),//是否立碑
+            'bone_type' => $this->smallInteger(),//安葬类型 骨灰 骨质 灵位 之类
+            'bone_container' => $this->smallInteger(),//安葬种类 自带骨质盒...
+            'pre_bury' => $this->dateTime(),
+            'bury' => $this->dateTime(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'status' => $this->smallInteger(),
+        ], $tableOptions);
+
+        $this->createTable('{{%grave_customer}}', [
+            'id' => $this->primaryKey(),
+            'tomb_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer()->notNull(),
+            'name' => $this->string(200),
+            'phone' => $this->string(20),  //固定电话
+            'mobile' => $this->string(20), //手机
+            'email' => $this->string(100),//邮箱
+            'second_ct' => $this->string(100),
+            'second_mobile' => $this->string(20),
+            'units' => $this->string(255),//工作单位
+            'relation' => $this->string(100),
+            'is_vip' => $this->smallInteger(1)->defaultValue(0),
+            'vip_desc'=> $this->text(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'status' => $this->smallInteger(),
+        ], $tableOptions);
+
+        $this->createTable('{{%grave_bury}}', [
+            'id' => $this->primaryKey(),
+            'tomb_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer()->notNull(),
+            'dead_id' => $this->integer()->notNull(),
+            'dead_name' => $this->integer()->notNull(),
+            'dead_num' => $this->smallInteger()->notNull(),//本次安葬人数
+            'bury_type' => $this->smallInteger(),//寿 单  合 独 二次
+            'pre_bury_date'=> $this->dateTime(),
+            'bury_date' => $this->dateTime(),
+            'bury_time' => $this->time(),//类型
+            'bury_user' => $this->integer(),//安葬员
+            'bury_order'=> $this->smallInteger(),//一天之中的安葬顺序
+            'note' => $this->text(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'status' => $this->smallInteger(),
+
+        ], $tableOptions);
+
+        $this->createTable('{{%grave_address}}', [
+            'id' => $this->primaryKey(),
+            'res_name' => $this->string(100),//类型，比如custome dead之类需要地址的都可以往这里放 
+            'res_id' => $this->integer(),
+            'province_id' => $this->integer(),
+            'city_id' => $this->integer(),
+            'zone_id' => $this->integer(),
+            'address' => $this->text(),//详细地址 具体的门号
+            'postcode'=> $this->string(20),//邮编
+            'mobile' => $this->string(20),//电话
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'status' => $this->smallInteger(),
+        ], $tableOptions);
+
+        // $this->createTable('{{%grave_address}}', [ // 墓位与定单的关联
+        //     'id' => $this->primaryKey(),
+        //     'tomb_id' => $this->integer()->notNull(),
+        //     'order_id' => $this->integer()->notNull(),
+        //     'type' => $this->integer()->notNull(),//哪一步生成的定单,比如安葬用、比如远程用、比如清明用
+        // ], $tableOptions);
+
+
+        //customer address 是不是应该放在外层   然后继承着去做
+
     }
 
     public function down()
     {
         $this->dropTable('{{%grave}}');
         $this->dropTable('{{%grave_tomb}}');
+        $this->dropTable('{{%grave_dead}}');
+        $this->dropTable('{{%grave_customer}}');
+        $this->dropTable('{{%grave_bury}}');
+        $this->dropTable('{{%grave_address}}');
     }
 
     /*
