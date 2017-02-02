@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m161006_120844_shop_order extends Migration
+class m161006_120844_order extends Migration
 {
     public function up()
     {
@@ -10,13 +10,14 @@ class m161006_120844_shop_order extends Migration
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        $this->createTable('{{%shop_order}}', [
+        $this->createTable('{{%order}}', [
             'id' => $this->primaryKey(),//id
             'wechat_uid' => $this->integer(),//下订单的人.微信用户表中的id
+            'user_id' => $this->integer(),//下单人
             'price' => $this->decimal(10,2),
             'origin_price' => $this->decimal(10,2),
             'type'    => $this->smallInteger()->defaultValue(1),//订单类型 1点餐 2订桌
-            'progress'=> $this->smallInteger()->defaultValue(1),//状态1待支付,2支付完成,3服务完成
+            'progress'=> $this->smallInteger()->defaultValue(0),//状态0订单初始 1支付部分,2支付完成,3服务完成
             'note'     => $this->text(),//备注
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
@@ -24,9 +25,10 @@ class m161006_120844_shop_order extends Migration
             // 'uid' => Schema::TYPE_STRING . "(11) NOT NULL DEFAULT '0' COMMENT '用户id' ", 给表加注释是这样加
         ], $tableOptions);
 
-        $this->createTable('{{%shop_order_rel}}', [
+        $this->createTable('{{%order_rel}}', [
             'id' => $this->primaryKey(),//id
             'wechat_uid' => $this->integer(),//购买人, 微信表中的id
+            'user_id' => $this->integer(),//下单人
             'title'=> $this->string(255), //商品名
             'type' => $this->smallInteger()->defaultValue(1), //类型1点餐,2订桌
             'category_id' => $this->smallInteger(),//菜品分类,
@@ -44,9 +46,10 @@ class m161006_120844_shop_order extends Migration
             'status'    => $this->smallInteger()->defaultValue(1) //1正常 2禁用 3 退款 －1删除
         ], $tableOptions);
 
-        $this->createTable('{{%shop_order_pay}}', [
+        $this->createTable('{{%order_pay}}', [
             'id' => $this->primaryKey(),//id
             'wechat_uid' => $this->integer(),//下订单的人.微信用户表中的id
+            'user_id' => $this->integer(),//下订单的人.微信用户表中的id
             'order_id' => $this->integer(),
             'order_no' => $this->string(255),
             'trade_no' => $this->string(255),
@@ -62,10 +65,11 @@ class m161006_120844_shop_order extends Migration
             'status'     => $this->smallInteger()->defaultValue(1) //1正常 －1删除
         ], $tableOptions);
 
-        $this->createTable('{{%shop_order_refund}}', [
+        $this->createTable('{{%order_refund}}', [
             'id' => $this->primaryKey(),//id
             'order_id' => $this->integer(),
             'wechat_uid'    => $this->integer(),
+            'user_id'    => $this->integer(),
             'fee'      => $this->decimal(10,2),
             'progress' => $this->smallInteger()->defaultValue(1),//-1 审不通过，1待审 2审通过 3已退
             'intro'     => $this->text(),//退款内容
@@ -79,10 +83,10 @@ class m161006_120844_shop_order extends Migration
 
     public function down()
     {
-        $this->dropTable('{{%shop_order}}');
-        $this->dropTable('{{%shop_order_rel}}');
-        $this->dropTable('{{%shop_order_pay}}');
-        $this->dropTable('{{%shop_order_refund}}');
+        $this->dropTable('{{%order}}');
+        $this->dropTable('{{%order_rel}}');
+        $this->dropTable('{{%order_pay}}');
+        $this->dropTable('{{%order_refund}}');
     }
 
     /*

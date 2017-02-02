@@ -1,12 +1,10 @@
 <?php
 
-namespace app\modules\shop\models;
+namespace app\modules\order\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-
-use app\modules\shop\models\event\PayEvent;
-
+use app\modules\user\models\User;
 /**
  * This is the model class for table "{{%order_pay}}".
  *
@@ -32,8 +30,10 @@ class Pay extends \app\core\db\ActiveRecord
     const STATUS_DEL = -1;
 
     const METHOD_UNKNOWN = 0;
-    const METHOD_WECHAT = 1;
-    const METHOD_ALI = 2;
+    const METHOS_CASH = 1;
+    const METHOD_WECHAT = 2;
+    const METHOD_ALI = 3;
+    const METHOD_CHEQUE = 4;
 
 
     const RESULT_FAIL = -1;
@@ -48,7 +48,7 @@ class Pay extends \app\core\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%shop_order_pay}}';
+        return '{{%order_pay}}';
     }
 
     public function behaviors()
@@ -117,18 +117,18 @@ class Pay extends \app\core\db\ActiveRecord
         # 几种情况
         # 1､未支付过
         # 2､已经支付部分
-        $total_pay = self::find()->where([
-            'order_id'  => $order->id, 
-            'pay_result'=> SELF::RESULT_FINISH, 
-            'status'    => self::STATUS_NORMAL
-            ])->sum('total_pay');
 
-        if ($total_pay >= $order->price) {//'订单已支付完成';
+        // if ($total_pay >= $order->price) {//'订单已支付完成';
+        //     return false;
+        // }
+
+        if ($order->isFinish) {
             return false;
         }
 
-        $pay = self::find()->where(['order_id'=>$order->id, 'pay_result'=>self::RESULT_INIT, 'status'=>self::STATUS_NORMAL])->one();
+        $total_pay = $order->getTotalPay();
 
+        $pay = self::find()->where(['order_id'=>$order->id, 'pay_result'=>self::RESULT_INIT, 'status'=>self::STATUS_NORMAL])->one();
 
         $remainder = $total_pay ? ($order->price - $total_pay) : $order->price;
 
@@ -141,9 +141,8 @@ class Pay extends \app\core\db\ActiveRecord
             $pay->pay_result = self::RESULT_INIT;
             $pay->order_no = $order_no;
             $pay->pay_method = self::METHOD_UNKNOWN;
-            $pay->wechat_uid = $order->wechat_uid;
+            $pay->user_id = $order->user_id;
         }
-        
         $pay->total_fee = $remainder;
         $pay->total_pay = 0;
 
@@ -151,8 +150,18 @@ class Pay extends \app\core\db\ActiveRecord
             return false;
         }
 
+
         return $pay;
     }
+
+    // public static function getTotalPay($order)
+    // {
+    //     return self::find()->where([
+    //         'order_id'  => $order->id, 
+    //         'pay_result'=> SELF::RESULT_FINISH, 
+    //         'status'    => self::STATUS_NORMAL
+    //         ])->sum('total_pay');
+    // }
 
     /**
      * @name 支付方法
@@ -185,36 +194,107 @@ class Pay extends \app\core\db\ActiveRecord
     // }
 
 
-    public function pay($pay_method, $pay_price)
+    public static function pay($order, $pay_method, $pay_price)
     {
+        $pay = self::create($order);
 
-        if ($this->status == self::STATUS_DEL || $this->pay_result != self::RESULT_INIT) {
+
+        if (!$pay) {
             return false;
         }
 
-        $this->pay_method = $pay_method;
-        $this->total_pay  = $pay_price;
-        $this->paid_at    = date('Y-m-d H:i:s');
-        $this->pay_result = self::RESULT_FINISH;
-
-
-        if (!$this->save()) {
+        if ($pay->status == self::STATUS_DEL || $pay->pay_result != self::RESULT_INIT) {
             return false;
         }
 
-        if ($this->total_fee > $this->total_pay) {
+        $pay->pay_method = $pay_method;
+        $pay->total_pay  = $pay_price;
+        $pay->paid_at    = date('Y-m-d H:i:s');
+        $pay->pay_result = self::RESULT_FINISH;
+
+        if (!$pay->save()) {
+            return false;
+        }
+
+        if ($pay->total_fee > $pay->total_pay) {
             $progress = 1;
         } else {
             $progress = 2;
         }
 
         $event = new PayEvent(['progress' => $progress]);
-        $this->trigger(self::EVENT_AFTER_PAY, $event);
+        $pay->on(self::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
+        $pay->trigger(self::EVENT_AFTER_PAY, $event);
 
+    }
+
+
+    // public function pay($pay_method, $pay_price)
+    // {
+
+    //     if ($this->status == self::STATUS_DEL || $this->pay_result != self::RESULT_INIT) {
+    //         return false;
+    //     }
+
+    //     $this->pay_method = $pay_method;
+    //     $this->total_pay  = $pay_price;
+    //     $this->paid_at    = date('Y-m-d H:i:s');
+    //     $this->pay_result = self::RESULT_FINISH;
+
+
+    //     if (!$this->save()) {
+    //         return false;
+    //     }
+
+    //     if ($this->total_fee > $this->total_pay) {
+    //         $progress = 1;
+    //     } else {
+    //         $progress = 2;
+    //     }
+
+    //     $event = new PayEvent(['progress' => $progress]);
+    //     $this->on(self::EVENT_AFTER_PAY, [$this->order, 'afterPay']);
+    //     $this->trigger(self::EVENT_AFTER_PAY, $event);
+
+    // }
+
+    public function getOrder()
+    {
+        return $this->hasOne(Order::className(),['id'=>'order_id']);
+    }
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'user_id']);
     }
 
     public static function getPayByOrder($order_id)
     {
         return Pay::find()->where(['order_id'=>$order_id])->asArray()->one();
     }
+
+    public function getMethod()
+    {
+        return self::getMethods($this->pay_method);
+    }
+
+    public static function getMethods($method = null)
+    {
+        $me = [
+            self::METHOS_CASH => '现金支付',
+            self::METHOD_CHEQUE => '支票支付',
+            self::METHOD_ALI => '支付宝支付',
+            self::METHOD_WECHAT => '微信支付',
+            self::METHOD_UNKNOWN => '其它',
+
+        ];
+
+        if ($method === null) {
+            return $me;
+        }
+
+        return $me[$method];
+
+    }
+
+
 }

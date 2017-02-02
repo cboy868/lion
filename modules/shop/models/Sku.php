@@ -4,6 +4,7 @@ namespace app\modules\shop\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\modules\order\models\Order;
 /**
  * This is the model class for table "{{%shop_sku}}".
  *
@@ -15,6 +16,9 @@ use yii\behaviors\TimestampBehavior;
  * @property string $av
  * @property integer $created_at
  */
+
+// $sku = Sku::findOne(38);
+// $a = $sku->order(['order_note'=> '最新订单', 'note'=>'note记录', 'use_time'=>'2016-02-02 22:12:00', 'num'=>12]);
 class Sku extends \app\core\db\ActiveRecord
 {
     /**
@@ -67,4 +71,19 @@ class Sku extends \app\core\db\ActiveRecord
             ]
         ];
     }
+
+    public function getGoods()
+    {
+        return $this->hasOne(Goods::className(),['id'=>'goods_id']);
+    }
+
+    /**
+     * @name 下订单
+     */
+    public function order($extra)
+    {
+        return Order::create($this, $extra);
+    }
+
+
 }

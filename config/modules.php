@@ -13,6 +13,9 @@ return [
     'member' => [
         'class' => 'app\modules\member\Module',
     ],
+    'order' => [
+        'class' => 'app\modules\order\Module',
+    ],
     'install' => [
         'class' => 'app\modules\install\Module',
     ],

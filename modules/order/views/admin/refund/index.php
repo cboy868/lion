@@ -6,10 +6,10 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\CustomerSearch */
+/* @var $searchModel app\modules\order\models\RefundSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '客户管理';
+$this->title = '退款记录';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 退款申请', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -36,29 +36,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <div class="col-xs-12 customer-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <div class="col-xs-12 refund-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            // ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'tomb_id',
-            'user_id',
-            'name',
-            // 'phone',
-            'mobile',
-            // 'email:email',
-            // 'second_ct',
-            // 'second_mobile',
-            // 'units',
-            'relation',
-            // 'is_vip',
-            // 'vip_desc:ntext',
+            'order_id',
+            'user.username',
+            'fee',
+            'progress',
+            'intro:ntext',
+            'note:ntext',
+            // 'checkout_at',
             // 'created_at',
             // 'updated_at',
             // 'status',

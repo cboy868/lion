@@ -77,8 +77,8 @@ $config = [
         'formatter' => [
             'class' => 'yii\i18n\Formatter',
             'dateFormat' => 'php:Y-m-d',
-            'datetimeFormat' => 'php:Y-m-d H:i:s',
-            'timeFormat' => 'php:H:i:s',
+            'datetimeFormat' => 'php:Y-m-d H:i',
+            'timeFormat' => 'php:H:i',
         ],
         'view' => [
             'theme' => [

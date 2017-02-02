@@ -6,10 +6,10 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\CustomerSearch */
+/* @var $searchModel app\modules\order\models\OrderRelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '客户管理';
+$this->title = 'Order Rels';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <div class="col-xs-12 customer-index">
+            <div class="col-xs-12 order-rel-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -44,21 +44,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            // ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'tomb_id',
-            'user_id',
-            'name',
-            // 'phone',
-            'mobile',
-            // 'email:email',
-            // 'second_ct',
-            // 'second_mobile',
-            // 'units',
-            'relation',
-            // 'is_vip',
-            // 'vip_desc:ntext',
+            'wechat_uid',
+            'title',
+            'type',
+            'category_id',
+            // 'goods_id',
+            // 'sku_id',
+            // 'sku_name',
+            // 'order_id',
+            // 'price',
+            // 'price_unit',
+            // 'num',
+            // 'use_time',
+            // 'note:ntext',
             // 'created_at',
             // 'updated_at',
             // 'status',

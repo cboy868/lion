@@ -1,9 +1,10 @@
 <?php
 
-namespace app\modules\shop\models;
+namespace app\modules\order\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\modules\user\models\User;
 
 /**
  * This is the model class for table "{{%order_rel}}".
@@ -40,7 +41,7 @@ class OrderRel extends \app\core\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%shop_order_rel}}';
+        return '{{%order_rel}}';
     }
 
     public function behaviors()
@@ -58,7 +59,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id'], 'integer'],
+            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'user_id'], 'integer'],
             [['price', 'price_unit'], 'number'],
             [['use_time'], 'safe'],
             [['note'], 'string'],
@@ -68,25 +69,24 @@ class OrderRel extends \app\core\db\ActiveRecord
     }
 
 
-    public static function create($order, $goods, $sku, $data)
+    public static function create($order, $sku, $data)
     {
 
-
-        $model = self::hasRel($order->id, $goods->id, $sku->id, $order->wechat_uid);
+        $model = OrderRel::hasRel($order->id, $sku->goods_id, $sku->id, $order->user_id);
 
         if (!$model) {
-            $model = new self;
+            $model = new OrderRel;
         }
 
         $num = $data['num']>0 ? $data['num'] : 1;
 
         $data = [
-            'wechat_uid'    => $order->wechat_uid,
+            'user_id'    => $order->user_id,
             'order_id'      => $order->id,
-            'goods_id'      => $goods->id,
+            'goods_id'      => $sku->goods_id,
             'sku_id'        => $sku->id,
-            'category_id'   => $goods->category_id,
-            'title'         => $goods->name,
+            'category_id'   => $sku->goods->category_id,
+            'title'         => $sku->name,
             'price_unit'    => $sku->price,
             'price'         => $num * $sku->price,
             'sku_name'      => $sku->name,
@@ -95,8 +95,12 @@ class OrderRel extends \app\core\db\ActiveRecord
             'use_time'      => $data['use_time'] ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
         ];
 
+
         $model->load($data, '');
+
         $model->save();
+
+        return $model;
     }
 
     // public static function create($wechat_uid, $order_id, $goods_model, $sku_model, array $extra=[] , $type=self::TYPE_FOOD)
@@ -126,12 +130,12 @@ class OrderRel extends \app\core\db\ActiveRecord
     //     return $model;
     // }
 
-    public static function hasRel($order_id, $goods_id, $sku_id, $wechat_uid)
+    public static function hasRel($order_id, $goods_id, $sku_id, $user_id)
     {
         return self::find()->where(['order_id'=>$order_id])
                              ->andWhere(['goods_id'=>$goods_id])
                              ->andWhere(['sku_id'=>$sku_id])
-                             ->andWhere(['wechat_uid'=> $wechat_uid])
+                             ->andWhere(['user_id'=> $user_id])
                              ->andWhere(['status'=>self::STATUS_NORMAL])
                              ->one();
 
@@ -144,7 +148,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'wechat_uid' => '用户',
+            'user_id' => '用户',
             'title' => '商品名',
             'type' => 'Type',
             'category_id' => '商品分类',
@@ -161,9 +165,24 @@ class OrderRel extends \app\core\db\ActiveRecord
         ];
     }
 
+
+    public function getStatusText()
+    {
+        $st = [
+            self::STATUS_NORMAL => '正常',
+            self::STATUS_DEL => '删除'
+        ];
+        return $st[$this->status];
+    }
+
     public function getOrder()
     {
         return $this->hasOne(Order::className(),['id'=>'order_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'user_id']);
     }
 
 }
