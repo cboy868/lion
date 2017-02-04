@@ -14,6 +14,7 @@ class m161006_120844_order extends Migration
             'id' => $this->primaryKey(),//id
             'wechat_uid' => $this->integer(),//下订单的人.微信用户表中的id
             'user_id' => $this->integer(),//下单人
+            'op_id' => $this->integer(),//下单人
             'price' => $this->decimal(10,2),
             'origin_price' => $this->decimal(10,2),
             'type'    => $this->smallInteger()->defaultValue(1),//订单类型 1点餐 2订桌
@@ -29,6 +30,7 @@ class m161006_120844_order extends Migration
             'id' => $this->primaryKey(),//id
             'wechat_uid' => $this->integer(),//购买人, 微信表中的id
             'user_id' => $this->integer(),//下单人
+            'op_id' => $this->integer(),//下单人
             'title'=> $this->string(255), //商品名
             'type' => $this->smallInteger()->defaultValue(1), //类型1点餐,2订桌
             'category_id' => $this->smallInteger(),//菜品分类,
@@ -50,6 +52,7 @@ class m161006_120844_order extends Migration
             'id' => $this->primaryKey(),//id
             'wechat_uid' => $this->integer(),//下订单的人.微信用户表中的id
             'user_id' => $this->integer(),//下订单的人.微信用户表中的id
+            'op_id' => $this->integer(),//下单人
             'order_id' => $this->integer(),
             'order_no' => $this->string(255),
             'trade_no' => $this->string(255),
@@ -70,11 +73,30 @@ class m161006_120844_order extends Migration
             'order_id' => $this->integer(),
             'wechat_uid'    => $this->integer(),
             'user_id'    => $this->integer(),
+            'op_id' => $this->integer(),//操作人
             'fee'      => $this->decimal(10,2),
             'progress' => $this->smallInteger()->defaultValue(1),//-1 审不通过，1待审 2审通过 3已退
             'intro'     => $this->text(),//退款内容
             'note'      => $this->text(),//备注
             'checkout_at'=> $this->dateTime(),//结算时间
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
+            'status'    => $this->smallInteger()->defaultValue(1), //1正常, -1删除
+        ], $tableOptions);
+
+        $this->createTable('{{%order_delay}}', [//欠款
+            'id' => $this->primaryKey(),//id
+            'order_id' => $this->integer(),
+            'user_id'    => $this->integer(),
+            'op_id' => $this->integer(),
+            'price' => $this->decimal(10,2),
+            'pre_dt' => $this->date(),//预定还款期
+            'pay_dt' => $this->dateTime(),//实际支付时间
+            'note'  => $this->text(),//备注
+            'created_by' => $this->integer(),
+            'is_verified' => $this->smallInteger(1)->defaultValue(0),//是否已审批通过
+            'verified_by' => $this->integer(),//审批人
+            'verified_at' => $this->integer(),//审批通过时间
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'status'    => $this->smallInteger()->defaultValue(1), //1正常, -1删除
@@ -87,6 +109,7 @@ class m161006_120844_order extends Migration
         $this->dropTable('{{%order_rel}}');
         $this->dropTable('{{%order_pay}}');
         $this->dropTable('{{%order_refund}}');
+        $this->dropTable('{{%order_delay}}');
     }
 
     /*

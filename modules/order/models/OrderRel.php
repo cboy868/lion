@@ -59,7 +59,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'user_id'], 'integer'],
+            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'user_id', 'op_id'], 'integer'],
             [['price', 'price_unit'], 'number'],
             [['use_time'], 'safe'],
             [['note'], 'string'],
@@ -82,6 +82,7 @@ class OrderRel extends \app\core\db\ActiveRecord
 
         $data = [
             'user_id'    => $order->user_id,
+            'op_id'      => Yii::$app->user->id,
             'order_id'      => $order->id,
             'goods_id'      => $sku->goods_id,
             'sku_id'        => $sku->id,

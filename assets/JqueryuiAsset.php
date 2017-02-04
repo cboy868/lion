@@ -20,7 +20,8 @@ class JqueryuiAsset extends AssetBundle
         'themes/base/jquery-ui.min.css'
     ];
     public $js = [
-        'jquery-ui.min.js'
+        'jquery-ui.min.js',
+        'ui/i18n/datepicker-zh-CN.js'
     ];
 
     public $depends = [

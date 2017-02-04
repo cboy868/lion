@@ -5,11 +5,13 @@ namespace app\modules\order\controllers\admin;
 use Yii;
 use app\modules\order\models\Order;
 use app\modules\order\models\OrderSearch;
+use app\modules\order\models\OrderRel;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\order\models\Pay;
-
+use app\modules\order\models\Delay;
+use app\modules\order\models\OrderEvent;
 /**
  * DefaultController implements the CRUD actions for Order model.
  */
@@ -59,7 +61,6 @@ class DefaultController extends BackController
      */
     public function actionPay($id)
     {
-
         $req = Yii::$app->request;
         if ($req->isPost) {
             $post = $req->post();
@@ -67,22 +68,55 @@ class DefaultController extends BackController
             $order_id = $post['order_id'];
             $order = Order::findOne($order_id);
 
-
             foreach ($post['pay_type'] as $k => $v) {
                 if ($post['price'][$k] <= 0) {
                     continue;
                 }
-                Pay::pay($order, $v, $post['price'][$k]);
+                $pay = Pay::create($order);
+                $pay->on(Pay::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
+                $pay->pay($v, $post['price'][$k]);
             }
 
-            // if ($order->isFinish) {
             return $this->redirect(['view', 'id'=>$order->id]);
-            // }
         }
         return $this->render('pay', [
             'model' => $this->findModel($id),
         ]);
     }
+
+
+
+    /**
+     * @name 延期支付申请
+     */
+    public function actionDelay($id)
+    {
+
+        $req = Yii::$app->request;
+        $delay = new Delay();
+
+        if ($req->isPost) {
+            $post = $req->post();
+            $order = Order::findOne($id);
+
+            $delay->load(Yii::$app->request->post());
+
+            $delay->on(Delay::EVENT_AFTER_CREATE, [$order, 'afterPay']);
+
+            if ($delay->create($order)) {
+                Yii::$app->session->setFlash('success', '申请完成，待审批...');
+                return $this->redirect(['view', 'id'=>$id]);
+            }
+
+        }
+
+        return $this->render('delay', [
+            'model' => $this->findModel($id),
+            'delay' => $delay
+        ]);
+    }
+
+    
 
     /**
      * Creates a new Order model.
@@ -119,6 +153,18 @@ class DefaultController extends BackController
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionMPrice($id)
+    {
+        $model = OrderRel::findOne($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $order = $model->order->updatePrice();
+            return $this->redirect(['view', 'id'=>$model->order_id]);
+        }
+
+        return $this->renderAjax('m-price', ['model'=>$model]);
     }
 
     /**

@@ -1,8 +1,12 @@
 <?php
 
 use app\core\helpers\Html;
+use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
+use yii\bootstrap\Modal;
+use app\modules\order\models\Order;
+use app\modules\order\models\Delay;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\order\models\Order */
@@ -19,14 +23,28 @@ $this->params['breadcrumbs'][] = '订单明细';
         <div class="page-header">
             <h1>
                 <small>
-                    <?= Html::a('收 款', ['pay', 'id' => $model->id], ['class' => 'btn btn-primary btn-lg pull-right']) ?>
+                    <div class="btn-group pull-right" role="group">
+                    <?php if ($model->progress != Order::PRO_DELAY): ?>
+                        <?= Html::a('申请延期支付', ['delay', 'id' => $model->id], ['class' => 'btn btn-danger btn-lg']) ?>
+                    <?php endif ?>
+                    <?= Html::a('收 款', ['pay', 'id' => $model->id], ['class' => 'btn btn-info btn-lg']) ?>
+                    </div>
                 </small>
             </h1>
         </div>
     <?php endif ?>
         
         <!-- /.page-header -->
+        <?php 
+            Modal::begin([
+                'header' => '修改价格',
+                'id' => 'modalEdit',
+                'size' => 'SIZE_SMALL'
+            ]) ;
 
+            echo '<div id="editContent"></div>';
+            Modal::end();
+        ?>
         <div class="row">
             <div class="col-xs-12">
                 <div class="orderlist">
@@ -63,7 +81,7 @@ $this->params['breadcrumbs'][] = '订单明细';
                         </tr>
                         <tr>
                             <th>支付进度：</th>
-                            <td colspan="3"><?=$model->getStaLabel()?></td>
+                            <td colspan="3"><?=Order::pro($model->progress)?></td>
                         </tr>
                         <tr>
                             <th>下单时间：</th>
@@ -72,9 +90,6 @@ $this->params['breadcrumbs'][] = '订单明细';
                     </tbody></table>
                 </div>    
             </div>
-
-
-
 
             <div class="col-xs-12">
                 <h4>订单详情</h4>
@@ -98,12 +113,13 @@ $this->params['breadcrumbs'][] = '订单明细';
                       </tr>
                       <?php foreach ($model->rels as $rel): ?>
                           <tr>
-
                             <td align="center"><?=$rel->title?></td>
                             <!--<td align="center">500000.00</td>-->
                             <!-- <td align="center">500000.00</td> -->
                             <td align="center"><?=$rel->price?>
-                            <a href="#">***</a>
+                            <?php if (!$model->isFinish): ?>
+                            <a href="<?=Url::toRoute(['m-price', 'id'=>$rel->id])?>" class="modalEditButton">***</a>
+                            <?php endif ?>
                             </td>
                             <td align="center"><?=$rel->note?></td>
                             <td align="center"><?=$rel->num?></td>
@@ -117,6 +133,35 @@ $this->params['breadcrumbs'][] = '订单明细';
                     </tbody>
                 </table>
             </div>
+
+            <?php if ($model->delays): ?>
+                    <div class="col-xs-12">
+                      <h4>延期记录</h4>
+                      <table class="table table-striped table-hover table-bordered table-condensed">
+                        <thead>
+                          <tr>
+                            <th>操作员</th>
+                            <th>申请人</th>
+                            <th>申请金额</th>
+                            <th>预付时间</th>
+                            <th>状态</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($model->delays as $delay): ?>
+                             <tr>
+                              <td><?=$delay->op->username?></td>
+                              <td><?=$delay->user->username?></td>
+                              <td><?=$delay->price?></td>
+                              <td><?=date("Y-m-d H:i", $delay->created_at)?></td>
+                              <td><?=Delay::getVerfy($delay->is_verified)?></td>
+                            </tr>
+                            <?php endforeach ?>
+                          </tbody>
+                        </table>
+                    </div>
+            <?php endif ?>
+            
 
 
             <div class="col-xs-12">
@@ -139,23 +184,32 @@ $this->params['breadcrumbs'][] = '订单明细';
                      <td><?=$pay->method?></td>
                       <td><?=$pay->user->username?></td>
                       <td><?=date("Y-m-d H:i", $pay->updated_at)?></td>
-                    <td><a title="收款打印" ylw-simple-remote="true" href="/admin/print/installment/id/59610"><i class="icon icon-print"></i> 打印本次收款单</a>
+                    <td><a title="收款打印" ylw-simple-remote="true" href="#"><i class="icon icon-print"></i> 打印本次收款单</a>
                         <input class="pay_item" type="checkbox" name="pay_item" value="59610">
                     </td>
                     </tr>
                     <?php endforeach ?>
                                <tr>
                        <td colspan="5">
-                          <a ylw-simple-remote="true" href="/admin/print/installment/id/59610" id="all-pay-list" data-datas="" class="pull-right btn btn-xs btn-success radius4"><i class="icon icon-print"></i>  打印所选收款</a>
-                                         <a class="pull-right btn btn-xs btn-primary radius4" ylw-simple-remote="true" href="/admin/print/order/id/51141"> 打印全款</a>
-                                        </td>
+                        <a ylw-simple-remote="true" href="#" id="all-pay-list" data-datas="" class="pull-right btn btn-xs btn-success radius4"><i class="icon icon-print"></i>  打印所选收款</a>
+                         <a class="pull-right btn btn-xs btn-primary radius4" ylw-simple-remote="true" href="#"> 打印全款</a>
+                        </td>
                      </tr>
                   </tbody>
                 </table>
             </div>
         </div><!-- /.row -->
-
-
-        
     </div><!-- /.page-content-area -->
 </div>
+
+
+<?php $this->beginBlock('order') ?>  
+
+$(function() {
+
+    
+
+});
+
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['order'], \yii\web\View::POS_END); ?>  

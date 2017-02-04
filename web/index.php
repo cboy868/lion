@@ -13,3 +13,5 @@ require(__DIR__ . '/../config/bootstrap.php');
 $config = require(__DIR__ . '/../config/web.php');
 
 (new yii\web\Application($config))->run();
+
+Yii::$classMap['Fpdf'] = '@app/core/libs/fpdf181/chinese.php';

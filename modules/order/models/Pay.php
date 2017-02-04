@@ -66,7 +66,7 @@ class Pay extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'pay_method', 'pay_result', 'wechat_uid', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['order_id', 'pay_method', 'pay_result', 'wechat_uid', 'created_at', 'updated_at', 'status', 'op_id'], 'integer'],
             [['total_fee', 'total_pay'], 'number'],
             [['paid_at', 'checkout_at'], 'safe'],
             [['order_id', 'order_no'], 'required'],
@@ -142,6 +142,7 @@ class Pay extends \app\core\db\ActiveRecord
             $pay->order_no = $order_no;
             $pay->pay_method = self::METHOD_UNKNOWN;
             $pay->user_id = $order->user_id;
+            $pay->op_id = Yii::$app->user->id;
         }
         $pay->total_fee = $remainder;
         $pay->total_pay = 0;
@@ -194,38 +195,65 @@ class Pay extends \app\core\db\ActiveRecord
     // }
 
 
-    public static function pay($order, $pay_method, $pay_price)
+    // public static function pay($order, $pay_method, $pay_price)
+    // {
+    //     $pay = self::create($order);
+
+
+    //     if (!$pay) {
+    //         return false;
+    //     }
+
+    //     if ($pay->status == self::STATUS_DEL || $pay->pay_result != self::RESULT_INIT) {
+    //         return false;
+    //     }
+
+    //     $pay->pay_method = $pay_method;
+    //     $pay->total_pay  = $pay_price;
+    //     $pay->paid_at    = date('Y-m-d H:i:s');
+    //     $pay->pay_result = self::RESULT_FINISH;
+
+    //     if (!$pay->save()) {
+    //         return false;
+    //     }
+
+    //     if ($pay->total_fee > $pay->total_pay) {
+    //         $progress = 1;
+    //     } else {
+    //         $progress = 2;
+    //     }
+
+    //     $event = new PayEvent(['progress' => $progress]);
+    //     $pay->on(self::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
+    //     $pay->trigger(self::EVENT_AFTER_PAY, $event);
+
+    // }
+
+    public function pay($pay_method, $pay_price)
     {
-        $pay = self::create($order);
 
-
-        if (!$pay) {
+        if ($this->status == self::STATUS_DEL || $this->pay_result != self::RESULT_INIT) {
             return false;
         }
 
-        if ($pay->status == self::STATUS_DEL || $pay->pay_result != self::RESULT_INIT) {
+        $this->pay_method = $pay_method;
+        $this->total_pay  = $pay_price;
+        $this->paid_at    = date('Y-m-d H:i:s');
+        $this->pay_result = self::RESULT_FINISH;
+
+        if (!$this->save()) {
             return false;
         }
 
-        $pay->pay_method = $pay_method;
-        $pay->total_pay  = $pay_price;
-        $pay->paid_at    = date('Y-m-d H:i:s');
-        $pay->pay_result = self::RESULT_FINISH;
-
-        if (!$pay->save()) {
-            return false;
-        }
-
-        if ($pay->total_fee > $pay->total_pay) {
+        if ($this->total_fee > $this->total_pay) {
             $progress = 1;
         } else {
             $progress = 2;
         }
 
-        $event = new PayEvent(['progress' => $progress]);
-        $pay->on(self::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
-        $pay->trigger(self::EVENT_AFTER_PAY, $event);
-
+        $event = new PayEvent(['progress' => $progress == 1 ? Order::PRO_PART : Order::PRO_PAY]);
+        
+        $this->trigger(self::EVENT_AFTER_PAY, $event);
     }
 
 
