@@ -28,8 +28,8 @@ class DefaultController extends \app\core\web\HomeController
   //       // header("Content-Disposition: inline; filename=list.pdf");
 		// $pdf->Output();
 
-    	$sku = Sku::findOne(37);
-    	$a = $sku->order(16, ['order_note'=> '最新订单', 'note'=>'note记录', 'use_time'=>'2016-02-02 22:12:00', 'num'=>10]);
+    	$sku = Sku::findOne(29);
+    	$a = $sku->order(16, ['order_note'=> '最新订单', 'note'=>'note记录', 'use_time'=>'2016-02-02 22:12:00', 'num'=>3]);
 
     	// $order = Order::findOne(5);
     	// Pay::pay($order, Pay::METHOS_CASH, 360);

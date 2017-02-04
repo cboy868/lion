@@ -76,6 +76,7 @@ class m161006_120844_order extends Migration
             'op_id' => $this->integer(),//操作人
             'fee'      => $this->decimal(10,2),
             'progress' => $this->smallInteger()->defaultValue(1),//-1 审不通过，1待审 2审通过 3已退
+            'price' => $this->decimal(10,2),
             'intro'     => $this->text(),//退款内容
             'note'      => $this->text(),//备注
             'checkout_at'=> $this->dateTime(),//结算时间

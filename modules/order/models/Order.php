@@ -140,7 +140,7 @@ class Order extends \app\core\db\ActiveRecord
 
         $model = self::find()->where(['user_id'=>$user_id])
                              ->andWhere(['status'=>self::STATUS_NORMAL])
-                             ->andWhere(['<', 'progress', self::PRO_PAY])
+                             ->andWhere(['progress'=>self::PRO_INIT])
                              ->one();
 
         if (!$model) {

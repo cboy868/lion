@@ -32,9 +32,9 @@ class Refund extends \app\core\db\ActiveRecord
 
     //-1 审不通过，1待审 2审通过 3已退
 
-    const PRO_PASS = 2;
     const PRO_NOPASS = -1;
     const PRO_WAIT = 1;
+    const PRO_PASS = 2;
     const PRO_OK   = 3;
 
     /**
@@ -64,7 +64,7 @@ class Refund extends \app\core\db\ActiveRecord
             [['fee'], 'number'],
             [['intro', 'note'], 'string'],
             [['checkout_at'], 'safe'],
-            [['created_at', 'updated_at'], 'required'],
+            [['fee'], 'required'],
         ];
     }
 
@@ -107,5 +107,14 @@ class Refund extends \app\core\db\ActiveRecord
         }
 
         return $pros;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {//通过之后还要处理订单之类的东西
+            //退款申请之后，加一些短信提醒之类的东西
+        }
+
+
     }
 }

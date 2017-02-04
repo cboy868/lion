@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use app\modules\order\models\Pay;
 use app\modules\order\models\Delay;
 use app\modules\order\models\OrderEvent;
+use app\modules\order\models\Refund;
 /**
  * DefaultController implements the CRUD actions for Order model.
  */
@@ -82,6 +83,47 @@ class DefaultController extends BackController
         return $this->render('pay', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionRefund($id)
+    {
+        $refund = new Refund();
+        $model = $this->findModel($id);
+
+
+        if ($refund->load(Yii::$app->request->post())) {
+
+            $post = Yii::$app->request->post();
+
+
+            $items = $post['item'];
+
+            $total = 0;
+            $intro = '';
+            foreach ($items as $k => $v) {
+                $rel = OrderRel::findOne($k);
+                $price = $rel->price_unit * $v;
+
+                $total += $price;
+                $intro .= $rel->title . ':' . $v . ':' . $price.';';
+            }
+
+            $data = [
+                'user_id' => $model->user_id,
+                'order_id'=> $model->id,
+                'intro'   => $intro,
+                'op_id'   => Yii::$app->user->id,
+                'fee'     => $total,
+            ];
+            $refund->load($data, '');
+            $refund->save();
+
+        }
+
+        return $this->render('refund',[
+            'model'=>$model,
+            'refund' => $refund
+            ]);
     }
 
 
