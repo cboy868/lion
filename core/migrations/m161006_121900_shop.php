@@ -59,7 +59,8 @@ class m161006_121900_shop extends Migration
 
         $this->createTable('{{%shop_cart}}', [
             'id' => $this->primaryKey(),//id
-            'wechat_uid' => $this->string(255)->notNull(),
+            // 'wechat_uid' => $this->string(255)->notNull(),
+            'user_id' => $this->integer(),
             'type'   => $this->smallInteger()->defaultValue(1), // 1 点餐, 2订桌
             'goods_id' => $this->integer(),//商品id
             'sku_id' => $this->integer(),//商品id

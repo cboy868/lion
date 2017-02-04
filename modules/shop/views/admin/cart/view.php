@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Carts', 'url' => ['index']];
         'model' => $model,
         'attributes' => [
             'id',
-            'wechat_uid',
+            'user_id',
             'type',
             'goods_id',
             'sku_id',

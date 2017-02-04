@@ -13,7 +13,6 @@
   "dependencies": {
     "bootbox.js": "bootbox#^4.4.0",
     "bootstrap-select": "^1.11.2",
-    "datetimepicker": "^2.5.4",
     "font-awesome": "^4.6.3",
     "footable": "^3.1.2",
     "Jcrop": "^2.0.4",

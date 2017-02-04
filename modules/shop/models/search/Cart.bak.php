@@ -12,23 +12,15 @@ use app\modules\shop\models\Cart as CartModel;
  */
 class Cart extends CartModel
 {
-    public $uname;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'type', 'goods_id', 'sku_id', 'num', 'created_at'], 'integer'],
-            [['uname'], 'string']
+            [['id', 'type', 'goods_id', 'sku_id', 'num', 'created_at'], 'integer'],
+            [['wechat_uid'], 'safe'],
         ];
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'uname' => '用户名',
-        ] + parent::attributeLabels();
     }
 
     /**
@@ -50,7 +42,6 @@ class Cart extends CartModel
     public function search($params)
     {
         $query = CartModel::find();
-        $query->joinWith(['user']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,7 +53,6 @@ class Cart extends CartModel
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
             'type' => $this->type,
             'goods_id' => $this->goods_id,
             'sku_id' => $this->sku_id,
@@ -70,7 +60,7 @@ class Cart extends CartModel
             'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'user.username', $this->uname]);
+        $query->andFilterWhere(['like', 'wechat_uid', $this->wechat_uid]);
 
         return $dataProvider;
     }

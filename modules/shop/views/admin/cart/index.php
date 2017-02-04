@@ -44,13 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'wechat_uid',
-            'type',
-            'goods_id',
-            'sku_id',
+            'user.username',
+            'sku.name',
             // 'num',
             // 'created_at',
 

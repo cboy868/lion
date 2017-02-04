@@ -13,19 +13,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'wechat_uid') ?>
-
-    <?= $form->field($model, 'type') ?>
-
-    <?= $form->field($model, 'goods_id') ?>
-
-    <?= $form->field($model, 'sku_id') ?>
-
-    <?php // echo $form->field($model, 'num') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'uname') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

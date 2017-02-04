@@ -29,7 +29,6 @@ class CartController extends BackController
     /**
      * Lists all Cart models.
      * @return mixed
-     * @name 购物车
      */
     public function actionIndex()
     {
@@ -46,7 +45,6 @@ class CartController extends BackController
      * Displays a single Cart model.
      * @param integer $id
      * @return mixed
-     * @name 购物车详情
      */
     public function actionView($id)
     {
@@ -59,7 +57,6 @@ class CartController extends BackController
      * Creates a new Cart model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
-     * @name 添加
      */
     public function actionCreate()
     {
@@ -79,7 +76,6 @@ class CartController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -99,7 +95,6 @@ class CartController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     * @name 删除
      */
     public function actionDelete($id)
     {

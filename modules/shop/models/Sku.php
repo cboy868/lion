@@ -53,7 +53,7 @@ class Sku extends \app\core\db\ActiveRecord
             'goods_id' => '商品id',
             'num' => '数量',
             'price' => '价格',
-            'name' => '规格名',
+            'name' => '名称',
             'av' => '规格',
             'serial' => '序列号',
             'created_at' => 'Created At',
