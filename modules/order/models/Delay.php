@@ -129,9 +129,7 @@ class Delay extends \app\core\db\ActiveRecord
             $this->trigger(self::EVENT_AFTER_NOVERIFY);
             return true;
         }
-
         return false;
-
     }
 
     public function getUser()

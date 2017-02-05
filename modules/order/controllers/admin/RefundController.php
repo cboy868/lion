@@ -33,7 +33,9 @@ class RefundController extends BackController
     public function actionIndex()
     {
         $searchModel = new RefundSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $params = Yii::$app->request->queryParams;
+        $params['RefundSearch']['status'] = Refund::STATUS_NORMAL;
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -91,6 +93,29 @@ class RefundController extends BackController
     }
 
     /**
+     * @name 退款审核
+     */
+    public function actionVerify($id)
+    {
+        $model = $this->findModel($id);
+        $v = Yii::$app->request->get('v');
+
+        if ($v == Refund::PRO_PASS) {  
+            $flag = $model->verify();
+        } else if ($v == Refund::PRO_NOPASS) {
+            $flag = $model->noVerify();
+        } else if ($v == Refund::PRO_OK) {
+            $flag = $model->feeOk();
+        }
+        if ($flag) {
+            Yii::$app->session->setFlash('success', '操作成功');
+        }
+
+
+        return $this->redirect(['index']);
+    }
+
+    /**
      * Deletes an existing Refund model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -98,7 +123,7 @@ class RefundController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->del();
 
         return $this->redirect(['index']);
     }

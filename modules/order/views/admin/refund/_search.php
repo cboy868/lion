@@ -15,7 +15,7 @@ use app\modules\order\models\Refund;
 
     <?= $form->field($model, 'order_id') ?>
 
-    <?= $form->field($model, 'progress')->dropDownList(Refund::pros()) ?>
+    <?= $form->field($model, 'progress')->dropDownList(Refund::pros(), ['prompt'=>'退款状态']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

@@ -29,13 +29,17 @@ use app\modules\user\models\User;
 class Refund extends \app\core\db\ActiveRecord
 {
 
-
     //-1 审不通过，1待审 2审通过 3已退
 
     const PRO_NOPASS = -1;
     const PRO_WAIT = 1;
     const PRO_PASS = 2;
     const PRO_OK   = 3;
+
+
+    const EVENT_AFTER_NOPASS = 'afterNopass';
+    const EVENT_AFTER_PASS = 'afterPass';
+    const EVENT_AFTER_FEEOK = 'afterFee';
 
     /**
      * @inheritdoc
@@ -60,7 +64,7 @@ class Refund extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'wechat_uid', 'progress', 'created_at', 'updated_at', 'status', 'op_id'], 'integer'],
+            [['order_id', 'wechat_uid', 'progress', 'created_at', 'updated_at', 'status', 'op_id', 'user_id'], 'integer'],
             [['fee'], 'number'],
             [['intro', 'note'], 'string'],
             [['checkout_at'], 'safe'],
@@ -78,14 +82,48 @@ class Refund extends \app\core\db\ActiveRecord
             'order_id' => '订单id',
             'user_id' => '用户id',
             'fee' => '退款金额',
-            'progress' => '退款进度',
+            'progress' => '退款状态',
             'intro' => '退款内容',
             'note' => '简单描述',
             'checkout_at' => '对账时间',
             'created_at' => '退款创建时间',
             'updated_at' => 'Updated At',
             'status' => 'Status',
+            'pro' => '进度'
         ];
+    }
+
+    public function verify()
+    {
+
+        $this->progress = self::PRO_PASS;
+        if ($this->save()) {
+            $this->trigger(self::EVENT_AFTER_PASS);
+            return true;
+        }
+
+
+        return false;
+    }
+
+    public function noVerify()
+    {
+        $this->progress = self::PRO_NOPASS;
+        if ($this->save()) {
+            $this->trigger(self::EVENT_AFTER_NOPASS);
+            return true;
+        }
+        return false;
+    }
+
+    public function feeOk()
+    {
+        $this->progress = self::PRO_OK;
+        if ($this->save()) {
+            $this->trigger(self::EVENT_AFTER_FEEOK);
+            return true;
+        }
+        return false;
     }
 
     public function getUser()
@@ -114,7 +152,10 @@ class Refund extends \app\core\db\ActiveRecord
         if ($insert) {//通过之后还要处理订单之类的东西
             //退款申请之后，加一些短信提醒之类的东西
         }
+    }
 
-
+    public function getPro()
+    {
+        return self::pros($this->progress);
     }
 }
