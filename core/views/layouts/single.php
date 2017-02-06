@@ -63,7 +63,7 @@ AdminAsset::register($this);
                     <a href="#" class="navbar-brand">
                         <small>
                             <i class="fa fa-leaf"></i>
-                            lion 后台管理
+                            <?=Html::encode($this->title)?>
                         </small>
                     </a>
 
@@ -100,14 +100,16 @@ AdminAsset::register($this);
             </div>
 
             <!-- /section:basics/sidebar -->
-            <div class="main-content">
+            <!-- <div class="main-content"> -->
+
                 <!-- #section:basics/content.breadcrumbs -->
                
 
                 <!-- /section:basics/content.breadcrumbs -->
                 <?=$content?>
                 <!-- /.page-content -->
-            </div><!-- /.main-content -->
+            <!-- </div> -->
+            <!-- /.main-content -->
 
 
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">

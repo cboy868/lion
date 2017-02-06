@@ -38,6 +38,8 @@ $params = [
             ]
         ],
     ],
+
+
 ];
 
 return \yii\helpers\ArrayHelper::merge($setting, $params, $thumb);

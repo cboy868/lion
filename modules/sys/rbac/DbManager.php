@@ -10,6 +10,7 @@ namespace app\modules\sys\rbac;
 use Yii;
 use yii\db\Expression;
 use yii\db\Query;
+use app\core\helpers\ArrayHelper;
 
 /**
  * @name rbac主类
@@ -69,6 +70,39 @@ class DbManager extends \yii\rbac\DbManager
         }
 
         return $children;
+    }
+
+    public function getUserIdsByRole($role_name, $type=null, $m=true)
+    {
+
+
+        if (empty($role_name)) {
+            return [];
+        }
+
+        $childs = $this->getChildren($role_name, $type);
+
+        $result = [];
+        if ($childs) {
+            foreach ($childs as $k => $v) {
+                $tmp = (new Query)
+                    ->from($this->assignmentTable)
+                    ->where(['item_name' => (string) $v->name])
+                    ->select('user_id')
+                    ->all();
+                $result = array_merge($result, $tmp);
+            }
+        }
+
+        $tmp = (new Query)
+            ->from($this->assignmentTable)
+            ->where(['item_name' => (string) $role_name])
+            ->select('user_id')
+            ->all();
+
+        $result = array_merge($result, $tmp);
+        $result = ArrayHelper::getColumn($result, 'user_id');
+        return $result;
     }
 
 

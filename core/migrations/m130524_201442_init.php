@@ -19,6 +19,7 @@ class m130524_201442_init extends Migration
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
             'email' => $this->string()->notNull()->unique(),
+            'email' => $this->string()->unique(),
             // 'mid' => $this->integer()->defaultValue(0),//用户所属商家id
             'mobile' => $this->string(60),//手机号
             'avatar' => $this->integer(),//头像

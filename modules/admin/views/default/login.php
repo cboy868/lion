@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = '登录';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="site-login" style="margin-left:190px;">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>请填写用户名和密码:</p>

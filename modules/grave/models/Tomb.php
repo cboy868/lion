@@ -31,6 +31,7 @@ use app\core\helpers\Url;
  * @property integer $thumb
  * @property integer $created_at
  * @property integer $status
+ * 退墓的设计，修改原墓位状态，其它不变，添加一新墓位，墓位号改为目前的，与已退墓位id关联
  */
 class Tomb extends \app\core\db\ActiveRecord
 {
@@ -48,6 +49,17 @@ class Tomb extends \app\core\db\ActiveRecord
     const STATUS_PART = 11; //部分安葬
     const STATUS_ALL = 13; //全部安葬 
     const STATUS_SINGLE = 15; //单葬完成
+
+    const STATUS_RETURN = -2; //退墓
+
+    //以下这些状态放到退墓表中
+    // const RETURN_DEPOSIT = 1;//订金退
+    // const RETURN_IN = 3; //退墓迁本园
+    // const RETURN_OUT = 5;//退墓迁出
+
+    // const RETURN_DEPOSIT_OK = 2;//订金退
+    // const RETURN_IN_OK = 4; //退墓迁本园
+    // const RETURN_OUT_OK = 6;//退墓迁出
 
     /**
      * @inheritdoc
@@ -79,7 +91,7 @@ class Tomb extends \app\core\db\ActiveRecord
             [['price', 'cost', 'area_total', 'area_use'], 'number'],
             [['sale_time', 'thumb'], 'safe'],
             [['note'], 'string'],
-            [['grave_id', 'tomb_no', 'row', 'col', 'price'], 'required'],
+            [['grave_id', 'tomb_no', 'row', 'col'], 'required'],
             [['special'], 'string', 'max' => 100],
             [['tomb_no'], 'string', 'max' => 255],
         ];

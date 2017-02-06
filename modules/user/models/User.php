@@ -55,7 +55,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'email'], 'required'],
+            // [['username', 'email'], 'required'],
+            [['username'], 'required'],//为了适应没有邮箱的人
             [['status', 'created_at', 'updated_at', 'avatar', 'is_staff'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['mobile',], 'string', 'max' => 15, 'min'=>8],
@@ -86,6 +87,33 @@ class User extends ActiveRecord implements IdentityInterface
             'is_staff' => '是否是员工'
         ];
     }
+
+    public function createUser($pwd="999999", $is_staff=self::STAFF_NO)
+    {
+        $this->setPassword($pwd);
+        $this->generateAuthKey();
+        $this->is_staff = $is_staff;
+
+        if ($this->save()) {
+            return $this;
+        }
+        return fasle;
+    }
+
+
+    // public static function createUser($username, $email='', $pwd='999999', $is_staff=self::STAFF_NO)
+    // {
+    //     $user = new self;
+    //     $user->username = $username;
+    //     $user->setPassword($pwd);
+    //     $user->generateAuthKey();
+    //     $user->is_staff = $is_staff;
+    //     $user->email = $email;
+    //     if ($user->save()) {
+    //         return $user;
+    //     }
+    //     return fasle;
+    // }
 
 
     /**

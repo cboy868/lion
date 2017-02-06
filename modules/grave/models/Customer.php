@@ -40,10 +40,10 @@ class Customer extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tomb_id', 'user_id'], 'required'],
+            [['tomb_id', 'user_id', 'name', 'mobile'], 'required'],
             [['tomb_id', 'user_id', 'is_vip', 'created_at', 'updated_at', 'status'], 'integer'],
-            [['vip_desc'], 'string'],
-            [['name'], 'string', 'max' => 200],
+            [['vip_desc', 'addr'], 'string'],
+            [['name', 'province', 'city', 'zone'], 'string', 'max' => 200],
             [['phone', 'mobile', 'second_mobile'], 'string', 'max' => 20],
             [['email', 'second_ct', 'relation'], 'string', 'max' => 100],
             [['units'], 'string', 'max' => 255],
@@ -61,6 +61,10 @@ class Customer extends \app\core\db\ActiveRecord
             'user_id' => 'User ID',
             'name' => '客户名',
             'phone' => '家庭电话',
+            'province' =>'省',
+            'city' => '市',
+            'zone' => '区',
+            'addr' => '联系地址',
             'mobile' => '手机号',
             'email' => '邮箱',
             'second_ct' => '第二联系人',

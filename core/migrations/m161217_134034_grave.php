@@ -74,7 +74,7 @@ class m161217_134034_grave extends Migration
             'desc' => $this->text(),//生平
             'is_ins' => $this->smallInteger(1),//是否立碑
             'bone_type' => $this->smallInteger(),//安葬类型 骨灰 骨质 灵位 之类
-            'bone_container' => $this->smallInteger(),//安葬种类 自带骨质盒...
+            'bone_box' => $this->smallInteger(),//安葬种类 自带骨质盒...
             'pre_bury' => $this->dateTime(),
             'bury' => $this->dateTime(),
             'created_at' => $this->integer(),
@@ -93,6 +93,10 @@ class m161217_134034_grave extends Migration
             'second_ct' => $this->string(100),
             'second_mobile' => $this->string(20),
             'units' => $this->string(255),//工作单位
+            'province' => $this->string(200),
+            'city' => $this->string(200),
+            'zone' => $this->string(200),
+            'addr' => $this->text(),//联系地址
             'relation' => $this->string(100),
             'is_vip' => $this->smallInteger(1)->defaultValue(0),
             'vip_desc'=> $this->text(),
@@ -134,6 +138,10 @@ class m161217_134034_grave extends Migration
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'status' => $this->smallInteger(),
+        ], $tableOptions);
+
+        $this->createTable('{{%grave_return}}', [//退墓
+            'id' => $this->primaryKey(),
         ], $tableOptions);
 
         // $this->createTable('{{%grave_address}}', [ // 墓位与定单的关联
