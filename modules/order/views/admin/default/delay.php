@@ -102,7 +102,7 @@ $(function() {
       changeYear: true,
       dateFormat:'yy-mm-dd',
       //numberOfMonths: 2,
-      regional:'zh-TW'
+      regional:'zh-CN'
     });
 });
 <?php $this->endBlock() ?>  

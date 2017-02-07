@@ -29,56 +29,5 @@ $(function(){
     });
  
 
-  // $('.remoteform').click(function(e){
-  //   e.preventDefault();
-  //   var url = $(this).attr('href');
-  //   var title = $(this).attr('title') || '';
-  //   $.get(url,{},function(xhr){
-  //       var box = bootbox.dialog({
-  //           locale:'zh_CN',
-  //           animate:false,
-  //           title:title,
-  //           message:xhr,
-  //           buttons:{
-  //               yesfn:{
-  //                   label: "确 定",
-  //                   className:'btn-primary',
-  //                   callback:function(e){
-  //                       e.preventDefault();
-  //                       box.find('form.rform').submit();
-  //                       return false;
-  //                   }
-  //               },
-  //               cancelfn:{
-  //                   label: '取 消',
-  //                   className:'btn-default',
-  //                   callback:function(){}
-  //               }
-  //           }
-  //       });
-  //   },'html');
-  // });
-
-  // $('.remoteView').click(function(e){
-  //   e.preventDefault();
-  //   var url = $(this).attr('href');
-  //   var title = $(this).attr('title') || '';
-  //   $.get(url,{},function(xhr){
-  //       var box = bootbox.dialog({
-  //           locale:'zh_CN',
-  //           animate:false,
-  //           title:title,
-  //           message:xhr,
-  //           buttons:{
-  //               cancel:{
-  //                   label: '确 定',
-  //                   className:'btn-default',
-  //                   callback:function(){}
-  //               }
-  //           }
-  //       });
-  //   },'html');
-  // });
-
 
 })

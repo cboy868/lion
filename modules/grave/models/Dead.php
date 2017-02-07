@@ -61,9 +61,9 @@ class Dead extends \app\core\db\ActiveRecord
     {
         return [
             [['user_id', 'tomb_id', 'dead_name', 'dead_title'], 'required'],
-            [['user_id', 'tomb_id', 'memorial_id', 'serial', 'gender', 'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_type', 'bone_box', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['user_id', 'tomb_id', 'memorial_id', 'serial', 'gender', 'sort', 'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_box', 'created_at', 'updated_at', 'status'], 'integer'],
             [['birth', 'fete', 'pre_bury', 'bury'], 'safe'],
-            [['desc'], 'string'],
+            [['desc', 'bone_type'], 'string'],
             [['dead_name', 'second_name', 'dead_title', 'birth_place'], 'string', 'max' => 255],
         ];
     }
@@ -99,6 +99,7 @@ class Dead extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
             'status' => '状态',
+            'sort' => '排序'
         ];
     }
 

@@ -1,6 +1,7 @@
 <?php 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
+use app\core\helpers\Url;
 ?>
 
 
@@ -53,9 +54,10 @@ use app\core\widgets\ActiveForm;
             
         </div><!-- /.row -->
         <div class="form-group">
-            <div class="col-sm-offset-6 col-sm-5" style="text-align:right;">
-                <?=  Html::submitButton('上一步', ['class' => 'btn btn-primary btn-lg', 'style'=>'padding: 10px 36px']) ?>
+            <div class="col-sm-12" style="text-align:center;">
+                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
                 <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>
+                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>下一步</a>
             </div>
         </div>
         <?php ActiveForm::end(); ?>

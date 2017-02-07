@@ -42,6 +42,8 @@ class Process extends \yii\base\Model
 
     public static $tomb_id;
 
+    public static $dead_model_num = 0;
+
     public static $step = [
         1 => ['method' => 'customer','title'=>'办理人信息'],
         2 => ['method' => 'dead','title'=>'使用人信息'],
@@ -78,10 +80,44 @@ class Process extends \yii\base\Model
     {
         $deads = Dead::find()->where(['tomb_id'=>self::$tomb_id])
                          ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->orderBy('sort asc')
                          ->all();
-        $deads[] = new Dead();
+
+        if ((self::$dead_model_num - self::getDeadNum()) > 0) {
+            $new = self::$dead_model_num - self::getDeadNum();
+
+            for ($i=0; $i < $new; $i++) { 
+                $newDead = new Dead();
+                $newDead->tomb_id = self::$tomb_id;
+                $newDead->user_id = self::tomb()->user_id;
+
+                $deads[] = $newDead;
+            }
+        }
 
         return $deads;
+    }
+
+    public static function getDeadNum() 
+    {
+        return Dead::find()->where(['tomb_id'=>self::$tomb_id])
+                            ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                            ->count();
+
+    }
+
+    public static function delDead($dead_id)
+    {
+        $model = Dead::findOne($dead_id);
+        $model->status = Dead::STATUS_DEL;
+
+        return $model->save();
+    }
+
+
+    public static function newDead()
+    {
+        return new Dead();
 
     }
 

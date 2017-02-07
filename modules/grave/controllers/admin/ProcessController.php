@@ -5,6 +5,7 @@ namespace app\modules\grave\controllers\admin;
 use Yii;
 use app\core\web\BackController;
 use app\modules\grave\models\Process;
+use yii\base\Model;
 
 
 use app\modules\grave\models\Customer;
@@ -19,6 +20,13 @@ use app\modules\grave\models\Customer;
  */
 class ProcessController extends BackController
 {
+
+    public function init()
+    {
+        Process::$tomb_id = Yii::$app->request->get('tomb_id');
+        parent::init();
+    }
+
     /**
      * Lists all Customer models.
      * @return mixed
@@ -27,7 +35,7 @@ class ProcessController extends BackController
     {
         $this->layout = '@app/core/views/layouts/single';
     	$method = Process::$step[$step]['method'];
-        Process::$tomb_id = $tomb_id;
+        // Process::$tomb_id = $tomb_id;
     	return $this->$method();
     }
 
@@ -75,28 +83,103 @@ class ProcessController extends BackController
                 'user' => $user,
                 'agent' => Process::getRoleUsers($agent),
                 'guide' => Process::getRoleUsers($guide),
-
+                'get' => Yii::$app->request->get()
             ]);
     }
 
     public function dead()
     {
 
-        $model = Process::dead();
+        $session = Yii::$app->session;
 
-        $req = Yii::$app->request;
-        if ($req->isPost) {
-            return $this->next();
+        if ($session->has('dead.num')) {
+            Process::$dead_model_num = $session->get('dead.num');
         }
 
+        $models = Process::dead();
+
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            foreach ($post['Dead'] as $k => &$v) {
+                if ($v['dead_title'] == '其他') {
+                    $v['dead_title'] = $post['dt'][$k];
+                }
+           }unset($v);
+            if (Model::loadMultiple($models, $post) && Model::validateMultiple($models)) {
+                try {
+                   $outerTransaction = Yii::$app->db->beginTransaction(); 
+
+                   foreach ($models as $model) {
+                        $model->save();
+                    }
+                    $outerTransaction->commit();
+
+                } catch (\Exception $e) {
+                    echo $e->getMessage();
+                    $outerTransaction->rollBack();
+                }
+            }
+        }
 
         // $model->loadDefaultValues();
+
+        $dead_title = Yii::$app->controller->module->params['dead_title'];
+        $dead_titles = [];
+        foreach ($dead_title as $title) {
+            $dead_titles[$title] = $title;
+        }
     	return $this->render('dead',[
-                'models' => $model,
-                'dead_title' => Yii::$app->controller->module->params['dead_title'],
+                'models' => Process::dead(),
+                'dead_title' => $dead_titles,
                 'bone_type' => Yii::$app->controller->module->params['bone_type'],
                 'bone_box' => Yii::$app->controller->module->params['bone_box'],
+                'get' => Yii::$app->request->get()
             ]);
+    }
+
+    public function actionAddDead()
+    {
+
+        $this->dealDeadNum(true);
+        return $this->json();
+
+    }
+
+    public function actionDelDead()
+    {
+
+        $dead_id = Yii::$app->request->get('dead_id');
+
+
+        if ($dead_id) {
+            Process::delDead($dead_id);
+        }
+
+        $this->dealDeadNum(false);
+
+        return $this->json();
+    }
+
+    private function dealDeadNum($plus=true)
+    {
+        $session = Yii::$app->session;
+        $ori_num = Process::getDeadNum();
+
+        if ($session->has('dead.num')) {
+
+            if ($plus) {
+                $num = $session->get('dead.num')+1;
+                $session->set('dead.num', $num);
+            } else if($session->get('dead.num') > 1){
+                $num = $session->get('dead.num')-1;
+                $session->set('dead.num', $num);
+            }
+
+        } else {
+            $session->set('dead.num', $ori_num);
+        }
+        
     }
 
     public function ins()
@@ -109,7 +192,8 @@ class ProcessController extends BackController
         }
 
     	return $this->render('ins', [
-            'models' => $models
+            'models' => $models,
+            'get' => Yii::$app->request->get()
         ]);
     }
 
@@ -124,6 +208,7 @@ class ProcessController extends BackController
 
     	return $this->render('portrait',[
             'models' => $models,
+            'get' => Yii::$app->request->get()
             ]);
     }
 
@@ -137,7 +222,8 @@ class ProcessController extends BackController
         }
         
     	return $this->render('bury', [
-            'models' => $models
+            'models' => $models,
+            'get' => Yii::$app->request->get()
         ]);
     }
 
