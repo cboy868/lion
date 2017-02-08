@@ -153,6 +153,7 @@ class Attachment extends \yii\db\ActiveRecord
         }
 
         if ($size) {
+            $size = str_replace('*', 'x', $size);
             $file = $model->path . '/' . $size . '@' . $model->name;
             $thumb_path = Yii::getAlias('@app/web'.$file);
             $srcFile = Yii::getAlias('@app/web'.$model->path . '/' . $model->name);
