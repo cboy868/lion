@@ -29,7 +29,7 @@ use yii\helpers\Url;
             </div>
             <br>
         </div>
-        <div class="xm9">
+        <!-- <div class="xm9">
             <div class="alert alert-yellow"><span class="close"></span><strong>注意：</strong>您有5条未读信息，<a href="#">点击查看</a>。</div>
 
 
@@ -138,7 +138,7 @@ use yii\helpers\Url;
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
             
         </div>
