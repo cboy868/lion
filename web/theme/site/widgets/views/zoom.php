@@ -1,5 +1,6 @@
 <?php 
 use app\assets\ZoomAsset;
+use app\core\models\Attachment;
 ZoomAsset::register($this);
 
 ?>
@@ -60,13 +61,14 @@ ZoomAsset::register($this);
 
 <div class="col-xs-12 col-md-5">
     <a href="#" class="thumbnail" >
-      <img id="zoom" src='<?=$imgs[0]['path'] . '/450x450@' . $imgs[0]['name']?>' data-zoom-image="<?=$imgs[0]['path'] . '/800x800@' . $imgs[0]['name']?>" />
+    <!-- <img id="zoom" src='<?=$imgs[0]['path'] . '/450x450@' . $imgs[0]['name']?>' data-zoom-image="<?=$imgs[0]['path'] . '/800x800@' . $imgs[0]['name']?>" /> -->
+      <img id="zoom" src='<?=Attachment::getById($imgs[0]['id'], '450x450')?>' data-zoom-image="<?=Attachment::getById($imgs[0]['id'], '800x800')?>" />
     </a>
     <div class="caption ">
         <ul id="gal">
             <?php foreach ($imgs as $img): ?>
-                <a href="#" class="elevatezoom-gallery" data-image="<?=$img['path'] . '/450x450@' . $img['name']?>" data-zoom-image="<?=$img['path'] . '/800x800@' . $img['name']?>">
-                <img src="<?=$img['path'] . '/50x50@' . $img['name']?>" >
+                <a href="#" class="elevatezoom-gallery" data-image="<?=Attachment::getById($img['id'], '450x450')?>" data-zoom-image="<?=Attachment::getById($img['id'], '800x800')?>">
+                <img src="<?=Attachment::getById($img['id'], '50x50')?>" >
                 </a>
             <?php endforeach ?>
             <div style="clear:both;"></div>
