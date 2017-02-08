@@ -76,7 +76,6 @@ class Contact extends \yii\db\ActiveRecord
         if ($contact->save()) {
             return $contact;
         } else {
-
             return null;
         }
     }
