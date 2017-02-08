@@ -53,6 +53,7 @@ class UserForm extends Model
             $user->generateAuthKey();
             $user->is_staff = User::STAFF_NO;
             $user->status = User::STATUS_ACTIVE;
+
             if ($user->save()) {
                 return $user;
             }

@@ -234,8 +234,10 @@ HomeAsset::register($this);
             var btn = $(this);
             btn.button('loading');
 
+            var csrf = "<?=Yii::$app->request->getCsrfToken()?>";
+
             var url = "<?=Url::toRoute(['default/email'])?>";
-            $.post(url, {email:email}, function(xhr){
+            $.post(url, {email:email, _csrf:csrf}, function(xhr){
                 $('.error').text(xhr.info);
                 setTimeout(function () {
                     btn.button('reset');
