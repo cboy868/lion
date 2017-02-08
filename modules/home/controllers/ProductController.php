@@ -44,6 +44,7 @@ class ProductController extends \app\core\web\HomeController
 
         $goods = $model->toArray();
 
+
         $goods['small'] = Attachment::getById($goods['thumb'], '50*50');
         $goods['middle'] = Attachment::getById($goods['thumb'], '425x350');
         $goods['big'] = Attachment::getById($goods['thumb'], '600x730');
