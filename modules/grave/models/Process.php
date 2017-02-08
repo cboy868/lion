@@ -123,10 +123,28 @@ class Process extends \yii\base\Model
 
     public static function ins()
     {
+
+
+        // $position = Yii::$app->controller->module->params['ins']['position'];
+
         $ins = Ins::find()->where(['tomb_id'=>self::$tomb_id])
                          ->andWhere(['status'=>Dead::STATUS_NORMAL])
-                         ->all();
-        $ins[] = new Ins();
+                         // ->indexBy('position')
+                         ->one();
+
+        // foreach ($position as $k => $v) {
+        //     if (!isset($ins[$k])) {
+        //         $ins[$k] = new Ins();
+        //         $ins[$k]->tomb_id = self::$tomb_id;
+        //     }
+        // }
+
+
+        if (!$ins) {
+            $ins = new Ins();
+            $ins->tomb_id = self::$tomb_id;
+        }
+
         return $ins;
     }
 
@@ -137,7 +155,6 @@ class Process extends \yii\base\Model
                          ->all();
 
         $portraits[] = new Portrait();
-
         return $portraits;
 
     }

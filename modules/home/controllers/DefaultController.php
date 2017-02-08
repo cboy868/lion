@@ -11,6 +11,7 @@ use app\core\helpers\StringHelper;
 use app\modules\home\models\LoginForm;
 use app\modules\cms\models\EmailForm;
 use app\modules\home\models\UserForm;
+use app\modules\user\models\User;
 
 class DefaultController extends \app\core\web\HomeController
 {
@@ -117,6 +118,7 @@ class DefaultController extends \app\core\web\HomeController
     public function actionEmail()
     {
         $email = Yii::$app->getRequest()->post('email');
+
         $model = new EmailForm;
 
         if ($model->contact($email)) {

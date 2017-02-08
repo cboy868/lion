@@ -75,7 +75,21 @@ return [
             'guide' => ['chaojiguanlizu_585a7860759fd','chaojiguanliyuan_585a784f9cd1a'],//导购
             'caiwu' => [''],//财务
             'agent'  => 'chaojiguanliyuan_585a784f9cd1a'//业务
-        ]
+        ],
+
+        'ins' => [
+            'position' =>  [
+                'front' => '正面',
+                'back' => '背面',
+                'plate' => '盖板'
+            ],
+            // 'paint' => [
+            //     1 => '金箔',
+            //     2 => '反喷',
+            //     3 => '铜粉',
+            //     4 => '红漆'
+            // ]
+        ],
 
     ]
 

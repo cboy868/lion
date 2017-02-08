@@ -33,6 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
     .nav-list li.active>a.cate-plus:after {
         content: none;
     }
+    .cover img{
+        max-width:100px;
+        max-height: 80px;
+    }
 </style>
 <div class="page-content">
     <!-- /section:settings.box -->

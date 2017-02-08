@@ -44,3 +44,4 @@ $tomb_id = Yii::$app->request->get('tomb_id');
 		</li>
 	<?php endforeach ?>
 </ul>
+

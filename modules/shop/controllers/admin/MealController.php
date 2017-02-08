@@ -454,16 +454,20 @@ class MealController extends BackController
 
         # 2､步骤
         $process = Process::find()->where(['goods_id'=>$model->id])->orderBy('step asc')->indexBy('step')->all();
-        foreach ($process as $k => $v) {
+
+
+        foreach ($process as $k => &$v) {
             $v->img_url = Attachment::getById($v->thumb, '202x243', '/static/images/up.png');
-        }
+        }unset($v);
+
         $cnt = count($process);
 
         if ($cnt < 3) {
-           for ($i=$cnt; $i <= 3; $i++) { 
+           for ($i=$cnt+1; $i <= 3; $i++) { 
                $process[$i] = new Process();
            }
         }
+
 
         # 3､图片
         $pics = AttachmentRel::getModels('meal', $model->id, '100x100', 'pic');
@@ -508,8 +512,6 @@ class MealController extends BackController
      */
     private function dealStep($goods_id)
     {
-
-
         $req = Yii::$app->getRequest();
         $step = $req->post('step');
 

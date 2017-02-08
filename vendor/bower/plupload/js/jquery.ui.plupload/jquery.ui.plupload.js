@@ -1,5 +1,5 @@
-var bootstrapButton = $.fn.button.noConflict(); // return $.fn.button to previously assigned value
-$.fn.bootstrapBtn = bootstrapButton;  
+//var bootstrapButton = $.fn.button.noConflict(); // return $.fn.button to previously assigned value
+//$.fn.bootstrapBtn = bootstrapButton;  
 /**
  * jquery.ui.plupload.js
  *

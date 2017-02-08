@@ -131,8 +131,6 @@ PluploaduiAssets::register($this);
             </div>
             <div class="steps">
 
-
-
             <?php foreach ($process as $k => $v): ?>
                 <div class="form-group step">
                     <label class="control-label">第 <span class="step-num"><?=$k;?></span> 步</label>
@@ -145,7 +143,7 @@ PluploaduiAssets::register($this);
 
                         </div>
                         <div class="col-md-8" style="padding-left:0;padding-right:0">
-                            <textarea id="foods-intro" class="form-control" placeholder="请输入简单的菜品介绍" name="step[intro][]" style="height:250px;"></textarea>
+                            <textarea id="foods-intro" class="form-control" placeholder="请输入简单的菜品介绍" name="step[intro][]" style="height:250px;"><?=$v->intro?></textarea>
                             <div class="help-block"></div>
                         </div>
                         <div class="col-md-1" style="padding-left:0">

@@ -52,11 +52,12 @@ class UserForm extends Model
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->is_staff = User::STAFF_NO;
+            $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
                 return $user;
             }
         }
 
-        return null;
+        return false;
     }
 }

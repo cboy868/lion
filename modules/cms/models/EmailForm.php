@@ -49,8 +49,8 @@ class EmailForm extends Model
 
         $adminEmail = Yii::$app->params['adminEmail'];
 
-
         $this->email = $email;
+
         if ($this->validate()) {
             // Yii::$app->mailer->compose()
             //     ->setTo($email)

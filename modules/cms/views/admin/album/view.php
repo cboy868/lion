@@ -26,6 +26,9 @@ $mod = Yii::$app->getRequest()->get('mod');
         border:3px solid #8ce;
         background-color: #cde;
     }
+    .thumbnail{
+        border: 3px solid #ddd;
+    }
     #colorbox{
         z-index: 3;
     }

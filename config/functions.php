@@ -112,3 +112,23 @@ function defaultImg()
 {
 	return '/static/images/default.png';
 }
+
+function  filelog($word, $file='log', $other='')
+{
+
+    if (is_array($word)) {
+        $str = '';
+        foreach ($word as $k=>$v) {
+            $str .= $k.'=' . $v.'&';
+        }
+
+        $word = $str;
+    }
+    $word = $other . ' ' . $word;
+    $log_name="./logs/" . $file . ".log";//log文件路径
+    $fp = fopen($log_name,"a");
+    flock($fp, LOCK_EX) ;
+    fwrite($fp,"执行日期：" . date("Y-m-d H:i:s")."\n".$word."\n\n");
+    flock($fp, LOCK_UN);
+    fclose($fp);
+}

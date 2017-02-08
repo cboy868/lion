@@ -146,7 +146,7 @@ class AlbumController extends BackController
 
         $modInfo = Module::findOne($mod);
 
-        Code::createObj('post', $mod);
+        Code::createObj('album', $mod);
 
         $attach = [];
         $command = (new \yii\db\Query())
