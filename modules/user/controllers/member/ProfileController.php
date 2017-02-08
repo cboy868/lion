@@ -82,7 +82,7 @@ class ProfileController extends MemberController
     }
 
 
-    protected function findModel($id)
+    protected function findModel()
     {
         if (($model = User::findOne(Yii::$app->user->id)) !== null) {
             return $model;
