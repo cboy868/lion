@@ -5,7 +5,6 @@ use app\core\widgets\ActiveForm;
 use yii\captcha\Captcha;
 use yii\helpers\Url;
 $this->title = '登录会员中心';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
