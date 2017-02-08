@@ -24,7 +24,7 @@ class FavorController extends MemberController
     {
         $params = Yii::$app->request->queryParams;
 
-        $params['res'] = $params['res'] ? $params['res'] : 'goods';
+        $params['res'] = isset($params['res']) ? $params['res'] : 'goods';
 
         $params['FavorSearch']['res_name'] = $params['res'];
         $params['FavorSearch']['user_id'] = Yii::$app->user->id;

@@ -5,7 +5,6 @@ use app\core\widgets\ActiveForm;
 use yii\captcha\Captcha;
 
 $this->title = '找回密码';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
