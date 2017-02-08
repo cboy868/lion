@@ -159,7 +159,6 @@ class Attachment extends \yii\db\ActiveRecord
             if (!is_file($thumb_path)) {
                 if (is_file($srcFile)) {
                     $size = explode('x', str_replace('X', 'x', $size));
-                    p($size);
                     Image::autoThumb($srcFile, $thumb_path, $size);
                 } else {
                     return $default;
