@@ -348,7 +348,7 @@ AdminAsset::register($this);
                         <!-- #section:basics/navbar.user_menu -->
                         <li class="light-blue">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                <img class="nav-user-photo" src="/static/ace/avatars/user.jpg" alt="Jason's Photo" />
+                                <img class="nav-user-photo" src="<?=Yii::$app->user->identity->getAvatar('40x40', '/static/images/default.png')?>" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Welcome,</small>
                                     <?=Yii::$app->user->identity->username?>
