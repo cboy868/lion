@@ -260,10 +260,10 @@ $(function(){
 
         var url = "<?=Url::toRoute(['cover'])?>";
         var _csrf = $('meta[name=csrf-token]').attr('content');
-        var goods_id = <?=$model->id?>;
+        var goods_id = "<?=$model->id?>";
         var thumb = $(this).siblings('img').attr('rid');
 
-        if (thumb == <?=$model->thumb?>) {
+        if (thumb == "<?=$model->thumb?>") {
             return ;
         }
 

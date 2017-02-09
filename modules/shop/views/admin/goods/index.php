@@ -39,7 +39,8 @@ FootableAsset::register($this);
         <h4 class="modal-title" id="myModalLabel">选择分类</h4>
       </div>
 
-        <form id="w0" action="#">
+
+        <form id="w0" action="<?=Url::toRoute(['create'])?>" method="get">
 
         <?php 
         $category = Category::find()->asArray()->all();
@@ -56,7 +57,7 @@ FootableAsset::register($this);
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-        <button type="button" class="btn btn-primary redcreate">OK</button>
+        <button type="submit" class="btn btn-primary redcreate">OK</button>
       </div>
         </form>
     </div>
@@ -237,10 +238,10 @@ $category_id = Yii::$app->getRequest()->get('category_id');
   $(function(){
     $('.table').footable();
 
-    $('.redcreate').click(function(){
-        var category_id = $('select[name=category_id]').val();
-        location.href="<?=Url::toRoute(['create'])?>&category_id=" + category_id;
-    });
+   // $('.redcreate').click(function(){
+        //var category_id = $('select[name=category_id]').val();
+       // location.href="<?=Url::toRoute(['create'])?>category_id=" + category_id;
+   // });
 
   })
 <?php $this->endBlock() ?>  
