@@ -90,6 +90,12 @@ AdminAsset::register($this);
                             </a>
                         </li> 
 
+                        <li class="green">
+                            <a href="<?=Url::toRoute(['/member'])?>" target="_blank">
+                                会员中心
+                            </a>
+                        </li> 
+
 
 
                         <!-- <li class="grey">
