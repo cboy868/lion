@@ -226,7 +226,20 @@ $category_id = Yii::$app->getRequest()->get('category_id');
             [   'headerOptions' => ["data-type"=>"html"],
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
+
             ],
+
+            [
+                'header' => '操作',
+                'headerOptions' => ["data-type"=>"html",'width'=>'100'],
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete} {view}',
+                'buttons' => [
+                    'view' => function($url, $model, $key) {
+                        return Html::a('查看', Url::toRoute(['/home/product/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
+                    },
+                ],
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>
