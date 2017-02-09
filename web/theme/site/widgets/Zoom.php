@@ -20,6 +20,10 @@ class Zoom extends Widget {
      * Renders the widget.
      */
     public function run() {
+
+    	if (!$this->imgs) {
+    		return ;
+    	}
         return $this->render('zoom', ['imgs'=>$this->imgs]);
     }
 
