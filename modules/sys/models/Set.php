@@ -21,6 +21,7 @@ class Set extends \yii\db\ActiveRecord
     const MODULE_SYSTEM = 'system';
     const MODULE_UPLOAD = 'upload';
     const MODULE_SEO    = 'seo';
+    const MODULE_EMAIL  = 'email';
 
     //设置的值类型
     const TYPE_INPUT    = 'input';
@@ -72,11 +73,14 @@ class Set extends \yii\db\ActiveRecord
 
      public static function getModule($module=null)
     {
-        $arr = [
-            self::MODULE_SEO => 'SEO设置',
-            self::MODULE_UPLOAD => '上传设置',
-            self::MODULE_SYSTEM => '系统设置'
-        ];
+
+        $arr = Yii::$app->controller->module->params['set_modules'];
+
+        // $arr = [
+        //     self::MODULE_SEO => 'SEO设置',
+        //     self::MODULE_UPLOAD => '上传设置',
+        //     self::MODULE_SYSTEM => '系统设置'
+        // ];
         if (is_null($module)) {
             return $arr;
         } else if(isset($arr[$module])) {
