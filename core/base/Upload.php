@@ -92,6 +92,64 @@ class Upload extends Component{
     /**
      * @name 保存文件
      */
+    // public function save()
+    // {
+
+    //     if (!$this->uploader) {
+    //         return ;//没有上传文件
+    //     }
+
+    //     if ($this->isTooBig()) {
+    //         die('img is to big');
+    //     }
+
+    //     if ($this->notAllow()) {
+    //         die('file not allowed');
+    //     }
+
+    //     $filePath = $this->getFilePath();
+
+    //     if (!is_dir(dirname($filePath))) {
+    //         @mkdir(dirname($filePath), 0777, true) or die(dirname($filePath) . ' no permission to write');
+    //     }
+        
+    //     if ($this->uploader->saveAs($filePath) !== false) {
+            
+    //         $info = [
+    //             'path' => $this->path,
+    //             'fileName' => $this->fileName,
+    //             'ext'  => $this->ext,
+    //             'res' => $this->res,
+    //             'title' => $this->title,
+    //             'filePath' => $filePath,
+    //             'use' => $this->use ? $this->use : null
+    //         ];
+
+
+    //         $event = new UploadEvent($info);
+
+    //         // $img_config = $this->getConfig();
+    //         $img_config = Image::getConfig($this->res);
+
+    //         if (isset($img_config['water'])) {//水印
+    //             if ($img_config['water_mod'] == 'image') {
+    //                 $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'water'], null, false);
+    //             } else {
+    //                 $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'textWater'], null, false);
+    //             }
+    //         }
+
+    //         $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+            
+    //         // $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+
+    //         $this->trigger(self::EVENT_AFTER_UPLOAD, $event);
+    //     }
+    // }
+
+    /**
+     * @name 保存图片，新改的，原来的是先水印再缩略 改为先缩略再水印
+     */
     public function save()
     {
 
@@ -131,15 +189,17 @@ class Upload extends Component{
             // $img_config = $this->getConfig();
             $img_config = Image::getConfig($this->res);
 
-            if (isset($img_config['water'])) {//水印
-                if ($img_config['water_mod'] == 'image') {
-                    $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'water'], null, false);
-                } else {
-                    $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'textWater'], null, false);
-                }
-            }
+            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb'], null, false);
 
-            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+            // if (isset($img_config['water'])) {//水印
+            //     if ($img_config['water_mod'] == 'image') {
+            //         $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'water'], null, false);
+            //     } else {
+            //         $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'textWater'], null, false);
+            //     }
+            // }
+
+            // $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
             
             // $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
 
