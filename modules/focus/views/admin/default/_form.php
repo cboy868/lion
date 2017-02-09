@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->fileInput(['maxlength' => true, 'class'=>'form-control img'])->hint($intro) ?>
+    <?= $form->field($model, 'image')->fileInput(['maxlength' => true, 'class'=>'form-control img'])->hint($category->intro) ?>
 
     <?= $form->field($model, 'intro')->textarea(['rows' => 6]) ?>
 

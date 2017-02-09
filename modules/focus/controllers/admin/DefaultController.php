@@ -62,6 +62,7 @@ class DefaultController extends BackController
      */
     public function actionCreate($category_id)
     {
+        $category = Category::findOne($category_id);
         $model = new Focus();
         $model->category_id = $category_id;
         if ($model->load(Yii::$app->request->post())) {
@@ -81,6 +82,7 @@ class DefaultController extends BackController
         }
         return $this->renderAjax('create', [
             'model' => $model,
+            'category' => $category
         ]);
     }
 
