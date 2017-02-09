@@ -56,14 +56,6 @@ class Upload extends Component{
 
     private static $_instance;  
 
-    // public static function getInstance()    
-    // {    
-    //     if(! (self::$_instance instanceof self) ) {    
-    //         self::$_instance = new self();    
-    //     }
-
-    //     return self::$_instance;    
-    // }
 
     public static function getInstance($model, $fileName, $res="common")
     {
@@ -148,7 +140,7 @@ class Upload extends Component{
     // }
 
     /**
-     * @name 保存图片，新改的，原来的是先水印再缩略 改为先缩略再水印
+     * @name 保存图片，新改的,为每张缩略图加水印
      */
     public function save()
     {
@@ -183,26 +175,10 @@ class Upload extends Component{
                 'use' => $this->use ? $this->use : null
             ];
 
-
             $event = new UploadEvent($info);
-
-            // $img_config = $this->getConfig();
             $img_config = Image::getConfig($this->res);
-
-            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb'], null, false);
-
-            // if (isset($img_config['water'])) {//水印
-            //     if ($img_config['water_mod'] == 'image') {
-            //         $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'water'], null, false);
-            //     } else {
-            //         $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'textWater'], null, false);
-            //     }
-            // }
-
-            // $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
             
-            // $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-
+            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb'], null, false);
             $this->trigger(self::EVENT_AFTER_UPLOAD, $event);
         }
     }

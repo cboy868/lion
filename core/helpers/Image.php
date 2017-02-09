@@ -226,12 +226,6 @@ class Image extends \yii\imagine\Image {
 
         //水印位置
         $pos = $config['water_pos'];
-        // $start = self::getPos($filePath, $watermark, $pos);
-
-        // if (!$start) {
-        //     return ;
-        // }
-
         $font_size = 40;
         
 
@@ -297,18 +291,6 @@ class Image extends \yii\imagine\Image {
 //         self::text($filePath, $watermark, $fontFile,$start, ['size'=>$font_size])->save($filePath);
 
 //         return true;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -492,7 +474,9 @@ class Image extends \yii\imagine\Image {
             @mkdir(dirname($thumb_path), 0777, true) or die(dirname($thumb_path) . ' no permission to write');
         }
         
-        self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_INSET)->save($thumb_path);
+        // self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_INSET)->save($thumb_path);
+
+        self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_OUTBOUND)->save($thumb_path);
 
         return $thumb_path;
     }

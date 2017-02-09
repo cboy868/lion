@@ -34,7 +34,7 @@ FootableAsset::register($this);
 
         <?php 
             Modal::begin([
-                'header' => '添增',
+                'header' => '新增',
                 'id' => 'modalAdd',
                 // 'size' => 'modal'
             ]) ;

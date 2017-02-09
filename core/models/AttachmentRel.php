@@ -152,8 +152,13 @@ class AttachmentRel extends \yii\db\ActiveRecord
 
         $type = $type ? $type.'@' : '';
 
+
+
+
         foreach ($list as $k => &$v) {
-            $v['url'] = $v['path'] . '/'. $type . $v['name'];
+
+            $v['url'] = Attachment::getById($v['id'], $type);
+            // $v['url'] = $v['path'] . '/'. $type . $v['name'];
         }
         
         return $list;

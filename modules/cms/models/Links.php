@@ -17,6 +17,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Links extends \app\core\db\ActiveRecord
 {
+
+    public $logot;
     /**
      * @inheritdoc
      */
@@ -46,7 +48,7 @@ class Links extends \app\core\db\ActiveRecord
             [['status', 'created_at'], 'integer'],
             [['name'], 'required'],
             [['name'], 'string', 'max' => 200],
-            [['link', 'logo'], 'string', 'max' => 255],
+            [['link', 'logo', 'logot'], 'string', 'max' => 255],
         ];
     }
 

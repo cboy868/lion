@@ -16,7 +16,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'logo')->fileInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'logot')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'intro')->textarea(['rows' => 6]) ?>
 

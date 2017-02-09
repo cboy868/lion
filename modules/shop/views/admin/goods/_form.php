@@ -19,6 +19,9 @@ SelectAsset::register($this);
 .pic div.thumbnail.active{
 border-color:#337ab7;
 }
+.thumbnail {
+    border: 3px solid #ccc;
+    }
 </style>
 <div class="goods-form">
 

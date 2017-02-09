@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\cms\models\LinksSearch */
@@ -24,10 +25,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
+        <?php 
+            Modal::begin([
+                'header' => '新增链接',
+                'id' => 'modalAdd',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="modalContent"></div>';
+
+            Modal::end();
+        ?>
+
+        <?php 
+            Modal::begin([
+                'header' => '编辑',
+                'id' => 'modalEdit',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="editContent"></div>';
+
+            Modal::end();
+        ?>
 
         <div class="row">
             <div class="col-xs-12">
@@ -61,7 +86,18 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'status',
             // 'created_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [   
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update} {delete} {view}',
+                'buttons' => [
+                    'update' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                    }
+
+                ],
+               'headerOptions' => ['width' => '240',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

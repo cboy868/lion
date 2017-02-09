@@ -65,7 +65,7 @@ class LinksController extends BackController
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $up = Upload::getInstance($model, 'logo', 'links');
+            $up = Upload::getInstance($model, 'logot', 'links');
             if ($up) {
                 $up->save();
                 $info = $up->getInfo();
@@ -75,7 +75,7 @@ class LinksController extends BackController
             $model->save();
             return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -93,7 +93,7 @@ class LinksController extends BackController
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $up = Upload::getInstance($model, 'logo', 'links');
+            $up = Upload::getInstance($model, 'logot', 'links');
             if ($up) {
                 $up->save();
                 $info = $up->getInfo();
@@ -103,7 +103,7 @@ class LinksController extends BackController
             $model->save();
             return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
