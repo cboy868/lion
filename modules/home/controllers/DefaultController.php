@@ -100,7 +100,6 @@ class DefaultController extends \app\core\web\HomeController
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
@@ -117,6 +116,7 @@ class DefaultController extends \app\core\web\HomeController
 
     public function actionEmail()
     {
+
         $email = Yii::$app->getRequest()->post('email');
 
         $model = new EmailForm;
@@ -129,17 +129,13 @@ class DefaultController extends \app\core\web\HomeController
             $u->password = StringHelper::range(6);
 
             if ($u->create()) {
+                $pname = isset(Yii::$app->params['cp_name']) ? Yii::$app->params['cp_name'] : '';
 
-                // $mailer = Yii::$app->mailer->compose('@app/core/views/mail/html', [
-                //                                                     'username'=>$u->username,
-                //                                                     'password'=>$u->password
-                //                                                     ]);
 
-                 $mailer = Yii::$app->mailer
+                $mailer = Yii::$app->mailer
                                     ->compose('contact', ['username'=>$u->username,'password'=>$u->password])
                                     ->setTo($email)
-                                    ->setSubject('某某某公司');
-
+                                    ->setSubject($pname);
 
                 if ($mailer->send()) {
                     return $this->json(null, '谢谢使用，您的邮箱提交成功,我们为您提供了一个本网站的登录账号，详细信息已发至您的邮箱', 1);

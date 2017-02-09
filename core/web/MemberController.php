@@ -15,8 +15,12 @@ class MemberController extends \app\core\web\Controller
     public $layout = "@app/core/views/layouts/member.php";
 
 
+
     public function init()
     {
+
+        Yii::$app->language = 'en-US';
+
         Yii::$app->user->loginUrl = ['member/default/login'];
         Yii::$app->errorHandler->errorAction = 'member/default/error';
         parent::init();
@@ -24,7 +28,7 @@ class MemberController extends \app\core\web\Controller
 
     public function beforeAction($action)
     {
-        Yii::$app->setHomeUrl(Url::toRoute(['/member']));
+        Yii::$app->setHomeUrl(Url::toRoute(['/member/default/panel']));
         //检查不需要登录的action 如 site/login site/captcha
         if (in_array($action->uniqueID, $this->ignoreLogin()))
         {

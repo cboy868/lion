@@ -21,9 +21,9 @@ class Favor extends \app\core\db\ActiveRecord
 {
 
     public static $res = [
-        'goods' => '产品',
-        'post' => '文章',
-        'album' => '图集' 
+        'goods' => 'Products',
+        'post' => 'Articles',
+        'album' => 'Picture' 
     ];
 
     /**

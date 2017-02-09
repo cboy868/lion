@@ -1,7 +1,7 @@
 <?php 
 use yii\helpers\Url;
 
-$this->title = 'Dashboard';//'操作中心';
+$this->title = '操作面板';//'操作中心';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profile">
@@ -13,16 +13,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     <br> <?=$user->username?>
                 </div>
 
-                <div class="panel-foot bg-back border-back">Hi, this is your <?=$addition->logins;?> login，last login at <?=$log->login_date?>。</div>
+                <div class="panel-foot bg-back border-back">您好，这是您第<?=$addition->logins;?>次登录，上次登录<?=$log->login_date?>。</div>
             </div>
             <br>
             <div class="panel">
-                <div class="panel-head"><strong>Shortcut</strong></div>
+                <div class="panel-head"><strong>统计</strong></div>
                 <ul class="list-group">
                     
                     <li>
                         <a href="<?=Url::toRoute(['cms/favor/index'])?>">
-                        <span class="float-right badge bg-main"><?=$total['favor']?></span><span class="icon-shopping-cart"></span> Favorites
+                        <span class="float-right badge bg-main"><?=$total['favor']?></span><span class="icon-shopping-cart"></span> 收藏
                         </a>
                     </li>
                     <!-- <li><span class="float-right badge bg-red">88</span><span class="icon-user"></span> 文章</li>

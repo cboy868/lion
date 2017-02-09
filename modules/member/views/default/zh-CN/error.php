@@ -24,7 +24,7 @@ $this->title = $name;
         </p>
         <img src="/static/images/wxr-1.jpg" width='20%' />
         <div class="padding-big">
-            <a href="<?=Url::toRoute('/member')?>" class="button bg-yellow">go Home</a>
+            <a href="<?=Url::toRoute('/member')?>" class="button bg-yellow">返回首页</a>
         </div>
     </div>
     </div>

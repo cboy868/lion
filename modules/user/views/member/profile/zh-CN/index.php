@@ -10,27 +10,27 @@ use app\core\widgets\ActiveForm;
 /* @var $searchModel app\modules\user\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Personal settings';
+$this->title = '个人设置';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="tab">
 <?php if (Yii::$app->getSession()->hasFlash('success')): ?>
      <p class="bg-main" style="padding:15px 20px">
-        Notice: <?=Yii::$app->getSession()->getFlash('success')?>
+        提示: <?=Yii::$app->getSession()->getFlash('success')?>
     </p>
 <?php endif ?>
 <?php if (Yii::$app->getSession()->hasFlash('error')): ?>
      <p class="bg-dot" style="padding:15px 20px">
-        Notice: <?=Yii::$app->getSession()->getFlash('error')?>
+        提示: <?=Yii::$app->getSession()->getFlash('error')?>
     </p>
 <?php endif ?>
     <div class="tab-head">
-        <strong>settings</strong> <span class="tab-more"></span>
+        <strong>个人设置</strong> <span class="tab-more"></span>
         <ul class="tab-nav">
-            <li class="active"><a href="#tab-start">Basic</a> </li>
-            <li><a href="#tab-css">Change your profile photo</a> </li>
-            <li><a href="#tab-pass">Modify password</a> </li>
+            <li class="active"><a href="#tab-start">基本信息</a> </li>
+            <li><a href="#tab-css">头像上传</a> </li>
+            <li><a href="#tab-pass">修改密码</a> </li>
         </ul>
     </div>
     <div class="tab-body">

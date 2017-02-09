@@ -33,26 +33,26 @@ MemberAsset::register($this);
 
 <div class="header bg-main">
   <div class="logo margin-big-left fadein-top">
-    <h1><img src="<?=Member::getAvatar()?>" class="radius-circle rotate-hover" height="50" alt="" />Member Center</h1>
+    <h1><img src="<?=Member::getAvatar()?>" class="radius-circle rotate-hover" height="50" alt="" />会员中心</h1>
   </div>
   <div class="head-l float-right button-group">
-    <a class="button button-little bg-green" href="<?=Url::toRoute(['/'])?>" target="_blank"><span class="icon-home"></span> Website Home</a> &nbsp;&nbsp;
+    <a class="button button-little bg-green" href="<?=Url::toRoute(['/'])?>" target="_blank"><span class="icon-home"></span> 网站首页</a> &nbsp;&nbsp;
     <!-- <a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp; -->
     <?php if (Yii::$app->user->identity->is_staff): ?>
-      <a class="button button-little bg-blue" href="<?=Url::toRoute(['/admin'])?>" data-method="post"> Management Center</a> 
+      <a class="button button-little bg-blue" href="<?=Url::toRoute(['/admin'])?>" data-method="post"> 管理中心</a> 
     <?php endif ?>
-    <a class="button button-little bg-red" href="<?=Url::toRoute(['default/logout'])?>" data-method="post"><span class="icon-power-off"></span> Logout</a> 
+    <a class="button button-little bg-red" href="<?=Url::toRoute(['default/logout'])?>" data-method="post"><span class="icon-power-off"></span> 退出登录</a> 
   </div>
 </div>
 <div class="leftnav">
-  <!-- <div class="leftnav-title"><strong><span class="icon-list"></span>MENU</strong></div> -->
-  <h2><span class="icon-user"></span>MENU</h2>
+  <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
+  <h2><span class="icon-user"></span>个人中心</h2>
   <ul style="display:block">
-    <li><a href="<?=Url::toRoute(['/member/default/panel'])?>" target="right"><span class="icon-caret-right"></span>Dashboard</a></li>
-    <li><a href="<?=Url::toRoute(['/member/user/profile/index'])?>" target="right"><span class="icon-caret-right"></span>My Settings</a></li>
+    <li><a href="<?=Url::toRoute(['/member/default/panel'])?>" target="right"><span class="icon-caret-right"></span>操作面板</a></li>
+    <li><a href="<?=Url::toRoute(['/member/user/profile/index'])?>" target="right"><span class="icon-caret-right"></span>我的设置</a></li>
     <!-- <li><a href="info.html" target="right"><span class="icon-caret-right"></span>我的文章</a></li> -->
     <!-- <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>我的图集</a></li> -->
-    <li><a href="<?=Url::toRoute(['/member/cms/favor/index'])?>" target="right"><span class="icon-caret-right"></span>My Favorites</a></li>  
+    <li><a href="<?=Url::toRoute(['/member/cms/favor/index'])?>" target="right"><span class="icon-caret-right"></span>我的收藏</a></li>  
     <!-- <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>      -->
     <!-- <li><a href="column.html" target="right"><span class="icon-caret-right"></span>查看历史记录</a></li>
 

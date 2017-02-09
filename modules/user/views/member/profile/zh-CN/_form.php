@@ -8,29 +8,30 @@ use app\core\widgets\ActiveForm;
 
 <?php $form = ActiveForm::memberBegin(); ?>
 
+
     <div class="xb6 xl12">
-        <?= $form->field($addition, 'real_name')->textInput(['maxlength' => true])->label('Your name') ?>
-        <?= $form->field($addition, 'gender')->radioList(['1'=> 'male', '2'=>'female'])->label('Sex') ?>
+        <?= $form->field($addition, 'real_name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($addition, 'gender')->radioList(['1'=> '男', '2'=>'女']) ?>
         
         <?php //echo $form->field($addition, 'height')->textInput(['maxlength' => true, 'placeholder'=>'单位:cm']) ?>
         <?php //echo $form->field($addition, 'birth')->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="xb6 xl12">
-        <?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('Mobile') ?>
-        <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('Email') ?>
+        <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
         <?php //echo $form->field($addition, 'weight')->textInput(['maxlength' => true, 'placeholder'=>'单位:kg']) ?>
         <?php //echo $form->field($addition, 'qq')->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="xb6 xl12">
         <?php //echo $form->field($addition, 'native_place')->textArea(['rows' => 6]) ?>
-        <?= $form->field($addition, 'intro')->textArea(['rows' => 6])->label('Personal introduction') ?>
+        <?= $form->field($addition, 'intro')->textArea(['rows' => 6]) ?>
     </div>
 
     <div class="xb6 xl12">
         <?php //echo $form->field($addition, 'address')->textArea(['rows' => 6]) ?>
-        <?= $form->field($addition, 'hobby')->textArea(['rows' => 6])->label('Hobby') ?>
+        <?= $form->field($addition, 'hobby')->textArea(['rows' => 6]) ?>
     </div>
 
     
@@ -49,7 +50,7 @@ use app\core\widgets\ActiveForm;
 
     <div class="xb12 xl12">
         <div class="form-group">
-            <div class="x4">
+            <div class="x4-move x4">
                 <?=  Html::submitButton('保 存', ['class' => 'button button-block bg-sub']) ?>
             </div>
         </div>

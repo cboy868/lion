@@ -1,7 +1,7 @@
 <?php 
 use app\core\helpers\Url;
 
-$this->title = 'Favorites';
+$this->title = '收藏';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
@@ -17,16 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php if (Yii::$app->getSession()->hasFlash('success')): ?>
      <p class="bg-main" style="padding:15px 20px">
-        Success: <?=Yii::$app->getSession()->getFlash('success')?>
+        提示: <?=Yii::$app->getSession()->getFlash('success')?>
     </p>
 <?php endif ?>
 <?php if (Yii::$app->getSession()->hasFlash('error')): ?>
      <p class="bg-dot" style="padding:15px 20px">
-        Error: <?=Yii::$app->getSession()->getFlash('error')?>
+        提示: <?=Yii::$app->getSession()->getFlash('error')?>
     </p>
 <?php endif ?>
 	<div class="tab-head">
-		<strong>My Favorites</strong> <span class="tab-more"></span>
+		<strong>我的收藏</strong> <span class="tab-more"></span>
 		<ul class="tab-nav">
 		<?php foreach ($res as $k=>$v): ?>
 			<li class="<?php if ($params['res'] == $k): ?>active<?php endif ?>">
@@ -45,8 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
 							<a href="<?=$v['res_url']?>"   target="_blank"><?=$v['title']?></a>
 						</td>
 						<td width="40">
-							<a href="<?=Url::toRoute(['delete', 'id'=>$v['id']])?>" class="float-right badge bg-main del" aria-label="Delete" data-confirm="Are you sure you want to delete this item?" data-method="post" data-pjax="0">
-							<span class="glyphicon glyphicon-trash"></span>Delete
+							<a href="<?=Url::toRoute(['delete', 'id'=>$v['id']])?>" class="float-right badge bg-main del" aria-label="删除" data-confirm="您确定要删除此收藏吗？" data-method="post" data-pjax="0">
+							<span class="glyphicon glyphicon-trash"></span>删除
 							</a> 
 						</td>
 					</tr>
