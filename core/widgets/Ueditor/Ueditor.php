@@ -8,6 +8,29 @@ use yii\helpers\Json;
 use yii\widgets\InputWidget;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+
+
+// 例
+
+// $form->field($dataModel,'body')->widget('app\core\widgets\Ueditor\Ueditor',[
+// 'option' =>['res_name'=>'post'.$mod, 'use'=>'ue'], 
+// 'value'=>$dataModel->body,
+// 'jsOptions' => [
+//     'toolbars' => [
+//         [
+//             'fullscreen', 'source', 'undo', 'redo', '|',
+//             'fontsize',
+//             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat',
+//             'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
+//             'forecolor', 'backcolor', '|',
+//             'lineheight', '|',
+//             'indent', '|'
+//         ],
+//     ]
+// ]
+// ])
+
+
 /**
  * Ueditor Widget
  *
@@ -70,6 +93,21 @@ class Ueditor extends InputWidget {
             'initialFrameWidth' => '100%',
             'initialFrameHeight' => '400',
             'lang' => (strtolower(\Yii::$app->language) == 'en-us') ? 'en' : 'zh-cn',
+            'autoFloatEnabled' => false,
+            'toolbars' => [[
+                    'fullscreen', 'source', '|', 'undo', 'redo', '|',
+                    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 
+                    'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
+                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                    'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                    'indent', '|',
+                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                    'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                    'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'insertcode', 'pagebreak', 'background', '|',//'template',
+                    'horizontal', 'spechars', '|',
+                    'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                    'print'
+                ]]
         ];
 
         $this->jsOptions = ArrayHelper::merge($jsOptions, $this->jsOptions);
@@ -100,3 +138,9 @@ class Ueditor extends InputWidget {
     }
 
 }
+
+
+
+
+
+

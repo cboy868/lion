@@ -44,7 +44,10 @@ $mod = \Yii::$app->getRequest()->get('mod');
 
     <?= $form->field($model, 'summary')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($dataModel,'body')->widget('app\core\widgets\Ueditor\Ueditor',['option' =>['res_name'=>'post'.$mod, 'use'=>'ue'], 'value'=>$dataModel->body ]);?>
+    <?= $form->field($dataModel,'body')->widget('app\core\widgets\Ueditor\Ueditor',[
+        'option' =>['res_name'=>'post'.$mod, 'use'=>'ue'], 
+        'value'=>$dataModel->body,
+        ]);?>
 
 
     <?php foreach ($attach as $k => $v): ?>

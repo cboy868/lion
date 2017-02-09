@@ -5,6 +5,8 @@ namespace app\modules\cms\controllers\admin;
 use Yii;
 use app\modules\cms\models\Contact;
 use app\modules\cms\models\ContactForm;
+use app\modules\cms\models\EmailForm;
+
 
 use app\modules\cms\models\ContactSearch;
 use app\core\web\BackController;
@@ -93,13 +95,16 @@ class ContactController extends BackController
      */
     public function actionCreate()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+        $model = new Contact();
+        if ($model->load(Yii::$app->request->post())) {
 
-            return $this->refresh();
+            $model->ip = Yii::$app->request->userIP;
+
+            $model->save();
+
+            return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -117,9 +122,10 @@ class ContactController extends BackController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            // return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }

@@ -26,6 +26,17 @@ class Favor extends \app\core\db\ActiveRecord
         'album' => 'Picture' 
     ];
 
+    public static function res()
+    {
+
+        $res = self::$res;
+        foreach ($res as $k => &$v) {
+            $v = Yii::t('app/member', $v);
+        }unset($v);
+
+        return $res;
+    }
+
     /**
      * @inheritdoc
      */
@@ -91,8 +102,6 @@ class Favor extends \app\core\db\ActiveRecord
         if ($model->save()) {
             return $model;
         }
-
-        p($model->getErrors());die;
 
         return null;
 

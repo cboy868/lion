@@ -14,7 +14,7 @@ use app\modules\cms\models\Favor;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'res_name')->dropDownList(Favor::$res) ?>
+    <?= $form->field($model, 'res_name')->dropDownList(Favor::res()) ?>
 
     <?= $form->field($model, 'uname') ?>
 

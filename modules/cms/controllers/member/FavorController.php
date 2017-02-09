@@ -33,7 +33,7 @@ class FavorController extends MemberController
         $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
-                'res' => Favor::$res,
+                'res' => Favor::res(),
                 'params' => $params,
                 'dataProvider' => $dataProvider
             ]);
