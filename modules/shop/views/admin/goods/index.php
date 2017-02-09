@@ -223,11 +223,11 @@ $category_id = Yii::$app->getRequest()->get('category_id');
             // 'created_at',
             // 'updated_at',
 
-            [   'headerOptions' => ["data-type"=>"html"],
-                'class' => 'yii\grid\ActionColumn',
-                'header' => '操作',
+            // [   'headerOptions' => ["data-type"=>"html"],
+            //     'class' => 'yii\grid\ActionColumn',
+            //     'header' => '操作',
 
-            ],
+            // ],
 
             [
                 'header' => '操作',

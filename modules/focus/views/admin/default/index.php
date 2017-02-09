@@ -16,7 +16,7 @@ use yii\widgets\LinkPager;
 /* @var $searchModel app\modules\cms\models\AlbumSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $modinfo->name . '管理';
+$this->title = '焦点图管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
