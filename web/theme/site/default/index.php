@@ -1,6 +1,5 @@
 <?php 
 use app\web\theme\site\widgets\Slide;
-use app\modules\focus\models\Focus;
 
 $this->title = 'HOME';
 ?>
