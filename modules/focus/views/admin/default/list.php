@@ -32,6 +32,9 @@ $this->params['breadcrumbs'][] = $this->title . '拖拽排列显示顺序';
         border:3px solid #8ce;
         background-color: #cde;
     }
+    .thumbnail{
+        border: 3px solid #ccc;
+    }
     ol, ul {
         list-style: none;
         padding: 0;

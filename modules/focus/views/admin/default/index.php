@@ -25,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
         display: inline-block;
         overflow: hidden;
     }
+
+    .thumbnail{
+        border: 3px solid #ccc;
+    }
 </style>
 
 
@@ -76,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="caption">
                             <h4><a href="<?=Url::toRoute(['list', 'mod'=>$mod, 'id'=>$model->id])?>"><?=StringHelper::truncate($model->title,20)?></a></h4>
 
-                            <p><a href="<?=Url::toRoute(['delete-cate', 'id'=>$model->id, 'mod'=>$mod])?>" title="删除" aria-label="删除" data-confirm="将删除本分类下的所有焦点图，您确定要删除此项吗,？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a> 
+                            <p><a href="<?=Url::toRoute(['delete-cate', 'id'=>$model->id])?>" title="删除" aria-label="删除" data-confirm="将删除本分类下的所有焦点图，您确定要删除此项吗,？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a> 
                             <a href="<?=Url::toRoute(['update-cate', 'id'=>$model->id])?>" class="btn btn-success modalEditButton" role="button"><i class="fa fa-pencil"></i></a></p>
                         </div>
                     </div>
@@ -103,56 +107,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
-
-
-
-<?php $this->beginBlock('cate') ?>  
-$(function(){
-
-    $('input:checkbox').change(function(){
-        var keys = $('#w1').yiiGridView('getSelectedRows');
-        if (keys.length>0) {
-            $('.bach-wrap').show();
-        } else {
-            $('.bach-wrap').hide();
-        }
-    });
-
-    $('.move').change(function(){
-        var category_id = $(this).val();
-        var keys = $('#w1').yiiGridView('getSelectedRows');
-        var mod = "<?=$mod?>";
-        var csrf = $('meta[name=csrf-token]').attr('content');
-
-        $.post("<?=Url::toRoute(['move', 'mod'=>$mod])?>", {category_id:category_id,ids:keys, _csrf:csrf},function(xhr){
-            if (xhr.status) {
-                location.reload();
-            }
-        },'json');
-    });
-
-    $('.delAll').click(function(){
-        var keys = $('#w1').yiiGridView('getSelectedRows');
-        var mod = "<?=$mod?>";
-        var csrf = $('meta[name=csrf-token]').attr('content');
-
-        $.post("<?=Url::toRoute(['drop', 'mod'=>$mod])?>", {ids:keys, _csrf:csrf},function(xhr){
-            if (xhr.status) {
-                location.reload();
-            }
-        },'json');
-    });
-
-
-    $('.rmu').mouseover(function(){
-        $('.rmenu').hide()
-        $(this).closest('li').children('.rmenu').show();
-    });
-    $('.rmenu').mouseleave(function(){
-        $(this).hide();
-    });
-
-
-})  
-<?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>  
