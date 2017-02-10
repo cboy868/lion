@@ -63,12 +63,25 @@ class ProcessController extends BackController
         $user = Process::user();
 
 
+        if ($req->isPost) {
+            var_dump($tomb->load(Yii::$app->request->post()));
+
+            p(Yii::$app->request->post());
+            p($tomb->getErrors());die;
+
+            die;
+        }
+
+
         if ($customer->load(Yii::$app->request->post()) && $tomb->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
 
             try {
                 $outerTransaction = Yii::$app->db->beginTransaction();
+                p($user);die;
 
                 $user->createUser();
+
+
 
                 $customer->user_id = $user->id;
                 $customer->tomb_id = $tomb->id;

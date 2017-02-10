@@ -83,18 +83,14 @@ ExtAsset::register($this);
                             <tr class="tr_dead_title">
                             <?php 
 
-                            $dt = 'dt';
-                            if (isset($model->dead_title) && !in_array($model->dead_title, $dead_title)){ $dt = '';}
-                            $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}<input placeholder="称谓" class="odt '.$dt.'" name="dt['.$index.']" value="'.$model->dead_title.'"/>{hint}{error}</div>'; 
-                            if ($dt == '') {$model->dead_title = '其他';}
+                            if ($model->dead_title && !in_array($model->dead_title, $dead_title)) {
+                                $dead_title[$model->dead_title] = $model->dead_title;
+                            }
+
                              ?>
                                 <td><?= $form->field($model, "[$index]dead_title")->dropDownList($dead_title,[
-                                'style'=>'width:40%', 
-                                'class'=>'sel-ize'
-                                ]) ?></td>
-                            <?php 
-                                $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>'; 
-                             ?>
+                                'class'=>'selize-rel'
+                                ])->hint('如无选项 请直接输入'); ?></td>
                             </tr>
                             <tr class="tr_gender">
                                 <td><?= $form->field($model, "[$index]gender")->radioList([1=>'男', 2=>'女']) ?></td>
@@ -127,7 +123,7 @@ ExtAsset::register($this);
                                 <td><?= $form->field($model, "[$index]bone_type")->radioList($bone_type) ?></td>
                             </tr>
                             <tr class="tr_bone_box" style="<?php if ($model->is_alive !== 0): ?>display:none<?php endif ?>">
-                                <td><?= $form->field($model, "[$index]bone_box")->radioList($bone_box) ?></td>
+                                <td><?= $form->field($model, "[$index]bone_box")->dropDownList($bone_box) ?></td>
                             </tr>
                         </table>
 
@@ -181,10 +177,6 @@ $(function(){
         }
         return 1;
     };
-
-    
-
-
 
     $('#dead-list').sortable({
         handle: "div.dhandler",
@@ -292,6 +284,14 @@ $.fn.deadinfo = function() {
 };
 
 DeadList.find('div.deads').deadinfo();
+$('.selize-rel').each(function(index, item){
+    var $this = $(item);
+    if ( !$this.data('select-init') ) {
+        $this.selectize({
+            create: true
+        });
+    }
+});
     
 })  
 <?php $this->endBlock() ?>  

@@ -56,6 +56,8 @@ $this->title="购墓流程"
 				<div class="customer-form" style="width:90%;margin:auto;">
 
                     <?php $form = ActiveForm::begin(); ?>
+
+                    <?php echo $form->field($tomb, 'tomb_no')->hiddenInput()->label(false) ?>
                     <?php 
                         $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>';
                      ?>

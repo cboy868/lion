@@ -97,6 +97,8 @@ class User extends ActiveRecord implements IdentityInterface
         if ($this->save()) {
             return $this;
         }
+
+        p($this->getErrors());die;
         return fasle;
     }
 

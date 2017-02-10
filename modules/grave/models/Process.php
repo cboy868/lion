@@ -174,8 +174,8 @@ class Process extends \yii\base\Model
     {
         $tomb = self::tomb(self::$tomb_id);
 
-        if ($tomb->user_id) {
-            return User::findOne($tomb->user_id);
+        if ($tomb->user_id && ($user = User::findOne($tomb->user_id))) {
+            return $user;
         }
         return new User();
     }
