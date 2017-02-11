@@ -18,7 +18,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'is_god')->radioList(['普通', '天主']) ?>
 
-    <?= $form->field($model, 'is_front')->radioList(['背面', '正面']) ?>
+    <?= $form->field($model, 'is_front')->radioList(['背面', '正面', '盖板']) ?>
 
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 

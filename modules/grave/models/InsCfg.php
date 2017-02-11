@@ -71,7 +71,13 @@ class InsCfg extends \app\core\db\ActiveRecord
 
     public function getIsFront()
     {
-        return $this->is_front == 0 ? '背面' : '正面';
+        $a = [
+            0 => '背面',
+            1 => '正面',
+            2 => '盖板'
+        ];
+
+        return $a[$this->is_front];
     }
 
     public function getIsGod()

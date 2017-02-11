@@ -2,6 +2,8 @@
 use app\core\helpers\Url;
 
 $this->title = '碑文模板样式制作';
+$this->params['breadcrumbs'][] = ['label' => '配置首页', 'url' => ['/grave/admin/ins-cfg/index']];
+$this->params['breadcrumbs'][] = ['label' => '配置项', 'url' => ['/grave/admin/ins-cfg-case/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
  ?>
@@ -23,11 +25,12 @@ input, select {
 	      <div class="widget-body">
 		    <div class="widget-main padding-6 no-padding-left no-padding-right">
 		      <form class="form-horizontal" role="form" method="post" id="tpl">
-		      	<input name="imgpath" value="<?=$cfg_info['img']?>" class="imgpath" type="hidden">
+		      	<input name="imgpath" value="<?=$case->img?>" class="imgpath" type="hidden">
+		      	<input name="_csrf" type="hidden" value="<?=Yii::$app->request->getCsrfToken();?>">
                 <div class="form-group">
                   <label class="col-sm-2 control-label no-padding-right">整体信息</label>
 				  <div class="col-sm-10">
-				  <?php if ($cfg_info['shape'] == 'v'): ?>
+				  <?php if ($cfg->shape == 'v'): ?>
 				  	竖碑
 				  <?php else: ?>
 				  	横碑
@@ -67,18 +70,24 @@ input, select {
                                 -->
 
 			                    <span class="">
-			                      <select  name="tpl[<?=$key?>][<?=$ck?>][direction]">
-			                        <option value="0" <?php if($cfgs[$key][$ck]['direction'] == 0) echo 'selected'; ?>>正向</option>
-			                        <option value="1" <?php if($cfgs[$key][$ck]['direction'] == 1) echo 'selected'; ?>>反向</option>
-			                      </select>
+			                    <label>
+			                    <input name="tpl[<?=$key?>][<?=$ck?>][direction]" type="checkbox" value="1" <?php if($cfgs[$key][$ck]['direction'] == 1) echo 'checked'; ?>>反向
+			                    </label>
+			                    </span>
+			                    <span class="">
+			                    <label>
+			                    <input name="tpl[<?=$key?>][<?=$ck?>][is_big]" type="checkbox" value="1" <?php if($cfgs[$key][$ck]['is_big'] == 1) echo 'checked'; ?>>大字
+			                    </label>
 			                    </span>
 
 			                    <span class="">
 			                        <input type="text" class="input-sm" placeholder="测试值" style="width:100px;" name="tpl[<?=$key?>][<?=$ck?>][value]" value="<?=$cfgs[$key][$ck]['text']?>">
 			                    </span>
 
+			                    
+
 			                    <?php if ($ij != 0): ?>
-			                    	<button type="button" class='btn btn-minier del' caseid="<?=$cfg_info.id?>" key="<?=$key?>" sort="<?=$ck?>">删除</button>
+			                    	<button type="button" class='btn btn-minier del' caseid="<?=$case->id?>" key="<?=$key?>" sort="<?=$ck?>">删除</button>
 			                    <?php else: ?>
 			                    	<button type="button" class='btn btn-minier copy'>复制</button>
 			                    <?php endif ?>
@@ -105,15 +114,21 @@ input, select {
 	                    </span>
                         -->
 	                    <span class="">
-	                      <select  name="tpl[<?=$key?>][1][direction]">
-	                        <option value="0" <?php if($cfgs[$key][1]['direction'] == 0) echo 'selected'; ?>>正向</option>
-	                        <option value="1" <?php if($cfgs[$key][1]['direction'] == 1) echo 'selected'; ?>>反向</option>
-	                      </select>
+                    	<label>
+                    	<input name="tpl[<?=$key?>][1][direction]" type="checkbox" value="1" <?php if($cfgs[$key][1]['direction'] == 1) echo 'checked'; ?>>反向
+                    	</label>
+	                    </span>
+	                    <span class="">
+	                    	<label>
+	                    	<input name="tpl[<?=$key?>][1][is_big]" type="checkbox" value="1" <?php if($cfgs[$key][1]['is_big'] == 1) echo 'checked'; ?>>大字
+	                    	</label>
 	                    </span>
 
 	                    <span class="">
 	                        <input type="text" class="input-sm" placeholder="测试值" style="width:100px;" name="tpl[<?=$key?>][1][value]" value="<?=$cfgs[$key][1]['text']?>">
 	                    </span>
+
+	                    
 	                    <button type="button" class='btn btn-minier copy'>复制</button>
 	                  </div>
 	                </div>
@@ -139,21 +154,17 @@ input, select {
                         <input type="text" class="input-mini y" placeholder="y" name="tpl[<?=$key?>][<?=$i?>][y]"  value="<?=$cfgs[$key][$i]['y']?>">
                     </span>
 
-                      <!--
                     <span class="">
-                        <input type="text" class="input-small colorpicker1" placeholder="颜色"  name="tpl[<?=$key?>][<?=$i?>][color]"  value="<?=$cfgs[$key][$i]['color']?>">
+                    	<label>
+                    		<input name="tpl[<?=$key?>][<?=$i?>][is_big]" type="checkbox" value="1" <?php if($cfgs[$key][$i]['is_big'] == 1) echo 'checked'; ?>>大字
+                    	</label>
                     </span>
-
-                    <span class="">
-                      <select  name="tpl[<?=$key?>][<?=$i?>][direction]">
-                        <option value="0" <?php if($cfgs[$key][$i]['direction'] == 0) echo 'selected'; ?>>正向</option>
-                        <option value="1" <?php if($cfgs[$key][$i]['direction'] == 1) echo 'selected'; ?>>反向</option>
-                      </select>
-                    </span>
-                    -->
+                    
                     <span class="">
                         <input type="text" class="input-sm" placeholder="测试值" style="width:100px;" name="tpl[<?=$key?>][<?=$i?>][value]" value="<?=$cfgs[$key][$i]['text']?>">
                     </span>
+
+                    
                   </div>
                 </div>
                 <?php endfor;endforeach;?>
@@ -184,7 +195,7 @@ input, select {
 	      </div>
 	      <div class="widget-body">
 	        <div class="widget-main padding-6 no-padding-left no-padding-right">
-	           <img src="<?=$cfg_info.img?>"  width="400" class="image">
+	           <img src="<?=$case->img?>"  width="400" class="image">
 	        </div>
 	      </div>
 	    </div>
@@ -239,7 +250,7 @@ $(function(){
             return $(this).closest('.form-group').remove();
         }
         _this = this;
-        $.get('/admin/greate/removeel',{case_id:case_id, sort:sort, key:key},function(xhr){
+        $.get('<?=Url::toRoute(['/grave/admin/ins-cfg-value/remove'])?>',{case_id:case_id, sort:sort, key:key},function(xhr){
             if(xhr.status) {
                 $(_this).closest('.form-group').remove();
             } else {

@@ -9,8 +9,10 @@ use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\grave\models\InsCfgCase;
-use app\modules\grave\models\Images;
 use app\modules\grave\helpers\InsHelper;
+
+
+use app\modules\grave\models\Images;
 
 /**
  * InsCfgValueController implements the CRUD actions for InsCfgValue model.
@@ -48,10 +50,12 @@ class InsCfgValueController extends BackController
     public function actionIndex($case_id)
     {
 
+        $Image = new Images('inscfg');
 
         if (Yii::$app->request->isPost) {
             $this->saveData();
         }
+
         $model = InsCfgCase::findOne($case_id);
         $cfg = $model->cfg;
 
@@ -88,11 +92,10 @@ class InsCfgValueController extends BackController
 
         $post = Yii::$app->request->post();
 
+
         $data = $post['tpl'];
         $com = $post['all'];
         $time = date('Y-m-d H:i:s');
-
-
 
         $quer = InsCfgValue::find();
 
@@ -107,10 +110,16 @@ class InsCfgValueController extends BackController
                         'y' => $val['y'],
                         'size' => $val['size'],
                         'text' => $val['value'],
-                        'color'=> $val['color'] ? $val['color'] : '',
-                        'direction'=> $val['direction'] ? $val['direction'] : '',
-                        'add_time' => $time
+                        'color'=> $val['color'] ? $val['color'] : '#000000',
+                        'direction'=> $val['direction'] ? $val['direction'] : 0,
+                        'is_big' => isset($val['is_big'])? $val['is_big'] : 0
+                        // 'add_time' => time()
                 );
+
+                // if ($savedata['is_big'] == 0) {
+                //     p($savedata);
+                // }
+
                 $filter = array(
                     'case_id' => $savedata['case_id'],
                     'mark'   => $savedata['mark'],
@@ -118,26 +127,39 @@ class InsCfgValueController extends BackController
                 );
 
                 if ($quer->where($filter)->one()){
-                    $model = $query->where($filter)->one();
+                    $model = $quer->where($filter)->one();
                 } else {
                     $model = new InsCfgValue();
                 }
                 $model->load($savedata,'');
                 $model->save();
+
+                // if ($model->is_big == 0) {
+                //     p($model);
+                //     p($model->getErrors());die;
+                // }
+
             }
+
         }
 
-        $Image = new Images('inscfg');
-        $tmp_path = trim($this->_post('imgpath', 'trim'),'/');
+
+        $Image = new Images('ins/inscfg');
+
+        $tmp_path = trim(Yii::$app->request->post('imgpath'),'/');
 
         //$tmp_path = 'upload/inscription/tmp.png';
-        $info = $Image->upload($tmp_path,array('desc'=>'模板样图'));
-        $url = $Image->getUrl($info);
+        $info = $Image->upload($tmp_path,array('desc'=>'模板样图'), date('Ymd') . '/' . uniqid());
+
+        $url = $Image->getUrl();
+
 
         $model = InsCfgCase::findOne($com['case_id']);
-        $model->load(['img'=>$url] + $com);
+
+        $model->load(['img'=>$url] + $com, '');
+
         $model->save();
-        
+
         return true;
     }
 
@@ -150,7 +172,7 @@ class InsCfgValueController extends BackController
         $data = $this->inverseAlign($data, $attr['shape']);
         //竖碑时才这样弄
 
-        $tmp_path = 'upload/inscription/tmp'.uniqid().'.png';
+        $tmp_path = 'upload/ins/tmp/'.uniqid().'.png';
         if ($attr['shape'] == 'v') {
             $newdata = array();
             foreach ($data as $v) {
@@ -249,6 +271,27 @@ class InsCfgValueController extends BackController
         );
       
         return $data;
+    }
+
+    public function actionRemove()
+    {
+        $get = Yii::$app->request->get();
+
+        $filter = array(
+            'case_id' => $get['case_id'],
+            'mark'   => $get['key'],
+            'sort'   => $get['sort'],
+        );
+
+
+
+        $model = InsCfgValue::find()->where($filter)->one();
+
+        if($model->delete()) {
+            return $this->json(null, null, 1);
+        }
+
+        return $this->json(null, '删除失败', 0);
     }
 
 

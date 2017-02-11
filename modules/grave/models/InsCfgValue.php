@@ -3,6 +3,7 @@
 namespace app\modules\grave\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%grave_ins_cfg_value}}".
@@ -35,12 +36,23 @@ class InsCfgValue extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['case_id', 'mark', 'size', 'x', 'y', 'color', 'direction', 'text', 'add_time'], 'required'],
-            [['case_id', 'sort', 'size', 'x', 'y', 'direction'], 'integer'],
-            [['add_time'], 'safe'],
+            [['case_id', 'mark', 'size', 'x', 'y'], 'required'],
+            [['case_id', 'sort', 'size', 'x', 'y', 'direction', 'is_big', 'add_time'], 'integer'],
             [['mark'], 'string', 'max' => 20],
             [['color'], 'string', 'max' => 10],
             [['text'], 'string', 'max' => 100],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['add_time']
+                ]
+            ]
         ];
     }
 
@@ -61,6 +73,7 @@ class InsCfgValue extends \app\core\db\ActiveRecord
             'direction' => 'Direction',
             'text' => 'Text',
             'add_time' => 'Add Time',
+            'is_big' => '字体大小'
         ];
     }
 }

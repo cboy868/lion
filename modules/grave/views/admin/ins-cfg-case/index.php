@@ -11,6 +11,7 @@ use yii\bootstrap\Modal;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '配置项管理';
+$this->params['breadcrumbs'][] = ['label' => '配置首页', 'url' => ['/grave/admin/ins-cfg/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -62,7 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-xs-12 ins-cfg-case-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -73,7 +73,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'num',
             'width',
             'height',
-            'img:image',
+            [
+                'label' => '样图',
+                'value' => function($model) {
+                    $img = "<img src='$model->img' style='max-width:100px;max-height:100px'>";
+                    return $img;
+                },
+                'format' =>'raw'
+            ],
             // 'status',
             // 'sort',
             // 'add_time',

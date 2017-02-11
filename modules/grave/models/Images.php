@@ -1,17 +1,14 @@
 <?php
-
 namespace app\modules\grave\models;
 
-use Yii;
-
+use yii;
 
 /**
  * 图片管理模型
  * 
  */
-class Images {
+class Images extends \app\core\db\ActiveRecord{
 
-    // 错误提示信息
     protected $error;
 
     // 图片类型
@@ -31,12 +28,8 @@ class Images {
 
     protected $default_spec = 'original';
 
-    public function __construct(string $img_use) 
+    public function __construct($img_use) 
     {
-        // 根据类别设置表名 modify by bandry
-        if (!empty($img_use)) {
-            $this->tableName = 'images_' . $img_use;
-        }
         parent::__construct();
         // 图片的类别
         $this->img_use = empty($img_use) ? 'default' : $img_use;
@@ -44,15 +37,31 @@ class Images {
         // 图片上传的基本路径
         $base_path = 'upload';
         $this->base_path = empty($base_path) ? 'upload/'.$this->img_use : $base_path.'/'.$this->img_use;
-        // 缩略图尺寸
-        // $thunder_conf = C('IMAGE_THUMB_SIZE');
-        // $this->thunder_size = isset($thunder_conf[$this->img_use]) ? $thunder_conf[$this->img_use] : array();
-
 
         $this->thunder_size = [];
 
         // 当前登录的用户ID
         $this->userid = Yii::$app->user->id;
+    }
+
+    public static function tableName()
+    {
+        return '{{%grave_images_inscfg}}';
+    }
+
+    public function rules()
+    {
+        return [
+            [['desc'], 'string'],
+            [['path', 'name', 'img_use', 'md5', 'ext'], 'required'],
+            [['owner_id', 'sort', 'status'], 'integer'],
+            [['add_time'], 'safe'],
+            [['title', 'path'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 64],
+            [['img_use'], 'string', 'max' => 100],
+            [['md5'], 'string', 'max' => 32],
+            [['ext'], 'string', 'max' => 10],
+        ];
     }
 
     /**
@@ -149,7 +158,7 @@ class Images {
      */
     public function upload($tmp_name,$data = array(), $path='') 
     {
-    	if(empty($this->img_use)) {
+      if(empty($this->img_use)) {
             $this->error = '图片的用途未知';
             return false;
         }
@@ -166,12 +175,15 @@ class Images {
         }
      
         $content = file_get_contents($tmp_name);
+
         // 保存到本地
          $info = $this->binary($content,$type, $path);
+
         if($info == false) return false;
         unset($binary);
         // 保存到数据库
         $result = $this->saveImage(array_merge($info,$data));
+
         if($result === false) {
             return false;
         };
@@ -228,7 +240,7 @@ class Images {
             }
         }
 
-      	$info['owner_id'] = $this->userid;
+        $info['owner_id'] = $this->userid;
 
         if(empty($info)) {
             $this->error = '没有要修改的内容';
@@ -285,7 +297,8 @@ class Images {
             $file_path = substr($md5,0,2).'/'.substr($md5,2,2).'/'.substr($md5,4,3).'/';
         }
         
-        $save_path = $this->base_path.'/'.$this->default_spec.'/'.$file_path;
+        // $save_path = $this->base_path.'/'.$this->default_spec.'/'.$file_path;
+        $save_path = $this->base_path.'/'.$file_path;
         if((is_dir($save_path) === false) && $this->mkdir($save_path)) {
             return false;
         }
@@ -331,6 +344,7 @@ class Images {
      * @author sunbingchao
      */
     protected function saveImage($data) {
+
         $path = isset($data['path']) ? trim($data['path']) : '';
         if(empty($path)) {
             $this->error = '图片的路径为空';
@@ -369,9 +383,14 @@ class Images {
             'md5'       =>  $md5,
             'ext'       =>  $type
         );
-        $result = $this->add($data);
+
+
+        $this->load($data, '');
+
+        $this->save();
+
         if($result === false) {
-            $this->error = $this->getDbError();
+            $this->error = $this->getErrors();
             return false;
         }else {
             $data['id'] = $result;
@@ -505,40 +524,8 @@ class Images {
      * @return void
      * @author sunbingchao
      */
-    public function getUrl($record,$specs = null) {
-
-        if(!$record) {
-            $this->error = '图片信息为空';
-            return false;
-        }
-
-        static $image_server = null;
-        static $base_path = null;
-
-        if($image_server === null) {
-            $image_server = C('IMAGE_SERVER');
-        }
-        if($base_path === null) {
-            $base_path = C('IMAGE_UPLOAD_PATH');
-        }
-
-        if(!empty($specs)) {
-            $type = 'png';
-        }else {
-            $type = $record['ext'];
-            $specs = $this->default_spec;
-        }
-
-        $path_arr = array(
-            $image_server,
-            $base_path,
-            $this->img_use,
-            $specs,
-            trim($record['path'],'/'),
-            $record['name']
-        );
-
-        return implode('/', $path_arr).'.'.$type;
+    public function getUrl($specs = null) {
+        return '/upload/'. $this->img_use . '/' .  $this->path . $this->name . '.' . $this->ext;
     }
 
     /**
@@ -638,4 +625,4 @@ class Images {
     }
 }
 
-?>
+
