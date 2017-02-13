@@ -48,6 +48,7 @@ class m161217_134034_grave extends Migration
             'agency_id' => $this->integer(),//办事处
             'guide_id' => $this->integer(),//导购员id
             'sale_time' => $this->dateTime(),//售出时间
+            'mnt_by' => $this->string(200),//立碑人
             'note' => $this->text(),//墓位备注
             'thumb'=> $this->integer(),//封面，如无封面，程序显示时取墓区的
             'created_at' => $this->integer()->notNull(),

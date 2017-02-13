@@ -39,7 +39,7 @@ class InsHelper
         self::createImg();
     	self::writeWord($data);
         
-        $tmp_path = 'upload/inscription/tmp.png'.microtime(true);
+        $tmp_path = 'upload/ins/tmp.png'.microtime(true);
         $pos = strrpos($tmp_path, '/');
         $path = substr($tmp_path, 0, $pos+1);
         
@@ -51,7 +51,7 @@ class InsHelper
         imagepng(self::$im, $tmp_path);
         imagedestroy(self::$im);
         
-        $Image = new ImagesModel('inscription');
+        $Image = new ImagesModel('ins');
         $info = $Image->setUserid()->upload($tmp_path,array('desc'=>'描述'),$file_path);
         
         unlink($tmp_path);//删除临时图片
@@ -74,7 +74,7 @@ class InsHelper
     	self::createImg($is_god);
     	self::writeWord($data);
 
-    	$tmp_path = empty($tmp_path) ? 'upload/inscription/tmp.png':$tmp_path;
+    	$tmp_path = empty($tmp_path) ? 'upload/ins/tmp.png':$tmp_path;
     	$pos = strrpos($tmp_path, '/');
     	$path = substr($tmp_path, 0, $pos+1);
     	

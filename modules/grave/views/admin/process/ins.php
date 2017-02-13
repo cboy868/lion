@@ -50,7 +50,7 @@ ExtAsset::register($this);
         </div>
         
 
-				   <?php 
+		<?php 
             $form = ActiveForm::begin();
             $form->fieldConfig['labelOptions']['class']='control-label col-sm-4';
             $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>'; 

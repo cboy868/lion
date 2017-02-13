@@ -90,6 +90,13 @@ class Ins extends \app\core\db\ActiveRecord
         return $shape === null ? $shapes : $shapes[$shape];
     }
 
+    public function getImg($position = 'front')
+    {
+        $img = json_decode($this->img);
+
+        return isset($img[$position]) && !empty($img[$position]) ? $img[$position] : '#';
+    }
+
     public static function getIsConfirm($is_confirm = null)
     {
         $confirm = [
@@ -111,6 +118,33 @@ class Ins extends \app\core\db\ActiveRecord
 
         return $tc;
     }
+
+    public function getFrontCfg()
+    {
+        $tpl_cfg = $this->tpl_cfg;
+        if (!$tpl_cfg) {
+            return null;
+        }
+
+        $cfg = json_decode($tpl_cfg);
+
+        return $cfg['front'];
+
+    }
+
+    public function getCfg($pos = 'front')
+    {
+        $tpl_cfg = $this->tpl_cfg;
+        if (!$tpl_cfg) {
+            return null;
+        }
+
+        $cfg = json_decode($tpl_cfg);
+
+        return $cfg[$pos];
+    }
+
+    
 
     /**
      * @inheritdoc

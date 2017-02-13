@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete} {view}',
+                'template' => '{update} {delete} {view} {grave}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
@@ -78,6 +78,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'view' => function($url, $model, $key) {
                         $url = Url::toRoute(['/grave/admin/ins-cfg-case/index', 'cfg_id'=>$model->id]);
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看'] );
+                    },
+                    'grave' =>function($url, $model, $key) {
+                        return Html::a('墓区配置', $url, ['title' => '墓区配置'] );
                     }
 
                 ],

@@ -13,7 +13,11 @@ use app\modules\grave\models\Grave;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php $graves = Grave::selTree(); array_unshift($graves, ['0'=>'顶级']) ?>
+    <?php 
+    $graves = Grave::selTree(); 
+    $graves = array_merge([0=>'顶级'], $graves);
+    // $graves[0] = '顶级';
+    ?>
     <?= $form->field($model, 'pid')->dropDownList($graves) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

@@ -11,6 +11,7 @@ use app\modules\grave\models\Ins;
 use app\modules\grave\models\Portrait;
 use app\modules\grave\models\Bury;
 use app\modules\user\models\User;
+use app\modules\grave\models\InsProcess;
 /**
  * This is the model class for table "{{%grave_portrait}}".
  *
@@ -142,6 +143,33 @@ class Process extends \yii\base\Model
 
         if (!$ins) {
             $ins = new Ins();
+            $ins->tomb_id = self::$tomb_id;
+        }
+
+        return $ins;
+    }
+
+    public static function insProcess()
+    {
+
+
+        // $position = Yii::$app->controller->module->params['ins']['position'];
+
+        $ins = InsProcess::find()->where(['tomb_id'=>self::$tomb_id])
+                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         // ->indexBy('position')
+                         ->one();
+
+        // foreach ($position as $k => $v) {
+        //     if (!isset($ins[$k])) {
+        //         $ins[$k] = new Ins();
+        //         $ins[$k]->tomb_id = self::$tomb_id;
+        //     }
+        // }
+
+
+        if (!$ins) {
+            $ins = new InsProcess();
             $ins->tomb_id = self::$tomb_id;
         }
 

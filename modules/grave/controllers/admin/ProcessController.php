@@ -35,6 +35,12 @@ class ProcessController extends BackController
             'pl-upload' => [
                 'class' => 'app\core\web\PluploadAction',
             ],
+            'ue-upload' => [
+                'class' => 'app\core\widgets\Ueditor\UploadAction',
+            ],
+            // 'web-upload' => [
+            //     'class' => 'app\core\web\WebuploadAction',
+            // ],
 
         ];
     }
@@ -63,25 +69,12 @@ class ProcessController extends BackController
         $user = Process::user();
 
 
-        if ($req->isPost) {
-            var_dump($tomb->load(Yii::$app->request->post()));
-
-            p(Yii::$app->request->post());
-            p($tomb->getErrors());die;
-
-            die;
-        }
-
-
         if ($customer->load(Yii::$app->request->post()) && $tomb->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
 
             try {
                 $outerTransaction = Yii::$app->db->beginTransaction();
-                p($user);die;
 
                 $user->createUser();
-
-
 
                 $customer->user_id = $user->id;
                 $customer->tomb_id = $tomb->id;
@@ -176,9 +169,42 @@ class ProcessController extends BackController
             ]);
     }
 
+    // public function ins()
+    // {
+
+    //     $dead = Process::dead();
+
+
+    //     if (count($dead) == 0) {
+    //         Yii::$app->session->setFlash('error', '请先填写使用人信息');
+    //         return $this->pre(2);
+    //     }
+
+    //     $model = Process::ins();
+    //     $tomb = Process::tomb();
+
+    //     $req = Yii::$app->request;
+    //     if ($req->isPost) {
+    //         if ($model->load($req->post())) {
+    //             $model->img = json_encode($model->img);
+    //             $model->guide_id = $tomb->guide_id;
+    //             $model->user_id = $tomb->user_id;
+    //             if ($model->save()) {
+    //                 return $this->next();
+    //             }
+    //         }
+    //     }
+
+    //     return $this->render('ins', [
+    //         'model' => $model,
+    //         'imgs'  => json_decode($model->img),
+    //         'pos' => Yii::$app->controller->module->params['ins']['position'],
+    //         'get' => Yii::$app->request->get()
+    //     ]);
+    // }
+
     public function ins()
     {
-
         $dead = Process::dead();
 
 
@@ -187,7 +213,7 @@ class ProcessController extends BackController
             return $this->pre(2);
         }
 
-        $model = Process::ins();
+        $model = Process::insProcess();
         $tomb = Process::tomb();
 
         $req = Yii::$app->request;
@@ -202,13 +228,31 @@ class ProcessController extends BackController
             }
         }
 
-        return $this->render('ins', [
+
+        $cases = $model->getInsCfgCases();
+        $back_word = Yii::$app->controller->module->params['ins']['back_word'];
+        $paint = Yii::$app->controller->module->params['ins']['paint'];
+
+        $ins_info = $model->getInsInfo();
+
+        // p($ins_info);die;
+
+        // p($ins_info);die;
+
+        return $this->render('ins-auto', [
             'model' => $model,
             'imgs'  => json_decode($model->img),
             'pos' => Yii::$app->controller->module->params['ins']['position'],
-            'get' => Yii::$app->request->get()
+            'get' => Yii::$app->request->get(),
+            'cases' => $cases,
+            'back_word' => $back_word,
+            'paint' => $paint,
+            'front' => $ins_info['front'],
+            'back' => $ins_info['back'],
+
         ]);
     }
+
 
     public function actionAddDead()
     {
