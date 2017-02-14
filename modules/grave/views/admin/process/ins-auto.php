@@ -534,7 +534,7 @@ ExtAsset::register($this);
 
 
 				<input type="hidden" name="tomb_id" value="<?=$tomb_id?>" />
-				<input type="hidden" name="type" value="<?=$type?>" />
+				<input type="hidden" name="type" value="<?=$model->type?>" />
 
 				<input type="hidden" name="new_font_num" value="0" />
 				<input type="hidden" name="font_num" value="<?=$inscription_info['font_num']?>" />
@@ -633,6 +633,7 @@ $(function(){
 	//图片碑文
 
 	var ins_type = $('input[name=type]',insContainer).val();
+
 	if (ins_type==1) {
 		auto(insContainer, changed);
 	};
@@ -869,7 +870,8 @@ function getImage(cla){
         if(xhr.status){
         	var time = new Date().getTime();
             $('.' + driect + '_img').attr('src', xhr.data+'?time='+time)
-                    .parent('a').attr('href', xhr.data+'?time='+time);
+                    				.parent('a')
+                    				.attr('href', xhr.data+'?time='+time);
         } else {
             
         }

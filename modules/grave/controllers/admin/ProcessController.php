@@ -51,7 +51,7 @@ class ProcessController extends BackController
      */
     public function actionIndex($step, $tomb_id)
     {
-        $this->layout = '@app/core/views/layouts/single';
+        $this->layout = '@app/modules/grave/views/admin/process/layout';
     	$method = Process::$step[$step]['method'];
         // Process::$tomb_id = $tomb_id;
     	return $this->$method();
@@ -214,6 +214,9 @@ class ProcessController extends BackController
         }
 
         $model = Process::insProcess();
+        $model->type=1;
+
+
         $tomb = Process::tomb();
 
         $req = Yii::$app->request;
@@ -249,6 +252,7 @@ class ProcessController extends BackController
             'paint' => $paint,
             'front' => $ins_info['front'],
             'back' => $ins_info['back'],
+            'dead_list' => $model->getDead()
 
         ]);
     }

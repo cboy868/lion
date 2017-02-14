@@ -97,7 +97,7 @@ class InsProcess extends Ins
         foreach ($content['birth'] as $k=>&$v) {
             $v['content'] = $this->getRelDate($v['content'], $dead_list[$k]['birth_type']);
             $content['fete'][$k]['content'] = $this->getRelDate($content['fete'][$k]['content'], $dead_list[$k]['fete_type']);
-            $content['age'][$k]['content']  = numberToChar($content['age'][$k]['content'], true, $this->is_tc);
+            $content['age'][$k]['content']  = self::numberToChar($content['age'][$k]['content'], true, $this->is_tc);
         }unset($v);
 
         return $content;
@@ -339,6 +339,7 @@ class InsProcess extends Ins
         $current_ins_info= $this->ins_info['front'];
 
         $deads = $this->getDead();
+
         if (empty($current_ins_info)) {return $this->initFront();}
 
         $i= 0 ;
@@ -787,9 +788,23 @@ class InsProcess extends Ins
         }unset($v);
         return $data;
     }
+    /**
+     * @name 取使用人数量
+     */
+    public function getDead()
+    {
+        return Dead::find()->where(['tomb_id'=>$this->tomb_id])
+                           ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                           ->asArray()
+                           ->all();
 
+    }
+
+    /**
+     * @name 取使用人数量
+     */
     public function getDeadCount($ext_follow = true){
-        return 2;
+        return count($this->getDead());
     }
 
     public function order()
@@ -860,7 +875,7 @@ class InsProcess extends Ins
 
 
     
-    public static function getDeadTitle($title){
+    public function getDeadTitle($title){
         $conf = Yii::$app->controller->module->params['ins']['ins_title'];
         $conf = $this->shape == 'v' ? $conf['v'] : $conf['h'];
         return isset($conf[$title]) ? $conf[$title]: $title;
@@ -903,13 +918,7 @@ class InsProcess extends Ins
 
 
 
-    public function getDead()
-    {
-        return Dead::find()->where(['tomb_id'=>$tomb_id])
-                           ->andWhere(['status'=>Dead::STATUS_NORMAL])
-                           ->asArray()->all();
-
-    }
+    
 
     public function getInsCfgCases(){
 

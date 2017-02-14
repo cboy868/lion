@@ -199,11 +199,11 @@ trait TreeTrait {
     /**
      * @name 为树排序，前台表格树使用
      */
-    public static function sortTree($condition=[])
+    public static function sortTree($condition=[], $order=null)
     {
         $sort = static::find()
                           ->filterWhere($condition)
-                          ->orderBy('code asc')
+                          ->orderBy('code asc' . ',' . $order)
                           ->asArray()
                           ->all();
         return $sort;

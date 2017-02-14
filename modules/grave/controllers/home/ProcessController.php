@@ -27,6 +27,9 @@ class ProcessController extends \app\core\web\HomeController
 
     	$num = $model->getDeadCount();
 
+    	// p($model->getDead());die;
+
+
         if ($num==0) {
             $this->json(null, '请填写逝者信息');
         }
@@ -55,7 +58,7 @@ class ProcessController extends \app\core\web\HomeController
 
         $font = $model->getFont();
 
-        $pre_path = 'upload/ins/tmp/'. Process::$tomb_id . $direct . '.png';
+        $pre_path = 'upload/ins/tmp/'. Process::$tomb_id . $direct. uniqid() . '.png';
 
         InsHelper::showImg($info['data'], $info['size'][0], $info['size'][1], $font, $pre_path);
 

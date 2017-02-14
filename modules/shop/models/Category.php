@@ -88,4 +88,10 @@ class Category extends \app\core\models\Category
 
         return $size ? $dir . '/' . $size . '@' . $file : $thumb;
     }
+
+    public function getGoods()
+    {
+        return $this->hasMany(Goods::className(), ['category_id'=>'id'])
+                    ->where(['status'=>Goods::STATUS_NORMAL]);
+    }
 }

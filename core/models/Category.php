@@ -24,7 +24,7 @@ use app\core\traits\TreeTrait;
  * @property integer $created_at
  * @property integer $status
  */
-class Category extends \yii\db\ActiveRecord
+class Category extends \app\core\db\ActiveRecord
 {
     use TreeTrait;
 

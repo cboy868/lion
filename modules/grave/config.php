@@ -77,6 +77,17 @@ return [
             'agent'  => 'chaojiguanliyuan_585a784f9cd1a'//业务
         ],
 
+        'goods' => [
+            'cate' => [
+                'ins' => 12,
+                'portrait' => 5
+            ],
+
+            'id' => [
+                //
+            ]
+        ],
+
         'ins' => [
             'position' =>  [
                 'front' => '正面',
