@@ -84,6 +84,10 @@ class Process extends \yii\base\Model
                          ->orderBy('sort asc')
                          ->all();
 
+        if (self::getDeadNum() == 0) {
+            self::$dead_model_num = 2;
+        }
+
         if ((self::$dead_model_num - self::getDeadNum()) > 0) {
             $new = self::$dead_model_num - self::getDeadNum();
 
@@ -148,6 +152,11 @@ class Process extends \yii\base\Model
 
         return $ins;
     }
+
+    
+
+
+
 
     public static function insProcess()
     {
@@ -242,6 +251,28 @@ class Process extends \yii\base\Model
 
         $users = ArrayHelper::map($users, 'id', 'username');
         return $users;
+    }
+
+    /**
+     * @name 取墓位订单
+     */
+    public static function orderTomb()
+    {
+        $tomb = self::tomb();
+
+        $order = Order::createTombOrder($tomb->user_id, $tomb);
+        return $order;
+    }
+
+    public static function getOrder()
+    {
+        $tomb = self::tomb();
+        if ($tomb->user_id) {
+            return Order::getValidOrder($tomb->user_id);
+
+        }
+
+        return null;
     }
 
     // public static function order()

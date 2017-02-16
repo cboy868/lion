@@ -136,6 +136,8 @@ ExtAsset::register($this);
         </div>
         <?php ActiveForm::end(); ?>
 
+        <?=$this->render('_order', ['order'=>$order]) ?>
+
     </div><!-- /.page-content-area -->
 </div>
 <?php $this->beginBlock('up') ?>  

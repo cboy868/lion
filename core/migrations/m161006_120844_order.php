@@ -17,7 +17,7 @@ class m161006_120844_order extends Migration
             'op_id' => $this->integer(),//下单人
             'price' => $this->decimal(10,2),
             'origin_price' => $this->decimal(10,2),
-            'type'    => $this->smallInteger()->defaultValue(1),//订单类型 1点餐 2订桌
+            'type'    => $this->smallInteger()->defaultValue(1),//订单类型 1普通商品 9带墓位的
             'progress'=> $this->smallInteger()->defaultValue(0),//状态0订单初始 1支付部分,2支付完成,3服务完成
             'note'     => $this->text(),//备注
             'created_at' => $this->integer()->notNull(),
@@ -32,7 +32,7 @@ class m161006_120844_order extends Migration
             'user_id' => $this->integer(),//下单人
             'op_id' => $this->integer(),//下单人
             'title'=> $this->string(255), //商品名
-            'type' => $this->smallInteger()->defaultValue(1), //类型1点餐,2订桌
+            'type' => $this->smallInteger()->defaultValue(1), //类型 1 商品订单  9墓位订单
             'category_id' => $this->smallInteger(),//菜品分类,
             'goods_id' => $this->integer(),//菜品id,
             'sku_id' => $this->integer(),

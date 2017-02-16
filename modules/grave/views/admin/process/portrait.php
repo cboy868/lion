@@ -69,6 +69,8 @@ use app\core\helpers\Url;
             </div>
         </div>
         <?php ActiveForm::end(); ?>
+
+        <?=$this->render('_order', ['order'=>$order]) ?>
     </div><!-- /.page-content-area -->
 </div>
 

@@ -79,7 +79,7 @@ return [
 
         'goods' => [
             'cate' => [
-                'ins' => 12,
+                'ins' => 6,
                 'portrait' => 5
             ],
 
@@ -89,6 +89,13 @@ return [
         ],
 
         'ins' => [
+            'goods_attr' => [
+                'id'=>8,
+                'shape' => [
+                    '19' => 'h',
+                    '20' => 'v'
+                ]
+            ],
             'position' =>  [
                 'front' => '正面',
                 'back' => '背面',

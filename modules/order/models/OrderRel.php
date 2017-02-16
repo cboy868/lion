@@ -33,6 +33,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     // const TYPE_FOOD = 1; //订餐
     // const TYPE_SEAT = 2; //订桌
 
+    const TYPE_GOODS = 1;//普通商品订单
 
     const EVENT_AFTER_CREATE = 'afterCreate';
 
@@ -80,6 +81,12 @@ class OrderRel extends \app\core\db\ActiveRecord
 
         $num = $data['num']>0 ? $data['num'] : 1;
 
+
+        $title = $sku->name;
+        if ($sku->goods->name != $title) {
+            $title = $sku->goods->name . $title;
+        }
+
         $data = [
             'user_id'    => $order->user_id,
             'op_id'      => Yii::$app->user->id,
@@ -87,7 +94,7 @@ class OrderRel extends \app\core\db\ActiveRecord
             'goods_id'      => $sku->goods_id,
             'sku_id'        => $sku->id,
             'category_id'   => $sku->goods->category_id,
-            'title'         => $sku->name,
+            'title'         => $title,
             'price_unit'    => $sku->price,
             'price'         => $num * $sku->price,
             'sku_name'      => $sku->name,
@@ -131,13 +138,14 @@ class OrderRel extends \app\core\db\ActiveRecord
     //     return $model;
     // }
 
-    public static function hasRel($order_id, $goods_id, $sku_id, $user_id)
+    public static function hasRel($order_id, $goods_id, $sku_id, $user_id, $type=1)
     {
         return self::find()->where(['order_id'=>$order_id])
                              ->andWhere(['goods_id'=>$goods_id])
                              ->andWhere(['sku_id'=>$sku_id])
                              ->andWhere(['user_id'=> $user_id])
                              ->andWhere(['status'=>self::STATUS_NORMAL])
+                             ->andWhere(['type'=>$type])
                              ->one();
 
     }

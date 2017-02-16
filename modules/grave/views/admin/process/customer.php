@@ -55,9 +55,11 @@ $this->title="购墓流程"
                     </div>
 				<div class="customer-form" style="width:90%;margin:auto;">
 
-                    <?php $form = ActiveForm::begin(); ?>
+                    <?php $form = ActiveForm::begin([
+                            'id' => 'cu-form',
+                        ]); ?>
 
-                    <?php echo $form->field($tomb, 'tomb_no')->hiddenInput()->label(false) ?>
+                    <?php //echo $form->field($tomb, 'tomb_no')->hiddenInput()->label(false) ?>
                     <?php 
                         $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>';
                      ?>
@@ -67,6 +69,8 @@ $this->title="购墓流程"
                         <?php 
                           $agent_disabled = $tomb->agent_id ? true : false;
                           $guide_disabled = $tomb->guide_id ? true : false;
+                          $uname_disabled = $user->id ? true : false;
+                          $customer_disabled = $model->id ? true : false;
                          ?>
                         <?php $form->fieldConfig['template'] = '{label}<div class="col-sm-8 ui-widget">{input}{hint}{error}</div>'; ?>
                             <td><?= $form->field($tomb, 'agent_id')->dropDownList($agent,['class'=>'sel-ize','disabled'=>$agent_disabled])->label('***(<font color="red">*</font>)') ?></td>
@@ -76,13 +80,18 @@ $this->title="购墓流程"
                             $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>';
                          ?>
                         <tr>
-
-                            <td><?= $form->field($user, 'username')->textInput()->label("账号(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($user, 'username')->textInput(['disabled'=>$uname_disabled, 'enableAjaxValidation'=>true,
+                                'clientOptions' => [
+                                    'validateOnSubmit' => true,
+                                    'validateOnBlur' => true,
+                                    'validateOnType' => true,
+                                ],'class'=>'uname form-control'
+                            ])->label("账号(<font color='red'>*</font>)") ?></td>
                             <td></td>
                         </tr>
 
                         <tr>
-                            <td><?= $form->field($model, 'name')->textInput(['maxlength' => true])->label("客户名(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($model, 'name')->textInput(['disabled'=>$uname_disabled,'class'=>'cname form-control'])->label("客户名(<font color='red'>*</font>)") ?></td>
                             <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label("手机号(<font color='red'>*</font>)") ?></td>
                         </tr>
 
@@ -139,6 +148,8 @@ $this->title="购墓流程"
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
             </div>
+
+                <?=$this->render('_order', ['order'=>$order]) ?>
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>

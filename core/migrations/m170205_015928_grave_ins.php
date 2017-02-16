@@ -17,10 +17,12 @@ class m170205_015928_grave_ins extends Migration
             'user_id' => $this->integer()->notNull(),//用户id
             'tomb_id' => $this->integer()->notNull(),//如果值为0,表示逝者不在本园
             'op_id' => $this->integer(),//操作人
+            'order_rel_id' => $this->integer(),//子订单id,对应着墓碑的商品
+            'goods_id' => $this->integer(),
             'type' => $this->smallInteger(1)->defaultValue(0), //碑文的几种生成方式 0图片,1自动 2自由
             'tpl_cfg' => $this->string(20),
             'position' => $this->string(100),//位置，前、后、盖板之类
-            'shape' => $this->string(1)->defaultValue('h'),//横，竖
+            'shape' => $this->string(1)->defaultValue('v'),//h横，v竖
             'content' => $this->text(),
             'img' => $this->string(255),
             'is_tc' => $this->smallInteger(1)->defaultValue(0),//是否繁体字 

@@ -149,6 +149,8 @@ ExtAsset::register($this);
             </div>
         </div>
         <?php ActiveForm::end(); ?>
+
+        <?=$this->render('_order', ['order'=>$order]) ?>
     </div><!-- /.page-content-area -->
 </div>
 <div class="newDead">
@@ -240,32 +242,10 @@ $.fn.deadinfo = function() {
 
         // 逝者关系
         $dead.find('tr.tr_dead_title select').change(function(e){
-
-
-            if ($(this).val() == '其他') {
-                $dead.find('.odt').show();
-            } else {
-                $dead.find('.odt').val('').hide();    
-            }
-
-            var gender = getGender($(this).val());
-            var opGender = $dead.find('tr.tr_gender input');
-
-
-            switch (gender)
-            {
-                case 1:
-                    opGender.val(['1']);
-                    break;
-                case 0:
-                    opGender.val(['2']);
-                    break;
-                case false:
-                    opGender.val(['1']);
-                    break;
-            }
+            $(this).relGender();
         });
 
+        $dead.find('tr.tr_dead_title select').relGender();
 
         //删除使用人 
         $dead.find('.delit').on('click', function(e){
@@ -282,6 +262,23 @@ $.fn.deadinfo = function() {
     });
 
 };
+
+$.fn.relGender = function(){
+    var gender = getGender($(this).val());
+    var opGender = $(this).closest('table').find('tr.tr_gender input');
+    switch (gender)
+    {
+        case 1:
+            opGender.val(['1']);
+            break;
+        case 0:
+            opGender.val(['2']);
+            break;
+        case false:
+            opGender.val(['1']);
+            break;
+    }
+}
 
 DeadList.find('div.deads').deadinfo();
 $('.selize-rel').each(function(index, item){

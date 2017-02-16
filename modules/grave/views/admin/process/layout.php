@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use yii\bootstrap\Modal;
+
+
+use app\modules\grave\models\Tomb;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -92,14 +95,19 @@ AdminAsset::register($this);
                     $portrait = $goods['cate']['portrait'];
                     $ins = $goods['cate']['ins'];
 
+                    $tomb = Tomb::findOne(Yii::$app->request->get('tomb_id'));
+
+
                  ?>
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
-                        <!-- <li class="blue">
-                            <a href="<?=Url::toRoute(['/home'])?>" target="_blank">
-                                购买墓碑
-                            </a>
-                        </li>  -->
+                        <?php if (!$tomb->hasIns()): ?>
+                            <li class="blue">
+                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$ins, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank">
+                                    购买墓碑
+                                </a>
+                            </li> 
+                        <?php endif ?>
 
                         <li class="green">
                             <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank">

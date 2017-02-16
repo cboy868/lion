@@ -33,6 +33,8 @@ class Order extends \app\core\db\ActiveRecord
     const PRO_PAY  = 5; //支付完成
     const PRO_OK   = 8; //订单完成，服务最终完成
 
+    const TYPE_GOODS = 1;
+
 
     // const EVENT_AFTER_PAY= 'afterPay'; //支付完成会一些例如短信、任务之类的东西由系统自动发出
     // const EVENT_AFTER_DELAY= 'afterDelay'; //欠款申请之后，同样会有一些短信、任务之类的东西
@@ -81,14 +83,35 @@ class Order extends \app\core\db\ActiveRecord
         try {
             $order = self::getValidOrder($user_id, $extra);
 
-            $o = OrderRel::create($order, $sku, $extra);
+            $rel = OrderRel::create($order, $sku, $extra);
 
             $order->updatePrice();
         } catch (\Exception $e) {
             return fasle;
         }
-        return $order;
+
+        return ['order'=>$order, 'rel'=>$rel];
+        // return $order;
     }
+
+
+    /**
+     * @des 与上个方法一样，只是返回值不同，以获取订单详情
+     */
+    // public static function createOrder($user_id, $sku, $extra=[])
+    // {
+    //     try {
+    //         $order = self::getValidOrder($user_id, $extra);
+
+    //         $rel = OrderRel::create($order, $sku, $extra);
+
+    //         $order->updatePrice();
+    //     } catch (\Exception $e) {
+    //         return fasle;
+    //     }
+
+    //     return ['order'=>$order, 'rel'=>$rel];
+    // }
 
     public function getTotalPay()
     {
@@ -148,7 +171,7 @@ class Order extends \app\core\db\ActiveRecord
             $model->op_id = Yii::$app->user->id;
             $model->user_id = $user_id;
         }
-
+        $model->type = isset($extra['type']) ? $extra['type'] : 1;
         $model->note = isset($extra['order_note']) ? $extra['order_note'] : '';
         $model->save();
 

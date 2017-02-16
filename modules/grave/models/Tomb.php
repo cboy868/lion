@@ -148,6 +148,11 @@ class Tomb extends \app\core\db\ActiveRecord
 
     }
 
+    public function getGrave()
+    {
+        return $this->hasOne(Grave::className(),['id'=>'grave_id']);
+    }
+
 
     /**
      * 获取此墓位上可以进行的操作
@@ -487,6 +492,11 @@ class Tomb extends \app\core\db\ActiveRecord
 
 //         }
         return $options;
+    }
+
+    public function hasIns()
+    {
+        return Ins::find()->where(['tomb_id'=>$this->id, 'status'=>Ins::STATUS_NORMAL])->one();
     }
 
 }

@@ -8,7 +8,7 @@ use app\modules\shop\models\Goods;
 use app\modules\shop\models\Category;
 use app\modules\shop\models\Sku;
 
-
+use app\modules\grave\models\InsProcess;
 use app\core\web\BackController;
 /**
  * GoodsController implements the CRUD actions for Goods model.
@@ -77,7 +77,6 @@ class MallController extends BackController
         $post = Yii::$app->request->post();
 
         $goods_info = (array) json_decode($post['goods_info']);
-
         $tomb_id = $post['tomb_id'];
         $tomb = Tomb::findOne($tomb_id);
 
@@ -85,13 +84,22 @@ class MallController extends BackController
             $info = (array) $info;
         }unset($info);
 
+        $ins_cate = Yii::$app->controller->module->params['goods']['cate']['ins'];
+
         foreach($goods_info as $sku_id=>$info) {
             $extra = array(
                 'num'           => $info['num'],
             );
 
             $sku = Sku::findOne($sku_id);
-            $sku->order($tomb->user_id, $extra);
+            $order_info = $sku->order($tomb->user_id, $extra);
+            $rel = $order_info['rel'];
+
+            $goods = Goods::findOne($info['id']);
+
+            if ($ins_cate == $goods->category_id) {
+                InsProcess::insGoods($tomb_id, $goods, $rel);
+            }
         }
 
         return $this->json(null, null, 1);

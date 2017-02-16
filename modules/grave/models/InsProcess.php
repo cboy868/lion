@@ -14,7 +14,8 @@ use app\modules\user\models\User;
 use app\modules\grave\models\InsCfg;
 use app\modules\grave\models\InsCfgCase;
 use app\modules\grave\models\InsCfgValue;
-
+use app\modules\shop\models\AvRel;
+use app\modules\shop\models\Goods;
 
 
 /**
@@ -69,8 +70,10 @@ class InsProcess extends Ins
     public function getFront(){
         
         $content = $this->ins_info['front'];
+
         $dead_keys = array('title', 'name', 'birth', 'fete', 'age','follow', 'second_name');
         $dead_list = $this->getDead();
+
 
         foreach ($dead_list as $k => $v) {
             if ($v['follow_id']) {
@@ -83,16 +86,20 @@ class InsProcess extends Ins
             $dead_ids = array_reverse($dead_ids);
         }
 
+
         $info = array();
         foreach ($content as $k=>$v) {
             if (in_array($k, $dead_keys)) {
                 foreach ($dead_ids as $val) {
-                    $info[$k][$val] = isset($content[$k][$val]) ? $content[$k][$val]:'';
+                    $info[$k][$val]['content'] = isset($content[$k][$val]['content']) ? $content[$k][$val]['content']:'';
                 }
             } else {
                 $info[$k][] = $content[$k];
             }
         }
+
+
+
         $content = $info;
         foreach ($content['birth'] as $k=>&$v) {
             $v['content'] = $this->getRelDate($v['content'], $dead_list[$k]['birth_type']);
@@ -235,6 +242,8 @@ class InsProcess extends Ins
         $dead  = $data['dead'];
 
 
+
+
         $keys = array('title', 'name', 'birth', 'age', 'fete', 'second_name', 'follow');
         $dead_info = array();
         foreach ($dead as $k=>$v) {
@@ -242,6 +251,7 @@ class InsProcess extends Ins
                 $dead_info[$val][$k] = $dead[$k][$val];
             }
         }
+
         
         $info = array_merge($front_info, $dead_info);
 
@@ -263,6 +273,7 @@ class InsProcess extends Ins
             'type'          => 1
         );
         $this->ins_info = $add + $this->ins_info;
+
 
         return $this;
     }
@@ -392,6 +403,7 @@ class InsProcess extends Ins
      */
     public function getInsInfo(){
         $info = $this->ins_info;
+
         if (empty($this->ins_info['front'])) {
 
             $this->initFront();
@@ -591,7 +603,6 @@ class InsProcess extends Ins
     public function combinCfgIns($cfg_info, $ins_info, $shape, $size=NULL, $is_front=0)
     {
 
-
         $new_cfg = [];
 
         if (array_key_exists('main', $cfg_info)){
@@ -613,6 +624,7 @@ class InsProcess extends Ins
         } else {
             $tmp_info = array();
             foreach ($cfg_info as $k=>$v){
+
                 foreach ($v as $key => $val){
                     $d = array_values($ins_info[$k]);
 
@@ -795,6 +807,7 @@ class InsProcess extends Ins
     {
         return Dead::find()->where(['tomb_id'=>$this->tomb_id])
                            ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                           ->indexBy('id')
                            ->asArray()
                            ->all();
 
@@ -1223,6 +1236,50 @@ class InsProcess extends Ins
         }
 
         return $font_arr;
+    }
+
+    public static function insGoods($tomb_id, $goods, $rel)
+    {
+        $ins = self::find()->where(['tomb_id'=>$tomb_id])
+                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->one();
+
+        $tomb = Tomb::findOne($tomb_id);
+
+        if (!$ins) {
+            $ins = new self();
+            $ins->tomb_id = $tomb_id;
+        }
+
+        $ins->order_rel_id = $rel->id;
+        $ins->goods_id = $goods->id;
+        $ins->shape = self::getInsGoodsShape($goods->id);
+        $ins->user_id = $tomb->user_id;
+        $ins->guide_id = $tomb->guide_id;
+        return $ins->save();
+    }
+
+    public static function getInsGoodsShape($goods_id)
+    {
+        $cnf = Yii::$app->controller->module->params['ins']['goods_attr'];
+        $attr_id = $cnf['id'];
+        $shape = $cnf['shape'];
+
+        $rel = AvRel::find()->where(['goods_id'=>$goods_id, 'attr_id'=>$attr_id])->asArray()->all();
+
+        if (!$rel) {
+            return null;
+        }
+
+        return isset($shape[$rel['av_id']]) ? $shape[$rel['av_id']] : null;
+    }
+
+    /**
+     * @name 取碑信息
+     */
+    public function getGoodsInfo()
+    {
+        return  Goods::findOne($this->goods_id);
     }
 
    

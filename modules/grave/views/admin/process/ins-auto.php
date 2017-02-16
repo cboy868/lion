@@ -8,6 +8,7 @@ use app\assets\ExtAsset;
 use app\assets\PluploaduiAssets;
 use app\core\models\Attachment;
 use app\core\widgets\Ueditor\Ueditor;
+use app\modules\grave\models\Tomb;
 
 PluploaduiAssets::register($this);
 ExtAsset::register($this);
@@ -53,6 +54,29 @@ ExtAsset::register($this);
                 </div>
             <?php endif ?>
         </div>
+
+
+        <?php 
+        	$tomb = Tomb::findOne(Yii::$app->request->get('tomb_id'));
+         ?>
+        <?php if ($tomb->hasIns()): ?>
+        	<div class="col-xs-12">
+	        	<div class="panel panel-default">
+				  <div class="panel-body">
+				    <img id="_tomb_photo" class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="http://yagm.itomb.com.cn/upload/2017/01/13/archive_20170113110917000000_1_18730_24.jpg">
+
+				    <div style="display:inline-block;float:left;margin-left:20px;">
+				    	碑名: <?=$goods->name?> <br>
+				    	碑属性: 
+
+				    	<?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
+				    		<?=$av['attr_name'] ?> : <?=$av['attr_val']?>,
+				    	<?php endforeach ?>
+				    </div>
+				  </div>
+				</div>
+	        </div>
+	    
         
         <!-- Nav tabs -->
 		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
@@ -560,6 +584,25 @@ ExtAsset::register($this);
 				<hr />
 			</div><!--auto row-->
 		</div>
+
+	<?php else: ?>
+
+		<?php 
+		 $goods = $this->context->module->params['goods'];
+         $ins = $goods['cate']['ins'];
+		 ?>
+		<div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
+		请
+		<small>
+            <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$ins, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank">
+                购买墓碑
+            </a>
+         </small>
+		</div>
+    <?php endif ?>
+
+		<?=$this->render('_order', ['order'=>$order]) ?>
+		
 	</div>
 </div>
 <!-- 碑后文的每一行 -->

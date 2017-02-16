@@ -98,7 +98,6 @@ class User extends ActiveRecord implements IdentityInterface
             return $this;
         }
 
-        p($this->getErrors());die;
         return fasle;
     }
 

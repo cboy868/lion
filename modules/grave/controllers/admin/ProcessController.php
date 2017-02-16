@@ -7,6 +7,7 @@ use app\core\web\BackController;
 use app\modules\grave\models\Process;
 use yii\base\Model;
 use app\modules\grave\models\Tomb;
+use app\core\widgets\ActiveForm;
 
 
 
@@ -69,32 +70,83 @@ class ProcessController extends BackController
         $user = Process::user();
 
 
-        if ($customer->load(Yii::$app->request->post()) && $tomb->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
 
+        //不知道为啥 ajaxvalidate 不起作用
+        // if ($req->isAjax && $user->load($req->post())) {
+        //     Yii::$app->response->format = Response::FORMAT_JSON;
+        //     return ActiveForm::validate($user);
+        // }
+
+        if ($req->isPost) {
+            
             try {
                 $outerTransaction = Yii::$app->db->beginTransaction();
 
-                $user->createUser();
+                $user->load($req->post());
+                $customer->load($req->post());
+                $tomb->load($req->post());
 
-                $customer->user_id = $user->id;
-                $customer->tomb_id = $tomb->id;
-                $customer->save();
 
-                $tomb->user_id = $user->id;
-                $tomb->customer_id = $customer->id;
-                //如果墓位还没预定，则预定
-                if ($tomb->status == Tomb::STATUS_EMPTY) {
-                    $tomb->status = Tomb::STATUS_PRE;
+                if ($user->validate() && $customer->validate() && $tomb->validate()) {
+
+                    $user->createUser();
+
+                    $customer->user_id = $user->id;
+                    $customer->tomb_id = $tomb->id;
+                    $customer->save();
+
+                    $tomb->user_id = $user->id;
+                    $tomb->customer_id = $customer->id;
+                    //如果墓位还没预定，则预定
+                    if ($tomb->status == Tomb::STATUS_EMPTY) {
+                        $tomb->status = Tomb::STATUS_PRE;
+                    }
+                    $tomb->save();
+
+                    if (in_array($tomb->status, [Tomb::STATUS_EMPTY, Tomb::STATUS_PRE])) {
+                        Process::orderTomb();
+                    } 
+
+                    $outerTransaction->commit();
+                    return $this->next();
                 }
-                $tomb->save();
 
-                $outerTransaction->commit();
+
+
+
+                // if ($user->load($req->post()) && $user->validate()) {
+                //     $user->createUser();
+                // }
+
+                // if ($customer->load($req->post())) {
+                //     $customer->user_id = $user->id;
+                //     $customer->tomb_id = $tomb->id;
+                //     $customer->save();
+                // }
+
+                // if ($tomb->load($req->post())) {
+                //     $tomb->user_id = $user->id;
+                //     $tomb->customer_id = $customer->id;
+                //     //如果墓位还没预定，则预定
+                //     if ($tomb->status == Tomb::STATUS_EMPTY) {
+                //         $tomb->status = Tomb::STATUS_PRE;
+                //     }
+                //     $tomb->save();
+                // }
+
+                // if (in_array($tomb->status, [Tomb::STATUS_EMPTY, Tomb::STATUS_PRE])) {
+                //     Process::orderTomb();
+                // } 
+
+                
+
+                
             } catch (\Exception $e) {
                 echo $e->getMessage();
                 $outerTransaction->rollBack();
             }
-            return $this->next();
         }
+
 
         $agent = Yii::$app->controller->module->params['role']['agent'];
         $guide = Yii::$app->controller->module->params['role']['guide'];
@@ -106,7 +158,8 @@ class ProcessController extends BackController
                 'user' => $user,
                 'agent' => Process::getRoleUsers($agent),
                 'guide' => Process::getRoleUsers($guide),
-                'get' => Yii::$app->request->get()
+                'get' => Yii::$app->request->get(),
+                'order' => Process::getOrder()
             ]);
     }
 
@@ -132,6 +185,9 @@ class ProcessController extends BackController
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
 
+
+            // p($post);die;
+
             foreach ($post['Dead'] as $k => &$v) {
                 if ($v['dead_title'] == '其他') {
                     $v['dead_title'] = $post['dt'][$k];
@@ -150,6 +206,9 @@ class ProcessController extends BackController
                     echo $e->getMessage();
                     $outerTransaction->rollBack();
                 }
+
+
+                return $this->next();
             }
         }
 
@@ -165,7 +224,8 @@ class ProcessController extends BackController
                 'dead_title' => $dead_titles,
                 'bone_type' => Yii::$app->controller->module->params['bone_type'],
                 'bone_box' => Yii::$app->controller->module->params['bone_box'],
-                'get' => Yii::$app->request->get()
+                'get' => Yii::$app->request->get(),
+                'order' => Process::getOrder()
             ]);
     }
 
@@ -238,6 +298,9 @@ class ProcessController extends BackController
 
         $ins_info = $model->getInsInfo();
 
+        //取碑的产品信息
+
+
         // p($ins_info);die;
 
         // p($ins_info);die;
@@ -252,7 +315,9 @@ class ProcessController extends BackController
             'paint' => $paint,
             'front' => $ins_info['front'],
             'back' => $ins_info['back'],
-            'dead_list' => $model->getDead()
+            'dead_list' => $model->getDead(),
+            'order' => Process::getOrder(),
+            'goods' => $model->getGoodsInfo()
 
         ]);
     }
@@ -319,7 +384,8 @@ class ProcessController extends BackController
 
     	return $this->render('portrait',[
             'models' => $models,
-            'get' => Yii::$app->request->get()
+            'get' => Yii::$app->request->get(),
+            'order' => Process::getOrder()
             ]);
     }
 
@@ -342,7 +408,8 @@ class ProcessController extends BackController
         
     	return $this->render('bury', [
             'models' => $models,
-            'get' => Yii::$app->request->get()
+            'get' => Yii::$app->request->get(),
+            'order' => Process::getOrder()
         ]);
     }
 
