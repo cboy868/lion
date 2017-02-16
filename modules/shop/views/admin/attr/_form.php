@@ -18,7 +18,7 @@ use app\modules\shop\models\Type;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_multi')->dropDownList([0=>'否',1=>'是']) ?>
+    <?= $form->field($model, 'is_multi')->dropDownList([0=>'否',1=>'是',2=>'自输入']) ?>
 
     <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
 

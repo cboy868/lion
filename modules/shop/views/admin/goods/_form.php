@@ -8,9 +8,10 @@ use app\core\widgets\Webup\Webup;
 use app\core\helpers\Url;
 use app\assets\SelectAsset;
 
+use app\assets\ExtAsset;
+ExtAsset::register($this);
 
-
-SelectAsset::register($this);
+// SelectAsset::register($this);
 \app\assets\TagAsset::register($this);
 // \wdteam\webuploader\Webuploader::widget(); 
 // PluploaduiAssets::register($this);
@@ -66,30 +67,44 @@ border-color:#337ab7;
 
 
     <div class="form-group field-goods-pic required">
-        <label class="control-label" for="goods-pic">图片集</label>
+        <!-- <label class="control-label" for="goods-pic">图片集</label> -->
         <?php echo Webup::widget(['options'=>['res_name'=>'goods', 'id'=>'goods']]);?>
         <div class="help-block"></div>
     </div>
             <?php if ($attrs): ?>
-            <div class="form-group field-goods-intro">
-                <label class="control-label" for="goods-name">属性</label>
-                <div class="rows">
-                    <div class="col-md-12" style="padding-right:0;padding-left:0">
-                        
-                    <?php foreach ($attrs as $k => $attr): ?>
-                        <select id="lunch" name="AvRel[<?=$attr->id?>]" class="selectpicker" data-live-search="true" title="<?=$attr->name?>">
-                            <?php foreach ($attr->vals as $val): ?>
-                                <option value="<?=$val->id?>" 
-                                <?php if (isset($attr_sels[$attr['id']]) && in_array($val->id, $attr_sels[$attr['id']])){echo "selected=selected";} ?>>
-                                <?=$val->val?>
-                                </option>
-                            <?php endforeach ?>
-                        </select>
-                    <?php endforeach ?>
-                        
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">属性</h3>
+                  </div>
+
+                  <div class="panel-body row form-group">
+                    <div class="col-md-6" style="padding-right:0;padding-left:0">
+                        <?php foreach ($attrs as $k => $attr): ?>
+                            <?php if ($attr->is_multi == 2): ?>
+                                <?php $ats = $model->getAv(); ?>
+                                <label class="col-md-1"><?=$attr->name?></label>
+                                <div class="col-md-11">
+                                    <input name="AvRel[<?=$attr->id?>]" class="form-control " value="<?=$ats['attr'][$attr->id]['value']?>">
+                                </div>
+                            <?php else: ?>
+                                <label class="col-md-1"><?=$attr->name?></label>
+                                <div class="col-md-11">
+                                    <select id="lunch" name="AvRel[<?=$attr->id?>]" class="sel-ize" title="<?=$attr->name?>">
+                                        <?php foreach ($attr->vals as $val): ?>
+                                            <option value="<?=$val->id?>" 
+                                            <?php if (isset($attr_sels[$attr['id']]) && in_array($val->id, $attr_sels[$attr['id']])){echo "selected=selected";} ?>>
+                                            <?=$val->val?>
+                                            </option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            <?php endif ?>
+                        <?php endforeach ?>
                     </div>
+
+                  </div>
                 </div>
-            </div>
             <?php endif ?>
 
             <?php if ($specs): ?>

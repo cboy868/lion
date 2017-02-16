@@ -63,21 +63,19 @@ ExtAsset::register($this);
         	<div class="col-xs-12">
 	        	<div class="panel panel-default">
 				  <div class="panel-body">
-				    <img id="_tomb_photo" class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="http://yagm.itomb.com.cn/upload/2017/01/13/archive_20170113110917000000_1_18730_24.jpg">
+				    <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
 
 				    <div style="display:inline-block;float:left;margin-left:20px;">
 				    	碑名: <?=$goods->name?> <br>
 				    	碑属性: 
 
 				    	<?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
-				    		<?=$av['attr_name'] ?> : <?=$av['attr_val']?>,
+				    		<?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
 				    	<?php endforeach ?>
 				    </div>
 				  </div>
 				</div>
 	        </div>
-	    
-        
         <!-- Nav tabs -->
 		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
 			<li role="presentation" class="<?php if ($model->type == 0): ?>active <?php endif ?> sel-type" rel="3">

@@ -39,7 +39,8 @@ class AvRel extends \app\core\db\ActiveRecord
         return [
             [['category_id', 'goods_id', 'attr_id', 'num', 'status'], 'integer'],
             // [['av_id'], 'required'],
-            [['av_id'], 'safe']
+            [['av_id'], 'safe'],
+            [['value'], 'string']
 
         ];
     }
@@ -57,6 +58,7 @@ class AvRel extends \app\core\db\ActiveRecord
             'av_id' => '属性值',
             'num' => 'Num',
             'status' => 'Status',
+            'value' => '自输入值'
         ];
     }
 
@@ -116,23 +118,42 @@ class AvRel extends \app\core\db\ActiveRecord
         $base = ['category_id'=>$category_id, 'goods_id'=>$goods_id];
 
         foreach ($data as $k => $v) {
+            $attr = Attr::findOne($k);
 
             if (is_array($v)) {
                 foreach ($v as $value) {
+                    $nv = '';
+                    $av_id = $value;
+                    if ($attr->is_multi == Attr::MULTI_SELF) {
+                        $nv =$value;
+                        $av_id = 0;
+                    }
+                    
                     $result[$value] = [
                         'attr_id' => $k,
-                        'av_id'   => $value,
+                        'av_id'   => $av_id,
+                        'value'   => $nv
                     ] + $base;
                 }
             } else {
                 if (!$v) continue;
+                $nv = '';
+                $av_id = $v;
+
+                if ($attr->is_multi == Attr::MULTI_SELF) {
+                    $nv =$v;
+                    $av_id = 0;
+                }
+
                 $result[$v] = [
                     'attr_id' => $k,
-                    'av_id'   => $v,
+                    'av_id'   => $av_id,
+                    'value'   => $nv,
                 ] + $base;
             }
             
         }
+
 
         return $result;
     }

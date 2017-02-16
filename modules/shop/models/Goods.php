@@ -8,6 +8,8 @@ use app\core\models\Attachment;
 use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Sku;
 
+use app\core\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "{{%shop_goods}}".
  *
@@ -137,6 +139,7 @@ class Goods extends \app\core\db\ActiveRecord
 
     public function getAv()
     {
+
         $attr = [];
         $spec = [];
         foreach ($this->avs as $k => $v) {
@@ -153,10 +156,13 @@ class Goods extends \app\core\db\ActiveRecord
                     'attr_id' => $v->attr_id,
                     'attr_name' => $v->attr->name,
                     'attr_val' => $v->val->val,
-                    'num'      => $v->num
+                    'num'      => $v->num,
+                    'value'    => $v->value
                 ];
             }
         }
+
+        $attr = ArrayHelper::index($attr, 'attr_id');
 
         return ['attr'=>$attr, 'spec'=>$spec];
     }

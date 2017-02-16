@@ -74,7 +74,14 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
                     <tbody>
                     <tr><th>属性</th><td>值</td></tr>
                     <?php foreach ($avs['attr'] as $v): ?>
-                        <tr><th><?=$v['attr_name']?></th><td><?=$v['attr_val']?></td></tr>
+                        <tr><th><?=$v['attr_name']?></th>
+                        <?php if (!$v['attr_val']): ?>
+                            <td><?=$v['value']?></td>
+                        <?php else: ?>
+                            <td><?=$v['attr_val']?></td>
+                        <?php endif ?>
+                        
+                        </tr>
                     <?php endforeach ?>
                     </tbody>
                 </table>

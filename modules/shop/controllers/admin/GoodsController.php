@@ -108,6 +108,8 @@ class GoodsController extends BackController
         //获取属性
         $attrs = $model->getAv();
 
+
+
         //取sku
         $sku = $model->sku;
         $sku = ArrayHelper::index($sku, 'av');
@@ -214,10 +216,11 @@ class GoodsController extends BackController
 
 
                 $result = AvRel::parsePost($model->category_id, $model->id);
+
                 if ($result) {
                     Yii::$app->db->createCommand()->batchInsert(
                         AvRel::tableName(), 
-                        ['attr_id','av_id', 'category_id', 'goods_id'], 
+                        ['attr_id','av_id','value', 'category_id', 'goods_id'], 
                         $result
                     )->execute();
                 }
@@ -230,14 +233,10 @@ class GoodsController extends BackController
                  
              }
 
-            
-            
-
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
 
         $cate = Category::findOne($category_id);
-
 
         //获取属性
         $attrs = Attr::find()->where([
@@ -391,7 +390,7 @@ class GoodsController extends BackController
 
                     Yii::$app->db->createCommand()->batchInsert(
                         AvRel::tableName(), 
-                        ['attr_id','av_id', 'category_id', 'goods_id'], 
+                        ['attr_id','av_id', 'value', 'category_id', 'goods_id'], 
                         $result
                     )->execute();
                 }

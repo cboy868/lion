@@ -24,6 +24,10 @@ class Attr extends \app\core\db\ActiveRecord
     const SPEC_YES = 1;
     const SPEC_NO  = 0;
 
+    const MULTI_YES = 1;
+    const MULTI_NO  = 0;
+    const MULTI_SELF = 2;//自输入
+
     /**
      * @inheritdoc
      */
@@ -72,7 +76,13 @@ class Attr extends \app\core\db\ActiveRecord
 
     public function getMulti()
     {
-        return $this->is_multi ? '是' : '否';
+        $mul = [
+            self::MULTI_SELF => '自输入',
+            self::MULTI_NO => '否',
+            self::MULTI_YES => '是'
+        ];
+
+        return $mul[$this->is_multi];
     }
 
     public function getSpec()
@@ -90,6 +100,10 @@ class Attr extends \app\core\db\ActiveRecord
     {
         return $this->hasMany(AttrVal::className(), ['attr_id'=>'id']);
     }
+    // public function getRel()
+    // {
+    //     return $this->hasOne(AvRel::className(), ['attr_id'=>'id']);
+    // }
 
     public static function getStatus($status = null)
     {
@@ -109,16 +123,12 @@ class Attr extends \app\core\db\ActiveRecord
     {
         $vals = AttrVal::find()->where(['attr_id'=>$attr_id, 'status'=>AttrVal::STATUS_ACTIVE])->orderBy('val asc')->asArray()->all();
 
-
         $vals = ArrayHelper::index($vals, 'id', 'v_cate');
-
-
         $result = [];
 
         $v_cates = ValCategory::find()->asArray()->all();
         $v_cates = ArrayHelper::map($v_cates, 'id', 'name');
         $v_cates[0] = '';
-
 
         foreach ($vals as $k => &$v) {
             $k = empty($k) ? 0 : $k;

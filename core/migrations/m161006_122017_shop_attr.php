@@ -37,6 +37,7 @@ class m161006_122017_shop_attr extends Migration
             'goods_id' => $this->integer(),
             'attr_id' => $this->integer(),//属性id
             'av_id' => $this->integer(), //属性值id
+            'value' => $this->string(200),
             // 'num' => $this->integer(),//此属性商品的数量   有了sku 这个值应该没用了
             // 'price' => $this->decimal(10,2),//本属性要增加的价格 有了sku 这个值应该没用了
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
