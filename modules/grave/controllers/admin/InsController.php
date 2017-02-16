@@ -4,7 +4,7 @@ namespace app\modules\grave\controllers\admin;
 
 use Yii;
 use app\modules\grave\models\Ins;
-use app\modules\grave\models\InsSearch;
+use app\modules\grave\models\search\InsSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

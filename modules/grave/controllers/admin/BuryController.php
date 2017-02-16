@@ -4,7 +4,7 @@ namespace app\modules\grave\controllers\admin;
 
 use Yii;
 use app\modules\grave\models\Bury;
-use app\modules\grave\models\BurySearch;
+use app\modules\grave\models\search\BurySearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

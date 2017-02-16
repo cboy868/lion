@@ -146,13 +146,27 @@ class m161217_134034_grave extends Migration
             'id' => $this->primaryKey(),
         ], $tableOptions);
 
+        $this->createTable('{{%grave_dead_dates}}', [//使用人的相应日期/时间
+            'id' => $this->primaryKey(),
+            'tomb_id' => $this->integer()->notNull(),
+            'dead_id' => $this->integer(),
+            'title' => $this->string(200),//纪念日的名字
+            'dead_name'=> $this->string(255)->notNull(),
+            'solar_dt'  => $this->date(),//日期阳历
+            'lunar_dt' => $this->string(20),//农历
+            'time' => $this->time(),//时间
+            'intro' => $this->text(),//纪念日是的详细介绍
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'status' => $this->smallInteger(),
+        ], $tableOptions);
+
         // $this->createTable('{{%grave_address}}', [ // 墓位与定单的关联
         //     'id' => $this->primaryKey(),
         //     'tomb_id' => $this->integer()->notNull(),
         //     'order_id' => $this->integer()->notNull(),
         //     'type' => $this->integer()->notNull(),//哪一步生成的定单,比如安葬用、比如远程用、比如清明用
         // ], $tableOptions);
-
 
         //customer address 是不是应该放在外层   然后继承着去做
 
@@ -166,6 +180,7 @@ class m161217_134034_grave extends Migration
         $this->dropTable('{{%grave_customer}}');
         $this->dropTable('{{%grave_bury}}');
         $this->dropTable('{{%grave_address}}');
+        $this->dropTable('{{%grave_dead_dates}}');
     }
 
     /*

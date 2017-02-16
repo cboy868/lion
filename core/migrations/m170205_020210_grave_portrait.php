@@ -17,7 +17,7 @@ class m170205_020210_grave_portrait extends Migration
             'user_id' => $this->integer()->notNull(),//用户id
             'tomb_id' => $this->integer()->notNull(),//如果值为0,表示逝者不在本园
             'title' => $this->string(200),
-            'goods_id' => $this->integer(),
+            'sku_id' => $this->integer(),//用作sku_id吧，原来是goods_id
             'order_id' => $this->integer(),
             'order_rel_id' => $this->integer(),
             'dead_ids' => $this->string(),//像上有几个逝者，就有几个id 如12,32

@@ -5,7 +5,7 @@ namespace app\modules\grave\controllers\admin;
 use Yii;
 use app\modules\grave\models\Grave;
 use app\modules\grave\models\Tomb;
-use app\modules\grave\models\TombSearch;
+use app\modules\grave\models\search\TombSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

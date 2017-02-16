@@ -10,6 +10,7 @@ use app\modules\shop\models\Sku;
 
 use app\modules\grave\models\InsProcess;
 use app\core\web\BackController;
+use app\modules\grave\models\Portrait;
 /**
  * GoodsController implements the CRUD actions for Goods model.
  */
@@ -85,6 +86,7 @@ class MallController extends BackController
         }unset($info);
 
         $ins_cate = Yii::$app->controller->module->params['goods']['cate']['ins'];
+        $portrait_cate = Yii::$app->controller->module->params['goods']['cate']['portrait'];
 
         foreach($goods_info as $sku_id=>$info) {
             $extra = array(
@@ -98,7 +100,11 @@ class MallController extends BackController
             $goods = Goods::findOne($info['id']);
 
             if ($ins_cate == $goods->category_id) {
-                InsProcess::insGoods($tomb_id, $goods, $rel);
+                InsProcess::insGoods($tomb_id, $sku, $rel);
+            }
+
+            if ($portrait_cate == $goods->category_id) {
+                Portrait::PortraitGoods($tomb_id, $sku, $rel);
             }
         }
 

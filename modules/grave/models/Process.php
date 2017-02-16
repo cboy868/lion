@@ -190,8 +190,6 @@ class Process extends \yii\base\Model
         $portraits = Portrait::find()->where(['tomb_id'=>self::$tomb_id])
                          ->andWhere(['status'=>Dead::STATUS_NORMAL])
                          ->all();
-
-        $portraits[] = new Portrait();
         return $portraits;
 
     }

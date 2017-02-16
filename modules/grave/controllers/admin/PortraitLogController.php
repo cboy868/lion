@@ -4,7 +4,7 @@ namespace app\modules\grave\controllers\admin;
 
 use Yii;
 use app\modules\grave\models\PortraitLog;
-use app\modules\grave\models\PortraitLogSearch;
+use app\modules\grave\models\search\PortraitLogSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

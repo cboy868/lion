@@ -6,7 +6,7 @@ use Yii;
 use yii\helpers\Url;
 use app\modules\grave\models\Tomb;
 use app\modules\grave\models\Grave;
-use app\modules\grave\models\GraveSearch;
+use app\modules\grave\models\search\GraveSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

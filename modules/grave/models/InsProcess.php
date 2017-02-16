@@ -1238,7 +1238,7 @@ class InsProcess extends Ins
         return $font_arr;
     }
 
-    public static function insGoods($tomb_id, $goods, $rel)
+    public static function insGoods($tomb_id, $sku, $rel)
     {
         $ins = self::find()->where(['tomb_id'=>$tomb_id])
                          ->andWhere(['status'=>Dead::STATUS_NORMAL])
@@ -1252,10 +1252,11 @@ class InsProcess extends Ins
         }
 
         $ins->order_rel_id = $rel->id;
-        $ins->goods_id = $goods->id;
-        $ins->shape = self::getInsGoodsShape($goods->id);
+        $ins->goods_id = $sku->goods->id;
+        $ins->shape = self::getInsGoodsShape($sku->goods->id);
         $ins->user_id = $tomb->user_id;
         $ins->guide_id = $tomb->guide_id;
+        
         return $ins->save();
     }
 

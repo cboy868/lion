@@ -4,7 +4,7 @@ namespace app\modules\grave\controllers\admin;
 
 use Yii;
 use app\modules\grave\models\Withdraw;
-use app\modules\grave\models\WithdrawSearch;
+use app\modules\grave\models\search\WithdrawSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -379,7 +379,25 @@ class ProcessController extends BackController
 
         $req = Yii::$app->request;
         if ($req->isPost) {
-            return $this->next();
+            $post = $req->post();
+
+            if (Model::loadMultiple($models, $post) && Model::validateMultiple($models)) {
+                try {
+                   $outerTransaction = Yii::$app->db->beginTransaction(); 
+
+                   foreach ($models as $model) {
+                        $model->save();
+                    }
+                    $outerTransaction->commit();
+
+                } catch (\Exception $e) {
+                    echo $e->getMessage();
+                    $outerTransaction->rollBack();
+                }
+
+                return $this->next();
+            }
+
         }
 
     	return $this->render('portrait',[

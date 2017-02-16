@@ -3,7 +3,10 @@
 namespace app\modules\grave\models;
 
 use Yii;
-
+use app\modules\shop\models\Goods;
+use app\modules\grave\models\Tomb;
+use yii\behaviors\TimestampBehavior;
+use app\modules\shop\models\Sku;
 /**
  * This is the model class for table "{{%grave_portrait}}".
  *
@@ -12,7 +15,7 @@ use Yii;
  * @property integer $user_id
  * @property integer $tomb_id
  * @property string $title
- * @property integer $goods_id
+ * @property integer sku_id
  * @property integer $order_id
  * @property integer $order_rel_id
  * @property string $dead_ids
@@ -46,8 +49,8 @@ class Portrait extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['guide_id', 'user_id', 'tomb_id', 'updated_at', 'created_at'], 'required'],
-            [['guide_id', 'user_id', 'tomb_id', 'goods_id', 'order_id', 'order_rel_id', 'confrim_by', 'notice_id', 'type', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['guide_id', 'user_id', 'tomb_id'], 'required'],
+            [['guide_id', 'user_id', 'tomb_id', 'sku_id', 'order_id', 'order_rel_id', 'confrim_by', 'notice_id', 'type', 'status', 'updated_at', 'created_at'], 'integer'],
             [['confirm_at', 'use_at', 'up_at'], 'safe'],
             [['note'], 'string'],
             [['title', 'photo_confirm'], 'string', 'max' => 200],
@@ -66,7 +69,7 @@ class Portrait extends \app\core\db\ActiveRecord
             'user_id' => 'User ID',
             'tomb_id' => 'Tomb ID',
             'title' => 'Title',
-            'goods_id' => 'Goods ID',
+            'sku_id' => 'Sku ID',
             'order_id' => 'Order ID',
             'order_rel_id' => 'Order Rel ID',
             'dead_ids' => 'Dead Ids',
@@ -78,11 +81,50 @@ class Portrait extends \app\core\db\ActiveRecord
             'use_at' => '使用时间',
             'up_at' => '上传时间',
             'notice_id' => 'Notice ID',
-            'type' => 'Type',
+            'type' => '类型',////瓷像、福寿牌、影雕
             'note' => '备注',
-            'status' => 'Status',
+            'status' => '状态',
             'updated_at' => 'Updated At',
             'created_at' => 'Created At',
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
+    }
+
+    public static function PortraitGoods($tomb_id, $sku, $rel)
+    {
+        $portrait = self::find()->where(['tomb_id'=>$tomb_id])
+                         ->andWhere(['sku_id'=>$sku->id])
+                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->one();
+
+        $tomb = Tomb::findOne($tomb_id);
+
+        if (!$portrait) {
+            $portrait = new self();
+            $portrait->tomb_id = $tomb_id;
+        }
+
+        $portrait->order_rel_id = $rel->id;
+        $portrait->sku_id = $sku->id;
+        $portrait->order_id = $rel->order_id;
+        $portrait->user_id = $tomb->user_id;
+        $portrait->guide_id = $tomb->guide_id;
+        $portrait->title = $sku->name == $sku->goods->name ? $sku->name : $sku->goods->name . $sku->name;
+        
+        return $portrait->save();
+    }
+
+    public function getGoodsInfo()
+    {
+        $sku = Sku::findOne($this->sku_id);
+        return $sku->goods;
     }
 }

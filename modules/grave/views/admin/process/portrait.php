@@ -48,20 +48,34 @@ ExtAsset::register($this);
                             </button> 
                         </div>
                         <div class="row">
-                            
+                        
+
+                        <?php if ($models): ?>
+
+                        
                         
                         <?php foreach ($models as $index => $model): ?>
+                            <?php 
+                                $goods = $model->getGoodsInfo();
+
+                             ?>
                             <div class=" col-md-6">
                                 <div class="panel panel-default">
                                   <div class="panel-body">
                                     <p>
-                                      瓷像名: 单人瓷像111
-                                      瓷像属性: 120cmx120cm
-                                      价格:120
+                                      瓷像名: <?=$goods->name?>
+                                      属性: 
+                                      <?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
+                                            <?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
+                                        <?php endforeach ?>
                                     </p>
-                                    <div class="row">
+                                    <div class="row" style="height:100px">
                                         <div class="col-md-4">
-                                          <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="/upload/image/20170216/1487224575399.jpeg">
+                                            <div style="float:left;margin-right:10px;">
+                                                <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
+                                                <div> 瓷像图片 </div>
+                                            </div>
+                                          
                                           <div class="hr hr-18 dotted hr-double" style="clear:both;"></div>
                                         </div>
                                         <div class="col-md-8">
@@ -79,48 +93,6 @@ ExtAsset::register($this);
                                                 <img class="img-rounded" style="max-height: 100px;max-width: 100px;" src="/static/images/up.png">
                                                 <div> 确认照片 </div>
                                             </div>
-                                            <div class="hr hr-18 dotted hr-double" style="clear:both;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin-top:20px;">
-                                        <div class="col-md-12">
-                                            <?= $form->field($model, "[$index]use_at")->textInput(['style'=>'width:150px;', 'dt'=>'true']) ?>
-                                            <?= $form->field($model, "[$index]note")->textArea() ?>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="panel panel-default">
-                                  <div class="panel-body">
-                                    <p>
-                                      瓷像名: 单人瓷像111
-                                      瓷像属性: 120cmx120cm
-                                      价格:120
-                                    </p>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                          <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="/upload/image/20170216/1487224575399.jpeg">
-                                          <div class="hr hr-18 dotted hr-double" style="clear:both;"></div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div style="float:left;margin-right:10px;">
-                                                <img class="img-rounded" style="max-height: 100px;max-width: 100px;" src="/upload/image/20170216/1487224575399.jpeg">
-                                                <div> 原始照片 </div>
-                                            </div>
-
-                                            <div style="float:left;margin-right:10px;">
-                                                <img class="img-rounded" style="max-height: 100px;max-width: 100px;" src="/upload/image/20170216/1487224575399.jpeg">
-                                                <div> ps照片 </div>
-                                            </div>
-
-                                            <div style="float:left;margin-right:10px;">
-                                                <img class="img-rounded" style="max-height: 100px;max-width: 100px;" src="/upload/image/20170216/1487224575399.jpeg">
-                                                <div> 确认照片 </div>
-                                            </div>
-                                            
                                             <div class="hr hr-18 dotted hr-double" style="clear:both;"></div>
                                         </div>
                                     </div>
@@ -134,6 +106,26 @@ ExtAsset::register($this);
                                 </div>
                             </div>
                         <?php endforeach ?>
+
+                        <?php else: ?>
+
+                        <div class="col-md-12">
+                             <?php 
+                             $goods = $this->context->module->params['goods'];
+                             $portrait = $goods['cate']['portrait'];
+                             ?>
+                            <div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
+                            请
+                            <small>
+                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank">
+                                    选择并订购瓷像
+                                </a>
+                             </small>
+                            </div>
+                        </div>
+                           
+
+                        <?php endif ?>  
 
                         </div>
 
