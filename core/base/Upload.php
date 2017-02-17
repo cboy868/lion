@@ -47,6 +47,10 @@ class Upload extends Component{
 
     public $use;
 
+    public $res_id;
+
+    public $backPath;//图片的备份目录
+
     /**
      * @name 上传实例
      */
@@ -57,7 +61,7 @@ class Upload extends Component{
     private static $_instance;  
 
 
-    public static function getInstance($model, $fileName, $res="common")
+    public static function getInstance($model, $fileName, $res="common", $res_id=null)
     {
         $up = new self;
         $up->uploader = UploadedFile::getInstance($model, $fileName);
@@ -67,15 +71,17 @@ class Upload extends Component{
         }
 
         $up->res = $res;
+        $up->res_id = $res_id;
         $up->setPathName();
         return $up;
     }
 
-    public static function getInstanceByName($name, $res='common')
+    public static function getInstanceByName($name, $res='common', $res_id=null)
     {
         $up = new self;
         $up->uploader = UploadedFile::getInstanceByName($name);
         $up->res = $res;
+        $up->res_id = $res_id;
         $up->setPathName();
         return $up;
     }
@@ -163,7 +169,7 @@ class Upload extends Component{
             @mkdir(dirname($filePath), 0777, true) or die(dirname($filePath) . ' no permission to write');
         }
         
-        if ($this->uploader->saveAs($filePath) !== false) {
+        if ($this->uploader->saveAs($filePath, false) !== false) {
             
             $info = [
                 'path' => $this->path,
@@ -172,7 +178,8 @@ class Upload extends Component{
                 'res' => $this->res,
                 'title' => $this->title,
                 'filePath' => $filePath,
-                'use' => $this->use ? $this->use : null
+                'use' => $this->use ? $this->use : null,
+                'res_id' => $this->res_id ? $this->res_id : null
             ];
 
             $event = new UploadEvent($info);
@@ -180,20 +187,30 @@ class Upload extends Component{
             
             $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb'], null, false);
             $this->trigger(self::EVENT_AFTER_UPLOAD, $event);
+
+
+            $backPath = $this->getBackPath();
+
+            if (!is_dir(dirname($backPath))) {
+                @mkdir(dirname($backPath), 0777, true) or die(dirname($backPath) . ' no permission to write');
+            }
+            $this->uploader->saveAs($backPath, true);
+
+            //原图copy到其它位置
+            // $ori_arr = explode('/', $filePath, 2);
+            // p($ori_arr);die;
         }
     }
 
 
     private function getFilePath()
     {
-        $fullname = $this->fullPath;
-        $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        return Yii::getAlias('@app/web' . $this->fullPath);
+    }
 
-        if (substr($fullname, 0, 1) != '/') {
-            $fullname = '/' . $fullname;
-        }
-
-        return $rootPath . $fullname;
+    private function getBackPath()
+    {
+        return Yii::getAlias('@app/web' . $this->backPath);
     }
 
    
@@ -225,13 +242,20 @@ class Upload extends Component{
         $ext = $this->getExtension();
         $format = '/' . ltrim($format, '/');
 
+        
+
         $this->ext = $ext;
         $this->path = dirname($format);
         $this->fileName = basename($format).'.'.$ext;
         $this->fullPath = $this->path .'/'. $this->fileName;
         $this->originPath = $this->path . '/' . $this->originName . '_' .$this->fileName;
         $this->title = $this->uploader->name;
+
+        $base_arr = explode('/', $format, 3);
+        $this->backPath = dirname('/' . $base_arr[1] . '/ori/' . $base_arr[2]). '/' . $this->fileName;
     }
+
+    
 
 
     /**
@@ -275,7 +299,8 @@ class Upload extends Component{
             'res' => $this->res,
             'title' => $this->title,
             'mid' => $this->mid,
-            'size' => $this->size
+            'size' => $this->size,
+            'res_id' => $this->res_id
         ];
 
         return $info;

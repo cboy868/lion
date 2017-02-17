@@ -50,11 +50,11 @@ class Portrait extends \app\core\db\ActiveRecord
     {
         return [
             [['guide_id', 'user_id', 'tomb_id'], 'required'],
-            [['guide_id', 'user_id', 'tomb_id', 'sku_id', 'order_id', 'order_rel_id', 'confrim_by', 'notice_id', 'type', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['guide_id','photo_original', 'photo_processed', 'user_id', 'tomb_id', 'sku_id', 'order_id', 'order_rel_id', 'confrim_by', 'notice_id', 'type', 'status', 'updated_at', 'created_at'], 'integer'],
             [['confirm_at', 'use_at', 'up_at'], 'safe'],
             [['note'], 'string'],
             [['title', 'photo_confirm'], 'string', 'max' => 200],
-            [['dead_ids', 'photo_original', 'photo_processed'], 'string', 'max' => 255],
+            [['dead_ids'], 'string', 'max' => 255],
         ];
     }
 

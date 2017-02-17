@@ -174,7 +174,7 @@ function upinit() {
                 prevent_duplicates: true//不允许选择重复文件
             },
             multipart_params:{
-                res_name : 'meal',
+                res_name : 'ins',
                 'use' : use
             },
 

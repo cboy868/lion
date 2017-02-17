@@ -21,7 +21,7 @@ $params = [
             'water' => 1,
     		'imageMaxSize'  => '8048000',
     		'imageAllowFiles' => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
-    		'imagePathFormat' => "/upload/image/{yyyy}{mm}{dd}/{time}{rand:3}",
+    		'imagePathFormat' => "/upload/image/{yyyy}{mm}/{time}{rand:3}",
     	],
 
         'imgconfig' => [

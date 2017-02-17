@@ -12,10 +12,11 @@ use app\core\widgets\ActiveForm;
 
 
 use app\modules\grave\models\Customer;
+use app\modules\grave\models\Portrait;
+
 // use app\modules\grave\models\Tomb;
 // use app\modules\grave\models\Dead;
 // use app\modules\grave\models\Ins;
-// use app\modules\grave\models\Portrait;
 // use app\modules\grave\models\Bury;
 // use app\modules\user\models\User;
 /**
@@ -44,6 +45,20 @@ class ProcessController extends BackController
             // ],
 
         ];
+    }
+
+    public function saveAttach($info)
+    {
+        $portrait = Portrait::findOne($info['res_id']);
+
+        if (!$portrait) {
+            return null;
+        }
+
+        $portrait->photo_original = $info['mid'];
+
+
+        return $portrait->save();
     }
 
     /**

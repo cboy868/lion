@@ -99,6 +99,7 @@ class Attachment extends \yii\db\ActiveRecord
         $rel->res_name = $event->res;
         $rel->attach_id = $model->id;
         $rel->use = $event->use;
+        $rel->res_id = $event->res_id;
         $rel->save();
 
         return $event->sender->mid = $model->id;

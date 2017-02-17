@@ -193,12 +193,11 @@ class Image extends \yii\imagine\Image {
             }
         }
 
-        $originPath = $dirname . '/' . 'ori_' . $basename;
+        // $originPath = $dirname . '/' . 'ori_' . $basename;
 
-        @copy($filePath, $originPath);
+        // @copy($filePath, $originPath);
 
         $start = self::getPos($filePath, $watermark, $pos);
-
         if (!$start) {
             return ;
         }

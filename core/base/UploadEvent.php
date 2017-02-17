@@ -38,6 +38,8 @@ class UploadEvent extends \yii\base\Event
 
     public $use;
 
+    public $res_id;
+
 }
 
 
