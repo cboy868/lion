@@ -51,7 +51,9 @@ class Bury extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tomb_id', 'user_id', 'dead_id', 'dead_name', 'dead_num', 'pre_bury_date'], 'required'],
+            [['tomb_id', 'user_id', 'dead_num', 'pre_bury_date'], 'required'],
+            [['dead_id', 'dead_name'], 'required', 'message'=> '请选择使用人'],
+
             [['tomb_id', 'user_id', 'dead_num', 'bury_type', 'bury_user', 'bury_order', 'created_at', 'updated_at', 'status'], 'integer'],
             [['pre_bury_date', 'bury_date', 'bury_time'], 'safe'],
             [['note', 'dead_id','dead_name'], 'string'],

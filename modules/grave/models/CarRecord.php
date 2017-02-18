@@ -49,7 +49,8 @@ class CarRecord extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'tomb_id'], 'required'],
+            [['user_id', 'tomb_id','bury_id', 'contact_user'], 'required'],
+            [['car_type'], 'required', 'message'=> '请选择车类型'],
             [['user_id','is_back', 'tomb_id','bury_id', 'grave_id', 'car_id', 'driver_id', 'user_num', 'addr_id', 'status', 'order_id', 'order_rel_id', 'is_cremation', 'car_type', 'updated_at', 'created_at'], 'integer'],
             [['use_date', 'use_time'], 'safe'],
             [['price'], 'number'],

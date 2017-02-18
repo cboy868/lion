@@ -56,7 +56,7 @@ ExtAsset::register($this);
                                       ?>
                                       <?= $form->field($model, "dead_id")->checkBoxList($unp)->label(false) ?>
 
-                                      <?= $form->field($model, "bury_type")->radioList($car_type)->label(false) ?>
+                                      <?= $form->field($nRecord, "car_type")->radioList($car_type)->label(false) ?>
                                   </div>
                                   <div class="col-sm-4">
                                       <?= $form->field($model, "pre_bury_date")->textInput(['dt'=>'true']) ?>
@@ -76,10 +76,10 @@ ExtAsset::register($this);
                               <table class="table table-noborder fm">
                                 <tr>
                                   <td>
-                                    <?= $form->field($nRecord, "contact_user")->textInput() ?>
+                                    <?= $form->field($nRecord, "contact_user")->textInput(['value'=>$customer->name]) ?>
                                   </td>
                                   <td>
-                                    <?= $form->field($nRecord, "contact_mobile")->textInput() ?>
+                                    <?= $form->field($nRecord, "contact_mobile")->textInput(['value'=>$customer->mobile]) ?>
                                   </td>
                                 </tr>
                                 <tr>

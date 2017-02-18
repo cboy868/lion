@@ -315,11 +315,6 @@ class ProcessController extends BackController
 
         //取碑的产品信息
 
-
-        // p($ins_info);die;
-
-        // p($ins_info);die;
-
         return $this->render('ins-auto', [
             'model' => $model,
             'imgs'  => json_decode($model->img),
@@ -333,7 +328,6 @@ class ProcessController extends BackController
             'dead_list' => $model->getDead(),
             'order' => Process::getOrder(),
             'goods' => $model->getGoodsInfo()
-
         ]);
     }
 
@@ -457,16 +451,11 @@ class ProcessController extends BackController
 
             if ($model->load($req->post())) {
 
-
                 $dead_ids = $model->dead_id;
                 $dead_name = '';
                 foreach ($dead_ids as $k => $id) {
                     $dead_name .= $deads[$id]['dead_name'] . ',';
                 }
-
-
-
-
 
                 $dead_id = implode($dead_ids, ',');
                 $dead_id = trim($dead_id, ',');
@@ -475,7 +464,6 @@ class ProcessController extends BackController
                 $model->dead_name = trim($dead_name, ',');
                 $model->dead_num = count($dead_ids);
 
-                p($model);die;
                 $model->save();
             }
 
@@ -509,6 +497,11 @@ class ProcessController extends BackController
 
         $car_addr = ArrayHelper::map($car_addr, 'id', 'title');
 
+        $customer = Process::customer();
+
+        $nRecord = $carRecord['model'];
+        $nRecord->loadDefaultValues();
+
     	return $this->render('bury', [
             'pres' => $burys['bury'],
             'model'=>$burys['model'],
@@ -518,7 +511,8 @@ class ProcessController extends BackController
             'car_type' => ArrayHelper::getColumn($car_type, 'name'),
             'car_addr' => $carAddr,
             'records' => ArrayHelper::index($carRecord['records'], 'bury_id'),
-            'nRecord' => $carRecord['model']
+            'nRecord' => $carRecord['model'],
+            'customer' => $customer
 
         ]);
     }
@@ -543,6 +537,8 @@ class ProcessController extends BackController
         if (isset($steps[$step + 1])) {
             return $this->redirect(['index', 'step'=>$step+1, 'tomb_id'=>$tomb_id]);
         }
+
+        return $this->end();
     }
 
     private function pre($pstep = null)
@@ -560,6 +556,12 @@ class ProcessController extends BackController
         if (isset($steps[$step - 1])) {
             return $this->redirect(['index', 'step'=>$step-1, 'tomb_id'=>$tomb_id]);
         }
+    }
+
+    private function end()
+    {
+        $order = Process::getOrder();
+        return $this->redirect(['/order/admin/default/view', 'id'=>$order->id]);
     }
   
 }

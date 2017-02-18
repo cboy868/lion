@@ -52,7 +52,7 @@ class Process extends \yii\base\Model
         3 => ['method' => 'ins','title'=>'碑文信息'],
         4 => ['method' => 'portrait','title'=>'瓷像信息'],
         5 => ['method' => 'bury','title'=>'安葬'],
-        6 => ['method' => 'order','title'=>'订单'],
+        // 6 => ['method' => 'order','title'=>'订单'],
     ];
 
 
