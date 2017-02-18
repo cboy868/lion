@@ -20,4 +20,5 @@ class ActiveRecord extends \yii\db\ActiveRecord
     	$this->status = self::STATUS_DEL;
     	return $this->save();
     }
+
 }

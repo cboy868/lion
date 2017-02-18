@@ -148,9 +148,8 @@ $this->title="购墓流程"
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
             </div>
-
-                <?=$this->render('_order', ['order'=>$order]) ?>
         </div><!-- /.row -->
+        <?=$this->render('_order', ['order'=>$order]) ?>
     </div><!-- /.page-content-area -->
 </div>
 				

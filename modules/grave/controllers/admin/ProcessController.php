@@ -9,13 +9,13 @@ use yii\base\Model;
 use app\modules\grave\models\Tomb;
 use app\core\widgets\ActiveForm;
 
-
+use app\core\helpers\ArrayHelper;
 
 use app\modules\grave\models\Customer;
 use app\modules\grave\models\Portrait;
-
+use app\modules\grave\models\CarAddr;
 // use app\modules\grave\models\Tomb;
-// use app\modules\grave\models\Dead;
+use app\modules\grave\models\Dead;
 // use app\modules\grave\models\Ins;
 // use app\modules\grave\models\Bury;
 // use app\modules\user\models\User;
@@ -377,7 +377,8 @@ class ProcessController extends BackController
             }
 
         } else {
-            $session->set('dead.num', $ori_num);
+            $pu = $plus ? 1:-1;
+            $session->set('dead.num', $ori_num+$pu);
         }
         
     }
@@ -410,6 +411,13 @@ class ProcessController extends BackController
                     $outerTransaction->rollBack();
                 }
 
+
+
+
+                if (!Dead::hasUnPreBury(Process::$tomb_id)) {
+                    return $this->next(6);
+                }
+
                 return $this->next();
             }
 
@@ -432,17 +440,86 @@ class ProcessController extends BackController
         }
 
 
-        $models = Process::bury();
+        $burys = Process::burys();
+        $model = $burys['model'];
+
+        $deads = Process::dead();
+        $carRecord = Process::carRecord();
+        $car_model = $carRecord['model'];
+
 
         $req = Yii::$app->request;
         if ($req->isPost) {
+
+
+            // p($req->post());die;
+
+
+            if ($model->load($req->post())) {
+
+
+                $dead_ids = $model->dead_id;
+                $dead_name = '';
+                foreach ($dead_ids as $k => $id) {
+                    $dead_name .= $deads[$id]['dead_name'] . ',';
+                }
+
+
+
+
+
+                $dead_id = implode($dead_ids, ',');
+                $dead_id = trim($dead_id, ',');
+
+                $model->dead_id = $dead_id;
+                $model->dead_name = trim($dead_name, ',');
+                $model->dead_num = count($dead_ids);
+
+                p($model);die;
+                $model->save();
+            }
+
+            if ($car_model->load($req->post())) {
+                $car_model->bury_id = $model->id;
+                $car_model->save();
+            }
+
+
             return $this->next();
         }
-        
+
+
+        //取待安葬的逝者
+        $unpre = [];
+        foreach ($deads as $dead) {
+            if (!$dead->isPre && !$dead->is_alive) {
+                array_push($unpre, $dead);
+            }
+        }
+
+
+        $car_type = $this->module->params['car']['type'];
+        $car_addr = CarAddr::find()->where(['status'=>CarAddr::STATUS_NORMAL])->all();
+
+        $carAddr = [];
+        foreach ($car_addr as $k => $v) {
+            $carAddr[$v->id] = $v->title .':用时'. $v->time . '分';
+        }
+
+
+        $car_addr = ArrayHelper::map($car_addr, 'id', 'title');
+
     	return $this->render('bury', [
-            'models' => $models,
+            'pres' => $burys['bury'],
+            'model'=>$burys['model'],
             'get' => Yii::$app->request->get(),
-            'order' => Process::getOrder()
+            'order' => Process::getOrder(),
+            'unpre' => $unpre,
+            'car_type' => ArrayHelper::getColumn($car_type, 'name'),
+            'car_addr' => $carAddr,
+            'records' => ArrayHelper::index($carRecord['records'], 'bury_id'),
+            'nRecord' => $carRecord['model']
+
         ]);
     }
 
@@ -451,13 +528,17 @@ class ProcessController extends BackController
     	return $this->render('order');
     }
 
-    private function next()
+    private function next($nstep = null)
     {
         $steps = Process::$step;
 
         $req = Yii::$app->request;
         $tomb_id = $req->get('tomb_id');
         $step = $req->get('step');
+
+        if ($nstep) {
+            return $this->redirect(['index', 'step'=>$nstep, 'tomb_id'=>$tomb_id]);
+        }
 
         if (isset($steps[$step + 1])) {
             return $this->redirect(['index', 'step'=>$step+1, 'tomb_id'=>$tomb_id]);

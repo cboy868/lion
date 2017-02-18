@@ -111,8 +111,8 @@ class m161217_134034_grave extends Migration
             'id' => $this->primaryKey(),
             'tomb_id' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
-            'dead_id' => $this->integer()->notNull(),
-            'dead_name' => $this->integer()->notNull(),
+            'dead_id' => $this->string()->notNull(),
+            'dead_name' => $this->string()->notNull(),
             'dead_num' => $this->smallInteger()->notNull(),//本次安葬人数
             'bury_type' => $this->smallInteger(),//寿 单  合 独 二次
             'pre_bury_date'=> $this->dateTime(),
@@ -123,7 +123,7 @@ class m161217_134034_grave extends Migration
             'note' => $this->text(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
-            'status' => $this->smallInteger(),
+            'status' => $this->smallInteger()->defaultValue(1),
 
         ], $tableOptions);
 

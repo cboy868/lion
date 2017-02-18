@@ -158,4 +158,65 @@ class Dead extends \app\core\db\ActiveRecord
     {
         return self::adult($this->is_adult);
     }
+
+    /**
+     * @name  判断是否已定安葬
+     */
+    public function getIsPre()
+    {
+        if ($this->pre_bury == '0000-00-00 00:00:00' || $this->pre_bury == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @name  判断是否安葬
+     */
+    public function getIsBury()
+    {
+        if ($this->bury == '0000-00-00 00:00:00' || $this->bury == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @name 判断是否存在待定安葬的逝者
+     */
+    public static function hasUnPreBury($tomb_id)
+    {
+        $deads = self::find()->where(['status'=>self::STATUS_NORMAL, 'tomb_id'=>$tomb_id])
+                             ->andWhere(['is_alive'=>self::ALIVE_NO])
+                             ->all();
+
+        foreach ($deads as $k => $dead) {
+            if (!$dead->isPre) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @name 取待定安葬的逝者
+     */
+    public static function getUnPreBury($tomb_id)
+    {
+        $deads = self::find()->where(['status'=>self::STATUS_NORMAL, 'tomb_id'=>$tomb_id])
+                             ->all();
+        $unpre = [];
+        foreach ($variable as $dead) {
+            if (!$dead->isPre && !$dead->is_alive) {
+                array_push($unpre, $dead);
+            }
+        }
+
+
+        return$unpre;
+    }
 }

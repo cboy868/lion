@@ -12,6 +12,7 @@ use app\modules\grave\models\Portrait;
 use app\modules\grave\models\Bury;
 use app\modules\user\models\User;
 use app\modules\grave\models\InsProcess;
+use app\modules\grave\models\CarRecord;
 /**
  * This is the model class for table "{{%grave_portrait}}".
  *
@@ -81,8 +82,11 @@ class Process extends \yii\base\Model
     {
         $deads = Dead::find()->where(['tomb_id'=>self::$tomb_id])
                          ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->indexBy('id')
                          ->orderBy('sort asc')
                          ->all();
+
+
 
         if (self::getDeadNum() == 0) {
             self::$dead_model_num = 2;
@@ -100,7 +104,47 @@ class Process extends \yii\base\Model
             }
         }
 
+
+
         return $deads;
+    }
+
+    public static function burys()
+    {
+        $bury = Bury::find()->where(['tomb_id'=>self::$tomb_id])
+                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->all();
+
+        $model = new Bury();
+        $tomb = self::tomb();
+        $model->tomb_id = self::$tomb_id;
+        $model->user_id = $tomb->user_id;
+
+        return ['bury'=>$bury, 'model'=>$model];
+    }
+
+    // public static function preBury()
+    // {
+    //     $model = new Bury();
+    //     $tomb = self::tomb();
+    //     $model->tomb_id = self::$tomb_id;
+    //     $model->user_id = $tomb->user_id;
+    //     return $model;
+    // }
+
+    public static function carRecord()
+    {
+        $records = CarRecord::find()->where(['tomb_id'=>self::$tomb_id])
+                                    ->andWhere(['status'=>CarRecord::STATUS_NORMAL])
+                                    ->all();
+
+
+        $model = new CarRecord();
+        $tomb = self::tomb();
+        $model->tomb_id = self::$tomb_id;
+        $model->user_id = $tomb->user_id;
+
+        return ['records'=>$records, 'model'=>$model];
     }
 
     public static function getDeadNum() 
@@ -128,8 +172,6 @@ class Process extends \yii\base\Model
 
     public static function ins()
     {
-
-
         // $position = Yii::$app->controller->module->params['ins']['position'];
 
         $ins = Ins::find()->where(['tomb_id'=>self::$tomb_id])
@@ -194,16 +236,7 @@ class Process extends \yii\base\Model
 
     }
 
-    public static function bury()
-    {
-        $bury = Bury::find()->where(['tomb_id'=>self::$tomb_id])
-                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
-                         ->all();
-        $bury[] = new Bury();
-
-        return $bury;
-
-    }
+    
 
     public static function user()
     {

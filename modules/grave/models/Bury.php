@@ -3,6 +3,7 @@
 namespace app\modules\grave\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%grave_bury}}".
@@ -34,16 +35,26 @@ class Bury extends \app\core\db\ActiveRecord
         return '{{%grave_bury}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+            ]
+        ];
+    }
+
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['tomb_id', 'user_id', 'dead_id', 'dead_name', 'dead_num'], 'required'],
-            [['tomb_id', 'user_id', 'dead_id', 'dead_name', 'dead_num', 'bury_type', 'bury_user', 'bury_order', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['tomb_id', 'user_id', 'dead_id', 'dead_name', 'dead_num', 'pre_bury_date'], 'required'],
+            [['tomb_id', 'user_id', 'dead_num', 'bury_type', 'bury_user', 'bury_order', 'created_at', 'updated_at', 'status'], 'integer'],
             [['pre_bury_date', 'bury_date', 'bury_time'], 'safe'],
-            [['note'], 'string'],
+            [['note', 'dead_id','dead_name'], 'string'],
         ];
     }
 
@@ -60,8 +71,8 @@ class Bury extends \app\core\db\ActiveRecord
             'dead_name' => 'Dead Name',
             'dead_num' => 'Dead Num',
             'bury_type' => 'Bury Type',
-            'pre_bury_date' => 'Pre Bury Date',
-            'bury_date' => 'Bury Date',
+            'pre_bury_date' => '安葬时间',
+            'bury_date' => '实际安葬时间',
             'bury_time' => 'Bury Time',
             'bury_user' => 'Bury User',
             'bury_order' => 'Bury Order',

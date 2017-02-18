@@ -91,6 +91,17 @@ class BackController extends \app\core\web\Controller
 
         return Yii::$app->user->can($item);
         // p(Yii::$app->user->id);die;
+    }
 
+    public function drop($id)
+    {
+        $model = $this->findModel($id);
+        return $model->delete();
+    }
+
+    public function del($id)
+    {
+        $model = $this->findModel($id);
+        return $model->del();
     }
 }
