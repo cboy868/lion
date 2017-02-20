@@ -165,10 +165,15 @@ class ProcessController extends BackController
 
 
         $models = Process::dead();
+        $tomb = Process::tomb();
 
         if (Yii::$app->request->isPost) {
 
             $post = Yii::$app->request->post();
+            if ($tomb->load($post)) {
+                $tomb->save();
+            }
+
 
             if (Model::loadMultiple($models, $post) && Model::validateMultiple($models)) {
                 try {
@@ -212,7 +217,9 @@ class ProcessController extends BackController
                 'bone_type' => Yii::$app->controller->module->params['bone_type'],
                 'bone_box' => Yii::$app->controller->module->params['bone_box'],
                 'get' => Yii::$app->request->get(),
-                'order' => Process::getOrder()
+                'order' => Process::getOrder(),
+                'tomb' => $tomb,
+                'mnt_by' => $this->module->params['ins']['mnt_by'],
             ]);
     }
 
@@ -268,16 +275,20 @@ class ProcessController extends BackController
 
         $req = Yii::$app->request;
         if ($req->isPost) {
+
+            $model->autoSave();
+
             if ($model->load($req->post())) {
+
                 $model->img = json_encode($model->img);
                 $model->guide_id = $tomb->guide_id;
                 $model->user_id = $tomb->user_id;
+
                 if ($model->save()) {
                     return $this->next();
                 }
             }
         }
-
 
         $cases = $model->getInsCfgCases();
         $back_word = Yii::$app->controller->module->params['ins']['back_word'];
@@ -285,11 +296,12 @@ class ProcessController extends BackController
 
         $ins_info = $model->getInsInfo();
 
+
         //取碑的产品信息
 
         return $this->render('ins-auto', [
             'model' => $model,
-            'imgs'  => json_decode($model->img),
+            'imgs'  => $model->img ? json_decode($model->img) : '',
             'pos' => Yii::$app->controller->module->params['ins']['position'],
             'get' => Yii::$app->request->get(),
             'cases' => $cases,

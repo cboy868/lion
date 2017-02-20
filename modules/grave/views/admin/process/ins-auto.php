@@ -1,4 +1,3 @@
-
 <?php 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
@@ -77,6 +76,8 @@ ExtAsset::register($this);
 				</div>
 	        </div>
         <!-- Nav tabs -->
+
+
 		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
 			<li role="presentation" class="<?php if ($model->type == 0): ?>active <?php endif ?> sel-type" rel="3">
 			  	<a href="#img-ins-boxs" role="tab" data-toggle="tab">图片碑文</a>
@@ -87,20 +88,12 @@ ExtAsset::register($this);
 		  
 		</ul>
 
-		<ul class="col-xs-6">
-		    <li class="pull-right btn-group">
-		        <a  href="javascript:;" class="btn btn-info" data-toggle="collapse" data-target="#select-ins">
-		            选择碑文样式
-		        </a>
-		    </li>
-		</ul>
 
 		<!-- Tab panes -->
-		<div class="tab-content">
 			<div class="row" role="">
-				<form role="form" id='auto-ins-form' method='post' action='/admin/ins/process' class="tab-content">
+				<?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'tab-content form-horizontal']]); ?>
+				<!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
 					<div id="auto-ins-boxs" class="tab-pane <?php if ($model->type == 1): ?>active <?php endif ?>" role="tabpanel">
-
 						<div class="col-xs-12">
 							<div id="select-ins" class="collapse">
 
@@ -193,11 +186,6 @@ ExtAsset::register($this);
 					          		<a  href="javascript:;" class="" data-toggle="collapse" data-target="#select-ins">
 		                              选择碑文样式
 		                            </a>
-		                            <?php if($old_info['is_old']):?>
-		                            <a href="javascript:;" data-toggle="collapse" data-target="#old-ins">
-		                                老碑文
-		                            </a>
-		                            <?php endif;?>
 					          	</span>
 		                          <?php if(!$model['is_stand']):?>
 		                            <span class="pull-right">繁体简体
@@ -254,6 +242,7 @@ ExtAsset::register($this);
 											    <div class="thumbnail">
 		                                            <a href="<?=$model->getImg('front')?>" class="artimg ">
 		                                              <img class="front_img image" src="<?=$model->getImg('front')?>" alt="...">
+		                                              <input type="hidden" name="front_img" />
 		                                            </a>
 											      <div class="caption">
 											        <h3>碑前文</h3>
@@ -269,6 +258,7 @@ ExtAsset::register($this);
 											    <div class="thumbnail">
 											    	<a href="<?=$model->getImg('back')?>" class="artimg">
 												      <img class="back_img image" src="<?=$model->getImg('back')?>" alt="...">
+												      <input type="hidden" name="back_img" />
 												  </a>
 											      <div class="caption">
 											        <h3>碑后文</h3>
@@ -290,7 +280,7 @@ ExtAsset::register($this);
 					</div> <!--form 里第一个 div auto-->
 
 					<!-- 手动上传图片 -->
-					<div id="img-ins-boxs" class=" tab-pane <neq name='type' value='1'>active</neq>" role="tabpanel">
+					<div id="img-ins-boxs" class=" tab-pane <?php if ($model->type == 0): ?>active <?php endif ?>" role="tabpanel">
 						<div class="col-xs-12">
 							<div class="panel panel-default">
 						  		<div class="panel-heading"><span class=''>手动上传图片</span></div>
@@ -325,57 +315,49 @@ ExtAsset::register($this);
 								</div>
 							</div>
 						</div>
-					</div><!--form 里第二个 div img-->
+					</div>
+					<!--form 里第二个 div img-->
 
 					<div class="col-xs-12">
 						<div class="panel panel-default">
 					  		<div class="panel-heading">明细</div>
 				  			<div class="panel-body  form-horizontal row" role="form">
-				  				<div class="col-xs-6">
-				  					<div class="form-group">
-									    <label class="col-sm-3 control-label">颜料</label>
-									    <div class="col-sm-2">
-									    <?= Html::dropDownList("ins[paint]", $model->paint, $paint) ?>
-									    </div>
-									 </div>
-									 <div class="form-group">
-									    <label class="col-sm-3 control-label">字数</label>
-									    <div class="col-sm-8">
-									      <input type="text" id="letter_num" name="ins[new_font_num]" class="form-control input-sm"/>
-									    </div>
-									 </div>
-									 <div class="form-group">
-									    <label class="col-sm-3 control-label">刻字费</label>
-									    <div class="col-sm-8">
-									      <input type="text" id="letter_price" name="ins[unpaid_letter_price]" class="form-control input-sm" placeholder="0.00" readonly>
-									    </div>
-									 </div>
-		                            <div class="form-group">
-		                                <label class="col-sm-3 control-label">繁体费</label>
-		                                <div class="col-sm-8">
-		                                    <input type="text" id="tc_price" name="ins[tc_price]" class="form-control input-sm" placeholder="0.00">
-		                                </div>
-		                            </div>
-									 <div class="form-group">
-									    <label class="col-sm-3 control-label">立碑截止日期</label>
+				  			<?php 
+				  			$form->fieldConfig['labelOptions']['class']='control-label col-sm-3';
+            				$form->fieldConfig['template'] = '{label}<div class="col-sm-9">{input}{hint}{error}</div>'; 
 
-									    <div class="col-sm-8">
-									      <input type="text" name="ins[dt_pre_finished]" value="<?=$inscription_info['pre_finished']?>"  class="form-control input-sm dt_pre_finished">
-									      <span class='mnMsg red' style="display:none;">立碑日期在三天内，加收200元加急费</span>
-									    </div>
-									 </div>
+				  			 ?>
+				  				<div class="col-xs-6">
+				  					<?= $form->field($model, 'paint')->dropDownList(Ins::getPaint(), ['style'=>'width:70%']) ?>
+				  					<?= $form->field($model, 'font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num']) ?>
+				  					
+                                    <?= $form->field($model, 'paint_price')->textInput(['style'=>'width:70%', 'id'=>'paint_price']) ?>
+                                    <?= $form->field($model, 'letter_price')->textInput(['style'=>'width:70%', 'id'=>'letter_price']) ?>
+                                    <?= $form->field($model, 'tc_price')->textInput(['style'=>'width:70%', 'id'=>'tc_price']) ?>
+
+                                    <?= $form->field($model, 'pre_finish')->textInput([
+                                        'style'=>'width:70%', 
+                                        'dt'=>'true', 
+                                        'y-chante' => 'true',
+                                        'm-change' =>'true',
+                                        'class'=>'dt_pre_finished'
+                                        ])->hint('立碑日期在三天内，需收加急费') ?>
+									
+								
+									 
 				  				</div>
 								<div class="col-xs-5">
-		                        <label class="control-label">石材厂备注</label>
 
-								 <div class="form-group">
-
-								 	<textarea name="ins[note]" rows="5" class="form-control"></textarea>
-								 </div>
+								<?php 
+								$form->fieldConfig['labelOptions']['class']='control-label';
+								$form->fieldConfig['template'] = '{label}{input}{hint}{error}'; 
+								 ?>
+								<?= $form->field($model, 'note')->textArea(['rows'=>5])->label('碑文备注') ?>
+		                        
 								</div>
 							<?php if(!empty($insdes)):?>
 		                        <div class="col-xs-12">
-		                            <h3>石材厂备注</h3>
+		                            <h3>碑文备注</h3>
 		                            <table class="table insnote">
 		                            <?php foreach ($insdes as $de): ?>
 		                            	<tr>
@@ -411,45 +393,45 @@ ExtAsset::register($this);
 							  	<table class="table">
 							  		<tr>
 							  			<td>标签一</td>
-							  			<td><input type="text" name="front[born][content]" class="form-control input-sm" value="<?=$front['born']['content']?>"></td>
+							  			<td><input type="text" name="front[born][content]" class="form-control input-sm" value="<?=$front['born'][0]['content']?>"></td>
 							  		</tr>
 
 		                            <tr>
 		                                <td>标签二</td>
-		                                <td><input type="text" name="front[die][content]" class="form-control input-sm" value="<?=$front['die']['content']?>"></td>
+		                                <td><input type="text" name="front[die][content]" class="form-control input-sm" value="<?=$front['die'][0]['content']?>"></td>
 		                            </tr>
 
 
 							  		<tr>
 							  			<td>尊称</td>
-							  			<td><input type="text" name="front[honorific][content]" class="form-control input-sm" value="<?=$front['honorific']['content']?>"></td>
+							  			<td><input type="text" name="front[honorific][content]" class="form-control input-sm" value="<?=$front['honorific'][0]['content']?>"></td>
 							  		</tr>
 
 		                            <tr>
 		                                <td>之墓</td>
-		                                <td><input name="front[tail][content]" type="text" class="form-control input-sm" value="<?=$front['tail']['content']?>"></td>
+		                                <td><input name="front[tail][content]" type="text" class="form-control input-sm" value="<?=$front['tail'][0]['content']?>"></td>
 		                            </tr>
 
 							  		<tr>
-							  			<td>落款</td><td><input type="text" name="front[inscribe][content]" class="form-control input-sm" value="<?= $front['inscribe']['content'] ?>"></td>
+							  			<td>落款</td><td><input type="text" name="front[inscribe][content]" class="form-control input-sm" value="<?= $front['inscribe'][0]['content'] ?>"></td>
 							  		</tr>
 		                            <tr>
-		                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm" value="<?=$front['inscribe_date']['content']?>"></td>
+		                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm" value="<?=$front['inscribe_date'][0]['content']?>"></td>
 		                            </tr>
 
 		                            <tr>
-		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=$front['agelabel1']['content']?>"></td>
-		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=$front['agelabel2']['content']?>"></td>
+		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=$front['agelabel1'][0]['content']?>"></td>
+		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=$front['agelabel2'][0]['content']?>"></td>
 		                            </tr>
 
 		                            <tr>
-		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=$front['agelabel1']['content']?>"></td>
-		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=$front['agelabel2']['content']?>"></td>
+		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=$front['agelabel1'][0]['content']?>"></td>
+		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=$front['agelabel2'][0]['content']?>"></td>
 		                            </tr>
 		                            <tr>
 		                                <?php if($is_god):?>
 		                                <td>圣名标签</td>
-		                                <td><input type="text" name="front[second_name_label][content]" class="form-control input-sm" value="<?=$front['second_name_label']['content']?>"></td>
+		                                <td><input type="text" name="front[second_name_label][content]" class="form-control input-sm" value="<?=$front['second_name_label'][0]['content']?>"></td>
 		                                <?php endif;?>
 		                            </tr>
 							  	</table>
@@ -565,20 +547,25 @@ ExtAsset::register($this);
 				<input type="hidden" name="paid_paint_price" value="<?=$inscription_info['paid_paint_price']?>" />
 				<input type="hidden" name="paid_tc_price" value="<?=$inscription_info['paid_tc_price']?>" />
 
-				<input type="hidden" name="front_case_id" value="" />
-				<input type="hidden" name="back_case_id" value="" />
+				<input type="hidden" name="front_case" value="" />
+				<input type="hidden" name="back_case" value="" />
+				<input type="hidden" name="cover_case" value="" />
 
 				<input type="hidden" class="per_price"/>
 				<input type="hidden" class="is_second" value="<?=$is_second?>"/>
 
 		        <div class="text-center cols-md-12">
-				<button id="ins-save-btn" type="button" data-loading-text="正在保存碑文信息..."
-		                class="btn btn-warning btn-lg save-ins" autocomplete="off">
-		                <i class="fa fa-save"></i>
-		                保存碑文
-		            </button>
-		         </div>
-				</form>
+
+		         <div class="form-group">
+		            <div class="col-sm-12" style="text-align:center;">   
+
+		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
+		                <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>
+		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>下一步</a>
+		            </div>
+		        </div>
+				<!-- </form> -->
+				<?php ActiveForm::end(); ?>
 				<hr />
 			</div><!--auto row-->
 		</div>
@@ -601,7 +588,6 @@ ExtAsset::register($this);
 
 		<?=$this->render('_order', ['order'=>$order]) ?>
 		
-	</div>
 </div>
 <!-- 碑后文的每一行 -->
 <table id="backclone" style="display:none;">
@@ -912,7 +898,9 @@ function getImage(cla){
         	var time = new Date().getTime();
             $('.' + driect + '_img').attr('src', xhr.data+'?time='+time)
                     				.parent('a')
-                    				.attr('href', xhr.data+'?time='+time);
+                    				.attr('href', xhr.data+'?time='+time)
+                    				.find('input[name='+driect+'_img]')
+                    				.val(xhr.data + '?time=' + time);
         } else {
             
         }
@@ -925,14 +913,17 @@ function getPrice($type){
 
     if ($type=='back') {
         var case_id = $('.back_selected').attr('case_id');
-    } else {
+    } else if ($type=='front') {
         var case_id = $('.front_selected').attr('case_id');
+    } else {
+    	var case_id = $('.cover_selected').attr('case_id');
     }
 
+    var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
     var data = $('#auto-ins-form').serialize();
     var date = +new Date();
     $.post(
-        '/home/ins/getPrice?timstr=' + date + '&case_id='+case_id,
+    	url + '?timstr=' + date + '&case_id='+case_id,
         data,
         function(json) {
             if(json.status) {
@@ -1008,8 +999,9 @@ function calPrice(nofee){
 }
 
 function searchCaseId(){
-	$('input[name=front_case_id]').val($('.front_selected').attr('case_id'));
-	$('input[name=back_case_id]').val($('.back_selected').attr('case_id'));
+	$('input[name=front_case]').val($('.front_selected').attr('case_id'));
+	$('input[name=back_case]').val($('.back_selected').attr('case_id'));
+	$('input[name=cover_case]').val($('.cover_selected').attr('case_id'));
 }
 
 function urgent(){
@@ -1035,6 +1027,7 @@ function auto(insContainer, changed){
 		if (changed == 1) {
 			getImage('front_selected');
 			getImage('back_selected');
+			getImage('cover_selected');
 		} else {
 			//如果没有图片，就取新图片
 		    if ($('.front_img', insContainer).attr('src') == '#'){
@@ -1042,6 +1035,9 @@ function auto(insContainer, changed){
 		    }
 		    if ($('.back_img', insContainer).attr('src') == '#'){
 		        getImage('back_selected');
+		    }
+		    if ($('.cover_img', insContainer).attr('src') == '#'){
+		        getImage('cover_selected');
 		    }
 		}
 
@@ -1051,6 +1047,9 @@ function auto(insContainer, changed){
 		}
 		if ($('#back_prices', insContainer).attr('flag') != 1){
 	        getPrice('back');
+	    }
+	    if ($('#cover_prices', insContainer).attr('flag') != 1){
+	        getPrice('cover');
 	    }
 }
 

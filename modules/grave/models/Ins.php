@@ -92,9 +92,11 @@ class Ins extends \app\core\db\ActiveRecord
 
     public function getImg($position = 'front')
     {
-        $img = json_decode($this->img);
+        $img = (array)json_decode($this->img);
 
-        return isset($img[$position]) && !empty($img[$position]) ? $img[$position] : '#';
+        $img = isset($img[$position]) && !empty($img[$position]) ? $img[$position] : '#';
+
+        return $img == '#' ? '#' : Attachment::getById($img);
     }
 
     public static function getIsConfirm($is_confirm = null)
@@ -161,11 +163,11 @@ class Ins extends \app\core\db\ActiveRecord
     {
         return [
             [['guide_id', 'user_id', 'tomb_id'], 'required'],
-            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'shape', 'is_tc', 'font', 'font_num', 'new_font_num', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'font_num', 'new_font_num', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
             [['content', 'note'], 'string'],
             [['confirm_date', 'pre_finish', 'finish_at'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
-            [['position'], 'string', 'max' => 100],
+            [['position', 'shape'], 'string', 'max' => 100],
             [['img'], 'string', 'max' => 255],
         ];
     }
@@ -186,6 +188,7 @@ class Ins extends \app\core\db\ActiveRecord
             'content' => '碑文内容',
             'img' => '碑文图片',
             'is_tc' => '是否繁体',
+            'final_tc' => '支付时是否繁体',
             'font' => '字体',
             'font_num' => '总字数',
             'new_font_num' => '新增字数',

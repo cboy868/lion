@@ -90,7 +90,7 @@ class Tomb extends \app\core\db\ActiveRecord
             [['grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id', 'agent_id', 'agency_id', 'guide_id', 'created_at', 'status'], 'integer'],
             [['price', 'cost', 'area_total', 'area_use'], 'number'],
             [['sale_time', 'thumb'], 'safe'],
-            [['note'], 'string'],
+            [['note', 'mnt_by'], 'string'],
             [['grave_id', 'tomb_no', 'row', 'col'], 'required'],
             [['special'], 'string', 'max' => 100],
             [['tomb_no'], 'string', 'max' => 255],

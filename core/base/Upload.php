@@ -87,6 +87,9 @@ class Upload extends Component{
     }
 
 
+
+
+
     /**
      * @name 保存文件
      */
@@ -206,6 +209,79 @@ class Upload extends Component{
             //原图copy到其它位置
             // $ori_arr = explode('/', $filePath, 2);
             // p($ori_arr);die;
+        }
+    }
+
+    public static function upload($tmp_name, $path, $res="common", $res_id=null) 
+    {
+        $up = new self;
+
+        $up->res = $res;
+        $up->res_id = $res_id;
+
+        if(!is_file($tmp_name)) {
+            echo '临时文件不存在';
+            return false;
+        }
+
+        $info = self::getImageInfo($tmp_name);
+        $type = isset($info['type']) ? $info['type'] : '';
+        $up->path = dirname($path);
+        $up->fileName = basename($path);
+        $up->ext = $info['type'];
+        $up->title = basename($path);
+        $up->size = $info['size'];
+
+
+        if(empty($type)) {
+            $up->error = '不能识别图片的类型';
+            return false;
+        }
+
+        $filePath = \Yii::getAlias('@app/web' . $path);
+
+        // 移动目录
+        if (!is_dir(dirname($filePath))) {
+            @mkdir(dirname($filePath), 0777, true) or die(dirname($filePath) . ' no permission to write');
+        }
+
+        @copy($tmp_name, $filePath);
+
+        $info = [
+            'path' => $up->path,
+            'fileName' => $up->fileName,
+            'ext'  => $up->ext,
+            'res' => $up->res,
+            'title' => $up->title,
+            'filePath' => $path,
+            'use' => $up->use ? $up->use : null,
+            'res_id' => $up->res_id ? $up->res_id : null
+        ];
+
+
+        $event = new UploadEvent($info);
+
+        $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+        $up->trigger(self::EVENT_AFTER_UPLOAD, $event);
+
+        return $up->getInfo();
+    }
+
+    protected static function getImageInfo($img) {
+        $imageInfo = getimagesize($img);
+        if ($imageInfo !== false) {
+            $imageType = strtolower(substr(image_type_to_extension($imageInfo[2]), 1));
+            $imageSize = filesize($img);
+            $info = array(
+                "width" => $imageInfo[0],
+                "height" => $imageInfo[1],
+                "type" => $imageType,
+                "size" => $imageSize,
+                "mime" => $imageInfo['mime']
+            );
+            return $info;
+        } else {
+            return false;
         }
     }
 

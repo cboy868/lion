@@ -25,10 +25,11 @@ class m170205_015928_grave_ins extends Migration
             'shape' => $this->string(1)->defaultValue('v'),//h横，v竖
             'content' => $this->text(),
             'img' => $this->string(255),
-            'is_tc' => $this->smallInteger(1)->defaultValue(0),//是否繁体字 
             'font' => $this->smallInteger(1),//字体 
             'font_num' => $this->smallInteger(),//字数
             'new_font_num' => $this->smallInteger(),//新增字数
+            'is_tc' => $this->smallInteger(1)->defaultValue(0),//是否繁体字 
+            'final_tc' => $this->smallInteger(1)->defaultValue(0),//是否繁体字 支付完成后修改此字段为is_tc的值
             'is_confirm' => $this->smallInteger(1)->defaultValue(0),
             'confirm_date' => $this->date(),
             'confirm_by' => $this->integer(),

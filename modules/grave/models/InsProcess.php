@@ -16,6 +16,7 @@ use app\modules\grave\models\InsCfgCase;
 use app\modules\grave\models\InsCfgValue;
 use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Goods;
+use app\core\base\Upload;
 
 
 /**
@@ -56,15 +57,6 @@ class InsProcess extends Ins
     public $ins_info;
 
     public $shape = 'v';
-
-    // public function getFront()
-    // {
-
-    //     return $this->ins_info['front'];
-    //     // $content = json_decode($this->content);
-
-    //     // return $content['front'];
-    // }
 
 
     public function getFront(){
@@ -112,24 +104,14 @@ class InsProcess extends Ins
 
 
 
-
-
     public function getBack()
     {
         return $this->ins_info['back'];
-
-
-        // $content = json_decode($this->content);
-
-        // return $content['back'];
     }
 
     public function getCover()
     {
         return $this->ins_info['cover'];
-        // $content = json_decode($this->content);
-
-        // return $content['cover'];
     }
 
     public function initFront()
@@ -150,21 +132,19 @@ class InsProcess extends Ins
         $deads = $this->getDead();
                          
         $info = array(
-            'honorific' => array('content'=>$honorific),
-            'tail'      => array('content'=>'之墓'),
-            'inscribe_date' => array('content'=>$inscribe_date),
-            'inscribe'  => array('content'=>$inscribe),
-            'die'   => array('content'=>$die),
-            'born'  => array('content'=>$born),
-            'agelabel1'=> array('content'=>'享年') ,
-            'agelabel2'=> array('content'=>'岁'),
-            'second_name_label'=> array('content'=>'圣名')
+            'honorific' =>[['content'=>$honorific]],
+            'tail'      => [['content'=>'之墓']],
+            'inscribe_date' => [['content'=>$inscribe_date]],
+            'inscribe'  => [['content'=>$inscribe]],
+            'die'   => [['content'=>$die]],
+            'born'  => [['content'=>$born]],
+            'agelabel1'=> [['content'=>'享年']],
+            'agelabel2'=> [['content'=>'岁']],
+            'second_name_label'=> [['content'=>'圣名']]
         );
-
 
         foreach ($deads as $k=>$v) {
             if ($v['is_ins'] == 1) {
-
                 $birth = $this->getBirth($v);
                 $fete = $this->getFete($v);
 
@@ -173,14 +153,14 @@ class InsProcess extends Ins
                     $data[$v['follow_id']]['follow']=array('content' => $tit.$v['dead_name']);
                     unset($v);
                 } else {
-                    $data[$k] = array(
-                        'name' => array('content' => $v['dead_name'], 'is_die'=>!$v['is_alive']),
-                        'title' => array('content' => $this->getDeadTitle($v['dead_title'])),
-                        'birth' => array('content' => $birth),
-                        'fete'  => array('content' =>$fete),
-                        'age'   =>array('content' =>$v['ages']),
-                        'second_name' => array('content' =>$v['second_name'])
-                    );
+                    $data[$k] = [
+                        'name' => ['content' => $v['dead_name'], 'is_die'=>!$v['is_alive']],
+                        'title' => ['content' => $this->getDeadTitle($v['dead_title'])],
+                        'birth' => ['content' => $birth],
+                        'fete'  => ['content' =>$fete],
+                        'age'   =>['content' =>$v['ages']],
+                        'second_name' => ['content' =>$v['second_name']]
+                    ];
                 }
             }
         }
@@ -233,6 +213,7 @@ class InsProcess extends Ins
 
         $data = Yii::$app->request->post();
 
+
         $this->font = $data['font_style'];
         $this->is_tc = $data['is_tc'];
         
@@ -240,8 +221,6 @@ class InsProcess extends Ins
         $back_info  = $data['back'];
         $cover_info = $data['cover'];
         $dead  = $data['dead'];
-
-
 
 
         $keys = array('title', 'name', 'birth', 'age', 'fete', 'second_name', 'follow');
@@ -252,19 +231,20 @@ class InsProcess extends Ins
             }
         }
 
+
         
         $info = array_merge($front_info, $dead_info);
+
+
 
 
         $this->ins_info['front'] = $info;
         $this->ins_info['back']  = $back_info;
         $this->ins_info['cover'] = $cover_info;
 
-        
+
         $add = array(
             'is_tc'     => $this->is_tc,
-            // 'front_img' => $data['img'][$this->type],
-            // 'back_img'  => $data['img']['back'],
             'front_type'    => $this->type,
             'dt_pre_mn'     => $data['dt_pre_mn'],
             'font'    => $this->font,
@@ -273,7 +253,6 @@ class InsProcess extends Ins
             'type'          => 1
         );
         $this->ins_info = $add + $this->ins_info;
-
 
         return $this;
     }
@@ -345,9 +324,11 @@ class InsProcess extends Ins
         return !(boolean)$value;
     }
 
-    public function syncFront()
+    public function syncFront($data)
     {
-        $current_ins_info= $this->ins_info['front'];
+        $ins_info = (array)json_decode($this->content, true);
+
+        $current_ins_info= $ins_info['front'];
 
         $deads = $this->getDead();
 
@@ -357,15 +338,15 @@ class InsProcess extends Ins
         foreach ($deads as $k=>$v) {
             if ($v['is_ins']) {
 
-                $birth = static::getBirth();
-                $fete = static::getFete();
+                $birth = static::getBirth($v);
+                $fete = static::getFete($v);
 
                 if (empty($current_ins_info['birth'][$i]['content'])){
                     $birth = $birth;
                 } else {
                     $birth = $current_ins_info['birth'][$i]['content'];
                 }
-                
+
                 if (empty($current_ins_info['fete'][$i]['content'])){
                     $fete = $fete;
                 } else {
@@ -392,9 +373,74 @@ class InsProcess extends Ins
             $i++;
         }
 
+
         $data['dead'] = $newdata;
 
+
         return $data;
+    }
+
+
+
+    public function autoSave()
+    {
+
+        $post = Yii::$app->request->post();
+
+        $this->handleIns();
+
+        $front_case = $post['front_case'];
+        $back_case  = $post['back_case'];
+        $cover_case = $post['cover_case'];
+
+
+        $this->tpl_cfg = json_encode([
+            'front' => $front_case,
+            'back'  => $back_case,
+            'cover' => $cover_case
+        ]);
+
+
+        $this->content = json_encode([
+            'front' => $this->combinDbData($front_case),
+            'back'  => $this->combinDbData($back_case),
+            'cover' => $this->combinDbData($cover_case),
+        ]);
+
+        $str = str_pad($this->tomb_id, 8, "0", STR_PAD_LEFT);  
+        $path = '/upload/ins/' . substr($str,0,2).'/'.substr($str,2,3).'/'.substr($str,5);
+
+        $img = (array)json_decode($this->img);
+
+
+        if ($post['front_img']) {
+            $front_img = Yii::getAlias('@app/web' . substr($post['front_img'], 0, strpos($post['front_img'], '?')));
+            $front_img_info = Upload::upload($front_img, $path.'/'.$this->tomb_id.'front.png', 'ins', $this->id);
+            $img['front'] =  $front_img_info['mid'];
+        }
+
+        if ($post['back_img']) {
+            $back_img = Yii::getAlias('@app/web' . substr($post['back_img'], 0, strpos($post['back_img'], '?')));
+            $back_img_info = Upload::upload($back_img, $path.'/'.$this->tomb_id.'back.png', 'ins', $this->id);
+            $img['back'] = $back_img_info['mid'];
+        }
+
+        $this->img = json_encode($img);
+
+        return $this->save();
+
+    }
+
+    public function imgSave($info)
+    {
+        $ins_id = $this->Ins->handleIns($info);
+        if ($ins_id) {
+            $this->Img->where(array('id'=>array('in',array($info['front_img'],$info['back_img']))))
+                      ->save(array('owner_id'=>$ins_id));
+            return $this;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -402,9 +448,10 @@ class InsProcess extends Ins
      * 取碑文整体信息
      */
     public function getInsInfo(){
-        $info = $this->ins_info;
 
-        if (empty($this->ins_info['front'])) {
+        $ins_info = (array)json_decode($this->content, true);
+
+        if (empty($ins_info['front'])) {
 
             $this->initFront();
             $this->initBack();
@@ -420,7 +467,7 @@ class InsProcess extends Ins
         } else {
             $dead_keys = array('name', 'title', 'birth', 'fete', 'age', 'follow', 'second_name');
             $dead = array();
-            foreach ($info['front_info'] as $k=>$v) {
+            foreach ($ins_info['front'] as $k=>$v) {
                 if (in_array($k, $dead_keys)) {
                     foreach ($v as $key=>$val) {
                         $dead['dead'][$key][$k]=$val;
@@ -429,10 +476,11 @@ class InsProcess extends Ins
                     $dead[$k] =$v;
                 }
             }
-
             $data = $this->syncFront($dead);
+            $this->ins_info = $ins_info;
             $this->ins_info['front'] = $data;
         }
+
 
         return $this->ins_info;
     }
@@ -523,9 +571,6 @@ class InsProcess extends Ins
         $is_front = $cfg->is_front;
 
 
-        $case_info = M('ins_cfg_case')->where(array('id'=>$cfg_case_id))->find();
-        $is_front = M('ins_cfg')->where(array('id'=>$case_info['cfg_id']))->getField('is_front');
-        
         if ($is_front==1){
             $ins_info = $this->getFront();
         } else if($is_front==0){
@@ -598,8 +643,10 @@ class InsProcess extends Ins
             if ($flag) unset($new_cfg_data['born']);
 
         }
+
         return $new_cfg_data;
     }
+
     public function combinCfgIns($cfg_info, $ins_info, $shape, $size=NULL, $is_front=0)
     {
 
