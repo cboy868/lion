@@ -154,6 +154,39 @@ class Tomb extends \app\core\db\ActiveRecord
     }
 
 
+    public function pre($flag = true)
+    {
+        if (!$flag && $this->status == self::STATUS_PRE) {
+            $this->status = self::STATUS_EMPTY;
+            return $this->save();
+        }
+
+
+        if ($flag && ($this->status == self::STATUS_EMPTY || $this->status == self::STATUS_SAVE)) {
+            $this->status = self::STATUS_PRE;
+            return $this->save();
+        }
+
+
+
+        return false;
+    }
+
+    public function retain($flag = true)
+    {
+        if (!$flag && $this->status == self::STATUS_SAVE) {
+            $this->status = self::STATUS_EMPTY;
+            return $this->save();
+        }
+
+
+        if ($flag && $this->status == self::STATUS_EMPTY) {
+            $this->status = self::STATUS_SAVE;
+            return $this->save();
+        }
+        return false;
+    }
+
     /**
      * 获取此墓位上可以进行的操作
      **/
@@ -189,25 +222,25 @@ class Tomb extends \app\core\db\ActiveRecord
             $common = array_merge($common,[
                 [
                     '预订',
-                    '/admin/tombpre/preorder/id/'.$id,
+                    Url::toRoute(['/grave/admin/tomb/pre', 'id'=>$this->id]),
                     'tomb-preorder'
                 ],
                 [
                     '保留',
-                    '/admin/tomb/retain/id/'.$id,
+                    Url::toRoute(['/grave/admin/tomb/retain', 'id'=>$this->id]),
                     'tomb-retain'
                 ]
             ]);
         } else if ($this->status == self::STATUS_SAVE) {
             $common[] = [
                 '取消保留',
-                '/admin/tomb/retain/id/'.$id,
+                Url::toRoute(['/grave/admin/tomb/un-retain', 'id'=>$this->id]),
                 'tomb-retain-del'
             ];
         } else if ($this->status == self::STATUS_PRE) {
             $common[] = [
                '取消预订',
-               '/admin/tombpre/unpreorder?tomb_id='.$id,
+               Url::toRoute(['/grave/admin/tomb/un-pre', 'id'=>$this->id]),
                'tomb-unpreorder'
            ];
         } 
@@ -220,7 +253,9 @@ class Tomb extends \app\core\db\ActiveRecord
                 if (8 == $key) continue;
                 $operate[] = [
                     $opt['text'],
-                    $opt['url'].'?tomb_id='.$id.'#'.$opt['name'],
+
+                    Url::toRoute([$opt['url'], 'tomb_id'=>$this->id, 'step'=>$opt['step']]),
+                    // $opt['url'].'?tomb_id='.$this->id.'#'.$opt['name'],
                     'tomb-opt'
                 ];
             }
@@ -286,211 +321,6 @@ class Tomb extends \app\core\db\ActiveRecord
             ];
         }
 
-
-
-      
-
-//         // common  ----------------------------------------------------
-//         $sale_status =& $tomb['sale_status'];
-//         $option['common'] = array();
-//         $common =& $options['common'];
-        
-//         /*
-//         $common[] = array(
-//                 '一墓一档',                     // 标题
-//                 '/admin/tomb/detail/id/'.$id,  // 链接
-//                 'tomb-detail'                  // class
-//             );*/
-        
-//         // 普通 预订
-//         if ($sale_status == 1) { // 闲置状态
-//             // 推荐处理
-//             if ($tomb['recommand'] == 0) {
-//                 $common[] = array(
-//                     '推荐该墓位',
-//                     '/admin/tomb/recommand/id/'.$id,
-//                     'tomb-recommand'
-//                 );
-//             } else {
-//                 $common[] = array(
-//                     '取消推荐',
-//                     '/admin/tomb/unrecommand/id/'.$id,
-//                     'tomb-unrecommand'
-//                 );
-//             }
-
-            // $common[] = array(
-            //     '预订',
-            //     '/admin/tombpre/preorder/id/'.$id,
-            //     'tomb-preorder'
-            // );
-
-
-            // $common[] = array(
-            //     '保留',
-            //     '/admin/tomb/retain/id/'.$id,
-            //     'tomb-retain'
-            // );
-//         } 
-
-//         if ($sale_status == -1) {
-            // $common[] = array(
-            //     '取消保留',
-            //     '/admin/tomb/retain/id/'.$id,
-            //     'tomb-retain-del'
-            // );
-//         }
-
-//         // 普通 预订
-// //        if ($sale_status == 2) { // 取消预订,  指预订,没有交订金
-           // $common[] = array(
-           //     '取消预订',
-           //     '/admin/tombpre/unpreorder?tomb_id='.$id,
-           //     'tomb-unpreorder'
-           // );
-// //        }
-
-//         // 进入他的后台
-//         if($canProcess && !empty($tomb['user_id'])) {
-//             $common[] = array(
-//                 '进入他的后台',                                  // 标题
-//                 '/admin/tomb/access/user_id/'.$tomb['user_id'],  // 链接
-//                 'tomb-detail'                                    // class
-//             );
-//         }
-
-//         // 激活判断 [是否为老数据]，[1:是,0:否,10:激活未完成,20:已激活]
-//         if ($tomb['is_old'] != 0 && $tomb['sale_status'] > 1 ) {  // TODO 完善激活条件
-//             $is_old = $tomb['is_old'];
-//             switch ($is_old) {
-//                 case 1:
-//                     $common[] = array(
-//                         '激活墓位',
-//                         '/admin/actcus/process?tomb_id='.$tomb['id'],
-//                         'tomb-active',
-//                     );
-//                     break;
-
-//                 case 10:
-//                     $common[] = array(
-//                         '继续激活',
-//                         '/admin/actcus/process?tomb_id='.$tomb['id'],
-//                         'tomb-active',
-//                     );
-//                     break;
-
-//                 case 20:
-//                     // 如果有任意一个未付款的
-//                     $option = array(
-//                         'tomb_id' => $tomb['id'],
-//                         'status'  => 1,
-//                     );
-//                     $OrderInfo = M('order_info');
-//                     $order_infos = $OrderInfo->where($option)->select();
-//                     $flag = true;
-//                     foreach($order_infos as $order) {
-//                         if ($order['progress'] != 0) {
-//                             $flag = false;
-//                             break;
-//                         }
-//                     }
-//                     if ($flag) {
-//                         $common[] = array(
-//                             '重新激活',
-//                             '/admin/actcus/process?tomb_id='.$tomb['id'],
-//                             'tomb-active',
-//                         );
-//                     }
-//                     break;
-//                 default:
-//                     // code...
-//                     break;
-//             }
-
-//         }
-
-
-        
-//         // 流程操作-----------------------------------------------------
-//         if ($canProcess && $sale_status > 1) {
-//            $options['operate'] = array();
-//            $operate =& $options['operate'];
-//            $opt_url = C('PROCESS_MENU');
-
-           // foreach ($opt_url as $key=>$opt) {
-           //      if (8 == $key) continue;
-           //      $operate[] = array(
-           //          $opt['text'],
-           //          $opt['url'].'?tomb_id='.$id.'#'.$opt['name'],
-           //          'tomb-opt'
-           //      );
-           //  }
-//         }
-        
-
-//         // 退墓操作-----------------------------------------------------
-//         if ($canProcess && ($sale_status > 2 and $sale_status <=6)) {
-        //     $options['tombwithdraw'] = array();
-        //     $tombwithdraw =& $options['tombwithdraw'];
-        //     $url = '/admin/tombwithdraw/add?tomb_id='
-        //          . $id
-        //          . '&type=';
-        //     $tombwithdraw[] = array(
-        //                 '退款',
-        //                 '/admin/refund/add?tomb_id='.$tomb['id'],
-        //                 'tomb-detail',
-        //             );
-        //     if ($sale_status == 3) { // 订金
-        //         $tombwithdraw[] = array(
-        //             '订金退墓',
-        //              $url.'1',
-        //         );     
-        //         $tombwithdraw[] = array(
-        //             '订金换墓',
-        //              $url.'5',
-        //         );     
-        //     }
-            
-        //     if ($sale_status == 4) { // 全款
-        //         $tombwithdraw[] = array(
-        //             '全款退墓',
-        //              $url.'2',
-        //         );     
-        //         $tombwithdraw[] = array(
-        //             '退墓迁本园',
-        //              $url.'3',
-        //         );     
-        //     }
-            
-        //     if (in_array($sale_status, array(5,6))) { // 迁墓
-        //         $tombwithdraw[] = array(
-        //             '退墓迁本园',
-        //              $url.'3',
-        //         );     
-        //         $tombwithdraw[] = array(
-        //             '退墓迁出',
-        //              $url.'4',
-        //         );     
-        //     }
-
-        // }
-
-        // //  慎重操作----------------------------------------------------------
-        // if ($canProcess && $sale_status > 3) { // 已经安葬或部分安葬 // 改为全款
-        //     $options['careful'] = array();
-        //     $careful = & $options['careful'];
-
-        //     $careful[] = array(
-        //         '改墓',
-        //         '/admin/changetomb/change/?tomb_id='.$id
-        //     );
-
-        //     $careful[] = array(
-        //         '改墓不换碑',
-        //          '/admin/changetombonly/index/?tomb_id='.$id
-        //     );
-
-//         }
         return $options;
     }
 

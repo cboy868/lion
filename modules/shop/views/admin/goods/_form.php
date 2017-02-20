@@ -79,17 +79,15 @@ border-color:#337ab7;
                   </div>
 
                   <div class="panel-body row form-group">
-                    <div class="col-md-6" style="padding-right:0;padding-left:0">
+                    
                         <?php foreach ($attrs as $k => $attr): ?>
+                            <div class="col-md-5">
                             <?php if ($attr->is_multi == 2): ?>
                                 <?php $ats = $model->getAv(); ?>
-                                <label class="col-md-1"><?=$attr->name?></label>
-                                <div class="col-md-11">
+                                <label class="control-label"><?=$attr->name?></label>
                                     <input name="AvRel[<?=$attr->id?>]" class="form-control " value="<?=$ats['attr'][$attr->id]['value']?>">
-                                </div>
                             <?php else: ?>
-                                <label class="col-md-1"><?=$attr->name?></label>
-                                <div class="col-md-11">
+                                <label class="control-label"><?=$attr->name?></label>
                                     <select id="lunch" name="AvRel[<?=$attr->id?>]" class="sel-ize" title="<?=$attr->name?>">
                                         <?php foreach ($attr->vals as $val): ?>
                                             <option value="<?=$val->id?>" 
@@ -98,10 +96,10 @@ border-color:#337ab7;
                                             </option>
                                         <?php endforeach ?>
                                     </select>
-                                </div>
                             <?php endif ?>
+                            </div>
+
                         <?php endforeach ?>
-                    </div>
 
                   </div>
                 </div>

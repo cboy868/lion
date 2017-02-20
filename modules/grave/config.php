@@ -5,59 +5,66 @@ return [
         'process'  =>  [
             'user' =>  [
                 //'url'   =>  '/admin/tomb/process',
-                'url'   =>  '/admin/process/all',
+                'url'   =>  '/grave/admin/process/index',
                 'text'  =>  '关联购墓人',
                 'param' =>  ['tomb_id'],
                 'index' => 1,
+                'step'  => 1,
                 'name'  => 'customer'
             ],
             
             'dead' =>  [
                 // 'url'   =>  '/admin/dead/process',
-                'url'   =>  '/admin/process/all',
+                'url'   =>  '/grave/admin/process/index',
                 'text'  =>  '填写使用人信息',
                 'param' =>  ['tomb_id'],
                 'index' => 2,
+                'step'  => 2,
                 'name'  => 'dead'
             ],
-            'inscription' =>  [
+            'ins' =>  [
                 //'url'   =>  '/admin/ins/process',
-                'url'   =>  '/admin/process/all',
+                'url'   =>  '/grave/admin/process/index',
                 'text'  =>  '定制碑文',
                 'param' =>  ['tomb_id'],
                 'index' => 3,
+                'step'  => 3,
                 'name'  => 'ins'
             ],
             'portrait' =>  [
                 //'url'   =>  '/admin/portrait/process',
-                'url'   =>  '/admin/process/all',
+                'url'   =>  '/grave/admin/process/index',
                 'text'  =>  '瓷像',
                 'param' =>  ['tomb_id'],
                 'index' => 4,
+                'step'  => 4,
                 'name'  => 'portrait'
             ],
             'bury' =>  [
                 // 'url'   =>  '/admin/bury/process',
-                'url'   =>  '/admin/process/all',
+                'url'   =>  '/grave/admin/process/index',
                 'text'  =>  '定安葬日期',
                 'param' =>  ['tomb_id'],
                 'index' => 5,
+                'step'  => 5,
                 'name'  => 'bury'
             ],
-            'special' =>  [
-                // 'url'   =>  '/admin/special/process',
-                'url'   =>  '/admin/process/all',
-                'text'  =>  '特殊业务',
-                'param' =>  ['tomb_id'],
-                'index' => 7,
-                'name'  => 'special'
-            ],
+            // 'special' =>  [
+            //     // 'url'   =>  '/admin/special/process',
+            //     'url'   =>  '/admin/process/all',
+            //     'text'  =>  '特殊业务',
+            //     'param' =>  ['tomb_id'],
+            //     'index' => 7,
+            //     'step'  => 7,
+            //     'name'  => 'special'
+            // ],
             'order' =>  [
                 // 'url'   =>  '/admin/orderinfo/confirm',
-                'url'   =>  '/admin/process/all',
+                'url'   =>  '/grave/admin/process/index',
                 'text'  =>  '确认订单',
                 'param' =>  ['order_id'],
-                'index' => 8,
+                'index' => 6,
+                'step'  => 6,
                 'name'  => 'order'
             ],
         ],

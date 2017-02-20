@@ -83,11 +83,31 @@ class Memorial extends \app\core\db\ActiveRecord
         ];
     }
 
-    public function beforeSave($insert)
-    {
-        parent::beforeSave($insert);
-        $this->user_id = Yii::$app->user->id;
+    // public function beforeSave($insert)
+    // {
+    //     parent::beforeSave($insert);
+    //     // $this->user_id = Yii::$app->user->id;
 
-        return true;
+    //     return true;
+    // }
+
+    /**
+     * @name 添加纪念馆
+     */
+    public function create($user_id, $title, $tomb_id=0)
+    {
+
+        $memorial = Memorial::find()->where(['user_id'=>$user_id, 'tomb_id'=>$tomb_id])->one();
+
+
+        if (!$memorial) {
+            $memorial = new self;
+            $memorial->user_id = $user_id;
+            
+            $memorial->tomb_id = $tomb_id;
+        }
+        $memorial->title = $title;
+        $memorial->save();
+        return $memorial;
     }
 }

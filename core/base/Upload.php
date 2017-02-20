@@ -150,7 +150,6 @@ class Upload extends Component{
      */
     public function save()
     {
-
         if (!$this->uploader) {
             return ;//没有上传文件
         }
@@ -182,11 +181,9 @@ class Upload extends Component{
                 'res_id' => $this->res_id ? $this->res_id : null
             ];
 
+
             $event = new UploadEvent($info);
-            $img_config = Image::getConfig($this->res);
-            
-            $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb'], null, false);
-            $this->trigger(self::EVENT_AFTER_UPLOAD, $event);
+            // $img_config = Image::getConfig($this->res);
 
 
             $backPath = $this->getBackPath();
@@ -195,6 +192,16 @@ class Upload extends Component{
                 @mkdir(dirname($backPath), 0777, true) or die(dirname($backPath) . ' no permission to write');
             }
             $this->uploader->saveAs($backPath, true);
+
+
+            if (self::isImage($filePath)) {
+                $this->on(self::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb'], null, false);
+            }
+
+            $this->trigger(self::EVENT_AFTER_UPLOAD, $event);
+
+
+            
 
             //原图copy到其它位置
             // $ori_arr = explode('/', $filePath, 2);
@@ -304,6 +311,18 @@ class Upload extends Component{
         ];
 
         return $info;
+    }
+
+    public static function isImage($filename) {
+        $types = '.gif|.jpeg|.png|.bmp';
+        //定义检查的图片类型
+        if(file_exists($filename)) {
+            $info = getimagesize($filename);
+            $ext = image_type_to_extension($info['2']);
+            return stripos($types,$ext);
+        } else {
+            return false;
+        }
     }
 
 } 

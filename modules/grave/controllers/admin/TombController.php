@@ -100,6 +100,55 @@ class TombController extends BackController
     }
 
     /**
+     * @name 预定
+     */
+    public function actionPre($id)
+    {
+        $tomb = Tomb::findOne($id);
+        if ($tomb->pre()) {
+            Yii::$app->session->setFlash('success', '墓位预定成功, 请办理购墓手续');
+            return $this->json();
+        }
+        return $this->json(null, '预定失败,请查看墓位状态或联系管理员', 0);
+    }
+
+    /**
+     * @name 保留
+     */
+    public function actionRetain($id)
+    {
+        $tomb = Tomb::findOne($id);
+        if ($tomb->retain()) {
+            return $this->json();
+        }
+        
+        return $this->json(null, '保留失败,请查看墓位状态或联系管理员', 0);
+    }
+
+    public function actionUnPre($id)
+    {
+        $tomb = Tomb::findOne($id);
+        if ($tomb->pre(false)) {
+            Yii::$app->session->setFlash('success', '墓位预定成功');
+            return $this->json();
+        }
+        return $this->json(null, '取消预定失败,请查看墓位状态或联系管理员', 0);
+    }
+
+    /**
+     * @name 保留
+     */
+    public function actionUnRetain($id)
+    {
+        $tomb = Tomb::findOne($id);
+        if ($tomb->retain(false)) {
+            return $this->json();
+        }
+        
+        return $this->json(null, '取消保留失败,请查看墓位状态或联系管理员', 0);
+    }
+
+    /**
      * Displays a single Tomb model.
      * @param integer $id
      * @return mixed
@@ -173,8 +222,6 @@ class TombController extends BackController
 
     public function actionOption($id)
     {
-
-
         $tomb= Tomb::findOne($id);
         $options = $tomb->getOptions();
 

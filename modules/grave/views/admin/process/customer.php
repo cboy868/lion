@@ -152,5 +152,17 @@ $this->title="购墓流程"
         <?=$this->render('_order', ['order'=>$order]) ?>
     </div><!-- /.page-content-area -->
 </div>
-				
+
+
+<?php $this->beginBlock('customer') ?>  
+
+$(function(){
+    $('.uname').blur(function(){
+        $('.cname').val($(this).val());
+    });
+})
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['customer'], \yii\web\View::POS_END); ?> 
+
+
 

@@ -13,6 +13,8 @@ use app\modules\grave\models\Bury;
 use app\modules\user\models\User;
 use app\modules\grave\models\InsProcess;
 use app\modules\grave\models\CarRecord;
+use app\modules\memorial\models\Memorial;
+
 /**
  * This is the model class for table "{{%grave_portrait}}".
  *
@@ -88,7 +90,7 @@ class Process extends \yii\base\Model
 
 
 
-        if (self::getDeadNum() == 0) {
+        if (self::getDeadNum() == 0 && self::$dead_model_num == 0) {
             self::$dead_model_num = 2;
         }
 
@@ -304,6 +306,25 @@ class Process extends \yii\base\Model
         }
 
         return null;
+    }
+
+    public static function createMemorial()
+    {
+        $tomb_id = self::$tomb_id;
+        $tomb = self::tomb();
+        $dead = self::dead();
+
+        $title = '';
+        foreach ($dead as $k => $v) {
+            if (!$v->is_alive) {
+                $title .= $v->dead_name . ',';
+            }
+        }
+        $title = trim($title, ',');
+
+        $memorial = Memorial::create($tomb->user_id, $title, $tomb->id);
+
+        return $memorial;
     }
 
     // public static function order()

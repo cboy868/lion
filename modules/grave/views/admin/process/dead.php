@@ -136,12 +136,9 @@ ExtAsset::register($this);
             
         </div><!-- /.row -->
         <div class="form-group">
-            <div class="col-sm-2">
-                <label style="color:green;">
-                    <input type="checkbox" />生成纪念馆
-                </label>
-            </div>
-            <div class="col-sm-8" style="text-align:center;">
+            <div class="col-sm-12" style="text-align:center;">   
+                <label style="color:green;"><input type="checkbox" checked="checked" name="is_memorial" value="1"/>生成纪念馆</label>
+
                 <?=  Html::button('添加使用人', ['class' => 'btn btn-default btn-lg new-dead', 'style'=>'padding: 10px 36px']) ?>
                 <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
                 <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>

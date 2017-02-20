@@ -84,8 +84,6 @@ class ProcessController extends BackController
         $tomb = Process::tomb();
         $user = Process::user();
 
-
-
         //不知道为啥 ajaxvalidate 不起作用
         // if ($req->isAjax && $user->load($req->post())) {
         //     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -101,60 +99,33 @@ class ProcessController extends BackController
                 $customer->load($req->post());
                 $tomb->load($req->post());
 
-
-                if ($user->validate() && $customer->validate() && $tomb->validate()) {
-
+                if ($user->validate()) {
                     $user->createUser();
+                }
 
-                    $customer->user_id = $user->id;
-                    $customer->tomb_id = $tomb->id;
+                $customer->user_id = $user->id;
+                $customer->tomb_id = $tomb->id;
+                if ($customer->validate()) {
                     $customer->save();
+                }
 
-                    $tomb->user_id = $user->id;
-                    $tomb->customer_id = $customer->id;
+                $tomb->user_id = $user->id;
+                $tomb->customer_id = $customer->id;
+
+                if ($tomb->validate()) {
                     //如果墓位还没预定，则预定
                     if ($tomb->status == Tomb::STATUS_EMPTY) {
                         $tomb->status = Tomb::STATUS_PRE;
                     }
                     $tomb->save();
-
-                    if (in_array($tomb->status, [Tomb::STATUS_EMPTY, Tomb::STATUS_PRE])) {
-                        Process::orderTomb();
-                    } 
-
-                    $outerTransaction->commit();
-                    return $this->next();
                 }
 
+                if (in_array($tomb->status, [Tomb::STATUS_EMPTY, Tomb::STATUS_PRE])) {
+                    Process::orderTomb();
+                } 
 
-
-
-                // if ($user->load($req->post()) && $user->validate()) {
-                //     $user->createUser();
-                // }
-
-                // if ($customer->load($req->post())) {
-                //     $customer->user_id = $user->id;
-                //     $customer->tomb_id = $tomb->id;
-                //     $customer->save();
-                // }
-
-                // if ($tomb->load($req->post())) {
-                //     $tomb->user_id = $user->id;
-                //     $tomb->customer_id = $customer->id;
-                //     //如果墓位还没预定，则预定
-                //     if ($tomb->status == Tomb::STATUS_EMPTY) {
-                //         $tomb->status = Tomb::STATUS_PRE;
-                //     }
-                //     $tomb->save();
-                // }
-
-                // if (in_array($tomb->status, [Tomb::STATUS_EMPTY, Tomb::STATUS_PRE])) {
-                //     Process::orderTomb();
-                // } 
-
-                
-
+                $outerTransaction->commit();
+                return $this->next();
                 
             } catch (\Exception $e) {
                 echo $e->getMessage();
@@ -180,9 +151,6 @@ class ProcessController extends BackController
 
     public function dead()
     {
-
-        // echo Yii::$app->session->getFlash('error');die;
-
         $customer = Process::customer();
         if (!$customer->id) {
             Yii::$app->session->setFlash('error', '请先填写客户信息');
@@ -195,27 +163,31 @@ class ProcessController extends BackController
             Process::$dead_model_num = $session->get('dead.num');
         }
 
+
         $models = Process::dead();
 
         if (Yii::$app->request->isPost) {
+
             $post = Yii::$app->request->post();
 
-
-            // p($post);die;
-
-            foreach ($post['Dead'] as $k => &$v) {
-                if ($v['dead_title'] == '其他') {
-                    $v['dead_title'] = $post['dt'][$k];
-                }
-           }unset($v);
             if (Model::loadMultiple($models, $post) && Model::validateMultiple($models)) {
                 try {
                    $outerTransaction = Yii::$app->db->beginTransaction(); 
 
                    foreach ($models as $model) {
+                        if (!$model->is_alive) {
+                            $model->is_ins = Dead::INS_YES;
+                        }
                         $model->save();
                     }
+
+                    if ($post['is_memorial']) {
+                        Process::createMemorial();
+                    }
+
                     $outerTransaction->commit();
+
+                    return $this->next();
 
                 } catch (\Exception $e) {
                     echo $e->getMessage();
@@ -223,7 +195,7 @@ class ProcessController extends BackController
                 }
 
 
-                return $this->next();
+                
             }
         }
 

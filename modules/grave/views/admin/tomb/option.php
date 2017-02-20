@@ -1,3 +1,6 @@
+<?php 
+use app\core\helpers\Url;
+?>
 <style type="text/css">
 #option-box { font-size:12px;}
 #option-box table tr{ margin-bottom:1em; border-bottom:1px dotted #e1e1e1; } 
@@ -78,36 +81,11 @@ $(function(){
     $('body').on('click', 'a.tomb-preorder', function(e){
         e.preventDefault(); 
         var url = $(this).attr('href');
-        $.get(url, function(json){
-            if (json.info == 'ok') {
-                var html = '墓位: 『'
-                         + json.data['tomb_no'] 
-                         + ' 』预订成功';
-                bootbox.dialog({
-        			title: "预订墓位成功",
-                    message: '<p style="font-size:1.5em" class="alert alert-success"><i class="icon-comment-alt"></i> ' + html + '</p>',
-        			buttons: 			
-        			{
-        				"success" :
-        				 {
-        					"label" : "<i class='icon-ok'></i> 进入业务流程",
-        					"className" : "btn-sm btn-success",
-        					"callback": function() {
-        						 // window.location = '/admin/tomb/process?tomb_id='+json.data['id'];
-        						 window.location = '/admin/process/all?tomb_id='+json.data['id'];
-        					}
-        				},
-        				"button" :
-						{
-							"label" : "返回",
-							"className" : "btn-sm",
-							"callback": function() {
-        						window.location = '/admin/tomb';
-	       					}
-						}
-        			}
-        		})
-
+        $.get(url, function(xhr){
+            if (xhr.status) {
+                window.location = "<?php echo Url::toRoute(['/grave/admin/process/index', 'step'=>1, 'tomb_id'=>$tomb->id]) ?>"
+            } else {
+                alert(xhr.info);
             }
         }, 'json');
     });
