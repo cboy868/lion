@@ -264,7 +264,7 @@ class BackupController extends \app\core\web\BackController {
 	 */
 	private function getData($tableName) {
 
-		$dataReader = Yii::$app->db->createCommand('SELECT * FROM ' . $tableName)->query();
+		$dataReader = Yii::$app->db->createCommand('SELECT * FROM `' . $tableName .'`')->query();
 		
 		if ($this->fp) {
 			$this->writeComment ( 'TABLE DATA ' . $tableName );
