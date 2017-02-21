@@ -36,16 +36,56 @@ $this->title = 'PRODUCTS';
 
                 <div class="block block-layered-nav">
                     <div class="block-title active" id="block-layered-nav">
-                        <strong><span>Products Filter By</span></strong>
+                        <strong><span>
+                        <a href="<?=Url::toRoute(['index'])?>"> Products Filter By</a>
+
+                       </span>
+
+
+                        </strong>
                     </div>
                     <div class="block-content">
                         <dl id="narrow-by-list">
+                        <?php 
+                            $avid = Yii::$app->request->get('avid');
+                            if (strstr($avid, ',')) {
+                                $avids = explode(',', $avid);
+                            } else {
+                                $avids = [$avid];
+                            }
+
+
+                         ?>
                             <?php foreach ($attrs as $attr): ?>
-                                <dt id="filterlabel<?=$attr['id']?>" class="odd"><?=$attr['name']?></dt>
-                                 <dd class="odd" style="display: none;">
+                                <dt id="filterlabel<?=$attr['id']?>" class="odd active"><?=$attr['name']?></dt>
+                                 <dd class="odd" style="display: block;">
                                     <ol>
+                                    <?php 
+
+                                    
+                                        
+                                     ?>
+                                    
                                     <?php foreach ($attr['child'] as $val): ?>
-                                        <li style="margin-top:4px;line-height:22px;"><a href="<?=url(['index', 'avid'=>$val['id']])?>" vid="<?=$val['id']?>"><?=$val['val']?> (<?=$val['num']?>)</a></li>
+                                        <li style="margin-top:4px;line-height:22px;">
+
+                                        <?php 
+
+                                        $tmp = $avids;
+
+                                        foreach ($tmp as $k => $v) {
+                                            if (array_key_exists($v, $attr['child'])) {
+                                                unset($tmp[$k]);
+                                            }
+                                        }
+                                        array_push($tmp, $val['id']);
+                                        $str = trim(implode(',', $tmp), ',');
+
+
+                                         ?>
+
+                                        <a href="<?=url(['index', 'avid'=>$str])?>" vid="<?=$val['id']?>"><?=$val['val']?> (<?=$val['num']?>)</a>
+                                        </li>
                                     <?php endforeach ?>
                                     </ol>
                                 </dd>

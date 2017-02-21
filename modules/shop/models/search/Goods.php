@@ -55,7 +55,6 @@ class Goods extends GoodsModel
 
 
         if (!($this->load($params) && $this->validate())) {
-
             return $dataProvider;
         }
 
@@ -95,6 +94,7 @@ class Goods extends GoodsModel
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
 
         $query->andFilterWhere([
             'id' => $this->id,

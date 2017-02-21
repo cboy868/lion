@@ -235,10 +235,38 @@ class AvRel extends \app\core\db\ActiveRecord
 
     public static function getGoodsIdByAvId($avid)
     {
+        if (strpos($avid, ',') != -1) {
+            $avid = explode(',', $avid);
+        }
 
         $list = self::find()->where(['av_id'=>$avid])->asArray()->all();
 
-        return ArrayHelper::getColumn($list, 'goods_id');
+        $result = [];
+        foreach ($list as $k => $v) {
+            $result[$v['av_id']][] = $v['goods_id'];
+        }
+
+
+
+        $first = array_pop($result);
+
+        $goods = [];
+        if (is_array($result) && count($result)>0) {
+            foreach ($result as $k => $v) {
+                $goods = array_intersect($first, $v);
+                $first = $goods;
+            }
+        } else {
+            $goods = $first;
+        }
+
+        if (count($goods) == 0) {
+            return false;
+        }
+        return $goods;        
+
+
+        // return ArrayHelper::getColumn($list, 'goods_id');
     }
 
 

@@ -86,7 +86,9 @@ TooltipAsset::register($this);
 
             <div class="act-box">                   
                 <ul class="add-to-links">
-                    <li><a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-heart"></i></a></li>
+                    <li>
+                    <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-heart"></i></a>
+                    </li>
             </ul>
             </div>
         </div>
@@ -111,6 +113,10 @@ TooltipAsset::register($this);
 
 
 <?php $this->beginBlock('fav') ?> 
+
+
+
+
 $(function(){
     $('.fav').click(function(e){
         e.preventDefault();
@@ -141,5 +147,29 @@ $(function(){
 
     });
 })  
+
+
+function addfavorite() 
+{ 
+if (document.all) 
+{ 
+window.external.addFavorite('http://www.XXX.com','XXX'); 
+} 
+else if (window.sidebar) 
+{ 
+window.sidebar.addPanel('XXX', 'http://www.XXX.com', ""); 
+} 
+} 
+
+
+
+
+
+
+
+
+
+
+
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['fav'], \yii\web\View::POS_END); ?>  

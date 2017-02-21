@@ -123,24 +123,24 @@ class DefaultController extends \app\core\web\HomeController
 
         if ($model->contact($email)) {
 
-            $u = new UserForm;
-            $u->email = $email;
-            $u->username = substr($email, 0, strpos($email, '@'));
-            $u->password = StringHelper::range(6);
+            // $u = new UserForm;
+            // $u->email = $email;
+            // $u->username = substr($email, 0, strpos($email, '@'));
+            // $u->password = StringHelper::range(6);
 
-            if ($u->create()) {
-                $pname = isset(Yii::$app->params['cp_name']) ? Yii::$app->params['cp_name'] : '';
+            // if ($u->create()) {
+                // $pname = isset(Yii::$app->params['cp_name']) ? Yii::$app->params['cp_name'] : '';
 
 
-                $mailer = Yii::$app->mailer
-                                    ->compose('contact', ['username'=>$u->username,'password'=>$u->password])
-                                    ->setTo($email)
-                                    ->setSubject($pname);
+                // $mailer = Yii::$app->mailer
+                //                     ->compose('contact', ['username'=>$u->username,'password'=>$u->password])
+                //                     ->setTo($email)
+                //                     ->setSubject($pname);
 
-                if ($mailer->send()) {
-                    return $this->json(null, '谢谢使用，您的邮箱提交成功,我们为您提供了一个本网站的登录账号，详细信息已发至您的邮箱', 1);
-                };
-            }
+                // if ($mailer->send()) {
+                //     return $this->json(null, '谢谢使用，您的邮箱提交成功,我们为您提供了一个本网站的登录账号，详细信息已发至您的邮箱', 1);
+                // };
+            // }
 
             return $this->json(null, '谢谢使用，您的邮箱提交成功', 1);
             
