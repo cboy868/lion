@@ -97,6 +97,8 @@ class DefaultController extends BackController
     {
         $model = $this->findModel($id);
 
+        p($model);die;
+
         if ($model->load(Yii::$app->request->post())) {
             $upload = Upload::getInstance($model, 'image', 'focus');
 
