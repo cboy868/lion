@@ -113,7 +113,7 @@ class DefaultController extends BackController
         }
         return $this->renderAjax('update', [
             'model' => $model,
-            'category' => Category::findOne($model->category_id);
+            'category' => Category::findOne($model->category_id)
         ]);
     }
 
