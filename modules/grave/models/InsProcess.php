@@ -230,13 +230,8 @@ class InsProcess extends Ins
                 $dead_info[$val][$k] = $dead[$k][$val];
             }
         }
-
-
         
         $info = array_merge($front_info, $dead_info);
-
-
-
 
         $this->ins_info['front'] = $info;
         $this->ins_info['back']  = $back_info;
@@ -388,6 +383,7 @@ class InsProcess extends Ins
         $post = Yii::$app->request->post();
 
         $this->handleIns();
+        $this->type = self::TYPE_AUTO;
 
         $front_case = $post['front_case'];
         $back_case  = $post['back_case'];
@@ -410,6 +406,7 @@ class InsProcess extends Ins
         $str = str_pad($this->tomb_id, 8, "0", STR_PAD_LEFT);  
         $path = '/upload/ins/' . substr($str,0,2).'/'.substr($str,2,3).'/'.substr($str,5);
 
+
         $img = (array)json_decode($this->img);
 
 
@@ -428,19 +425,15 @@ class InsProcess extends Ins
         $this->img = json_encode($img);
 
         return $this->save();
-
     }
 
-    public function imgSave($info)
+    public function imgSave()
     {
-        $ins_id = $this->Ins->handleIns($info);
-        if ($ins_id) {
-            $this->Img->where(array('id'=>array('in',array($info['front_img'],$info['back_img']))))
-                      ->save(array('owner_id'=>$ins_id));
-            return $this;
-        } else {
-            return false;
-        }
+        $this->type = self::TYPE_IMG;
+        $post = Yii::$app->request->post();
+
+        $this->img = json_encode($post['Ins']['img']);
+        return $this->save();
     }
 
     /**

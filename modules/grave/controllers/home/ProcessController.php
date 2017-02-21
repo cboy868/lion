@@ -87,9 +87,11 @@ class ProcessController extends \app\core\web\HomeController
 
     }
 
-
     public function calPrice($data, $is_front=0){
 
+
+
+        p($data);die;
         $model = Process::insProcess();
         $post = Yii::$app->request->post();
 
@@ -98,6 +100,9 @@ class ProcessController extends \app\core\web\HomeController
 
 
         // $per_price = $this->Ins->getFontPrice($paint, $this->tomb_id);
+
+        $font_price = $this->module->params['ins']['fee'];
+
         $per_price = 10;
 
         $result = array();

@@ -268,21 +268,24 @@ class ProcessController extends BackController
         }
 
         $model = Process::insProcess();
-        $model->type=1;
-
 
         $tomb = Process::tomb();
 
         $req = Yii::$app->request;
         if ($req->isPost) {
 
-            $model->autoSave();
+
 
             if ($model->load($req->post())) {
 
-                $model->img = json_encode($model->img);
                 $model->guide_id = $tomb->guide_id;
                 $model->user_id = $tomb->user_id;
+
+                if ($req->post('type') == 1) {
+                    $model->autoSave();
+                } elseif ($req->post('type') == 3) {
+                    $model->imgSave();
+                }
 
                 if ($model->save()) {
                     return $this->next();

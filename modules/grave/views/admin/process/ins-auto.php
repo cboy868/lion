@@ -80,14 +80,13 @@ ExtAsset::register($this);
 
 		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
 			<li role="presentation" class="<?php if ($model->type == 0): ?>active <?php endif ?> sel-type" rel="3">
-			  	<a href="#img-ins-boxs" role="tab" data-toggle="tab">图片碑文</a>
+			  	<a href="#img-ins-boxs" role="tab" data-toggle="tab">上传图片</a>
 			</li>
 		  <li role="presentation" class="<?php if ($model->type == 1): ?>active <?php endif ?> sel-type" rel="1">
 		  	<a href="#auto-ins-boxs" role="tab" data-toggle="tab">自动碑文</a>
 		  </li>
 		  
 		</ul>
-
 
 		<!-- Tab panes -->
 			<div class="row" role="">
@@ -280,37 +279,34 @@ ExtAsset::register($this);
 					</div> <!--form 里第一个 div auto-->
 
 					<!-- 手动上传图片 -->
+
+
+
+
+
 					<div id="img-ins-boxs" class=" tab-pane <?php if ($model->type == 0): ?>active <?php endif ?>" role="tabpanel">
 						<div class="col-xs-12">
 							<div class="panel panel-default">
-						  		<div class="panel-heading"><span class=''>手动上传图片</span></div>
 					  			<div class="panel-body  form-horizontal" role="form">
 					  				<div class="row">
 
-					  					<div class="col-sm-6 col-md-5 upbgbox">
-										    <div class="thumbnail upimg" id="img_front">
-										    	<a href="<?=$model->getImg('front')?>" class="<?php if($model->getImg('front') != '#'):?>artimg<?php endif;?> ">
-												    <img src="<?=$model->getImg('front')?>" alt="..." class="<?php if($model->getImg('front') != '#'):?>image<?php endif;?>">
-												</a>
-										      <input type="hidden" name="img_front" value="<?=$model->getImg('front')?>"/>
-										      <div class="caption">
-										        <h3>碑前文</h3>
-										        <p> <span id="img_front_button"></span></p>
-										      </div>
-										    </div>
-										</div>
-										<div class="col-sm-6 col-md-5 upbgbox">
-										    <div class="thumbnail" id="img_back">
-										    <a href="<?=$model->getImg('back')?>" class="<?php if($model->getImg('back')!='#'):?>artimg<?php endif;?> ">
-											    <img src="<?=$model->getImg('back')?>" alt="..." class="<?php if($model->getImg('back')!='#'):?>image<?php endif;?>">
-											 </a>
-										      <input type="hidden" name="img_back" value="<?=$model->getImg('back')?>"/>
-										      <div class="caption">
-										        <h3>碑后文</h3>
-										        <p> <span id="img_back_button"></span></p>
-										      </div>
-										    </div>
-										</div>
+					  					<?php foreach ($pos as $k => $v): ?>
+							                <div class="col-xs-4 address-index">
+							                    <div class="panel panel-info">
+							                        <div class="dHandler panel-heading"><?=$pos[$k]?>信息 
+							                            <button type="button" class="delit close" style="display:none;">
+							                               <span class="text-danger" aria-hidden="true"> <i class="fa fa-times"></i> </span>
+							                               <span class="sr-only">Close</span>
+							                            </button> 
+							                        </div>
+							                         <a href="javascript:;" id="filePicker-<?=$k?>" class="thumbnail filelist-<?=$k?> filePicker" style="max-width:380px;max-height:280px;">
+							                              <img src="<?=$model->getImg($k)?>">
+							                              <input name="Ins[img][<?=$k?>]" class="ins-img" type="hidden" value="<?=$imgs->$k?>" />
+							                        </a>
+							                    </div>
+							                    <div class="hr hr-18 dotted hr-double"></div>
+							                </div><!-- /.col -->
+							            <?php endforeach ?>
 					  				</div>
 								</div>
 							</div>
@@ -329,7 +325,7 @@ ExtAsset::register($this);
 				  			 ?>
 				  				<div class="col-xs-6">
 				  					<?= $form->field($model, 'paint')->dropDownList(Ins::getPaint(), ['style'=>'width:70%']) ?>
-				  					<?= $form->field($model, 'font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num']) ?>
+				  					<?= $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num']) ?>
 				  					
                                     <?= $form->field($model, 'paint_price')->textInput(['style'=>'width:70%', 'id'=>'paint_price']) ?>
                                     <?= $form->field($model, 'letter_price')->textInput(['style'=>'width:70%', 'id'=>'letter_price']) ?>
@@ -342,9 +338,6 @@ ExtAsset::register($this);
                                         'm-change' =>'true',
                                         'class'=>'dt_pre_finished'
                                         ])->hint('立碑日期在三天内，需收加急费') ?>
-									
-								
-									 
 				  				</div>
 								<div class="col-xs-5">
 
@@ -537,28 +530,23 @@ ExtAsset::register($this);
 				</div>
 
 
-				<input type="hidden" name="tomb_id" value="<?=$tomb_id?>" />
+				<input type="hidden" name="tomb_id" value="<?=$model->tomb_id?>" />
 				<input type="hidden" name="type" value="<?=$model->type?>" />
 
-				<input type="hidden" name="new_font_num" value="0" />
-				<input type="hidden" name="font_num" value="<?=$inscription_info['font_num']?>" />
-
-				<input type="hidden" name="paid_letter_price" value="<?=$inscription_info['paid_letter_price']?>" />
-				<input type="hidden" name="paid_paint_price" value="<?=$inscription_info['paid_paint_price']?>" />
-				<input type="hidden" name="paid_tc_price" value="<?=$inscription_info['paid_tc_price']?>" />
+				<input type="hidden" name="font_num" value="0" />
 
 				<input type="hidden" name="front_case" value="" />
 				<input type="hidden" name="back_case" value="" />
 				<input type="hidden" name="cover_case" value="" />
 
 				<input type="hidden" class="per_price"/>
+
 				<input type="hidden" class="is_second" value="<?=$is_second?>"/>
 
 		        <div class="text-center cols-md-12">
 
 		         <div class="form-group">
 		            <div class="col-sm-12" style="text-align:center;">   
-
 		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
 		                <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>
 		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>下一步</a>
@@ -611,6 +599,11 @@ $(function(){
 	var insForm = insContainer.find('#auto-ins-form');
 	var insSaveBtn = insContainer.find('.save-ins');
 	var selIns = insContainer.find('.sel');
+
+
+	upinit();
+
+
 
     $('.btn-dis').click(function(e){
         e.preventDefault();
@@ -665,8 +658,8 @@ $(function(){
 		auto(insContainer, changed);
 	};
 
-	if (ins_type==3) {
-		img(insContainer);
+	if (ins_type==0) {
+		//img(insContainer);
 	};
 
     $('.is_created').change(function(){
@@ -690,7 +683,7 @@ $(function(){
 		if (type==1) {
 			auto(insContainer, changed);
 		} else {
-			img(insContainer);
+			//img(insContainer);
 		};
 	});
 
@@ -854,32 +847,7 @@ function uploadSuc(file, serverData) {
         }
 }
 	
-function uploadInscriptionImage(id) {
-    new SWFUpload({
-        upload_url: "/home/Image/uploadInscriptionImage",
-        post_params: {"use_type": "inscription",container_id:id},
-        file_size_limit : "2 MB",	// 2MB
-        file_types : "*.jpg;*.gif;*.png",
-        file_types_description : "All Images File",
-        file_upload_limit : "0",
-        file_queue_error_handler        : fileQueueError,
-        file_dialog_complete_handler    : fileDialogComplete,
-        upload_progress_handler         : uploadProgress,
-        upload_error_handler            : uploadError,
-        upload_success_handler          : uploadSuc,
-        upload_complete_handler         : uploadComplete,
-        button_image_url : "/public/js/swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
-        button_placeholder_id : id+'_button',
-        button_width: 100,
-        button_height: 18,
-        button_text : '选择图片',
-        button_text_top_padding: 0,
-        button_text_left_padding: 18,
-        button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
-        button_cursor: SWFUpload.CURSOR.HAND,
-        flash_url : "/public/js/swfupload/Flash/swfupload.swf"
-    });
-}
+
 function getImage(cla){
 	var case_id = $('.'+cla).attr('case_id');
     var driect = $('.'+cla).attr('rel');
@@ -918,7 +886,6 @@ function getPrice($type){
     } else {
     	var case_id = $('.cover_selected').attr('case_id');
     }
-
     var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
     var data = $('#auto-ins-form').serialize();
     var date = +new Date();
@@ -929,9 +896,9 @@ function getPrice($type){
             if(json.status) {
                 var data = json.data;
                 if (data.is_front == 1){
-                    $paid_tc_price = parseInt($('input[name=paid_tc_price]').val());
+                    //$paid_tc_price = parseInt($('input[name=paid_tc_price]').val());
                 	$('.front_count').html(data.count);
-                    $('#tc_price').val(data.tc_fee-$paid_tc_price);
+                    $('#tc_price').val(data.tc_fee);
                     $('.front_letter_price').html(data.letter);
                     $('#front_prices').attr('letter', data.letter)
                     				  .attr('count', data.count)
@@ -954,48 +921,19 @@ function getPrice($type){
 function calPrice(nofee){
     var front_letter_price = $('#front_prices').attr('letter') || 0;
     var back_letter_price = $('#back_prices').attr('letter') || 0;
-//    var tc_fee = parseInt($('.tc_fee').html());
-
-    var paid_letter_price = $('input[name=paid_letter_price]').val();
-    
     var total_letter_price = parseFloat(front_letter_price) + parseFloat(back_letter_price);
-    
-//    var unpaid_letter_price = total_letter_price - paid_letter_price;
     
     var front_num = $('#front_prices').attr('count') || 0;
     var back_num  = $('#back_prices').attr('count') || 0;
-    
-//    var total_num = parseInt(front_num) + parseInt(back_num);
-
     var total_num = Math.round(front_num) + Math.round(back_num);
-//    total_num = Math.round(total_num);
-
-    var paid_num  = $('input[name="font_num"]').val();
-//    var new_font_num = parseInt(total_num) - parseInt(paid_num);
-    var new_font_num = total_num - Math.round(paid_num);
 
     var per_price = parseInt($('.per_price').val());
-    unpaid_letter_price = new_font_num * per_price;
-    if (isNaN(unpaid_letter_price)) return false;
-
     var paint = $('.paint').val();
 
-    if (new_font_num>0) {
-        if(paint == 4){
-            $('#letter_price').val(total_letter_price);
-        } else {
-            $('#letter_price').val(unpaid_letter_price);
-        }
 
-        if (nofee) {
-        	$('#letter_price').val(1);
-        	$('#tc_price').val(0);
-        }
-    }
+   	$('#letter_num').val(total_num);
 
-   	$('#letter_num').val(new_font_num);
-
-    $('input[name=new_font_num]').val(new_font_num);
+    $('input[name=new_font_num]').val(total_num);
 }
 
 function searchCaseId(){
@@ -1053,10 +991,7 @@ function auto(insContainer, changed){
 	    }
 }
 
-function img(insContainer){
-	uploadInscriptionImage('img_front');
-	uploadInscriptionImage('img_back');
-}
+
 
 function getChangePrice()
 {
@@ -1077,6 +1012,125 @@ function getChangePrice()
         }
     }, 'json');
 }
+
+function upinit() {
+    $('.filePicker').each(function(i){
+        var imgNum = $(this).attr('num');
+        imgNum = imgNum ? imgNum : 'false';
+        var that = this;
+        var index = parseInt(i) +1;
+        var uploader = [];
+        btn = $(this).attr('id');
+        var use = $(this).attr('use');
+        var bt;
+        $(this).removeClass('filePicker'); //去除 此class 防止再次each时，多次循还
+
+        uploader[index] = new plupload.Uploader({
+            runtimes : 'html5,flash,silverlight,html4',
+            browse_button : btn, // you can pass an id...
+            url : '<?=Url::toRoute(["pl-upload"])?>',
+            flash_swf_url : '/static/libs/plupload-2.1.9/js/Moxie.swf',
+            silverlight_xap_url : '/static/libs/plupload-2.1.9/js//Moxie.xap',
+            file_data_name:'file',
+            multi_selection: eval(imgNum),
+            filters : {
+                max_file_size : '10mb',
+                mime_types: [
+                    {title : "Image files", extensions : "jpg,gif,png"},
+                    {title : "Zip files", extensions : "zip"}
+                ],
+                prevent_duplicates: true//不允许选择重复文件
+            },
+            multipart_params:{
+                res_name : 'ins',
+                'use' : use
+            },
+
+            init: {
+                PostInit: function() {},
+                FilesAdded: function(up, files) {
+
+
+
+                bt = $('#myButton').button('loading');
+
+
+                    if (files.length > imgNum) {
+                        alert('最多只能上传'+imgNum+'张图片哦');
+                        uploader[index].splice(imgNum, files.length-imgNum);
+                    } 
+
+                    plupload.each(files, function(file, i) {
+                        if (!file || !/image\//.test(file.type)) return; //确保文件是图片
+                            if (file.type == 'image/gif') {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+                                var fr = new mOxie.FileReader();
+                                fr.onload = function () {
+                                    if (imgNum > 1) {
+                                        $('.filelist-patch').find('img').eq(i).attr('src', fr.result);
+                                    }
+                                    $(that).find('img').eq(i).attr('src', fr.result);
+                                    fr.destroy();
+                                    fr = null;
+                                }
+                                fr.readAsDataURL(file.getSource());
+                            } else {
+                                var preloader = new mOxie.Image();
+                                preloader.onload = function () {
+                                    preloader.downsize(404, 486);//先压缩一下要预览的图片,宽300，高300
+                                    var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
+                                    if (imgNum > 1) {
+                                        $('.filelist-patch').find('img').eq(i).attr('src', imgsrc);
+                                    } else {
+                                        $(that).find('img').eq(i).attr('src', imgsrc);
+                                    }
+                                    
+                                    preloader.destroy();
+                                    preloader = null;
+                                };
+                                preloader.load(file.getSource());
+                            }
+                       
+                    });
+
+                    uploader[index].start();
+                },
+
+                UploadProgress: function(up, file) {
+                    //document.getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                },
+
+                FileUploaded: function(up, file, info) {
+                    res = $.parseJSON(info.response);
+
+                    if (imgNum > 1) {
+                        var files = uploader[index].files;
+                        i = 0;
+                        for ( f in files) {
+                            if (files[f] == file) {
+                                i = f;
+                            }
+                        }
+
+                        $(".filelist-patch").find('input').eq(i).val(res.mid);
+                    } else {
+
+                        $(that).find('input').val(res.mid);
+                    }
+                },
+                UploadComplete:function(up,file){
+                    bt.button('reset')
+                },
+
+                Error: function(up, err) {
+                    //document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
+                }
+             }//init
+        });//uploader
+
+        uploader[index].init();
+    });//each
+}
+
 
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['up'], \yii\web\View::POS_END); ?> 

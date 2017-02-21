@@ -52,7 +52,7 @@ HomeAsset::register($this);
                     <div class="top-header">
                         <div class="row i-top-links">       
                             <div class="col-md-12 nova-mg-pd">          
-                                <p class="welcome-msg pull-right">Welcome to Eleganza Tiles, Inc. </p>
+                                <p class="welcome-msg pull-right">Welcome to 华正建材 </p>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ HomeAsset::register($this);
                 <nav class="navbar">
                       <form class="navbar-form pull-right" role="search">
                         <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Search">
+                          <input type="text" class="form-control" placeholder="Product name or sku">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                       </form>
@@ -72,7 +72,7 @@ HomeAsset::register($this);
                         <div class="row nova-mg-pd">
                             <div class="col-md-12">
                                 <div class="header-center">                     
-                                    <h1 class="logo"><a href="#" title="Eleganza Tiles, Inc." class="logo"><img src="/theme/site/static/img/logo.png" alt="Eleganza Tiles, Inc."></a></h1>
+                                    <h1 class="logo"><a href="#" title="华正建材" class="logo"><img src="/theme/site/static/img/logo.png" alt="华正建材"></a></h1>
                                 </div>  
                             </div>
                         </div>

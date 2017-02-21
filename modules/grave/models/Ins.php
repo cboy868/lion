@@ -56,6 +56,10 @@ class Ins extends \app\core\db\ActiveRecord
     const TC_YES = 1;
     const TC_NO = 0;
 
+    const TYPE_IMG = 0;
+    const TYPE_AUTO = 1;
+    const TYPE_FREE = 2;
+
     public function behaviors()
     {
         return [
@@ -92,6 +96,7 @@ class Ins extends \app\core\db\ActiveRecord
 
     public function getImg($position = 'front')
     {
+
         $img = (array)json_decode($this->img);
 
         $img = isset($img[$position]) && !empty($img[$position]) ? $img[$position] : '#';

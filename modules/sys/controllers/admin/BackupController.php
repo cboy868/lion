@@ -239,7 +239,7 @@ class BackupController extends \app\core\web\BackController {
 	 */
 	private function getColumns($tableName) {
 
-		$sql = 'SHOW CREATE TABLE ' . $tableName;
+		$sql = 'SHOW CREATE TABLE `' . $tableName . '`';
 
 		$table = Yii::$app->db->createCommand($sql)->queryOne();
 
