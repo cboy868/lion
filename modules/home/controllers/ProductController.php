@@ -14,6 +14,8 @@ use app\core\models\Attachment;
 use app\core\models\AttachmentRel;
 use app\core\models\TagRel;
 use app\modules\shop\models\AvRel;
+use app\modules\shop\models\Message;
+use app\modules\home\models\MsgForm;
 
 class ProductController extends \app\core\web\HomeController
 {
@@ -64,6 +66,24 @@ class ProductController extends \app\core\web\HomeController
             ]);
     }
 
+    public function actionMsg($id)
+    {
+
+        $goods = Goods::findOne($id);
+        $model = new MsgForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->create()) {
+            return $this->redirect(['view', 'id' => $id]);
+        } else {
+
+            $model->title = '我对您发布的“'.$goods->name.'”很感兴趣';
+            $model->goods_id = $id;
+            return $this->render('msg', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     /**
      * @name 取系列产品
      */
@@ -103,5 +123,7 @@ class ProductController extends \app\core\web\HomeController
 
         return $tree;
     }
+
+
 
 }

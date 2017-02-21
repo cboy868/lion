@@ -1,6 +1,7 @@
 <?php 
 
 use app\web\theme\site\widgets\Zoom;
+use yii\helpers\Url;
 
 
 $this->title = $data['name'];
@@ -33,7 +34,9 @@ $this->title = $data['name'];
                                     <div class="row nova-mg-pd">
                                         <div class="col-md-8 nova-pd-right">
                                             <div class="product-name">
-                                                <h1><?=$data['name']?></h1>
+                                                <h1><?=$data['name']?>
+                                                <small><a href="<?=Url::toRoute(['/home/product/msg','id'=>$data['id']])?>" style="font-size: 20px;background: #eee;padding: 5px;" target="_blank">留言咨询</a></small>
+                                                </h1>
                                             </div>
                                             
                                                <!-- <p class="email-friend"><a href="/sendfriend/product/send/id/1842/cat_id/163/">Email to a Friend</a></p>-->

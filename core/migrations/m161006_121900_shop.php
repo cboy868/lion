@@ -95,6 +95,22 @@ class m161006_121900_shop extends Migration
             'title' => $this->string(255), //标题
             'created_at' => $this->integer()->notNull(),
         ], $tableOptions);
+        $this->createTable('{{%shop_message}}', [
+            'id' => $this->primaryKey(),
+            'goods_id' => $this->integer(),
+            'op_id' => $this->integer()->defaultValue(0),//处理人
+            'title' => $this->string(255),
+            'term' => $this->date(),
+            'product' => $this->string(255),
+            'username' => $this->string(255)->notNull(),
+            'mobile' => $this->string(50)->notNull(),
+            'email' => $this->string(50),
+            'qq' => $this->string(20),
+            'skype' => $this->string(20),
+            'intro' => $this->text(),
+            'status' => $this->smallInteger()->defaultValue(1),
+            'created_at'=> $this->integer()
+        ], $tableOptions);
     }
 
     public function down()
@@ -105,6 +121,7 @@ class m161006_121900_shop extends Migration
         $this->dropTable('{{%shop_cart}}');
         $this->dropTable('{{%shop_history}}');
         $this->dropTable('{{%shop_type}}');
+        $this->dropTable('{{%shop_message}}');
     }
 
     /*

@@ -60,13 +60,14 @@ TooltipAsset::register($this);
         <div class="item col-md-3 nova-mg-pd">
             <div class="nova-product-images"> 
                 <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="product-image">
-                    <div class="margin-image"><img src="<?=Attachment::getById($goods['thumb'], '310x310')?>" alt="<?=$goods['name']?>"></div>
+                    <div class="margin-image"><img src="<?=Attachment::getById($goods['thumb'], '310x310')?>" width="186" height="186" alt="<?=$goods['name']?>"></div>
                 </a>
-                <div class="descriptions-hidden" style="display:none;">       
+               <!--  <div class="descriptions-hidden" style="display:none;">       
                     <div class="quick-whl"> 
+                    <a href="<?=Url::toRoute(['/home/product/msg','id'=>$goods['id']])?>" style="font-size: 20px;background: #eee;padding: 10px 5px;" target="_blank">留言咨询</a>
                         <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-lg fa-heart"></i></a>
                     </div>  
-                </div>
+                </div> -->
             </div>
             <h3 class="product-name"><a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>"><?=$goods['name']?></a></h3>
 
