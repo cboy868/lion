@@ -27,9 +27,7 @@ FootableAsset::register($this);
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
 
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  添加商品
-</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> 添加商品 </button>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -72,6 +70,18 @@ FootableAsset::register($this);
             </h1>
         </div><!-- /.page-header -->
 
+
+        <?php 
+            Modal::begin([
+                'header' => '编辑',
+                'id' => 'modalEdit',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="editContent"></div>';
+
+            Modal::end();
+        ?>
 
         <?php 
             Modal::begin([
@@ -231,13 +241,17 @@ $category_id = Yii::$app->getRequest()->get('category_id');
 
             [
                 'header' => '操作',
-                'headerOptions' => ["data-type"=>"html",'width'=>'100'],
+                'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete} {view}',
+                'template' => '{update} {delete} {view} {home}',
                 'buttons' => [
-                    'view' => function($url, $model, $key) {
-                        return Html::a('查看', Url::toRoute(['/home/product/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
+                    'home' => function($url, $model, $key) {
+                        return Html::a('前台查看', Url::toRoute(['/home/product/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
                     },
+                    'update' => function($url, $model, $key) {
+                        return Html::a('修改', Url::toRoute(['/shop/admin/goods/update-cate', 'id'=>$model->id]), ['title' => '修改', 'class'=>'modalEditButton'] );
+                    },
+
                 ],
             ]
         ],

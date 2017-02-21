@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
             ],
             [
                 'label' => '缩略图',
-                'value' => "<img src='".Attachment::getById($model->id, '100x100')."'>",
+                'value' => "<img src='".Attachment::getById($model->thumb, '100x100')."'>",
                 'format'=> 'raw'
             ],
             'thumb',

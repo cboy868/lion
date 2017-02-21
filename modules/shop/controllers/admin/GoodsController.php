@@ -92,6 +92,19 @@ class GoodsController extends BackController
         return $tree;
     }
 
+    public function actionUpdateCate($id)
+    {
+        $model = Goods::findOne($id);
+
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            return $this->redirect(['/shop/admin/goods/update', 'id'=>$id]);
+        }
+
+        return $this->renderAjax('update-cate', ['model'=>$model]);
+    }
+
     /**
      * Displays a single Goods model.
      * @param integer $id
@@ -107,8 +120,6 @@ class GoodsController extends BackController
 
         //获取属性
         $attrs = $model->getAv();
-
-
 
         //取sku
         $sku = $model->sku;
