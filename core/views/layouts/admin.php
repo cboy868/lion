@@ -69,7 +69,7 @@ AdminAsset::register($this);
                     <a href="#" class="navbar-brand">
                         <small>
                             <i class="fa fa-leaf"></i>
-                            后台管理
+                            LION管理中心
                         </small>
                     </a>
 

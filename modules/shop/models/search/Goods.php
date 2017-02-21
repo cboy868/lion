@@ -12,6 +12,8 @@ use app\modules\shop\models\Goods as GoodsModel;
  */
 class Goods extends GoodsModel
 {
+
+    public $sname;
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class Goods extends GoodsModel
     {
         return [
             [['category_id', 'thumb', 'is_recommend', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'intro', 'skill', 'unit', 'id', 'serial'], 'safe'],
+            [['name', 'intro', 'skill', 'unit', 'id', 'serial', 'sname'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -91,10 +93,8 @@ class Goods extends GoodsModel
 
 
         if (!($this->load($params) && $this->validate())) {
-
             return $dataProvider;
         }
-
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -106,6 +106,12 @@ class Goods extends GoodsModel
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+        if ($this->sname) {
+
+            $query->andFilterWhere(['serial'=>$this->sname])
+                  ->orFilterWhere(['like', 'name', $this->sname]);
+        }
+
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'intro', $this->intro])

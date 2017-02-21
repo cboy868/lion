@@ -58,7 +58,7 @@
       'water' => 1,
       'water_mod' => 'text',
       'water_image' => '/upload/image/20170209/1486605699938.png',
-      'water_text' => '某商家',
+      'water_text' => '华正',
       'water_pos' => '1',
       'thumb' => 
       array (

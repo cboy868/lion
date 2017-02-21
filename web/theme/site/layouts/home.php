@@ -59,9 +59,9 @@ HomeAsset::register($this);
 
                 </div>
                 <nav class="navbar">
-                      <form class="navbar-form pull-right" role="search">
+                      <form class="navbar-form pull-right" role="search" action="<?=Url::toRoute(['/home/product/index'])?>">
                         <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Product name or sku">
+                          <input type="text" class="form-control" placeholder="Product name or sku" name="product" value="<?=Yii::$app->request->get('product')?>">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                       </form>

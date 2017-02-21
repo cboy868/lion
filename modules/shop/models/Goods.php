@@ -51,7 +51,8 @@ class Goods extends \app\core\db\ActiveRecord
             [['intro', 'skill', 'serial'], 'string'],
             [['price'], 'number'],
             // ['name', 'unique',  'message' => '此菜品已存在，请确定'],
-            [['name', 'price'], 'required'],
+            // [['name', 'price'], 'required'],
+            [['name'], 'required'],
             [['name',], 'string', 'max' => 255],
             [['unit'], 'string', 'max' => 100]
         ];

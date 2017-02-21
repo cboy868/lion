@@ -29,6 +29,12 @@ class ProductController extends \app\core\web\HomeController
         $cates = $this->getCates();
         $attrs = AvRel::attrs();
 
+
+        $product = Yii::$app->request->get('product');
+        if ($product) {
+            # code...
+        }
+
         return $this->render('@app/web/theme/site/product/index', [
             'cates'       => $cates,
             'attrs' => $attrs,
@@ -54,7 +60,6 @@ class ProductController extends \app\core\web\HomeController
 
 
         $rels = $this->getSeries($id);
-
 
 
         return $this->render('view', [

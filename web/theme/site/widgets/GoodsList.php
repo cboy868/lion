@@ -44,6 +44,12 @@ class GoodsList extends Widget {
             $params["Goods"]['category_id'] = $params['category_id'];
         }
 
+        if (isset($params['product'])) {
+            $params['Goods']['sname'] = $params['product'];
+        }
+
+
+
         $params['psize'] = isset($params['psize']) ? $params['psize'] : 12;
 
         $dataProvider = $searchModel->homeSearch($params);
