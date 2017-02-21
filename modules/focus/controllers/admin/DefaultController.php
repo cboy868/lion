@@ -104,7 +104,11 @@ class DefaultController extends BackController
                 $upload->save();
                 $info = $upload->getInfo();
                 $model->image = $info['path'] . '/' . $info['fileName'];
+             } else{
+                unset($model->image);
              }
+
+
 
             if ($model->save()) {
                 $model->updateCategoryThumb();
