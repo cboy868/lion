@@ -15,6 +15,7 @@ use yii\widgets\Breadcrumbs;
 			<div class="col-xs-12 focus-update">
 				 <?= $this->render('_form', [
 				        'model' => $model,
+				        'category'=>$category
 				    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->
