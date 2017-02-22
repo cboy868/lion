@@ -71,6 +71,17 @@ class ProductController extends \app\core\web\HomeController
 
         $goods = Goods::findOne($id);
         $model = new MsgForm();
+        $msg = Yii::$app->params['msg'];
+        $msgs = explode("\r\n", $msg);
+
+        $result = [];
+        foreach ($msgs as $k => $v) {
+            if (!$v) {
+                continue;
+            }
+            $result[$v] = $v;
+        }
+
 
         if ($model->load(Yii::$app->request->post()) && $model->create()) {
             return $this->redirect(['view', 'id' => $id]);
@@ -80,6 +91,7 @@ class ProductController extends \app\core\web\HomeController
             $model->goods_id = $id;
             return $this->render('msg', [
                 'model' => $model,
+                'shortmsg' => $result
             ]);
         }
     }

@@ -48,14 +48,9 @@ ExtAsset::register($this);
                                 <div class="form-group field-message-title">
                                     <label class="control-label col-sm-1" for="message-title"></label>
                                     <div class="col-sm-10">
-                                        <select onchange="if(this.value)$('.intro').val($('.intro').val() + this.value+'\n');">
-                                            <option value="">请选择常用问题</option>
-                                            <option value="请问我这个地方有加盟商了吗？">请问我这个地方有加盟商了吗？</option>
-                                            <option value="我想加盟，请来电话告诉我具体细节。">我想加盟，请来电话告诉我具体细节。</option>
-                                            <option value="初步打算加盟贵公司，请寄资料。">初步打算加盟贵公司，请寄资料。</option>
-                                            <option value="请问贵公司哪里有样板店或直营店？">请问贵公司哪里有样板店或直营店？</option>
-                                            <option value="想了解加盟细节，请尽快寄一份资料。">想了解加盟细节，请尽快寄一份资料。</option>
-                                        </select>
+                                    <?php 
+                                        echo Html::dropDownList('a', null, $shortmsg, ['prompt'=>'请选择常用问题', 'onchange'=>"if(this.value)$('.intro').val($('.intro').val() + this.value+'\\n');"]);
+                                     ?>
                                         (不用打字 “快捷提问”帮您忙！)
                                     </div>
                                 </div>

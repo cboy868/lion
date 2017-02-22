@@ -97,7 +97,7 @@ class Set extends \yii\db\ActiveRecord
             // self::TYPE_FILE  => 'File',
             // self::TYPE_CHECKBOX => 'Checkbox',
             // self::TYPE_RADIO    => 'Radio',
-            // self::TYPE_SELECT   => 'Select',
+            self::TYPE_SELECT   => 'Select',
             self::TYPE_TEXTAREA => 'Textarea'
         ];
 
