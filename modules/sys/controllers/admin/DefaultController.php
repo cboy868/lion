@@ -148,7 +148,9 @@ class DefaultController extends \app\core\web\BackController
             $content = '<?php return ' . $content . ' ;';
 
             $path = Yii::getAlias('@app/config/setting.php');
-            @file_put_contents($path, $content);
+            $a = @file_put_contents($path, $content);
+
+            var_dump($a);die;
 
             return $this->redirect(['index']);
         }
