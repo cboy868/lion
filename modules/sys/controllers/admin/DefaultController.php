@@ -149,7 +149,7 @@ class DefaultController extends \app\core\web\BackController
 
             try {
                 $path = Yii::getAlias('@app/config/setting.php');
-                $a = @file_put_contents($path, $content);
+                file_put_contents($path, $content);
             } catch (\Exception $e) {
                 p($e);
             }
