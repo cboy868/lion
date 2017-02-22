@@ -64,7 +64,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ["data-type"=>"html"],
                 'label' => '处理人',
                 'value' => function($model){
-                    return $model->user->username;
+                    if ($model->op_id) {
+                        return $model->user->username;
+                    }
+
+                    return '';
                 },
             ],
             [
