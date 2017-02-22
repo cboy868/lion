@@ -91,7 +91,7 @@ class ProductController extends \app\core\web\HomeController
             $model->goods_id = $id;
             return $this->render('msg', [
                 'model' => $model,
-                'shortmsg' => $result
+                // 'shortmsg' => $result
             ]);
         }
     }
