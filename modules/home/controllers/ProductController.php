@@ -74,6 +74,8 @@ class ProductController extends \app\core\web\HomeController
         $msg = Yii::$app->params['msg'];
         $msgs = explode("\r\n", $msg);
 
+
+p($msgs);
         $result = [];
         foreach ($msgs as $k => $v) {
             if (!$v) {
@@ -81,6 +83,9 @@ class ProductController extends \app\core\web\HomeController
             }
             $result[$v] = $v;
         }
+
+
+        p($result);die;
 
 
         if ($model->load(Yii::$app->request->post()) && $model->create()) {
