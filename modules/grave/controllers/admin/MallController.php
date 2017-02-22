@@ -85,8 +85,10 @@ class MallController extends BackController
             $info = (array) $info;
         }unset($info);
 
-        $ins_cate = Yii::$app->controller->module->params['goods']['cate']['ins'];
-        $portrait_cate = Yii::$app->controller->module->params['goods']['cate']['portrait'];
+        $config = $this->module->params['goods']['cate'];
+
+        $ins_cate = $config['ins'];
+        $portrait_cate = $config['portrait'];
 
         foreach($goods_info as $sku_id=>$info) {
             $extra = array(

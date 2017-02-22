@@ -73,13 +73,14 @@ class ProcessController extends \app\core\web\HomeController
         $model = Process::insProcess();
 
         $model->handleIns();
+
         $data = $model->combinDbData($case_id);
 
         $case = InsCfgCase::findOne($case_id);
 
         $is_front = $case->cfg->is_front;
 
-        $price = $this->calPrice($data, $is_front);
+        $price = $this->calPrice($data, $is_front, $case_id);
 
         $price['is_front'] = $is_front;
 
@@ -87,19 +88,17 @@ class ProcessController extends \app\core\web\HomeController
 
     }
 
-    public function calPrice($data, $is_front=0){
+    public function calPrice($data, $is_front=0, $case_id){
 
-
-
-        p($data);die;
         $model = Process::insProcess();
         $post = Yii::$app->request->post();
+        // $cfg = 
 
         $is_tc = $post['is_tc'];
         $paint = $post['ins']['paint'];
 
+        $cfg_info = InsProcess::getCfg($case_id);
 
-        // $per_price = $this->Ins->getFontPrice($paint, $this->tomb_id);
 
         $font_price = $this->module->params['ins']['fee'];
 
@@ -107,44 +106,66 @@ class ProcessController extends \app\core\web\HomeController
 
         $result = array();
 
+
+
+        $model->load(Yii::$app->request->post());
+        $paint = $model->paint;
+
         if (array_key_exists('main', $data)){
+
             foreach ($data as $k=>$v) {
-                $count = 0;
+                $count = [];
                 if ($k == 'main'){
                     foreach ($v['content'] as $val){
-                        $count += self::getFontNum($val);
+                        $count[$cfg_info[$k][0]['is_big']] += self::getFontNum($val);
                     }
                 } else {
-                    $count += self::getFontNum($v['content']);
+                    $count[$cfg_info[$k][0]['is_big']] += self::getFontNum($v['content']);
                 }
                 
-                $result['count'] += $count;
-                $result['letter'] += $per_price * $count;
+                $result['big'] += $count[1]? $count[1] : 0;
+                $result['small'] += $count[0] ? $count[0] : 0;
+                $result['letter_big_price'] += $font_price['letter']['big'][$paint] * $count[1];
+                $result['letter_small_price'] += $font_price['letter']['small'][$paint] * $count[0];
+                $result['paint_big_price'] += $font_price['paint']['big'][$paint] * $count[1];
+                $result['paint_small_price'] += $font_price['paint']['small'][$paint] * $count[0];
             }
         } else {
             foreach ($data as $k=>$v) {
+                $count = [];
                 foreach ($v as $key=>$val){
                     if ($key == 'inscribe_date' && $model->shape=='v') {
-                        $count = self::getFontNum($val['content'], true);
+                        $count[$cfg_info[$k][0]['is_big']] = self::getFontNum($val['content'], true);
                     } else {
-                        $count = self::getFontNum($val['content']);
+                        $count[$cfg_info[$k][0]['is_big']] = self::getFontNum($val['content']);
                     }
 
-                    $result['count'] += $count;
+                    $result['big'] += $count[1]? $count[1] : 0;
+                    $result['small'] += $count[0] ? $count[0] : 0;
+                    $result['letter_big_price'] += $font_price['letter']['big'][$paint] * $count[1];
+                    $result['letter_small_price'] += $font_price['letter']['small'][$paint] * $count[0];
+                    $result['paint_big_price'] += $font_price['paint']['big'][$paint] * $count[1];
+                    $result['paint_small_price'] += $font_price['paint']['small'][$paint] * $count[0];
 
-                    $result['letter'] += $per_price * $count;
                 }
             }
         }
 
-        if ($paint == 4) {
-            $result['letter'] = $is_front == 1 ? $per_price : 0;
-        }
-        $result['count'] = ceil($result['count']);
+        $fee = [
+            'big_letter' => $font_price['letter']['big'][$paint],
+            'small_letter' => $font_price['letter']['small'][$paint],
+            'big_paint' => $font_price['paint']['big'][$paint],
+            'small_paint' => $font_price['paint']['small'][$paint],
+        ];
+
+        $result['per'] = $fee;
+
+        // if ($paint == 4) {//处理反喷的
+        //     $result['letter'] = $is_front == 1 ? $per_price : 0;
+        // }
+        // $result['count'] = ceil($result['count']);
 
         $result['tc_fee'] = 0;
-        $result['per_price'] = $per_price;
-
         $is_second = $model->is_stand ? true : false;
 
 

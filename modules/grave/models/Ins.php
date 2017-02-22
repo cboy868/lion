@@ -42,9 +42,10 @@ class Ins extends \app\core\db\ActiveRecord
 {
 
     const PAINT_JINBO = 1;
-    const PAINT_PEN =2;
-    const PAINT_TONG =3;
-    const PAINT_QI =4;
+    const PAINT_TONG =2;
+    const PAINT_QI =3;
+    const PAINT_PEN =4;
+
 
     const SHAPE_H = 1; //横
     const SHAPE_V = 2; //竖
@@ -60,6 +61,12 @@ class Ins extends \app\core\db\ActiveRecord
     const TYPE_AUTO = 1;
     const TYPE_FREE = 2;
 
+
+    public $big_num;
+    public $big_new;
+    public $small_num;
+    public $small_new;
+
     public function behaviors()
     {
         return [
@@ -74,9 +81,10 @@ class Ins extends \app\core\db\ActiveRecord
     {
         $paints = [
             self::PAINT_JINBO => '金箔',
-            self::PAINT_PEN => '反喷',
             self::PAINT_TONG => '铜粉',
             self::PAINT_QI => '红漆'
+            // self::PAINT_PEN => '反喷',
+            
         ];
 
 

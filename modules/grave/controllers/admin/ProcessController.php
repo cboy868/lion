@@ -16,6 +16,7 @@ use app\modules\grave\models\Portrait;
 use app\modules\grave\models\CarAddr;
 // use app\modules\grave\models\Tomb;
 use app\modules\grave\models\Dead;
+use app\modules\shop\models\Goods;
 // use app\modules\grave\models\Ins;
 // use app\modules\grave\models\Bury;
 // use app\modules\user\models\User;
@@ -281,13 +282,34 @@ class ProcessController extends BackController
                 $model->guide_id = $tomb->guide_id;
                 $model->user_id = $tomb->user_id;
 
-                if ($req->post('type') == 1) {
-                    $model->autoSave();
-                } elseif ($req->post('type') == 3) {
-                    $model->imgSave();
-                }
 
-                if ($model->save()) {
+
+                $method = $req->post('type') == 1 ? 'autoSave' : 'imgSave';
+
+                // if ($req->post('type') == 1) {
+                //     $model->autoSave();
+                // } elseif ($req->post('type') == 3) {
+                //     $model->imgSave();
+                // }
+
+
+
+                
+
+                if ($model->$method()) {
+
+                    $note = '大字%s小字%s刻字费%s颜料费%s繁体字费%s';
+
+                    $insData = [
+                        'price' => $model->letter_price + $model->paint_price + $model->tc_price,
+                        'num' => $model->big_new + $model->small_new - $model->font_num,
+                        'note' => sprintf($note, $model->big_new, $model->small_new, $model->letter_price, $model->paint_price, $model->tc_price)
+                    ];
+
+                    $goods_id = $this->module->params['goods']['id']['insword'];
+                    $goods = Goods::findOne($goods_id);
+                    $goods->order($model->user_id, $insData);
+
                     return $this->next();
                 }
             }

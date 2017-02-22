@@ -95,6 +95,22 @@ class Order extends \app\core\db\ActiveRecord
     }
 
 
+    public static function createGoods($user_id, $goods, $extra=[])
+    {
+        try {
+            $order = self::getValidOrder($user_id, $extra);
+
+            $rel = OrderRel::createGoods($order, $goods, $extra);
+
+            $order->updatePrice();
+        } catch (\Exception $e) {
+            return fasle;
+        }
+
+        return ['order'=>$order, 'rel'=>$rel];
+        // return $order;
+    }
+
     /**
      * @des 与上个方法一样，只是返回值不同，以获取订单详情
      */

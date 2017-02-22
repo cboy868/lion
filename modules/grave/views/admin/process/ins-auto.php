@@ -245,9 +245,10 @@ ExtAsset::register($this);
 		                                            </a>
 											      <div class="caption">
 											        <h3>碑前文</h3>
-											        <p> <i class='front_count'>0</i>字&nbsp;
+											        <p> 大字<i class='front_big_count'>0</i> 小字<i class='front_small_count'>0</i>&nbsp;
 		                                                <span class="label_kezi">
-								                       刻字费<i class='front_letter_price'></i>元&nbsp;
+								                       刻字费<i class='front_letter_price'>0</i>元&nbsp;
+								                       颜料费<i class='front_paint_price'>0</i>元&nbsp;
 		                                                </span>
 		                                            </p>
 											      </div>
@@ -261,11 +262,14 @@ ExtAsset::register($this);
 												  </a>
 											      <div class="caption">
 											        <h3>碑后文</h3>
-											        <p><i class='back_count'>0</i>字&nbsp;
+											        <p> 大字<i class='back_big_count'>0</i> 小字<i class='back_small_count'>0</i>&nbsp;
 		                                                <span class="label_kezi">
-								                       刻字费<i class='back_letter_price'></i>元&nbsp;
-		                                              </span>
+								                       刻字费<i class='back_letter_price'>0</i>元&nbsp;
+								                       颜料费<i class='back_paint_price'>0</i>元&nbsp;
+		                                                </span>
 		                                            </p>
+
+											        
 											      </div>
 											    </div>
 											</div>
@@ -325,8 +329,9 @@ ExtAsset::register($this);
 				  			 ?>
 				  				<div class="col-xs-6">
 				  					<?= $form->field($model, 'paint')->dropDownList(Ins::getPaint(), ['style'=>'width:70%']) ?>
-				  					<?= $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num']) ?>
-				  					
+				  					<?php //echo $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num'])->label('总字数') ?>
+				  					<?= $form->field($model, 'big_new')->textInput(['style'=>'width:70%', 'id'=>'big_new'])->label('大字') ?>
+				  					<?= $form->field($model, 'small_new')->textInput(['style'=>'width:70%', 'id'=>'small_new'])->label('小字') ?>
                                     <?= $form->field($model, 'paint_price')->textInput(['style'=>'width:70%', 'id'=>'paint_price']) ?>
                                     <?= $form->field($model, 'letter_price')->textInput(['style'=>'width:70%', 'id'=>'letter_price']) ?>
                                     <?= $form->field($model, 'tc_price')->textInput(['style'=>'width:70%', 'id'=>'tc_price']) ?>
@@ -543,6 +548,8 @@ ExtAsset::register($this);
 
 				<input type="hidden" class="is_second" value="<?=$is_second?>"/>
 
+				<div class="cache"></div>
+
 		        <div class="text-center cols-md-12">
 
 		         <div class="form-group">
@@ -600,10 +607,7 @@ $(function(){
 	var insSaveBtn = insContainer.find('.save-ins');
 	var selIns = insContainer.find('.sel');
 
-
 	upinit();
-
-
 
     $('.btn-dis').click(function(e){
         e.preventDefault();
@@ -762,6 +766,11 @@ $(function(){
 		getPrice('back');
 	});
 
+	$('#insprocess-paint').change(function(){
+		getPrice('front');
+		getPrice('back');
+	});
+
 	$('body').on('click','.add-line',function(){
 		var obj = $(this).parents('tr');
 		var line_obj = obj.clone();
@@ -831,7 +840,11 @@ $(function(){
      });
 
     $('#letter_num').change(function(){
-        getChangePrice();
+       // getChangePrice();
+    });
+
+    $('#big_new, #small_new').change(function(){
+    	reCal();
     });
 })
 
@@ -875,7 +888,6 @@ function getImage(cla){
     },'json');
 }
 
-
 //取价格
 function getPrice($type){
 
@@ -889,51 +901,115 @@ function getPrice($type){
     var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
     var data = $('#auto-ins-form').serialize();
     var date = +new Date();
+	
+
+	var cache = $('.cache');
+
     $.post(
     	url + '?timstr=' + date + '&case_id='+case_id,
         data,
         function(json) {
             if(json.status) {
                 var data = json.data;
+
                 if (data.is_front == 1){
-                    //$paid_tc_price = parseInt($('input[name=paid_tc_price]').val());
-                	$('.front_count').html(data.count);
+
+                	$('.front_big_count').html(data.big);
+                	$('.front_small_count').html(data.small);
+                	$('.front_letter_price').html(data.letter_big_price + data.letter_small_price);
+                	$('.front_paint_price').html(data.paint_big_price + data.paint_small_price);
                     $('#tc_price').val(data.tc_fee);
-                    $('.front_letter_price').html(data.letter);
-                    $('#front_prices').attr('letter', data.letter)
-                    				  .attr('count', data.count)
-                    				  .attr('flag', 1);
+
+                    cache.data('front_letter_count', (data.big + data.small));
+                    cache.data('front_letter_price', (data.letter_big_price + data.letter_small_price));
+                    cache.data('tc_price', (data.paint_big_price + data.paint_small_price));
+                    cache.data('front_big_new', data.big);
+                    cache.data('front_small_new', data.small);
+
+                    cache.data('per.big_letter', data.per.big_letter);
+                    cache.data('per.small_letter', data.per.small_letter);
+                    cache.data('per.big_paint', data.per.big_paint);
+                    cache.data('per.small_paint', data.per.small_paint);
+                    
                 } else if(data.is_front == 0){
-                	$('.back_count').html(data.count);
-                    $('.back_letter_price').html(data.letter);
-                    $('#back_prices').attr('letter', data.letter)
-                    				.attr('count', data.count)
-                    				.attr('flag', 1);
+                	
+                	$('.back_big_count').html(data.big);
+                	$('.back_small_count').html(data.small);
+                	$('.back_letter_price').html(data.letter_big_price + data.letter_small_price);
+                	$('.back_paint_price').html(data.paint_big_price + data.paint_small_price);
+
+                	cache.data('back_letter_count', (data.big + data.small));
+                    cache.data('back_letter_price', (data.letter_big_price+ data.letter_small_price));
+                    cache.data('back_paint_price', (data.paint_big_price + data.paint_small_price));
+                    cache.data('back_big_new', data.big);
+                    cache.data('back_small_new', data.small);
+
                 }
-                $('.per_price').val(data.per_price);
-                calPrice(data.nofee);
+
+                calPrice()//服务计算
             }
             
         },'json');
 }
 
-//计算价格，加入到input框
-function calPrice(nofee){
-    var front_letter_price = $('#front_prices').attr('letter') || 0;
-    var back_letter_price = $('#back_prices').attr('letter') || 0;
-    var total_letter_price = parseFloat(front_letter_price) + parseFloat(back_letter_price);
-    
-    var front_num = $('#front_prices').attr('count') || 0;
-    var back_num  = $('#back_prices').attr('count') || 0;
-    var total_num = Math.round(front_num) + Math.round(back_num);
 
-    var per_price = parseInt($('.per_price').val());
-    var paint = $('.paint').val();
+function calPrice()
+{
+	var cache = $('.cache');
+
+	var front_letter_count = cache.data('front_letter_count') || 0;
+	var back_letter_count = cache.data('back_letter_count') || 0;
+
+	var front_letter_price = cache.data('front_letter_price') || 0;
+	var front_paint_price = cache.data('front_paint_price') || 0;
+
+	var back_letter_price = cache.data('back_letter_price') || 0;
+	var back_paint_price = cache.data('back_paint_price') || 0;
+
+	var front_big_count = cache.data('front_big_new') || 0;
+	var back_big_count = cache.data('back_big_new') || 0;
+
+	var front_small_count = cache.data('front_small_new') || 0;
+	var back_small_count = cache.data('back_small_new') || 0;
 
 
-   	$('#letter_num').val(total_num);
+	//$('#letter_num').val(front_letter_count + back_letter_count);
+	$('#letter_price').val(front_letter_price + back_letter_price);
+	$('#paint_price').val(front_paint_price + back_paint_price);
+	$('#big_new').val(front_big_count + back_big_count);
+	$('#small_new').val(front_small_count + back_small_count);
 
-    $('input[name=new_font_num]').val(total_num);
+}
+
+function reCal()
+{
+
+	var cache = $('.cache');
+	var big_letter = cache.data('per.big_letter');
+    var small_letter = cache.data('per.small_letter');
+    var big_paint = cache.data('per.big_paint');
+    var small_paint = cache.data('per.small_paint');
+
+
+    var big_num = $('#big_new').val() || 0;
+    var small_num = $('#small_new').val() || 0;
+
+
+    //var front_big_count = cache.data('front_big_new') || 0;
+	//var back_big_count = cache.data('back_big_new') || 0;
+
+	//var front_small_count = cache.data('front_small_new') || 0;
+	//var back_small_count = cache.data('back_small_new') || 0;
+
+	$('#big_new').val(front_big_count + back_big_count);
+	$('#small_new').val(front_small_count + back_small_count);
+
+    $paint = (parseInt(big_num) * big_paint) + (parseInt(small_num) * small_paint);
+    $letter = (parseInt(big_num) * big_letter) + (parseInt(small_num) * small_letter);
+
+    $('#letter_price').val($letter);
+	$('#paint_price').val($paint);
+
 }
 
 function searchCaseId(){

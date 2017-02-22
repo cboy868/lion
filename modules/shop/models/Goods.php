@@ -9,6 +9,8 @@ use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Sku;
 
 use app\core\helpers\ArrayHelper;
+use app\modules\order\models\Order;
+
 
 /**
  * This is the model class for table "{{%shop_goods}}".
@@ -178,5 +180,13 @@ class Goods extends \app\core\db\ActiveRecord
         }
 
         return $goods_map;
+    }
+
+    /**
+     * @name 下订单
+     */
+    public function order($user_id, $extra)
+    {
+        return Order::createGoods($user_id, $this, $extra);
     }
 }

@@ -498,7 +498,8 @@ class InsProcess extends Ins
                         'color' => $v['color'],
                         'direction' => $v['direction'],
                         'shape'     => $shape,
-                        'ttt'  => $v['text']
+                        'ttt'  => $v['text'],
+                        'is_big' => $v['is_big']
                 );
         }
 
@@ -562,6 +563,8 @@ class InsProcess extends Ins
         $case = InsCfgCase::findOne($cfgcase_id);
         $cfg = InsCfg::findOne($case->cfg_id);
         $is_front = $cfg->is_front;
+
+
 
 
         if ($is_front==1){
@@ -749,6 +752,7 @@ class InsProcess extends Ins
                 $new_cfg[] = $val;
             }
         }
+
         return $new_cfg;
     }
 

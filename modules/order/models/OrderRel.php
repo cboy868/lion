@@ -87,7 +87,7 @@ class OrderRel extends \app\core\db\ActiveRecord
             $title = $sku->goods->name . $title;
         }
 
-        $data = [
+        $da = [
             'user_id'    => $order->user_id,
             'op_id'      => Yii::$app->user->id,
             'order_id'      => $order->id,
@@ -104,8 +104,52 @@ class OrderRel extends \app\core\db\ActiveRecord
         ];
 
 
-        $model->load($data, '');
+        if (isset($data['price']) && $data['price']) {
+            $da['price'] = $da['price_unit'] = $data['price'];
+        }
 
+        $model->load($da, '');
+        $model->save();
+
+        return $model;
+    }
+
+    public static function createGoods($order, $goods, $data)
+    {
+
+        $model = OrderRel::hasRel($order->id, $goods->id, 0, $order->user_id);
+
+        if (!$model) {
+            $model = new OrderRel;
+        }
+
+        $num = $data['num']>0 ? $data['num'] : 1;
+
+
+        $title = $goods->name;
+
+        $da = [
+            'user_id'    => $order->user_id,
+            'op_id'      => Yii::$app->user->id,
+            'order_id'      => $order->id,
+            'goods_id'      => $goods->id,
+            'sku_id'        => 0,
+            'category_id'   => $goods->category_id,
+            'title'         => $title,
+            'price_unit'    => $goods->price,
+            'price'         => $num * $goods->price,
+            'sku_name'      => '',
+            'num'           => $num,
+            'note'          => $data['note'] ? $data['note'] : '',
+            'use_time'      => $data['use_time'] ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+        ];
+
+
+        if (isset($data['price']) && $data['price']) {
+            $da['price'] = $da['price_unit'] = $data['price'];
+        }
+
+        $model->load($da, '');
         $model->save();
 
         return $model;
