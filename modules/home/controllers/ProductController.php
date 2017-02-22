@@ -76,7 +76,7 @@ class ProductController extends \app\core\web\HomeController
             return $this->redirect(['view', 'id' => $id]);
         } else {
 
-            $model->title = '我对您发布的“'.$goods->name.'”很感兴趣';
+            $model->title = '我对“'.$goods->name.'”很感兴趣';
             $model->goods_id = $id;
             return $this->render('msg', [
                 'model' => $model,
