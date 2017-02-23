@@ -26,6 +26,29 @@ class PortraitController extends BackController
         ];
     }
 
+
+    public function actions()
+    {
+        return [
+            'pl-upload' => [
+                'class' => 'app\core\web\PluploadAction',
+            ],
+        ];
+    }
+
+
+    public function saveAttach($info)
+    {
+
+        $portrait = Portrait::findOne($info['res_id']);
+
+        if (!$portrait) {
+            return null;
+        }
+
+        return $portrait->saveAttach($info);
+    }
+
     /**
      * Lists all Portrait models.
      * @return mixed
@@ -82,9 +105,9 @@ class PortraitController extends BackController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -101,6 +124,16 @@ class PortraitController extends BackController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionComplete($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = Portrait::STATUS_COMPLETE;
+        if ($model->save()) {
+            return $this->json();
+        }
+        return $this->json(null, '操作失败，请重试', 0);
     }
 
     /**

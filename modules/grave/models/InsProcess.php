@@ -243,7 +243,7 @@ class InsProcess extends Ins
             'front_type'    => $this->type,
             'dt_pre_mn'     => $data['dt_pre_mn'],
             'font'    => $this->font,
-            'new_font_num'  => $data['new_font_num'],
+            // 'new_font_num'  => $data['new_font_num'],
             'note'          => trim($data['note']),
             'type'          => 1
         );

@@ -101,6 +101,13 @@ AdminAsset::register($this);
                  ?>
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
+
+                        <li class="green">
+                            <a href="<?=Url::toRoute(['/grave/admin/mall/index', 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank">
+                                购买商品
+                            </a>
+                        </li> 
+
                         <?php if (!$tomb->hasIns()): ?>
                             <li class="blue">
                                 <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$ins, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank">

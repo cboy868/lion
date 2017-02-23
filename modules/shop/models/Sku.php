@@ -85,6 +85,12 @@ class Sku extends \app\core\db\ActiveRecord
         return Order::create($user_id, $this, $extra);
     }
 
+    public function getName()
+    {
+
+        return $this->name == $this->goods->name ? $this->name : $this->goods->name . $this->name;
+    }
+
     // public function skuOrder($user_id, $extra=[])
     // {
     //     return Order::createOrder($user_id, $this, $extra);

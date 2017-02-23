@@ -72,12 +72,12 @@ class MallController extends BackController
     }
 
 
-
     public function order()
     {
         $post = Yii::$app->request->post();
 
         $goods_info = (array) json_decode($post['goods_info']);
+
         $tomb_id = $post['tomb_id'];
         $tomb = Tomb::findOne($tomb_id);
 
@@ -97,6 +97,7 @@ class MallController extends BackController
 
             $sku = Sku::findOne($sku_id);
             $order_info = $sku->order($tomb->user_id, $extra);
+
             $rel = $order_info['rel'];
 
             $goods = Goods::findOne($info['id']);

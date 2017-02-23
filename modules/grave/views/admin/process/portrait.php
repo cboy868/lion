@@ -58,7 +58,8 @@ PluploaduiAssets::register($this);
                         
                         <?php foreach ($models as $index => $model): ?>
                             <?php 
-                                $goods = $model->getGoodsInfo();
+                                $sku = $model->getSkuInfo();
+                                $model->dead_ids = explode(',', $model->dead_ids);
 
                              ?>
                             <div class=" col-md-6">
@@ -68,13 +69,13 @@ PluploaduiAssets::register($this);
                                     <div class="row" style="height:100px">
                                         <div class="col-md-8">
                                             <div style="float:left;margin-right:10px;">
-                                                <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
+                                                <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$sku->goods->getThumb('100x100')?>">
                                             </div>
 
                                             <p>
-                                              瓷像名: <?=$goods->name?>
+                                              瓷像名: <?=$sku->goods->name.$sku->name;?>
                                               属性: 
-                                              <?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
+                                              <?php foreach ($sku->goods->getAv()['attr'] as $k => $av): ?>
                                                     <?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
                                                 <?php endforeach ?>
                                             </p>
@@ -93,6 +94,7 @@ PluploaduiAssets::register($this);
                                     </div>
                                     <div class="row" style="margin-top:20px;">
                                         <div class="col-md-12">
+                                            <?= $form->field($model, "[$index]dead_ids")->checkBoxList($dead, ['style'=>'width:50%'])->label('使用人选择') ?>
                                             <?= $form->field($model, "[$index]use_at")->textInput(['style'=>'width:150px;', 'dt'=>'true']) ?>
                                             <?= $form->field($model, "[$index]note")->textArea() ?>
                                         </div>

@@ -7,6 +7,8 @@ use app\modules\shop\models\Goods;
 use app\modules\grave\models\Tomb;
 use yii\behaviors\TimestampBehavior;
 use app\modules\shop\models\Sku;
+use app\modules\user\models\User;
+use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%grave_portrait}}".
  *
@@ -21,7 +23,7 @@ use app\modules\shop\models\Sku;
  * @property string $dead_ids
  * @property string $photo_original
  * @property string $photo_processed
- * @property integer $confrim_by
+ * @property integer $confirm_by
  * @property string $confirm_at
  * @property string $photo_confirm
  * @property string $use_at
@@ -35,6 +37,39 @@ use app\modules\shop\models\Sku;
  */
 class Portrait extends \app\core\db\ActiveRecord
 {
+
+
+    const STATUS_INIT = 1; //待上传
+    const STATUS_PS = 3;  //待ps
+    const STATUS_CONFIRM = 4; //待确认
+    const STATUS_MAKE = 5; //待制作
+    const STATUS_COMPLETE = 6; //完成
+
+
+
+
+    public static function status($status =null)
+    {
+        $st = [
+            self::STATUS_INIT => '待上传',
+            self::STATUS_PS   => '待PS',
+            self::STATUS_CONFIRM => '待确认',
+            self::STATUS_MAKE    => '待制作',
+            self::STATUS_COMPLETE   => '完成'
+        ];
+
+        if ($status === null) {
+            return $st;
+        }
+
+        return $st[$status];
+    }
+
+
+    public function getStatusText()
+    {
+        return self::status($this->status);
+    }
     /**
      * @inheritdoc
      */
@@ -50,11 +85,10 @@ class Portrait extends \app\core\db\ActiveRecord
     {
         return [
             [['guide_id', 'user_id', 'tomb_id'], 'required'],
-            [['guide_id','photo_original', 'photo_processed', 'user_id', 'tomb_id', 'sku_id', 'order_id', 'order_rel_id', 'confrim_by', 'notice_id', 'type', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['confirm_at', 'use_at', 'up_at'], 'safe'],
+            [['guide_id','photo_original', 'photo_processed','sort', 'user_id', 'tomb_id', 'sku_id', 'order_id', 'order_rel_id', 'confirm_by', 'notice_id', 'type', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['confirm_at', 'use_at', 'up_at', 'dead_ids'], 'safe'],
             [['note'], 'string'],
             [['title', 'photo_confirm'], 'string', 'max' => 200],
-            [['dead_ids'], 'string', 'max' => 255],
         ];
     }
 
@@ -67,27 +101,59 @@ class Portrait extends \app\core\db\ActiveRecord
             'id' => 'ID',
             'guide_id' => 'Guide ID',
             'user_id' => 'User ID',
-            'tomb_id' => 'Tomb ID',
-            'title' => 'Title',
+            'tomb_id' => '墓位',
+            'title' => '标题',
             'sku_id' => 'Sku ID',
-            'order_id' => 'Order ID',
+            'order_id' => '订单id',
             'order_rel_id' => 'Order Rel ID',
-            'dead_ids' => 'Dead Ids',
-            'photo_original' => 'Photo Original',
-            'photo_processed' => 'Photo Processed',
-            'confrim_by' => 'Confrim By',
-            'confirm_at' => 'Confirm At',
-            'photo_confirm' => 'Photo Confirm',
+            'dead_ids' => '逝者id',
+            'photo_original' => '原图',
+            'photo_processed' => 'PS图',
+            'confirm_by' => '确认人',
+            'confirm_at' => '确认时间',
+            'photo_confirm' => '确认图',
             'use_at' => '使用时间',
             'up_at' => '上传时间',
-            'notice_id' => 'Notice ID',
+            'notice_id' => '',
             'type' => '类型',////瓷像、福寿牌、影雕
             'note' => '备注',
             'status' => '状态',
-            'updated_at' => 'Updated At',
-            'created_at' => 'Created At',
+            'updated_at' => '更新时间',
+            'created_at' => '添加时间',
+            'statusText' => '瓷像状态'
         ];
     }
+
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'user_id']);
+    }
+
+    public function getGuide()
+    {
+        return $this->hasOne(User::className(),['id'=>'guide_id']);
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(),['id'=>'tomb_id']);
+    }
+
+    public function getDeads()
+    {
+        $dead_ids = explode(',', $this->dead_ids);
+
+        $deads = Dead::find()->where(['status'=>Dead::STATUS_NORMAL,'id'=>$dead_ids])->all();
+
+        return $deads;
+    }
+
+    public function getSku()
+    {
+        return $this->hasOne(Sku::className(),['id'=>'sku_id']);
+    }
+
 
     public function behaviors()
     {
@@ -100,31 +166,69 @@ class Portrait extends \app\core\db\ActiveRecord
 
     public static function PortraitGoods($tomb_id, $sku, $rel)
     {
-        $portrait = self::find()->where(['tomb_id'=>$tomb_id])
+
+        for ($i=0; $i < $rel->num; $i++) { 
+            $portrait = self::find()->where(['tomb_id'=>$tomb_id])
                          ->andWhere(['sku_id'=>$sku->id])
                          ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->andWhere(['sort'=>$i])
                          ->one();
 
-        $tomb = Tomb::findOne($tomb_id);
+            $tomb = Tomb::findOne($tomb_id);
 
-        if (!$portrait) {
-            $portrait = new self();
-            $portrait->tomb_id = $tomb_id;
+
+            if (!$portrait) {
+                $portrait = new self();
+                $portrait->tomb_id = $tomb_id;
+                $portrait->sort = $i;
+            }
+
+            $portrait->order_rel_id = $rel->id;
+            $portrait->sku_id = $sku->id;
+            $portrait->order_id = $rel->order_id;
+            $portrait->user_id = $tomb->user_id;
+            $portrait->guide_id = $tomb->guide_id;
+            $portrait->title = $sku->name == $sku->goods->name ? $sku->name : $sku->goods->name . $sku->name;
+
+            $portrait->save();
+
         }
 
-        $portrait->order_rel_id = $rel->id;
-        $portrait->sku_id = $sku->id;
-        $portrait->order_id = $rel->order_id;
-        $portrait->user_id = $tomb->user_id;
-        $portrait->guide_id = $tomb->guide_id;
-        $portrait->title = $sku->name == $sku->goods->name ? $sku->name : $sku->goods->name . $sku->name;
-        
-        return $portrait->save();
+
+        return true;
     }
 
-    public function getGoodsInfo()
+    public function getOriginalImg($size)
+    {
+        return Attachment::getById($this->photo_original, $size);
+    }
+    
+    public function getProcessedImg($size)
+    {
+        return Attachment::getById($this->photo_processed, $size);
+    }
+
+    public function getConfirmImg($size)
+    {
+        return Attachment::getById($this->photo_confirm, $size);
+    }
+
+    public function getSkuInfo()
     {
         $sku = Sku::findOne($this->sku_id);
-        return $sku->goods;
+        return $sku;
+    }
+
+    public function saveAttach($info)
+    {
+
+        if ($info['use'] == 'ps') {
+            $this->photo_processed = $info['mid'];
+            $this->status = $this->status == self::STATUS_PS ? self::STATUS_CONFIRM : $this->status;
+        } else if($info['use'] == 'original') {
+            $this->photo_original = $info['mid'];
+            $this->status = $this->status == self::STATUS_INIT ? self::STATUS_PS : $this->status;
+        }
+        return $this->save();
     }
 }

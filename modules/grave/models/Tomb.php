@@ -153,6 +153,11 @@ class Tomb extends \app\core\db\ActiveRecord
         return $this->hasOne(Grave::className(),['id'=>'grave_id']);
     }
 
+    public function getDeads()
+    {
+        return $this->hasMany(Dead::className(),['tomb_id'=>'id']);
+    }
+
 
     public function pre($flag = true)
     {

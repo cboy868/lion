@@ -17,15 +17,15 @@
                 </tr>
                 <?php foreach ($order->rels as $rel): ?>
                     <tr>
-                      <td align="center"><?=$rel->title?></td>
-                      <td align="center"><?=$rel->price?></td>
-                      <td align="center"><?=$rel->num?></td>
-                      <td align="center"><?=$rel->user->username?></td>
+                      <td align="left"><?=$rel->title?></td>
+                      <td align="left"><?=$rel->price?></td>
+                      <td align="left"><?=$rel->num?></td>
+                      
+                      <td align="left"><?=$rel->user->username?></td>
                       <!-- <td align="center"></td> -->
-                      <td align="center"><?=$rel->use_time?></td>
-                      <td align="center"><?=$rel->note?></td>
+                      <td align="left"><?=$rel->use_time?></td>
+                      <td align="left"><?=$rel->note?></td>
                       <!-- <td align="center"><?=$rel->statusText?></td>   -->
-                      <td></td>  
                     </tr> 
                 <?php endforeach ?>
             <tbody>

@@ -50,16 +50,14 @@ class ProcessController extends BackController
 
     public function saveAttach($info)
     {
+
         $portrait = Portrait::findOne($info['res_id']);
 
         if (!$portrait) {
             return null;
         }
 
-        $portrait->photo_original = $info['mid'];
-
-
-        return $portrait->save();
+        return $portrait->saveAttach($info);
     }
 
     /**
@@ -292,9 +290,11 @@ class ProcessController extends BackController
                 //     $model->imgSave();
                 // }
 
+                $pdata = $req->post('InsProcess');
+                $big_new = $pdata['big_new'];
+                $small_new = $pdata['small_new'];
 
-
-                
+                $model->new_font_num = json_encode(['big'=>$big_new, 'small'=>$small_new]);
 
                 if ($model->$method()) {
 
@@ -400,11 +400,13 @@ class ProcessController extends BackController
         if ($req->isPost) {
             $post = $req->post();
 
+
             if (Model::loadMultiple($models, $post) && Model::validateMultiple($models)) {
                 try {
                    $outerTransaction = Yii::$app->db->beginTransaction(); 
 
                    foreach ($models as $model) {
+                        $model->dead_ids = trim(implode($model->dead_ids, ','), ',');
                         $model->save();
                     }
                     $outerTransaction->commit();
@@ -414,22 +416,25 @@ class ProcessController extends BackController
                     $outerTransaction->rollBack();
                 }
 
-
-
-
                 if (!Dead::hasUnPreBury(Process::$tomb_id)) {
                     return $this->next(6);
                 }
 
                 return $this->next();
             }
+        }
 
+
+        $d_sel = [];
+        foreach ($dead as $k => $v) {
+            $d_sel[$v['id']] = $v['dead_name'];
         }
 
     	return $this->render('portrait',[
             'models' => $models,
             'get' => Yii::$app->request->get(),
-            'order' => Process::getOrder()
+            'order' => Process::getOrder(),
+            'dead' => $d_sel
             ]);
     }
 

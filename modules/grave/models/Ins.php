@@ -176,8 +176,8 @@ class Ins extends \app\core\db\ActiveRecord
     {
         return [
             [['guide_id', 'user_id', 'tomb_id'], 'required'],
-            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'font_num', 'new_font_num', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['content', 'note'], 'string'],
+            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['content', 'note', 'new_font_num', 'font_num'], 'string'],
             [['confirm_date', 'pre_finish', 'finish_at'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
             [['position', 'shape'], 'string', 'max' => 100],
@@ -221,6 +221,20 @@ class Ins extends \app\core\db\ActiveRecord
             'updated_at' => '更新时间',
             'created_at' => '添加时间',
         ];
+    }
+
+
+    /**
+     * @name 支付完成后的动作
+     */
+    public function afterPay()
+    {
+        //1 修改 font_num 和 new_font_num值
+        //2 is_confirm=0;dt_confirm;
+        //3 繁体字费is_tc final_tc
+        //
+
+
     }
 
     // public function getImgs($size=, $default='/static/images/defaut.png')

@@ -383,7 +383,8 @@ class Upload extends Component{
             'title' => $this->title,
             'mid' => $this->mid,
             'size' => $this->size,
-            'res_id' => $this->res_id
+            'res_id' => $this->res_id,
+            'use' => $this->use
         ];
 
         return $info;

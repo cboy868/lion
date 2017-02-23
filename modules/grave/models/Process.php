@@ -232,7 +232,7 @@ class Process extends \yii\base\Model
     public static function portrait()
     {
         $portraits = Portrait::find()->where(['tomb_id'=>self::$tomb_id])
-                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->andWhere(['<>', 'status', Portrait::STATUS_DEL])
                          ->all();
         return $portraits;
 
