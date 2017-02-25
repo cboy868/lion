@@ -129,3 +129,7 @@
 [2016-12-06 12:39:42] easywechat.DEBUG: Current config: {"debug":true,"log":{"level":"debug","file":"/vagrant/lion2/web/logs"},"app_id":"***8d291","secret":"***649c8","token":"lion"} []
 [2016-12-06 12:44:05] easywechat.DEBUG: Current config: {"debug":true,"log":{"level":"debug","file":"/vagrant/lion2/web/logs"},"app_id":"***8d291","secret":"***649c8","token":"lion"} []
 [2016-12-06 12:44:39] easywechat.DEBUG: Current config: {"debug":true,"log":{"level":"debug","file":"/vagrant/lion2/web/logs"},"app_id":"***8d291","secret":"***649c8","token":"lion"} []
+[2017-02-24 21:55:45] easywechat.DEBUG: Current config: {"debug":true,"log":{"level":"debug","file":"/vagrant/lion/web/logs"},"app_id":"***8d291","secret":"***649c8","token":"lion"} []
+[2017-02-24 21:55:50] easywechat.DEBUG: Current config: {"debug":true,"log":{"level":"debug","file":"/vagrant/lion/web/logs"},"app_id":"***8d291","secret":"***649c8","token":"lion"} []
+[2017-02-24 21:55:57] easywechat.DEBUG: Current config: {"debug":true,"log":{"level":"debug","file":"/vagrant/lion/web/logs"},"app_id":"***8d291","secret":"***649c8","token":"lion"} []
+[2017-02-24 21:56:01] easywechat.DEBUG: Current config: {"debug":true,"log":{"level":"debug","file":"/vagrant/lion/web/logs"},"app_id":"***8d291","secret":"***649c8","token":"lion"} []

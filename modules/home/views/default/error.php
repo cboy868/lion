@@ -40,10 +40,25 @@ $this->context->layout = false;
                 <h5>您可以访问以下地址： </h5>
                 <div class="link">
                     <a href="<?=Url::toRoute(['/'])?>">返回首页</a>
+                    <p>该页将在<span id="t_s">3</span>秒后自动跳转!</p>
                 </div>
             </div>
         </div>
         <div class="clear"></div>
     </div>
+
+
+<script>
+   var a = function(){
+    var t = 3;
+    setInterval(function(){
+        document.getElementById("t_s").innerHTML = t--;
+        if (t == 0) {
+            history.go(-1);
+        };
+    }, 1000);
+   }
+   a();
+</script>
 </body>
 </html>

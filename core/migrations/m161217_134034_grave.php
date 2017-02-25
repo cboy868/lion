@@ -116,8 +116,8 @@ class m161217_134034_grave extends Migration
             'dead_num' => $this->smallInteger()->notNull(),//本次安葬人数
             'bury_type' => $this->smallInteger(),//寿 单  合 独 二次
             'pre_bury_date'=> $this->dateTime(),
-            'bury_date' => $this->dateTime(),
-            'bury_time' => $this->time(),//类型
+            'bury_date' => $this->datetime(),
+            'bury_time' => $this->time(),
             'bury_user' => $this->integer(),//安葬员
             'bury_order'=> $this->smallInteger(),//一天之中的安葬顺序
             'note' => $this->text(),

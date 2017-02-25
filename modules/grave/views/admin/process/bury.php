@@ -3,6 +3,7 @@ use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 use app\core\helpers\Url;
 use app\assets\ExtAsset;
+use app\modules\grave\models\CarRecord;
 
 ExtAsset::register($this);
 ?>
@@ -56,20 +57,19 @@ ExtAsset::register($this);
                                       ?>
                                       <?= $form->field($model, "dead_id")->checkBoxList($unp)->label(false) ?>
 
-                                      <?= $form->field($nRecord, "car_type")->radioList($car_type)->label(false) ?>
+                                      <?= $form->field($nRecord, "car_type")->radioList($car_type, ['class'=>'cartype'])->label(false) ?>
                                   </div>
                                   <div class="col-sm-4">
                                       <?= $form->field($model, "pre_bury_date")->textInput(['dt'=>'true']) ?>
+                                      <?= $form->field($model, "bury_time")->textInput(['type'=>'time']) ?>
                                       <?= $form->field($nRecord, "addr_id")->dropDownList($car_addr) ?>
                                     </div>
                                       
                                   </div>
                               </div>
-                      
-
                     
 
-                      <div class="row" id="bury-car-contacts" style=";">
+                      <div class="row" id="bury-car-contacts" style="display:none;">
                          <div class="col-sm-12">
                              <h4 class="text-warning"><i class="fa fa-star"></i> 用车联系人信息</h4>
                              <div class="well">
@@ -123,7 +123,7 @@ ExtAsset::register($this);
       <?php else: ?>
         <div class="col-md-12">
             <div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
-              暂无要安葬的逝者
+              暂无安葬业务
             </div>
         </div>
 
@@ -148,7 +148,8 @@ ExtAsset::register($this);
                   </tr>
                   <tr>
                       <th width="100">车辆类型：</th>
-                      <td width="150" class="text-info"><?=$records[$pre->id]['car_type']?></td>
+
+                      <td width="150" class="text-info"><?=CarRecord::carType($records[$pre->id]['car_type'])?></td>
                       <th width="100">车辆时间：</th>
                       <td width="150" class="text-info"><?=$records[$pre->id]['use_date']?></td>
                       <th width="100">联系人：</th>
@@ -160,7 +161,7 @@ ExtAsset::register($this);
                       <td colspan="6" class="text-center">
                          <a href="/admin/process/bury_read?bury_id=14219" class="bury-read-btn btn btn-warning btn-xs">修改</a>
 
-                         <a href="/admin/process/del_bury?id=14219" class="bury-del-btn btn btn-danger btn-xs">删除</a>   
+                         <a href="<?=Url::toRoute(['/grave/admin/process/del-bury', 'id'=>$pre->id])?>" class="bury-del btn btn-danger btn-xs">删除</a>   
                       </td>
                   </tr>
                            </tbody></table>
@@ -180,308 +181,43 @@ ExtAsset::register($this);
 </div>
 
 
+<?php $this->beginBlock('up') ?>  
 
-
-
-
-
-<script type="text/javascript" charset="utf-8">
 $(function(){
-// start        
-var BuryContainer = $('#bury-container');
-var address_price = $.parseJSON('{$address_price}');
+    $('input[name="CarRecord[car_type]"]').change(function(){
+      var val = $(this).val();
 
-BuryContainer.find('a.bury-select-goods').cPanel({
-    beforeStart: function(btn){
-        var $this = $(this);
-        var url = btn.attr('href');
-        var _content = $('<div id="_content" class="row"></div>');
-        _content.load(url);
-        $(this).append(_content);
+      if (val == 1 || val == 2) {
+        $('#bury-car-contacts').show();
+      } else {
+        $('#bury-car-contacts').hide();
+      }
 
-    },
-    afterEnd: function(){
-        var datas = {
-            'cate_id'    : BuryGoodsBox.data('cateId'),
-            'is_bag'     : BuryGoodsBox.data('isBag'),
-            'bury_id'    : BuryGoodsBox.data('buryId'),
-            'goods_id'   : [],
-            'goods_num'  : []
-        };
+    });
 
-        BuryGoodsBox.find('li.active').each(function(index,item){
-            var $this = $(item);
-            var goodsInfo = $this.find('input.buy-num');
-            datas['goods_id'].push(goodsInfo.data('goodsId'));
-            datas['goods_num'].push(goodsInfo.val());
-        });
+    $(".bury-del").click(function(e){
+      e.preventDefault();
 
-        $.post('/admin/process/bury_goods_save', datas, function(xhr){
-            var html = $.trim(xhr);
-            if ( html ) {
-                window.location.reload();
-            }
-        },'html');
-    }
-});
+      if (!confirm("您确定要删除此项预葬信息吗")) {
+        return ;
+      }
 
-// 选择逝者 定安葬时间 --------------------------------------------
-// form
-var buryForm = BuryContainer.find('#bury-form');
-// 待安葬逝者列表
-var preBuryDeadInput = buryForm.find('input[rel=pre_bury_dead]');
-// 定安葬时间输入框
-var editBuryDateBox = buryForm.find('#edit-bury-date-box');
-// 定安葬时间
-var editBuryDateInput = buryForm.find('input[rel=pre_bury_date]'); 
-// 车辆类型框
-var buryCarTypeBox = buryForm.find('#bury-car-type-box');
-// 车辆类型选择
-var carTypeIdInput = buryForm.find('input[rel=car_type_id]');
-// 时间选择框
-var buryCarTimeBox = buryForm.find('#bury-car-time-box');
-// 接盒地点输入框
-var buryCarAddrBox = buryForm.find('#bury-car-addr');
-// 接盒地点
-var buryCarAddrInput = buryForm.find('select[rel=address_id]');
-// 时间列表
-var carTimeListBox = buryForm.find('#car-time-list-box');
-// 联系人输入框
-var buryCarContacts = buryForm.find('#bury-car-contacts');
-// 保存按钮
-var burySaveBtn = buryForm.find('#bury-save-btn');
-// 读取按钮
-var buryReadBtn = BuryContainer.find('a.bury-read-btn');
+      var url = $(this).attr('href');
 
-preBuryDeadInput.change(function(e){
-    var hasChecked = preBuryDeadInput.is(":checked");
-    if ( hasChecked ) {
-        editBuryDateBox.show();
-    } else {
-        editBuryDateInput.val('');
-        editBuryDateBox.hide();
-        $('#current-bury-num').text('');
-    }
-});
-
-// 校验设置
-var setting = {
-  rules: {
-    pre_bury_date: {
-      required: true,
-      dateISO: true
-    }
-  }
-}
-
-var validator = buryForm.validate(setting);
-// 检验设置结束
-
-var isDateISO = function( value ) {
-    return true;
-    // return /^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/.test(value);
-};
-
-// 监视安葬时间变化
-var inspectBuryDate = function(evet) {
-    var $this = $(this);
-    var dateStr = $.trim( editBuryDateInput.val() );
-    if ( dateStr.length > 0 && isDateISO(dateStr) ) {
-        /*
-        var buryDate = buryCarTypeBox.data('buryDate');
-        console.log( buryDate );
-        */
-
-        // if ( buryDate != dateStr ) {
-            // TODO 复位操作 
-            if ( buryCarTypeBox.is(':hidden')) {
-                buryCarTypeBox.show();
-            } else {
-                carTypeIdInput.removeAttr('checked');
-                buryCarAddrInput.val(0);
-                carTimeListBox.html(''); 
-                buryCarTimeBox.hide();
-                buryCarAddrBox.hide();
-            } 
-            
-            // 显示选择日期当前安葬数量
-            $.get('/admin/bury/checkdate', {'bury_date':dateStr},function(xhr){
-
-               var is_full = false;
-               var total = parseInt(xhr.data.total);
-               var num = parseInt(xhr.data.num);
-               if ( num >= total ) {
-                   is_full = true;
-               }
-
-               if ( is_full ) {
-                  var msg = '当天安葬数量已满';
-               } else {
-                  var msg = '当天安葬数量: ' + num;
-               }
-               $('#current-bury-num').text( msg ); 
-
-               if ( is_full ) {
-                   carTypeIdInput.removeAttr('checked');
-                   buryCarAddrInput.val(0);
-                   carTimeListBox.html(''); 
-                   buryCarTimeBox.hide();
-                   buryCarTypeBox.hide();
-                   $this.val('');
-               }
-                
-                
-            },'json');
-            
-
-            buryCarTypeBox.data('buryDate', dateStr);
-        // }
-    }
-};
-editBuryDateInput.change( inspectBuryDate );
-// editBuryDateInput.keyup( inspectBuryDate );
-
-/**
- * ajax 获取数据
- */
-var getCarList = function(param)
-{
-    var url = '/admin/bury/car_list';
-    $.get(url, param, function(xhr) {
-        carTimeListBox.html(''); 
-        carTimeListBox.html(xhr);
-    }, 'html');
-    buryCarTimeBox.show();
-}
-
-// 监视车辆类型选择
-carTypeIdInput.click(function(e){
-    var $this = $(this);
-    var carTypeId = $this.val();
-    if ( carTypeId == 1 ) {
-        buryCarAddrBox.show();
-        carTimeListBox.html('');
-        buryCarTimeBox.hide();
-        buryCarContacts.hide();
-    } else {
-        buryCarAddrBox.hide();
-        buryCarAddrInput.val(0);
-        var datas = {
-                'tomb_id' : process.tomb_id,
-                'type_id' : $this.val(),
-                'date'    : editBuryDateInput.val()
-            };
-        getCarList(datas);
-        if ( buryCarContacts.is(':hidden')) {
-            buryCarContacts.show();
+      $.post(url, null, function(xhr){
+        if (xhr.status) {
+          location.reload();
+        } else {
+          alert(xhr.info);
         }
-        // 发出请求
-    }
-});
-
-// 监视接盒地点
-buryCarAddrInput.change(function(e){
-    var $this = $(this);
-    var datas = {
-            'tomb_id'    : process.tomb_id,
-            'type_id'    : carTypeIdInput.val(),
-            'date'       : editBuryDateInput.val(),
-            'address_id' : $this.val()
-        };
-    getCarList( datas );
-    buryCarContacts.show();
-    var price = address_price[$this.val()] || 0;
-    if ( price ) {
-        $this.next('span.address_price').text('＋价: ¥' + price); 
-    } else {
-        $this.next('span.address_price').text(''); 
-    }
-
-});
-
-
-// 校验
-
-var validSetting = {};
-buryForm.validate(validSetting);        
-
-// 表单提交
-var options = {
-        dataType : 'json',
-        success  : function(xhr, statusText, form) {
-            if (xhr.status == 1) {
-                alert('保存成功！');
-                window.location.href = root_url + '#bury';
-                window.location.reload();
-                // burySaveBtn.button('reset');
-            }
-        }
-    };
-
-burySaveBtn.click(function(e){
-    e.preventDefault();
-    if ( buryForm.valid() ) {
-        burySaveBtn.button('loading');
-        buryForm.ajaxSubmit(options);
-    }
-});
-
-$('a.bury-del-btn').click(function(e){
-    e.preventDefault();        
-    if ( confirm("您确认要删除该预葬记录?") ) {
-        var url = $(this).attr('href');
-        $.get(url, function(xhr){
-            if (xhr.status == 1) {
-                window.location.reload();
-            }
-        },'json');
-    }
-});
-
-// 修改按钮
-BuryContainer.find('a.bury-read-btn').cPanel({
-    beforeStart: function(btn){
-        var $this = $(this);
-        var url = btn.attr('href');
-        var _content = $('<div id="_content" class="row"></div>');
-        _content.load(url);
-        $(this).append(_content);
-    },
-    afterEnd: function(){
-
-    }
-});
-
-// 删除商品
-var url = '/admin/process/del_order_detail';
-BuryContainer.on('click', 'a.bury-del-goods', function(e) {
-    e.preventDefault();
-    var $this = $(this);
-    var datas = {
-            'id' : $this.data('id')
-        };
-    $.get(url, datas, function(xhr){
-        if ( xhr.status == 1 ) {
-            $this.parents('li:first').hide(200,function(){
-                $this.remove(); 
-                window.location.reload();
-            });
-        }
-    },'json');
-});
-
-// end
-});
-</script>
+      },'json');
+    });
+})
 
 
 
-
-
-
-
-
-
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['up'], \yii\web\View::POS_END); ?> 
 
 
 

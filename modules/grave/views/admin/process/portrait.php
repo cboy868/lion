@@ -19,22 +19,7 @@ PluploaduiAssets::register($this);
         	<?php  echo $this->render('_step'); ?>
         </div><!-- /.page-header -->
         
-
-         <div class="col-xs-12">
-            <?php if (Yii::$app->session->has('success')): ?>
-                <div class="alert alert-success" role="alert">
-                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <strong>恭喜!</strong> <?=Yii::$app->session->getFlash('success')?>
-                </div>
-            <?php endif ?>
-
-            <?php if (Yii::$app->session->has('error')): ?>
-                <div class="alert alert-danger" role="alert">
-                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <strong>提示!</strong> <?=Yii::$app->session->getFlash('error')?>
-                </div>
-            <?php endif ?>
-        </div>
+         <?=\app\core\widgets\Alert::widget();?>
         
         <?php 
             $form = ActiveForm::begin();
@@ -46,10 +31,11 @@ PluploaduiAssets::register($this);
                 <div class="col-xs-12 address-index">
                     <div class="panel panel-info">
                         <div class="dHandler panel-heading">瓷像信息
-                            <button type="button" class="delit close" style="display:none;">
-                               <span class="text-danger" aria-hidden="true"> <i class="fa fa-times"></i> </span>
-                               <span class="sr-only">Close</span>
-                            </button> 
+                            <small class="pull-right">
+                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank">
+                                    购买瓷像
+                                </a>
+                            </small>
                         </div>
                         <div class="row">
                         

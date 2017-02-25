@@ -18,7 +18,9 @@ use app\modules\grave\models\CarAddr;
 use app\modules\grave\models\Dead;
 use app\modules\shop\models\Goods;
 // use app\modules\grave\models\Ins;
-// use app\modules\grave\models\Bury;
+use app\modules\grave\models\Bury;
+use app\modules\grave\models\CarRecord;
+
 // use app\modules\user\models\User;
 /**
  * CustomerController implements the CRUD actions for Customer model.
@@ -132,10 +134,8 @@ class ProcessController extends BackController
             }
         }
 
-
         $agent = Yii::$app->controller->module->params['role']['agent'];
         $guide = Yii::$app->controller->module->params['role']['guide'];
-
 
     	return $this->render('customer',[
                 'model'=> $customer,
@@ -417,7 +417,7 @@ class ProcessController extends BackController
                 }
 
                 if (!Dead::hasUnPreBury(Process::$tomb_id)) {
-                    return $this->next(6);
+                    return $this->end();
                 }
 
                 return $this->next();
@@ -454,8 +454,6 @@ class ProcessController extends BackController
         $deads = Process::dead();
         $carRecord = Process::carRecord();
         $car_model = $carRecord['model'];
-
-
         $req = Yii::$app->request;
         if ($req->isPost) {
 
@@ -469,6 +467,8 @@ class ProcessController extends BackController
                 $dead_name = '';
                 foreach ($dead_ids as $k => $id) {
                     $dead_name .= $deads[$id]['dead_name'] . ',';
+                    $deads[$id]->pre_bury = $model->pre_bury_date;
+                    $deads[$id]->save();
                 }
 
                 $dead_id = implode($dead_ids, ',');
@@ -516,6 +516,8 @@ class ProcessController extends BackController
         $nRecord = $carRecord['model'];
         $nRecord->loadDefaultValues();
 
+
+
     	return $this->render('bury', [
             'pres' => $burys['bury'],
             'model'=>$burys['model'],
@@ -527,8 +529,40 @@ class ProcessController extends BackController
             'records' => ArrayHelper::index($carRecord['records'], 'bury_id'),
             'nRecord' => $carRecord['model'],
             'customer' => $customer
-
         ]);
+    }
+
+    /**
+     * @name 删除预葬记录
+     */
+    public function actionDelBury($id)
+    {
+        $model = Bury::findOne($id);
+        $carRecord = CarRecord::find()->where(['bury_id'=>$id])->one();
+
+
+
+        $dead_ids = explode(',', $model->dead_id);
+        $deads = Dead::find()->where(['id'=>$dead_ids])->all();
+
+        foreach ($deads as $dead) {
+            $dead->pre_bury = Process::DT_NULL;
+            $dead->save();
+        }
+        if ($model->del() && $carRecord->del()) {
+            return $this->json();
+        }
+
+
+        return $this->json(null, '预葬记录删除失败', 0);
+    }
+
+    /**
+     * @name 修改预葬记录
+     */
+    public function actionUpdateBury()
+    {
+
     }
 
     public function order()

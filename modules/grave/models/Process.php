@@ -44,6 +44,9 @@ use app\modules\memorial\models\Memorial;
 class Process extends \yii\base\Model
 {
 
+    const DT_NULL = '0000-00-00 00:00:00';
+    const D_NULL  = '0000-00-00';
+
     public static $tomb_id;
 
     public static $dead_model_num = 0;

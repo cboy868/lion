@@ -12,7 +12,6 @@ use app\assets\ExtAsset;
 ExtAsset::register($this);
 
 
-
 $this->title="购墓流程"
 ?>
 
@@ -27,22 +26,9 @@ $this->title="购墓流程"
         <div class="page-header">
         	<?php  echo $this->render('_step'); ?>
         </div><!-- /.page-header -->
-        <div class="col-xs-12">
-            <?php if (Yii::$app->session->has('success')): ?>
-                <div class="alert alert-success" role="alert">
-                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <strong>恭喜!</strong> <?=Yii::$app->session->getFlash('success')?>
-                </div>
-            <?php endif ?>
 
-            <?php if (Yii::$app->session->has('error')): ?>
-                <div class="alert alert-danger" role="alert">
-                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <strong>提示!</strong> <?=Yii::$app->session->getFlash('error')?>
-                </div>
-            <?php endif ?>
-        </div>
 
+        <?=\app\core\widgets\Alert::widget();?>
         
         <div class="row">
             <div class="col-xs-12 address-index">
