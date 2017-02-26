@@ -11,71 +11,22 @@ use PDF_Chinese;
 class Fpdf extends PDF_Chinese
 {
 
-	public function test()
-	{
 
-		$pdf = new self('P','mm','A4');
-		$pdf->AddPage();
-		$pdf->SetFont('Arial','B',16);
-
-		$table = [
-			[
-				[10,10],//起始 x y
-				[20,9],
-				[20,9],
-				[10,9],
-				[60,9]
-			],//第一排
-			[
-				[10,19],//起始 x y
-				[30,9],
-				[30,9],
-				[50,9]
-			],//第二排
-		];
-
-		$tableArr = self::table($table, 1, 30);
-
-    	foreach ($tableArr as $v){
-	    	$pdf->SetXY($v['x'],$v['y']);
-	    	$pdf->cell($v['w'],$v['h'], '', 1);
-	    }
-
-	    ob_end_clean();
-	    $pdf->Output();
-	}
-
-	
-
-	// $table = [
-	// 	[
-	// 		[10,10],//起始 x y
-	// 		[20,9],
-	// 		[20,9],
-	// 		[10,9],
-	// 		[60,9]
-	// 	],//第一排
-	// 	[
-	// 		[10,19],//起始 x y
-	// 		[30,9],
-	// 		[30,9],
-	// 		[50,9]
-	// 	],//第二排
-	// ];
-
-	// $pdf = new self('P','mm','A4');
-	// $pdf->AddPage();
-	// $pdf->SetFont('Arial','B',16);
-	// $tableArr = self::table($table, 20, 30);
-
-	// foreach ($tableArr as $v){
- //    	$pdf->SetXY($v['x'],$v['y']);
- //    	$pdf->cell($v['w'],$v['h'], '', 1);
- //    }
-
-    // ob_end_clean();
-    // $pdf->Output();
-
+ //   $table = [
+ //        [
+ //            [10,10],//起始 x y
+ //            [50,9],//长 高
+ //            [20,9],
+ //            [10,9],
+ //            [60,9]
+ //        ],//第一排
+ //        [
+ //            [10,19],//起始 x y
+ //            [30,9],
+ //            [30,9],
+ //            [50,9]
+ //        ],//第二排
+ //    ];
 	/**
 	 * @name 处理表格
 	 * $err_x x方向偏移
@@ -107,22 +58,6 @@ class Fpdf extends PDF_Chinese
 	}
 
 
-
-// $pdf = new self('P','mm','A4');
-// $pdf->AddPage();
-// $pdf->AddGBFont('simkai','楷体_GB2312'); 
-
-
-// foreach($content as $v){
-// 	$pdf->setXY($v['x'],$v['y']);
-// 	$pdf->SetFont($v['font'],$v['b'],$v['font_size']); 
-// 	$pdf->cell(10,10, $v['content']);
-// }
-
-
-
-// ob_end_clean();
-// $pdf->Output();
 	public static function content($content, $font='simkai', $font_size=12, $b='B', $err_x=0, $err_y=0)
 	{
 		$result = [];
@@ -133,7 +68,7 @@ class Fpdf extends PDF_Chinese
 				'content' => iconv('UTF-8', 'GBK', $v['content']),
 				'x' => $v['x'] + $err_x,
 				'y' => $v['y'] + $err_y,
-				'font' => $font
+				'font' => $v['font'] ? $v['font'] : $font
 			];
         }
 
@@ -141,12 +76,40 @@ class Fpdf extends PDF_Chinese
 	}
 
 
+
+	/**
+	 * @name 大段文字换行
+	 * @body 内容
+	 * @num 每行字数
+	 * @start 起始位置
+	 * @height 行高
+	 * @indent 缩进字数
+	 * 
+	 */
+	public static function bodyLn($body, $num, $start = [10,10], $height = 8, $font_size=12, $b='B', $font="simkai", $indent = 2)
+	{
+
+		$params = 
+		$data = \app\core\helpers\StringHelper::mbStrSplit($body, $num, $indent);
+		$result = [];
+		$y = 0;
+
+		foreach ($data as $k => $v) {
+			$y = $start[1] + ($height * $k);
+
+			$result[] = [
+				'content'=> iconv('UTF-8', 'GBK', $v),
+				'x' => $start[0],
+				'y' => $start[1] + ($height * $k),
+				'b' => $b,
+				'font' => $font,
+				'font_size' => $font_size
+			];
+		}
+
+		return ['content'=>$result, 'y'=>$y+$height];
+	}
 }
 
-// $pdf = new Fpdf('P','mm','A4');
-// $pdf->AddPage();
-// $pdf->SetFont('Arial','B',16);
-// $pdf->Cell(40,10,'Hello World!');
 
-// ob_end_clean();
-// return $pdf->Output();
+

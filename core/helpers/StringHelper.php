@@ -13,7 +13,7 @@ namespace app\core\helpers;
  */
 class StringHelper extends \yii\helpers\BaseStringHelper
 {
-	public function range($length){ 
+	public static function range($length){ 
 		$str = '0123456789abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';//62个字符 
 		$strlen = 59; 
 		while($length > $strlen){ 
@@ -23,4 +23,27 @@ class StringHelper extends \yii\helpers\BaseStringHelper
 		$str = str_shuffle($str); 
 		return substr($str,0,$length); 
 	} 
+
+
+	/**
+	 * @name 字符串按长度分隔为数组 支持中文 
+	 */
+	public static function mbStrSplit($string, $len = 2, $indent=2)
+	{
+
+		$string = str_replace(PHP_EOL, '', $string);
+
+
+		if ($indent) {
+			$string = str_repeat(' ', $indent) . $string;
+		}
+
+	    $strlen = mb_strlen($string, 'utf8');
+
+	    for ($i=0; $i < $strlen; $i=$i+$len) { 
+	        $arr[] = mb_substr($string, $i, $len, 'utf8');
+	    }
+
+	    return $arr;
+	}
 }
