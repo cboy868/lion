@@ -5,6 +5,7 @@ namespace app\modules\order\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
+use app\modules\order\models\Order;
 /**
  * This is the model class for table "{{%order_pay}}".
  *
@@ -104,6 +105,7 @@ class Pay extends \app\core\db\ActiveRecord
      */
     public static function create($order)
     {
+
         $cnt = Pay::find()->where(['order_id'=>$order->id, 'status'=>1])->count();
 
         //订单不存在
@@ -111,9 +113,11 @@ class Pay extends \app\core\db\ActiveRecord
             return false;
         }
 
-        if ($order->progress > 2 ) {//'订单已支付完成';
+        if ($order->progress > Order::PRO_PAY ) {//'订单已支付完成';
             return false;
         }
+
+
         # 几种情况
         # 1､未支付过
         # 2､已经支付部分
@@ -150,7 +154,6 @@ class Pay extends \app\core\db\ActiveRecord
         if(!$pay->save()){ //'创建支付记录出现问题';
             return false;
         }
-
 
         return $pay;
     }

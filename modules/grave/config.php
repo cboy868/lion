@@ -87,7 +87,8 @@ return [
         'goods' => [
             'cate' => [
                 'ins' => 6,
-                'portrait' => 5
+                'portrait' => 5,
+                'liyi' => 7//礼仪
             ],
 
             'id' => [

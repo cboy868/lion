@@ -32,6 +32,10 @@ PluploaduiAssets::register($this);
                     <div class="panel panel-info">
                         <div class="dHandler panel-heading">瓷像信息
                             <small class="pull-right">
+                                <?php 
+
+                                    $portrait = $this->context->module->params['goods']['cate']['portrait'];
+                                 ?>
                                 <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank">
                                     购买瓷像
                                 </a>

@@ -74,7 +74,6 @@ class ProcessController extends BackController
     	return $this->$method();
     }
 
-
     public function customer()
     {
         //todo 尚未预定的墓位，要提前预定
@@ -102,12 +101,16 @@ class ProcessController extends BackController
 
                 if ($user->validate()) {
                     $user->createUser();
+                } else {
+                    goto show;
                 }
 
                 $customer->user_id = $user->id;
                 $customer->tomb_id = $tomb->id;
                 if ($customer->validate()) {
                     $customer->save();
+                } else {
+                    goto show;
                 }
 
                 $tomb->user_id = $user->id;
@@ -119,6 +122,8 @@ class ProcessController extends BackController
                         $tomb->status = Tomb::STATUS_PRE;
                     }
                     $tomb->save();
+                } else {
+                    goto show;
                 }
 
                 if (in_array($tomb->status, [Tomb::STATUS_EMPTY, Tomb::STATUS_PRE])) {
@@ -134,10 +139,12 @@ class ProcessController extends BackController
             }
         }
 
+
+        show:
         $agent = Yii::$app->controller->module->params['role']['agent'];
         $guide = Yii::$app->controller->module->params['role']['guide'];
 
-    	return $this->render('customer',[
+        return $this->render('customer',[
                 'model'=> $customer,
                 'tomb' => $tomb,
                 'user' => $user,
@@ -150,6 +157,7 @@ class ProcessController extends BackController
 
     public function dead()
     {
+
         $customer = Process::customer();
         if (!$customer->id) {
             Yii::$app->session->setFlash('error', '请先填写客户信息');
@@ -157,10 +165,13 @@ class ProcessController extends BackController
         }
 
         $session = Yii::$app->session;
-
-        if ($session->has('dead.num')) {
-            Process::$dead_model_num = $session->get('dead.num');
+        $key = 'dead.num' . Process::$tomb_id;
+        if ($session->has($key)) {
+            Process::$dead_model_num = $session->get($key);
         }
+
+
+        // p($session->get($key));die;
 
 
         $models = Process::dead();
@@ -173,15 +184,23 @@ class ProcessController extends BackController
                 $tomb->save();
             }
 
-
             if (Model::loadMultiple($models, $post) && Model::validateMultiple($models)) {
                 try {
                    $outerTransaction = Yii::$app->db->beginTransaction(); 
 
+                   $flag = false;
                    foreach ($models as $model) {
                         if (!$model->is_alive) {
                             $model->is_ins = Dead::INS_YES;
+                        } else {
+                            $model->pre_bury = Process::DT_NULL;
+                            //如果修改 那是不是原来的预葬和派车都要删除? 手动删除可能更保险
                         }
+
+                        if ($model->is_ins == Dead::INS_YES) {
+                            $flag = true;
+                        }
+
                         $model->save();
                     }
 
@@ -191,6 +210,9 @@ class ProcessController extends BackController
 
                     $outerTransaction->commit();
 
+                    if (!$flag) {
+                        return $this->next(4);
+                    }
                     return $this->next();
 
                 } catch (\Exception $e) {
@@ -351,9 +373,7 @@ class ProcessController extends BackController
 
     public function actionDelDead()
     {
-
         $dead_id = Yii::$app->request->get('dead_id');
-
 
         if ($dead_id) {
             Process::delDead($dead_id);
@@ -367,21 +387,21 @@ class ProcessController extends BackController
     private function dealDeadNum($plus=true)
     {
         $session = Yii::$app->session;
-        $ori_num = Process::getDeadNum();
-
-        if ($session->has('dead.num')) {
-
+        $key = 'dead.num' . Process::$tomb_id;
+        if ($session->has($key)) {
             if ($plus) {
-                $num = $session->get('dead.num')+1;
-                $session->set('dead.num', $num);
-            } else if($session->get('dead.num') > 1){
-                $num = $session->get('dead.num')-1;
-                $session->set('dead.num', $num);
+                $num = $session->get($key)+1;
+                $session->set($key, $num);
+            } else if($session->get($key) > 1){
+                $num = $session->get($key)-1;
+                $session->set($key, $num);
             }
 
         } else {
             $pu = $plus ? 1:-1;
-            $session->set('dead.num', $ori_num+$pu);
+            $ori_num = Process::getDeadNum();
+            $ori_num = $ori_num == 0 ? 2 : $ori_num;
+            $session->set($key, $ori_num+$pu);
         }
         
     }
@@ -456,40 +476,41 @@ class ProcessController extends BackController
         $car_model = $carRecord['model'];
         $req = Yii::$app->request;
         if ($req->isPost) {
+            try {
+                $outerTransaction = Yii::$app->db->beginTransaction(); 
+                if ($model->load($req->post())) {
 
+                    $dead_ids = $model->dead_id;
+                    $dead_name = '';
+                    foreach ($dead_ids as $k => $id) {
+                        $dead_name .= $deads[$id]['dead_name'] . ',';
+                        $deads[$id]->pre_bury = $model->pre_bury_date;
+                        $deads[$id]->save();
+                    }
 
-            // p($req->post());die;
+                    $dead_id = implode($dead_ids, ',');
+                    $dead_id = trim($dead_id, ',');
 
+                    $model->dead_id = $dead_id;
+                    $model->dead_name = trim($dead_name, ',');
+                    $model->dead_num = count($dead_ids);
 
-            if ($model->load($req->post())) {
+                    $model->bury_time = date('H:i:s', strtotime($model->pre_bury_date));
 
-                $dead_ids = $model->dead_id;
-                $dead_name = '';
-                foreach ($dead_ids as $k => $id) {
-                    $dead_name .= $deads[$id]['dead_name'] . ',';
-                    $deads[$id]->pre_bury = $model->pre_bury_date;
-                    $deads[$id]->save();
+                    $model->save();
                 }
 
-                $dead_id = implode($dead_ids, ',');
-                $dead_id = trim($dead_id, ',');
+                if ($car_model->load($req->post())) {
+                    $car_model->bury_id = $model->id;
+                    $car_model->save();
+                }
 
-                $model->dead_id = $dead_id;
-                $model->dead_name = trim($dead_name, ',');
-                $model->dead_num = count($dead_ids);
-
-                $model->save();
+                $outerTransaction->commit();
+                return $this->next();
+            } catch (\Exception $e) {
+                $outerTransaction->rollBack();
             }
-
-            if ($car_model->load($req->post())) {
-                $car_model->bury_id = $model->id;
-                $car_model->save();
-            }
-
-
-            return $this->next();
         }
-
 
         //取待安葬的逝者
         $unpre = [];
@@ -498,7 +519,6 @@ class ProcessController extends BackController
                 array_push($unpre, $dead);
             }
         }
-
 
         $car_type = $this->module->params['car']['type'];
         $car_addr = CarAddr::find()->where(['status'=>CarAddr::STATUS_NORMAL])->all();
@@ -515,8 +535,6 @@ class ProcessController extends BackController
 
         $nRecord = $carRecord['model'];
         $nRecord->loadDefaultValues();
-
-
 
     	return $this->render('bury', [
             'pres' => $burys['bury'],

@@ -91,11 +91,10 @@ class Process extends \yii\base\Model
                          ->orderBy('sort asc')
                          ->all();
 
-
-
         if (self::getDeadNum() == 0 && self::$dead_model_num == 0) {
             self::$dead_model_num = 2;
         }
+        
 
         if ((self::$dead_model_num - self::getDeadNum()) > 0) {
             $new = self::$dead_model_num - self::getDeadNum();

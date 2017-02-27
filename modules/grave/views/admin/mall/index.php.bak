@@ -11,7 +11,7 @@ MustacheAsset::register($this);
     overflow:auto;
     padding-right:5px;
 }
-div.goods-item{ border:1px solid white; margin-bottom: 5px;}
+div.goods-item{ border:1px solid white; }
 input.goods-num { font-size:12px;height:24px; }
 .goods-nav>li>a { padding: 5px  }
 .list-group-item{
@@ -29,14 +29,44 @@ ul.goods-selected-item {
 }
 </style>
 
+
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="row" id="goods_order">
+
+
+
             <form method="post" id="goodsForm">
 
+
             <?php if (count($goods_cates)): ?>
-                
+                <div class="col-sm-2" id="cate-list-box">
+                    <div class="panel panel-primary nav nav-tabs"role="tablist">
+                      <div class="panel-heading">
+                          <span style="margin-right:1em;">商品分类</span>
+                      </div>
+                        <table class="table table-bordered table-hover table-condensed" id="cate-tree">
+                            <tbody>
+                              <tr>
+                                <td class="text-center"> 
+                                  <a id="btn-plus" href="#"> <i class="fa fa-plus"></i> 展开</a> | 
+                                  <a id="btn-times" href="#"><i class="fa fa-minus"></i> 折叠</a>
+                                 </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                            <?php foreach ($goods_cates as $k => $vo): ?>
+                                <tr class="cate-box"  data-tt-id="<?=$vo['id']?>" <?php if($vo['pid']!=1):?>data-tt-parent-id="<?=$vo['pid']?>" <?php endif;?>>
+                                  <td role="presentation">
+                                  <a class="" href="#goods<?=$vo['id']?>" role="tab" data-toggle="tab"><?=$vo['name']?></a>
+                                  </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
                 <div class="col-sm-10">
             <?php else: ?>
                 <div class="col-sm-12">
@@ -54,56 +84,63 @@ ul.goods-selected-item {
                            role="tab"
                            data-toggle="tab"><i class="fa fa-fw fa-check-square-o "></i> 已定<?=$tname?></a>
                     </li>
+
+
                   </ul>
 
                   <!-- Tab panes -->
-                  <div class="tab-content" id="content-box">
-                    <div role="tabpanel" class="tab-pane active" id="goods-list-box">
-                    <div class="row">
-                        <?php foreach($goods_list as $goods):?>
-                        <?php 
+                  <div class="tab-content" id="content-box goods-list-box">
 
-                            $sku_cnt = count($goods->sku);
+                        <?php foreach ($categorys as $k => $cate): ?>
+                        <div role="tabpanel" class="tab-pane" id="goods<?=$cate->id?>">
 
-                        ?>
-                        <div class="col-sm-4 goods-item" data-id="<?=$goods->id?>" data-title="<?=$goods->name?>" data-price="<?=$goods->price?>" data-img="<?=$goods->getThumb('110x110')?>" >
+                            <div class="row">
+                                <?php foreach($cate->goods as $goods):?>
+                                <?php 
+
+                                    $sku_cnt = count($goods->sku);
+
+                                ?>
+                                <div class="col-sm-4 goods-item" data-id="<?=$goods->id?>" data-title="<?=$goods->name?>" data-price="<?=$goods->price?>" data-img="<?=$goods->getThumb('110x110')?>" >
 
 
-                             <div class="media">
-                                  <div class="media-left media-middle">
-                                    <a href="#">
-                                      <img class="media-object" src="<?=$goods->getThumb('110x110')?>" alt="..." width="110" height="110">
-                                    </a>
-                                  </div>
-                                  <div class="media-body">
-                                    <h4 class="media-heading"><small class="text-primary"><strong><?=$goods->name?></strong></small></h4>
-                                    <p>
-                                        <small>价格:<code>¥<?=$goods->price?>元</code></small>
-                                    </p>
-                                    <?php if ($sku_cnt > 1): ?>
-                                         <p>
-                                            <select name="sku_id" class="form-control sku" style="max-width:120px;">
-                                                <?php foreach ($goods->sku as $k => $sku): ?>
-                                                    <option value="<?=$sku->id?>"><?=$sku->name?></option>
-                                                <?php endforeach ?>
-                                            </select>
-                                        </p>
-                                    <?php endif ?>
-                                        <input name="sku_id" type="hidden" value="<?=$goods->sku[0]->id?>" class="sku_id" sku-name="<?=$goods->sku[0]->name?>"/>
+                                     <div class="media">
+                                          <div class="media-left media-middle">
+                                            <a href="#">
+                                              <img class="media-object" src="<?=$goods->getThumb('110x110')?>" alt="..." width="110" height="110">
+                                            </a>
+                                          </div>
+                                          <div class="media-body">
+                                            <h4 class="media-heading"><small class="text-primary"><strong><?=$goods->name?></strong></small></h4>
+                                            <p>
+                                                <small>价格:<code>¥<?=$goods->price?>元</code></small>
+                                            </p>
+                                            <?php if ($sku_cnt > 1): ?>
+                                                 <p>
+                                                    <select name="sku_id" class="form-control sku" style="max-width:120px;">
+                                                        <?php foreach ($goods->sku as $k => $sku): ?>
+                                                            <option value="<?=$sku->id?>"><?=$sku->name?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </p>
+                                            <?php endif ?>
+                                                <input name="sku_id" type="hidden" value="<?=$goods->sku[0]->id?>" class="sku_id" sku-name="<?=$goods->sku[0]->name?>"/>
 
-                                        <div class="text-left goods-sel-btn">
-                                            <button class="btn-sub btn btn-xs btn-default" ><span class="fa fa-minus"></span></button>
-                                            <input class="goods-num" style="" type="text" value="0" size="3" />
-                                            <button class="btn-add btn btn-xs btn-default"><span class="fa fa-plus"></span></button>
+                                                <div class="text-left goods-sel-btn">
+                                                    <button type="button" class="btn-sub btn btn-xs btn-default" > 减 </button>
+                                                    <input class="goods-num" style="" type="text" value="0" size="3" />
+                                                    <button type="button" class="btn-add btn btn-xs btn-default"> 加 </button>
+                                                </div>
+                                          </div>
                                         </div>
-                                  </div>
+
+
                                 </div>
-                        </div>
-                        <?php endforeach;?>
+                                <?php endforeach;?>
+                            </div>
                     </div>
-                    
-                    
-                    </div>
+                        <?php endforeach ?>
+
                     <div role="tabpanel" class="tab-pane" id="goods-selected-box">
                         <table class="table table-condensed table-hover">
                             <thead>
@@ -163,11 +200,11 @@ $(function(){
     });
     $('#btn-plus').click(function(e){
         e.preventDefault();
-        cTree.treetable('expandAll');
+        cateTree.treetable('expandAll');
     });
     $('#btn-times').click(function(e){
         e.preventDefault();
-        cTree.treetable('collapseAll');
+        cateTree.treetable('collapseAll');
     });
     // -----------------------------------
 
@@ -258,20 +295,22 @@ $(function(){
     });
 
     // 调取分类
-    $('a.goods-category').click(function(e){
-        e.preventDefault();
-        var $this = $(this);
-        var url = $this.attr('href');
-        $.get(url, function(xhr){
-            goodsListBox.html(xhr);
-            $this.parents('tbody:first').find('td').removeClass('active');
-            $this.parents('td:first').addClass('active');
-        }, 'html')
-    });
+    // $('a.goods-category').click(function(e){
+    //     e.preventDefault();
+    //     var $this = $(this);
+    //     var url = $this.attr('href');
+    //     $.get(url, function(xhr){
+    //         goodsListBox.html(xhr);
+    //         $this.parents('tbody:first').find('td').removeClass('active');
+    //         $this.parents('td:first').addClass('active');
+    //     }, 'html')
+    // });
 
     // 商品页面加减数量
     goodsListBox.on('click', 'button.btn-sub,button.btn-add', function(e){
         e.preventDefault();
+
+console.log(111);
         var $this = $(this);
         var goodsItem = $this.parents('div.goods-item:first');
         var target = $this.parents('div:first').find('input.goods-num');

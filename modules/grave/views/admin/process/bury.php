@@ -6,6 +6,10 @@ use app\assets\ExtAsset;
 use app\modules\grave\models\CarRecord;
 
 ExtAsset::register($this);
+
+use app\assets\DateTimeAsset;
+
+DateTimeAsset::register($this);
 ?>
 <style type="text/css">
   .fm.table>tbody>tr>td, .fm.table>tbody>tr>th, .fm.table>tfoot>tr>td, .fm.table>tfoot>tr>th, .fm.table>thead>tr>td, .fm.table>thead>tr>th {
@@ -35,7 +39,21 @@ ExtAsset::register($this);
               <div class="panel panel-info">
                   <div class="dHandler panel-heading">定安葬
                     <small class="pull-right">
-                      <a href="" class="btn btn-warning">购买礼仪</a>
+
+
+
+                   <?php 
+                   $liyi = $this->context->module->params['goods']['cate']['liyi'];
+                   ?>
+
+
+
+
+
+
+
+
+                      <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$liyi, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-warning" >购买礼仪</a>
                     </small>
                   </div>
                   
@@ -60,8 +78,7 @@ ExtAsset::register($this);
                                       <?= $form->field($nRecord, "car_type")->radioList($car_type, ['class'=>'cartype'])->label(false) ?>
                                   </div>
                                   <div class="col-sm-4">
-                                      <?= $form->field($model, "pre_bury_date")->textInput(['dt'=>'true']) ?>
-                                      <?= $form->field($model, "bury_time")->textInput(['type'=>'time']) ?>
+                                      <?= $form->field($model, "pre_bury_date")->textInput(['id'=>'dt']) ?>
                                       <?= $form->field($nRecord, "addr_id")->dropDownList($car_addr) ?>
                                     </div>
                                       
@@ -212,6 +229,15 @@ $(function(){
         }
       },'json');
     });
+
+    $.datetimepicker.setLocale('ch');
+    $('#dt').datetimepicker({
+      timepicker:true, 
+      format:"Y-m-d H:i",
+      step:30,
+      weeks:true,
+    })
+
 })
 
 

@@ -167,15 +167,14 @@ class Portrait extends \app\core\db\ActiveRecord
     public static function PortraitGoods($tomb_id, $sku, $rel)
     {
 
+        $tomb = Tomb::findOne($tomb_id);
         for ($i=0; $i < $rel->num; $i++) { 
             $portrait = self::find()->where(['tomb_id'=>$tomb_id])
                          ->andWhere(['sku_id'=>$sku->id])
-                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->andWhere(['<>', 'status', Dead::STATUS_DEL])
+                         // ->andWhere(['status'=>Dead::STATUS_NORMAL])
                          ->andWhere(['sort'=>$i])
                          ->one();
-
-            $tomb = Tomb::findOne($tomb_id);
-
 
             if (!$portrait) {
                 $portrait = new self();

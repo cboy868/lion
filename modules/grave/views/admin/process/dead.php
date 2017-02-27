@@ -193,7 +193,7 @@ $(function(){
 $('.new-dead').on('click', function(e){
     e.preventDefault();
 
-    $.get('<?=Url::toRoute(['add-dead'])?>', null, function(xhr){
+    $.get('<?=Url::toRoute(['add-dead', 'tomb_id'=>$get['tomb_id']])?>', null, function(xhr){
         location.reload();
     }, 'json');
 });
