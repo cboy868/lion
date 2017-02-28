@@ -66,12 +66,12 @@ ExtAsset::register($this);
                          ?>
                         <tr>
                             <td width="50%"><?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('姓名<font color="red">(*)</font>') ?></td>
-                            <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('电话<font color="red">(*)</font>') ?></td>
+                            <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('电话') ?></td>
                             
                         </tr>
                         <tr>
                             <td>
-                                <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('邮箱<font color="red">(*)</font>') ?>
                             </td>
                             <td width="">
                                 <?= $form->field($model, 'company')->textInput(['maxlength' => true]) ?>

@@ -31,7 +31,7 @@ class MsgForm extends Model
 	public function rules()
     {
         return [
-            [['username', 'mobile', 'title', 'goods_id'], 'required'],
+            [['username', 'email', 'title', 'goods_id'], 'required'],
             ['email', 'email'],
             ['verifyCode', 'captcha', 'captchaAction'=>'/member/default/captcha'],
             [['intro'], 'string'],
