@@ -30,7 +30,7 @@ $this->title = 'PRODUCTS';
 
                         <ul>
                             <?php foreach ($cates as $cate): ?>
-                                <?php if ($cate['child']): ?>
+                                <?php if (isset($cate['child'])): ?>
                                     <li class="down">
                                         <a href="#"><?=$cate['name']?></a> 
                                         <span style="float:right;padding-right: 5px;padding-top: 2px;" class="fa fa-caret-down fa-2x"></span>
@@ -45,15 +45,6 @@ $this->title = 'PRODUCTS';
                                 <?php endif ?>
                             <?php endforeach ?>
                         </ul>
-
-
-
-
-                    <!-- <ul>
-                        <?php foreach ($cates as $cate): ?>
-                            <li><a href="<?=$cate['url']?>"><?=$cate['name']?></a></li>
-                        <?php endforeach ?>
-                    </ul> -->
                     </div>
                 </div>
 
