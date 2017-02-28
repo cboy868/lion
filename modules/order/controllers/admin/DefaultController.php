@@ -13,6 +13,8 @@ use app\modules\order\models\Pay;
 use app\modules\order\models\Delay;
 use app\modules\order\models\OrderEvent;
 use app\modules\order\models\Refund;
+
+use app\core\helpers\ArrayHelper;
 /**
  * DefaultController implements the CRUD actions for Order model.
  */
@@ -90,7 +92,6 @@ class DefaultController extends BackController
         $refund = new Refund();
         $model = $this->findModel($id);
 
-
         if ($refund->load(Yii::$app->request->post())) {
 
             $post = Yii::$app->request->post();
@@ -99,32 +100,65 @@ class DefaultController extends BackController
             $items = $post['item'];
 
             $total = 0;
-            $intro = '';
+            $intro = [];
             foreach ($items as $k => $v) {
                 $rel = OrderRel::findOne($k);
+
+                if ($v == 0) {
+                    continue;
+                }
                 $price = $rel->price_unit * $v;
 
                 $total += $price;
-                $intro .= $rel->title . ':' . $v . ':' . $price.';';
+
+                $intro[] = [
+                    'rel_id' => $k,
+                    'name' => $rel->title,
+                    'num' => $v,
+                    'price' => $price,
+                ];
+                // $intro .= $rel->title . ':' . $v . ':' . $price.';';
             }
 
             $data = [
                 'user_id' => $model->user_id,
                 'order_id'=> $model->id,
-                'intro'   => $intro,
+                'intro'   => json_encode($intro),
                 'op_id'   => Yii::$app->user->id,
                 'fee'     => $total,
             ];
             $refund->load($data, '');
             if ($refund->save()) {
-                Yii::$app->session->setFlash('success', '宴请退款完成，待审批');
+                Yii::$app->session->setFlash('success', '申请退款完成，待审批');
+                return $this->redirect(['/order/admin/refund/index']);
             }
+        }
 
+        $rels = ArrayHelper::index($model->rels, 'id');
+
+        $refunds = Refund::find()->where(['order_id'=>$id])
+                                 ->andWhere(['<>', 'status', Refund::STATUS_DEL])
+                                 ->andWhere(['<>', 'progress', Refund::PRO_NOPASS])
+                                 ->all();
+
+
+        foreach ($refunds as $k => $refund) {
+            $intro = (array)json_decode($refund->intro, true);
+            foreach ($intro as $item) {
+                if (array_key_exists($item['rel_id'], $rels)) {
+                    if ($item['num'] >= $rels[$item['rel_id']]['num']) {
+                        unset($rels[$item['rel_id']]);
+                    } else {
+                        $rels[$item['rel_id']]->num -= $item['num'];
+                    }
+                }
+            }
         }
 
         return $this->render('refund',[
             'model'=>$model,
-            'refund' => $refund
+            'refund' => $refund,
+            'rels' => $rels
             ]);
     }
 

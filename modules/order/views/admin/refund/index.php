@@ -49,7 +49,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'user.username',
             'fee',
             'pro',
-            'intro:ntext',
+            [
+                'label' => '退款内容',
+                'value' => function($model){
+                    $intro = (array)json_decode($model->intro, true);
+
+                    $str = '';
+                    foreach ($intro as $k => $v) {
+                        $str .= $v['name'] . $v['num'] . '个' . $v['price'].'元;<br/>';
+                    }
+                    return $str;
+                },
+                'format' => 'raw'
+            ],
             'note:ntext',
             'created_at:datetime',
             // 'updated_at',

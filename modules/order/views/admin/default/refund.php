@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = '退款';
 
 					$ck = [];
 
-					foreach ($model->rels as $k => $v) {
+					foreach ($rels as $k => $v) {
 						$ck[$v->title] = $v->title;
 					}
 				 ?>
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = '退款';
 						<label class="control-label col-sm-2">退款内容</label>
 						<div class="col-sm-10">
 
-						<?php foreach ($model->rels as $k => $v): ?>
+						<?php foreach ($rels as $k => $v): ?>
 							<div style="margin-bottom:10px;">
 							  <label><?=$v->title?></label>
 							  <select class="form-control" name="item[<?=$v->id?>]" unit="<?=$v->price_unit?>" style="display: inline;width: auto;">
