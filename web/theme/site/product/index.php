@@ -33,8 +33,8 @@ $this->title = 'PRODUCTS';
                                 <?php if (isset($cate['child'])): ?>
                                     <li class="down">
                                         <a href="#"><?=$cate['name']?></a> 
-                                        <span style="float:right;padding-right: 5px;padding-top: 2px;" class="fa fa-caret-down fa-2x"></span>
-                                         <ul style="display:none;">
+                                        <span style="float:right;padding-right: 5px;padding-top: 2px;" class="fa fa-caret-up fa-2x"></span>
+                                         <ul style="display:block;">
                                             <?php foreach ($cate['child'] as $ct): ?>
                                             <li><a href="<?=$ct['url']?>"><?=$ct['name']?></a></li>
                                             <?php endforeach ?>
