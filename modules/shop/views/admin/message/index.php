@@ -47,7 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
         // 'filterModel' => $searchModel,
         'columns' => [
             'title',
-            'goods.name',
+            [
+                'headerOptions' => ["data-type"=>"html"],
+                'label' => '商品名',
+                'value' => function($model){
+                    return '<a href="'.Url::toRoute(['/home/product/view', 'id'=>$model->goods_id]).'" target="_blank">'.$model->goods->name.'</a>';
+                },
+                'format' => 'raw'
+            ],
             'term',
             'company',
             'username',

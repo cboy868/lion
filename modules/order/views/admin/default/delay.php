@@ -27,14 +27,7 @@ JqueryuiAsset::register($this);
         <!-- /.page-header -->
 
         <div class="row">
-
-
-        <?php if (Yii::$app->session->has('success')): ?>
-            <div class="alert alert-success" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <strong>恭喜!</strong> <?=Yii::$app->session->getFlash('success')?>
-            </div>
-        <?php endif ?>
+        <?=\app\core\widgets\Alert::widget();?>
             <div class="col-xs-12">
                 <div class="orderlist">
                     <table class="table table-striped table-hover table-bordered table-condensed" cellpadding="0" cellspacing="0" border="0">

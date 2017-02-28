@@ -11,9 +11,9 @@ use app\modules\order\models\Delay;
 /* @var $this yii\web\View */
 /* @var $model app\modules\order\models\Order */
 
-$this->title = $model->id;
+$this->title = $model->id . '号订单明细';
 $this->params['breadcrumbs'][] = ['label' => '订单列表', 'url' => ['index']];
-$this->params['breadcrumbs'][] = '订单明细';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="page-content">
@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = '订单明细';
             echo '<div id="editContent"></div>';
             Modal::end();
         ?>
+        <?=\app\core\widgets\Alert::widget();?>
         <div class="row">
             <div class="col-xs-12">
                 <div class="orderlist">

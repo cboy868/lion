@@ -116,7 +116,9 @@ class DefaultController extends BackController
                 'fee'     => $total,
             ];
             $refund->load($data, '');
-            $refund->save();
+            if ($refund->save()) {
+                Yii::$app->session->setFlash('success', '宴请退款完成，待审批');
+            }
 
         }
 
@@ -146,7 +148,7 @@ class DefaultController extends BackController
             $delay->on(Delay::EVENT_AFTER_CREATE, [$order, 'afterPay']);
 
             if ($delay->create($order)) {
-                Yii::$app->session->setFlash('success', '申请完成，待审批...');
+                Yii::$app->session->setFlash('success', '延期付款申请完成，待审批...');
                 return $this->redirect(['view', 'id'=>$id]);
             }
 
