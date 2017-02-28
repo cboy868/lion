@@ -149,8 +149,10 @@ jQuery(document).ready(function() {
     });
 
     $('.down').click(function(e){
+        if (e.target.tagName == 'A' && $(e.target).attr('href')!='#'){
+            return ;
+        }
         e.preventDefault();
-
         if ($(this).find('span').hasClass('fa-caret-up')) {
             $(this).find('ul').slideUp();
             $(this).find('span').removeClass('fa-caret-up').addClass('fa-caret-down');
