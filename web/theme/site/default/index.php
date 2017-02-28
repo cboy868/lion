@@ -8,7 +8,6 @@ $this->title = 'HOME';
 
 
 <?php 
-
 $focus = focus(3, 6, '380x265');
 ?>
 <div class="grid-banner">
@@ -16,7 +15,7 @@ $focus = focus(3, 6, '380x265');
         <div class="row nova-mg-pd">
 
         <?php foreach ($focus as $k => $v): ?>
-            <div class="col-md-4 nova-left" style="height: 360px;overflow: hidden;">
+            <div class="col-md-4 nova-left" style="height: 360px; overflow: hidden;">
                 <a title="<?=$v['title']?>" href="<?=$v['link']?>">
                     <img title="Typre32_Lea Slimtech" src="<?=$v['image']?>" alt="<?=$v['title']?>">
                 </a>

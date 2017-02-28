@@ -2,6 +2,8 @@
 
 use app\core\helpers\Html;
 use app\core\helpers\Url;
+use app\core\helpers\ArrayHelper;
+
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
@@ -18,16 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
-        <div class="page-header">
+        <!-- <div class="page-header">
             <h1>
-            <!-- 
                 <?=  Html::a($this->title, ['index']) ?> 
-            -->
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
-        </div><!-- /.page-header -->
+        </div> -->
+        <!-- /.page-header -->
 
         <div class="row">
             <div class="col-xs-12">
@@ -44,19 +45,40 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            // ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'tomb_id',
-            'user_id',
             'name',
-            // 'phone',
+            [
+                'label' => '墓位号',
+                'value' => function($model){
+                    return '<a href="'.Url::toRoute(['/grave/admin/tomb/view', 'id'=>$model->tomb_id]).'" target="_blank">'.$model->tomb->tomb_no.'</a>';
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '账号',
+                'value' => function($model){
+                    return $model->user->username;
+                }
+            ],
+            [
+                'label' => '地址',
+                'value' => function($model) {
+                    return $model->address . $model->addr;
+                }
+            ],
+            [
+                'label' => '使用人',
+                'value' => function($model){
+                    $deads = $model->deads;
+                    return implode(',', ArrayHelper::getColumn($deads, 'dead_name'));
+                }
+            ],
             'mobile',
             // 'email:email',
             // 'second_ct',
             // 'second_mobile',
             // 'units',
-            'relation',
+            // 'relation',
             // 'is_vip',
             // 'vip_desc:ntext',
             // 'created_at',

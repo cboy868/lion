@@ -3,6 +3,13 @@
 namespace app\modules\grave\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use app\modules\grave\models\Dead;
+use app\modules\grave\models\Tomb;
+use app\modules\user\models\User;
+use app\core\models\Area;
+use app\core\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "{{%grave_customer}}".
@@ -77,5 +84,39 @@ class Customer extends \app\core\db\ActiveRecord
             'updated_at' => '修改时间',
             'status' => '状态',
         ];
+    }
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+            ]
+        ];
+    }
+
+
+    public function getDeads()
+    {
+        return $this->tomb->deads;
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(), ['id' => 'tomb_id']);
+    }
+
+    public function getAddress()
+    {
+        $search = [$this->province, $this->city, $this->zone];
+        $result = Area::find()->where(['id'=>$search])->asArray()->all();
+
+        $result = ArrayHelper::map($result, 'id', 'name');
+
+        return $result[$this->province] . $result[$this->city] . $result[$this->zone];
     }
 }

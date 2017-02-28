@@ -26,11 +26,34 @@ $this->title = 'PRODUCTS';
                 <div class="block left-categories">
                     <div class="block-title"><span>Products</span></div>
                     <div class="block-content left-categories-container">
-                    <ul>
+
+
+                        <ul>
+                            <?php foreach ($cates as $cate): ?>
+                                <?php if ($cate['child']): ?>
+                                    <li class="down">
+                                        <a href="#"><?=$cate['name']?></a> 
+                                        <span style="float:right;padding-right: 5px;padding-top: 2px;" class="fa fa-caret-down fa-2x"></span>
+                                         <ul style="display:none;">
+                                            <?php foreach ($cate['child'] as $ct): ?>
+                                            <li><a href="<?=$ct['url']?>"><?=$ct['name']?></a></li>
+                                            <?php endforeach ?>
+                                        </ul>
+                                    </li>
+                                <?php else: ?>
+                                    <li><a href="<?=$cate['url']?>"><?=$cate['name']?></a></li>
+                                <?php endif ?>
+                            <?php endforeach ?>
+                        </ul>
+
+
+
+
+                    <!-- <ul>
                         <?php foreach ($cates as $cate): ?>
                             <li><a href="<?=$cate['url']?>"><?=$cate['name']?></a></li>
                         <?php endforeach ?>
-                    </ul>
+                    </ul> -->
                     </div>
                 </div>
 
@@ -53,18 +76,11 @@ $this->title = 'PRODUCTS';
                             } else {
                                 $avids = [$avid];
                             }
-
-
                          ?>
                             <?php foreach ($attrs as $attr): ?>
                                 <dt id="filterlabel<?=$attr['id']?>" class="odd active"><?=$attr['name']?></dt>
                                  <dd class="odd" style="display: block;">
                                     <ol>
-                                    <?php 
-
-                                    
-                                        
-                                     ?>
                                     
                                     <?php foreach ($attr['child'] as $val): ?>
                                         <li style="margin-top:4px;line-height:22px;">
@@ -139,6 +155,19 @@ jQuery(document).ready(function() {
 
     $('.limiter').mouseleave(function(){
         $(this).find('ul').slideUp();
+    });
+
+    $('.down').click(function(e){
+        e.preventDefault();
+
+        if ($(this).find('span').hasClass('fa-caret-up')) {
+            $(this).find('ul').slideUp();
+            $(this).find('span').removeClass('fa-caret-up').addClass('fa-caret-down');
+        } else {
+            $(this).find('ul').slideDown();
+            $(this).find('span').removeClass('fa-caret-down').addClass('fa-caret-up');
+        }
+        
     });
 
 });  

@@ -31,6 +31,9 @@ class ProductController extends \app\core\web\HomeController
         $cates = $this->getCates();
         $attrs = AvRel::attrs();
 
+
+        // p($cates);die;
+
         return $this->render('@app/web/theme/site/product/index', [
             'cates'       => $cates,
             'attrs' => $attrs,

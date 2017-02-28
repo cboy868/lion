@@ -61,7 +61,7 @@ HomeAsset::register($this);
                 <nav class="navbar">
                       <form class="navbar-form pull-right" role="search" action="<?=Url::toRoute(['/home/product/index'])?>">
                         <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Product name or sku" name="product" value="<?=Yii::$app->request->get('product')?>">
+                          <input type="text" class="form-control" placeholder="Product name or code" name="product" value="<?=Yii::$app->request->get('product')?>">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                       </form>
@@ -117,7 +117,7 @@ HomeAsset::register($this);
                         <div class="input-group col-sm-6 ">
                           <input type="text" class="form-control email" placeholder="SIGN UP FOR NEWSLETTER" data-required>
                           <span class="input-group-btn">
-                            <button class="btn btn-warning ebtn" type="button" style="background-color:#E28903" data-loading-text="committing...">SUBMIT</button>
+                            <button class="btn btn-warning ebtn" type="button" style="background-color:#E28903" data-loading-text="committing...">ALERT</button>
                           </span>
                         </div><!-- /input-group -->
                           <div class="help-block error pull-"></div>
