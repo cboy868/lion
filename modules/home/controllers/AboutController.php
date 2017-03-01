@@ -7,10 +7,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
-class AboutController extends \app\core\web\HomeController
+class AboutController extends HomeController
 {
    
-   public $layout = 'home.php';
     /**
      * Displays homepage.
      *

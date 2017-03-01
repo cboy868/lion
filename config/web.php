@@ -68,11 +68,10 @@ $config = [
             'theme' => [
                 'basePath' => '@app/web/theme',
                 'baseUrl' => '@web/theme',
-                'pathMap' => [
-                    '@app/views' => '@app/web/theme/site',
-                    '@app/modules/home/views/layouts' => '@app/web/theme/site/layouts', // <-- !!!
-                    '@app/modules/home/views' => '@app/web/theme/site' // <-- !!!
-                ],
+                // 'pathMap' => [
+                //     '@app/modules/home/views' => '@app/web/theme/site', // <-- !!!
+                       // '@app/modules/home/views/layouts' => '@app/web/theme/site/layouts',
+                // ],
             ],
         ],
         'i18n' => [

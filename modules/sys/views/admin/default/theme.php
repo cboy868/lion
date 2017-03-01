@@ -10,6 +10,11 @@ use yii\helpers\Url;
 $this->title = '选择模板';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style type="text/css">
+	.thumbnail.active{
+		    background: #fc9;
+	}
+</style>
 
 <div class="page-content">
     <!-- /section:settings.box -->
@@ -21,16 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 </small>
             </h1>
         </div><!-- /.page-header -->
+        <?=\app\core\widgets\Alert::widget();?>
 		<div class="row">
 			<?php foreach ($themes as $k => $v): ?>
 		  <div class="col-sm-6 col-md-3">
-		    <div class="thumbnail well">
+		    <div class="thumbnail well <?php if ($current->svalue == $k): ?> active<?php endif ?>">
 		      <img src="<?=$v['screenshot']?>" alt="..." style="height:200px;">
 		      <div class="caption">
 		        <h4><?=$k?></h4>
 		        <p>一些描述</p>
 		        <p class="pull-right">
-		        	<a href="#" class="btn btn-primary set" rel="<?=$k?>" role="button">启用</a>
+		        	<a href="<?=Url::toRoute(['set-theme', 'theme'=>$k])?>" class="btn btn-primary set" role="button">启用</a>
 		        	<a href="<?=Url::toRoute(['pre', 'theme' => $k])?>" class="btn btn-default" target="_blank" role="button">预览</a>
 		        </p>
 		        <p>&nbsp;</p>
@@ -40,25 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		  <?php endforeach?>
 		</div>
     </div><!-- /.page-content-area -->
-    <input type="hidden" class="set-theme" value="<?=Url::toRoute('set-theme')?>">
 </div>
 
 
-<?php $this->beginBlock('per') ?>  
-$(function(){
-	$('.set').click(function(e){
-		e.preventDefault();
-		var url = $('.set-theme').val();
-		var theme = $(this).attr('rel');
-		$.get(url, {theme:theme}, function(xhr){
-			if (xhr.status) {
-				alert('成功');
-			} else {
-				alert('失败');
-			}
-		},'json');
-	});
-})
-
-<?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['per'], \yii\web\View::POS_END); ?>  

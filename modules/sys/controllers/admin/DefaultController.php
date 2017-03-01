@@ -170,12 +170,26 @@ class DefaultController extends \app\core\web\BackController
      */
     public function actionTheme()
     {
+
+
+        $theme = $this->view->theme;
+        // $theme->pathMap = [
+        //     '@app/modules/home/views' => '@app/web/theme/site'
+        // ];
+
         $themeBasePath = $this->view->theme->getBasePath();
+
         $baseUrl = $this->view->theme->getBaseUrl();
 
         $themes = FileHelper::getThemes($themeBasePath, $baseUrl);
 
-        return $this->render('theme', ['themes' => $themes]);
+
+        $model = Set::find()->where(['sname'=>'theme'])->one();
+
+        return $this->render('theme', [
+            'themes' => $themes,
+            'current' => $model
+        ]);
     }
 
     public function actionSetTheme($theme)
@@ -193,10 +207,13 @@ class DefaultController extends \app\core\web\BackController
         }
 
         if ($model->save() !== false) {
-            return $this->json();
+            Yii::$app->session->setFlash('success', '主题设置成功');
+        } else {
+            Yii::$app->session->setFlash('error','主题设置失败');
         }
 
-        return $this->json(null, 'wrong', 0);
+        return $this->redirect('theme');
+
     }
 
     /**

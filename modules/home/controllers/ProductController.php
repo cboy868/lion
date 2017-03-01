@@ -17,10 +17,9 @@ use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Message;
 use app\modules\home\models\MsgForm;
 
-class ProductController extends \app\core\web\HomeController
+class ProductController extends HomeController
 {
    
-   public $layout = 'home.php';
     /**
      * Displays homepage.
      *

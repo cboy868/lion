@@ -13,10 +13,9 @@ use app\modules\cms\models\EmailForm;
 use app\modules\home\models\UserForm;
 use app\modules\user\models\User;
 
-class DefaultController extends \app\core\web\HomeController
+class DefaultController extends HomeController
 {
 
-    public $layout = 'home.php';
     /**
      * @inheritdoc
      */
@@ -77,20 +76,20 @@ class DefaultController extends \app\core\web\HomeController
     //  *
     //  * @return string
     //  */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+    // public function actionLogin()
+    // {
+    //     if (!Yii::$app->user->isGuest) {
+    //         return $this->goHome();
+    //     }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
+    //     $model = new LoginForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    //         return $this->goBack();
+    //     }
+    //     return $this->render('login', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Logout action.

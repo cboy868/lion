@@ -22,6 +22,12 @@ return [
     'home/product/<action:(.+)>.html'=> 'home/product/<action>',
     'home/product/<action:(.+)>'=> 'home/product/<action>',
 
+
+    'home/site.html'=> 'home/site/index',
+    'home/site'=> 'home/site/index',
+    'home/site/<action:(.+)>.html'=> 'home/site/<action>',
+    'home/site/<action:(.+)>'=> 'home/site/<action>',
+
     'home/about.html'=> 'home/about/index',
     'home/about'=> 'home/about/index',
     'home/about/<action:(.+)>.html'=> 'home/about/<action>',
