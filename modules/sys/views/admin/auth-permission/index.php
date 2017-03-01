@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </h1>
 
         </div><!-- /.page-header -->
+        <?=\app\core\widgets\Alert::widget();?>
         <div class="row">
 
             <div class="col-md-12">

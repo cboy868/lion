@@ -31,8 +31,10 @@ class AuthPermissionController extends AuthController
     {
 
         if (Permission::sync()) {
+            Yii::$app->session->setFlash('success', '权限更新成功');
             return $this->json(null, null, 1);
         } else {
+            Yii::$app->session->setFlash('error', '权限更新失败');
             return $this->json(null, '初始化权限失败');
         }
     }
