@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?php foreach ($themes as $k => $v): ?>
 		  <div class="col-sm-6 col-md-3">
 		    <div class="thumbnail well <?php if ($current->svalue == $k): ?> active<?php endif ?>">
-		      <img src="<?=$v['screenshot']?>" alt="..." style="height:200px;">
+		      <img src="<?=$v['screenshot']?>" alt="..." style="height:300px;width:200px;">
 		      <div class="caption">
 		        <h4><?=$k?></h4>
 		        <p>一些描述</p>

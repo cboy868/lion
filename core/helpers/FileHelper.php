@@ -40,12 +40,15 @@ class FileHelper extends \yii\helpers\BaseFileHelper
 	 * 取得目录下所有主题
 	 */
 	public static function getThemes($dir, $url) {
-
-
 		$themes = self::findFiles($dir);
+
 
 		$result = [];
 		foreach ($themes as $k => $v) {
+
+			if (strpos($v, '.bak')) {
+				continue ;
+			}
 			$screenshot = $dir . DIRECTORY_SEPARATOR . $v . DIRECTORY_SEPARATOR . 'screenshot.png';
 
 
