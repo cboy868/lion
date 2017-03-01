@@ -104,21 +104,6 @@ ExtAsset::register($this);
 
                     </table>
 
-                    
-
-
-                    
-
-                    
-
-                    
-
-                    
-
-
-
-                    
-
 
                     <div class="form-group">
                         <div class="col-sm-offset-1 col-sm-3">

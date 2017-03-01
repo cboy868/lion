@@ -56,6 +56,7 @@ text-align: center;}
 
                                 <?php 
                                     $lists = postList(3);
+
                                  ?>
 
                                  <?php foreach ($lists as $v): ?>

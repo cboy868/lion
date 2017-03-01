@@ -61,7 +61,7 @@ TooltipAsset::register($this);
         <div class="col-md-4 nova-mg-pd">
             <div class="products-list-inner">
                 <div class="nova-product-images">            
-                    <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="product-image">
+                    <a href="<?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="product-image">
                         <img src="<?=Attachment::getById($goods['thumb'], '310x310')?>" alt="<?=$goods['name']?>">
                     </a>   
                 </div>          
@@ -70,7 +70,7 @@ TooltipAsset::register($this);
         <div class="col-md-8 nova-mg-pd">
             <div class="product-shop" style="margin-left:0">
                 <div class="f-fix">
-                    <h2 class="product-name"><a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>"><?=$goods['name']?></a></h2>
+                    <h2 class="product-name"><a href="<?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>"><?=$goods['name']?></a></h2>
                     <div class="price-box">
                         <p class="minimal-price">
                             <span class="price-label">Starting at:</span>
@@ -79,7 +79,7 @@ TooltipAsset::register($this);
                     </div>
                     <div class="desc std">
                     <?=$goods['intro']?>
-                        <!-- <a href="?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="link-learn">Learn More</a> -->
+                        <!-- <a href="?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="link-learn">Learn More</a> -->
                     </div>                                      
                 </div>
             </div>
@@ -87,7 +87,7 @@ TooltipAsset::register($this);
             <div class="act-box">                   
                 <ul class="add-to-links">
                     <li>
-                    <!-- <a href="<?=Url::toRoute(['product/view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-heart"></i></a> -->
+                    <!-- <a href="<?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-heart"></i></a> -->
                     <a href="<?=Url::toRoute(['/home/product/msg','id'=>$goods['id']])?>" style="font-size: 20px;background: #eee;padding: 10px 5px;" target="_blank">留言咨询</a>
                     </li>
             </ul>

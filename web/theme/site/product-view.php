@@ -10,7 +10,7 @@ $this->title = $data['name'];
 <div class="main-container col1-layout home-content-container">
     <ol class="breadcrumb" style="margin-bottom:0;text-align:left;8px 5px 8px 20px;margin:0">
       <li><a href="<?=url(['/'])?>">HOME</a></li>
-      <li><a href="<?=url(['/home/product'])?>">PRODUCTS</a></li>
+      <li><a href="<?=url(['product'])?>">PRODUCTS</a></li>
       <li class="active"><?=$data['name']?></li>
     </ol>
     <div class="main home-content">
@@ -27,7 +27,6 @@ $this->title = $data['name'];
                               
                             <div class="row nova-mg-pd">
                                 
-
                                 <?php echo Zoom::widget(['imgs'=>$imgs]);?>
                                    
                                 <div class="product-shop col-md-7 nova-mg-pd">
@@ -35,7 +34,7 @@ $this->title = $data['name'];
                                         <div class="col-md-8 nova-pd-right">
                                             <div class="product-name">
                                                 <h1><?=$data['name']?><?=$data['serial']?>
-                                                <small><a href="<?=Url::toRoute(['/home/product/msg','id'=>$data['id']])?>" style="font-size: 20px;background: #eee;padding: 5px;" target="_blank">留言咨询</a></small>
+                                                <small><a href="<?=Url::toRoute(['product-msg','id'=>$data['id']])?>" style="font-size: 20px;background: #eee;padding: 5px;" target="_blank">留言咨询</a></small>
                                                 </h1>
                                             </div>
                                             
@@ -103,7 +102,7 @@ $this->title = $data['name'];
                                     <div class="item col-md-3 nova-mg-pd">
                                         <div class="nova-product-images"> 
                                             <div class="margin-image">
-                                                <a href="<?=url(['/home/product/view', 'id'=>$v['id']])?>" title="<?=$v['name']?>" class="product-image">
+                                                <a href="<?=url(['product-view', 'id'=>$v['id']])?>" title="<?=$v['name']?>" class="product-image">
                                                 <img src="<?=$v['img']?>" alt="<?=$v['name']?>">
                                                 </a>
                                             </div>

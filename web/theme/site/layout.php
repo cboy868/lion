@@ -95,19 +95,17 @@ HomeAsset::register($this);
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" style="font-size:120%">
                       <ul class="nav navbar-nav">
-                        <li class=""><a href="<?=Url::toRoute('default/index')?>">Home</a></li>
-                        <li class=""><a href="<?=Url::toRoute('about/index')?>">About Us</a></li>
-                        <li class=""><a href="<?=Url::toRoute('product/index')?>">Products</a></li>
-                        <li><a href="<?=Url::toRoute('resources/index')?>">Resources</a></li>
-                        <li><a href="<?=Url::toRoute('about/contact')?>" class="level-top">Contact Us</a></li>  
+                        <li class=""><a href="<?=Url::toRoute('index')?>">Home</a></li>
+                        <li class=""><a href="<?=Url::toRoute('about')?>">About Us</a></li>
+                        <li class=""><a href="<?=Url::toRoute('product')?>">Products</a></li>
+                        <li><a href="<?=Url::toRoute('resource')?>">Resources</a></li>
+                        <li><a href="<?=Url::toRoute('contact')?>" class="level-top">Contact Us</a></li>  
                       </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container-fluid -->
                 </nav>
             </div>
             <!-- header finish -->
-
-
             <?= $content ?>
 
             <div class="newsletter-box">

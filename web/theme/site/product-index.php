@@ -27,7 +27,6 @@ $this->title = 'PRODUCTS';
                     <div class="block-title"><span>Products</span></div>
                     <div class="block-content left-categories-container">
 
-
                         <ul>
                             <?php foreach ($cates as $cate): ?>
                                 <?php if (isset($cate['child'])): ?>
@@ -51,11 +50,8 @@ $this->title = 'PRODUCTS';
                 <div class="block block-layered-nav">
                     <div class="block-title active" id="block-layered-nav">
                         <strong><span>
-                        <a href="<?=Url::toRoute(['index'])?>"> Products Filter By</a>
-
+                            <a href="<?=Url::toRoute(['index'])?>"> Products Filter By</a>
                        </span>
-
-
                         </strong>
                     </div>
                     <div class="block-content">
@@ -101,24 +97,12 @@ $this->title = 'PRODUCTS';
                     </div>
                 </div>
                                         
-                <!-- <div class="block block-list block-compare">
-                    <div class="block-title active" id="block-compare">
-                        <strong><span>Compare Products                    </span></strong>
-                    </div>
-                    <div class="block-content">
-                            <p class="empty">You have no items to compare.</p>
-                        </div>
-                </div> -->
             </div>
             <div class="col-main col-md-9 nova-mg-pd">
                 <ol class="breadcrumb" style="margin-bottom:0;text-align:left;padding:8px 5px 8px 0px;margin:0;border-bottom: 1px solid #ccc;background-color: #fff;border-radius:0">
                   <li><a href="<?=url(['/'])?>">HOME</a></li>
                   <li class="active">PRODUCTS</li>
                 </ol>
-               <!--  <div class="page-title category-title">
-                    <h1>Products</h1>
-                </div>
-                <p></p>  --> 
                 <div class="category-products">
 
                     <?=GoodsList::widget() ?>

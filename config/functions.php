@@ -56,7 +56,7 @@ function postList($mod, $category_id=0, $rows=null)
 	foreach ($list as &$v) {
 		$v['body'] = $datas[$v['id']]['body'];
 		$v['thumb'] = Attachment::getById($v['thumb'],'200x200');
-		$v['url'] = Url::toRoute(['about/view', 'mod'=>$mod, 'id'=>$v['id']]);
+		$v['url'] = Url::toRoute(['about-view', 'mod'=>$mod, 'id'=>$v['id']]);
 	}unset($v);
 
 	return $list;

@@ -5,7 +5,7 @@
 
     <ol class="breadcrumb" style="margin-bottom:0;text-align:left;8px 5px 8px 20px;margin:0">
       <li><a href="<?=url(['/'])?>">HOME</a></li>
-      <li><a href="<?=url(['/home/about'])?>">ABOUT US</a></li>
+      <li><a href="<?=url(['about'])?>">ABOUT US</a></li>
       <li class="active"><?=$post['title']?></li>
     </ol>
 
