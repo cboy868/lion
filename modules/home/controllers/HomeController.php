@@ -25,7 +25,7 @@ class HomeController extends \app\core\web\HomeController
         $this->view->theme->pathMap['@app/modules/home/views/layouts'] = '@app/web/theme/' . $model->svalue;
 
 
-        p($this->view->theme->pathMap);die;
+        // p($this->view->theme->pathMap);die;
 	}
 	
 }
