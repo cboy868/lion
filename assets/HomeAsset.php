@@ -17,7 +17,7 @@ class HomeAsset extends AssetBundle
     public $sourcePath = '@app/web/theme/site/static';
 
     public $js = [
-        'js/bootstrap.min.js',
+        // 'js/bootstrap.min.js',
         'bootstrap/js/bootstrap.min.js',
         'js/jquery.ui.totop.min.js',
         'js/jquery.easing.1.3.js'

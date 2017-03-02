@@ -147,9 +147,9 @@ HomeAsset::register($this);
                             <div class="block-content" style="display: block;">
 
                             <ul class="bottom-menu">
-                            <li><a href="<?=Url::toRoute(['about/view', 'mod'=>3, 'id'=>1])?>" target="_blank">About Us</a></li>
-                            <li><a href="<?=Url::toRoute(['about/contact'])?>" target="_blank">Contact Us</a></li>
-                            <li><a href="<?=Url::toRoute(['about/view', 'mod'=>3, 'id'=>2])?>" target="_blank">Employment</a></li>
+                            <li><a href="<?=Url::toRoute(['about-view', 'mod'=>3, 'id'=>1])?>" target="_blank">About Us</a></li>
+                            <li><a href="<?=Url::toRoute(['contact'])?>" target="_blank">Contact Us</a></li>
+                            <li><a href="<?=Url::toRoute(['about-view', 'mod'=>3, 'id'=>2])?>" target="_blank">Employment</a></li>
                             </ul>
                             </div>
                             </div>

@@ -53,8 +53,24 @@ class Code extends \app\core\db\ActiveRecord
         $codes = Code::find()->where(['module'=>$module])->orderBy('id asc')->all();
 
         foreach ($codes as $code) {
+
+            $type = $mod;
+            if ($code->type == 'search') {
+                $type = $mod . 'Search';
+            } else if ($code->type == 'data') {
+                $type = 'Data' . $mod;
+            }
+
+            $class = ucfirst($code->module) . $type;
+
+            if (class_exists("app\modules\cms\models\mods\\" . $class)) {
+                continue;
+            }
+
             $model_code = str_replace('{modstr}', $mod, $code->code);
+
             eval($model_code);
         }
+
     }
 }
