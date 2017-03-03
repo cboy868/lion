@@ -18,8 +18,8 @@ class BurySearch extends Bury
     public function rules()
     {
         return [
-            [['id', 'tomb_id', 'user_id', 'dead_id', 'dead_name', 'dead_num', 'bury_type', 'bury_user', 'bury_order', 'created_at', 'updated_at', 'status'], 'integer'],
-            [['pre_bury_date', 'bury_date', 'bury_time', 'note'], 'safe'],
+            [['id', 'tomb_id', 'user_id', 'dead_id', 'dead_num', 'bury_type', 'bury_user', 'bury_order', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['pre_bury_date', 'bury_date', 'bury_time', 'note', 'dead_name'], 'safe'],
         ];
     }
 
@@ -53,10 +53,8 @@ class BurySearch extends Bury
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'tomb_id' => $this->tomb_id,
             'user_id' => $this->user_id,
             'dead_id' => $this->dead_id,
-            'dead_name' => $this->dead_name,
             'dead_num' => $this->dead_num,
             'bury_type' => $this->bury_type,
             'pre_bury_date' => $this->pre_bury_date,
@@ -66,10 +64,15 @@ class BurySearch extends Bury
             'bury_order' => $this->bury_order,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'status' => $this->status,
+            'status' => [self::STATUS_NORMAL, self::STATUS_OK],
         ]);
 
-        $query->andFilterWhere(['like', 'note', $this->note]);
+        $query->andWhere([
+            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)
+        ]);
+
+        $query->andFilterWhere(['like', 'note', $this->note])
+                ->andFilterWhere(['like', 'dead_name', $this->dead_name]);
 
         return $dataProvider;
     }

@@ -27,6 +27,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Bury extends \app\core\db\ActiveRecord
 {
+    const STATUS_OK = 2;//安葬完成
+
     /**
      * @inheritdoc
      */
@@ -70,7 +72,7 @@ class Bury extends \app\core\db\ActiveRecord
             'tomb_id' => 'Tomb ID',
             'user_id' => 'User ID',
             'dead_id' => 'Dead ID',
-            'dead_name' => 'Dead Name',
+            'dead_name' => '使用人',
             'dead_num' => 'Dead Num',
             'bury_type' => 'Bury Type',
             'pre_bury_date' => '安葬日期',
@@ -78,10 +80,29 @@ class Bury extends \app\core\db\ActiveRecord
             'bury_time' => '安葬时间',
             'bury_user' => 'Bury User',
             'bury_order' => 'Bury Order',
-            'note' => 'Note',
-            'created_at' => 'Created At',
+            'note' => '备注',
+            'created_at' => '添加时间',
             'updated_at' => 'Updated At',
             'status' => 'Status',
+            'buser.username' => '安葬员'
         ];
     }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(),['id'=>'tomb_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+    }
+
+    public function getBuser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'bury_user']);
+    }
+
+
+
 }

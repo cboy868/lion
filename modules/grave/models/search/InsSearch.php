@@ -12,6 +12,8 @@ use app\modules\grave\models\Ins;
  */
 class InsSearch extends Ins
 {
+
+    public $guide;
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class InsSearch extends Ins
     {
         return [
             [['id', 'guide_id', 'user_id', 'tomb_id', 'op_id', 'shape', 'is_tc', 'font', 'font_num', 'new_font_num', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['position', 'content', 'img', 'confirm_date', 'pre_finish', 'finish_at', 'note'], 'safe'],
+            [['position', 'content', 'img', 'confirm_date', 'pre_finish', 'finish_at', 'note', 'guide'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
         ];
     }
@@ -43,6 +45,7 @@ class InsSearch extends Ins
     public function search($params)
     {
         $query = Ins::find();
+        $query->joinWith(['guide']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,7 +59,6 @@ class InsSearch extends Ins
             'id' => $this->id,
             'guide_id' => $this->guide_id,
             'user_id' => $this->user_id,
-            'tomb_id' => $this->tomb_id,
             'op_id' => $this->op_id,
             'shape' => $this->shape,
             'is_tc' => $this->is_tc,
@@ -75,14 +77,18 @@ class InsSearch extends Ins
             'letter_price' => $this->letter_price,
             'tc_price' => $this->tc_price,
             'status' => $this->status,
-            'updated_at' => $this->updated_at,
-            'created_at' => $this->created_at,
+        ]);
+
+
+        $query->andWhere([
+            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
         ]);
 
         $query->andFilterWhere(['like', 'position', $this->position])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'img', $this->img])
-            ->andFilterWhere(['like', 'note', $this->note]);
+            ->andFilterWhere(['like', 'note', $this->note])
+            ->andFilterWhere(['like', '{{%user}}.username', $this->guide]);
 
         return $dataProvider;
     }

@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\grave\models\Dead;
+use app\modules\grave\models\search\TombSearch;
 
 /**
  * DeadSearch represents the model behind the search form about `app\modules\grave\models\Dead`.
@@ -18,7 +19,7 @@ class DeadSearch extends Dead
     public function rules()
     {
         return [
-            [['id', 'user_id', 'tomb_id', 'memorial_id', 'serial', 'gender', 'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_type', 'bone_container', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['id', 'user_id', 'tomb_id', 'memorial_id', 'serial', 'gender', 'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_type', 'bone_box', 'created_at', 'updated_at', 'status'], 'integer'],
             [['dead_name', 'second_name', 'dead_title', 'birth_place', 'birth', 'fete', 'desc', 'pre_bury', 'bury'], 'safe'],
         ];
     }
@@ -41,8 +42,8 @@ class DeadSearch extends Dead
      */
     public function search($params)
     {
-        $query = Dead::find();
 
+        $query = Dead::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -54,7 +55,6 @@ class DeadSearch extends Dead
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'tomb_id' => $this->tomb_id,
             'memorial_id' => $this->memorial_id,
             'serial' => $this->serial,
             'gender' => $this->gender,
@@ -66,12 +66,16 @@ class DeadSearch extends Dead
             'follow_id' => $this->follow_id,
             'is_ins' => $this->is_ins,
             'bone_type' => $this->bone_type,
-            'bone_container' => $this->bone_container,
+            'bone_box' => $this->bone_box,
             'pre_bury' => $this->pre_bury,
             'bury' => $this->bury,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'status' => $this->status,
+        ]);
+
+        $query->andWhere([
+            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
         ]);
 
         $query->andFilterWhere(['like', 'dead_name', $this->dead_name])
@@ -82,4 +86,20 @@ class DeadSearch extends Dead
 
         return $dataProvider;
     }
+
+    // public function searchTomb($params)
+    // {
+    //     $searchModel = new TombSearch();
+    //     $dataProvider = $searchModel->search($params);
+    //     $models = $dataProvider->getModels();
+    //     if (!$dataProvider) {
+    //         return false;
+    //     }
+
+    //     $tomb_id = [];
+    //     foreach ($models as $k => $v) {
+    //         array_push($tomb_id, $v->id);
+    //     }
+    //     return $tomb_id;
+    // }
 }

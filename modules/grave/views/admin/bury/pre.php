@@ -9,7 +9,7 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\grave\models\BurySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '安葬记录';
+$this->title = '预葬记录';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -21,13 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1 style="text-align:right">
                 <small style="">
-                    <?=Html::a('预葬记录', ['pre'], ['class'=>'btn btn-info']); ?>
+                    <?=Html::a('安葬记录', ['index'], ['class'=>'btn btn-info']); ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
         <div class="row">
-
-
             <div class="col-xs-12">
                 <div class="search-box search-outline">
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -35,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-xs-12 bury-index">
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -47,10 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'dead_name',
             // 'dead_num',
             // 'bury_type',
-            'pre_bury_date',
-            'bury_date',
-            'bury_time',
-            'buser.username',
+            [
+                'label' => '预葬日期',
+                'value' => function($model){
+                    return substr($model->pre_bury_date, 0, 10);
+                }
+            ],
             // 'bury_order',
             'note:ntext',
             'created_at:datetime',

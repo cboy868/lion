@@ -76,12 +76,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-xs-12">
                 <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+                        <?php  echo $this->render('_search', ['model' => $searchModel, 'parents'=>$parents, 'grave'=>$grave]); ?>
                 </div>
             </div>
 
             <div class="col-xs-12 tomb-index">
-
+                
+                
                 <div class="tfram">
                     
                 </div>

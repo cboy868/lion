@@ -63,6 +63,7 @@ $config = [
             'dateFormat' => 'php:Y-m-d',
             'datetimeFormat' => 'php:Y-m-d H:i',
             'timeFormat' => 'php:H:i',
+            'nullDisplay' => '&nbsp;'
         ],
         'view' => [
             'theme' => [

@@ -9,5 +9,5 @@ namespace app\core\widgets;
 
 class GridView extends \yii\grid\GridView
 {
-
+	public $layout = "{items}\n{summary}\n{pager}";
 }

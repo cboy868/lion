@@ -130,7 +130,7 @@ class Tomb extends \app\core\db\ActiveRecord
     public static function getSta($status = null)
     {
         $sta = [
-            self::STATUS_DELETE => '删除',
+            // self::STATUS_DELETE => '删除',
             self::STATUS_EMPTY => '闲置',
             self::STATUS_PRE => '预定',
             self::STATUS_DEPOSIT => '定金',

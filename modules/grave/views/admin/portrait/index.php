@@ -76,12 +76,12 @@ HTML;
             'tomb.tomb_no',
             'title',
             
-            [
-                'label' => '商品',
-                'value' => function($model){
-                    return $model->sku->getName();
-                }
-            ],
+            // [
+            //     'label' => '商品',
+            //     'value' => function($model){
+            //         return $model->sku->getName();
+            //     }
+            // ],
             [
                 'label' => '使用人',
                 'value' => function($model) {

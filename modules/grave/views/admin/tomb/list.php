@@ -62,9 +62,7 @@ use yii\bootstrap\Modal;
     $models = $dataProvider->getModels();
     $result = ArrayHelper::index($models, 'id', 'row');
  ?>
- <?php if (!$models): ?>
-     <p>此墓区不存在墓位</p>
- <?php endif ?>
+
 <?php 
     Modal::begin([
         'header' => '业务操作',
@@ -77,6 +75,38 @@ use yii\bootstrap\Modal;
 
     Modal::end();
 ?>
+
+<?php 
+$grave_id = \Yii::$app->request->get('grave_id');
+
+$sta = \Yii::$app->request->get('TombSearch')['status'];
+
+
+ ?>
+<?php if (isset($grave_id)): ?>
+    <div class="widget-box transparent ui-sortable-handle" id="widget-box-13">
+    <?php $status = \app\modules\grave\models\Tomb::getSta(); ?>
+        <div class="widget-header">
+            <div class="widget-toolbar no-border">
+                <ul class="nav nav-tabs">
+                    <li class="<?php if ($sta == null): ?>active<?php endif ?>">
+                        <a href="<?=Url::toRoute(['index', 'grave_id'=>$grave_id])?>" aria-expanded="true">全部</a>
+                    </li>
+                    <?php foreach ($status as $k => $v): ?>
+                        <li class="<?php if ($sta == $k): ?>active<?php endif ?>">
+                            <a href="<?=Url::toRoute(['index', 'grave_id'=>$grave_id,'TombSearch[status]'=>$k])?>" aria-expanded="true"><?=$v?></a>
+                        </li>
+                    <?php endforeach ?>
+                    
+                </ul>
+            </div>
+        </div>
+    </div> 
+<?php endif ?>
+
+ <?php if (!$models): ?>
+     <p>此墓区不存在相应墓位</p>
+ <?php endif ?>
  <table class="table">
     <?php foreach ($result as $k=>$models):?>
      <tr>

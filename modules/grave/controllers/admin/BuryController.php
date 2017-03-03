@@ -32,10 +32,28 @@ class BuryController extends BackController
      */
     public function actionIndex()
     {
+        $params = Yii::$app->request->queryParams;
+        $params['BurySearch']['status'] = Bury::STATUS_OK;
         $searchModel = new BurySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionPre()
+    {
+        $searchModel = new BurySearch();
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['BurySearch']['status'] = Bury::STATUS_NORMAL;
+
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('pre', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

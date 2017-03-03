@@ -3,6 +3,7 @@
 namespace app\modules\grave\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%grave_dead}}".
@@ -101,6 +102,33 @@ class Dead extends \app\core\db\ActiveRecord
             'status' => '状态',
             'sort' => '排序'
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
+        ];
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(\app\modules\grave\models\Tomb::className(),['id'=>'tomb_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+    }
+
+    public function getMemorial()
+    {
+        return $this->hasOne(\app\modules\memorial\models\Memorial::className(),['id'=>'memorial_id']);
     }
 
     public static function alive($alive = null)

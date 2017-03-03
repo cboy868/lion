@@ -5,11 +5,8 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\DeadSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Deads';
+$this->title = '使用人管理';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -18,17 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
-        <div class="page-header">
-            <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
-
         <div class="row">
             <div class="col-xs-12">
                 <div class="search-box search-outline">
@@ -37,27 +23,40 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-xs-12 dead-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
+        'emptyCell'=> '',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'tomb_id',
-            'memorial_id',
+            [
+                'label' => '墓位号',
+                'value' => function($model){
+                    return '<a target="_blank" href="'.Url::toRoute("/grave/admin/tomb/view", ['id'=>$model->tomb_id]).'">'.$model->tomb->tomb_no.'</a>';
+                },
+                'format'=>'raw'
+            ],
             'dead_name',
+            [
+                'label' => '账号',
+                'value' => function($model){
+                    return $model->user->username;
+                }
+            ],
+            [
+                'label' => '纪念馆名',
+                'value' => function($model){
+                    return Html::a($model->memorial->title, ['/memorial/home/default/index', 'id'=>$model->memorial_id], ['target'=>'_blank']);
+                },
+                'format' => 'raw'
+            ],
             // 'second_name',
             // 'dead_title',
             // 'serial',
             // 'gender',
             // 'birth_place',
-            // 'birth',
-            // 'fete',
+            'birth',
+            'fete',
             // 'is_alive',
             // 'is_adult',
             // 'age',
@@ -65,10 +64,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'desc:ntext',
             // 'is_ins',
             // 'bone_type',
-            // 'bone_container',
-            // 'pre_bury',
-            // 'bury',
-            // 'created_at',
+            // 'bone_box',
+            [
+                'label' => '预葬日期',
+                'value' => function($model){
+                    return date('Y-m-d', strtotime($model->pre_bury));
+                }
+            ],
+            'bury',
+            'created_at:datetime',
             // 'updated_at',
             // 'status',
 

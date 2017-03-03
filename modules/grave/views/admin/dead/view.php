@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\grave\models\Dead */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Deads', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '使用人管理', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -37,8 +37,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Deads', 'url' => ['index']];
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
-            'tomb_id',
+            'user.username',
+            'tomb.tomb_no',
             'memorial_id',
             'dead_name',
             'second_name',
@@ -55,12 +55,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Deads', 'url' => ['index']];
             'desc:ntext',
             'is_ins',
             'bone_type',
-            'bone_container',
+            'bone_box',
             'pre_bury',
             'bury',
             'created_at',
             'updated_at',
-            'status',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
 
+
 /**
  * This is the model class for table "{{%grave_ins}}".
  *
@@ -77,7 +78,23 @@ class Ins extends \app\core\db\ActiveRecord
     }
 
 
-    public static function getPaint($paint = null)
+    public function getFontStyle()
+    {
+
+        $fonts = [
+            0 => "华文新魏", 
+            1 => "行楷",
+            2 => "方正隶书", 
+            3 => "宋体", 
+            4 => "楷体",
+        ];
+
+
+        return $fonts[$this->font];
+    }
+
+
+    public static function paint($paint = null)
     {
         $paints = [
             self::PAINT_JINBO => '金箔',
@@ -86,9 +103,12 @@ class Ins extends \app\core\db\ActiveRecord
             // self::PAINT_PEN => '反喷',
             
         ];
-
-
         return $paint === null ? $paints : $paints[$paint];
+    }
+
+    public function getPaintTxt()
+    {
+        return self::paint($this->paint);
     }
 
 
@@ -112,6 +132,7 @@ class Ins extends \app\core\db\ActiveRecord
         return $img == '#' ? '#' : Attachment::getById($img);
     }
 
+
     public static function getIsConfirm($is_confirm = null)
     {
         $confirm = [
@@ -129,7 +150,7 @@ class Ins extends \app\core\db\ActiveRecord
             self::TC_NO => '简体'
         ];
 
-        $tc === null ? $tc : $tc[$is_tc];
+        $tc = $tc === null ? $tc : $tc[$is_tc];
 
         return $tc;
     }
@@ -220,9 +241,39 @@ class Ins extends \app\core\db\ActiveRecord
             'status' => '状态',
             'updated_at' => '更新时间',
             'created_at' => '添加时间',
+            'guide.username' => '导购',
+            'op.username' => '操作员',
+            'user.username' => '账号',
+            'confirm.username'=> '确认人',
+            'paintTxt'=> '颜料'
+
         ];
     }
 
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(),['id'=>'tomb_id']);
+    }
+
+    public function getConfirm()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'confirm_by']);
+    }
+
+    public function getGuide()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'guide_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+    }
+
+    public function getOp()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'op_id']);
+    }
 
     /**
      * @name 支付完成后的动作

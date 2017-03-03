@@ -48,10 +48,14 @@ class TombController extends BackController
             $parents = $grave->getParents();
         }
 
+
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'grave' => $grave,
+            'parents' => $parents
         ]);
     }
 

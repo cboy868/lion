@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\grave\models\Ins */
 
 $this->title = ' ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ins', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '碑文列表', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '修改';
 ?>
 
 <div class="page-content">

@@ -205,7 +205,9 @@ class ProcessController extends BackController
                     }
 
                     if ($post['is_memorial']) {
-                        Process::createMemorial();
+                        $memorial = Process::createMemorial();
+                        $model->memorial_id = $memorial->id;
+                        $model->save();
                     }
 
                     $outerTransaction->commit();

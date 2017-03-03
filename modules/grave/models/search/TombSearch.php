@@ -44,6 +44,8 @@ class TombSearch extends Tomb
     {
         $query = Tomb::find();
 
+
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy('row asc, col asc'),
             'pagination' => [
@@ -54,6 +56,8 @@ class TombSearch extends Tomb
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
+
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -82,4 +86,23 @@ class TombSearch extends Tomb
 
         return $dataProvider;
     }
+
+
+    public static function searchTomb($params)
+    {
+        $searchModel = new self();
+        $dataProvider = $searchModel->search($params);
+        $models = $dataProvider->getModels();
+        if (!$dataProvider) {
+            return false;
+        }
+
+        $tomb_id = [];
+        foreach ($models as $k => $v) {
+            array_push($tomb_id, $v->id);
+        }
+        return $tomb_id;
+    }
+
+
 }
