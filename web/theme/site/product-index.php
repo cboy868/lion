@@ -50,7 +50,7 @@ $this->title = 'PRODUCTS';
                 <div class="block block-layered-nav">
                     <div class="block-title active" id="block-layered-nav">
                         <strong><span>
-                            <a href="<?=Url::toRoute(['index'])?>"> Products Filter By</a>
+                            <a href="<?=Url::toRoute(['product'])?>"> Products Filter By</a>
                        </span>
                         </strong>
                     </div>
@@ -87,7 +87,7 @@ $this->title = 'PRODUCTS';
 
                                          ?>
 
-                                        <a href="<?=url(['index', 'avid'=>$str])?>" vid="<?=$val['id']?>"><?=$val['val']?> (<?=$val['num']?>)</a>
+                                        <a href="<?=url(['product', 'avid'=>$str])?>" vid="<?=$val['id']?>"><?=$val['val']?> (<?=$val['num']?>)</a>
                                         </li>
                                     <?php endforeach ?>
                                     </ol>
