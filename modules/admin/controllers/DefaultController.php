@@ -57,7 +57,10 @@ class DefaultController extends \app\core\web\BackController
     public function actionIndex()
     {
 
-        $a = LoginLog::getLast();
+        $result = \app\core\helpers\Sms::amount();
+
+        p($result);die;
+        LoginLog::getLast();
         return $this->render('index');
     }
 

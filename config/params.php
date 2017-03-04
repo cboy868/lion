@@ -15,7 +15,10 @@ $params = [
             
         ]
     ],
-
+    'sms' => [
+        'id' => 'cboy868',
+        'pwd' => 'wsq850531',
+    ],
     'image' => [
     	'common' => [
             'water' => 1,

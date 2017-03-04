@@ -188,7 +188,7 @@ class DefaultController extends HomeController
 
             $model->title = '我对“'.$goods->name.'”很感兴趣';
             $model->goods_id = $id;
-            return $this->render('msg', [
+            return $this->render('product-msg', [
                 'model' => $model,
                 'shortmsg' => $result
             ]);

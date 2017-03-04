@@ -19,10 +19,10 @@ return [
     'install' => [
         'class' => 'app\modules\install\Module',
     ],
-    'wechat' => [//shop模块，把所有有关商品之类的东西放面下面
+    'wechat' => [
         'class' => 'app\modules\wechat\Module',
     ],
-    'mod' => [//shop模块，把所有有关商品之类的东西放面下面
+    'mod' => [
         'class' => 'app\modules\mod\Module',
     ],
     'user' => [
@@ -37,7 +37,7 @@ return [
     'shop' => [//shop模块，把所有有关商品之类的东西放面下面
         'class' => 'app\modules\shop\Module',
     ],
-    'cms' => [//shop模块，把所有有关商品之类的东西放面下面
+    'cms' => [
         'class' => 'app\modules\cms\Module',
     ],
     'focus' => [
@@ -48,5 +48,9 @@ return [
     ],
     'grave' => [
         'class' => 'app\modules\grave\Module',
-    ]
+    ],
+    'task' => [
+        'class' => 'app\modules\task\Module',
+    ],
+
 ];
