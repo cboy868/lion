@@ -134,6 +134,7 @@ class DefaultController extends HomeController
         $cates = $this->getCates();
         $attrs = AvRel::attrs();
 
+
         return $this->render('product-index', [
             'cates'       => $cates,
             'attrs' => $attrs,
@@ -226,7 +227,7 @@ class DefaultController extends HomeController
         $tree = Category::sortTree();
 
         foreach ($tree as $k => &$v) {
-            $v['url'] = Url::toRoute(['index', 'Goods[category_id]'=>$v['id']]);
+            $v['url'] = Url::toRoute(['product', 'Goods[category_id]'=>$v['id']]);
         }
 
         $tree = \yii\helpers\ArrayHelper::index($tree, 'id');
