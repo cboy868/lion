@@ -3,6 +3,8 @@
 namespace app\modules\task\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use app\modules\user\models\User;
 
 /**
  * This is the model class for table "{{%task}}".
@@ -23,6 +25,8 @@ use Yii;
  */
 class Task extends \app\core\db\ActiveRecord
 {
+
+    const  STATUS_FINISH = 2;//完成
     /**
      * @inheritdoc
      */
@@ -40,9 +44,35 @@ class Task extends \app\core\db\ActiveRecord
             [['cate_id', 'res_id', 'user_id', 'order_rel_id', 'op_id', 'status', 'created_at'], 'integer'],
             [['content'], 'string'],
             [['pre_finish', 'finish'], 'safe'],
-            [['created_at'], 'required'],
+            [['cate_id', 'title'], 'required'],
             [['res_name', 'title'], 'string', 'max' => 200],
         ];
+    }
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
+        ];
+    }
+
+    public static function status($status = null)
+    {
+        $s = [
+            self::STATUS_DEL => '删除',
+            self::STATUS_NORMAL => '正常',
+            self::STATUS_FINISH => '完成'
+        ];
+
+        if ($status === null) {
+            return $s;
+        }
+
+        return $s[$status];
     }
 
     /**
@@ -63,7 +93,42 @@ class Task extends \app\core\db\ActiveRecord
             'pre_finish' => '预定完成时间',
             'finish' => '实际完成时间',
             'status' => '状态',
+            'statusText' => '状态',
             'created_at' => '添加时间',
+            'op.username'=>'操作人'
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        $this->op_id = $this->info->default->user_id;
+        $this->user_id = $this->user_id ? $this->user_id : Yii::$app->user->id;
+        $this->res_name = 'common';
+        $this->res_id = 0;
+        return true;
+    }
+
+    public function finish()
+    {
+        $this->status = self::STATUS_FINISH;
+        $this->finish = date('Y-m-d H:i:s');
+        return $this->save();
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'user_id']);
+    }
+    public function getOp()
+    {
+        return $this->hasOne(User::className(),['id'=>'op_id']);
+    }
+    public function getInfo()
+    {
+        return $this->hasOne(Info::className(),['id'=>'cate_id']);
     }
 }

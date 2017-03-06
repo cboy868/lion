@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\task\models\Task */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '任务列表', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -18,14 +18,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
             <h1><?= Html::encode($this->title) ?>
                 <small>
                     详细信息查看
-                    <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
-                    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger  btn-xs',
-                        'data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -37,19 +29,21 @@ $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
         'model' => $model,
         'attributes' => [
             'id',
-            'cate_id',
-            'grave_id',
-            'res_name',
-            'res_id',
-            'user_id',
-            'order_rel_id',
-            'op_id',
+            'info.name',
+            'user.username',
+            'op.username',
             'title',
             'content:ntext',
-            'pre_finish',
-            'finish',
-            'status',
-            'created_at',
+            [
+                'label' => '预计完成时间',
+                'value' => substr($model->pre_finish, 0,10)
+            ],
+            [
+                'label' => '实际完成时间',
+                'value' => $model->finish
+            ],
+            'statusText',
+            'created_at:datetime',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

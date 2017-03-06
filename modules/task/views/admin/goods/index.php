@@ -9,9 +9,8 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\task\models\search\GoodsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Goods';
+$this->title = '触发消息配置';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -44,13 +43,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'info_id',
-            'res_name',
-            'res_id',
-            'msg_type',
+            'info.name',
+            [
+                'label'=> '关联类型',
+                'value' => function($model) {
+                    return $model->res($model->res_name);
+                }
+            ],
+            [
+                'label' => '商品分类/商品id',
+                'value' => function($model) {
+                    return $model->res_id;
+                }
+
+            ],
+            [
+                'label' => '提醒方式',
+                'value' => function($model) {
+                    return $model->getMsgType();
+                }
+            ],
             // 'msg:ntext',
             // 'msg_time:ntext',
             // 'trigger',

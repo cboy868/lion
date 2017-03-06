@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\task\models\search\TaskSearch */
@@ -24,10 +25,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新任务', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
+        <?php 
+            Modal::begin([
+                'header' => '添增',
+                'id' => 'modalAdd',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="modalContent"></div>';
+
+            Modal::end();
+        ?>
+
+        <?php 
+            Modal::begin([
+                'header' => '编辑',
+                'id' => 'modalEdit',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="editContent"></div>';
+
+            Modal::end();
+        ?>
 
         <div class="row">
             <div class="col-xs-12">
@@ -44,23 +69,33 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'cate_id',
-            'res_name',
-            'res_id',
-            // 'user_id',
-            // 'order_rel_id',
-            // 'op_id',
-            // 'title',
-            // 'content:ntext',
-            // 'pre_finish',
-            // 'finish',
-            // 'status',
-            // 'created_at',
+            'info.name',
+            'user.username',
+            'op.username',
+            'title',
+            'content:ntext',
+            'pre_finish:date',
+            'finish',
+            'statusText',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [   
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update} {delete} {view} {finish}',
+                'buttons' => [
+                    'update' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                    },
+                    'finish' => function($url, $model, $key) {
+                        if ($model->status == $model::STATUS_FINISH) {
+                            return '';
+                        }
+                        return Html::a('<span class="fa fa-check"></span>', $url, ['title' => '完成'] );
+                    }
+                ],
+               'headerOptions' => ['width' => '80',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

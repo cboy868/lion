@@ -33,7 +33,11 @@ class DefaultController extends BackController
     public function actionIndex()
     {
         $searchModel = new TaskSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $params = Yii::$app->request->queryParams;
+        $params['TaskSearch']['res_name'] = 'common';
+        $params['TaskSearch']['res_id'] = 0;
+
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -65,7 +69,8 @@ class DefaultController extends BackController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
+            $model->pre_finish = date('Y-m-d', strtotime('+2 day'));
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -81,10 +86,15 @@ class DefaultController extends BackController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+
+            $model->pre_finish = substr($model->pre_finish, 0,10);
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -98,8 +108,15 @@ class DefaultController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->del();
 
+        return $this->redirect(['index']);
+    }
+
+    public function actionFinish($id)
+    {
+        $model = $this->findModel($id);
+        $model->finish();
         return $this->redirect(['index']);
     }
 

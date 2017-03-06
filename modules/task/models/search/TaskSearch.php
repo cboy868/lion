@@ -18,7 +18,7 @@ class TaskSearch extends Task
     public function rules()
     {
         return [
-            [['id', 'cate_id', 'grave_id', 'res_id', 'user_id', 'order_rel_id', 'op_id', 'status', 'created_at'], 'integer'],
+            [['id', 'cate_id', 'res_id', 'user_id', 'order_rel_id', 'op_id', 'status', 'created_at'], 'integer'],
             [['res_name', 'title', 'content', 'pre_finish', 'finish'], 'safe'],
         ];
     }
@@ -54,7 +54,6 @@ class TaskSearch extends Task
         $query->andFilterWhere([
             'id' => $this->id,
             'cate_id' => $this->cate_id,
-            'grave_id' => $this->grave_id,
             'res_id' => $this->res_id,
             'user_id' => $this->user_id,
             'order_rel_id' => $this->order_rel_id,

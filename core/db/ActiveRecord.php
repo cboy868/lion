@@ -21,4 +21,25 @@ class ActiveRecord extends \yii\db\ActiveRecord
     	return $this->save();
     }
 
+
+    public function getStatusText()
+    {
+    	return static::status($this->status);
+    }
+
+
+    public static function status($status = null)
+    {
+    	$s = [
+    		self::STATUS_DEL => '删除',
+    		self::STATUS_NORMAL => '正常'
+    	];
+
+    	if ($status === null) {
+    		return $s;
+    	}
+
+    	return $s[$status];
+    }
+
 }

@@ -65,6 +65,9 @@ class GoodsController extends BackController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->res_name = Goods::RES_CATEGORY;
+            $model->trigger = Goods::TRIGGER_PAY;
+            $model->msg_type = Goods::MSG_EMAIL;
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -84,6 +87,13 @@ class GoodsController extends BackController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
+            $model->msg_type = explode(',', $model->msg_type);
+
+            $model->res_id = [
+                $model->res_name => explode(',', $model->res_id)
+            ];
+
             return $this->render('update', [
                 'model' => $model,
             ]);

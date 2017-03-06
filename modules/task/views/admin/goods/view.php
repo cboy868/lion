@@ -7,8 +7,8 @@ use app\core\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\task\models\Goods */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Goods', 'url' => ['index']];
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label' => '触发消息配置', 'url' => ['index']];
 ?>
 
 <div class="page-content">

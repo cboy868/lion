@@ -20,9 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
@@ -37,8 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-xs-12 info-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
@@ -55,7 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'intro:ntext',
             'msg:ntext',
             'created_at:datetime',
-            ['class' => 'yii\grid\ActionColumn'],
+            [   
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update} {delete}',
+               'headerOptions' => ['width' => '80',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

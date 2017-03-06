@@ -2,6 +2,12 @@
 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
+use app\core\helpers\ArrayHelper;
+use app\modules\task\models\Info;
+
+use app\assets\ExtAsset;
+
+ExtAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\task\models\Task */
@@ -12,14 +18,13 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'cate_id')->textInput() ?>
+    <?= $form->field($model, 'cate_id')->dropDownList(ArrayHelper::map(Info::find()->where(['status'=>Info::STATUS_NORMAL])->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'pre_finish')->textInput() ?>
-
+    <?= $form->field($model, 'pre_finish')->textInput(['dt'=>'true', "style"=>'width:50%'])->label('完成时间'); ?>
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

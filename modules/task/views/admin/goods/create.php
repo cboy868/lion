@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\task\models\Goods */
 
-$this->title = 'Create Goods';
-$this->params['breadcrumbs'][] = ['label' => 'Goods', 'url' => ['index']];
+$this->title = '添加触发消息配置';
+$this->params['breadcrumbs'][] = ['label' => '触发消息配置', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
