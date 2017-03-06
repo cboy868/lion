@@ -10,6 +10,9 @@ return [
     'm' => [
         'class' => 'app\modules\m\Module',
     ],
+    'sms' => [
+        'class' => 'app\modules\sms\Module',
+    ],
     'member' => [
         'class' => 'app\modules\member\Module',
     ],
@@ -52,5 +55,6 @@ return [
     'task' => [
         'class' => 'app\modules\task\Module',
     ],
+
 
 ];

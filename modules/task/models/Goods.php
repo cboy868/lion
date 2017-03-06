@@ -86,6 +86,26 @@ class Goods extends \app\core\db\ActiveRecord
         return trim($result, ',');
     }
 
+    public function getTimes()
+    {
+        $arr = explode(',', $this->msg_time);
+
+        $result = '';
+        foreach ($arr as $k => $v) {
+            if ($v == 0) {
+                $result .= '当天,';
+            }
+            if ($v < 0) {
+                $result .= '提前' . abs($v) . '天,';
+            }
+            if ($v == 1) {
+                $result .= '马上,';
+            }
+        }
+
+        return $result;
+    }
+
 
     /**
      * @inheritdoc
@@ -108,17 +128,17 @@ class Goods extends \app\core\db\ActiveRecord
         ];
     }
 
-    public function beforeSave($insert)
-    {
-        if (!parent::beforeSave($insert)) {
-            return false;
-        }
+    // public function beforeSave($insert)
+    // {
+    //     if (!parent::beforeSave($insert)) {
+    //         return false;
+    //     }
 
-        $this->msg_type = implode(',', $this->msg_type);
-        $this->res_id = implode(',', $this->res_id[$this->res_name]);
+    //     $this->msg_type = implode(',', $this->msg_type);
+    //     $this->res_id = implode(',', $this->res_id[$this->res_name]);
 
-        return true;
-    }
+    //     return true;
+    // }
 
     /**
      * @inheritdoc

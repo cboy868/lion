@@ -6,11 +6,12 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\task\models\search\GoodsSearch */
+/* @var $searchModel app\modules\sms\models\SendSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '触发消息配置';
+$this->title = '短信管理';
 $this->params['breadcrumbs'][] = $this->title;
+
 
 ?>
 
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 发送短信', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -35,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <div class="col-xs-12 goods-index">
+            <div class="col-xs-12 send-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -43,42 +44,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'info.name',
-            [
-                'label'=> '关联类型',
-                'value' => function($model) {
-                    return $model->res($model->res_name);
-                }
-            ],
-            [
-                'label' => '商品分类/商品id',
-                'value' => function($model) {
-                    return $model->res_id;
-                }
+            ['class' => 'yii\grid\SerialColumn'],
 
-            ],
-            [
-                'label' => '提醒方式',
-                'value' => function($model) {
-                    return $model->getMsgType();
-                }
-            ],
+            'mobile',
             'msg:ntext',
-            [
-                'label' => '提醒时间',
-                'value' => function($model) {
-                    return $model->getTimes();
-                }
-            ],
+            'time',
+            'statusText',
 
-            [
-                'label' => '触发时机',
-                'value' => function($model){
-                    return $model->trig($model->trigger);
-                }
-            ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [   
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{view} {delete}',
+                'buttons' => [
+                    'delete' => function($url, $model, $key) {
+                        if ($model->status == $model::STATUS_OK) {
+                            return '';
+                        }
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
+                    },
+
+                ],
+                'headerOptions' => ['width' => '80',"data-type"=>"html"]
+            ]
+
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

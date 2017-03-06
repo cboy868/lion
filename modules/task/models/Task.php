@@ -131,4 +131,5 @@ class Task extends \app\core\db\ActiveRecord
     {
         return $this->hasOne(Info::className(),['id'=>'cate_id']);
     }
+
 }

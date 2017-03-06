@@ -5,10 +5,10 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Goods */
+/* @var $model app\modules\sms\models\Send */
 
-$this->title = $model->info_id;
-$this->params['breadcrumbs'][] = ['label' => '触发消息配置', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => '短信列表', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -31,19 +31,17 @@ $this->params['breadcrumbs'][] = ['label' => '触发消息配置', 'url' => ['in
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-10 goods-view">
+            <div class="col-xs-10 send-view">
                     
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'info_id',
-            'res_name',
-            'res_id',
-            'msg_type',
+            'mobile',
             'msg:ntext',
-            'msg_time:ntext',
-            'trigger',
+            'time',
+            'status',
+            'created_at',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

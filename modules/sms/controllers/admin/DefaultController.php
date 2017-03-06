@@ -1,18 +1,18 @@
 <?php
 
-namespace app\modules\task\controllers\admin;
+namespace app\modules\sms\controllers\admin;
 
 use Yii;
-use app\modules\task\models\Goods;
-use app\modules\task\models\search\GoodsSearch;
+use app\modules\sms\models\Send;
+use app\modules\sms\models\SendSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * GoodsController implements the CRUD actions for Goods model.
+ * DefaultController implements the CRUD actions for Send model.
  */
-class GoodsController extends BackController
+class DefaultController extends BackController
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class GoodsController extends BackController
     }
 
     /**
-     * Lists all Goods models.
+     * Lists all Send models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new GoodsSearch();
+        $searchModel = new SendSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class GoodsController extends BackController
     }
 
     /**
-     * Displays a single Goods model.
+     * Displays a single Send model.
      * @param integer $id
      * @return mixed
      */
@@ -54,38 +54,25 @@ class GoodsController extends BackController
     }
 
     /**
-     * Creates a new Goods model.
+     * Creates a new Send model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Goods();
+        $model = new Send();
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
+        	if (!$model->time) {
+        		$model->time = date('Y-m-d H:i:s');//马上
+        	}
 
-            $msg_type = implode(',', $model->msg_type);
-
-            foreach ($model->res_id[$model->res_name] as $k => $v) {
-                $m = new Goods();
-                $m->info_id = $model->info_id;
-                $m->msg_type = $msg_type;
-                $m->res_name = $model->res_name;
-                $m->msg = $model->msg;
-                $m->msg_time = $model->msg_time;
-                $m->trigger = $model->trigger;
-                $m->res_id = $v;
-
-                $m->save();
-
-                unset($m);
-            }
-
-            return $this->redirect(['index']);
+        	if ($model->save()) {
+        		return $this->redirect(['index']);
+        	}
+            
         } else {
-            $model->res_name = Goods::RES_CATEGORY;
-            $model->trigger = Goods::TRIGGER_PAY;
-            $model->msg_type = Goods::MSG_EMAIL;
+
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -93,46 +80,18 @@ class GoodsController extends BackController
     }
 
     /**
-     * Updates an existing Goods model.
+     * Updates an existing Send model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @todo 这里还有问题
      */
     public function actionUpdate($id)
     {
-
-
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-
-            $msg_type = implode(',', $model->msg_type);
-
-            foreach ($model->res_id[$model->res_name] as $k => $v) {
-                $m = new Goods();
-                $m->info_id = $model->info_id;
-                $m->msg_type = $msg_type;
-                $m->res_name = $model->res_name;
-                $m->msg = $model->msg;
-                $m->msg_time = $model->msg_time;
-                $m->trigger = $model->trigger;
-                $m->res_id = $v;
-
-                $m->save();
-
-                unset($m);
-            }
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-
-            $model->msg_type = explode(',', $model->msg_type);
-
-            $model->res_id = [
-                $model->res_name => $model->res_id,
-            ];
-
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -140,7 +99,7 @@ class GoodsController extends BackController
     }
 
     /**
-     * Deletes an existing Goods model.
+     * Deletes an existing Send model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -153,15 +112,15 @@ class GoodsController extends BackController
     }
 
     /**
-     * Finds the Goods model based on its primary key value.
+     * Finds the Send model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Goods the loaded model
+     * @return Send the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Goods::findOne($id)) !== null) {
+        if (($model = Send::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

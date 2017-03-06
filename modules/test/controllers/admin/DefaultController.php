@@ -145,4 +145,10 @@ STR;
         $pdf->Output();
 
     }
+
+
+    public function actionTask()
+    {
+        \app\modules\grave\models\Task::create(1, 7, 1);
+    }
 }
