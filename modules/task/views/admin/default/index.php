@@ -9,7 +9,7 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\task\models\search\TaskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tasks';
+$this->title = '任务列表';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -48,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'cate_id',
-            'grave_id',
             'res_name',
             'res_id',
             // 'user_id',

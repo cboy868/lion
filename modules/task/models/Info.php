@@ -3,6 +3,8 @@
 namespace app\modules\task\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+
 
 /**
  * This is the model class for table "{{%task_info}}".
@@ -36,6 +38,17 @@ class Info extends \app\core\db\ActiveRecord
             [['name'], 'string', 'max' => 200],
         ];
     }
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -50,5 +63,16 @@ class Info extends \app\core\db\ActiveRecord
             'status' => '状态',
             'created_at' => '添加时间',
         ];
+    }
+
+    public function getDefault()
+    {
+        return $this->hasOne(User::className(),['info_id'=>'id'])->where(['default'=>1]);
+
+    }
+
+    public function getUsers()
+    {
+        return $this->hasMany(User::className(),['info_id'=>'id']);
     }
 }

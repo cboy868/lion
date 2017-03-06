@@ -1,11 +1,13 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\widgets\ActiveForm;
+use app\core\helpers\ArrayHelper;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Info */
-/* @var $form yii\widgets\ActiveForm */
+use app\core\widgets\ActiveForm;
+use app\modules\user\models\User;
+
+$users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User::STAFF_YES])->asArray()->all();
+
 ?>
 
 <style type="text/css">
@@ -21,7 +23,7 @@ use app\core\widgets\ActiveForm;
         margin-top: 0;
         margin-bottom: 0;
     }
-    table.table > tbody > tr > td input {
+    table.table > tbody > tr > td #infoform-user input {
         border-radius:0;
     }
     table.table > tbody > tr > td{
@@ -30,6 +32,9 @@ use app\core\widgets\ActiveForm;
 
     table.table > tbody > tr > td .form-group{
         margin-bottom: 0;
+    }
+    #infoform-user label, #infoform-default label{
+        width:100px;
     }
 </style>
 <div class="info-form">
@@ -63,6 +68,23 @@ use app\core\widgets\ActiveForm;
                 <?= $form->field($model, 'msg')->textarea(['rows' => 6])->label(false) ?>
             </td>
         </tr>
+
+        <tr>
+            <th>
+                任务接收人
+            </th>
+            <td>
+                <?= $form->field($model, 'user')->checkBoxList(ArrayHelper::map($users, 'id', 'username'))->label(false) ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                任务处理人
+            </th>
+            <td>
+                <?= $form->field($model, 'default')->radioList($sels)->label(false) ?>
+            </td>
+        </tr>
     </table>
 
 	<div class="form-group">
@@ -74,3 +96,27 @@ use app\core\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php $this->beginBlock('sel') ?>  
+$(function () {
+    var defaultBox = $('#infoform-default');
+
+    $('#infoform-user input').click(function(e){
+        var that = this;        
+        var userId = $(this).val();
+        //alert(userId);
+        if ( $(this).is(':checked') ) {
+            var userId = $(this).val();
+            var username = $(this).closest('label').text();
+
+            var html = '<label><input type="radio" name="InfoForm[default]" value="'+userId+'"> ' + username + '</label>';
+
+            defaultBox.append(html);
+        } else {
+            defaultBox.find('input[value='+userId+']').closest('label').remove();
+        }
+        
+    });
+});
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['sel'], \yii\web\View::POS_END); ?>  
+

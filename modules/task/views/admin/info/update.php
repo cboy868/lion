@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = '修改';
 			<div class="col-xs-12 info-update">
 				 <?= $this->render('_form', [
 				        'model' => $model,
+				        'sels' => $sels
 				    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

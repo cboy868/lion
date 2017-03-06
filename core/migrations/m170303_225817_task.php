@@ -41,7 +41,6 @@ class m170303_225817_task extends Migration
         $this->createTable('{{%task}}', [
             'id' => $this->primaryKey(),
             'cate_id' => $this->integer(),
-            'grave_id' => $this->integer(),
             'res_name' => $this->string(200),
             'res_id' => $this->integer(),
             'user_id' => $this->integer(),//任务发起人

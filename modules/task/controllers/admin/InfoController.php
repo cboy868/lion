@@ -4,10 +4,14 @@ namespace app\modules\task\controllers\admin;
 
 use Yii;
 use app\modules\task\models\Info;
+use app\modules\task\models\InfoForm;
+use app\modules\task\models\User;
+
 use app\modules\task\models\search\InfoSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\core\helpers\ArrayHelper;
 
 /**
  * InfoController implements the CRUD actions for Info model.
@@ -48,6 +52,9 @@ class InfoController extends BackController
      */
     public function actionView($id)
     {
+
+        $model = $this->findModel($id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -60,11 +67,10 @@ class InfoController extends BackController
      */
     public function actionCreate()
     {
-        $model = new Info();
-        $user = new User();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new InfoForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $info =  $model->create();
+            return $this->redirect(['view', 'id' => $info->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -81,13 +87,39 @@ class InfoController extends BackController
      */
     public function actionUpdate($id)
     {
+
+        $form = new InfoForm();
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+// 'name' => '任务名',
+//             'intro' => '介绍',
+//             'msg' => '消息内容',
+//             'created_at' => '添加时间',
+//             'user' => '任务接收人',
+//             'default' => '直接处理人'
+
+        $form->name = $model->name;
+        $form->intro = $model->intro;
+        $form->msg = $model->msg;
+        $form->default = $model->default->user_id;
+        $selUsers = $model->users;
+
+        $result = [];
+
+        foreach ($selUsers as $k => $v) {
+            $result[$v->user_id] = $v->user->username;
+        }
+
+        $form->user = array_keys($result);
+
+        if ($form->load(Yii::$app->request->post())) {
+            $info =  $model->create();
+
+            return $this->redirect(['view', 'id' => $info->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $form,
+                'sels' => $result
             ]);
         }
     }
@@ -100,7 +132,16 @@ class InfoController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $connection = Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            $this->findModel($id)->delete();
+            $connection->createCommand()->delete(User::tableName(), ['info_id'=>$id])->execute();
+            $transaction->commit();
+
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+        }
 
         return $this->redirect(['index']);
     }

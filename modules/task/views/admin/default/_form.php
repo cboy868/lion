@@ -14,29 +14,11 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'cate_id')->textInput() ?>
 
-    <?= $form->field($model, 'grave_id')->textInput() ?>
-
-    <?= $form->field($model, 'res_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'res_id')->textInput() ?>
-
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
-    <?= $form->field($model, 'order_rel_id')->textInput() ?>
-
-    <?= $form->field($model, 'op_id')->textInput() ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'pre_finish')->textInput() ?>
-
-    <?= $form->field($model, 'finish')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
 
 
 	<div class="form-group">

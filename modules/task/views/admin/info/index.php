@@ -44,15 +44,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
+            [
+                'label' => '处理人',
+                'value' => function($model) {
+                    return $model->default->user->username;
+                }
+            ],
             'intro:ntext',
             'msg:ntext',
-            'status',
             'created_at:datetime',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

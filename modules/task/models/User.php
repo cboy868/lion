@@ -44,4 +44,9 @@ class User extends \app\core\db\ActiveRecord
             'default' => 'Default',
         ];
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+    }
 }
