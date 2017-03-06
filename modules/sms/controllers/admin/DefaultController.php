@@ -8,6 +8,8 @@ use app\modules\sms\models\SendSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\user\models\User;
+use app\core\helpers\ArrayHelper;
 
 /**
  * DefaultController implements the CRUD actions for Send model.
@@ -63,13 +65,27 @@ class DefaultController extends BackController
         $model = new Send();
 
         if ($model->load(Yii::$app->request->post())) {
+
         	if (!$model->time) {
         		$model->time = date('Y-m-d H:i:s');//马上
         	}
 
-        	if ($model->save()) {
-        		return $this->redirect(['index']);
+        	$users = self::parseUsers($model);
+
+
+        	foreach ($users as $k => $v) {
+        		if (!$v) {
+        			continue;
+        		}
+        		$m = new Send();
+        		$m->mobile = $v;
+        		$m->time = $model->time;
+        		$m->msg = $model->msg;
+        		$m->save();
         	}
+
+
+        	return $this->redirect(['index']);
             
         } else {
 
@@ -77,6 +93,20 @@ class DefaultController extends BackController
                 'model' => $model,
             ]);
         }
+    }
+
+    public function parseUsers($model)
+    {
+
+    	if ($model->type == 'other') {
+    		return array_filter(explode(',', $model->mobile));
+    	} else if ($model->type == 'staff') {
+    		$users = \app\modules\user\models\User::staffs();
+    		return array_filter(ArrayHelper::getColumn($users, 'mobile'));
+    	} else if ($model->type == 'customer') {
+    		$users = \app\modules\user\models\User::noStaffs();
+    		return array_filter(ArrayHelper::getColumn($users, 'mobile'));
+    	}
     }
 
     /**

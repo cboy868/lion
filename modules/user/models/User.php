@@ -101,6 +101,19 @@ class User extends ActiveRecord implements IdentityInterface
         return fasle;
     }
 
+    /**
+     * @name 所有员工
+     */
+    public static function staffs()
+    {
+        return self::find()->where(['status'=>self::STATUS_ACTIVE, 'is_staff'=>self::STAFF_YES])->all();
+    }
+
+    public static function noStaffs()
+    {
+        return self::find()->where(['status'=>self::STATUS_ACTIVE, 'is_staff'=>self::STAFF_NO])->all();
+    }
+
 
     // public static function createUser($username, $email='', $pwd='999999', $is_staff=self::STAFF_NO)
     // {

@@ -20,7 +20,7 @@ class Send extends \app\core\db\ActiveRecord
 
     const STATUS_FALL = 2;//发送失败
 
-    public $type;
+    public $type='other';
 
     /**
      * @inheritdoc
@@ -55,8 +55,8 @@ class Send extends \app\core\db\ActiveRecord
             [['msg'], 'string'],
             [['time'], 'safe'],
             [['status', 'created_at'], 'integer'],
-            [['mobile', 'msg'], 'required'],
-            [['mobile'], 'string', 'max' => 20],
+            [['msg'], 'required'],
+            [['mobile', 'type'], 'string', 'max' => 20],
         ];
     }
     public function behaviors()
