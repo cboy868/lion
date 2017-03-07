@@ -4,13 +4,15 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use app\modules\task\models\Info;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\task\models\search\GoodsSearch */
+/* @var $searchModel app\modules\task\models\search\InfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '触发消息配置';
+$this->title = '任务分类信息';
 $this->params['breadcrumbs'][] = $this->title;
+
 
 ?>
 
@@ -19,11 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create-info'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -35,50 +34,55 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <div class="col-xs-12 goods-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+            <div class="col-xs-12 info-index">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'info.name',
+            'name',
             [
-                'label'=> '关联类型',
+                'label' => '处理人',
                 'value' => function($model) {
-                    return $model->res($model->res_name);
+                    return $model->default->user->username;
                 }
             ],
-            [
-                'label' => '商品分类/商品id',
-                'value' => function($model) {
-                    return $model->res_id;
-                }
-
-            ],
-            [
+            'intro:ntext',
+            'msg:ntext',
+            'created_at:datetime',
+            [   
                 'label' => '提醒方式',
                 'value' => function($model) {
                     return $model->getMsgType();
                 }
             ],
-            'msg:ntext',
             [
                 'label' => '提醒时间',
                 'value' => function($model) {
                     return $model->getTimes();
                 }
             ],
-
             [
-                'label' => '触发时机',
-                'value' => function($model){
-                    return $model->trig($model->trigger);
+                'label' => '触发方式',
+                'value' => function($model) {
+                    return Info::trig($model->trigger);
                 }
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [   
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update-info} {delete} {trigger}',
+                'buttons' => [
+                    'trigger' => function($url, $model, $key) {
+                        return Html::a('触发条件', $url, ['title' => '触发条件', 'class'=>''] );
+                    },
+                    'update-info' => function($url, $model, $key) {
+                        return Html::a('修改', $url, ['title' => '修改', 'class'=>''] );
+                    },
+                ],
+                'headerOptions' => ['width' => '120',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

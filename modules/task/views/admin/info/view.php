@@ -41,7 +41,6 @@ $this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['in
             'name',
             'intro:ntext',
             'msg:ntext',
-            'msg_type',
             [   
                 'label' => '提醒方式',
                 'value' => $model->getMsgType()

@@ -4,10 +4,10 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Goods */
+/* @var $model app\modules\task\models\Info */
 
-$this->title = ' ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => '触发消息配置', 'url' => ['index']];
+$this->title = ' ' . ' ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['info']];
 $this->params['breadcrumbs'][] = '修改';
 ?>
 
@@ -24,9 +24,10 @@ $this->params['breadcrumbs'][] = '修改';
 		</div><!-- /.page-header -->
 
 		<div class="row">
-			<div class="col-xs-12 goods-update">
+			<div class="col-xs-12 info-update">
 				 <?= $this->render('_form', [
 				        'model' => $model,
+				        'sels' => $sels
 				    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

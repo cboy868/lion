@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use app\modules\task\models\Info;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\task\models\search\InfoSearch */
@@ -50,6 +51,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'intro:ntext',
             'msg:ntext',
             'created_at:datetime',
+            [   
+                'label' => '提醒方式',
+                'value' => function($model) {
+                    return $model->getMsgType();
+                }
+            ],
+            [
+                'label' => '提醒时间',
+                'value' => function($model) {
+                    return $model->getTimes();
+                }
+            ],
+            [
+                'label' => '触发方式',
+                'value' => function($model) {
+                    return Info::trig($model->trigger);
+                }
+            ],
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',

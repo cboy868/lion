@@ -5,10 +5,10 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Goods */
+/* @var $model app\modules\task\models\Info */
 
-$this->title = '添加触发消息配置';
-$this->params['breadcrumbs'][] = ['label' => '触发消息配置', 'url' => ['index']];
+$this->title = '添加任务类型';
+$this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['info']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div><!-- /.page-header -->
 
 		<div class="row">
-			<div class="col-xs-12 goods-create">
+			<div class="col-xs-12 info-create">
 				<?= $this->render('_form', [
 			        'model' => $model,
 			    ]) ?>

@@ -82,6 +82,64 @@ class InfoForm extends Model
 //             }
 
 
+    public function update()
+    {   
+
+        if ($this->validate()) {
+            $info_id = Yii::$app->request->get('id');
+            $info = Info::findOne($info_id);
+
+
+            $info->name = $this->name;
+            $info->msg = $this->msg;
+            $info->intro = $this->intro;
+            $info->msg_type = implode(',', $this->msg_type);
+            $info->msg_time = $this->msg_time;
+            $info->trigger = $this->trigger;
+
+            $connection = Yii::$app->db;
+            $transaction = $connection->beginTransaction();
+            try {
+
+                $info->save();
+
+
+                foreach ($this->user as $u) {
+                    $data[$u] = [
+                        'info_id' => $info->id,
+                        'user_id' => $u,
+                        'default' => 0
+                    ];
+                }
+                if ($this->default) {
+                    $data[$this->default]['default'] = 1;
+                }
+
+
+                User::deleteAll('info_id = :info_id', [':info_id' => $info_id]);
+                
+                $connection->createCommand()->batchInsert(
+                    User::tableName(), 
+                    [
+                    'info_id',
+                    'user_id',
+                    'default',
+                    ], 
+                    $data
+                )->execute();
+
+                $transaction->commit();
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                return false;
+            }
+
+            return $info;
+        }
+
+
+    }
+
 
 
     public function create()
