@@ -34,8 +34,8 @@ class DefaultController extends BackController
     {
         $searchModel = new TaskSearch();
         $params = Yii::$app->request->queryParams;
-        $params['TaskSearch']['res_name'] = 'common';
-        $params['TaskSearch']['res_id'] = 0;
+        // $params['TaskSearch']['res_name'] = 'common';
+        // $params['TaskSearch']['res_id'] = 0;
 
         $dataProvider = $searchModel->search($params);
 

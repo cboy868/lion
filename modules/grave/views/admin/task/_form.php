@@ -98,6 +98,7 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
                 <a href="#" rel="{pre_finish}">任务时间</a>
                 <a href="#" rel="{order_id}">订单号</a>
                 <a href="#" rel="{rel_note}">订单备注</a>
+                <a href="#" rel="{goods}">商品</a>
                 </div>
 
                 <?= $form->field($model, 'msg')->textarea(['rows' => 6, 'class'=>'ctent form-control'])->label(false) ?>

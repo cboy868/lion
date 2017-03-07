@@ -5,6 +5,7 @@ namespace app\modules\order\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
+use app\modules\shop\models\Goods;
 
 /**
  * This is the model class for table "{{%order_rel}}".
@@ -236,6 +237,11 @@ class OrderRel extends \app\core\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(),['id'=>'user_id']);
+    }
+
+    public function getGoods()
+    {
+        return $this->hasOne(Goods::className(),['id'=>'goods_id']);
     }
 
 }

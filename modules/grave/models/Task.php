@@ -5,6 +5,8 @@ namespace app\modules\grave\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\order\models\OrderRel;
+use app\modules\order\models\Order;
+
 use app\modules\task\models\Goods;
 use app\modules\shop\models\Goods as ShopGoods;
 
@@ -32,10 +34,125 @@ use app\modules\shop\models\Goods as ShopGoods;
 class Task extends \app\modules\task\models\Task
 {
 
+
+    public static function create($tomb_id, $order_id)
+    {
+
+        $order = Order::findOne($order_id);
+        $rels = $order->rels;
+
+
+        $goods_ids = [];
+        $category_ids = [];
+
+        foreach ($rels as $k => $v) {
+
+            $category_ids['res_id'][$v->id] = $v->category_id;
+            $category_ids['model'][$v->id] = $v;
+
+            $goods_ids['res_id'][$v->id] = $v->goods_id;
+            $goods_ids['model'][$v->id] = $v;
+
+        }
+
+        $cate_rels = Goods::find()->where(['res_name'=>'category', 'res_id'=>$category_ids['res_id']])->indexBy('res_id')->all();
+        $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$goods_ids['res_id']])->indexBy('res_id')->all();
+
+
+
+        $tomb = Tomb::findOne($tomb_id);
+
+        if ($cate_rels) {
+            foreach ($category_ids['model'] as $k => $rel) {
+
+                if (!isset($cate_rels[$rel->category_id])) {
+                    continue;
+                }
+                $cate = $cate_rels[$rel->category_id];
+                $content = $cate->info->msg;
+
+                $replace = [
+                    'search' => [
+                        '{tomb_no}', '{pre_finish}','{rel_note}', '{order_id}' , '{goods}'
+                    ],
+                    'replace' => [
+                        $tomb->tomb_no, $rel->use_time, $rel->note, $rel->order_id, $rel->goods->name
+                    ]
+
+                ];
+
+                $content = str_replace($replace['search'], $replace['replace'], $content);
+                $data = [
+                    'res_name' => 'tomb',
+                    'res_id' => $tomb_id,
+                    'user_id' => 0,
+                    'cate_id' => $cate->info->id,
+                    'title'  => $cate->info->name,
+                    'op_id'  => $cate->info->default->user_id,
+                    'content' => $content,
+                    'pre_finish' => $rel->use_time,
+                    'order_rel_id' => $rel->id
+
+                ];
+                $model = new self;
+
+                $model->load($data, '');
+                $model->save();
+
+            }
+        }
+
+        if ($goods_rels) {
+            foreach ($goods_ids['model'] as $k => $rel) {
+
+
+                if (!isset($goods_rels[$rel->goods_id])) {
+                    continue;
+                }
+
+                $goods = $goods_rels[$rel->goods_id];
+
+                $content = $goods->info->msg;
+
+                $replace = [
+                    'search' => [
+                        '{tomb_no}', '{pre_finish}','{rel_note}', '{order_id}' , '{goods}'
+                    ],
+                    'replace' => [
+                        $tomb->tomb_no, $rel->use_time, $rel->note, $rel->order_id, $rel->goods->name
+                    ]
+
+                ];
+
+                $content = str_replace($replace['search'], $replace['replace'], $content);
+                $data = [
+                    'res_name' => 'tomb',
+                    'res_id' => $tomb_id,
+                    'user_id' => 0,
+                    'cate_id' => $goods->info->id,
+                    'title'  => $goods->info->name,
+                    'op_id'  => $goods->info->default->user_id,
+                    'content' => $content,
+                    'pre_finish' => $rel->use_time,
+                    'order_rel_id' => $rel->id
+
+                ];
+                $model = new self;
+                $model->load($data, '');
+                $model->save();
+            }
+        }
+
+        return true;
+
+
+
+    }
+
     /**
      * @name 添加任务
      */
-    public static function create($tomb_id, $info_id, $order_rel_id)
+    public static function create1($tomb_id, $info_id, $order_rel_id)
     {
         $tomb = Tomb::findOne($tomb_id);
         $orderRel = OrderRel::findOne($order_rel_id);

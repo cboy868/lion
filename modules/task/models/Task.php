@@ -105,10 +105,10 @@ class Task extends \app\core\db\ActiveRecord
             return false;
         }
 
-        $this->op_id = $this->info->default->user_id;
+        $this->op_id = $this->op_id ? $this->op_id : $this->info->default->user_id;
         $this->user_id = $this->user_id ? $this->user_id : Yii::$app->user->id;
-        $this->res_name = 'common';
-        $this->res_id = 0;
+        $this->res_name = empty($this->res_name) ? 'common' : $this->res_name;
+        $this->res_id = $this->res_id ? $this->res_id : 0;
         return true;
     }
 

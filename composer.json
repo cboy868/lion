@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-imagine": "~2.0.0",
         "overtrue/wechat": "~3.0",
-        "spanjeta/yii2-backup": "*"
+        "spanjeta/yii2-backup": "*",
+        "kartik-v/yii2-widget-select2": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

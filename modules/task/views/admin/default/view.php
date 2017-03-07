@@ -29,6 +29,8 @@ $this->params['breadcrumbs'][] = ['label' => '任务列表', 'url' => ['index']]
         'model' => $model,
         'attributes' => [
             'id',
+            'res_name',
+            'res_id',
             'info.name',
             'user.username',
             'op.username',

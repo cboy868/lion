@@ -60,6 +60,14 @@ class DefaultController extends \app\core\web\BackController
         return $this->render('index');
     }
 
+    /**
+     * @name 工作台
+     */
+    public function actionWorkbench()
+    {
+        return $this->render('workbench');
+    }
+
 
     public function actionLogin()
     {
