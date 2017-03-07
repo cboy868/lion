@@ -5,6 +5,7 @@ use app\core\helpers\ArrayHelper;
 
 use app\core\widgets\ActiveForm;
 use app\modules\user\models\User;
+use app\modules\task\models\Info;
 
 $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User::STAFF_YES])->asArray()->all();
 
@@ -52,6 +53,33 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(false) ?>
             </td>
         </tr>
+
+        <tr>
+            <th>
+                触发方式
+            </th>
+            <td>
+                <?= $form->field($model, 'trigger')->radioList(Info::trig())->label(false) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                提醒方式
+            </th>
+            <td>
+                <?= $form->field($model, 'msg_type')->checkBoxList(Info::msgType())->label(false)->hint('消息提醒类型，可多选') ?>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                提醒时间
+            </th>
+            <td>
+                <?= $form->field($model, 'msg_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])->label(false)->hint('1马上, 0当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔') ?>
+            </td>
+        </tr>
         <tr>
             <th>
                 描述
@@ -85,6 +113,13 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
                 <?= $form->field($model, 'default')->radioList($sels)->label(false) ?>
             </td>
         </tr>
+
+
+
+
+
+
+
     </table>
 
 	<div class="form-group">

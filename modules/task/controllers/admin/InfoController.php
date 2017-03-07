@@ -6,6 +6,7 @@ use Yii;
 use app\modules\task\models\Info;
 use app\modules\task\models\InfoForm;
 use app\modules\task\models\User;
+use app\modules\task\models\Goods;
 
 use app\modules\task\models\search\InfoSearch;
 use app\core\web\BackController;
@@ -72,12 +73,78 @@ class InfoController extends BackController
             $info =  $model->create();
             return $this->redirect(['view', 'id' => $info->id]);
         } else {
+            $model->trigger = Info::TRIGGER_PAY;
+            $model->msg_type = Info::MSG_EMAIL;
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user,
             ]);
         }
     }
+
+
+    /**
+     * @name 触发条件
+     */
+    public function actionTrigger($id)
+    {
+        $info = $this->findModel($id);
+
+        $goods = $info->goodsRels;
+
+        $result = [];
+        foreach ($goods as $k => $v) {
+            $result[$v->res_name][] = $v;
+        }
+        
+        $result['category'] = ArrayHelper::getColumn($result['category'], 'res_id');
+        $result['goods'] = ArrayHelper::getColumn($result['goods'], 'res_id');
+
+        $model = new Goods;
+
+        $model->res_id = $result;
+
+        return $this->render('trigger', [
+                'model' => $model,
+                'goods_info' => $result
+            ]);
+    }
+
+
+    public function actionTri($info_id)
+    {
+        $req = Yii::$app->request->post();
+
+        $name = $req['name'];
+        $rid = $req['rid'];
+        $checked = $req['checked'];
+
+        $name = trim($name, '[]');
+
+
+
+
+        if ($checked) {
+            $m = new Goods;
+            $m->info_id = $info_id;
+            $m->res_name = $name;
+            $m->res_id = $rid;
+            if ($m->save()) {
+                return $this->json();
+            }
+            
+        } else {
+            $m = Goods::find()->where(['info_id'=>$info_id, 'res_name'=>$name, 'res_id'=>$rid])->one();
+            if ($m->delete()) {
+                return $this->json();
+            }
+        }
+
+        return $this->json(null, '配置出错', 0);
+
+    }
+
+
 
     /**
      * Updates an existing Info model.
@@ -90,13 +157,6 @@ class InfoController extends BackController
 
         $form = new InfoForm();
         $model = $this->findModel($id);
-
-// 'name' => '任务名',
-//             'intro' => '介绍',
-//             'msg' => '消息内容',
-//             'created_at' => '添加时间',
-//             'user' => '任务接收人',
-//             'default' => '直接处理人'
 
         $form->name = $model->name;
         $form->intro = $model->intro;

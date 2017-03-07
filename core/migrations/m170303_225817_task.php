@@ -16,8 +16,19 @@ class m170303_225817_task extends Migration
             'name' => $this->string(200),//任务名
             'intro' => $this->text(),//描述
             'msg' => $this->text(),//消息内容,可带变量
+            'msg_time' => $this->text(),//提醒时间,应该可以多选才对
+            'trigger' => $this->integer()->defaultValue(1),//什么时候触发  比如支付后，比如加入购物车后，比如确认后
+            'msg_type' => $this->string(200),//消息类型 1短信 2邮箱 3微信  不知道微信是否可以实现
             'status' => $this->smallInteger()->defaultValue(1),//状态
             'created_at'=> $this->integer()->notNull()
+        ], $tableOptions);
+
+
+         $this->createTable('{{%task_goods}}', [//任务商品关联关联
+            'id' => $this->primaryKey(),
+            'info_id' => $this->integer(),
+            'res_name' => $this->string(),//category / goods
+            'res_id'  => $this->integer(),//category_id / goods_id
         ], $tableOptions);
 
         $this->createTable('{{%task_user}}', [//任务类型信息
@@ -27,16 +38,7 @@ class m170303_225817_task extends Migration
             'default' => $this->smallInteger(1),//是否默认的，如果是，则任务发给此人
         ], $tableOptions);
 
-        $this->createTable('{{%task_goods}}', [//任务商品关联关联
-            'id' => $this->primaryKey(),
-            'info_id' => $this->integer(),
-            'res_name' => $this->string(),//category / goods
-            'res_id'  => $this->integer(),//category_id / goods_id
-            'msg_type' => $this->smallInteger(),//消息类型 1短信 2邮箱 3微信  不知道微信是否可以实现
-            'msg' => $this->text(),//消息内容,可带变量 默认取task_info中的
-            'msg_time' => $this->text(),//提醒时间,应该可以多选才对
-            'trigger' => $this->integer(),//什么时候触发  比如支付后，比如加入购物车后，比如确认后
-        ], $tableOptions);
+       
 
         $this->createTable('{{%task}}', [
             'id' => $this->primaryKey(),

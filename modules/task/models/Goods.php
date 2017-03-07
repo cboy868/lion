@@ -22,26 +22,26 @@ class Goods extends \app\core\db\ActiveRecord
     const RES_CATEGORY = 'category';
     const RES_GOODS = 'goods';
 
-    const MSG_SMS = 1;
-    const MSG_EMAIL = 2;
+    // const MSG_SMS = 1;
+    // const MSG_EMAIL = 2;
 
-    const TRIGGER_PAY = 1;
-    const TRIGGER_CONFIRM = 2;
+    // const TRIGGER_PAY = 1;
+    // const TRIGGER_CONFIRM = 2;
 
 
-    public static function trig($trigger = null)
-    {
-        $t = [
-            self::TRIGGER_PAY => '支付时',
-            self::TRIGGER_CONFIRM => '确认时'
-        ];
+    // public static function trig($trigger = null)
+    // {
+    //     $t = [
+    //         self::TRIGGER_PAY => '支付时',
+    //         self::TRIGGER_CONFIRM => '确认时'
+    //     ];
 
-        if ($trigger === null) {
-            return $t;
-        }
+    //     if ($trigger === null) {
+    //         return $t;
+    //     }
 
-        return $t[$trigger];
-    }
+    //     return $t[$trigger];
+    // }
 
     public static function res($res = null)
     {
@@ -59,52 +59,52 @@ class Goods extends \app\core\db\ActiveRecord
     }
 
 
-    public static function msgType($type = null)
-    {
-        $t = [
-            self::MSG_SMS => '手机短信',
-            self::MSG_EMAIL => '邮件'
-        ];
+    // public static function msgType($type = null)
+    // {
+    //     $t = [
+    //         self::MSG_SMS => '手机短信',
+    //         self::MSG_EMAIL => '邮件'
+    //     ];
 
 
-        if ($type === null) {
-            return $t;
-        }
+    //     if ($type === null) {
+    //         return $t;
+    //     }
 
-        return $t[$type];
-    }
+    //     return $t[$type];
+    // }
 
-    public function getMsgType()
-    {
-        $types = explode(',', $this->msg_type);
+    // public function getMsgType()
+    // {
+    //     $types = explode(',', $this->msg_type);
 
-        $result = '';
-        foreach ($types as $k => $v) {
-            $result .= self::msgType($v) . ',';
-        }
+    //     $result = '';
+    //     foreach ($types as $k => $v) {
+    //         $result .= self::msgType($v) . ',';
+    //     }
 
-        return trim($result, ',');
-    }
+    //     return trim($result, ',');
+    // }
 
-    public function getTimes()
-    {
-        $arr = explode(',', $this->msg_time);
+    // public function getTimes()
+    // {
+    //     $arr = explode(',', $this->msg_time);
 
-        $result = '';
-        foreach ($arr as $k => $v) {
-            if ($v == 0) {
-                $result .= '当天,';
-            }
-            if ($v < 0) {
-                $result .= '提前' . abs($v) . '天,';
-            }
-            if ($v == 1) {
-                $result .= '马上,';
-            }
-        }
+    //     $result = '';
+    //     foreach ($arr as $k => $v) {
+    //         if ($v == 0) {
+    //             $result .= '当天,';
+    //         }
+    //         if ($v < 0) {
+    //             $result .= '提前' . abs($v) . '天,';
+    //         }
+    //         if ($v == 1) {
+    //             $result .= '马上,';
+    //         }
+    //     }
 
-        return $result;
-    }
+    //     return $result;
+    // }
 
 
     /**
@@ -121,10 +121,9 @@ class Goods extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['info_id', 'trigger'], 'integer'],
-            [['msg', 'msg_time'], 'string'],
+            [['info_id'], 'integer'],
             [['res_name'], 'string', 'max' => 255],
-            [['res_id', 'msg_type'], 'safe'],
+            [['res_id'], 'safe'],
         ];
     }
 
@@ -150,10 +149,10 @@ class Goods extends \app\core\db\ActiveRecord
             'info_id' => '任务类型',
             'res_name' => '关联类型',
             'res_id' => '类型id',
-            'msg_type' => '提醒方式',
-            'msg' => '消息内容',
-            'msg_time' => '消息提醒时间',
-            'trigger' => '触发方式',//支付，确认，
+            // 'msg_type' => '提醒方式',
+            // 'msg' => '消息内容',
+            // 'msg_time' => '消息提醒时间',
+            // 'trigger' => '触发方式',//支付，确认，
         ];
     }
 

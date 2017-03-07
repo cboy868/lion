@@ -3,6 +3,7 @@
 use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
+use app\modules\task\models\Info;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\task\models\Info */
@@ -40,8 +41,21 @@ $this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['in
             'name',
             'intro:ntext',
             'msg:ntext',
-            'status',
-            'created_at',
+            'msg_type',
+            [   
+                'label' => '提醒方式',
+                'value' => $model->getMsgType()
+            ],
+            [
+                'label' => '提醒时间',
+                'value' => $model->getTimes()
+            ],
+            [
+                'label' => '触发方式',
+                'value' => Info::trig($model->trigger),
+            ],
+            'statusText',
+            'created_at:datetime',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

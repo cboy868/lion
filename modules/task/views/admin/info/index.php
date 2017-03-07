@@ -53,8 +53,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete}',
-               'headerOptions' => ['width' => '80',"data-type"=>"html"]
+                'template' => '{update} {delete} {trigger}',
+                'buttons' => [
+                    'trigger' => function($url, $model, $key) {
+                        return Html::a('触发条件', $url, ['title' => '触发条件', 'class'=>''] );
+                    },
+                ],
+                'headerOptions' => ['width' => '120',"data-type"=>"html"]
             ]
         ],
     ]); ?>

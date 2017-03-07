@@ -26,6 +26,12 @@ class InfoForm extends Model
     public $user;
 
     public $default;
+
+    public $trigger;
+
+    public $msg_type;
+
+    public $msg_time;
     /**
      * @inheritdoc
      */
@@ -33,9 +39,10 @@ class InfoForm extends Model
     {
         return [
             [['intro', 'msg'], 'string'],
+            [['trigger'], 'integer'],
             [['name', 'user'], 'required'],
             [['name'], 'string', 'max' => 200],
-            [['user', 'default'], 'safe'],
+            [['user', 'default', 'msg_type', 'trigger', 'msg_time'], 'safe'],
         ];
     }
 
@@ -56,18 +63,46 @@ class InfoForm extends Model
     }
 
 
+
+// $msg_type = implode(',', $model->msg_type);
+
+//             foreach ($model->res_id[$model->res_name] as $k => $v) {
+//                 $m = new Goods();
+//                 $m->info_id = $model->info_id;
+//                 $m->msg_type = $msg_type;
+//                 $m->res_name = $model->res_name;
+//                 $m->msg = $model->msg;
+//                 $m->msg_time = $model->msg_time;
+//                 $m->trigger = $model->trigger;
+//                 $m->res_id = $v;
+
+//                 $m->save();
+
+//                 unset($m);
+//             }
+
+
+
+
     public function create()
     {   
+
         if ($this->validate()) {
             $info = new Info();
             $info->name = $this->name;
             $info->msg = $this->msg;
             $info->intro = $this->intro;
+            $info->msg_type = implode(',', $this->msg_type);
+            $info->msg_time = $this->msg_time;
+            $info->trigger = $this->trigger;
+
 
             $connection = Yii::$app->db;
             $transaction = $connection->beginTransaction();
             try {
+
                 $info->save();
+
 
                 foreach ($this->user as $u) {
                     $data[$u] = [
