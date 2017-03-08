@@ -37,6 +37,7 @@ class InfoController extends BackController
      */
     public function actionIndex()
     {
+
         $searchModel = new InfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -119,10 +120,7 @@ class InfoController extends BackController
         $rid = $req['rid'];
         $checked = $req['checked'];
 
-        $name = trim($name, '[]');
-
-
-
+        // $name = trim($name, '[]');
 
         if ($checked) {
             $m = new Goods;
@@ -162,7 +160,11 @@ class InfoController extends BackController
         $form->intro = $model->intro;
         $form->msg = $model->msg;
         $form->default = $model->default->user_id;
+        $form->msg_time = $model->msg_time;
+        $form->msg_type = explode(',', $model->msg_type);
+        $form->trigger = $model->trigger;
         $selUsers = $model->users;
+
 
         $result = [];
 
@@ -173,7 +175,7 @@ class InfoController extends BackController
         $form->user = array_keys($result);
 
         if ($form->load(Yii::$app->request->post())) {
-            $info =  $model->create();
+            $info =  $form->update();
 
             return $this->redirect(['view', 'id' => $info->id]);
         } else {
@@ -182,6 +184,7 @@ class InfoController extends BackController
                 'sels' => $result
             ]);
         }
+
     }
 
     /**

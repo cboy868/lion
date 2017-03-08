@@ -37,11 +37,9 @@ class OrderRel extends \app\modules\order\models\OrderRel
 
         $model = self::hasRel($order->id, $tomb->id, $tomb->id, $order->user_id, self::TYPE_TOMB);
 
-
         if (!$model) {
             $model = new OrderRel;
         }
-
 
         $data = [
             'type'          => self::TYPE_TOMB,

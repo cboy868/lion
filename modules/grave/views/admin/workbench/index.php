@@ -2,8 +2,12 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\core\widgets\ActiveForm;
+use app\modules\grave\models\Grave;
 
-use yii\bootstrap\Modal;
+
+\app\assets\ExtAsset::register($this);
+
 
 $this->title = '我的工作台';
 $this->params['breadcrumbs'][] = $this->title;
@@ -22,17 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="page-content">
     <!-- /section:settings.box -->
 
-    <?php 
-        Modal::begin([
-            'header' => '快捷操作',
-            'id' => 'modalAdd',
-            // 'size' => 'modal'
-        ]) ;
+<!-- Modal -->
 
-        echo '<div id="modalContent"></div>';
 
-        Modal::end();
-    ?>
     <div class="page-content-area">
         <div class="row">
 
@@ -42,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <div class="shortcut clearfix">
-                    <a href="<?=Url::toRoute(['tomb'])?>" class="btn btn-default modalAddButton">
+
+                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">
                         <img src="http://hs.ibagou.com/framework/builtin/wxcard/icon.jpg" class="fa-app">
                         墓位业务
                         <!-- <span class="badge badge-pink">+3</span> -->
@@ -206,6 +203,39 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.page-content-area -->
 </div>
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">墓位业务</h4>
+      </div>
+      <div class="modal-body">
+        <?php $form = ActiveForm::begin();?>
+
+        <?= $form->field($model, 'grave_id')->dropDownList( Grave::selTree(['is_leaf'=>1], 0, ''), ['class'=>'sel-ize selg'])->label(false) ?>
+
+        <?= $form->field($model, 'row')->textInput(['class'=>'form-control srow', 'placeholder'=>'排'])->label(false) ?>
+
+        <?= $form->field($model, 'col')->textInput(['class'=>'form-control scol', 'placeholder'=>'号'])->label(false) ?>
+
+        <div class="form-group">
+          <div class="col-md-10">
+            <button class="btn btn-primary btn-sm " type="button"><i class="fa fa-search"></i> 预定</button>
+            <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> 办理业务</button>
+              <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> 续费</button>
+
+              <button class="btn btn-primary btn-sm bsearch" type="submit"><i class="fa fa-search"></i> 查找</button>
+              <?= Html::a('<i class="fa fa-reply"></i>  重置',Url::toRoute(['index']),['class'=>'btn btn-danger btn-sm modalAddButton']);?>
+          </div>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+      </div>
+    </div>
+  </div>
+</div>
 <?php $this->beginBlock('cate') ?>  
 $(function(){
     

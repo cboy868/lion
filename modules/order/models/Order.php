@@ -63,7 +63,7 @@ class Order extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['wechat_uid', 'type', 'progress', 'created_at', 'updated_at', 'status', 'user_id', 'op_id'], 'integer'],
+            [['wechat_uid', 'type', 'progress', 'created_at', 'updated_at', 'status', 'user_id', 'op_id', 'tid'], 'integer'],
             [['price', 'origin_price'], 'number'],
             [['note'], 'string'],
             [['user_id'], 'required'],
@@ -74,6 +74,17 @@ class Order extends \app\core\db\ActiveRecord
     {
 
         $this->progress = $event->progress;
+
+        //如果支付完成,发任务
+        if ($this->progress ==  self::PRO_PAY || $this->progress == self::PRO_OK) {
+
+            if ($this->tid) {
+                \app\modules\task\models\Task::create($this->id, 'tomb', $this->tid);
+            } else {
+                \app\modules\task\models\Task::create($this->id);
+            }
+        }
+
         $this->save();
     }
 
@@ -86,12 +97,12 @@ class Order extends \app\core\db\ActiveRecord
             $rel = OrderRel::create($order, $sku, $extra);
 
             $order->updatePrice();
+
         } catch (\Exception $e) {
             return fasle;
         }
 
         return ['order'=>$order, 'rel'=>$rel];
-        // return $order;
     }
 
 
@@ -108,26 +119,8 @@ class Order extends \app\core\db\ActiveRecord
         }
 
         return ['order'=>$order, 'rel'=>$rel];
-        // return $order;
     }
 
-    /**
-     * @des 与上个方法一样，只是返回值不同，以获取订单详情
-     */
-    // public static function createOrder($user_id, $sku, $extra=[])
-    // {
-    //     try {
-    //         $order = self::getValidOrder($user_id, $extra);
-
-    //         $rel = OrderRel::create($order, $sku, $extra);
-
-    //         $order->updatePrice();
-    //     } catch (\Exception $e) {
-    //         return fasle;
-    //     }
-
-    //     return ['order'=>$order, 'rel'=>$rel];
-    // }
 
     public function getTotalPay()
     {
@@ -144,23 +137,6 @@ class Order extends \app\core\db\ActiveRecord
     }
 
 
-    // public static function create($wechat_uid, $extra=[])
-    // {
-
-    //     try {
-            
-    //         $model = self::getValidOrder($wechat_uid);
-    //         $model->wechat_uid = $wechat_uid;
-    //         $model->note = isset($extra['order_note']) ? $extra['order_note'] : '';
-    //         $model->save();
-    //         return $model;
-
-    //     } catch (Exception $e) {
-    //         return fasle;
-    //     }
-    // }
-
-    
 
     public function updatePrice()
     {
@@ -186,27 +162,31 @@ class Order extends \app\core\db\ActiveRecord
             $model = new self();
             $model->op_id = Yii::$app->user->id;
             $model->user_id = $user_id;
+            $model->tid = isset($extra['tid']) ? $extra['tid'] : 0;
         }
         $model->type = isset($extra['type']) ? $extra['type'] : 1;
         $model->note = isset($extra['order_note']) ? $extra['order_note'] : '';
+
+        if (!$model->tid && isset($extra['tid'])) {
+            $model->tid = $extra['tid'];
+        }
+
         $model->save();
 
         return $model;
     }
 
-    // public static function getValidOrder($wechat_uid)
-    // {
-    //     $model = self::find()->where(['wechat_uid'=>$wechat_uid])
-    //                          ->andWhere(['status'=>self::STATUS_NORMAL])
-    //                          ->andWhere(['<', 'progress', self::PRO_PAY])
-    //                          ->one();
+    public static function getOriOrder($user_id,$extra=[])
+    {
+        $model = self::find()->where(['user_id'=>$user_id])
+                             ->andWhere(['status'=>self::STATUS_NORMAL])
+                             ->andWhere(['progress'=>self::PRO_INIT])
+                             ->one();
 
-    //     if (!$model) {
-    //         $model = new self();
-    //     }
 
-    //     return $model;
-    // }
+        return $model;
+    }
+
 
     public function getRels()
     {

@@ -314,7 +314,7 @@ ExtAsset::register($this);
 
 				  			 ?>
 				  				<div class="col-xs-6">
-				  					<?= $form->field($model, 'paint')->dropDownList(Ins::getPaint(), ['style'=>'width:70%']) ?>
+				  					<?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%']) ?>
 				  					<?php //echo $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num'])->label('总字数') ?>
 				  					<?= $form->field($model, 'big_new')->textInput(['style'=>'width:70%', 'id'=>'big_new'])->label('大字') ?>
 				  					<?= $form->field($model, 'small_new')->textInput(['style'=>'width:70%', 'id'=>'small_new'])->label('小字') ?>

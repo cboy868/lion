@@ -44,26 +44,31 @@ $this->params['breadcrumbs'][] = '配置任务的触发条件';
 			    	 <?php 
 			    	 	$cates = Category::find()->where(['status'=>Category::STATUS_NORMAL])->all()
 			    	  ?>
-			    	  <div>
-			    	  	<h4>分类触发</h4>
-			    	  	<?php foreach ($cates as $cate): ?>
-			    	  		<label><input type="checkbox" name="category" value="<?=$cate->id?>" <?php if (in_array($cate->id, $model->res_id['category'])): ?>
-			    	  			checked="checked"
-			    	  		<?php endif ?>> <?=$cate->name?></label>
-			    	  	<?php endforeach ?>
-			    	  </div>
+
+				    <div class="panel panel-info">
+					  <div class="panel-heading">按分类触发</div>
+					  <div class="panel-body">
+					    <?php foreach ($cates as $cate): ?>
+							<label><input type="checkbox" name="category" value="<?=$cate->id?>" <?php if (in_array($cate->id, $model->res_id['category'])): ?>
+								checked="checked"
+							<?php endif ?>> <?=$cate->name?></label>
+						<?php endforeach ?>
+					  </div>
+					</div>
 				    <hr>
+					
 
-				    <div>
-				    	<h4>特定商品触发</h4>
-
+				    <div class="panel panel-info">
+				    	<div class="panel-heading">按特定商品触发</div>
+				    	<div class="panel-body">
 				    	<?php foreach ($cates as $cate): ?>
-				    		<h5>分类 <?=$cate->name?> 下的商品</h5>
+				    		<h5>分类 <font color="green"> 【<?=$cate->name?>】</font> 下的商品</h5>
 				    		<?php foreach ($cate->goods as $goods): ?>
 				    			<label><input type="checkbox" name="goods" value="<?=$goods->id?>" <?php if (in_array($goods->id, $model->res_id['goods'])): ?>checked="checked"<?php endif ?>> <?=$goods->name?></label>
 				    		<?php endforeach ?>
 				    		<br>
 				    	<?php endforeach ?>
+				    	</div>
 				    </div>
 				    
 				    <?php ActiveForm::end(); ?>

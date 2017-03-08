@@ -137,10 +137,7 @@ class MallController extends BackController
 
     public function actionGoods($category_id)
     {
-
-
         $data = Goods::find()->andWhere(['category_id'=>$category_id, 'status'=>Goods::STATUS_NORMAL]);
-
 
         $models = $data->all();
         return $this->renderAjax('goods', ['models'=>$models]);
@@ -167,7 +164,8 @@ class MallController extends BackController
 
         foreach($goods_info as $sku_id=>$info) {
             $extra = array(
-                'num'           => $info['num'],
+                'num' => $info['num'],
+                'tid' => $tomb_id
             );
 
             $sku = Sku::findOne($sku_id);

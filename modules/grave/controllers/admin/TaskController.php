@@ -84,8 +84,6 @@ class TaskController extends \app\modules\task\controllers\admin\DefaultControll
         $name = trim($name, '[]');
 
 
-
-
         if ($checked) {
             $m = new Goods;
             $m->info_id = $info_id;
@@ -120,9 +118,6 @@ class TaskController extends \app\modules\task\controllers\admin\DefaultControll
         $form->msg_type = explode(',', $model->msg_type);
         $form->trigger = $model->trigger;
         $selUsers = $model->users;
-
-
-
 
         $result = [];
 

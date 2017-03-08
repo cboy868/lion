@@ -29,10 +29,9 @@ class Order extends \app\modules\order\models\Order
 
     public static function createTombOrder($user_id, $tomb, $extra=[])
     {
-
-
         try {
             $extra['type'] = self::TYPE_TOMB;
+            $extra['tid']  = $tomb->id;
 
             $order = self::getValidOrder($user_id, $extra);
 

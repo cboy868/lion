@@ -6,6 +6,7 @@ namespace app\modules\test\controllers\admin;
 
 use app\core\models\TagRel;
 use app\core\libs\Fpdf;
+use app\modules\shop\models\Sku;
 
 class DefaultController extends \app\core\web\BackController
 {
@@ -146,9 +147,14 @@ STR;
 
     }
 
+    public function actionOrder()
+    {
+        $sku = Sku::findOne(47);
+        $sku->order(1);
+    }
 
     public function actionTask()
     {
-        \app\modules\grave\models\Task::create(1, 5);
+        \app\modules\task\models\Task::create(20,'tomb', 11);
     }
 }

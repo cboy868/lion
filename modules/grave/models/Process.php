@@ -303,8 +303,7 @@ class Process extends \yii\base\Model
     {
         $tomb = self::tomb();
         if ($tomb->user_id) {
-            return Order::getValidOrder($tomb->user_id);
-
+            return Order::getOriOrder($tomb->user_id);
         }
 
         return null;
