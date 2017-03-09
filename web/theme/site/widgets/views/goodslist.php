@@ -8,28 +8,8 @@ use app\assets\TooltipAsset;
 
 TooltipAsset::register($this);
 ?>
-
-<div class="limiter">Show<span class="current"><span><?=$get['psize']?></span></span>
-            <ul>
-                <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
-                <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
-                <li><a class="<?php if ($get['psize'] == 16): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>16])?>">16</a></li>
-                <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
-                <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
-            </ul> per page        
-        </div>
 <div class="toolbar">
     <div class="sorter">
-        <!-- <div class="sort-by">
-            <span class="current"><span>Name</span></span>
-            <ul>
-              <li><a href="#">Position</a></li>
-              <li><a class="active" href="#">Name</a></li>
-            </ul>        
-        </div>   --> 
-        <!-- <div class="direction">
-            <a href="#" title="Set Descending Direction"><img src="/theme/site/static/img/i_asc_arrow.png" alt="Set Descending Direction" class="v-middle"></a>
-        </div> -->           
         <p class="view-mode">
 
             <?php if ($get['mode'] == 'list'): ?>
@@ -42,8 +22,15 @@ TooltipAsset::register($this);
             
         </p>
 
-
-        
+        <div class="limiter" style="position:relative">Show<span class="current"><span><?=$get['psize']?></span></span>
+            <ul style="position:absolute;">
+                <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
+                <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
+                <li><a class="<?php if ($get['psize'] == 16): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>16])?>">16</a></li>
+                <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
+                <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
+            </ul> per page        
+        </div>
 
         <div class="pages">
             <ol>
