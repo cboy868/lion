@@ -375,7 +375,7 @@ AdminAsset::register($this);
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a href="<?=Url::toRoute(['/home/default/logout'])?>" data-method="post">
+                                    <a href="<?=Url::toRoute(['/admin/default/logout'])?>" data-method="post">
                                         <i class="ace-icon fa fa-power-off"></i>
                                         登出
                                     </a>
