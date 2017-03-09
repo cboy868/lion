@@ -113,12 +113,43 @@ TooltipAsset::register($this);
 
 
 
+
+<ul class="aaad">
+    <li style="position:relative">
+        <a href="">abcde</a>
+        <ul style="display:none;position:absolute;left:10px:top:20px;">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </li>
+</ul>
+
+
+
 <?php $this->beginBlock('fav') ?> 
 
 
 
 
 $(function(){
+
+
+    $('.aaad li').mouseover(function(){
+        $('ul', this).show();
+    });
+
+
+    $('.aaad li').mouseleave(function(){
+        $('ul', this).slideUp();
+    });
+
+
+
+
+
+
 
     $('.limiter .current').click(function(){
         $(this).siblings('ul').show();
