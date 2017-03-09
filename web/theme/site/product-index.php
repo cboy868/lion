@@ -137,12 +137,12 @@ jQuery(document).ready(function() {
     });
 
 
-    $('.limiter .current').click(function(){
+    $('.limiter .current').mouseover(function(){
         $(this).siblings('ul').show();
     });
 
     $('.limiter').mouseleave(function(){
-        //$(this).find('ul').slideUp();
+        $(this).find('ul').slideUp();
         console.log('leave');
     });
 
