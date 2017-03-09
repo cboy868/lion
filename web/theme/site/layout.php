@@ -52,7 +52,7 @@ HomeAsset::register($this);
                     <div class="top-header">
                         <div class="row i-top-links">       
                             <div class="col-md-12 nova-mg-pd">          
-                                <p class="welcome-msg pull-right">Welcome to 厦门华正兴实业有限公司 Xiamen Sinocheer Industrial Co.,Ltd </p>
+                                <p class="welcome-msg pull-right">Welcome to Xiamen Sinocheer Industrial Co.,Ltd </p>
                             </div>
                         </div>
                     </div>
