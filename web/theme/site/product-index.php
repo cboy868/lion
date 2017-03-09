@@ -142,7 +142,8 @@ jQuery(document).ready(function() {
     });
 
     $('.limiter').mouseleave(function(){
-        $(this).find('ul').slideUp();
+        //$(this).find('ul').slideUp();
+        console.log('leave');
     });
 
     $('.down').click(function(e){
