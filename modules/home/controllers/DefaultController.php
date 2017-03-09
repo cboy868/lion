@@ -127,6 +127,12 @@ class DefaultController extends HomeController
     //     return $this->render('intro');
     // }
 
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
+    }
+
 
 
     public function actionProduct()
