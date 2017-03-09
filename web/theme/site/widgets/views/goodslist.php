@@ -93,7 +93,7 @@ width:120px;
 
         <ul class="navigation">
 
-            <!-- <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"> 
+            <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"> 
                 <a href="#">栏目1</a> 
                 <ul> 
                 <li><a href="#">栏目1->菜单1</a></li> 
@@ -101,11 +101,11 @@ width:120px;
                 <li><a href="#">栏目1->菜单3</a></li> 
                 <li><a href="#">栏目1->菜单4</a></li> 
                 </ul> 
-            </li>  -->
+            </li> 
 
 
 
-        <li class="limiter" onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)">Show<span class="current"><span><?=$get['psize']?></span></span>
+        <li class="limiter">Show<span class="current"><span><?=$get['psize']?></span></span>
             <ul>
                 <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
                 <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>

@@ -137,13 +137,12 @@ jQuery(document).ready(function() {
     });
 
 
-    $('.limiter1 .current').mouseover(function(){
+    $('.limiter .current').click(function(){
         $(this).siblings('ul').show();
     });
 
-    $('.limiter1').mouseleave(function(){
+    $('.limiter').mouseleave(function(){
         $(this).find('ul').slideUp();
-        console.log('leave');
     });
 
     $('.down').click(function(e){
@@ -162,15 +161,6 @@ jQuery(document).ready(function() {
     });
 
 });  
-
-function displaySubMenu(li) { 
-var subMenu = li.getElementsByTagName("ul")[0]; 
-subMenu.style.display = "block"; 
-} 
-function hideSubMenu(li) { 
-var subMenu = li.getElementsByTagName("ul")[0]; 
-subMenu.style.display = "none"; 
-} 
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['slide'], \yii\web\View::POS_END); ?>  
 
