@@ -37,7 +37,7 @@ TooltipAsset::register($this);
 
 
         <ul class="aaad">
-    <li style="position:relative" class="limiter">
+    <li style="position:relative" class="limiter1">
         <a href="#"><span class="current"><span>Show<?=$get['psize']?>per page  </span></span></a>
         <ul style="display:none;position:absolute;left:10px:top:20px;z-index:1001">
             <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
