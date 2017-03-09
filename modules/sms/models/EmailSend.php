@@ -6,12 +6,16 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "{{%sms_send}}".
+ * This is the model class for table "{{%email_send}}".
  *
  * @property integer $id
+ * @property string $email
+ * @property string $msg
+ * @property string $time
+ * @property integer $status
  * @property integer $created_at
  */
-class Send extends \app\core\db\ActiveRecord
+class EmailSend extends \app\core\db\ActiveRecord
 {
 
     const STATUS_NORMAL = 1;//待发送
@@ -20,14 +24,12 @@ class Send extends \app\core\db\ActiveRecord
 
     const STATUS_FALL = 2;//发送失败
 
-    public $type='other';
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%sms_send}}';
+        return '{{%email_send}}';
     }
 
     public static function status($status = null)
@@ -55,10 +57,12 @@ class Send extends \app\core\db\ActiveRecord
             [['msg'], 'string'],
             [['time'], 'safe'],
             [['status', 'created_at'], 'integer'],
-            [['msg'], 'required'],
-            [['mobile', 'type'], 'string', 'max' => 20],
+            [['email'], 'required'],
+            [['email'], 'string', 'max' => 20],
+            [['subject', 'from_user', 'from_email'], 'string', 'max' => 200],
         ];
     }
+
     public function behaviors()
     {
         return [
@@ -78,24 +82,28 @@ class Send extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'mobile' => '手机号',
+            'email' => '邮箱',
             'msg' => '消息内容',
             'time' => '发送时间',
-            'statusText' => '状态',
+            'status' => '状态',
             'created_at' => '添加时间',
-            'type' => '发送目标'
+            'subject' => '主题'
         ];
     }
 
     /**
      * @name 添加要发送的短信
      */
-    public static function create($mobile, $msg, $time)
+    public static function create($email, $subject, $msg, $time, $from_user="", $from_email="")
     {
         $model = new self;
-        $model->mobile = $mobile;
+        $model->email = $email;
         $model->msg = $msg;
         $model->time = $time;
+        $model->subject = $subject;
+        $model->from_email = $from_email;
+        $model->from_user = $from_user;
+
         return $model->save();
     }
 }

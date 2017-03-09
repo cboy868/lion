@@ -181,21 +181,28 @@ class Task extends \app\core\db\ActiveRecord
                     $model->load($data, '');
 
                     if ($v < 0) {
-
                         $model->pre_finish = date('Y-m-d H:i:s', strtotime($model->pre_finish .' '. $v .' days'));
                     } else if ($v > 0) {
                         $model->pre_finish = date('Y-m-d H:i:s');
                     }
 
                     $model->save();
+
+                    $msg_type = str_replace('，', ',', $goods->info->msg_type);
+                    $msg_type = explode(',', $msg_type);
+
+                    if (in_array(Info::MSG_SMS, $msg_type)) {
+                        \app\modules\sms\models\Send::create($goods->info->default->user->mobile, $content, $model->pre_finish);
+                    }
+
+                    if (in_array(Info::MSG_EMAIL, $msg_type)) {
+                        \app\modules\sms\models\EmailSend::create($goods->info->default->user->email, $goods->info->name, $content, $model->pre_finish, '系统邮件');
+                    }
+
+
                     unset($model);
                 }
 
-
-
-                // $model = new self;
-                // $model->load($data, '');
-                // $model->save();
             }
         }
     }
@@ -256,6 +263,18 @@ class Task extends \app\core\db\ActiveRecord
                     }
 
                     $model->save();
+
+                    $msg_type = str_replace('，', ',', $cate->info->msg_type);
+                    $msg_type = explode(',', $msg_type);
+                    
+                    if (in_array(Info::MSG_SMS, $msg_type)) {
+                        \app\modules\sms\models\Send::create($cate->info->default->user->mobile, $content, $model->pre_finish);
+                    }
+
+                    if (in_array(Info::MSG_EMAIL, $msg_type)) {
+                        \app\modules\sms\models\EmailSend::create($cate->info->default->user->email, $cate->info->name, $content, $model->pre_finish, '系统邮件');
+                    }
+
                     unset($model);
                 }
             }

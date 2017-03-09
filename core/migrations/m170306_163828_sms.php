@@ -27,6 +27,26 @@ class m170306_163828_sms extends Migration
             'status' => $this->smallInteger()->defaultValue(1),//状态1正常   -1删除
             'created_at'=> $this->integer()->notNull()
         ], $tableOptions);
+
+        $this->createTable('{{%email_send}}', [//任务类型信息
+            'id' => $this->primaryKey(),
+            'from_user' => $this->string(255),//发送人
+            'from_email' => $this->string(255),//发送人邮箱
+            'email' => $this->string(20),//任务名
+            'subject' => $this->string(255),//主题
+            'msg' => $this->text(),//描述
+            'time' => $this->dateTime(),//发送时间
+            'status' => $this->smallInteger()->defaultValue(1),//状态1正常 0成功 2失败 -1删除
+            'created_at'=> $this->integer()->notNull()
+        ], $tableOptions);
+
+        $this->createTable('{{%email_receive}}', [//任务类型信息
+            'id' => $this->primaryKey(),
+            'email' => $this->string(20),//任务名
+            'msg' => $this->text(),//描述
+            'status' => $this->smallInteger()->defaultValue(1),//状态1正常   -1删除
+            'created_at'=> $this->integer()->notNull()
+        ], $tableOptions);
        
     }
 
@@ -34,6 +54,8 @@ class m170306_163828_sms extends Migration
     {
         $this->dropTable('{{%sms_send}}');
         $this->dropTable('{{%sms_receive}}');
+        $this->dropTable('{{%email_send}}');
+        $this->dropTable('{{%email_receive}}');
     }
 
     /*
