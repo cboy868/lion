@@ -8,6 +8,64 @@ use app\assets\TooltipAsset;
 
 TooltipAsset::register($this);
 ?>
+<style type="text/css"> 
+* { 
+padding:0; 
+margin:0; 
+} 
+body { 
+font-family:verdana, sans-serif; 
+font-size:small; 
+} 
+#navigation, #navigation li ul { 
+list-style-type:none; 
+} 
+#navigation { 
+margin:20px; 
+} 
+#navigation li { 
+float:left; 
+text-align:center; 
+position:relative; 
+} 
+#navigation li a:link, #navigation li a:visited { 
+display:block; 
+text-decoration:none; 
+color:#000; 
+width:120px; 
+height:40px; 
+line-height:40px; 
+border:1px solid #fff; 
+border-width:1px 1px 0 0; 
+background:#c5dbf2; 
+padding-left:10px; 
+} 
+#navigation li a:hover { 
+color:#fff; 
+background:#2687eb; 
+} 
+#navigation li ul li a:hover { 
+color:#fff; 
+background:#6b839c; 
+} 
+#navigation li ul { 
+display:none; 
+position:absolute; 
+top:40px; 
+left:0; 
+margin-top:1px; 
+width:120px; 
+} 
+#navigation li ul li ul { 
+display:none; 
+position:absolute; 
+top:0px; 
+left:130px; 
+margin-top:0; 
+margin-left:1px; 
+width:120px; 
+} 
+</style> 
 <div class="toolbar">
     <div class="sorter">
         <!-- <div class="sort-by">
@@ -33,7 +91,9 @@ TooltipAsset::register($this);
         </p>
 
 
-        <div class="limiter">Show<span class="current"><span><?=$get['psize']?></span></span>
+        <ul>
+
+        <li class="limiter">Show<span class="current"><span><?=$get['psize']?></span></span>
             <ul>
                 <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
                 <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
@@ -41,7 +101,8 @@ TooltipAsset::register($this);
                 <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
                 <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
             </ul> per page        
-        </div>
+        </li>
+        </ul>
 
         <div class="pages">
             <ol>
