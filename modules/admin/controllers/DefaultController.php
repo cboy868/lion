@@ -92,7 +92,9 @@ class DefaultController extends \app\core\web\BackController
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect(['/']);
+
+        // return $this->goHome();
     }
 
     public function actionTest()
