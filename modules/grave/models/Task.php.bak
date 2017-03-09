@@ -3,12 +3,7 @@
 namespace app\modules\grave\models;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
-use app\modules\order\models\OrderRel;
-use app\modules\order\models\Order;
-
-use app\modules\task\models\Goods;
-use app\modules\shop\models\Goods as ShopGoods;
+use app\modules\grave\models\Tomb;
 
 
 /**
@@ -33,5 +28,8 @@ use app\modules\shop\models\Goods as ShopGoods;
  */
 class Task extends \app\modules\task\models\Task
 {
-    
+    public function getTomb()
+    {
+    	return $this->hasOne(Tomb::className(),['id'=>'tomb_id']);
+    }
 }

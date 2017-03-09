@@ -47,6 +47,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
 		            'inputOptions' =>['class'=>'form-control input-sm']
 		        ],
 		        // 'action' => Url::current(),
+                'action' => 'index',
 		        'method' => 'get',
 		        'options'=> [
 		            'class'=>'form-inline'

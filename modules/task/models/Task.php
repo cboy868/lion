@@ -170,9 +170,32 @@ class Task extends \app\core\db\ActiveRecord
                     'order_rel_id' => $rel->id
 
                 ];
-                $model = new self;
-                $model->load($data, '');
-                $model->save();
+
+                $msg_time = str_replace('，', ',', $goods->info->msg_time);
+                $msgs = explode(',', $msg_time);
+
+
+                foreach ($msgs as $v) {
+                    $model = new self;
+
+                    $model->load($data, '');
+
+                    if ($v < 0) {
+
+                        $model->pre_finish = date('Y-m-d H:i:s', strtotime($model->pre_finish .' '. $v .' days'));
+                    } else if ($v > 0) {
+                        $model->pre_finish = date('Y-m-d H:i:s');
+                    }
+
+                    $model->save();
+                    unset($model);
+                }
+
+
+
+                // $model = new self;
+                // $model->load($data, '');
+                // $model->save();
             }
         }
     }
@@ -216,13 +239,25 @@ class Task extends \app\core\db\ActiveRecord
                     'content' => $content,
                     'pre_finish' => $rel->use_time,
                     'order_rel_id' => $rel->id
-
                 ];
-                $model = new self;
 
-                $model->load($data, '');
-                $model->save();
+                $msg_time = str_replace('，', ',', $cate->info->msg_time);
+                $msgs = explode(',', $msg_time);
 
+                foreach ($msgs as $v) {
+                    $model = new self;
+
+                    $model->load($data, '');
+
+                    if ($v < 0) {
+                        $model->pre_finish = date('Y-m-d', strtotime($model->pre_finish .' '. $v .' days'));
+                    } else if ($v > 0) {
+                        $model->pre_finish = date('Y-m-d');
+                    }
+
+                    $model->save();
+                    unset($model);
+                }
             }
         }
     }
@@ -267,6 +302,14 @@ class Task extends \app\core\db\ActiveRecord
     public function getInfo()
     {
         return $this->hasOne(Info::className(),['id'=>'cate_id']);
+    }
+
+    public function getTomb()
+    {
+        if ($this->res_name == 'tomb') {
+            return $this->hasOne(Tomb::className(),['id'=>'res_id']);
+        }
+        return null;
     }
 
 }

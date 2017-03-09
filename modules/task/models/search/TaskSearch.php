@@ -58,7 +58,6 @@ class TaskSearch extends Task
             'user_id' => $this->user_id,
             'order_rel_id' => $this->order_rel_id,
             'op_id' => $this->op_id,
-            'pre_finish' => $this->pre_finish,
             'finish' => $this->finish,
             'status' => $this->status,
             'created_at' => $this->created_at,
@@ -66,6 +65,7 @@ class TaskSearch extends Task
 
         $query->andFilterWhere(['like', 'res_name', $this->res_name])
             ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'pre_finish', $this->pre_finish])
             ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;

@@ -3,13 +3,12 @@
 use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
-use app\modules\task\models\Info;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Info */
+/* @var $model app\modules\task\models\Task */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['info']];
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label' => '任务列表', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -19,39 +18,31 @@ $this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['in
             <h1><?= Html::encode($this->title) ?>
                 <small>
                     详细信息查看
-                    <?= Html::a('Edit', ['update-info', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
-                    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger  btn-xs',
-                        'data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-10 info-view">
+            <div class="col-xs-10 task-view">
                     
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
-            'intro:ntext',
-            'msg:ntext',
-            [   
-                'label' => '提醒方式',
-                'value' => $model->getMsgType()
+            'res_name',
+            'res_id',
+            'info.name',
+            'user.username',
+            'op.username',
+            'title',
+            'content:ntext',
+            [
+                'label' => '预计完成时间',
+                'value' => substr($model->pre_finish, 0,10)
             ],
             [
-                'label' => '提醒时间',
-                'value' => $model->getTimes()
-            ],
-            [
-                'label' => '触发方式',
-                'value' => Info::trig($model->trigger),
+                'label' => '实际完成时间',
+                'value' => $model->finish
             ],
             'statusText',
             'created_at:datetime',
