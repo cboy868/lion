@@ -8,6 +8,8 @@ use app\assets\TooltipAsset;
 
 TooltipAsset::register($this);
 ?>
+
+
 <div class="toolbar">
     <div class="sorter">
         <!-- <div class="sort-by">
@@ -33,20 +35,20 @@ TooltipAsset::register($this);
         </p>
 
 
-        <ul class="aaad">
-            <li style="position:relative" class="limiter">Show
-                <a href=""><span class="current"><span><?=$get['psize']?></span></span></a>
-                <ul style="display:none;position:absolute;left:10px:top:20px;">
-                    <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
-                    <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
-                    <li><a class="<?php if ($get['psize'] == 16): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>16])?>">16</a></li>
-                    <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
-                    <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
-                </ul>
-                per page  
-            </li>
-        </ul>
 
+        <ul class="aaad">
+    <li style="position:relative" class="limiter">
+        <a href="#"><span class="current"><span>Show<?=$get['psize']?>per page  </span></span></a>
+        <ul style="display:none;position:absolute;left:10px:top:20px;z-index:1001">
+            <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
+            <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
+            <li><a class="<?php if ($get['psize'] == 16): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>16])?>">16</a></li>
+            <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
+            <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
+        </ul>
+        
+    </li>
+</ul>
 
 
 
@@ -72,6 +74,8 @@ TooltipAsset::register($this);
         </div>
     </div>
 </div>
+
+
 <ol id="products-list" class="products-list nova-mg-pd">
     <?php foreach ($models as $goods): ?>
     <li class="item odd">
@@ -159,11 +163,11 @@ $(function(){
 
 
     $('.limiter .current').click(function(){
-        $(this).siblings('ul').show();
+        //$(this).siblings('ul').show();
     });
 
     $('.limiter').mouseleave(function(){
-        $(this).find('ul').slideUp();
+        //$(this).find('ul').slideUp();
     });
     $('.fav').click(function(e){
         e.preventDefault();
