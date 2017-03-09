@@ -33,7 +33,24 @@ TooltipAsset::register($this);
         </p>
 
 
-        <div class="limiter">Show<span class="current"><span><?=$get['psize']?></span></span>
+        <ul class="aaad">
+            <li style="position:relative" class="limiter">Show
+                <a href=""><span class="current"><span><?=$get['psize']?></span></span></a>
+                <ul style="display:none;position:absolute;left:10px:top:20px;">
+                    <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
+                    <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
+                    <li><a class="<?php if ($get['psize'] == 16): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>16])?>">16</a></li>
+                    <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
+                    <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
+                </ul>
+                per page  
+            </li>
+        </ul>
+
+
+
+
+        <!-- <div class="limiter">Show<span class="current"><span><?=$get['psize']?></span></span>
             <ul>
                 <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
                 <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
@@ -41,7 +58,7 @@ TooltipAsset::register($this);
                 <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
                 <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
             </ul> per page        
-        </div>
+        </div> -->
 
         <div class="pages">
             <ol>
@@ -114,17 +131,7 @@ TooltipAsset::register($this);
 
 
 
-<ul class="aaad">
-    <li style="position:relative">
-        <a href="">abcde</a>
-        <ul style="display:none;position:absolute;left:10px:top:20px;">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-        </ul>
-    </li>
-</ul>
+
 
 
 
