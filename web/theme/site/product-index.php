@@ -137,13 +137,7 @@ jQuery(document).ready(function() {
     });
 
 
-    $('.limiter .current').click(function(){
-        $(this).siblings('ul').show();
-    });
-
-    $('.limiter').mouseleave(function(){
-        $(this).find('ul').slideUp();
-    });
+    
 
     $('.down').click(function(e){
         if (e.target.tagName == 'A' && $(e.target).attr('href')!='#'){

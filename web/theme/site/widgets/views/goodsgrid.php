@@ -106,6 +106,14 @@ $(function(){
         $('.descriptions-hidden', this).hide();
     })
 
+    $('.limiter .current').click(function(){
+        $(this).siblings('ul').show();
+    });
+
+    $('.limiter').mouseleave(function(){
+        $(this).find('ul').slideUp();
+    });
+
     $('.fav').click(function(e){
         e.preventDefault();
 
