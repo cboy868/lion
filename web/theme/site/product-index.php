@@ -141,7 +141,7 @@ jQuery(document).ready(function() {
         $(this).siblings('ul').show();
     });
 
-    $('.limiter').mouseout(function(){
+    $('.limiter').mouseleave(function(){
         $(this).find('ul').slideUp();
     });
 

@@ -33,7 +33,8 @@ TooltipAsset::register($this);
         </p>
 
 
-        <div class="limiter">Show<span class="current"><span><?=$get['psize']?></span></span>
+        <li class="limiter">Show
+            <span class="current"><span><?=$get['psize']?></span></span>
             <ul>
                 <li><a class="<?php if ($get['psize'] == 8): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>8])?>">8</a></li>
                 <li><a class="<?php if ($get['psize'] == 12): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>12])?>">12</a></li>
@@ -41,7 +42,7 @@ TooltipAsset::register($this);
                 <li><a class="<?php if ($get['psize'] == 20): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>20])?>">20</a></li>
                 <li><a class="<?php if ($get['psize'] == 24): ?>active<?php endif ?>" href="<?=Url::current(['psize'=>24])?>">24</a></li>
             </ul> per page        
-        </div>
+        </li>
 
         <div class="pages">
             <ol>
