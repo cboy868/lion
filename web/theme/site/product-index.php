@@ -17,6 +17,10 @@ $this->title = 'PRODUCTS';
     .limiter ul a:hover{
         background-color: #ddd;
     }
+    .left-categories-container ul li a{
+        width: 80%;
+        display: inline-block;
+    }
 </style>
 
 <div class="main-container col2-left-layout">
@@ -35,12 +39,12 @@ $this->title = 'PRODUCTS';
                                         <span style="float:right;padding-right: 5px;padding-top: 2px;" class="fa fa-caret-up fa-2x"></span>
                                          <ul style="display:block;">
                                             <?php foreach ($cate['child'] as $ct): ?>
-                                            <li><a href="<?=$ct['url']?>"><?=$ct['name']?></a></li>
+                                            <li class="leaf"><a href="<?=$ct['url']?>"><?=$ct['name']?></a></li>
                                             <?php endforeach ?>
                                         </ul>
                                     </li>
                                 <?php else: ?>
-                                    <li><a href="<?=$cate['url']?>"><?=$cate['name']?></a></li>
+                                    <li class="leaf"><a href="<?=$cate['url']?>"><?=$cate['name']?></a></li>
                                 <?php endif ?>
                             <?php endforeach ?>
                         </ul>
@@ -115,6 +119,15 @@ $this->title = 'PRODUCTS';
 
 <?php $this->beginBlock('slide') ?>  
 jQuery(document).ready(function() {
+
+
+    $('.left-categories-container ul li.leaf').mouseover(function(){
+        $(this).css('background-color', '#fed');
+    });
+    $('.left-categories-container ul li.leaf').mouseleave(function(){
+        $(this).css('background-color', 'white');
+    });
+
     $('#narrow-by-list dt').click(function(){
         if ($(this).hasClass('active')) {
             jQuery(this).removeClass('active').next().slideUp(200);
@@ -128,7 +141,7 @@ jQuery(document).ready(function() {
         $(this).siblings('ul').show();
     });
 
-    $('.limiter').mouseleave(function(){
+    $('.limiter').mouseout(function(){
         $(this).find('ul').slideUp();
     });
 

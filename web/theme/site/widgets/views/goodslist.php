@@ -150,27 +150,6 @@ $(function(){
 })  
 
 
-function addfavorite() 
-{ 
-if (document.all) 
-{ 
-window.external.addFavorite('http://www.XXX.com','XXX'); 
-} 
-else if (window.sidebar) 
-{ 
-window.sidebar.addPanel('XXX', 'http://www.XXX.com', ""); 
-} 
-} 
-
-
-
-
-
-
-
-
-
-
 
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['fav'], \yii\web\View::POS_END); ?>  
