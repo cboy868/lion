@@ -18,6 +18,7 @@ use app\modules\mod\models\Code;
 use app\modules\cms\models\Category;
 use app\core\helpers\Url;
 use app\core\base\Upload;
+use app\core\helpers\Html;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -280,12 +281,22 @@ class PostController extends BackController
             $model->created_by = Yii::$app->user->identity->id;
 
 
+            if (empty($model->summary)) {
+                $body = Yii::$app->request->post('PostData'.$mod)['body'];
+                $model->summary = Html::cutstr_html($body, 50);
+            }
+
+
+
             $up = Upload::getInstance($model, 'thumb', 'post'.$mod);
             if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $up->save();
                 $info = $up->getInfo();
                 $model->thumb = $info['mid'];
             }
+
+
 
             $model->save();
 
@@ -341,10 +352,20 @@ class PostController extends BackController
 
             $up = Upload::getInstance($model, 'thumb', 'post'.$mod);
             if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $up->save();
                 $info = $up->getInfo();
                 $model->thumb = $info['mid'];
             }
+
+            $summary = strip_tags($model->summary);
+
+
+            if (empty($summary)) {
+                $body = Yii::$app->request->post('PostData'.$mod)['body'];
+                $model->summary = Html::cutstr_html($body, 50);
+            }
+
 
             $model->save();
             $dataModel->save();

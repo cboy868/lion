@@ -93,7 +93,7 @@ HomeAsset::register($this);
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" style="font-size:120%">
+                    <div class="collapse navbar-collapse" style="font-size:120%" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav">
                         <li class=""><a href="<?=Url::toRoute('index')?>">Home</a></li>
                         <li class=""><a href="<?=Url::toRoute('about')?>">About Us</a></li>

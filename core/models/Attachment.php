@@ -150,6 +150,25 @@ class Attachment extends \yii\db\ActiveRecord
         $model = self::findOne($id);
 
         if (!$model) {
+            if ($size) {
+                $size = str_replace('*', 'x', $size);
+                $path = dirname($default);
+                $base = basename($default);
+                $file = '/upload' . $path . '/' . $size . '@' . $base;
+                $thumb_path = Yii::getAlias('@app/web' . $file);
+                $srcFile = Yii::getAlias('@app/web'.$default);
+
+                if (!is_file($thumb_path)) {
+                    if (is_file($srcFile)) {
+                        $size = explode('x', str_replace('X', 'x', $size));
+                        Image::autoThumb($srcFile, $thumb_path, $size);
+                    } else {
+                        return $default;
+                    }
+                }
+                return $file;
+            }
+
             return $default;
         }
 

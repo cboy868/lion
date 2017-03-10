@@ -66,12 +66,7 @@ class Post extends \app\core\db\ActiveRecord
 
     public function getThumb($type = '')
     {
-        $thumb = Attachment::find()->where(['id'=>$this->thumb])->one();
-        if (!$thumb) {
-            return '';
-        }
-
-        return $thumb->getImg($type);
+        return Attachment::getById($this->thumb, $type);
     }
 
     /**
@@ -98,11 +93,18 @@ class Post extends \app\core\db\ActiveRecord
         ];
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPostData()
+    public function getData()
     {
-        return $this->hasOne(PostData::className(), ['post_id' => 'id']);
+        $className = $this::className();
+        $mod = substr($className, strpos($className, 'Post') + 4);
+
+        $class = '\app\modules\cms\models\mods\PostData' . $mod;
+        \app\modules\mod\models\Code::createObj('post', $mod);
+
+        return $this->hasOne($class::className(), ['post_id' => 'id']);
     }
 }

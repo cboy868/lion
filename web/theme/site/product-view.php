@@ -4,7 +4,7 @@ use app\web\theme\site\widgets\Zoom;
 use yii\helpers\Url;
 
 
-$this->title = $data['name'];
+$this->title = $data['name'] . $data['serial'];
 ?>
 
 <div class="main-container col1-layout home-content-container">

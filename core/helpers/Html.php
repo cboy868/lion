@@ -19,4 +19,16 @@ namespace app\core\helpers;
  */
 class Html extends \yii\helpers\BaseHtml
 {
+	public static function cutstr_html($string, $sublen){  
+
+		$string = strip_tags( $string ); 
+		$string = preg_replace('/s(?=s)/', '', $string); 
+
+		$qian=array(" ","　","\t","\n","\r");  
+		$hou=array("","","","","");  
+		$string = str_replace($qian,$hou,$string);
+
+		$string = mb_substr($string, 0, $sublen, 'utf-8');
+		return $string;
+	}  
 }

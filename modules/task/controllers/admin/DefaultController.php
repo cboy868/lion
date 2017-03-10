@@ -108,7 +108,18 @@ class DefaultController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->del();
+        $model = $this->findModel($id);
+
+        $flag = $model->del();
+
+        if (Yii::$app->request->isAjax) {
+            
+            if ($flag) {
+                return $this->json();
+            } else {
+                return $this->json(null, '错误，请重试', 0);
+            }
+        }
 
         return $this->redirect(['index']);
     }
@@ -116,9 +127,21 @@ class DefaultController extends BackController
     public function actionFinish($id)
     {
         $model = $this->findModel($id);
-        $model->finish();
+
+        if (Yii::$app->request->isAjax) {
+
+            if ($model->finish()) {
+                return $this->json();
+            } else {
+                return $this->json(null, '错误，请重试', 0);
+            }
+        } else {
+            $model->finish();
+        }
+        
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Task model based on its primary key value.
