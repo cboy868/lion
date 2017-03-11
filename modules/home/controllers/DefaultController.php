@@ -197,7 +197,8 @@ class DefaultController extends HomeController
             $model->goods_id = $id;
             return $this->render('product-msg', [
                 'model' => $model,
-                'shortmsg' => $result
+                'shortmsg' => $result,
+                'goods'=>$goods
             ]);
         }
     }

@@ -17,10 +17,10 @@ HomeAsset::register($this);
     <head lang="<?= Yii::$app->language ?>">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <title><?= Html::encode($this->title) ?>   <?=g('seo_title')?></title>
+        <title><?= Html::encode($this->title) ?>  <?=g('title')?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="<?=g('seo_description')?>">
-        <meta name="keywords" content="<?=g('seo_keywords')?>">
+        <meta name="description" content="<?=g('description')?>">
+        <meta name="keywords" content="<?=g('keywords')?>">
         <meta name="robots" content="INDEX,FOLLOW">
 
         <meta charset="<?= Yii::$app->charset ?>">
@@ -35,6 +35,8 @@ HomeAsset::register($this);
 
     </head>
     <body>
+
+    
     <?php $this->beginBody() ?>
         <div id="notification"></div>
         <div class="wrapper">
@@ -91,15 +93,13 @@ HomeAsset::register($this);
                       </button>
                       <a class="navbar-brand" href="#"></a>
                     </div>
-
+                    <?php $navs = \app\modules\cms\models\Nav::navs(); ?>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" style="font-size:120%" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav">
-                        <li class=""><a href="<?=Url::toRoute('index')?>">Home</a></li>
-                        <li class=""><a href="<?=Url::toRoute('about')?>">About Us</a></li>
-                        <li class=""><a href="<?=Url::toRoute('product')?>">Products</a></li>
-                        <li><a href="<?=Url::toRoute('resource')?>">Resources</a></li>
-                        <li><a href="<?=Url::toRoute('contact')?>" class="level-top">Contact Us</a></li>  
+                      <?php foreach ($navs as $k => $v): ?>
+                          <li><a href="<?=Url::toRoute($v['url'])?>"><?=$v['name']?></a></li>
+                      <?php endforeach ?>
                       </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container-fluid -->

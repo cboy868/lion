@@ -5,9 +5,9 @@
 请问贵公司哪里有样板店或直营店？
 想了解加盟细节，请尽快寄一份资料。',
   'theme' => 'site',
+  'title' => '张三的网站',
   'uemail' => 'cboy868@163.com',
   'cp_name' => '张三的公司',
-  'seo_title' => '张三的网站',
-  'seo_keywords' => 'keywords',
-  'seo_description' => '一些简单的描述',
+  'keywords' => 'keywords',
+  'description' => '一些简单的描述',
 ) ;

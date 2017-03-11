@@ -1,7 +1,3 @@
-<?php 
-$this->title="RESOURCES";
-?>
-
 <style type="text/css">
 
 li.res_li:hover{

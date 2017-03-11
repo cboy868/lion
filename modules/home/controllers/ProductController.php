@@ -88,11 +88,14 @@ class ProductController extends HomeController
             return $this->redirect(['view', 'id' => $id]);
         } else {
 
+
+
             $model->title = '我对“'.$goods->name.'”很感兴趣';
             $model->goods_id = $id;
             return $this->render('msg', [
                 'model' => $model,
-                'shortmsg' => $result
+                'shortmsg' => $result,
+                'goods'=>$goods
             ]);
         }
     }

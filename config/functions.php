@@ -91,6 +91,15 @@ function url($params)
 function g($name)
 {
 
+	$path = Yii::$app->request->pathInfo;
+	$path = substr($path, 0, strpos($path, '.'));
+
+	$nav = \app\modules\cms\models\Nav::find()->where(['like', 'url', $path])->one();
+
+	if (!empty($nav[$name])) {
+		return $nav[$name];
+	}
+
 	return Yii::$app->params[$name];
 }
 

@@ -1,11 +1,14 @@
 <?php
-$this->title = 'PRODUCT MESSAGE';
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 use yii\captcha\Captcha;
 
 use app\assets\ExtAsset;
 ExtAsset::register($this);
+
+
+$this->title = $goods->name . '留言';
+
 ?>
 <style type="text/css">
     .form-group {

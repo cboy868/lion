@@ -5,8 +5,6 @@ use app\core\models\Attachment;
 use yii\widgets\LinkPager;
 
 use app\web\theme\site\widgets\GoodsList;
-
-$this->title = 'PRODUCTS';
 ?>
 
 <style type="text/css">
