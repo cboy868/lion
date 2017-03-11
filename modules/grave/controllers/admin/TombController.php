@@ -49,8 +49,6 @@ class TombController extends BackController
         }
 
 
-
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -78,6 +76,26 @@ class TombController extends BackController
         ]);
     }
 
+    public function actionSearch()
+    {
+        $searchModel = new TombSearch();
+
+        return $this->renderAjax('search', ['model'=>$searchModel]);
+    }
+
+    public function actionSearchList()
+    {
+        $searchModel = new TombSearch();
+
+        $params = Yii::$app->request->queryParams;
+
+        $dataProvider = $searchModel->search($params);
+
+        return $this->renderAjax('search-list', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
     public function actionSelGrave($grave_id)
     {
         $graves = Grave::find()->where(['pid'=>$grave_id])
@@ -86,6 +104,8 @@ class TombController extends BackController
                                ->asArray()
                                ->all();
 
+
+                               
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $status = true;

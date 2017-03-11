@@ -5,6 +5,7 @@ use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
 use app\modules\grave\models\Grave;
 use app\assets\ExtAsset;
+use kartik\select2\Select2;
 
 ExtAsset::register($this);
 /* @var $this yii\web\View */
@@ -27,6 +28,9 @@ ExtAsset::register($this);
     .form-inline .form-control.srow, .form-inline .form-control.scol{
         width:80px;
     }
+    .selg{
+        width:200px;
+    }
 </style>
 <div class="tomb-search">
 
@@ -45,6 +49,7 @@ ExtAsset::register($this);
         $options = [];
         foreach ($gs as $k => $v) {
             $options[$v['id']]['leaf'] = $v['is_leaf'];
+            $options[$v['id']]['data-leaf'] = $v['is_leaf'];
         }
 
 
@@ -61,11 +66,35 @@ ExtAsset::register($this);
             <?= $form->field($model, 'grave_id')->dropDownList(Grave::selTree(['pid'=>$grave->pid], 0, ''), ['class'=>'form-control input-sm selg','options' => $options,'value'=>$grave->id, 'prompt'=>'--选择墓区--'])->label(false); ?>
         <?php endif ?>
     <?php else: ?>
-            <?= $form->field($model, 'grave_id')->dropDownList(Grave::selTree(['pid'=>0]), ['class'=>'selg sel-ize', 'prompt'=>'--选择墓区--', 'options' => $options])->label(false); ?>
+
+
+        <?php 
+echo $form->field($model, 'grave_id')->widget(Select2::classname(), [
+    'data' => Grave::selTree(['pid'=>0]),
+    'options' => [
+        'placeholder' => '选择墓区 ...',
+        'options' => $options,
+        'class' => 'selg'
+    ],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+])->label(false);
+
+     ?>
+
+
+
+
+
+
+
+
+            <?php //each $form->field($model, 'grave_id')->dropDownList(Grave::selTree(['pid'=>0]), ['class'=>'selg sel-ize', 'prompt'=>'--选择墓区--', 'options' => $options])->label(false); ?>
+
+            <?php // $form->field($model, 'grave_id')->dropDownList(Grave::selTree(['pid'=>0]), ['class'=>'selg form-control input-sm', 'prompt'=>'--选择墓区--', 'options' => $options])->label(false); ?>
     <?php endif ?>
         </div>
-
-
         
 
     <?= $form->field($model, 'row')->textInput(['class'=>'form-control srow']) ?>
@@ -118,9 +147,13 @@ $(function(){
     $(document).on('change', '.selg', function(e){
         e.preventDefault();
 
-        var leaf = $(this).find("option:selected").attr('leaf');
+        var leaf = $("option:selected", this).attr('leaf');
+
         var grave_id = $(this).val();
         var that = this;
+
+
+        console.log(leaf);
 
         $(this).closest('.form-group').nextAll().remove();
 
