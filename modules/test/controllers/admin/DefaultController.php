@@ -103,9 +103,9 @@ STR;
         $result = Fpdf::content($content);
 
         foreach($result as $v){
-         $pdf->setXY($v['x'],$v['y']);
-         $pdf->SetFont($v['font'],$v['b'],$v['font_size']); 
-         $pdf->cell(10,10, $v['content']);
+            $pdf->setXY($v['x'],$v['y']);
+            $pdf->SetFont($v['font'],$v['b'],$v['font_size']); 
+            $pdf->cell(10,10, $v['content']);
         }
         
         ob_end_clean();
