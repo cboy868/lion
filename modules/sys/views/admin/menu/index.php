@@ -77,7 +77,6 @@ Tabletree::register($this);
                                             'method' => 'post',
                                         ],
                                     ]) ?>
-
                             </td>
                         </tr>
                         <?php endforeach;?>

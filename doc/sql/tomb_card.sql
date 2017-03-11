@@ -31,7 +31,7 @@ ALTER TABLE `grave_card`
 
 CREATE TABLE IF NOT EXISTS `grave_card_rel` (
   `id` int(11) NOT NULL,
-  `grave_card_id` int(11) NOT NULL COMMENT '主表id',
+  `card_id` int(11) NOT NULL COMMENT '主表id',
   `tomb_id` int(11) NOT NULL COMMENT '墓位id',
   `start` date COMMENT '开始日期',
   `end` date COMMENT '结束日期',
@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS `grave_card_rel` (
   `mobile` varchar(20) DEFAULT '',
   `created_by` int(11) DEFAULT '0' COMMENT '添加人',
   `created_at` int(11) COMMENT '添加时间',
-  `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
