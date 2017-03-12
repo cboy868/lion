@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <small>
                     <a href="<?=Url::to(['attr-create', 'type_id'=>Yii::$app->request->get('id')])?>" class='btn btn-primary btn-sm modalAddButton' title="添加属性"><i class="fa fa-plus"></i>添加属性</a>
+                    <a href="<?=Url::toRoute(['spec', 'id'=>Yii::$app->request->get('id')])?>" class="btn btn-default pull-right">规格管理</a>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -75,11 +76,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tr>
                       <?php foreach ($model->vals as $val): ?>
                         <tr>
-                            <td><img src="<?=$val->getThumb('36x36')?>"> </td>
+                            <td width="50"><img src="<?=$val->getThumb('36x36')?>"> </td>
                             <td><?=$val->val?></td>
-                            <td>
+                            <td width="80">
                             <a class="modalEditButton" href="<?=Url::toRoute(['/shop/admin/type/spec-update-val', 'id'=>$val->id])?>" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a> 
                             <a href="<?=Url::toRoute(['/shop/admin/type/spec-delete-val', 'id'=>$val->id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post"><span class="glyphicon glyphicon-trash"></span></a> 
+                            </td>
                         </tr>
                       <?php endforeach ?>
                       
