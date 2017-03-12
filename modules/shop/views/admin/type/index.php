@@ -75,10 +75,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete}',
+                'template' => '{update} {delete} {spec} {attr}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                    },
+                    'attr' => function($url, $model, $key) {
+
+                        return Html::a('属性管理', $url, ['title' => '属性管理', 'class'=>''] );
+                    },
+                    'spec' => function($url, $model, $key) {
+                        return Html::a('规格管理', $url, ['title' => '规格管理', 'class'=>''] );
                     }
                 ],
                'headerOptions' => ['width' => '240']

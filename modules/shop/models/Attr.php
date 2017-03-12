@@ -85,6 +85,7 @@ class Attr extends \app\core\db\ActiveRecord
         return $mul[$this->is_multi];
     }
 
+
     public function getSpec()
     {
         return $this->is_spec ? '是' : '否';

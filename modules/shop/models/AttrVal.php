@@ -35,7 +35,8 @@ class AttrVal extends \app\core\db\ActiveRecord
     {
         return [
             [['type_id', 'attr_id', 'status'], 'integer'],
-            [['val', 'thumb'], 'string', 'max' => 255]
+            [['val'], 'string', 'max' => 255],
+            [['thumb'], 'safe']
         ];
     }
 
@@ -54,6 +55,16 @@ class AttrVal extends \app\core\db\ActiveRecord
             'status' => '状态',
             'v_cate' => '属性值分类'
         ];
+    }
+
+    public function getThumb($size)
+    {
+        return \app\core\models\Attachment::getById($this->thumb, $size);
+    }
+
+    public function getAttr()
+    {
+        return $this->hasOne(Attr::className(),['id'=>'attr_id']);
     }
 
 }
