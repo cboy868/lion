@@ -10,38 +10,39 @@ return [
     'admin/default/<action:(.+)>'=> 'admin/default/<action>',
 
 
+
+
+
+
+
+    'product/<id:\d+>.html' => 'home/default/product-view',
+    'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',
+    'msg/<id:\d+>.html' => 'home/default/product-msg',
+
+    'product-msg' => 'home/default/product-msg',
+    'product-msg.html' => 'home/default/product-msg',
+
+
+    'products.html'=> 'home/default/product',
+    'products'=> 'home/default/product',
+
+    'abouts.html'=> 'home/default/about',
+    'abouts'=> 'home/default/about',
+
+    'contact.html'=> 'home/default/contact',
+    'contact'=> 'home/default/contact',
+
+    'resource.html'=> 'home/default/resource',
+    'resource'=> 'home/default/resource',
+
     'home.html'=> 'home/default/index',
     'home'=> 'home/default/index',
     'home/default.html'=> 'home/default/index',
     'home/default'=> 'home/default/index',
     'home/default/<action:(.+)>.html'=> 'home/default/<action>',
     'home/default/<action:(.+)>'=> 'home/default/<action>',
-
-    'home/product.html'=> 'home/product/index',
-    'home/product'=> 'home/product/index',
-    'home/product/<action:(.+)>.html'=> 'home/product/<action>',
-    'home/product/<action:(.+)>'=> 'home/product/<action>',
-
-
-    'home/site.html'=> 'home/site/index',
-    'home/site'=> 'home/site/index',
-    'home/site/<action:(.+)>.html'=> 'home/site/<action>',
-    'home/site/<action:(.+)>'=> 'home/site/<action>',
-
-    'home/about.html'=> 'home/about/index',
-    'home/about'=> 'home/about/index',
-    'home/about/<action:(.+)>.html'=> 'home/about/<action>',
-    'home/about/<action:(.+)>'=> 'home/about/<action>',
-
-    'home/intro.html'=> 'home/intro/index',
-    'home/intro'=> 'home/intro/index',
-    'home/intro/<action:(.+)>.html'=> 'home/intro/<action>',
-    'home/intro/<action:(.+)>'=> 'home/intro/<action>',
-
-    'home/resources.html'=> 'home/resources/index',
-    'home/resources'=> 'home/resources/index',
-    'home/resources/<action:(.+)>.html'=> 'home/resources/<action>',
-    'home/resources/<action:(.+)>'=> 'home/resources/<action>',
+    // 'home/resources/<action:(.+)>.html'=> 'home/resources/<action>',
+    // 'home/resources/<action:(.+)>'=> 'home/resources/<action>',
 
     // 'goods/<id:\d+>' => 'shop/admin/goods/view',
     // 'home/test/<action:(.+)>'=> 'home/test/<action>',

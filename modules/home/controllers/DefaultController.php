@@ -190,7 +190,7 @@ class DefaultController extends HomeController
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->create()) {
-            return $this->redirect(['view', 'id' => $id]);
+            return $this->redirect(['product-view', 'id' => $id]);
         } else {
 
             $model->title = '我对“'.$goods->name.'”很感兴趣';

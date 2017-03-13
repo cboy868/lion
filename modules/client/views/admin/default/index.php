@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            // 'id',
             'name',
             'genderText',
             'mobile',
@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{update} {delete} {view} {recep}',
                 'buttons' => [
                     'recep' => function($url, $model, $key) {
-                        return Html::a('接待记录', Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
+                        return Html::a('联系记录', Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
                     },
                 ],
             ]

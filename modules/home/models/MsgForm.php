@@ -65,7 +65,10 @@ class MsgForm extends Model
             if ($msg->save()) {
                 return $msg;
             }
+
+            p($msg->getErrors());die;
         }
+
 
         return false;
     }

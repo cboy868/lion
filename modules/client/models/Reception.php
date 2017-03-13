@@ -115,6 +115,12 @@ class Reception extends \app\core\db\ActiveRecord
 
     public function getIsSuccess()
     {
-        return $this->is_success ? '是' : '否';
+        $su = [
+            1 => '是',
+            0 => '否',
+            2 => '待确定'
+        ];
+
+        return $su[$this->is_success];
     }
 }

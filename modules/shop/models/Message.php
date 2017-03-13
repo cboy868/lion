@@ -45,7 +45,7 @@ class Message extends \app\core\db\ActiveRecord
         return [
             [['goods_id', 'status', 'created_at', 'op_id'], 'integer'],
             [['term'], 'safe'],
-            [['username', 'mobile', 'title'], 'required'],
+            [['username', 'title'], 'required'],
             [['intro'], 'string'],
             [['title', 'company', 'username'], 'string', 'max' => 255],
             [['mobile', 'email'], 'string', 'max' => 50],

@@ -69,7 +69,7 @@ $agents =\app\modules\user\models\User::agents();
         </tr>
 
         <tr>
-            <td><?= $form->field($model, 'is_success')->radioList([0=>'否',1=>'是'], ['prompt'=>'未购买原因']) ?></td>
+            <td><?= $form->field($model, 'is_success')->radioList([0=>'否',1=>'是', 2=>'待确定']) ?></td>
             <td><?= $form->field($model, 'un_reason')->dropDownList(Yii::$app->controller->module->params['unreason'], ['prompt'=>'未购买原因'])->hint('如未成交，请选择') ?></td>
         </tr>
 

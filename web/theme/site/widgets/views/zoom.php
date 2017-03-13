@@ -58,7 +58,11 @@ ZoomAsset::register($this);
     
 </style>
 
+<?php 
 
+$a = Attachment::getById($imgs[0]['id'], '50x50');
+
+ ?>
 <div class="col-xs-12 col-md-5">
     <a href="#" class="thumbnail" >
       <img id="zoom" src='<?=Attachment::getById($imgs[0]['id'], '450x450')?>' data-zoom-image="<?=Attachment::getById($imgs[0]['id'], '800x800')?>" />
