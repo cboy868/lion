@@ -70,7 +70,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            'id',
             'title',
             [
                 'class' => 'yii\grid\ActionColumn',

@@ -15,6 +15,10 @@ class ActiveRecord extends \yii\db\ActiveRecord
 	const STATUS_DEL = -1;
 	const STATUS_NORMAL = 1;//正常
 
+    const GENDER_NO = 0;
+    const GENDER_MALE = 1;
+    const GENDER_FMALE = 2;
+
     public function del()
     {
     	$this->status = self::STATUS_DEL;
@@ -41,5 +45,21 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
     	return $s[$status];
     }
+
+    public static function gender($gender = null)
+    {
+        $ar = [
+            self::GENDER_NO   => '未知',
+            self::GENDER_MALE => '男',
+            self::GENDER_FMALE=> '女'
+        ];
+
+        if ($gender === null) {
+            return $ar;
+        }
+
+        return $ar[$gender];
+    }
+
 
 }

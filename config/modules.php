@@ -13,6 +13,9 @@ return [
     'sms' => [
         'class' => 'app\modules\sms\Module',
     ],
+    'client' => [
+        'class' => 'app\modules\client\Module',
+    ],
     'member' => [
         'class' => 'app\modules\member\Module',
     ],

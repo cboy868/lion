@@ -246,7 +246,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'template' => '{update} {delete} {view} {home}',
                 'buttons' => [
                     'home' => function($url, $model, $key) {
-                        return Html::a('前台查看', Url::toRoute(['/home/product/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
+                        return Html::a('前台查看', Url::toRoute(['/home/default/product-view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
                     },
                     'update' => function($url, $model, $key) {
                         return Html::a('修改', Url::toRoute(['/shop/admin/goods/update-cate', 'id'=>$model->id]), ['title' => '修改', 'class'=>'modalEditButton'] );

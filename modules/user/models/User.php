@@ -30,6 +30,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
     const STATUS_REGISTER = 0;//注册待激活状态
 
+    const STAFF_AGENT = 2;//业务员
     const STAFF_YES = 1;
     const STAFF_NO  = 0;
 
@@ -107,6 +108,11 @@ class User extends ActiveRecord implements IdentityInterface
     public static function staffs()
     {
         return self::find()->where(['status'=>self::STATUS_ACTIVE, 'is_staff'=>self::STAFF_YES])->all();
+    }
+
+    public static function agents()
+    {
+        return self::find()->where(['status'=>self::STATUS_ACTIVE, 'is_staff'=>self::STAFF_AGENT])->all();
     }
 
     public static function noStaffs()
