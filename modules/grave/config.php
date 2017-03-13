@@ -80,8 +80,6 @@ return [
         ],
         'role' => [
             'guide' => ['chaojiguanlizu_585a7860759fd','chaojiguanliyuan_585a784f9cd1a'],//导购
-            'caiwu' => [''],//财务
-            'agent'  => 'chaojiguanliyuan_585a784f9cd1a'//业务
         ],
 
         'goods' => [

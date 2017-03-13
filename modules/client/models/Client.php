@@ -91,6 +91,39 @@ class Client extends \app\core\db\ActiveRecord
             'created_by' => '添加人',
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
+            'from' => '来源',
+            'genderText' => '性别'
         ];
+    }
+
+    public function getGuide()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'guide_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+    }
+
+    public function getAgent()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'agent_id']);
+    }
+
+    public function getOp()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'created_by']);
+    }
+
+    public function getReceps()
+    {
+        return $this->hasMany(Reception::className(),['client_id'=>'id']);
+    }
+
+    public function getFrom()
+    {
+        $params = Yii::$app->controller->module->params['come_from'];
+        return $params[$this->come_from];
     }
 }

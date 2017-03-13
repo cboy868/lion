@@ -9,63 +9,100 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\client\models\ReceptionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Receptions';
+
+$this->title = $client->name . '的联系记录';
+$this->params['breadcrumbs'][] = ['label' => '客户列表', 'url' => ['/client/admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-
 ?>
-
 <div class="page-content">
-    <!-- /section:settings.box -->
-    <div class="page-content-area">
-        <div class="page-header">
-            <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+                    <?=$client->name?>的基本信息 
+            </div>
+            <table class="table table-bordered">
+               <tbody>
+               <tr>
+                 <th style="width:8em;">姓名</th>
+                 <td><?=$client->name?></td>
+                 <th style="width:8em;">性别</th>
+                 <td><?=$client->genderText?></td>
+               </tr>
+               <tr>
+                 <th>电话</th>
+                 <td><?=$client->mobile?></td>
+                 <th>信息来源</th>
+                 <td><?=$client->from?></td>
+               </tr>
+               <tr>
+                 <th>地 址</th>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+                 <?php 
+                    $addr = \app\core\models\Area::getText($client->province_id, $client->city_id, $client->zone_id);
+                    $re = $addr .' '. $client->address;
+                  ?>
+                 <td rowspan="5"><?=$re?></td>
+               </tr>
+               </tbody>
+            </table>
+           </div>
+        </div>
+
+        <?php foreach ($client->receps as $recep): ?>
+            <div class="col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        联系记录 [<code><?=date('Y-m-d H:i', $recep->created_at)?></code>]
+                    </div>
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                           <th style="width:8em;">接待员</th>
+                           <td style="width:14em;"><?=$recep->guide->username?></td>
+                           <th style="width:8em;">业务员</th>
+                           <td style="width:14em;"><?=$recep->agent->username?></td>
+                           <th style="width:8em;">联系时间</th>
+                           <td>
+                               <mark><?=substr($recep->start,0, 16)?></mark> 
+                               至
+                               <mark><?=substr($recep->end, 0, 16)?></mark>
+                           </td>
+                        </tr>
+                        <tr>
+                            <th>原因</th>
+                            <td colspan="3">
+                                <?=$recep->getReason()?>
+                            </td>
+                            <th>接待方式</th>
+                            <td><?=$recep->gettype()?></td>
+                        </tr>
+                        <tr>
+                           <th>是否成功</th>
+                           <td><?=$recep->getIsSuccess()?></td>
+                           <th>其他描述</th>
+                           <td colspan="3"><?=$recep->note?></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        <?php endforeach ?>
+        <div class="col-sm-12">
+            <div class="panel panel-success">
+            <div class="panel-heading">
+                    新联系记录
+            </div>
+          <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
+            </div>
+        </div>
 
-            <div class="col-xs-12 reception-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
-        // 'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'client_id',
-            'guide_id',
-            'agent_id',
-            'car_number',
-            // 'person_num',
-            // 'start',
-            // 'end',
-            // 'un_reason',
-            // 'is_success',
-            // 'note:ntext',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.page-content-area -->
+        
+    </div>
 </div>

@@ -64,15 +64,20 @@ class DefaultController extends BackController
 
         $comfrom = $this->module->params['come_from'];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            $model->loadDefaultValues();
-            return $this->render('create', [
-                'model' => $model,
-                'from'  => $comfrom
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->created_by = Yii::$app->user->id;
+            if ($model->save()) {
+                return $this->redirect(['index']);
+            }
         }
+
+        $model->loadDefaultValues();
+        $model->guide_id = Yii::$app->user->id;
+        return $this->render('create', [
+            'model' => $model,
+            'from'  => $comfrom
+        ]);
     }
 
     /**

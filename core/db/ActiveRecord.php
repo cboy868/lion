@@ -61,5 +61,10 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return $ar[$gender];
     }
 
+    public function getGenderText()
+    {
+        return static::gender($this->gender);
+    }
+
 
 }

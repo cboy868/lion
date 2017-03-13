@@ -3,6 +3,8 @@
 namespace app\modules\client\controllers\admin;
 
 use Yii;
+use app\modules\client\models\Client;
+
 use app\modules\client\models\Reception;
 use app\modules\client\models\ReceptionSearch;
 use app\core\web\BackController;
@@ -30,14 +32,22 @@ class RecepController extends BackController
      * Lists all Reception models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $searchModel = new ReceptionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $client = Client::findOne($id);
+        $recep = new Reception();
+        
+        if ($recep->load(Yii::$app->request->post()) && $recep->save()) {
+            return $this->redirect(['index', 'id' => $id]);
+        } 
+
+        $recep->loadDefaultValues();
+        $recep->client_id = $client->id;
+        $recep->guide_id = Yii::$app->user->id;
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'client' => $client,
+                'model' => $recep
         ]);
     }
 

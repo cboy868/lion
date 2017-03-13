@@ -4,10 +4,12 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use app\assets\FootableAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\client\models\ClientSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+FootableAsset::register($this);
 
 $this->title = '客户管理';
 $this->params['breadcrumbs'][] = $this->title;
@@ -44,31 +46,79 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
-            'gender',
-            'age',
-            'user_id',
-            'telephone',
+            'genderText',
             'mobile',
-            // 'qq',
-            // 'wechat',
-            // 'province_id',
-            // 'city_id',
-            // 'zone_id',
-            // 'address:ntext',
-            // 'note:ntext',
-            // 'guide_id',
-            // 'come_from',
-            // 'agent_id',
-            // 'status',
-            // 'created_by',
-            // 'created_at',
-            // 'updated_at',
+            'from',
+            [
+                'label' => '接待员',
+                'value' => function($model){
+                    return $model->guide->username;
+                },
+            ],
+            [
+                'label' => '座机',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    return $model->telephone;
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '年龄',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    return $model->age;
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '业务员',
+                'value' => function($model){
+                    return $model->agent->username;
+                },
+                'headerOptions' => ["data-breakpoints"=>"all"],
+            ],
+            [
+                'label' => '简述',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    return $model->note;
+                },
+                'format' => 'raw'
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'label' => '地址',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    $addr = \app\core\models\Area::getText($model->province_id, $model->city_id, $model->zone_id);
+                    $re = $addr .' '. $model->address;
+                    return $re;
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '添加人',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    return $model->op->username;
+                },
+                'format' => 'raw'
+            ],
+
+            [
+                'header' => '操作',
+                'headerOptions' => ["data-type"=>"html",'width'=>'150'],
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete} {view} {recep}',
+                'buttons' => [
+                    'recep' => function($url, $model, $key) {
+                        return Html::a('接待记录', Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
+                    },
+                ],
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>
@@ -76,3 +126,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+
+<?php $this->beginBlock('foo') ?>  
+  $(function(){
+    $('.table').footable();
+  })
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['foo'], \yii\web\View::POS_END); ?>  

@@ -141,14 +141,16 @@ class ProcessController extends BackController
 
 
         show:
-        $agent = Yii::$app->controller->module->params['role']['agent'];
+        // $agent = Yii::$app->controller->module->params['role']['agent'];
         $guide = Yii::$app->controller->module->params['role']['guide'];
+        $agent = \app\modules\user\models\User::agents();
+        $agents = ArrayHelper::map($agent, 'id', 'username');
 
         return $this->render('customer',[
                 'model'=> $customer,
                 'tomb' => $tomb,
                 'user' => $user,
-                'agent' => Process::getRoleUsers($agent),
+                'agent' => $agents,
                 'guide' => Process::getRoleUsers($guide),
                 'get' => Yii::$app->request->get(),
                 'order' => Process::getOrder()
