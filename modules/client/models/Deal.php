@@ -33,10 +33,10 @@ class Deal extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
+            [['res_id'], 'required'],
             [['id', 'client_id', 'guide_id', 'agent_id', 'recep_id', 'res_id', 'status'], 'integer'],
             [['date'], 'safe'],
-            [['res_name'], 'string', 'max' => 200],
+            [['res_name', 'name'], 'string', 'max' => 200],
         ];
     }
 
@@ -56,5 +56,24 @@ class Deal extends \app\core\db\ActiveRecord
             'date' => 'Date',
             'status' => 'Status',
         ];
+    }
+
+
+    public static function create($client_id, $guide_id, $agent_id, $res_name, $res_id, $name, $recep_id=0)
+    {
+        $client = new self();
+        $data = [
+            'client_id' => $client_id,
+            'guide_id' => $guide_id,
+            'agent_id' => $agent_id,
+            'res_name' => $res_name,
+            'res_id'   => $res_id,
+            'date'     => date('Y-m-d H:i:s'),
+            'recep_id' => $recep_id,
+            'name'     => $name
+        ];
+
+        $client->load($data, '');
+        return $client->save();
     }
 }

@@ -171,7 +171,7 @@ class Tomb extends \app\core\db\ActiveRecord
             $this->status = self::STATUS_PRE;
 
 
-            try {
+            // try {
                 $outerTransaction = Yii::$app->db->beginTransaction();
                 if ($client_id) {
                     $client = \app\modules\client\models\Client::findOne($client_id);
@@ -192,6 +192,8 @@ class Tomb extends \app\core\db\ActiveRecord
                     $customer->load($data, '');
 
                     $customer->save();
+
+                    $deal = \app\modules\client\models\Deal::create($client_id, $client->guide_id, $client->agent_id, 'tomb', $this->id, $this->tomb_no);
                     $this->customer_id = $customer->id;
 
                 }
@@ -200,9 +202,9 @@ class Tomb extends \app\core\db\ActiveRecord
                 $outerTransaction->commit();
 
                 return $this;
-            } catch (\Exception $e) {
-                $outerTransaction->rollBack();
-            }
+            // } catch (\Exception $e) {
+            //     $outerTransaction->rollBack();
+            // }
         }
 
 

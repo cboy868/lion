@@ -55,6 +55,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         联系记录 [<code><?=date('Y-m-d H:i', $recep->created_at)?></code>]
+                        <?php if ($deals): ?>
+                          <small class="pull-right" rid = '<?=$recep->id?>'>
+                            <select class="seldeal">
+                              <option>选择成交记录</option>
+                              <?php foreach ($deals as $k => $deal): ?>
+                                <option value="<?=$deal->id?>"><?=$deal->name?></option>
+                              <?php endforeach ?>
+                            </select>
+                          </small>
+                        <?php endif ?>
+                        
                     </div>
                     <table class="table table-bordered">
                         <tbody>
@@ -99,10 +110,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
             </div>
         </div>
-
-
-
-
         
     </div>
 </div>
+
+<?php $this->beginBlock('foo') ?>  
+  $(function(){
+    $('.seldeal').change(function(e){
+      e.preventDefault();
+
+      var recep_id = $(this).closest('small').attr('rid');
+      var deal_id = $(this).val();
+
+      var data = {recep_id:recep_id, deal_id:deal_id};
+
+      $.post("<?=Url::toRoute(['/client/admin/recep/deal'])?>",data, function(xhr){
+        if (xhr.status) {
+          location.reload();
+        } else {
+          alert(xhr.info);
+        }
+      }, 'json');
+    });
+  })
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['foo'], \yii\web\View::POS_END); ?>  

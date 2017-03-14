@@ -13,6 +13,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
 {
 
 	const STATUS_DEL = -1;
+    const STATUS_DELETE = -1;
 	const STATUS_NORMAL = 1;//正常
 
     const GENDER_NO = 0;

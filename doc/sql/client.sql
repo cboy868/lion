@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `client_deal` (
   `recep_id` int(11) NOT NULL DEFAULT '0',
   `res_name` varchar(200) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `res_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(200) DEFAULT '',
   `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '成交时间',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态 1-正常成交, 2感兴趣 -1-删除 '
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;

@@ -4,6 +4,7 @@ namespace app\modules\client\controllers\admin;
 
 use Yii;
 use app\modules\client\models\Client;
+use app\modules\client\models\Deal;
 
 use app\modules\client\models\Reception;
 use app\modules\client\models\ReceptionSearch;
@@ -42,12 +43,20 @@ class RecepController extends BackController
             return $this->redirect(['index', 'id' => $id]);
         } 
 
+
+
+        //查找未挂在接待记录中的deal
+        $deals = Deal::find()->where(['client_id'=>$id, 'recep_id'=>0])
+                             ->andWhere(['<>', 'status', Deal::STATUS_DEL])
+                             ->all();
+
         $recep->loadDefaultValues();
         $recep->client_id = $client->id;
         $recep->guide_id = Yii::$app->user->id;
         return $this->render('index', [
                 'client' => $client,
-                'model' => $recep
+                'model' => $recep,
+                'deals' => $deals
         ]);
     }
 
@@ -98,6 +107,23 @@ class RecepController extends BackController
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionDeal()
+    {
+        $post = Yii::$app->request->post();
+
+        $recep = $this->findModel($post['recep_id']);
+        $recep->is_success = 1;
+        $recep->save();
+        $deal = Deal::findOne($post['deal_id']);
+        $deal->recep_id = $post['recep_id'];
+
+
+        if ($deal->save()) {
+            return $this->json();
+        }
+        return $this->json(null, '出错', 0);
     }
 
     /**

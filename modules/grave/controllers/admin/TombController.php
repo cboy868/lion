@@ -82,9 +82,12 @@ class TombController extends BackController
         $tombs = [];
         if ($client_id) {
             $customer = \app\modules\grave\models\Customer::find()->where(['client_id'=>$client_id])->one();
-            $tombs = Tomb::find()->where(['customer_id'=>$customer->id])
-                                 ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
-                                 ->all();
+
+            if ($customer) {
+                $tombs = Tomb::find()->where(['customer_id'=>$customer->id])
+                                ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
+                                ->all();
+            }
         }
 
 
