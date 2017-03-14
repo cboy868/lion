@@ -83,7 +83,7 @@ $('.selg, .srow, .scol').change(function(){
     var data = $('form#tsearch').serialize();
 
 
-    $.get("<?=Url::toRoute(['/grave/admin/tomb/search-list'])?>", data, function(xhr){
+    $.get("<?=Url::toRoute(['/grave/admin/tomb/search-list', 'client_id'=>Yii::$app->request->get('client_id')])?>", data, function(xhr){
         $('.tfram').html(xhr);
     },'html');
 

@@ -159,19 +159,50 @@ class Tomb extends \app\core\db\ActiveRecord
     }
 
 
-    public function pre($flag = true)
+    public function pre($flag = true, $client_id=null)
     {
         if (!$flag && $this->status == self::STATUS_PRE) {
             $this->status = self::STATUS_EMPTY;
             return $this->save();
         }
 
-
         if ($flag && ($this->status == self::STATUS_EMPTY || $this->status == self::STATUS_SAVE)) {
-            $this->status = self::STATUS_PRE;
-            return $this->save();
-        }
 
+            $this->status = self::STATUS_PRE;
+
+
+            try {
+                $outerTransaction = Yii::$app->db->beginTransaction();
+                if ($client_id) {
+                    $client = \app\modules\client\models\Client::findOne($client_id);
+
+                    $data = [
+                        'name' => $client->name,
+                        'mobile' => $client->mobile,
+                        'tomb_id' => $this->id,
+                        'phone' => $client->telephone,
+                        'email' => $client->email,
+                        'province' => $client->province_id,
+                        'city' => $client->city_id,
+                        'zone' => $client->zone_id,
+                        'addr' => $client->address,
+                    ];
+                    $customer = new Customer();
+                    $customer->load($data, '');
+
+                    $customer->save();
+                    $this->customer_id = $customer->id;
+
+                }
+
+                $this->save();
+                $outerTransaction->commit();
+
+                return $this;
+            } catch (\Exception $e) {
+                $outerTransaction->rollBack();
+            }
+        }
 
 
         return false;
@@ -227,7 +258,7 @@ class Tomb extends \app\core\db\ActiveRecord
             $common = array_merge($common,[
                 [
                     '预订',
-                    Url::toRoute(['/grave/admin/tomb/pre', 'id'=>$this->id]),
+                    Url::toRoute(['/grave/admin/tomb/pre', 'id'=>$this->id, 'client_id'=>Yii::$app->request->get('client_id')]),
                     'tomb-preorder'
                 ],
                 [

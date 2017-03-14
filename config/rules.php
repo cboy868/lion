@@ -11,10 +11,6 @@ return [
 
 
 
-
-
-
-
     'product/<id:\d+>.html' => 'home/default/product-view',
     'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',
     'msg/<id:\d+>.html' => 'home/default/product-msg',
@@ -41,12 +37,9 @@ return [
     'home/default'=> 'home/default/index',
     'home/default/<action:(.+)>.html'=> 'home/default/<action>',
     'home/default/<action:(.+)>'=> 'home/default/<action>',
-    // 'home/resources/<action:(.+)>.html'=> 'home/resources/<action>',
-    // 'home/resources/<action:(.+)>'=> 'home/resources/<action>',
 
-    // 'goods/<id:\d+>' => 'shop/admin/goods/view',
-    // 'home/test/<action:(.+)>'=> 'home/test/<action>',
-    // 'home/test'=> 'home/test/index',
+
+
 
     'install'=> 'install/default/index',
     'install/default'=> 'install/default/index',

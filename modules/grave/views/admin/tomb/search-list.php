@@ -20,14 +20,13 @@ use yii\bootstrap\Modal;
             <td width="30%"><?=$model->tomb_no?></td>
             <td width="70%">
                 <div class="form-group pull-right">
-                    <a href="<?=Url::toRoute(['/grave/admin/tomb/option', 'id'=>$model->id])?>" class="btn btn-info btn-sm mAddButton">办理业务</a>
+                    <a href="<?=Url::toRoute(['/grave/admin/tomb/option', 'id'=>$model->id, 'client_id'=>Yii::$app->request->get('client_id')])?>" class="btn btn-info btn-sm mAddButton">办理业务</a>
                 </div>
             </td>
         </tr>
     <?php endforeach ?>
     
 </table>
-
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
@@ -41,6 +40,5 @@ $(function(){
     });
 
 })  
-
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>  

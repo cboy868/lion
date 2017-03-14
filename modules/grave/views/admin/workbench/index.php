@@ -26,10 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
             
             <?=\app\modules\grave\widgets\Bench::widget(['name'=>'buttons'])?>
 
+
             <?=\app\modules\grave\widgets\Bench::widget(['name'=>'task'])?>
 
+            <?=\app\modules\grave\widgets\Bench::widget(['name'=>'client'])?>
+
             <?=\app\modules\grave\widgets\Bench::widget(['name'=>'post', 'mod'=>5, 'limit'=>20])?>
-            
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>

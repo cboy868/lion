@@ -6,6 +6,7 @@ use app\core\helpers\ArrayHelper;
 use app\modules\task\models\Task;
 use app\modules\mod\models\Code;
 use app\core\db\ActiveRecord;
+use app\modules\client\models\Client;
 
 /**
  * The ZActiveForm widget extend ActiveForm.
@@ -42,6 +43,17 @@ class Bench extends \yii\base\Widget
                          ->all();
 
       return $this->render('bench_task', ['models'=>$tasks]);
+    }
+
+    private function client()
+    {
+
+      $client = Client::find()->where(['guide_id'=>$this->uid, 'status'=>Task::STATUS_NORMAL])
+                         ->orderBy('id desc')
+                         ->limit($this->limit)
+                         ->all();
+
+      return $this->render('bench_client', ['models'=>$client]);
     }
 
     private function post()

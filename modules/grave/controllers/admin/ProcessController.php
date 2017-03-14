@@ -104,9 +104,9 @@ class ProcessController extends BackController
                 } else {
                     goto show;
                 }
-
                 $customer->user_id = $user->id;
                 $customer->tomb_id = $tomb->id;
+
                 if ($customer->validate()) {
                     $customer->save();
                 } else {

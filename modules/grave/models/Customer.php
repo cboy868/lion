@@ -47,10 +47,10 @@ class Customer extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tomb_id', 'user_id', 'name', 'mobile'], 'required'],
-            [['tomb_id', 'user_id', 'is_vip', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['tomb_id', 'name'], 'required'],
+            [['tomb_id', 'user_id', 'is_vip', 'created_at', 'updated_at', 'status', 'province', 'city', 'zone'], 'integer'],
             [['vip_desc', 'addr'], 'string'],
-            [['name', 'province', 'city', 'zone'], 'string', 'max' => 200],
+            [['name'], 'string', 'max' => 200],
             [['phone', 'mobile', 'second_mobile'], 'string', 'max' => 20],
             [['email', 'second_ct', 'relation'], 'string', 'max' => 100],
             [['units'], 'string', 'max' => 255],

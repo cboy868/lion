@@ -126,10 +126,10 @@ class TombController extends BackController
     /**
      * @name 预定
      */
-    public function actionPre($id)
+    public function actionPre($id, $client_id=null)
     {
         $tomb = Tomb::findOne($id);
-        if ($tomb->pre()) {
+        if ($tomb->pre(true, $client_id)) {
             Yii::$app->session->setFlash('success', '墓位预定成功, 请办理购墓手续');
             return $this->json();
         }

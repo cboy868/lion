@@ -144,7 +144,9 @@ $this->title="购墓流程"
 
 $(function(){
     $('.uname').blur(function(){
-        $('.cname').val($(this).val());
+        if (!$('.cname').val()) {
+            $('.cname').val($(this).val());
+        }
     });
 })
 <?php $this->endBlock() ?>  
