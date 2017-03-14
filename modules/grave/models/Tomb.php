@@ -177,6 +177,7 @@ class Tomb extends \app\core\db\ActiveRecord
                     $client = \app\modules\client\models\Client::findOne($client_id);
 
                     $data = [
+                        'client_id' => $client->id,
                         'name' => $client->name,
                         'mobile' => $client->mobile,
                         'tomb_id' => $this->id,

@@ -76,11 +76,21 @@ class TombController extends BackController
         ]);
     }
 
-    public function actionSearch()
+    public function actionSearch($client_id = null)
     {
+
+        $tombs = [];
+        if ($client_id) {
+            $customer = \app\modules\grave\models\Customer::find()->where(['client_id'=>$client_id])->one();
+            $tombs = Tomb::find()->where(['customer_id'=>$customer->id])
+                                 ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
+                                 ->all();
+        }
+
+
         $searchModel = new TombSearch();
 
-        return $this->renderAjax('search', ['model'=>$searchModel]);
+        return $this->renderAjax('search', ['model'=>$searchModel, 'tombs'=>$tombs]);
     }
 
     public function actionSearchList()

@@ -48,7 +48,7 @@ class Customer extends \app\core\db\ActiveRecord
     {
         return [
             [['tomb_id', 'name'], 'required'],
-            [['tomb_id', 'user_id', 'is_vip', 'created_at', 'updated_at', 'status', 'province', 'city', 'zone'], 'integer'],
+            [['tomb_id', 'user_id', 'is_vip', 'created_at', 'updated_at', 'status', 'province', 'city', 'zone', 'client_id'], 'integer'],
             [['vip_desc', 'addr'], 'string'],
             [['name'], 'string', 'max' => 200],
             [['phone', 'mobile', 'second_mobile'], 'string', 'max' => 20],
@@ -108,6 +108,11 @@ class Customer extends \app\core\db\ActiveRecord
     public function getTomb()
     {
         return $this->hasOne(Tomb::className(), ['id' => 'tomb_id']);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(\app\modules\client\models\Client::className(), ['id' => 'client_id']);
     }
 
     public function getAddress()

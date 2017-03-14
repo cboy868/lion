@@ -86,6 +86,7 @@ class m161217_134034_grave extends Migration
 
         $this->createTable('{{%grave_customer}}', [
             'id' => $this->primaryKey(),
+            'client_id' => $this->integer()->defaultValue(0),
             'tomb_id' => $this->integer()->notNull(),
             'user_id' => $this->integer()->defaultValue(0),
             'name' => $this->string(200),
