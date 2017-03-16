@@ -20,6 +20,9 @@ class ActiveRecord extends \yii\db\ActiveRecord
     const GENDER_MALE = 1;
     const GENDER_FMALE = 2;
 
+    const DTNULL = '0000-00-00 00:00:00';
+    const DNULL  = '0000-00-00';
+
     public function del()
     {
     	$this->status = self::STATUS_DEL;

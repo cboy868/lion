@@ -56,8 +56,8 @@ class OrderSearch extends Order
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'wechat_uid' => $this->wechat_uid,
+            '{{%order}}.id' => $this->id,
+            // 'wechat_uid' => $this->wechat_uid,
             'price' => $this->price,
             'origin_price' => $this->origin_price,
             'type' => $this->type,

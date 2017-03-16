@@ -205,7 +205,18 @@ class Order extends \app\core\db\ActiveRecord
 
     public function getPays()
     {
-        return $this->hasMany(Pay::className(), ['order_id' => 'id']);
+        return $this->hasMany(Pay::className(), ['order_id' => 'id'])->andWhere(['status'=>self::STATUS_NORMAL])->orderBy('id asc');
+    }
+
+    /**
+     * @name 取没结过账的
+     */
+    public function getSettles()
+    {
+        return $this->hasMany(Pay::className(), ['order_id' => 'id'])
+                    ->andWhere(['status'=>self::STATUS_NORMAL])
+                    ->andWhere(['checkout_at'=>null])
+                    ->orderBy('id asc');
     }
 
     public function getDelays()

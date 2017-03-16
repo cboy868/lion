@@ -99,6 +99,18 @@ class Pay extends \app\core\db\ActiveRecord
         ];
     }
 
+    public static function check($date=null)
+    {
+        $date = $date == null ? date('Y-m-d H:i:s') : $date;
+        
+        Yii::$app->db->createCommand()
+                    ->update(
+                        self::tableName(),
+                        ['checkout_at'=>$date],
+                        ['checkout_at'=>null]
+                    )->execute();
+    }
+
 
     /**
      * @name 支付记录创建
