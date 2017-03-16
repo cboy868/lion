@@ -58,6 +58,9 @@ return [
     'task' => [
         'class' => 'app\modules\task\Module',
     ],
+    'analysis' => [
+        'class' => 'app\modules\analysis\Module',
+    ],
 
 
 ];
