@@ -34,12 +34,12 @@ class Select extends Widget {
 
       $province_list = Area::find()->where(['level'=>1])->asArray()->all();
       $province_list = ArrayHelper::map($province_list, 'id', 'name');
-      $this->flag++;
+      $self::$flag++;
 
 
       return $this->render('select', [
             'province_list' => $province_list,
-            'flag' => $this->flag,
+            'flag' => self::$flag,
             'pro' => $this->pro,
             'city' => $this->city,
             'zone' => $this->zone,
