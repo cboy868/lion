@@ -50,7 +50,6 @@ class FinanceController extends BackController
             $params['SettlementSearch']['settle_time'] = date('Y-m-d');
         }
 
-
         $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
