@@ -36,7 +36,6 @@ class Select extends Widget {
       $province_list = ArrayHelper::map($province_list, 'id', 'name');
       self::$flag++;
 
-
       return $this->render('select', [
             'province_list' => $province_list,
             'flag' => self::$flag,

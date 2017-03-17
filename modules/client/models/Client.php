@@ -123,6 +123,9 @@ class Client extends \app\core\db\ActiveRecord
 
     public function getFrom()
     {
+        if (!$this->come_from) {
+            return '未知';
+        }
         $params = Yii::$app->controller->module->params['come_from'];
         return $params[$this->come_from];
     }

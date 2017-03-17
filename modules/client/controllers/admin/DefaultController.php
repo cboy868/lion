@@ -67,6 +67,9 @@ class DefaultController extends BackController
         if ($model->load(Yii::$app->request->post())) {
 
             $model->created_by = Yii::$app->user->id;
+            if (!$model->come_from) {
+                $model->come_from = 0;
+            }
             if ($model->save()) {
                 return $this->redirect(['index']);
             }
