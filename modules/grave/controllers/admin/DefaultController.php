@@ -61,7 +61,7 @@ class DefaultController extends BackController
         $tree = Grave::sortTree(['is_leaf'=>0]);
 
         foreach ($tree as $k => &$v) {
-            $v['url'] =Url::toRoute(['index', 'pid'=>$v['id'], 'mod'=>$mod]);
+            $v['url'] =Url::toRoute(['index', 'pid'=>$v['id']]);
         }
 
         $tree = \yii\helpers\ArrayHelper::index($tree, 'id');
