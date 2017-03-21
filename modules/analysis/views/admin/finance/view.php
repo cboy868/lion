@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\analysis\models\Settlement */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Settlements', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '订单统计', 'url' => ['index']];
 ?>
 
 <div class="page-content">

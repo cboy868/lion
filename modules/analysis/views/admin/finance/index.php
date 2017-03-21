@@ -9,9 +9,8 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\analysis\models\SettlementSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Settlements';
+$this->title = '订单统计';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -29,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </small>
             </h1>
         </div><!-- /.page-header -->
-
 
         <div class="row">
             <div class="col-xs-12">
@@ -56,15 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div> 
 
-
-
-
-
-
-
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
@@ -82,7 +71,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'settle_time',
             'created_at:datetime',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

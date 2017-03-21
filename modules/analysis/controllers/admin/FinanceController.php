@@ -38,7 +38,6 @@ class FinanceController extends BackController
     public function actionIndex()
     {   
 
-
         // $pay = Pay::findOne(11);//order_id = 15
 
         // Settlement::create($pay);
