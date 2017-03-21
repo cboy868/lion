@@ -153,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <a href="<?=Url::toRoute(['index', 'pid'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
                           <?php endif ?>
                           </div>
-                          <div class="panel-body no-padding" style="height:110px">
+                          <div class="panel-body no-padding" style="min-height:110px">
 
                             <div class="row">
                                 <div class="col-sm-6">
@@ -167,8 +167,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <img src="<?=$grave->getThumb('200x400', '/static/images/default.png')?>" class="img-thumbnail">
                                 </a>
                               <?php endif ?>
-
-
                                     
                                 </div>
                                 <div class="col-sm-6">
