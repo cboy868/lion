@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-2">
                  <ul class="nav nav-list">
-                     <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create','mod'=>$mod], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%']) ?>
+                     <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%']) ?>
                      <li class="<?php if ($pid == 0) { echo 'active'; } ?>" >
                          <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
