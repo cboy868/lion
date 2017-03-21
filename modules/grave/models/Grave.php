@@ -165,6 +165,7 @@ class Grave extends \app\core\db\ActiveRecord
                              ->asArray()
                              ->all();
         $cnt = [];
+        $total = 0;
         foreach ($counts as $k => $val) {
             $total += $val['cnt'];
             $cnt[$k] = $val['cnt'];
