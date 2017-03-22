@@ -62,7 +62,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     {
         return [
             [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'user_id', 'op_id'], 'integer'],
-            [['price', 'price_unit'], 'number'],
+            [['price', 'price_unit','original_price'], 'number'],
             [['use_time'], 'safe'],
             [['note'], 'string'],
             [['order_id', 'goods_id'], 'required'],
@@ -138,6 +138,7 @@ class OrderRel extends \app\core\db\ActiveRecord
             'category_id'   => $goods->category_id,
             'title'         => $title,
             'price_unit'    => $goods->price,
+            'original_price'=> $num * $goods->price,
             'price'         => $num * $goods->price,
             'sku_name'      => '',
             'num'           => $num,
@@ -216,9 +217,9 @@ class OrderRel extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
             'status' => '状态',
+            'original_price' => '原价'
         ];
     }
-
 
     public function getStatusText()
     {

@@ -22,6 +22,7 @@ use app\core\helpers\Url;
     <hr />
     <table>
     <?php foreach($options as $key=>$opt):?>
+
     <tr>
         <td width="80px;" valign="top" style="padding-top:4px;">
         <?php
@@ -52,12 +53,15 @@ use app\core\helpers\Url;
         <td>
         <?php foreach($opt as $item): ?>
             <div>
+
               <a class="<?php echo $item[2];?>" href="<?php echo $item[1];?>"><?php echo $item[0];?></a>
             </div>
         <?php endforeach;?>
+
         </td>
     </tr>
     <?php endforeach;?>
+
     </table>
     </div>
 </div>

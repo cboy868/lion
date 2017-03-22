@@ -104,7 +104,7 @@ VALUE;
 			$str .= chr(0x80 | $c>>6 & 0x3F);
 			$str .= chr(0x80 | $c & 0x3F);
 		}
-		return iconv('UTF-8', 'GB2312', $str);
+		return iconv('UTF-8', 'GB2312//IGNORE', $str);
 	}
 	public static function arrayCombine()
 	{

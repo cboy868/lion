@@ -76,6 +76,11 @@ class DefaultController extends BackController
                     continue;
                 }
                 $pay = Pay::create($order);
+
+                if (!$pay) {
+                    Yii::$app->session->setFlash('error', '创建支付记录出错，请联系管理员');
+                    continue;
+                }
                 $pay->on(Pay::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
                 $pay->on(Pay::EVENT_AFTER_PAY, [\app\modules\analysis\models\Settlement::className(), 'create'], ['pay'=>$pay]);
                 $pay->pay($v, $post['price'][$k]);

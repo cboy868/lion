@@ -41,14 +41,14 @@ class Tomb extends \app\core\db\ActiveRecord
     // 1删除,1闲置，2预定，3定金 4全款，5 部分安葬 6全部安葬 7单葬
     const STATUS_DELETE = -1; //删除
     const STATUS_EMPTY = 1; //闲
-    const STATUS_SAVE = 3; //保留
+    const STATUS_SAVE = 9; //保留
 
-    const STATUS_PRE = 5; //预定
-    const STATUS_DEPOSIT = 7; //定金
-    const STATUS_PAYOK = 9; //支付完成
-    const STATUS_PART = 11; //部分安葬
-    const STATUS_ALL = 13; //全部安葬 
-    const STATUS_SINGLE = 15; //单葬完成
+    const STATUS_PRE = 2; //预定
+    const STATUS_DEPOSIT = 3; //定金
+    const STATUS_PAYOK = 4; //支付完成
+    const STATUS_PART = 5; //部分安葬
+    const STATUS_ALL = 6; //全部安葬 
+    const STATUS_SINGLE = 7; //单葬完成
 
     const STATUS_RETURN = -2; //退墓
 
@@ -255,8 +255,6 @@ class Tomb extends \app\core\db\ActiveRecord
         // $common = [];
         $common =& $options['common'];
 
-       
-
         if ($this->status == self::STATUS_EMPTY) {
             $common = array_merge($common,[
                 [
@@ -304,11 +302,11 @@ class Tomb extends \app\core\db\ActiveRecord
 
             $options['tombwithdraw'] = [];
             $tombwithdraw =& $options['tombwithdraw'];
-            $url = '/admin/tombwithdraw/add?tomb_id=' . $id . '&type=';
+            $url = '/admin/tombwithdraw/add?tomb_id=' . $this->id . '&type=';
 
             $tombwithdraw[] = [
                 '退款',
-                '/admin/refund/add?tomb_id='.$tomb['id'],
+                '/admin/refund/add?tomb_id='.$this->id,
                 'tomb-detail',
             ];
 
@@ -317,10 +315,13 @@ class Tomb extends \app\core\db\ActiveRecord
                     [
                         '订金退墓',
                          $url.'1',
+                         'ding_refund'
+
                     ],
                     [
                         '订金换墓',
                          $url.'5',
+                         'ding_move'
                     ]
                 ];
             }
@@ -330,10 +331,12 @@ class Tomb extends \app\core\db\ActiveRecord
                     [
                         '全款退墓',
                          $url.'2',
+                         'tomb_refund'
                     ],
                     [
                         '退墓迁本园',
                          $url.'3',
+                         'tomb_move'
                     ]
 
                 ];
@@ -344,10 +347,12 @@ class Tomb extends \app\core\db\ActiveRecord
                     [
                         '退墓迁本园',
                          $url.'3',
+                         'tomb_move'
                     ],
                     [
                         '退墓迁出',
                          $url.'4',
+                         'tomb_refund'
                     ]
                 ];
             }
@@ -356,7 +361,8 @@ class Tomb extends \app\core\db\ActiveRecord
         if ($this->status > self::STATUS_PAYOK) {
             $options['careful'][] = [
                 '改墓',
-                '/admin/changetomb/change/?tomb_id='.$id
+                '/admin/changetomb/change/?tomb_id='.$this->id,
+                'modify'
             ];
         }
 

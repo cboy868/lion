@@ -8,9 +8,9 @@ use app\core\helpers\Url;
  * @var common\models\SearchUser $searchModel
  */
 
-$this->title = '用户角色管理 用户名底色变化之后表示已选中';
+$this->title =  '角色用户管理 用户名底色变化之后表示已选中';
 $this->params['breadcrumbs'][] = ['label' => '角色列表', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<font color="green">'.$item->real_title.'</font> ' . $this->title;
 ?>
 
 <style type="text/css">

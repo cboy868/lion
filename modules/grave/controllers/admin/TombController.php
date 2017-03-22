@@ -39,11 +39,17 @@ class TombController extends BackController
         $searchModel = new TombSearch();
         $params = Yii::$app->request->queryParams;
 
-        $params['TombSearch']['grave_id'] = $params['grave_id'];
+
+        $grave = null;
+        if (isset($params['grave_id'])) {
+            $params['TombSearch']['grave_id'] = $params['grave_id'];
+            $grave = Grave::findOne($params['grave_id']);
+        }
+
         $dataProvider = $searchModel->search($params);
 
-        $grave = Grave::findOne($params['grave_id']);
-
+       
+        $parents = null;
         if ($grave) {
             $parents = $grave->getParents();
         }

@@ -37,10 +37,12 @@ class AuthRoleController extends AuthController
     {
 
         $auth = Yii::$app->authManager;
-        $users = User::find()->where(['status' => 10])
+        $users = User::find()->where(['status' => 10, 'is_staff'=>User::STAFF_YES])
                              // ->andWhere('id>1')
                              ->orderBy('username')
                              ->all();
+
+        $item = \app\modules\sys\models\AuthItem::findOne($id);
 
         $users_info = [];
         foreach ($users as $k => $v) {
@@ -53,7 +55,7 @@ class AuthRoleController extends AuthController
         }
 
         $keys = array_keys($users_info);
-        return $this->render('user', ['user'=>$users_info, 'keys'=>$keys, 'role_name'=>$id]);
+        return $this->render('user', ['user'=>$users_info, 'keys'=>$keys, 'role_name'=>$id, 'item'=>$item]);
     }
 
     /**

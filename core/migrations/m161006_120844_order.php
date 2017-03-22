@@ -38,6 +38,7 @@ class m161006_120844_order extends Migration
             'sku_id' => $this->integer(),
             'sku_name' => $this->string(),
             'order_id' => $this->integer(),
+            'original_price' => $this->decimal(10,2),
             'price' => $this->decimal(10,2),//商品总价
             'price_unit' => $this->decimal(10,2),//商品单价
             'num'   => $this->integer(),//购买数量
