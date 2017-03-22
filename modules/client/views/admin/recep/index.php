@@ -71,9 +71,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <tbody>
                         <tr>
                            <th style="width:8em;">接待员</th>
-                           <td style="width:14em;"><?=$recep->guide->username?></td>
+                           <td style="width:14em;"><?php if ($recep->guide) { echo $recep->guide->username; }?></td>
                            <th style="width:8em;">业务员</th>
-                           <td style="width:14em;"><?=$recep->agent->username?></td>
+                           <td style="width:14em;"><?php if ($recep->agent) { echo $recep->agent->username; }?></td>
                            <th style="width:8em;">联系时间</th>
                            <td>
                                <mark><?=substr($recep->start,0, 16)?></mark> 

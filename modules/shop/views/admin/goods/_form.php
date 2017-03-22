@@ -36,7 +36,9 @@ border-color:#337ab7;
 
     <?= $form->field($model,'intro')->widget('app\core\widgets\Ueditor\Ueditor',['option' =>['res_name'=>'goods', 'use'=>'ue'] ]);?>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'original_price')->textInput(['maxlength' => true, 'class'=>'o_pri form-control'])->label('原价') ?>
+
+    <?= $form->field($model, 'price')->textInput(['maxlength' => true, 'class'=>'n_pri form-control'])->label('现价/活动价/微信价') ?>
 
     <?= $form->field($model, 'tags')->textInput(['id'=>'inputTagator', 'value'=>$tags])->hint('多关键词，请用半角逗号分隔') ?>
 
@@ -144,8 +146,9 @@ border-color:#337ab7;
                                 <?php foreach ($tables['labels'] as $v): ?>
                                     <td><?=$specs[$v]->name?></td>
                                 <?php endforeach ?>
-                                <td>价格</td>
                                 <td>数量</td>
+                                <td>原价 <small style="color:green;">(如不填写，则为商品基本信息中的原价)</small> </td>
+                                <td>现价/活动价/微信价 <small style="color:green;">(如不填写，则为商品基本信息中的现价)</small></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -162,8 +165,10 @@ border-color:#337ab7;
                                 <?php foreach ($spec as $v): ?>
                                     <td key="<?=$v['attr_id']?>:<?=$v['id']?>"><?=$v['val']?></td>
                                 <?php endforeach ?>
-                                <td><input name="sku[price][<?=$k?>]" sku-key="<?=$sku_key?>" value="<?=isset($skus[$k]['price'])?$skus[$k]['price']:0?>"/></td>
                                 <td><input name="sku[num][<?=$k?>]" sku-key="<?=$sku_key?>" value="<?=isset($skus[$k]['num'])?$skus[$k]['num']:0?>"/></td>
+                                <td><input name="sku[original_price][<?=$k?>]" class="sku_ori" sku-key="<?=$sku_key?>" value="<?=isset($skus[$k]['original_price'])?$skus[$k]['original_price']:0?>"/></td>
+                                <td><input name="sku[price][<?=$k?>]" class="sku_pri" sku-key="<?=$sku_key?>" value="<?=isset($skus[$k]['price'])?$skus[$k]['price']:0?>"/></td>
+                                
                             </tr>
                         <?php endforeach ?>
                         </tbody>
@@ -172,7 +177,6 @@ border-color:#337ab7;
                 
             </div>
             <?php endif ?>
-
 
 	<div class="form-group">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-info btn-lg', 'style'=>'margin: 20px 0;width: 200px;']) ?>

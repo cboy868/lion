@@ -51,7 +51,7 @@ class Goods extends \app\core\db\ActiveRecord
         return [
             [['category_id', 'thumb', 'num', 'status', 'created_at', 'updated_at'], 'integer'],
             [['intro', 'skill', 'serial'], 'string'],
-            [['price'], 'number'],
+            [['price', 'original_price'], 'number'],
             // ['name', 'unique',  'message' => '此菜品已存在，请确定'],
             // [['name', 'price'], 'required'],
             [['name'], 'required'],
@@ -82,7 +82,8 @@ class Goods extends \app\core\db\ActiveRecord
             'intro' => '介绍',
             'skill' => '烹饪技巧',
             'unit' => '单位',
-            'price' => '价格',
+            'price' => '价格',//现价,活动,微信价之类
+            'original_price' => '原价',
             'num' => '数量',
             'status' => '状态',
             'tags' => '标签/关键词',
@@ -151,15 +152,15 @@ class Goods extends \app\core\db\ActiveRecord
                     'attr_id' => $v->attr_id,
                     'attr_name' => $v->attr->name,
                     'attr_val' => $v->val->val,
-                    'num'      => $v->num,
-                    'price'    => $v->price
+                    // 'num'      => $v->num,
+                    // 'price'    => $v->price
                 ];
             } else {
                 $attr[] = [
                     'attr_id' => $v->attr_id,
                     'attr_name' => $v->attr->name,
                     'attr_val' => $v->val->val,
-                    'num'      => $v->num,
+                    // 'num'      => $v->num,
                     'value'    => $v->value
                 ];
             }

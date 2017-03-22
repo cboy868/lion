@@ -88,11 +88,17 @@ class Reception extends \app\core\db\ActiveRecord
 
     public function getGuide()
     {
+        if (!$this->guide_id) {
+            return '';
+        }
         return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'guide_id']);
     }
 
     public function getAgent()
     {
+        if (!$this->agent_id) {
+            return '';
+        }
         return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'agent_id']);
     }
 

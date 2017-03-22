@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
             'intro:raw',
             'skill:ntext',
             'unit',
+            'original_price',
             'price',
             'recommend',
             'status',
@@ -88,9 +89,14 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
 
                 <table id="w2" class="table table-striped table-bordered detail-view">
                     <tbody>
-                    <tr><th>规格</th><td>数量</td><td>价格</td> </tr>
+                    <tr><th>规格</th><td>数量</td><td>原价</td><td>现价</td> </tr>
                     <?php foreach ($sku as $v): ?>
-                        <tr><th><?=$v->name?></th><td><?=$v->num?></td><td><?=$v->price?></tr>
+                        <tr>
+                            <th><?=$v->name?></th>
+                            <td><?=$v->num?></td>
+                            <td><?=$v->original_price?>
+                            <td><?=$v->price?>
+                        </tr>
                     <?php endforeach ?>
                     </tbody>
                 </table>

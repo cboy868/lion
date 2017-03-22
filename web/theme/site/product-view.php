@@ -37,7 +37,14 @@ $this->title = $data['name'] . $data['serial'];
                                                 <small><a href="<?=Url::toRoute(['product-msg','id'=>$data['id']])?>" style="font-size: 20px;background: #eee;padding: 5px;" target="_blank">留言咨询</a></small>
                                                 </h1>
                                             </div>
-                                            
+
+                                            <div class="price-box" style="display: block;border-top:none;padding: 0;margin: 0;">
+                                                <p class="minimal-price">
+                                                    <span class="price-label">Starting at:</span>
+                                                    <span class="original_price"><s> $<?=$data['original_price']?></s></span>
+                                                    <span class="price" style="color:red;"><small style="font-size: 20px;">$</small><?=$data['price']?></span>
+                                                </p>
+                                            </div>
                                                <!-- <p class="email-friend"><a href="/sendfriend/product/send/id/1842/cat_id/163/">Email to a Friend</a></p>-->
                                             <div style="height:20px; width:1px;"></div>      
 

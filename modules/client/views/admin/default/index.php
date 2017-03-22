@@ -112,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '操作',
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete} {view} {recep}',
+                'template' => '{update} {delete}  {recep}',
                 'buttons' => [
                     'recep' => function($url, $model, $key) {
                         return Html::a('联系记录', Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );

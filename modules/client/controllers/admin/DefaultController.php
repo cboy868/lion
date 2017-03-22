@@ -33,6 +33,7 @@ class DefaultController extends BackController
     public function actionIndex()
     {
         $searchModel = new ClientSearch();
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

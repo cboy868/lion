@@ -209,8 +209,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach ?>
 
             </div>
-
-
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->

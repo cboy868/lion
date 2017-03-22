@@ -180,14 +180,15 @@ class GoodsController extends BackController
                 $sku = $req->post('sku');
                 $price = $sku['price'];
                 $num = $sku['num'];
+                $original_price = $sku['original_price'];
 
 
-                if ($price && count(array_filter($price))>0) {
-                    $price = array_filter($price);
+                if ($num && count(array_filter($num))>0) {
+                    $num = array_filter($num);
                     $sku_md = [];
                     $sku_model = new Sku;
                     $i = 1;;
-                    foreach ($price as $k => $v) {
+                    foreach ($num as $k => $v) {
 
                         //处理规格名
                         $k = trim($k, ';');
@@ -204,7 +205,8 @@ class GoodsController extends BackController
                         $sku_md[$k] = clone $sku_model;
 
                         $sku_md[$k]->goods_id = $model->id;
-                        $sku_md[$k]->price = $v;
+                        $sku_md[$k]->price = $price[$k] ? $price[$k] : $model->price;
+                        $sku_md[$k]->original_price = $original_price[$k] ? $original_price[$k] : $model->original_price;
 
                         $sku_md[$k]->name = $spec_name;
                         $sku_md[$k]->av = $k;
@@ -219,6 +221,7 @@ class GoodsController extends BackController
                     $sku_model = new Sku;
                     $sku_model->goods_id = $model->id;
                     $sku_model->price = $model->price;
+                    $sku_model->original_price = $model->original_price;
                     $sku_model->name = $model->name;
                     $sku_model->av = '0:0';
                     $sku_model->serial = $model->serial . sprintf('P%s', str_pad(1,5,'0',STR_PAD_LEFT));
@@ -349,13 +352,16 @@ class GoodsController extends BackController
                 $price = $sku['price'];
                 $num = $sku['num'];
 
+                $original_price = $sku['original_price'];
+
                 Yii::$app->db->createCommand()->delete('{{%shop_sku}}', ['goods_id'=>$id])->execute();
-                if ($price && count(array_filter($price))>0) {
-                    $price = array_filter($price);
+                if ($num && count(array_filter($num))>0) {
+                    $num = array_filter($num);
+
                     $sku_md = [];
                     $sku_model = new Sku;
                     $i = 1;
-                    foreach ($price as $k => $v) {
+                    foreach ($num as $k => $v) {
 
                         //处理规格名
                         $k = trim($k, ';');
@@ -372,7 +378,8 @@ class GoodsController extends BackController
                         $sku_md[$k] = clone $sku_model;
 
                         $sku_md[$k]->goods_id = $model->id;
-                        $sku_md[$k]->price = $v;
+                        $sku_md[$k]->price = $price[$k] ? $price[$k] : $model->price;
+                        $sku_md[$k]->original_price = $original_price[$k] ? $original_price[$k] : $model->original_price;
 
                         $sku_md[$k]->name = $spec_name;
                         $sku_md[$k]->av = $k;
@@ -387,6 +394,7 @@ class GoodsController extends BackController
                     $sku_model = new Sku;
                     $sku_model->goods_id = $model->id;
                     $sku_model->price = $model->price;
+                    $sku_model->original_price = $model->original_price;
                     $sku_model->name = $model->name;
                     $sku_model->av = '0:0';
                     $sku_model->serial = $model->serial . sprintf('P%s', str_pad(1,5,'0',STR_PAD_LEFT));

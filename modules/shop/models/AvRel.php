@@ -37,7 +37,7 @@ class AvRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'goods_id', 'attr_id', 'num', 'status'], 'integer'],
+            [['category_id', 'goods_id', 'attr_id', 'status'], 'integer'],
             // [['av_id'], 'required'],
             [['av_id'], 'safe'],
             [['value'], 'string']
@@ -56,7 +56,6 @@ class AvRel extends \app\core\db\ActiveRecord
             'goods_id' => '商品',
             'attr_id' => '属性名',
             'av_id' => '属性值',
-            'num' => 'Num',
             'status' => 'Status',
             'value' => '自输入值'
         ];
@@ -77,7 +76,7 @@ class AvRel extends \app\core\db\ActiveRecord
         return $this->hasOne(Goods::className(), ['id' => 'goods_id']);
     }
 
-    public function getAv($goods_model)
+    public static function getAv($goods_model)
     {
         $attr = [];
         $spec = [];
@@ -87,14 +86,12 @@ class AvRel extends \app\core\db\ActiveRecord
                     'attr_id' => $v->attr_id,
                     'attr_name' => $v->attr->name,
                     'attr_val' => $v->val->val,
-                    'num'      => $v->num
                 ];
             } else {
                 $attr[] = [
                     'attr_id' => $v->attr_id,
                     'attr_name' => $v->attr->name,
                     'attr_val' => $v->val->val,
-                    'num'      => $v->num
                 ];
             }
         }
@@ -207,7 +204,6 @@ class AvRel extends \app\core\db\ActiveRecord
             $val[$v->attr_id][$v->av_id] = [
                 'val' => $v->val->val,
                 'id'  => $v->av_id,
-                'num' => count($avs[$v->av_id])
             ];
 
             $result[$v->attr_id] = [

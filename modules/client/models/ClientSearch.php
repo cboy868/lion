@@ -19,7 +19,7 @@ class ClientSearch extends Client
     {
         return [
             [['id', 'gender', 'age', 'user_id', 'province_id', 'city_id', 'zone_id', 'guide_id', 'come_from', 'agent_id', 'status', 'created_by', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'telephone', 'mobile', 'qq', 'wechat', 'address', 'note', 'dead_name', 'relation'], 'safe'],
+            [['name', 'telephone', 'mobile', 'qq', 'wechat', 'address', 'note', 'relation'], 'safe'],
         ];
     }
 
@@ -60,7 +60,6 @@ class ClientSearch extends Client
             'city_id' => $this->city_id,
             'zone_id' => $this->zone_id,
             'guide_id' => $this->guide_id,
-            'come_from' => $this->come_from,
             'agent_id' => $this->agent_id,
             'status' => $this->status,
             'created_by' => $this->created_by,
@@ -71,12 +70,7 @@ class ClientSearch extends Client
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'telephone', $this->telephone])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
-            ->andFilterWhere(['like', 'qq', $this->qq])
-            ->andFilterWhere(['like', 'wechat', $this->wechat])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'note', $this->note])
-            ->andFilterWhere(['like', 'dead_name', $this->dead_name])
-            ->andFilterWhere(['like', 'relation', $this->relation]);
+            ->andFilterWhere(['like', 'qq', $this->qq]);
 
         return $dataProvider;
     }

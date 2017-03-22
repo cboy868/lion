@@ -38,7 +38,8 @@ class m161006_121900_shop extends Migration
             'intro' => $this->text(),//介绍
             'skill' => $this->text(),//技巧
             'unit'  => $this->string(100),
-            'price' => $this->decimal(10,2),//基价
+            'original_price' => $this->decimal(10,2),//原价
+            'price' => $this->decimal(10,2),//现价
             'num' => $this->integer(),
             'is_recommend' => $this->smallInteger()->defaultValue(0),//是否推荐，值越大，优先级越高
             'status' => $this->smallInteger()->notNull()->defaultValue(1), //-1删除
@@ -52,6 +53,7 @@ class m161006_121900_shop extends Migration
             'serial' => $this->string(200),
             'num'   => $this->integer(),
             'price'=> $this->decimal(10,2),
+            'original_price' => $this->decimal(10,2),//原价
             'name' => $this->string(255),//sku名称
             'av' => $this->string(255),//属性:属性值串
             'created_at' => $this->integer()->notNull(),//添加时间
