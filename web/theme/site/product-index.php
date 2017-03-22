@@ -85,9 +85,7 @@ use app\web\theme\site\widgets\GoodsList;
                                         }
                                         array_push($tmp, $val['id']);
                                         $str = trim(implode(',', $tmp), ',');
-
-
-                                         ?>
+                                    ?>
 
                                         <a href="<?=url(['product', 'avid'=>$str])?>" vid="<?=$val['id']?>"><?=$val['val']?> (<?=$val['num']?>)</a>
                                         </li>

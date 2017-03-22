@@ -204,6 +204,7 @@ class AvRel extends \app\core\db\ActiveRecord
             $val[$v->attr_id][$v->av_id] = [
                 'val' => $v->val->val,
                 'id'  => $v->av_id,
+                'num' => count($avs[$v->av_id])
             ];
 
             $result[$v->attr_id] = [
