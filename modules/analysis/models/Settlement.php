@@ -48,7 +48,6 @@ class Settlement extends \app\core\db\ActiveRecord
     public static function check($date = null)
     {
 
-
         $date = $date == null ? date('Y-m-d H:i:s') : $date;
 
         try {
@@ -80,7 +79,6 @@ class Settlement extends \app\core\db\ActiveRecord
             self::TYPE_FULL => '全款',
             self::TYPE_REFUND => '退款',
             self::TYPE_REFUNDTOMB => '退墓',
-
         ];
 
         if ($type === null) {
@@ -152,6 +150,7 @@ class Settlement extends \app\core\db\ActiveRecord
             'guide_id' => 0,
             'agent_id' => 0,
             'year'     => date('Y'),
+            'quarter'  => ceil((date('n'))/3),
             'month'    => date('m'),
             'week'     => date('W'),
             'day'      => date('d'),
@@ -374,7 +373,7 @@ class Settlement extends \app\core\db\ActiveRecord
     {
         return [
             [['order_id', 'op_id', 'type', 'pay_type', 'price', 'settle_time'], 'required'],
-            [['order_id', 'op_id', 'guide_id', 'agent_id', 'type', 'pay_type', 'year', 'month', 'week', 'day', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['order_id', 'op_id', 'guide_id', 'agent_id', 'type', 'pay_type', 'year', 'month', 'week', 'day', 'quarter', 'status', 'created_at', 'updated_at'], 'integer'],
             [['price'], 'number'],
             [['settle_time', 'pay_time'], 'safe'],
             [['intro'], 'string'],
@@ -405,6 +404,7 @@ class Settlement extends \app\core\db\ActiveRecord
             'pay_type' => '支付方式',
             'price' => '支付金额',
             'year' => '年',
+            'quarter' => '季度',
             'month' => '朋',
             'week' => '周',
             'day' => '日',
