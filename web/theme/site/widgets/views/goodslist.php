@@ -60,13 +60,21 @@ TooltipAsset::register($this);
             <div class="product-shop" style="margin-left:0">
                 <div class="f-fix">
                     <h2 class="product-name"><a href="<?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>"><?=$goods['name']?></a></h2>
-                    <div class="price-box" style="display: block;">
-                        <p class="minimal-price">
-                            <span class="price-label">Starting at:</span>
-                            <span class="original_price"><s> $<?=$goods['original_price']?></s></span>
-                            <span class="price" style="color:red;"><small style="font-size: 20px;">$</small><?=$goods['price']?></span>
-                        </p>
-                    </div>
+
+                    <?php if ($goods['original_price'] || $goods['price']): ?>
+                        <div class="price-box" style="display: block;">
+                            <p class="minimal-price">
+                                <span class="price-label">Starting at:</span>
+                                <?php if ($goods['original_price']): ?>
+                                    <span class="original_price"><s> $<?=$goods['original_price']?></s></span>
+                                <?php endif ?>
+                                <?php if ($goods['price']): ?>
+                                    <span class="price" style="color:red;"><small style="font-size: 20px;">$</small><?=$goods['price']?></span>
+                                <?php endif ?>
+                            </p>
+                        </div>
+                    <?php endif ?>
+                    
                     <div class="desc std">
                     <?=$goods['intro']?>
                         <!-- <a href="?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="link-learn">Learn More</a> -->

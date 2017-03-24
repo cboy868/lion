@@ -9,5 +9,6 @@
   'uemail' => 'cboy868@163.com',
   'cp_name' => '张三的公司',
   'keywords' => 'keywords',
+  'reserved' => '2017 Sino Cheer Co Ltd All Rights Reserved ',
   'description' => '一些简单的描述',
 ) ;

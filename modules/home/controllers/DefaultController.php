@@ -97,7 +97,7 @@ class DefaultController extends HomeController
         $model = new EmailForm;
 
         if ($model->contact($email)) {
-            return $this->json(null, '谢谢使用，您的邮箱提交成功', 1);
+            return $this->json(null, 'Thank you for subscription', 1);
             
         } 
         $errors = $model->getErrors();

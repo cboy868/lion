@@ -193,7 +193,7 @@ HomeAsset::register($this);
             <div class="footer">
                 <div class="row nova-mg-pd">        
                     <div class="col-xs-12 col-sm-6 col-md-8 nova-mg-pd">                    
-                        <address>© 2015 Eleganza Tiles, Inc. All Rights Reserved.<span><a href="<?=url(['/admin/default/login'])?>">管理中心</a></span></address>
+                        <address><?=g("reserved")?><span><a href="<?=url(['/admin/default/login'])?>">管理中心</a></span></address>
 
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-4 payment-logo nova-mg-pd">
@@ -221,12 +221,12 @@ HomeAsset::register($this);
             
             var email = $('.email').val();
 
-            if (email.length == 0) {$('.error').text('邮箱不可为空');return}
+            if (email.length == 0) {$('.error').text('Mailbox cannot be empty');return}
 
             var emailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
             if(!emailreg.test(email)) {
-                {$('.error').text('请填写正确的邮箱格式');return}
+                {$('.error').text('Wrong mailbox format');return}
             }
 
             var btn = $(this);
