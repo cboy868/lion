@@ -54,7 +54,6 @@ $this->title = $goods->name . '留言';
                                     <?php 
                                         echo Html::dropDownList('a', null, $shortmsg, ['prompt'=>'Please select the problem', 'onchange'=>"if(this.value)$('.intro').val($('.intro').val() + this.value+'\\n');"]);
                                      ?>
-                                        (shortcut)
                                     </div>
                                 </div>
 
