@@ -24,7 +24,7 @@ Tabletree::register($this);
         <div class="page-header">
             <h1>
                 <small>
-                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' title="添加分类"><i class="fa fa-plus"></i>添加分类</a>
+                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' onclick="return false;" title="添加分类"><i class="fa fa-plus"></i>添加分类</a>
                 </small>
             </h1>
         </div><!-- /.page-header -->
