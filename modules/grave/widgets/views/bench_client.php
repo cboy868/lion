@@ -37,7 +37,7 @@ use yii\bootstrap\Modal;
             <td style="position:relative"><?=date('Y-m-d H:i', $model->created_at)?>
               <small class="btns pull-right">
               <a href="<?=Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id])?>" class="btn btn-xs btn-info" target="_blank">接待记录</a>
-              <a href="<?=Url::toRoute(['/grave/admin/tomb/search', 'client_id'=>$model->id])?>" class="btn btn-xs btn-info modalAddButton" target="_blank">办业务</a>
+              <a href="<?=Url::toRoute(['/grave/admin/tomb/search', 'client_id'=>$model->id])?>" class="btn btn-xs btn-info modalAddButton" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">办业务</a>
             </small>
             </td>
           </tr>

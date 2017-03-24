@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <small class="pull-right">
 
                     <?= Html::a('配置列表', ['/grave/admin/ins-cfg/index', 'id' => Yii::$app->request->get('cfg_id')], ['class' => 'btn btn-info btn-sm']) ?>
-                    <?= Html::a('<i class="fa fa-plus"></i> 添加配置', ['create', 'cfg_id'=>Yii::$app->request->get('cfg_id')], ['class' => 'btn btn-info btn-sm modalAddButton']) ?>
+                    <?= Html::a('<i class="fa fa-plus"></i> 添加配置', ['create', 'cfg_id'=>Yii::$app->request->get('cfg_id')], ['class' => 'btn btn-info btn-sm modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{update} {delete} {edit}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     },
                     'edit' => function($url, $model, $key) {
                         $url = Url::toRoute(['/grave/admin/ins-cfg-value/index', 'case_id'=>$model->id]);

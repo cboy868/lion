@@ -26,25 +26,25 @@ use yii\bootstrap\Modal;
 
     <div class="shortcut clearfix">
 
-        <a href="<?=Url::toRoute(['/grave/admin/tomb/search'])?>" class="btn btn-default modalAddButton" data-toggle="modal" data-target="#myModal">
+        <a href="<?=Url::toRoute(['/grave/admin/tomb/search'])?>" class="btn btn-default modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
             <img src="http://hs.ibagou.com/framework/builtin/wxcard/icon.jpg" class="fa-app">
             墓位业务
             <!-- <span class="badge badge-pink">+3</span> -->
         </a>
 
-        <a href="<?=Url::toRoute(['tomb'])?>" class="btn btn-default modalAddButton">
+        <a href="<?=Url::toRoute(['tomb'])?>" class="btn btn-default modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
             <img src="http://hs.ibagou.com/framework/builtin/wxcard/icon.jpg" class="fa-app">
             这业务
             <!-- <span class="badge badge-pink">+3</span> -->
         </a>
 
-        <a href="<?=Url::toRoute(['tomb'])?>" class="btn btn-default modalAddButton">
+        <a href="<?=Url::toRoute(['tomb'])?>" class="btn btn-default modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
             <img src="http://hs.ibagou.com/framework/builtin/wxcard/icon.jpg" class="fa-app">
             那业务
             <!-- <span class="badge badge-pink">+3</span> -->
         </a>
 
-        <a href="<?=Url::toRoute(['tomb'])?>" class="btn btn-default modalAddButton">
+        <a href="<?=Url::toRoute(['tomb'])?>" class="btn btn-default modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
             <img src="http://hs.ibagou.com/framework/builtin/wxcard/icon.jpg" class="fa-app">
             ok业务
             <!-- <span class="badge badge-pink">+3</span> -->

@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-cate modalAddButton']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-cate modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                 </small>
                 <small class="pull-right">
                     <a href="<?=Url::toRoute(['/admin/shop/mix'])?>" class="btn bg-info">食材管理</a>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><?=$model->name?></td>
                                 <td>
                                     <!-- <a href="<?=Url::toRoute(['/foods/mix-cate/view', 'id'=>$model->id])?>" title="查看" aria-label="查看" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>  -->
-                                    <a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>" title="更新" aria-label="更新" data-pjax="0" class="modalEditButton"><span class="glyphicon glyphicon-pencil"></span></a> 
+                                    <a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>" title="更新" aria-label="更新" data-pjax="0" class="modalEditButton","data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"><span class="glyphicon glyphicon-pencil"></span></a> 
                                     <a href="<?=Url::toRoute(['delete', 'id'=>$model->id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
                                 </td>
                             </tr>

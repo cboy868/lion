@@ -103,21 +103,21 @@ AdminAsset::register($this);
                     <ul class="nav ace-nav">
 
                         <li class="green">
-                            <a href="<?=Url::toRoute(['/grave/admin/mall/index', 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank">
+                            <a href="<?=Url::toRoute(['/grave/admin/mall/index', 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                                 购买商品
                             </a>
                         </li> 
 
                         <?php if (!$tomb->hasIns()): ?>
                             <li class="blue">
-                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$ins, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank">
+                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$ins, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                                     购买墓碑
                                 </a>
                             </li> 
                         <?php endif ?>
 
                         <li class="green">
-                            <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank">
+                            <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                                 购买瓷像
                             </a>
                         </li> 

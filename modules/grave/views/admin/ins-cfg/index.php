@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{update} {delete} {view} {grave}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     },
                     'view' => function($url, $model, $key) {
                         $url = Url::toRoute(['/grave/admin/ins-cfg-case/index', 'cfg_id'=>$model->id]);

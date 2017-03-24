@@ -73,7 +73,7 @@ Tabletree::register($this);
                             <td><?=date('Y/m/d',$v['created_at'])?></td>
                             <td> 
                                 <?= Html::a('编辑', ['update', 'id' => $v['id']],
-                                    ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新']
+                                    ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false" ]
                                 ) ?> 
                                 <?= Html::a('删除', ['delete', 'id' => $v['id']], [
                                         'class' => 'btn btn-danger btn-xs delete',
@@ -96,13 +96,7 @@ Tabletree::register($this);
 
 <?php $this->beginBlock('tree') ?>  
 $(function(){
-
     $("#menu-table").treetable({ expandable: true });
-
-    $('.modalAddButton').click(function(e){
-        e.preventDefault();
-        var btn = $(this).button('loading');
-    });
 })  
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>  

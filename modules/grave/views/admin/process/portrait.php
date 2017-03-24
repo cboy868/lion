@@ -36,7 +36,7 @@ PluploaduiAssets::register($this);
 
                                     $portrait = $this->context->module->params['goods']['cate']['portrait'];
                                  ?>
-                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank">
+                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                                     购买瓷像
                                 </a>
                             </small>
@@ -104,7 +104,7 @@ PluploaduiAssets::register($this);
                             <div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
                             请
                             <small>
-                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank">
+                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                                     选择并订购瓷像
                                 </a>
                              </small>

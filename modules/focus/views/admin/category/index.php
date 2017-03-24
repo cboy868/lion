@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-xs modalAddButton']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-xs modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
 
                     <?=  Html::a('<i class="fa fa-chevron-circle-right"></i> 焦点图列表', ['admin/default/index'], ['class' => 'btn btn-primary btn-large pull-right']) ?>
                 </small>
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
 
                 'update' => function ($url, $model, $key) {
-                      return  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '修改', 'class'=>'modalEditButton'] ) ;
+                      return  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '修改', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] ) ;
                      },
                 // 'view' => function ($url, $model, $key) {
                 //       return  Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看', 'class'=>'remoteView'] ) ;

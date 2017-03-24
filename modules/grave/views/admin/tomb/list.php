@@ -116,7 +116,7 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
                 <?php foreach ($models as $model): ?>
                  <li>
                      <div>
-                         <a href="<?=Url::toRoute(['option', 'id'=>$model->id])?>" class="modalAddButton">
+                         <a href="<?=Url::toRoute(['option', 'id'=>$model->id])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                              <img src="/static/images/t.gif" width="26" height="26" title="<?=$model->tomb_no?>">
                          </a>
                          <span><?=$model->col?>号</span>
@@ -138,9 +138,11 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
 $(function(){
    $('.modalAddButton').click(function(e){
         e.preventDefault();
+        var btn = $(this).button('loading');
         //加载完再显示，看着舒服一点
         $('#modalAdd').find('#modalContent')
                     .load($(this).attr('href'),function(){
+                        btn.button('reset');
                         $('#modalAdd').modal('show');
                     });
     });

@@ -560,7 +560,7 @@ ExtAsset::register($this);
 		<div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
 		请
 		<small>
-            <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$ins, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank">
+            <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$ins, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                 购买墓碑
             </a>
          </small>

@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="page-header">
             <h1>
                 <small>
-                    <a href="<?=Url::to(['spec-create', 'type_id'=>Yii::$app->request->get('id')])?>" class='btn btn-primary btn-sm modalAddButton' title="添加规格"><i class="fa fa-plus"></i>添加规格</a>
+                    <a href="<?=Url::to(['spec-create', 'type_id'=>Yii::$app->request->get('id')])?>" class='btn btn-primary btn-sm modalAddButton' title="添加规格" data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加规格</a>
                     <a href="<?=Url::toRoute(['attr', 'id'=>Yii::$app->request->get('id')])?>" class="btn btn-default pull-right">属性管理</a>
                 </small>
             </h1>
@@ -69,9 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
                       <table class="table table-striped table-hover table-bordered table-condensed">
                           <tr>
                               <td colspan="3" style="text-align:right;">
-                                <a class="modalEditButton btn btn-info btn-xs" href="<?=Url::toRoute(['/shop/admin/type/spec-update', 'id'=>$model->id])?>" title="编辑"><span class="fa fa-edit"></span>编辑规格 <?=$model->name?></a> 
+                                <a class="modalEditButton btn btn-info btn-xs" href="<?=Url::toRoute(['/shop/admin/type/spec-update', 'id'=>$model->id])?>" title="编辑" data-loading-text="页面加载中, 请稍后..." onclick="return false"><span class="fa fa-edit"></span>编辑规格 <?=$model->name?></a> 
                                 <a href="<?=Url::toRoute(['/shop/admin/type/spec-delete', 'id'=>$model->id])?>" class="btn btn-danger  btn-xs" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post"><span class="fa fa-trash"></span>删除此规格</a> 
-                                <a href="<?=Url::toRoute(['/shop/admin/type/spec-create-val', 'id'=>$model->id])?>" class="modalAddButton btn btn-info  btn-xs" title="添加规格值"><span class="fa fa-plus"></span>添加规格值</a>
+                                <a href="<?=Url::toRoute(['/shop/admin/type/spec-create-val', 'id'=>$model->id])?>" class="modalAddButton btn btn-info  btn-xs" title="添加规格值" data-loading-text="页面加载中, 请稍后..." onclick="return false"><span class="fa fa-plus"></span>添加规格值</a>
                               </td>
                         </tr>
                       <?php foreach ($model->vals as $val): ?>
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td width="50"><img src="<?=$val->getThumb('36x36')?>"> </td>
                             <td><?=$val->val?></td>
                             <td width="80">
-                            <a class="modalEditButton" href="<?=Url::toRoute(['/shop/admin/type/spec-update-val', 'id'=>$val->id])?>" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a> 
+                            <a class="modalEditButton" href="<?=Url::toRoute(['/shop/admin/type/spec-update-val', 'id'=>$val->id])?>" title="编辑" data-loading-text="页面加载中, 请稍后..." onclick="return false"><span class="glyphicon glyphicon-pencil"></span></a> 
                             <a href="<?=Url::toRoute(['/shop/admin/type/spec-delete-val', 'id'=>$val->id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post"><span class="glyphicon glyphicon-trash"></span></a> 
                             </td>
                         </tr>

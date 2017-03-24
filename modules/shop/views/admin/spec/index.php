@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="page-header">
             <h1>
                 <small>
-                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' title="添加规格"><i class="fa fa-plus"></i>添加规格</a>
+                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' title="添加规格" data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加规格</a>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{update} {delete} {view}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     },
                     'view' => function($url, $model, $key) {
                         // $url = Url::toRoute(['/admin/shop/attr-val/create', 'attr_id'=>$model->id]);

@@ -20,7 +20,7 @@ Tabletree::register($this);
         <div class="page-header">
             <h1>
                 <small>
-                    <a id="modalButton" href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm new-menu modalAddButton' title="新增菜单">新增菜单</a>
+                    <a id="modalButton" href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm new-menu modalAddButton' title="新增菜单" data-loading-text="页面加载中, 请稍后..." onclick="return false">新增菜单</a>
                 </small>
 
             </h1>
@@ -68,7 +68,7 @@ Tabletree::register($this);
                             <td><?=date('Y/m/d',$v['created_at'])?></td>
                             <td> 
                                 <?= Html::a('编辑', ['update', 'id' => $v['id']],
-                                    ['class' => 'btn btn-info btn-xs modalEditButton', 'title'=>'更新菜单']
+                                    ['class' => 'btn btn-info btn-xs modalEditButton', 'title'=>'更新菜单',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]
                                 ) ?> 
                                 <?= Html::a('删除', ['delete', 'id' => $v['id']], [
                                         'class' => 'btn btn-danger btn-xs delete',

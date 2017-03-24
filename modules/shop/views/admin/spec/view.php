@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = ['label' => '规格列表', 'url' => ['index']]
                             'method' => 'post',
                         ],
                     ]) ?>
-                    <?= Html::a('添加规格值', ['create-val', 'tid'=>$model->type_id,'aid'=>$model->id], ['class' => 'btn btn-info btn-xs modalAddButton']) ?>
+                    <?= Html::a('添加规格值', ['create-val', 'tid'=>$model->type_id,'aid'=>$model->id], ['class' => 'btn btn-info btn-xs modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = ['label' => '规格列表', 'url' => ['index']]
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         $uri = Url::toRoute(['update-val', 'id'=>$model->id]);
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $uri, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $uri, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     },
                     'delete' => function($url, $model, $key) {
                         $uri = Url::toRoute(['delete-val', 'id'=>$model->id]);

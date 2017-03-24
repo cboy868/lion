@@ -41,19 +41,11 @@ DateTimeAsset::register($this);
                     <small class="pull-right">
 
 
-
                    <?php 
                    $liyi = $this->context->module->params['goods']['cate']['liyi'];
                    ?>
 
-
-
-
-
-
-
-
-                      <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$liyi, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-warning" >购买礼仪</a>
+                      <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$liyi, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-warning" data-loading-text="页面加载中, 请稍后..." onclick="return false">购买礼仪</a>
                     </small>
                   </div>
                   

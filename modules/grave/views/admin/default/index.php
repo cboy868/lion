@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::encode($this->title) ?> 
                 <small>
                     墓区管理页面
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-2">
                  <ul class="nav nav-list">
-                     <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%']) ?>
+                     <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                      <li class="<?php if ($pid == 0) { echo 'active'; } ?>" >
                          <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
@@ -187,7 +187,7 @@ $this->params['breadcrumbs'][] = $this->title;
                           <div class="panel-footer">
                               <div class="row">
                                   <div class="col-xs-4 text-left">
-                                      <a href="<?=Url::toRoute(['update', 'id'=>$grave->id])?>" class="modalEditButton"><i class="fa fa-edit"></i> 编辑</a>
+                                      <a href="<?=Url::toRoute(['update', 'id'=>$grave->id])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-edit"></i> 编辑</a>
                                   </div>
 
                                   <?php if ($grave->is_leaf): ?>

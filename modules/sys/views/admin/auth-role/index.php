@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 添加角色', ['create'], ['class' => 'btn btn-info btn-sm modalAddButton', 'title'=>"添加角色"]) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 添加角色', ['create'], ['class' => 'btn btn-info btn-sm modalAddButton', 'title'=>"添加角色","data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                 </small>
                 <?= $this->render('@app/modules/sys/views/admin/layout/_nav.php') ?>
             </h1>
@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{update} {delete} {permission} {user}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton'] );
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     },
                     'permission' => function($url, $model, $key) {
                         return Html::a('分配权限', $url, ['title' => '分配权限', 'class'=>'btn btn-info btn-xs'] );

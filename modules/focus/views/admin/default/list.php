@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title . '拖拽排列显示顺序';
             <ul class="row" id="sortable">
                 <div class="col-sm-3 col-md-3">
                     <div class="thumbnail" style="cursor: pointer;">
-                    <a href="<?=Url::toRoute(['create', 'category_id'=>$category->id])?>" class="modalAddButton">
+                    <a href="<?=Url::toRoute(['create', 'category_id'=>$category->id])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                       <img src="/static/images/plus.png">
                     </a>
                     </div>
@@ -97,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title . '拖拽排列显示顺序';
                         <div class="caption">
                             <p><a href="#" title="<?=$model->intro?>"><?=StringHelper::truncate($model->title,20)?></a></p>
                             <p><a href="<?=Url::toRoute(['delete', 'id'=>$model->id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a> 
-                            <a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>" class="btn btn-success modalEditButton" role="button"><i class="fa fa-pencil"></i></a>
+                            <a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>" class="btn btn-success modalEditButton" role="button" data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-pencil"></i></a>
                             <a href="<?=Url::toRoute(['cover', 'category_id'=>$model->category_id, 'focus_id'=>$model->id])?>" class="btn btn-success cover"><i class="fa fa-flag"></i>封面</a>
 
                             </p>

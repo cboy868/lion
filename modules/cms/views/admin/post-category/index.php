@@ -24,7 +24,7 @@ Tabletree::register($this);
         <div class="page-header">
             <h1>
                 <small>
-                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' title="添加分类"><i class="fa fa-plus"></i>添加分类</a>
+                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' title="添加分类" data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加分类</a>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -73,7 +73,7 @@ Tabletree::register($this);
                             <td><?=date('Y/m/d',$v['created_at'])?></td>
                             <td> 
                                 <?= Html::a('编辑', ['update', 'id' => $v['id']],
-                                    ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新']
+                                    ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]
                                 ) ?> 
                                 <?= Html::a('删除', ['delete', 'id' => $v['id']], [
                                         'class' => 'btn btn-danger btn-xs delete',
