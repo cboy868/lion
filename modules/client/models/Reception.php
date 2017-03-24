@@ -110,6 +110,9 @@ class Reception extends \app\core\db\ActiveRecord
     public function getReason()
     {
         $params = Yii::$app->controller->module->params['unreason'];
+        if (!$this->un_reason) {
+            return '';
+        }
         return $params[$this->un_reason];
     }
 

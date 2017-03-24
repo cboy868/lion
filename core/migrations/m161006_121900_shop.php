@@ -110,6 +110,7 @@ class m161006_121900_shop extends Migration
             'qq' => $this->string(20),
             'skype' => $this->string(20),
             'intro' => $this->text(),
+            'company' => $this->string(200),
             'status' => $this->smallInteger()->defaultValue(1),
             'created_at'=> $this->integer()
         ], $tableOptions);

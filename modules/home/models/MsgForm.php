@@ -5,6 +5,8 @@ namespace app\modules\home\models;
 use Yii;
 use yii\base\Model;
 use app\modules\shop\models\Message;
+use app\modules\client\models\Client;
+
 /**
  * LoginForm is the model behind the login form.
  *
@@ -51,26 +53,41 @@ class MsgForm extends Model
     public function create()
     {
         if ($this->validate()) {
-            $msg = new Message();
-            $msg->username = $this->username;
-            $msg->mobile = $this->mobile;
-            $msg->email = $this->email;
-            $msg->title = $this->title;
+            $outerTransaction = Yii::$app->db->beginTransaction();
+            try {
+                $msg = new Message();
+                $msg->username = $this->username;
+                $msg->mobile = $this->mobile;
+                $msg->email = $this->email;
+                $msg->title = $this->title;
+                $msg->company = $this->company;
+                $msg->qq = $this->qq;
+                $msg->skype = $this->skype;
+                $msg->intro = $this->intro;
+                $msg->goods_id = $this->goods_id;
+                $msg->save();
 
-            $msg->company = $this->company;
-            $msg->qq = $this->qq;
-            $msg->skype = $this->skype;
-            $msg->intro = $this->intro;
-            $msg->goods_id = $this->goods_id;
-            if ($msg->save()) {
+                $client = new Client();
+                $client->name = $this->username;
+                $client->mobile = $this->mobile;
+                $client->email = $this->email;
+                $client->note = $this->title. ';' . $this->intro;
+                $client->save();
+
+                $outerTransaction->commit();
                 return $msg;
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+                $outerTransaction->rollBack();
+                return false;
             }
 
-            p($msg->getErrors());die;
+            
         }
 
-
         return false;
+
+        
     }
    
 }

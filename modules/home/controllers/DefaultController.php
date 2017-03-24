@@ -22,6 +22,7 @@ use app\core\models\TagRel;
 use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Message;
 use app\modules\home\models\MsgForm;
+use app\modules\client\models\Client;
 
 
 
@@ -98,7 +99,6 @@ class DefaultController extends HomeController
 
         if ($model->contact($email)) {
             return $this->json(null, 'Thank you for subscription', 1);
-            
         } 
         $errors = $model->getErrors();
         return $this->json(null, $errors['email']['0'], 0);

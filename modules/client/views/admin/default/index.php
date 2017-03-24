@@ -54,6 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '接待员',
                 'value' => function($model){
+                    if (!$model->guide_id) {
+                        return '';
+                    }
                     return $model->guide->username;
                 },
             ],
@@ -76,6 +79,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '业务员',
                 'value' => function($model){
+                    if (!$model->agent_id) {
+                        return '';
+                    }
                     return $model->agent->username;
                 },
                 'headerOptions' => ["data-breakpoints"=>"all"],
@@ -103,6 +109,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '添加人',
                 'headerOptions' => ["data-breakpoints"=>"all"],
                 'value' => function($model){
+                    if (!$model->created_by) {
+                        return '';
+                    }
                     return $model->op->username;
                 },
                 'format' => 'raw'

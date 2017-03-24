@@ -2,7 +2,7 @@
 
             <ol class="breadcrumb" style="margin-bottom:0;text-align:left;8px 5px 8px 20px;margin:0">
               <li><a href="<?=url(['/'])?>">HOME</a></li>
-              <li><a href="<?=url(['resource'])?>">RESOURCES</a></li>
+              <li><a href="<?=url(['resource'])?>">Show</a></li>
               <li class="active">Data</li>
             </ol>
 
