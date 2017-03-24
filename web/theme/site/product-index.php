@@ -37,7 +37,21 @@ use app\web\theme\site\widgets\GoodsList;
                                         <span style="float:right;padding-right: 5px;padding-top: 2px;" class="fa fa-caret-up fa-2x"></span>
                                          <ul style="display:block;">
                                             <?php foreach ($cate['child'] as $ct): ?>
-                                            <li class="leaf"><a href="<?=$ct['url']?>"><?=$ct['name']?></a></li>
+                                            <li class="leaf downs">
+                                                <?php if (isset($ct['child'])): ?>
+                                                    <a href="#"><?=$ct['name']?></a>
+                                                    <span style="float:right;padding-right: 5px;padding-top: 2px;    margin-right: 10px;" class="fa fa-caret-up fa-2x"></span>
+                                                    <ul style="display:block;">
+                                                        <?php foreach ($ct['child'] as $lc): ?>
+                                                            <li class="leaf">
+                                                                <a href="<?=$lc['url']?>"><?=$lc['name']?></a>
+                                                            </li>
+                                                        <?php endforeach ?>
+                                                    </ul>
+                                                <?php else: ?>
+                                                    <a href="<?=$ct['url']?>"><?=$ct['name']?></a>
+                                                <?php endif ?>
+                                            </li>
                                             <?php endforeach ?>
                                         </ul>
                                     </li>
@@ -135,11 +149,15 @@ jQuery(document).ready(function() {
 
     
 
-    $('.down').click(function(e){
+    $('.down, .downs').click(function(e){
         if (e.target.tagName == 'A' && $(e.target).attr('href')!='#'){
             return ;
         }
         e.preventDefault();
+        e.stopPropagation();
+
+
+
         if ($(this).find('span').hasClass('fa-caret-up')) {
             $(this).find('ul').slideUp();
             $(this).find('span').removeClass('fa-caret-up').addClass('fa-caret-down');
