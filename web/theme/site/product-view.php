@@ -39,15 +39,15 @@ $this->title = $data['name'] . $data['serial'];
                                             </div>
 
 
-                                            <?php if ($goods['original_price'] || $goods['price']): ?>
+                                            <?php if ($data['original_price'] || $data['price']): ?>
                                                 <div class="price-box" style="display: block;border-top:none;padding: 0;margin: 0;">
                                                     <p class="minimal-price">
                                                         <span class="price-label">Starting at:</span>
-                                                        <?php if ($goods['original_price']): ?>
-                                                            <span class="original_price"><s> $<?=$goods['original_price']?></s></span>
+                                                        <?php if ($data['original_price']): ?>
+                                                            <span class="original_price"><s> $<?=$data['original_price']?></s></span>
                                                         <?php endif ?>
-                                                        <?php if ($goods['price']): ?>
-                                                            <span class="price" style="color:red;"><small style="font-size: 20px;">$</small><?=$goods['price']?></span>
+                                                        <?php if ($data['price']): ?>
+                                                            <span class="price" style="color:red;"><small style="font-size: 20px;">$</small><?=$data['price']?></span>
                                                         <?php endif ?>
                                                     </p>
                                                 </div>
