@@ -163,6 +163,7 @@ class TypeController extends BackController
 
         $param['Attr']['is_spec'] = Attr::SPEC_NO;
         $param['Attr']['type_id'] = $id;
+        $param['Attr']['status'] = Attr::STATUS_NORMAL;
         $params = ArrayHelper::merge(Yii::$app->request->queryParams, $param);
         $dataProvider = $searchModel->search($params);
         return $this->render('attr', [
