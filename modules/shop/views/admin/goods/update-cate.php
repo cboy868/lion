@@ -28,7 +28,7 @@ use app\modules\shop\models\Category;
 				?>
 				    <?php $form = ActiveForm::begin(); ?>
 
-				    <?= $form->field($model, 'category_id')->dropDownList($category, ['options'=>$options]) ?>
+				    <?= $form->field($model, 'category_id')->dropDownList(Category::selTree(), ['options'=>$options]) ?>
 
 
 					<div class="form-group">
