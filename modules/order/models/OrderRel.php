@@ -61,7 +61,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'user_id', 'op_id'], 'integer'],
+            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'tid', 'user_id', 'op_id'], 'integer'],
             [['price', 'price_unit','original_price'], 'number'],
             [['use_time'], 'safe'],
             [['note'], 'string'],
@@ -100,8 +100,9 @@ class OrderRel extends \app\core\db\ActiveRecord
             'price'         => $num * $sku->price,
             'sku_name'      => $sku->name,
             'num'           => $num,
-            'note'          => $data['note'] ? $data['note'] : '',
-            'use_time'      => $data['use_time'] ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+            'tid'           => isset($data['tid']) ? $data['tid'] : 0,
+            'note'          => isset($data['note']) ? $data['note'] : '',
+            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
         ];
 
 

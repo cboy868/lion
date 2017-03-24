@@ -83,7 +83,7 @@ class MallController extends BackController
     public function actionIndex()
     {
         $req = Yii::$app->request;
-
+        $flag = true;
         if ($req->isPost) {
             return $this->order();
         }
@@ -98,6 +98,10 @@ class MallController extends BackController
         $category_id = $req->get('category_id');
         if ($category_id) {
             $first = Category::findOne($category_id);
+
+            if (!$first) {
+                return '无此分类';
+            } 
             $tname = $first->name;
         } else {
             $tree = Category::sortTree(['status'=>Category::STATUS_NORMAL], 'sort asc');
@@ -129,9 +133,6 @@ class MallController extends BackController
                 'tname' => $tname,
                 'get' => $req->get()
             ]);
-        
-
-        return $this->render('index');
     }
 
 
@@ -170,6 +171,7 @@ class MallController extends BackController
 
             $sku = Sku::findOne($sku_id);
             $order_info = $sku->order($tomb->user_id, $extra);
+
 
             $rel = $order_info['rel'];
 

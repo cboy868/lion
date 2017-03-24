@@ -81,9 +81,9 @@ class Sku extends \app\core\db\ActiveRecord
     /**
      * @name 下订单
      */
-    public function order($user_id, $extra)
+    public function order($user_id, $extra, $res_name='', $res_id=0)
     {
-        return Order::create($user_id, $this, $extra);
+        return Order::create($user_id, $this, $extra, $res_name, $res_id);
     }
 
     public function getName()

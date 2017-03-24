@@ -59,7 +59,7 @@ class InsProcess extends Ins
     public $shape = 'v';
 
 
-    public function getFront(){
+    public function getFrontContent(){
         
         $content = $this->ins_info['front'];
 
@@ -77,7 +77,6 @@ class InsProcess extends Ins
         if ($this->shape == 'v') {
             $dead_ids = array_reverse($dead_ids);
         }
-
 
         $info = array();
         foreach ($content as $k=>$v) {
@@ -104,12 +103,12 @@ class InsProcess extends Ins
 
 
 
-    public function getBack()
+    public function getBackContent()
     {
         return $this->ins_info['back'];
     }
 
-    public function getCover()
+    public function getCoverContent()
     {
         return $this->ins_info['cover'];
     }
@@ -128,7 +127,7 @@ class InsProcess extends Ins
             $die = $born = '—';
         }
 
-        $current = $this->getFront();
+        // $current = $this->getFrontContent();
         $deads = $this->getDead();
                          
         $info = array(
@@ -158,7 +157,7 @@ class InsProcess extends Ins
                         'title' => ['content' => $this->getDeadTitle($v['dead_title'])],
                         'birth' => ['content' => $birth],
                         'fete'  => ['content' =>$fete],
-                        'age'   =>['content' =>$v['ages']],
+                        'age'   =>['content' =>$v['age']],
                         'second_name' => ['content' =>$v['second_name']]
                     ];
                 }
@@ -442,6 +441,10 @@ class InsProcess extends Ins
      */
     public function getInsInfo(){
 
+
+        if ($this->type === self::TYPE_IMG || $this->type === self::TYPE_FREE) {
+            return $this;
+        }
         $ins_info = (array)json_decode($this->content, true);
 
         if (empty($ins_info['front'])) {
@@ -485,6 +488,10 @@ class InsProcess extends Ins
     {
 
         $case = InsCfgCase::findOne($cfgcase_id);
+
+        if (!$case) {
+            return ;
+        }
         $shape = $case->cfg->shape;
 
         $cfg = InsCfgValue::find()->where(['case_id'=>$cfgcase_id])->orderBy('sort asc')->asArray()->all();
@@ -516,13 +523,13 @@ class InsProcess extends Ins
 
         switch ($is_front) {
             case 0:
-                $ins_info = $this->getBack();
+                $ins_info = $this->getBackContent();
                 break;
             case 1:
-                $ins_info = $this->getFront();
+                $ins_info = $this->getFrontContent();
                 break;
             case 2:
-                $ins_info = $this->getCover();
+                $ins_info = $this->getCoverContent();
                 break;
             default:
                 break;
@@ -568,11 +575,11 @@ class InsProcess extends Ins
 
 
         if ($is_front==1){
-            $ins_info = $this->getFront();
+            $ins_info = $this->getFrontContent();
         } else if($is_front==0){
-            $ins_info = $this->getBack();
+            $ins_info = $this->getBackContent();
         } else{
-            $ins_info = $this->getCover();
+            $ins_info = $this->getCoverContent();
         }
 
         $shape = $this->shape;
@@ -861,6 +868,7 @@ class InsProcess extends Ins
      * @name 取使用人数量
      */
     public function getDeadCount($ext_follow = true){
+
         return count($this->getDead());
     }
 
@@ -951,12 +959,13 @@ class InsProcess extends Ins
 
         $dead_list = $this->getDead();
 
+
         foreach($dead_list as $k=>$v) {
-            if (in_array($v['title'], array('祖父', '祖母'))) {
+            if (in_array($v['dead_title'], array('祖父', '祖母'))) {
                 $honorific = '祖';
             }
             if ($this->shape == 'v') {
-                switch ($v['title']){
+                switch ($v['dead_title']){
                     case '姐姐':
                         $honorific = '姐';break;
                     case '妹妹':
@@ -986,34 +995,40 @@ class InsProcess extends Ins
         
         $cfg_ids = InsCfgRel::find()->where(['grave_id'=>$grave_id])->asArray()->all();
 
+
+        if (!$cfg_ids) {
+            Yii::$app->session->setFlash('success', '请先配置对应墓区的碑型');
+            return;
+        }
+        
         $cfg_ids = ArrayHelper::getColumn($cfg_ids, 'cfg_id');
+
 
         $cfgs = InsCfg::find()->where(['id'=>$cfg_ids])
                               // ->andWhere(['is_front'=>1, 'shape'=>$this->shape])
                               ->asArray()
                               ->all();
-
-
         $cfg_info = [];
 
         foreach ($cfgs as $v) {
             $cfg_info[$v['is_front']][] = $v['id'];
         }
 
+
         $num = $this->getDeadCount();
 
         $front_filter = [
-            'cfg_id' => $cfg_info[1],
+            'cfg_id' => isset($cfg_info[1])? $cfg_info[1] : [],
             'num' => $num,
             'status' => 1
         ];
 
         $back_filter = [
-            'cfg_id' => $cfg_info[0]
+            'cfg_id' => isset($cfg_info[0])? $cfg_info[0] : [],
         ];
 
         $cover_filter = [
-            'cfg_id' => $cfg_info[2]
+            'cfg_id' => isset($cfg_info[2])? $cfg_info[2] : [],
         ];
 
 
@@ -1086,14 +1101,31 @@ class InsProcess extends Ins
         }unset($val);
 
 
-        $front = $this->getCfg('front');
-        $back = $this->getCfg('back');
-        $cover = $this->getCfg('cover');
+        $front = $this->getTplCfg('front');
+        $back = $this->getTplCfg('back');
+        $cover = $this->getTplCfg('cover');
 
-        $front_current_case_id = empty($front) ? $front_cases[0]['id']:substr($front,strrpos($front,'_')+1);
-        $back_current_case_id = empty($back) ? $back_cases[0]['id']:substr($back,strrpos($back,'_')+1);
-        $cover_current_case_id = empty($cover) ? $cover_cases[0]['id'] : substr($cover, strrpos($cover, '_')+1);
+        $front_current_case_id = $back_current_case_id = $cover_current_case_id =0;
+        if (empty($front)) {
+            $front_current_case_id = isset($front_cases[0]['id']) ? $front_cases[0]['id'] : 0;
+        } else {
+            $front_current_case_id = substr($front,strrpos($front,'_')+1);
+        }
 
+        if (empty($back)) {
+            $back_current_case_id = isset($back_cases[0]['id']) ? $back_cases[0]['id'] : 0;
+        } else {
+            $back_current_case_id = substr($back,strrpos($back,'_')+1);
+        }
+
+        if (empty($cover)) {
+            $cover_current_case_id = isset($cover_cases[0]['id']) ? $cover_cases[0]['id'] : 0;
+        } else {
+            $cover_current_case_id = substr($cover,strrpos($cover,'_')+1);
+        }
+        // $front_current_case_id = empty($front) ? $front_cases[0]['id']:substr($front,strrpos($front,'_')+1);
+        // $back_current_case_id = empty($back) ? $back_cases[0]['id']:substr($back,strrpos($back,'_')+1);
+        // $cover_current_case_id = empty($cover) ? $cover_cases[0]['id'] : substr($cover, strrpos($cover, '_')+1);
 
 
         return [
@@ -1224,12 +1256,17 @@ class InsProcess extends Ins
             for($i=0;$i<strlen($str);$i++) {
                 $out[$i] = $char[$str[$i]];
                 if($mode){
+
                     if(($i == 1) && ($str[$i] == 1)) {
                         $out[$i] = $str[$i] != '0'? $dw[$i%4] : '';
                     }else {
                         $out[$i] .= $str[$i] != '0'? $dw[$i%4] : '';
                     }
-                    if($str[$i]+$str[$i-1] == 0){
+                    // if($str[$i]+$str[$i-1] == 0){
+                    //     $out[$i] = '';
+                    // }
+
+                    if ($str[$i] == 0) {
                         $out[$i] = '';
                     }
                     if($i%4 == 0){

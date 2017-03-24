@@ -94,7 +94,7 @@ class Memorial extends \app\core\db\ActiveRecord
     /**
      * @name 添加纪念馆
      */
-    public function create($user_id, $title, $tomb_id=0)
+    public static function create($user_id, $title, $tomb_id=0)
     {
 
         $memorial = Memorial::find()->where(['user_id'=>$user_id, 'tomb_id'=>$tomb_id])->one();

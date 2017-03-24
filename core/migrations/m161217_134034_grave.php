@@ -81,7 +81,7 @@ class m161217_134034_grave extends Migration
             'sort' => $this->smallInteger()->defaultValue(0),//排序
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
-            'status' => $this->smallInteger(),
+            'status' => $this->smallInteger()->defaultValue(1),
         ], $tableOptions);
 
         $this->createTable('{{%grave_customer}}', [

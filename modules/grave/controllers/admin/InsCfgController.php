@@ -101,7 +101,7 @@ class InsCfgController extends BackController
             }
         } else {
 
-            if ($data['grave_id']) {
+            if (isset($data['grave_id'])) {
                 $model = new InsCfgRel;
                 $model->load($data, '');
                 $flag = $model->save();

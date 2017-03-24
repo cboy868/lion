@@ -117,7 +117,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

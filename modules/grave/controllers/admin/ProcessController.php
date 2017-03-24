@@ -17,7 +17,7 @@ use app\modules\grave\models\CarAddr;
 // use app\modules\grave\models\Tomb;
 use app\modules\grave\models\Dead;
 use app\modules\shop\models\Goods;
-// use app\modules\grave\models\Ins;
+use app\modules\grave\models\InsProcess;
 use app\modules\grave\models\Bury;
 use app\modules\grave\models\CarRecord;
 
@@ -212,6 +212,7 @@ class ProcessController extends BackController
                         $model->save();
                     }
 
+
                     $outerTransaction->commit();
 
                     if (!$flag) {
@@ -286,7 +287,6 @@ class ProcessController extends BackController
     {
         $dead = Process::dead();
 
-
         if (count($dead) == 0) {
             Yii::$app->session->setFlash('error', '请先填写使用人信息');
             return $this->pre(2);
@@ -305,8 +305,6 @@ class ProcessController extends BackController
 
                 $model->guide_id = $tomb->guide_id;
                 $model->user_id = $tomb->user_id;
-
-
 
                 $method = $req->post('type') == 1 ? 'autoSave' : 'imgSave';
 
@@ -342,6 +340,11 @@ class ProcessController extends BackController
         }
 
         $cases = $model->getInsCfgCases();
+
+        if (!$cases) {
+            $model->type = InsProcess::TYPE_IMG;
+        }
+
         $back_word = Yii::$app->controller->module->params['ins']['back_word'];
         $paint = Yii::$app->controller->module->params['ins']['paint'];
 

@@ -23,7 +23,7 @@ class m170205_020210_grave_portrait extends Migration
             'dead_ids' => $this->string(),//像上有几个逝者，就有几个id 如12,32
             'photo_original' => $this->string(),//初始照片
             'photo_processed' => $this->string(),//制作好的照片
-            'confrim_by' => $this->integer(),//确认人
+            'confirm_by' => $this->integer(),//确认人
             'confirm_at' => $this->dateTime(),//确认时间
             'photo_confirm' => $this->string(200),//确认的图片
             'use_at' => $this->dateTime(),//使用时间
@@ -31,6 +31,7 @@ class m170205_020210_grave_portrait extends Migration
             'notice_id' => $this->integer(),//任务id
             'type' => $this->smallInteger(),//瓷像、福寿牌、影雕
             'note' => $this->text(),//备注
+            'sort'=> $this->integer()->defaultValue(0),
             'status' => $this->smallInteger(1)->defaultValue(1),//-1删除 1待上传照片,2待ps, 3待确认,4待制作,5待粘贴,6完成
             'updated_at'=> $this->integer()->notNull(),
             'created_at'=> $this->integer()->notNull()

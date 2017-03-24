@@ -80,6 +80,6 @@ class Note extends \app\core\db\ActiveRecord
             return true;
         } 
 
-        return fasle;
+        return false;
     }
 }

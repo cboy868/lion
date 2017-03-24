@@ -168,7 +168,7 @@ class Ins extends \app\core\db\ActiveRecord
 
     }
 
-    public function getCfg($pos = 'front')
+    public function getTplCfg($pos = 'front')
     {
         $tpl_cfg = $this->tpl_cfg;
         if (!$tpl_cfg) {
@@ -197,7 +197,7 @@ class Ins extends \app\core\db\ActiveRecord
     {
         return [
             [['guide_id', 'user_id', 'tomb_id'], 'required'],
-            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at', 'type'], 'integer'],
             [['content', 'note', 'new_font_num', 'font_num'], 'string'],
             [['confirm_date', 'pre_finish', 'finish_at'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],

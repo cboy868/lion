@@ -39,7 +39,8 @@ class Order extends \app\modules\order\models\Order
 
             $order->updatePrice();
         } catch (\Exception $e) {
-            return fasle;
+            echo $e->getMessage();
+            return false;
         }
         return $order;
     }

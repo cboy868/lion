@@ -13,7 +13,8 @@ class m161006_120844_order extends Migration
         $this->createTable('{{%order}}', [
             'id' => $this->primaryKey(),//id
             'wechat_uid' => $this->integer(),//下订单的人.微信用户表中的id
-            'user_id' => $this->integer(),//下单人
+            'user_id' => $this->integer()->defaultValue(0),//下单人
+            'tid' => $this->integer(),//墓号
             'op_id' => $this->integer(),//下单人
             'price' => $this->decimal(10,2),
             'origin_price' => $this->decimal(10,2),
@@ -28,6 +29,7 @@ class m161006_120844_order extends Migration
 
         $this->createTable('{{%order_rel}}', [
             'id' => $this->primaryKey(),//id
+            'tid' => $this->integer(),//墓号
             'wechat_uid' => $this->integer(),//购买人, 微信表中的id
             'user_id' => $this->integer(),//下单人
             'op_id' => $this->integer(),//下单人

@@ -93,13 +93,11 @@ class Order extends \app\core\db\ActiveRecord
     {
         try {
             $order = self::getValidOrder($user_id, $extra);
-
             $rel = OrderRel::create($order, $sku, $extra);
-
             $order->updatePrice();
 
         } catch (\Exception $e) {
-            return fasle;
+            return false;
         }
 
         return ['order'=>$order, 'rel'=>$rel];
@@ -115,7 +113,7 @@ class Order extends \app\core\db\ActiveRecord
 
             $order->updatePrice();
         } catch (\Exception $e) {
-            return fasle;
+            return false;
         }
 
         return ['order'=>$order, 'rel'=>$rel];

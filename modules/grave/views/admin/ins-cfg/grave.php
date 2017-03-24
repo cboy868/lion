@@ -82,7 +82,7 @@ $(function(){
     $('.all').click(function(){
         var action = $(this).attr('rel');
         var cfg_id = $('input[name=cfg_id]').val();
-        var datas = {action:action,cfg_id : cfg_id};
+        var datas = {action:action,cfg_id : cfg_id,_csrf:$('meta[name=csrf-token]').attr('content')};
         $.post("<?=Url::toRoute(['/grave/admin/ins-cfg/cfg-grave'])?>", datas, function(rs){
             if (!rs.status) {
                 alert(rs.info);

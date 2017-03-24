@@ -13,7 +13,7 @@ $(function(){
         var btn = $(this).button('loading');
         //加载完再显示，看着舒服一点
         $('#modalAdd').find('#modalContent')
-                    .load($(this).attr('href'),function(){
+                    .load($(this).attr('href'),function(xhr){
                         $('#modalAdd').modal('show');
                         btn.button('reset');
                     });

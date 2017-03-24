@@ -99,7 +99,7 @@ class User extends ActiveRecord implements IdentityInterface
             return $this;
         }
 
-        return fasle;
+        return false;
     }
 
     /**
@@ -132,7 +132,7 @@ class User extends ActiveRecord implements IdentityInterface
     //     if ($user->save()) {
     //         return $user;
     //     }
-    //     return fasle;
+    //     return false;
     // }
 
 
