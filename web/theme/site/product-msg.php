@@ -58,7 +58,7 @@ $this->title = $goods->name . '留言';
                                     </div>
                                 </div>
 
-                                <?= $form->field($model, 'intro')->textarea(['rows' => 6, 'class'=>'intro form-control'])->label('Body') ?>
+                                <?= $form->field($model, 'intro')->textarea(['rows' => 6, 'class'=>'intro form-control'])->label('Content') ?>
                             </td>
                         </tr>
 
@@ -69,7 +69,7 @@ $this->title = $goods->name . '留言';
                          ?>
                         <tr>
                             <td width="50%"><?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('Name<font color="red">(*)</font>') ?></td>
-                            <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('Mobile') ?></td>
+                            <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('Tel') ?></td>
                             
                         </tr>
                         <tr>
