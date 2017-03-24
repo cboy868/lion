@@ -10,21 +10,22 @@ $(function(){
         // $('#modal').modal('show')
         //             .find('#modalContent')
         //             .load($(this).attr('value'));
-
+        var btn = $(this).button('loading');
         //加载完再显示，看着舒服一点
         $('#modalAdd').find('#modalContent')
                     .load($(this).attr('href'),function(){
                         $('#modalAdd').modal('show');
+                        btn.button('reset');
                     });
     });
 
     $('.modalEditButton').click(function(e){
-
         e.preventDefault();
-
+        var btn = $(this).button('loading');
         $('#modalEdit').find('#editContent')
                     .load($(this).attr('href'),function(){
                         $('#modalEdit').modal('show');
+                        btn.button('reset');
                     });
     });
  

@@ -24,7 +24,7 @@ Tabletree::register($this);
         <div class="page-header">
             <h1>
                 <small>
-                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' onclick="return false;" title="添加分类"><i class="fa fa-plus"></i>添加分类</a>
+                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' data-loading-text="页面加载中, 请稍后..." onclick="return false" title="添加分类"><i class="fa fa-plus"></i>添加分类</a>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -99,6 +99,10 @@ $(function(){
 
     $("#menu-table").treetable({ expandable: true });
 
+    $('.modalAddButton').click(function(e){
+        e.preventDefault();
+        var btn = $(this).button('loading');
+    });
 })  
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>  
