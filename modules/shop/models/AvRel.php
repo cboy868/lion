@@ -201,6 +201,9 @@ class AvRel extends \app\core\db\ActiveRecord
         $result = [];
         foreach ($list as $k => $v) {
 
+            if (!$v->val) {
+                continue;
+            }
             $val[$v->attr_id][$v->av_id] = [
                 'val' => $v->val->val,
                 'id'  => $v->av_id,
