@@ -52,8 +52,14 @@ class DefaultController extends \app\core\web\MemberController
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-               'class' => 'yii\captcha\CaptchaAction',
-               'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'maxLength' => 6, //最大显示个数
+                'minLength' => 4,//最少显示个数
+                // 'height'=>92,//高度
+                // 'width' => 200,  //宽度  
+                'padding' => 5,//间距
+                'fontFile' => '@app/web/static/font/maiandragd.ttf'
             ],  //默认的写法
             // 'captcha' => [
             //             'class' => 'yii\captcha\CaptchaAction',

@@ -130,7 +130,7 @@ HomeAsset::register($this);
                     <div class="col-md-6">
                         <div class="bottom-menu-column ">
                             <div class="col-md-4">
-                            <h4>Resources</h4>
+                            <h4>Show</h4>
                             <div class="block-content" style="display: block;">
                             <ul class="bottom-menu">
                              <?php 

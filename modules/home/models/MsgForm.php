@@ -33,7 +33,7 @@ class MsgForm extends Model
         return [
             [['username', 'email', 'title', 'goods_id'], 'required'],
             ['email', 'email'],
-            ['verifyCode', 'captcha', 'captchaAction'=>'/member/default/captcha'],
+            ['verifyCode', 'captcha', 'captchaAction'=>'/member/default/captcha', 'message'=>'Error! Please try again '],
             [['intro'], 'string'],
             [['title', 'company', 'username'], 'string', 'max' => 255],
             [['mobile', 'email'], 'string', 'max' => 50],

@@ -20,6 +20,9 @@ $this->title = $goods->name . '留言';
     vertical-align: top;
      border-top: none; 
 }
+img#captchaimg{
+    max-width: none;
+}
 </style>
 
 <div class="main-container col1-layout home-content-container">
