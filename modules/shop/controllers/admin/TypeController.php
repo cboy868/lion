@@ -32,6 +32,7 @@ class TypeController extends BackController
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'spec-delete' => ['post']
                 ],
             ],
         ];
