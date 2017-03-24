@@ -38,13 +38,21 @@ $this->title = $data['name'] . $data['serial'];
                                                 </h1>
                                             </div>
 
-                                            <div class="price-box" style="display: block;border-top:none;padding: 0;margin: 0;">
-                                                <p class="minimal-price">
-                                                    <span class="price-label">Starting at:</span>
-                                                    <span class="original_price"><s> $<?=$data['original_price']?></s></span>
-                                                    <span class="price" style="color:red;"><small style="font-size: 20px;">$</small><?=$data['price']?></span>
-                                                </p>
-                                            </div>
+
+                                            <?php if ($goods['original_price'] || $goods['price']): ?>
+                                                <div class="price-box" style="display: block;border-top:none;padding: 0;margin: 0;">
+                                                    <p class="minimal-price">
+                                                        <span class="price-label">Starting at:</span>
+                                                        <?php if ($goods['original_price']): ?>
+                                                            <span class="original_price"><s> $<?=$goods['original_price']?></s></span>
+                                                        <?php endif ?>
+                                                        <?php if ($goods['price']): ?>
+                                                            <span class="price" style="color:red;"><small style="font-size: 20px;">$</small><?=$goods['price']?></span>
+                                                        <?php endif ?>
+                                                    </p>
+                                                </div>
+                                            <?php endif ?>
+
                                                <!-- <p class="email-friend"><a href="/sendfriend/product/send/id/1842/cat_id/163/">Email to a Friend</a></p>-->
                                             <div style="height:20px; width:1px;"></div>      
 
