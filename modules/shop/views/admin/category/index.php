@@ -96,7 +96,7 @@ Tabletree::register($this);
 
 <?php $this->beginBlock('tree') ?>  
 $(function(){
-    $("#menu-table").treetable({ expandable: true });
+    $("#menu-table").treetable({ expandable: false });
 })  
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>  
