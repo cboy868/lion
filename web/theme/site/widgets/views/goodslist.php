@@ -86,7 +86,7 @@ TooltipAsset::register($this);
                 <ul class="add-to-links">
                     <li>
                     <!-- <a href="<?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" class="link-wishlist add_to_wishlist_small fav" data-res="goods" data-id="<?=$goods['id']?>" title="<?=$goods['name']?>"><i class="fa fa-heart"></i></a> -->
-                    <a href="<?=Url::toRoute(['product-msg','id'=>$goods['id']])?>" style="font-size: 20px;background: #eee;padding: 10px 5px;" target="_blank">留言咨询</a>
+                    <a href="<?=Url::toRoute(['product-msg','id'=>$goods['id']])?>" style="font-size: 20px;background: #eee;padding: 10px 5px;" target="_blank">Inquiry </a>
                     </li>
             </ul>
             </div>

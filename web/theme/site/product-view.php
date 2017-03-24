@@ -34,7 +34,7 @@ $this->title = $data['name'] . $data['serial'];
                                         <div class="col-md-8 nova-pd-right">
                                             <div class="product-name">
                                                 <h1><?=$data['name']?><?=$data['serial']?>
-                                                <small><a href="<?=Url::toRoute(['product-msg','id'=>$data['id']])?>" style="font-size: 20px;background: #eee;padding: 5px;" target="_blank">留言咨询</a></small>
+                                                <small><a href="<?=Url::toRoute(['product-msg','id'=>$data['id']])?>" style="font-size: 20px;background: #eee;padding: 5px;" target="_blank">Inquiry </a></small>
                                                 </h1>
                                             </div>
 

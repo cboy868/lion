@@ -193,7 +193,7 @@ class DefaultController extends HomeController
             return $this->redirect(['product-view', 'id' => $id]);
         } else {
 
-            $model->title = '我对“'.$goods->name.'”很感兴趣';
+            $model->title = 'Am interested in '.$goods->name;
             $model->goods_id = $id;
             return $this->render('product-msg', [
                 'model' => $model,

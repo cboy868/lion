@@ -43,7 +43,7 @@ $this->title = $goods->name . '留言';
                     <table class="table">
                         <tr>
                             <td colspan="2">
-                                <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('留言主题<font color="red">(*)</font>') ?>
+                                <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Subject<font color="red">(*)</font>') ?>
                             </td>
                         </tr>
                         <tr>
@@ -52,13 +52,13 @@ $this->title = $goods->name . '留言';
                                     <label class="control-label col-sm-1" for="message-title"></label>
                                     <div class="col-sm-10">
                                     <?php 
-                                        echo Html::dropDownList('a', null, $shortmsg, ['prompt'=>'请选择常用问题', 'onchange'=>"if(this.value)$('.intro').val($('.intro').val() + this.value+'\\n');"]);
+                                        echo Html::dropDownList('a', null, $shortmsg, ['prompt'=>'Please select the problem', 'onchange'=>"if(this.value)$('.intro').val($('.intro').val() + this.value+'\\n');"]);
                                      ?>
-                                        (不用打字 “快捷提问”帮您忙！)
+                                        (shortcut)
                                     </div>
                                 </div>
 
-                                <?= $form->field($model, 'intro')->textarea(['rows' => 6, 'class'=>'intro form-control'])->label('主要内容') ?>
+                                <?= $form->field($model, 'intro')->textarea(['rows' => 6, 'class'=>'intro form-control'])->label('Body') ?>
                             </td>
                         </tr>
 
@@ -68,13 +68,13 @@ $this->title = $goods->name . '留言';
                              $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>'; 
                          ?>
                         <tr>
-                            <td width="50%"><?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('姓名<font color="red">(*)</font>') ?></td>
-                            <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('电话') ?></td>
+                            <td width="50%"><?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('Name<font color="red">(*)</font>') ?></td>
+                            <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('Mobile') ?></td>
                             
                         </tr>
                         <tr>
                             <td>
-                                <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('邮箱<font color="red">(*)</font>') ?>
+                                <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('Email<font color="red">(*)</font>') ?>
                             </td>
                             <td width="">
                                 <?= $form->field($model, 'company')->textInput(['maxlength' => true]) ?>
@@ -94,11 +94,11 @@ $this->title = $goods->name . '留言';
                         <tr>
                             <td>
 
-                                <?php $a = Captcha::widget(['name'=>'captchaimg','captchaAction'=>'/member/default/captcha','imageOptions'=>['id'=>'captchaimg', 'title'=>'换一个', 'alt'=>'换一个', 'style'=>'cursor:pointer;'],'template'=>'{image}']); 
+                                <?php $a = Captcha::widget(['name'=>'captchaimg','captchaAction'=>'/member/default/captcha','imageOptions'=>['id'=>'captchaimg', 'title'=>'Refresh', 'alt'=>'Refresh', 'style'=>'cursor:pointer;'],'template'=>'{image}']); 
                                 $form->fieldConfig['template'] = '{label}<div class="col-sm-6">{input}{hint}{error}</div><div class="col-sm-2">'.$a.'</div>'; 
                                 ?>
 
-                                <?= $form->field($model, 'verifyCode')->textInput() ?>
+                                <?= $form->field($model, 'verifyCode')->textInput()->label('Verification Code') ?>
                             </td>
                             <td>
                                 &nbsp;
@@ -110,7 +110,7 @@ $this->title = $goods->name . '留言';
 
                     <div class="form-group">
                         <div class="col-sm-offset-1 col-sm-3">
-                            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
+                            <?=  Html::submitButton('Save', ['class' => 'btn btn-primary btn-block']) ?>
                         </div>
                     </div>
                     
