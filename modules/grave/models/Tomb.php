@@ -7,6 +7,8 @@ use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
 use app\core\traits\ThumbTrait;
 use app\core\helpers\Url;
+
+
 /**
  * This is the model class for table "{{%grave_tomb}}".
  *
@@ -143,9 +145,12 @@ class Tomb extends \app\core\db\ActiveRecord
         if ($status == null) {
             return $sta;
         }
-
         return isset($sta[$status]) ? $sta[$status] : '';
+    }
 
+    public function getStatusText()
+    {
+        return self::getSta($this->status);
     }
 
     public function getGrave()
@@ -168,6 +173,20 @@ class Tomb extends \app\core\db\ActiveRecord
         }
         return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'agent_id']);
     }
+
+    public function getUser()
+    {
+        if (!$this->user_id) {
+            return '';
+        }
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+    }
+
+    public function getCard()
+    {
+        return $this->hasOne(\app\modules\grave\models\Card::className(),['tomb_id'=>'id'])->orderBy('id asc');
+    }
+
 
     public function getDeads()
     {
@@ -387,6 +406,17 @@ class Tomb extends \app\core\db\ActiveRecord
     public function hasIns()
     {
         return Ins::find()->where(['tomb_id'=>$this->id, 'status'=>Ins::STATUS_NORMAL])->one();
+    }
+
+    public function getImg($size)
+    {
+        return Attachment::getById($this->thumb, $size);
+    }
+
+    public function saveAttach($info)
+    {
+        $this->thumb = $info['mid'];
+        return $this->save();
     }
 
 }

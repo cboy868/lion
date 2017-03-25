@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
 
         <div class="row">
             <?php 
-                $tomb_id = Yii::$app->request->get('tomb_id');
+                $tomb_id = Yii::$app->request->get('id');
              ?>
              <?=Tomb::widget(['method'=>'tomb', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'customer', 'tomb_id'=>$tomb_id])?>

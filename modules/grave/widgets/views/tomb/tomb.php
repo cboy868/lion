@@ -1,126 +1,216 @@
+<?php 
+use app\core\helpers\Url;
+
+use app\assets\PluploaduiAssets;
+PluploaduiAssets::register($this);
+?>
 <div class="col-xs-12">
-<div class="item table-responsive" id="tomb" loc="loc0">
-	<div class="table-header">
-        <i class="icon-credit-card"></i> 
-       <span class="title_info"> 墓位信息</span>
-<!-- upload tomb photo -->
-<form id="tomb-photo-form" enctype="multipart/form-data" method="post" action="/admin/tomb/photo" class="form-inline pull-right" style="margin-right:10px;">
-  <input type="hidden" name="id" value="119">
-  <div class="form-group has-error" style="margin:0px;">
-    <label class="red1" style="font-size:12px;margin-bottom:0px;">上传墓位照片</label>
-    <input type="file" class="form-control input-sm" name="tomb_photo" value="" style="">
-  </div>
-  <button type="submit" class="radius4 btn btn-xs btn-primary">提交</button>
-<input type="hidden" name="__hash__" value="4cf23401bff4c7d8de5f95fd33ba728a_a3296242cbb3ea3edfb6139067e5a1d4"><input type="hidden" name="__hash__" value="4cf23401bff4c7d8de5f95fd33ba728a_a3296242cbb3ea3edfb6139067e5a1d4"></form>
-<script type="text/javascript" charset="utf-8" src="/static/js/jquery.form.js"></script>
-<script type="text/javascript" charset="utf-8">
-$(function(){
-    var photoForm = $('#tomb-photo-form');
-    photoForm.ajaxForm(function(url) {     
-        if ( url ) {
-            $('#_tomb_photo').attr('src', url);
-        }
-    });  
-}); 
-</script>
-<!-- upload tomb photo -->
+    <div class="item table-responsive" id="tomb" loc="loc0">
+    	<div class="table-header">
+            <i class="icon-credit-card"></i> 
+           <span class="title_info"> 墓位信息</span>
+        </div>
+        <table class="table table-bordered table-condensed table-striped">
+            <tbody>
+                <tr>
+                    <td rowspan="17" width="320">
 
-    </div>
-    <table class="table table-bordered table-condensed table-striped">
-        <tbody>
-<tr>
-                <td rowspan="17" width="320">
-                    <a href="#" class="tombimg_small">
-                      <img id="_tomb_photo" class="img-rounded" src="">
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th width="120">墓位区排号</th>
-                <td>
-                    <a href="/admin/process/all?tomb_id=119">西丙二10排11列</a>
-                </td>
-                <td rowspan="11" width="280">
-                                    <div>
-                    <img src="/admin/index/bindPng?user_id=61140">
-                    <br>
-                    <span style="margin-left:20px;font-size:20px">购买人微信扫码，绑定微信</span>
-                    </div>
-                                </td>
-            </tr>
-            <tr>
-                <th>墓位价格</th>
-                <td>14800元</td>
-            </tr>
-            <tr>
-                <th>销售状态</th>
-                <td>全部安葬</td>
-            </tr>
-            <tr>
-                <th>碑型</th>
-                <td>竖碑</td>
-            </tr>
-            <tr>
-                <th>颜料</th>
-                <td>铜粉</td>
-            </tr>
-            <tr>
-                <th>石材</th>
-                <td></td>
-            </tr>
-                        <tr>
-                <th>客户账号</th>
-                <td>陈卓硕2016 <a href="/admin/tomb/access/user_id/61140">以客户身份登录</a></td>
-            </tr>
-                        <tr>
-                <th>负责人</th>
-                <td>匿名用户</td>
-            </tr>
-            <tr>
-                <th>导购员</th>
-                <td>王斌</td>
-            </tr>
-            <tr>
-                <th>业直</th>
-                <td>
-	                接待员	                &nbsp;&nbsp;
-                         <a ylw-remote-form="true" href="/admin/tomb/agentModify?tomb_id=119"> 修改</a>
-                          </td>
-                
-            </tr>
-            <tr>
-                <th>安葬员</th>
-                <td>陆长青</td>
-            </tr>
-            <tr>
-                <th>购买日期</th>
-                <td colspan="2">2005-01-22</td>
-            </tr>
+                    <a href="javascript:;" id="filePicker-thumb" class="thumbnail filelist-thumb filePicker" rid="<?=$tomb->id?>">
+                              <img class="img-rounded" src="<?=$tomb->getImg('320x400')?>" >
+                        </a>
 
-                            <tr>
-                    <th>最早安葬日期</th>
-                    <td colspan="2">2016-04-29 10:06:28</td>
+                    </td>
                 </tr>
-                        <tr>
-	                <th>碑文备注</th>
-	                <td colspan="2">                                                                                                                                                                                                        </td>
-	            </tr>            <tr>
-	                <th>打印备注</th>
-	                <td colspan="2">                                                                                                                                                                                                        </td>
-	            </tr>	        <tr>
-	                <th>特殊备注</th>
-	                <td colspan="2">                                                                                                                                                                                                        </td>
-	            </tr>            <tr>
-                <th>墓证年限</th>
-                <td colspan="2">
-                                                            2005-01-22 至 2025-01-22                                                                 <a ylw-remote-form="true" href="/admin/tomb/editcard?tomb_id=119"> 编辑</a>
-                                      </td>
-            </tr>
-            
+                <tr>
+                    <th width="120">墓号</th>
+                    <td>
+                        <?=$tomb->tomb_no?>
+                    </td>
+                    <td rowspan="11" width="280">
+                        <div>
+                            <img src="/admin/index/bindPng?user_id=61140">
+                            <br>
+                            <span style="margin-left:20px;font-size:20px">购买人微信扫码，绑定微信</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>墓位价格</th>
+                    <td>￥<?=$tomb->price?></td>
+                </tr>
+                <tr>
+                    <th>销售状态</th>
+                    <td><?=$tomb->getStatusText()?></td>
+                </tr>
+                <tr>
+                    <th>客户账号</th>
+                    <td><?=$tomb->user?$tomb->user->username:''?> 
+                    <!-- <a href="/admin/tomb/access/user_id/61140">以客户身份登录</a> -->
+                    </td>
+                </tr>
+                <tr>
+                    <th>导购员</th>
+                    <td><?=$tomb->guide ? $tomb->guide->username : ''?></td>
+                </tr>
+                <tr>
+                    <th>业直</th>
+                    <td><?=$tomb->agent ? $tomb->agent->username : '无'?></td>
+                    
+                </tr>
+                <tr>
+                    <th>购买时间</th>
+                    <td><?=$tomb->sale_time?></td>
+                </tr>
 
-            <tr>
-                                    </tr>
-        </tbody>
-    </table>
+                <tr>
+                    <th>墓位备注</th>
+                    <td><?=$tomb->note?></td>
+                </tr>
+                <tr>
+                    <th>墓证年限</th>
+                    <td>
+                     <?=$tomb->card->start?> 至 <?=$tomb->card->end?>   
+                     <?php if ($tomb->card->rels): ?><br/>
+                     (
+                        <?php foreach ($tomb->card->rels as $rel): ?>
+                            <?=$rel->start?> 至 <?=$rel->end?> / 
+                        <?php endforeach ?>
+                     )                            
+                     <?php endif ?>                                                              
+                     <!-- <a ylw-remote-form="true" href="/admin/tomb/editcard?tomb_id=119"> 编辑</a> -->
+                                          </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-</div>
+
+<?php $this->beginBlock('up') ?>  
+
+$(function(){
+    upinit();
+})
+function upinit() {
+    $('.filePicker').each(function(i){
+        var imgNum = $(this).attr('num');
+        imgNum = imgNum ? imgNum : 'false';
+        var that = this;
+        var index = parseInt(i) +1;
+        var uploader = [];
+        btn = $(this).attr('id');
+        var use = $(this).attr('use');
+        var res_id = $(this).attr('rid');
+        var bt;
+        $(this).removeClass('filePicker'); //去除 此class 防止再次each时，多次循还
+
+        uploader[index] = new plupload.Uploader({
+            runtimes : 'html5,flash,silverlight,html4',
+            browse_button : btn, // you can pass an id...
+            url : '<?=Url::toRoute(["pl-upload"])?>',
+            flash_swf_url : '/static/libs/plupload-2.1.9/js/Moxie.swf',
+            silverlight_xap_url : '/static/libs/plupload-2.1.9/js//Moxie.xap',
+            file_data_name:'file',
+            multi_selection: eval(imgNum),
+            filters : {
+                max_file_size : '10mb',
+                mime_types: [
+                    {title : "Image files", extensions : "jpg,gif,png"},
+                    {title : "Zip files", extensions : "zip"}
+                ],
+                prevent_duplicates: true//不允许选择重复文件
+            },
+            multipart_params:{
+                res_name : 'portrait',
+                use : 'original',
+                res_id : res_id
+            },
+
+            init: {
+                PostInit: function() {},
+                FilesAdded: function(up, files) {
+
+
+
+                bt = $('#myButton').button('loading');
+
+
+                    if (files.length > imgNum) {
+                        alert('最多只能上传'+imgNum+'张图片哦');
+                        uploader[index].splice(imgNum, files.length-imgNum);
+                    } 
+
+                    plupload.each(files, function(file, i) {
+                        if (!file || !/image\//.test(file.type)) return; //确保文件是图片
+                            if (file.type == 'image/gif') {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+                                var fr = new mOxie.FileReader();
+                                fr.onload = function () {
+                                    if (imgNum > 1) {
+                                        $('.filelist-patch').find('img').eq(i).attr('src', fr.result);
+                                    }
+                                    $(that).find('img').eq(i).attr('src', fr.result);
+                                    fr.destroy();
+                                    fr = null;
+                                }
+                                fr.readAsDataURL(file.getSource());
+                            } else {
+                                var preloader = new mOxie.Image();
+                                preloader.onload = function () {
+                                    preloader.downsize(404, 486);//先压缩一下要预览的图片,宽300，高300
+                                    var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
+                                    if (imgNum > 1) {
+                                        $('.filelist-patch').find('img').eq(i).attr('src', imgsrc);
+                                    } else {
+                                        $(that).find('img').eq(i).attr('src', imgsrc);
+                                    }
+                                    
+                                    preloader.destroy();
+                                    preloader = null;
+                                };
+                                preloader.load(file.getSource());
+                            }
+                       
+                    });
+
+                    uploader[index].start();
+                },
+
+                UploadProgress: function(up, file) {
+                    //document.getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                },
+
+                FileUploaded: function(up, file, info) {
+                    res = $.parseJSON(info.response);
+
+                    if (imgNum > 1) {
+                        var files = uploader[index].files;
+                        i = 0;
+                        for ( f in files) {
+                            if (files[f] == file) {
+                                i = f;
+                            }
+                        }
+
+                        $(".filelist-patch").find('input').eq(i).val(res.mid);
+                    } else {
+
+                        $(that).find('input').val(res.mid);
+                    }
+                },
+                UploadComplete:function(up,file){
+                    bt.button('reset')
+                },
+
+                Error: function(up, err) {
+                    //document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
+                }
+             }//init
+        });//uploader
+
+        uploader[index].init();
+    });//each
+}
+
+
+
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['up'], \yii\web\View::POS_END); ?> 

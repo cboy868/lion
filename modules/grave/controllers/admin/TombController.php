@@ -30,6 +30,25 @@ class TombController extends BackController
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'pl-upload' => [
+                'class' => 'app\core\web\PluploadAction',
+            ],
+        ];
+    }
+
+    public function saveAttach($info)
+    {
+        $tomb = Tomb::findOne($info['res_id']);
+
+        if (!$tomb) {
+            return null;
+        }
+
+        return $tomb->saveAttach($info);
+    }
     /**
      * Lists all Tomb models.
      * @return mixed
