@@ -153,6 +153,22 @@ class Tomb extends \app\core\db\ActiveRecord
         return $this->hasOne(Grave::className(),['id'=>'grave_id']);
     }
 
+    public function getGuide()
+    {
+        if (!$this->guide_id) {
+            return '';
+        }
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'guide_id']);
+    }
+
+    public function getAgent()
+    {
+        if (!$this->agent_id) {
+            return '';
+        }
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'agent_id']);
+    }
+
     public function getDeads()
     {
         return $this->hasMany(Dead::className(),['tomb_id'=>'id']);
@@ -171,7 +187,7 @@ class Tomb extends \app\core\db\ActiveRecord
             $this->status = self::STATUS_PRE;
 
 
-            // try {
+            try {
                 $outerTransaction = Yii::$app->db->beginTransaction();
                 if ($client_id) {
                     $client = \app\modules\client\models\Client::findOne($client_id);
@@ -202,11 +218,10 @@ class Tomb extends \app\core\db\ActiveRecord
                 $outerTransaction->commit();
 
                 return $this;
-            // } catch (\Exception $e) {
-            //     $outerTransaction->rollBack();
-            // }
+            } catch (\Exception $e) {
+                $outerTransaction->rollBack();
+            }
         }
-
 
         return false;
     }

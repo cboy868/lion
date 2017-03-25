@@ -42,7 +42,7 @@ class Bench extends \yii\base\Widget
                          ->limit($this->limit)
                          ->all();
 
-      return $this->render('bench_task', ['models'=>$tasks]);
+      return $this->render('bench\task', ['models'=>$tasks]);
     }
 
     private function client()
@@ -53,7 +53,7 @@ class Bench extends \yii\base\Widget
                          ->limit($this->limit)
                          ->all();
 
-      return $this->render('bench_client', ['models'=>$client]);
+      return $this->render('bench\client', ['models'=>$client]);
     }
 
     private function post()
@@ -71,12 +71,12 @@ class Bench extends \yii\base\Widget
                             ->orderBy('id asc')
                             ->all();
 
-      return $this->render('bench_post', ['models'=>$list]);
+      return $this->render('bench\post', ['models'=>$list]);
     }
 
     private function buttons()
     {
-      return $this->render('bench_buttons');
+      return $this->render('bench\buttons');
     }
 
 

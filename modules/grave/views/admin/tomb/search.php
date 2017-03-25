@@ -62,7 +62,7 @@ use yii\bootstrap\Modal;
                 'size' => Select2::SMALL,
                 'options' => [
                     'placeholder' => '选择墓区',
-                    'options' => $options,
+                    // 'options' => $options,
                     'class' => 'selg'
                 ],
                 'pluginOptions' => [
