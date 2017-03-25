@@ -78,7 +78,7 @@ LN = {
                 $this.data('select-init', true);
             }
         });
-    },
+    }
 };
 
 $(function(){
@@ -86,3 +86,4 @@ $(function(){
     LN.dttimeInit();
     LN.selectize();
 });
+

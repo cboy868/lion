@@ -408,9 +408,9 @@ class Tomb extends \app\core\db\ActiveRecord
         return Ins::find()->where(['tomb_id'=>$this->id, 'status'=>Ins::STATUS_NORMAL])->one();
     }
 
-    public function getImg($size)
+    public function getImg($size, $default="/static/images/up.png")
     {
-        return Attachment::getById($this->thumb, $size);
+        return Attachment::getById($this->thumb, $size, $default);
     }
 
     public function saveAttach($info)
