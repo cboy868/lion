@@ -4,7 +4,8 @@ namespace app\modules\grave\widgets;
 use yii;
 use app\core\helpers\ArrayHelper;
 use app\modules\grave\models\Tomb as TombModel;
-
+use app\modules\grave\models\Customer;
+use app\modules\grave\models\Ins;
 /**
  * The ZActiveForm widget extend ActiveForm.
  *
@@ -14,6 +15,8 @@ class Tomb extends \yii\base\Widget
 {
 
     public $tomb_id;
+
+    public $tomb;
     
     public $method;
 
@@ -42,23 +45,24 @@ class Tomb extends \yii\base\Widget
      * Renders the widget.
      */
     public function run() {
+      $this->tomb = TombModel::findOne($this->tomb_id);
       $method = $this->method;
       return $this->$method();
     }
 
     public function tomb()
     {
-      $tomb = TombModel::findOne($this->tomb_id);
-
-      return $this->render('tomb/tomb', ['tomb'=>$tomb]);
+      return $this->render('tomb/tomb', ['tomb'=>$this->tomb]);
     }
     public function customer()
     {
-      return $this->render('tomb/customer');
+      $customer = Customer::find()->where(['tomb_id'=>$this->tomb_id, 'status'=>Customer::STATUS_NORMAL])->one();
+      return $this->render('tomb/customer', ['customer'=>$customer]);
     }
     public function ins()
     {
-      return $this->render('tomb/ins');
+      $ins = Ins::find()->where(['tomb_id'=>$this->tomb_id, 'status'=>Ins::STATUS_NORMAL])->one();
+      return $this->render('tomb/ins', ['ins'=>$ins]);
     }
     public function portrait()
     {

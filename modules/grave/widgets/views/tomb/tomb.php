@@ -2,9 +2,8 @@
 use app\core\helpers\Url;
 use yii\helpers\Html;
 use app\assets\PluploadAssets;
-// PluploadAssets::register($this);
+PluploadAssets::register($this);
 ?>
-
 
 <div class="col-xs-12">
     <div class="item table-responsive" id="tomb" loc="loc0">
@@ -24,7 +23,6 @@ use app\assets\PluploadAssets;
                         data-use="thumb">
                               <img class="img-rounded" src="<?=$tomb->getImg('320x400')?>" >
                         </a>
-
                     </td>
                 </tr>
                 <tr>
@@ -41,18 +39,12 @@ use app\assets\PluploadAssets;
                     </td>
                 </tr>
                 <tr>
-                    <th>墓位价格</th>
+                    <th>墓价</th>
                     <td>￥<?=$tomb->price?></td>
                 </tr>
                 <tr>
                     <th>销售状态</th>
                     <td><?=$tomb->getStatusText()?></td>
-                </tr>
-                <tr>
-                    <th>客户账号</th>
-                    <td><?=$tomb->user?$tomb->user->username:''?> 
-                    <!-- <a href="/admin/tomb/access/user_id/61140">以客户身份登录</a> -->
-                    </td>
                 </tr>
                 <tr>
                     <th>导购员</th>
@@ -84,14 +76,24 @@ use app\assets\PluploadAssets;
                                     <?php endforeach ?>
                                  <?php endif ?>  
                                 </ol>
-                         <?=  Html::a('<i class="fa fa-edit"></i> 编辑', ['/grave/admin/card/update', 'id'=>$tomb->id], ['class' => 'btn btn-primary btn-xs mEditButton',"onclick"=>"return false"]) ?>
+                    <?=  Html::a('<i class="fa fa-edit"></i> 编辑', ['/grave/admin/card/update','id'=>$tomb->id], ['class'=>'btn btn-primary btn-xs mEditButton',"onclick"=>"return false"]) ?>
                     <?php endif ?>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['/grave/admin/card/create', 'id'=>$tomb->id], ['class' => 'btn btn-primary btn-xs mAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
-                     <!-- <a ylw-remote-form="true" href="/admin/tomb/editcard?tomb_id=119"> 编辑</a> -->
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['/grave/admin/card/create','id'=>$tomb->id], ['class'=>'btn btn-primary btn-xs mAddButton',"onclick"=>"return false"]) ?>
                     </td>
                 </tr>
+                <?php if (isset($tomb->customer)): ?>
+                    <tr>
+                        <th>客户信息 (<a href="<?=Url::toRoute(['/grave/admin/customer/update', 'id'=>$tomb->customer_id])?>" target="_blank">编辑</a>)</th>
+                        <td>
+                        <?=$tomb->user? '账号:' . $tomb->user->username . "<!-- <a href='/admin/tomb/access/user_id/61140'>以客户身份登录</a> --><br>":''?>
+                        <?=$tomb->customer->name?> <?=$tomb->customer->mobile?> <a href="mailto:<?=$tomb->customer->email?>"><?=$tomb->customer->email?></a> <br>
+                        地址:<?=$tomb->customer->address?> <?=$tomb->customer->addr?> <br>
+                        单位:<?=$tomb->customer->units?>
+                        </td>
+                    </tr>
+                <?php endif ?>
+                
             </tbody>
         </table>
     </div>
 </div>
-

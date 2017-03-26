@@ -176,6 +176,7 @@ class Tomb extends \app\core\db\ActiveRecord
 
     public function getUser()
     {
+
         if (!$this->user_id) {
             return '';
         }
@@ -185,6 +186,11 @@ class Tomb extends \app\core\db\ActiveRecord
     public function getCard()
     {
         return $this->hasOne(\app\modules\grave\models\Card::className(),['tomb_id'=>'id'])->orderBy('id asc');
+    }
+
+    public function getCustomer()
+    {
+        return $this->hasOne(\app\modules\grave\models\Customer::className(),['id'=>'customer_id']);
     }
 
 

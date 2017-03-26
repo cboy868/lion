@@ -84,7 +84,7 @@ return [
 
         'goods' => [
             'cate' => [
-                'ins' => 20,
+                'ins' => 201,
                 'portrait' => 19,
                 'liyi' => 7//礼仪
             ],

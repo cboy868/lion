@@ -1,3 +1,7 @@
+
+<?php if ($customer): ?>
+    
+
 <div class="col-xs-12 tomb-view">
 <div class="item table-responsive" id="customer" loc="loc1">
     <div class="table-header"><i class="fa fa-user"></i> <span class="title_info">客户信息</span></div>
@@ -19,9 +23,9 @@
                 <th>第二联系人联系方式</th>
             </tr>
             <tr>
-                <td>陈卓硕2016</td>
+                <td><?=$customer->name;?></td>
                 <td>暂无</td>
-                <td>手机：13207534680</td>
+                <td>手机：<?=$customer->mobile;?></td>
                 <td>天津市 </td>
                 
                 <td></td>
@@ -46,3 +50,5 @@
 
 <div class="hr hr-18 dotted hr-double"></div>
 </div><!-- /.col -->
+
+<?php endif ?>

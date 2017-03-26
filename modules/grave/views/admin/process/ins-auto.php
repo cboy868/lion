@@ -4,13 +4,15 @@ use app\core\widgets\ActiveForm;
 use app\core\helpers\Url;
 use app\modules\grave\models\Ins;
 use app\assets\ExtAsset;
-use app\assets\PluploaduiAssets;
+// use app\assets\PluploaduiAssets;
 use app\core\models\Attachment;
 use app\core\widgets\Ueditor\Ueditor;
 use app\modules\grave\models\Tomb;
-
-PluploaduiAssets::register($this);
+use app\assets\PluploadAssets;
+// PluploaduiAssets::register($this);
 ExtAsset::register($this);
+PluploadAssets::register($this);
+
 ?>
 
 <style type="text/css">
@@ -270,10 +272,6 @@ ExtAsset::register($this);
 
 					<!-- 手动上传图片 -->
 
-
-
-
-
 					<div id="img-ins-boxs" class=" tab-pane <?php if ($model->type == 0): ?>active <?php endif ?>" role="tabpanel">
 						<div class="col-xs-12">
 							<div class="panel panel-default">
@@ -289,9 +287,15 @@ ExtAsset::register($this);
 							                               <span class="sr-only">Close</span>
 							                            </button> 
 							                        </div>
-							                         <a href="javascript:;" id="filePicker-<?=$k?>" class="thumbnail filelist-<?=$k?> filePicker" style="max-width:380px;max-height:280px;">
+
+							                         <a href="javascript:;" id="filePicker-<?=$k?>" class="thumbnail filelist-<?=$k?> filePicker" 
+							                         		style="max-width:380px;max-height:280px;"
+									                        data-url="<?=Url::toRoute(["pl-upload"])?>" 
+									                        data-res_name="tomb"
+									                        data-use="thumb"
+							                         		>
 							                              <img src="<?=$model->getImg($k)?>">
-							                              <input name="Ins[img][<?=$k?>]" class="ins-img" type="hidden" value="<?=$imgs->$k?>" />
+							                              <input name="Ins[img][<?=$k?>]" class="ins-img" type="hidden" value="<?=isset($imgs->$k)? $imgs->$k : ''?>" />
 							                        </a>
 							                    </div>
 							                    <div class="hr hr-18 dotted hr-double"></div>
@@ -446,7 +450,7 @@ ExtAsset::register($this);
 									  			<td>生日</td>
 									  			<td><input name="dead[<?=$key?>][birth][content]" value="<?=$vo['birth']['content']?>"  type="text" class="form-control input-sm"></td>
 									  			<td>携子</td>
-									  			<td><input name="dead[<?=$key?>][follow][content]" value="<?=$vo['follow']['content']?>" type="text" class="form-control input-sm"></td>
+									  			<td><input name="dead[<?=$key?>][follow][content]" value="" type="text" class="form-control input-sm"></td>
 									  		</tr>
 									  		
 									  		<?php if($dead_list[$key]['is_alive']==0):?>
@@ -484,16 +488,6 @@ ExtAsset::register($this);
 				      </div>
 				      <div class="modal-body">
 				        	<table class="table table-noborder back-line">
-						  		<tr>
-						  			<td>落款</td>
-						  			<td><input name="back[inscribe][content]" value="<?=$back['inscribe']['content']?>" type="text" class="form-control input-sm"></td>
-		                            <!--
-		                            <td><input name="back[inscribe][content]" value="<?=$back['inscribe']['content']?>" type="text" class="form-control input-sm"></td>
-		                          <td>落款时间</td>
-		                            <td><input name="back[inscribe_date][content]" dt='true' value="<?=$back['inscribe_date']['content']?>" type="text" class="form-control input-sm"></td>
-		                         -->
-		                        </tr>
-
 		                        <?php foreach ($back['main']['content'] as $key => $bk): ?>
 		                        	<tr class="main-line">
 						            	<td>正文</td>
@@ -532,7 +526,7 @@ ExtAsset::register($this);
 
 				<input type="hidden" class="per_price"/>
 
-				<input type="hidden" class="is_second" value="<?=$is_second?>"/>
+				<input type="hidden" class="is_second"/>
 
 				<div class="cache"></div>
 
@@ -593,7 +587,6 @@ $(function(){
 	var insSaveBtn = insContainer.find('.save-ins');
 	var selIns = insContainer.find('.sel');
 
-	upinit();
 
     $('.btn-dis').click(function(e){
         e.preventDefault();
@@ -1073,124 +1066,6 @@ function getChangePrice()
             alert(xhr.info);
         }
     }, 'json');
-}
-
-function upinit() {
-    $('.filePicker').each(function(i){
-        var imgNum = $(this).attr('num');
-        imgNum = imgNum ? imgNum : 'false';
-        var that = this;
-        var index = parseInt(i) +1;
-        var uploader = [];
-        btn = $(this).attr('id');
-        var use = $(this).attr('use');
-        var bt;
-        $(this).removeClass('filePicker'); //去除 此class 防止再次each时，多次循还
-
-        uploader[index] = new plupload.Uploader({
-            runtimes : 'html5,flash,silverlight,html4',
-            browse_button : btn, // you can pass an id...
-            url : '<?=Url::toRoute(["pl-upload"])?>',
-            flash_swf_url : '/static/libs/plupload-2.1.9/js/Moxie.swf',
-            silverlight_xap_url : '/static/libs/plupload-2.1.9/js//Moxie.xap',
-            file_data_name:'file',
-            multi_selection: eval(imgNum),
-            filters : {
-                max_file_size : '10mb',
-                mime_types: [
-                    {title : "Image files", extensions : "jpg,gif,png"},
-                    {title : "Zip files", extensions : "zip"}
-                ],
-                prevent_duplicates: true//不允许选择重复文件
-            },
-            multipart_params:{
-                res_name : 'ins',
-                'use' : use
-            },
-
-            init: {
-                PostInit: function() {},
-                FilesAdded: function(up, files) {
-
-
-
-                bt = $('#myButton').button('loading');
-
-
-                    if (files.length > imgNum) {
-                        alert('最多只能上传'+imgNum+'张图片哦');
-                        uploader[index].splice(imgNum, files.length-imgNum);
-                    } 
-
-                    plupload.each(files, function(file, i) {
-                        if (!file || !/image\//.test(file.type)) return; //确保文件是图片
-                            if (file.type == 'image/gif') {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
-                                var fr = new mOxie.FileReader();
-                                fr.onload = function () {
-                                    if (imgNum > 1) {
-                                        $('.filelist-patch').find('img').eq(i).attr('src', fr.result);
-                                    }
-                                    $(that).find('img').eq(i).attr('src', fr.result);
-                                    fr.destroy();
-                                    fr = null;
-                                }
-                                fr.readAsDataURL(file.getSource());
-                            } else {
-                                var preloader = new mOxie.Image();
-                                preloader.onload = function () {
-                                    preloader.downsize(404, 486);//先压缩一下要预览的图片,宽300，高300
-                                    var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
-                                    if (imgNum > 1) {
-                                        $('.filelist-patch').find('img').eq(i).attr('src', imgsrc);
-                                    } else {
-                                        $(that).find('img').eq(i).attr('src', imgsrc);
-                                    }
-                                    
-                                    preloader.destroy();
-                                    preloader = null;
-                                };
-                                preloader.load(file.getSource());
-                            }
-                       
-                    });
-
-                    uploader[index].start();
-                },
-
-                UploadProgress: function(up, file) {
-                    //document.getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-                },
-
-                FileUploaded: function(up, file, info) {
-                    res = $.parseJSON(info.response);
-
-                    if (imgNum > 1) {
-                        var files = uploader[index].files;
-                        i = 0;
-                        for ( f in files) {
-                            if (files[f] == file) {
-                                i = f;
-                            }
-                        }
-
-                        $(".filelist-patch").find('input').eq(i).val(res.mid);
-                    } else {
-
-                        $(that).find('input').val(res.mid);
-                    }
-                },
-                UploadComplete:function(up,file){
-                    bt.button('reset')
-                },
-
-                Error: function(up, err) {
-                    //document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
-                }
-             }//init
-        });//uploader
-
-        uploader[index].init();
-    });//each
 }
 
 

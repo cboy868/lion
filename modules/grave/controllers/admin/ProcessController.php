@@ -293,6 +293,7 @@ class ProcessController extends BackController
         }
 
         $model = Process::insProcess();
+        $model->type = 1;
 
         $tomb = Process::tomb();
 
@@ -365,7 +366,8 @@ class ProcessController extends BackController
             'back' => $ins_info['back'],
             'dead_list' => $model->getDead(),
             'order' => Process::getOrder(),
-            'goods' => $model->getGoodsInfo()
+            'goods' => $model->getGoodsInfo(),
+            'is_god' => false,
         ]);
     }
 

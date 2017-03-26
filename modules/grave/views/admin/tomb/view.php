@@ -5,6 +5,7 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 use app\modules\grave\widgets\Tomb;
 use yii\bootstrap\Modal;
+use app\core\helpers\Url;
 \app\assets\ExtAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $model app\modules\grave\models\Tomb */
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="page-header">
-            <h1>一墓一档 <small>墓位详细信息</small></h1>
+            <h1>一墓一档 <small>墓位详细信息 <a class="btn btn-info btn-sm pull-right" href="<?=Url::toRoute(['/grave/admin/process/index', 'tomb_id'=>$model->id,'step'=>1])?>" target="_blank">办业务</a></small></h1>
         </div>
         <?php 
             Modal::begin([
@@ -48,7 +49,6 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
                 $tomb_id = Yii::$app->request->get('id');
              ?>
              <?=Tomb::widget(['method'=>'tomb', 'tomb_id'=>$tomb_id])?>
-             <?=Tomb::widget(['method'=>'customer', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'ins', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'portrait', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'order', 'tomb_id'=>$tomb_id])?>

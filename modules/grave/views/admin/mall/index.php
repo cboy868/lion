@@ -65,6 +65,7 @@ ul.goods-selected-item {
 
                             $sku_cnt = count($goods->sku);
 
+
                         ?>
                         <div class="col-sm-4 goods-item" data-id="<?=$goods->id?>" data-title="<?=$goods->name?>" data-price="<?=$goods->price?>" data-img="<?=$goods->getThumb('110x110')?>" >
 

@@ -90,11 +90,12 @@ class InsProcess extends Ins
         }
 
 
-
         $content = $info;
         foreach ($content['birth'] as $k=>&$v) {
-            $v['content'] = $this->getRelDate($v['content'], $dead_list[$k]['birth_type']);
-            $content['fete'][$k]['content'] = $this->getRelDate($content['fete'][$k]['content'], $dead_list[$k]['fete_type']);
+            // $v['content'] = $this->getRelDate($v['content'], $dead_list[$k]['birth_type']);
+            $v['content'] = $this->getRelDate($v['content'],1);
+            // $content['fete'][$k]['content'] = $this->getRelDate($content['fete'][$k]['content'], $dead_list[$k]['fete_type']);
+            $content['fete'][$k]['content'] = $this->getRelDate($content['fete'][$k]['content'], 1);
             $content['age'][$k]['content']  = self::numberToChar($content['age'][$k]['content'], true, $this->is_tc);
         }unset($v);
 
@@ -218,7 +219,7 @@ class InsProcess extends Ins
         
         $front_info = $data['front'];
         $back_info  = $data['back'];
-        $cover_info = $data['cover'];
+        // $cover_info = $data['cover'];
         $dead  = $data['dead'];
 
 
@@ -234,16 +235,16 @@ class InsProcess extends Ins
 
         $this->ins_info['front'] = $info;
         $this->ins_info['back']  = $back_info;
-        $this->ins_info['cover'] = $cover_info;
+        // $this->ins_info['cover'] = $cover_info;
 
 
         $add = array(
             'is_tc'     => $this->is_tc,
             'front_type'    => $this->type,
-            'dt_pre_mn'     => $data['dt_pre_mn'],
+            'dt_pre_mn'     => $data['InsProcess']['pre_finish'],
             'font'    => $this->font,
             // 'new_font_num'  => $data['new_font_num'],
-            'note'          => trim($data['note']),
+            'note'          => trim($data['InsProcess']['note']),
             'type'          => 1
         );
         $this->ins_info = $add + $this->ins_info;
@@ -441,7 +442,6 @@ class InsProcess extends Ins
      */
     public function getInsInfo(){
 
-
         if ($this->type === self::TYPE_IMG || $this->type === self::TYPE_FREE) {
             return $this;
         }
@@ -506,7 +506,7 @@ class InsProcess extends Ins
                         'direction' => $v['direction'],
                         'shape'     => $shape,
                         'ttt'  => $v['text'],
-                        'is_big' => $v['is_big']
+                        'is_big' => isset($v['is_big']) ? $v['is_big'] : 1
                 );
         }
 
