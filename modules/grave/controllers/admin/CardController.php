@@ -4,10 +4,14 @@ namespace app\modules\grave\controllers\admin;
 
 use Yii;
 use app\modules\grave\models\Card;
+use app\modules\grave\models\CardRel;
+
 use app\modules\grave\models\CardSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Model;
+use app\core\helpers\ArrayHelper;
 
 /**
  * CardController implements the CRUD actions for Card model.
@@ -58,35 +62,54 @@ class CardController extends BackController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new Card();
+        $card = Card::find()->where(['tomb_id'=>$id])->one();
+        if (!$card) {
+            $card = new Card();
+            $card->tomb_id = $id;
+        }
+        $model = new CardRel();
+        $model->tomb_id = $id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            if ($card->isNewRecord) {
+                $card->start = $model->start;
+                $card->end   = $model->end;
+                $card->total = date('Y', strtotime($model->end)) - date('Y', strtotime($model->start));
+                $card->created_by = Yii::$app->user->id;
+                $card->save();
+                
+            }
+            $model->card_id = $card->id;
+            $model->save();
+            return $this->redirect(Yii::$app->request->referrer);
         } else {
-            return $this->render('create', [
+
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
     }
 
+
     /**
-     * Updates an existing Card model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * @name 修改墓证
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = Card::find($id)->where(['tomb_id'=>$id])->one();
+        $rels =  ArrayHelper::index($model->rels, 'id');
+
+        if (Model::loadMultiple($rels, \Yii::$app->request->post()) && Model::validateMultiple($rels)) {
+             foreach ($rels as $rel) {
+                $rel->save(false);
+            }
+
+            return $this->redirect(Yii::$app->request->referrer);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->renderAjax('update', ['rels'=>$rels, 'model'=>$model]);
         }
     }
 

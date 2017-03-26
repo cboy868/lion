@@ -86,8 +86,9 @@ ExtAsset::register($this);
                                     'style'=>'width:70%', 
                                     'dt'=>'true', 
                                     'default'=>'1960-'.date('m-d'),
-                                    'y-chante' => 'true',
-                                    'm-change' =>'true'
+                                    'dt-year' => 'true',
+                                    'dt-month' =>'true'
+                                    
                                     ]) ?></td>
                             </tr>
                             

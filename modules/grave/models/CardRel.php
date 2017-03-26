@@ -38,7 +38,7 @@ class CardRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['card_id', 'tomb_id'], 'required'],
+            [['card_id', 'tomb_id', 'start', 'end'], 'required'],
             [['card_id', 'tomb_id', 'order_id', 'total', 'num', 'created_by', 'created_at'], 'integer'],
             [['start', 'end'], 'safe'],
             [['price'], 'number'],
@@ -79,6 +79,17 @@ class CardRel extends \app\core\db\ActiveRecord
             'created_by' => '操作人',
             'created_at' => '添加时间',
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $tomb_id = $this->tomb_id;
+        $min = self::find()->where(['tomb_id'=>$tomb_id])->min('start');
+        $max = self::find()->where(['tomb_id'=>$tomb_id])->max('end');
+
+        $this->card->start = $min;
+        $this->card->end = $max;
+        return $this->card->save();
     }
 
     public function getBy()

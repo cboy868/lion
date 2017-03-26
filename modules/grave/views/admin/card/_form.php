@@ -12,26 +12,21 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tomb_id')->textInput() ?>
+    <?= $form->field($model, 'tomb_id')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'start')->textInput() ?>
+     <?php
+        $form->fieldConfig['template'] = '{label}<div class="col-sm-5">{input}{hint}{error}</div>';
+        $form->fieldConfig['labelOptions']['class'] = 'control-label col-sm-2';
+        $form->fieldConfig['options']['class'] = 'form-g';
+    ?>
 
-    <?= $form->field($model, 'end')->textInput() ?>
+    <?= $form->field($model, 'start')->textInput(['placeholder'=>'起始','dt'=>'true','dt-year' => 'true','dt-month' =>'true'])->label(false) ?>
 
-    <?= $form->field($model, 'total')->textInput() ?>
+    <?= $form->field($model, 'end')->textInput(['placeholder'=>'截止','dt'=>'true','dt-year' => 'true','dt-month' =>'true'])->label(false) ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-
-	<div class="form-group">
-        <div class="col-sm-offset-2 col-sm-3">
+        <div class="col-sm-2">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
         </div>
-    </div>
     
     <?php ActiveForm::end(); ?>
 

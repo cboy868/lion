@@ -1,9 +1,11 @@
 <?php 
 use app\core\helpers\Url;
-
+use yii\helpers\Html;
 use app\assets\PluploadAssets;
-PluploadAssets::register($this);
+// PluploadAssets::register($this);
 ?>
+
+
 <div class="col-xs-12">
     <div class="item table-responsive" id="tomb" loc="loc0">
     	<div class="table-header">
@@ -73,16 +75,20 @@ PluploadAssets::register($this);
                 <tr>
                     <th>墓证年限</th>
                     <td>
-                     <?=$tomb->card->start?> 至 <?=$tomb->card->end?>   
-                     <?php if ($tomb->card->rels): ?><br/>
-                     (
-                        <?php foreach ($tomb->card->rels as $rel): ?>
-                            <?=$rel->start?> 至 <?=$rel->end?> / 
-                        <?php endforeach ?>
-                     )                            
-                     <?php endif ?>                                                              
+                    <?php if ($tomb->card): ?>
+                        <strong><?=$tomb->card->start?> - <?=$tomb->card->end?></strong>
+                                <ol class="small">
+                                <?php if ($tomb->card->rels): ?>
+                                    <?php foreach ($tomb->card->rels as $rel): ?>
+                                        <li> <?=$rel->start?> - <?=$rel->end?> </li>
+                                    <?php endforeach ?>
+                                 <?php endif ?>  
+                                </ol>
+                         <?=  Html::a('<i class="fa fa-edit"></i> 编辑', ['/grave/admin/card/update', 'id'=>$tomb->id], ['class' => 'btn btn-primary btn-xs mEditButton',"onclick"=>"return false"]) ?>
+                    <?php endif ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['/grave/admin/card/create', 'id'=>$tomb->id], ['class' => 'btn btn-primary btn-xs mAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                      <!-- <a ylw-remote-form="true" href="/admin/tomb/editcard?tomb_id=119"> 编辑</a> -->
-                                          </td>
+                    </td>
                 </tr>
             </tbody>
         </table>

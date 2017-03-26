@@ -33,7 +33,7 @@ class Card extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tomb_id'], 'required'],
+            [['tomb_id', 'start', 'end'], 'required'],
             [['tomb_id', 'total', 'created_by', 'created_at', 'updated_at'], 'integer'],
             [['start', 'end'], 'safe'],
         ];
