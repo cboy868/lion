@@ -460,6 +460,7 @@ class GoodsController extends BackController
                     'is_spec' => ATTR::SPEC_YES
                 ])->indexBy('id')->all();
 
+
             //取此分类下的所有规格
             $avs = [];
             foreach ($specs as $k => $spec) {

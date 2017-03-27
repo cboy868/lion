@@ -21,8 +21,6 @@ use app\core\models\Attachment;
  * @property string $img
  * @property integer $is_tc
  * @property integer $font
- * @property integer $font_num
- * @property integer $new_font_num
  * @property integer $is_confirm
  * @property string $confirm_date
  * @property integer $confirm_by
@@ -62,12 +60,6 @@ class Ins extends \app\core\db\ActiveRecord
     const TYPE_AUTO = 1;
     const TYPE_FREE = 2;
 
-
-    public $big_num;
-    public $big_new;
-    public $small_num;
-    public $small_new;
-
     public function behaviors()
     {
         return [
@@ -88,7 +80,6 @@ class Ins extends \app\core\db\ActiveRecord
             3 => "宋体", 
             4 => "楷体",
         ];
-
 
         return $fonts[$this->font];
     }
@@ -122,10 +113,12 @@ class Ins extends \app\core\db\ActiveRecord
         return $shape === null ? $shapes : $shapes[$shape];
     }
 
-    public function getImg($position = 'front')
+    public function getImg($position = 'front', $default='#')
     {
 
         $img = (array)json_decode($this->img);
+
+        return (isset($img[$position]) && !empty($img[$position])) ? Attachment::getById($img[$position], '', $default) : $default;
 
         $img = isset($img[$position]) && !empty($img[$position]) ? $img[$position] : '#';
 
@@ -197,8 +190,10 @@ class Ins extends \app\core\db\ActiveRecord
     {
         return [
             [['guide_id', 'user_id', 'tomb_id'], 'required'],
-            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at', 'type'], 'integer'],
-            [['content', 'note', 'new_font_num', 'font_num'], 'string'],
+            [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 
+            'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at', 'type',
+            'big_num','small_num','new_big_num', 'new_small_num'], 'integer'],
+            [['content', 'note'], 'string'],
             [['confirm_date', 'pre_finish', 'finish_at'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
             [['position', 'shape'], 'string', 'max' => 100],
@@ -224,8 +219,10 @@ class Ins extends \app\core\db\ActiveRecord
             'is_tc' => '是否繁体',
             'final_tc' => '支付时是否繁体',
             'font' => '字体',
-            'font_num' => '总字数',
-            'new_font_num' => '新增字数',
+            'big_num' => '大字数',
+            'small_num' => '小字数',
+            'new_big_num' => '新大字数',
+            'new_small_num' => '新小字数',
             'is_confirm' => '是否确认',
             'confirm_date' => '确认日期',
             'confirm_by' => '确认人',

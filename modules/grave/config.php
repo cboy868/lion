@@ -84,14 +84,14 @@ return [
 
         'goods' => [
             'cate' => [
-                'ins' => 201,
+                'ins' => 2,
                 'portrait' => 19,
                 'liyi' => 7//礼仪
             ],
 
             'id' => [
                 'tc' => 22,//繁体字商品id 
-                'insword' => 23,//碑文商品
+                'insword' => 1,//碑文商品
                 //
             ]
         ],
@@ -153,7 +153,7 @@ return [
             'position' =>  [
                 'front' => '正面',
                 'back' => '背面',
-                // 'plate' => '盖板'
+                'plate' => '盖板'
             ],
             'inscribe' => [
                 '儿子'     =>  '孝子率全家叩立',

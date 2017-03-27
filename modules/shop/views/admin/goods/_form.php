@@ -138,7 +138,7 @@ border-color:#337ab7;
 
             <?php if ($tables['data']): ?>
             <div class="form-group">
-                <label class="control-label" for="avrel-intro">相应规格价格增量填写</label>
+                <label class="control-label" for="avrel-intro">相应规格价格填写</label>
                 <div >
                     <table class="table table-bordered table-condensed">
                         <thead>

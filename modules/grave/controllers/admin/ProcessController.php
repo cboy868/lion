@@ -283,7 +283,64 @@ class ProcessController extends BackController
     //     ]);
     // }
 
+
+
     public function ins()
+    {
+        $tomb = Process::tomb();
+        $model = Process::insProcess();
+        $ins_cfg = Yii::$app->controller->module->params['ins'];
+        $fee = $ins_cfg['fee'];
+
+        $req = Yii::$app->request;
+        if ($model->load($req->post())) {
+
+            $model->guide_id = $tomb->guide_id;
+            $model->user_id = $tomb->user_id;
+
+
+            $saveMethod = $model->type == InsProcess::TYPE_IMG ? 'imgSave' : 'autoSave';
+
+
+            if ($model->$saveMethod()) {
+
+                $note = '大字%s小字%s刻字费%s颜料费%s繁体字费%s';
+
+                $insData = [
+                    'tid' => $model->tomb_id,
+                    'price' => $model->letter_price + $model->paint_price + $model->tc_price,
+                    'num' => $model->new_big_num + $model->new_small_num,
+                    'note' => sprintf($note, $model->new_big_num, $model->new_small_num, $model->letter_price, $model->paint_price, $model->tc_price),
+                    'use_time' =>$model->pre_finish
+                ];
+
+                $goods_id = $this->module->params['goods']['id']['insword'];
+                $goods = Goods::findOne($goods_id);
+
+                $goods->order($model->user_id, $insData);
+
+                return $this->next();
+            }
+
+        }
+        if ($model->type == InsProcess::TYPE_IMG) {
+            return $this->render('ins-img',[
+                'model' => $model,
+                'imgs'  => $model->img ? json_decode($model->img) : '',
+                'get' => Yii::$app->request->get(),
+                'paint' => $ins_cfg['paint'],
+                'pos' => $ins_cfg['position'],
+                'dead_list' => $model->getDead(),
+                'order' => Process::getOrder(),
+                'goods' => $model->getGoodsInfo(),
+                'fee' => $fee
+            ]);
+        } else if ($model->type == InsProcess::TYPE_AUTO){
+            return $this->render('ins-auto');
+        }
+    }
+
+    public function ins1()
     {
         $dead = Process::dead();
 

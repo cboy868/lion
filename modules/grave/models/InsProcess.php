@@ -33,8 +33,6 @@ use app\core\base\Upload;
  * @property string $img
  * @property integer $is_tc
  * @property integer $font
- * @property integer $font_num
- * @property integer $new_font_num
  * @property integer $is_confirm
  * @property string $confirm_date
  * @property integer $confirm_by
@@ -243,7 +241,6 @@ class InsProcess extends Ins
             'front_type'    => $this->type,
             'dt_pre_mn'     => $data['InsProcess']['pre_finish'],
             'font'    => $this->font,
-            // 'new_font_num'  => $data['new_font_num'],
             'note'          => trim($data['InsProcess']['note']),
             'type'          => 1
         );

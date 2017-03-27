@@ -143,8 +143,8 @@ class OrderRel extends \app\core\db\ActiveRecord
             'price'         => $num * $goods->price,
             'sku_name'      => '',
             'num'           => $num,
-            'note'          => $data['note'] ? $data['note'] : '',
-            'use_time'      => $data['use_time'] ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+            'note'          => isset($data['note']) ? $data['note'] : '',
+            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
         ];
 
 

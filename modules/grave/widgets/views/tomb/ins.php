@@ -21,12 +21,15 @@ use app\modules\grave\models\Ins;
                     <a href="<?=$ins->getImg('back')?>" class="artimg">
                         <img class="image" width="210" alt="碑后文" src="<?=$ins->getImg('back')?>">
                     </a>
+                    <a href="<?=$ins->getImg('plate')?>" class="artimg">
+                        <img class="image" width="210" alt="碑后文" src="<?=$ins->getImg('plate')?>">
+                    </a>
                 </td>
                 
             </tr>
              <tr>
                 <th width="100">字数</th>
-                <td><?=$ins->font_num?></td>
+                <td><?=$ins->big_num + $ins->small_num?></td>
             </tr>
              <tr>
                 <th width="100">状态</th>
