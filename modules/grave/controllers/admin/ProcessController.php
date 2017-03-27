@@ -289,10 +289,21 @@ class ProcessController extends BackController
     {
         $tomb = Process::tomb();
         $model = Process::insProcess();
+        $deads = $model->deads();
+
+        if (!$deads) {
+            return $this->error('没有需要刻碑的使用人');
+        }
+
         $ins_cfg = Yii::$app->controller->module->params['ins'];
         $fee = $ins_cfg['fee'];
 
+
         $req = Yii::$app->request;
+
+        $model->type = $req->get('type') ? $req->get('type') : $model->type;
+
+
         if ($model->load($req->post())) {
 
             $model->guide_id = $tomb->guide_id;
@@ -323,20 +334,39 @@ class ProcessController extends BackController
             }
 
         }
+
+
+
+        $cases = $model->getInsCfgCases();
+        if (!$cases) {
+            $model->type = InsProcess::TYPE_IMG;
+        }
+
+
+        $ins_data = [
+            'model' => $model,
+            'imgs'  => $model->img ? json_decode($model->img) : '',
+            'get' => Yii::$app->request->get(),
+            'paint' => $ins_cfg['paint'],
+            'pos' => $ins_cfg['position'],
+            'order' => Process::getOrder(),
+            'goods' => $model->getGoodsInfo(),
+            'fee' => $fee
+        ];
+        
+
         if ($model->type == InsProcess::TYPE_IMG) {
-            return $this->render('ins-img',[
-                'model' => $model,
-                'imgs'  => $model->img ? json_decode($model->img) : '',
-                'get' => Yii::$app->request->get(),
-                'paint' => $ins_cfg['paint'],
-                'pos' => $ins_cfg['position'],
-                'dead_list' => $model->getDead(),
-                'order' => Process::getOrder(),
-                'goods' => $model->getGoodsInfo(),
-                'fee' => $fee
-            ]);
+            return $this->render('ins-img',$ins_data);
         } else if ($model->type == InsProcess::TYPE_AUTO){
-            return $this->render('ins-auto');
+            $ins_info = $model->insInfo();
+
+            return $this->render('ins-auto',array_merge($ins_data, [
+                'back_word' => $ins_cfg['back_word'],
+                'ins_info' => $ins_info,
+                'dead_list' => $model->deads(),
+                'cases' => $cases,
+                'is_god' => false,
+            ]));
         }
     }
 

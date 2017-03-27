@@ -104,4 +104,19 @@ class BackController extends \app\core\web\Controller
         $model = $this->findModel($id);
         return $model->del();
     }
+
+    public function success($msg="恭喜！操作成功！", $url = '' ,$sec = 3){  
+        if ($url) {
+            $url = \yii\helpers\Url::toRoute($url);
+        }
+        return $this->renderPartial('@app/core/views/single/backmsg',['message'=>$msg,'gotoUrl'=>$url,'sec'=>$sec]);
+    }
+
+    public function error($msg= '',$url='',$sec = 3){
+        if ($url) {
+            $url = \yii\helpers\Url::toRoute($url);
+        }
+
+        return $this->renderPartial('@app/core/views/single/backmsg',['message'=>$msg,'gotoUrl'=>$url,'sec'=>$sec]);
+    }
 }

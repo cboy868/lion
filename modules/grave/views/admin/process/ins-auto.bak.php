@@ -45,8 +45,6 @@ PluploadAssets::register($this);
 
         <?php 
         	$tomb = Tomb::findOne(Yii::$app->request->get('tomb_id'));
-        	$back = $ins_info['back'];
-        	$front = $ins_info['front'];
          ?>
         <?php if ($tomb->hasIns()): ?>
         	<div class="col-xs-12">
@@ -69,11 +67,11 @@ PluploadAssets::register($this);
 
 
 		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
-			<li role="presentation" class="sel-type" rel="3">
-			  	<a href="<?=Url::current(['type'=>0])?>" role="tab" data-toggle="tab">上传图片</a>
+			<li role="presentation" class="<?php if ($model->type == 0): ?>active <?php endif ?> sel-type" rel="3">
+			  	<a href="#img-ins-boxs" role="tab" data-toggle="tab">上传图片</a>
 			</li>
-		  <li role="presentation" class="active sel-type" rel="1">
-		  	<a href="<?=Url::current(['type'=>1])?>" role="tab" data-toggle="tab">自动碑文</a>
+		  <li role="presentation" class="<?php if ($model->type == 1): ?>active <?php endif ?> sel-type" rel="1">
+		  	<a href="#auto-ins-boxs" role="tab" data-toggle="tab">自动碑文</a>
 		  </li>
 		  
 		</ul>
@@ -82,194 +80,233 @@ PluploadAssets::register($this);
 			<div class="row" role="">
 				<?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'tab-content form-horizontal']]); ?>
 				<!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
-					<div class="col-xs-12">
-						<div id="select-ins" class="collapse">
+					<div id="auto-ins-boxs" class="tab-pane <?php if ($model->type == 1): ?>active <?php endif ?>" role="tabpanel">
+						<div class="col-xs-12">
+							<div id="select-ins" class="collapse">
 
-	                        <div class="row-fluid ">
-	                            <div class="panel panel-default">
-	                                <div class="panel-heading">&nbsp;
-	                                    碑前文 <span style="font-size:11px;color:red;">此功能只适用于常规碑文，如果碑文排版过于特殊，请使用图片上传方式保存碑文</span>
-	                                </div>
-	                                <div class="panel-body front_images">
-	                                <?php foreach ($cases['front_cases'] as $case): ?>
-	                                	<div style="float:left;" class="ins_image">
-                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
-                                            <div class="caption">
-                                                <h5><?=$case['note']?>
-								        	<span class="sel_style">
-
-								        	<?php if ($case['id'] == $cases['front_current_case_id']): ?>
-								        		(<i class="red fa fa-check fa-2"></i>)
-								        	<?php endif ?>
-								        	</span>
-                                                </h5>
-                                            </div>
-                                        </div>
-	                                <?php endforeach ?>
-	                                </div>
-	                            </div>
-	                        </div><!-- PAGE CONTENT ENDS -->
-
-	                        <div class="row-fluid">
-	                            <div class="panel panel-default">
-	                                <div class="panel-heading">&nbsp;
-	                                    碑后文
-	                                </div>
-	                                <div class="panel-body back_images">
-	                                	 <?php foreach ($cases['back_cases'] as $case): ?>
-	                                        <div style="float:left;">
-	                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
+		                        <div class="row-fluid ">
+		                            <div class="panel panel-default">
+		                                <div class="panel-heading">&nbsp;
+		                                    碑前文 <span style="font-size:11px;color:red;">此功能只适用于常规碑文，如果碑文排版过于特殊，请使用图片上传方式保存碑文</span>
+		                                </div>
+		                                <div class="panel-body front_images">
+		                                <?php foreach ($cases['front_cases'] as $case): ?>
+		                                	<div style="float:left;" class="ins_image">
+	                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
 	                                            <div class="caption">
 	                                                <h5><?=$case['note']?>
 									        	<span class="sel_style">
-										        	<?php if ($case['id'] == $cases['back_current_case_id']): ?>
-										        		(<i class="red fa fa-check fa-2"></i>)
-										        	<?php endif ?>
-										        </span>
+
+									        	<?php if ($case['id'] == $cases['front_current_case_id']): ?>
+									        		(<i class="red fa fa-check fa-2"></i>)
+									        	<?php endif ?>
+									        	</span>
 	                                                </h5>
 	                                            </div>
 	                                        </div>
-	                                    <?php endforeach ?>
+		                                <?php endforeach ?>
+		                                </div>
+		                            </div>
+		                        </div><!-- PAGE CONTENT ENDS -->
 
-	                                </div>
+		                        <div class="row-fluid">
+		                            <div class="panel panel-default">
+		                                <div class="panel-heading">&nbsp;
+		                                    碑后文
+		                                </div>
+		                                <div class="panel-body back_images">
+		                                	 <?php foreach ($cases['back_cases'] as $case): ?>
+		                                        <div style="float:left;">
+		                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
+		                                            <div class="caption">
+		                                                <h5><?=$case['note']?>
+										        	<span class="sel_style">
+											        	<?php if ($case['id'] == $cases['back_current_case_id']): ?>
+											        		(<i class="red fa fa-check fa-2"></i>)
+											        	<?php endif ?>
+											        </span>
+		                                                </h5>
+		                                            </div>
+		                                        </div>
+		                                    <?php endforeach ?>
 
-	                            </div>
-	                        </div><!-- PAGE CONTENT ENDS -->
+		                                </div>
 
-	                         <div class="row-fluid">
-	                            <div class="panel panel-default">
-	                                <div class="panel-heading">&nbsp;
-	                                    盖板
-	                                </div>
-	                                <div class="panel-body back_images">
-	                                	 <?php foreach ($cases['cover_cases'] as $case): ?>
-	                                        <div style="float:left;">
-	                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['cover_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
-	                                            <div class="caption">
-	                                                <h5><?=$case['note']?>
-									        	<span class="sel_style">
-										        	<?php if ($case['id'] == $cases['cover_current_case_id']): ?>
-										        		(<i class="red fa fa-check fa-2"></i>)
-										        	<?php endif ?>
-										        </span>
-	                                                </h5>
-	                                            </div>
-	                                        </div>
-	                                    <?php endforeach ?>
+		                            </div>
+		                        </div><!-- PAGE CONTENT ENDS -->
 
-	                                </div>
+		                         <!-- <div class="row-fluid">
+		                            <div class="panel panel-default">
+		                                <div class="panel-heading">&nbsp;
+		                                    盖板
+		                                </div>
+		                                <div class="panel-body back_images">
+		                                	 <?php foreach ($cases['cover_cases'] as $case): ?>
+		                                        <div style="float:left;">
+		                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['cover_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
+		                                            <div class="caption">
+		                                                <h5><?=$case['note']?>
+										        	<span class="sel_style">
+											        	<?php if ($case['id'] == $cases['cover_current_case_id']): ?>
+											        		(<i class="red fa fa-check fa-2"></i>)
+											        	<?php endif ?>
+											        </span>
+		                                                </h5>
+		                                            </div>
+		                                        </div>
+		                                    <?php endforeach ?>
 
-	                            </div>
-	                        </div>
-	                        <!-- PAGE CONTENT ENDS -->
-						<!-- PAGE CONTENT ENDS -->
+		                                </div>
+
+		                            </div>
+		                        </div> -->
+		                        <!-- PAGE CONTENT ENDS -->
+							<!-- PAGE CONTENT ENDS -->
+							</div>
 						</div>
-					</div>
-					<div class="clearfix"></div>
+						<div class="clearfix"></div>
 
-					<div class="col-xs-12">
-						<div class="panel panel-default ">
-				          <div class="panel-heading">&nbsp;
-				          	<span>
-				          		<a  href="javascript:;" class="" data-toggle="collapse" data-target="#select-ins">
-	                              选择碑文样式
-	                            </a>
-				          	</span>
-	                          <?php if(!$model['is_stand']):?>
-	                            <span class="pull-right">繁体简体
-	                                <select name="is_tc" id="is_tc">
-	                                    <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
-	                                    <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
-	                                </select>
-	                            </span>
+						<div class="col-xs-12">
+							<div class="panel panel-default ">
+					          <div class="panel-heading">&nbsp;
+					          	<span>
+					          		<a  href="javascript:;" class="" data-toggle="collapse" data-target="#select-ins">
+		                              选择碑文样式
+		                            </a>
+					          	</span>
+		                          <?php if(!$model['is_stand']):?>
+		                            <span class="pull-right">繁体简体
+		                                <select name="is_tc" id="is_tc">
+		                                    <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
+		                                    <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
+		                                </select>
+		                            </span>
 
-	                            <span class="pull-right">字体
-	                                <select name="font_style" id="font_style">
-	                                    <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
-	                                    <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
-	                                    <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
-	                                </select>
-	                            </span>
-	                          <?php else:?>
-		                          <input type="hidden" name="is_tc" value="<?=$model->is_tc?>"/>
-		                          <input type="hidden" name="font" value="<?=$model->font?>"/>
-	                          <?php endif;?>
-				        	
-				            <span class="pull-right">碑后文字&nbsp;
-					            <select name="text" id="selectback">
-					                <option>点此更换碑后文</option>
-					                <?php foreach ($back_word as $v): ?>
-					                	<option value="<?=$v?>"><?=$v?></option>
-					                <?php endforeach ?>
-					            </select>
-				            </span>
-				          </div>
+		                            <span class="pull-right">字体
+		                                <select name="font_style" id="font_style">
+		                                    <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
+		                                    <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
+		                                    <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
+		                                </select>
+		                            </span>
+		                          <?php else:?>
+			                          <input type="hidden" name="is_tc" value="<?=$model->is_tc?>"/>
+			                          <input type="hidden" name="font" value="<?=$model->font?>"/>
+		                          <?php endif;?>
+					        	
+					            <span class="pull-right">碑后文字&nbsp;
+						            <select name="text" id="selectback">
+						                <option>点此更换碑后文</option>
+						                <?php foreach ($back_word as $v): ?>
+						                	<option value="<?=$v?>"><?=$v?></option>
+						                <?php endforeach ?>
+						            </select>
+					            </span>
+					          </div>
 
-				        <div id="front_prices" style="display:none;"></div>
-		                <div id="back_prices" style="display:none;"></div>
+					        <div id="front_prices" style="display:none;"></div>
+			                <div id="back_prices" style="display:none;"></div>
 
-				          <div class="panel-body">
-						    <div class="row">
-								<div class="col-xs-2">
-									<div class="panel panel-default">
-									  <div class="panel-heading">修改碑文内容</div>
-									  <div class="panel-body btn-group-vertical">
-									    <button type="button" class="btn btn-default" id="edit_front" data-toggle="modal" data-target="#ins_front">
-										  修改正面
-										</button>
-										<button type="button" class="btn btn-default" id="edit_back" data-toggle="modal" data-target="#ins_back">
-										  修改背面
-										</button>
-										
-									  </div>
+					          <div class="panel-body">
+							    <div class="row">
+									<div class="col-xs-2">
+										<div class="panel panel-default">
+										  <div class="panel-heading">修改碑文内容</div>
+										  <div class="panel-body btn-group-vertical">
+										    <button type="button" class="btn btn-default" id="edit_front" data-toggle="modal" data-target="#ins_front">
+											  修改正面
+											</button>
+											<button type="button" class="btn btn-default" id="edit_back" data-toggle="modal" data-target="#ins_back">
+											  修改背面
+											</button>
+											
+										  </div>
+										</div>
+									</div>
+									<div class="col-xs-10">
+										<div class="row">
+											<div class="col-sm-6 col-md-5">
+											    <div class="thumbnail">
+		                                            <a href="<?=$model->getImg('front')?>" class="artimg ">
+		                                              <img class="front_img image" src="<?=$model->getImg('front')?>" alt="...">
+		                                              <input type="hidden" name="front_img" />
+		                                            </a>
+											      <div class="caption">
+											        <h3>碑前文</h3>
+											        <p> 大字<i class='front_big_count'>0</i> 小字<i class='front_small_count'>0</i>&nbsp;
+		                                                <span class="label_kezi">
+								                       刻字费<i class='front_letter_price'>0</i>元&nbsp;
+								                       颜料费<i class='front_paint_price'>0</i>元&nbsp;
+		                                                </span>
+		                                            </p>
+											      </div>
+											    </div>
+											</div>
+											<div class="col-sm-6 col-md-5">
+											    <div class="thumbnail">
+											    	<a href="<?=$model->getImg('back')?>" class="artimg">
+												      <img class="back_img image" src="<?=$model->getImg('back')?>" alt="...">
+												      <input type="hidden" name="back_img" />
+												  </a>
+											      <div class="caption">
+											        <h3>碑后文</h3>
+											        <p> 大字<i class='back_big_count'>0</i> 小字<i class='back_small_count'>0</i>&nbsp;
+		                                                <span class="label_kezi">
+								                       刻字费<i class='back_letter_price'>0</i>元&nbsp;
+								                       颜料费<i class='back_paint_price'>0</i>元&nbsp;
+		                                                </span>
+		                                            </p>
+
+											        
+											      </div>
+											    </div>
+											</div>
+											
+										</div>
 									</div>
 								</div>
-								<div class="col-xs-10">
-									<div class="row">
-										<div class="col-sm-6 col-md-5">
-										    <div class="thumbnail">
-	                                            <a href="<?=$model->getImg('front')?>" class="artimg ">
-	                                              <img class="front_img image" src="<?=$model->getImg('front')?>" alt="...">
-	                                              <input type="hidden" name="front_img" />
-	                                            </a>
-										      <div class="caption">
-										        <h3>碑前文</h3>
-										        <p> 大字<i class='front_big_count'>0</i> 小字<i class='front_small_count'>0</i>&nbsp;
-	                                                <span class="label_kezi">
-							                       刻字费<i class='front_letter_price'>0</i>元&nbsp;
-							                       颜料费<i class='front_paint_price'>0</i>元&nbsp;
-	                                                </span>
-	                                            </p>
-										      </div>
-										    </div>
-										</div>
-										<div class="col-sm-6 col-md-5">
-										    <div class="thumbnail">
-										    	<a href="<?=$model->getImg('back')?>" class="artimg">
-											      <img class="back_img image" src="<?=$model->getImg('back')?>" alt="...">
-											      <input type="hidden" name="back_img" />
-											  </a>
-										      <div class="caption">
-										        <h3>碑后文</h3>
-										        <p> 大字<i class='back_big_count'>0</i> 小字<i class='back_small_count'>0</i>&nbsp;
-	                                                <span class="label_kezi">
-							                       刻字费<i class='back_letter_price'>0</i>元&nbsp;
-							                       颜料费<i class='back_paint_price'>0</i>元&nbsp;
-	                                                </span>
-	                                            </p>
+							  </div>
+					        </div>
+						</div> 
+					</div> <!--form 里第一个 div auto-->
 
-										        
-										      </div>
-										    </div>
-										</div>
-										
-									</div>
+					<!-- 手动上传图片 -->
+
+					<div id="img-ins-boxs" class=" tab-pane <?php if ($model->type == 0): ?>active <?php endif ?>" role="tabpanel">
+						<div class="col-xs-12">
+							<div class="panel panel-default">
+					  			<div class="panel-body  form-horizontal" role="form">
+					  				<div class="row">
+
+					  					<?php foreach ($pos as $k => $v): ?>
+							                <div class="col-xs-4 address-index">
+							                    <div class="panel panel-info">
+							                        <div class="dHandler panel-heading"><?=$pos[$k]?>信息 
+							                            <button type="button" class="delit close" style="display:none;">
+							                               <span class="text-danger" aria-hidden="true"> <i class="fa fa-times"></i> </span>
+							                               <span class="sr-only">Close</span>
+							                            </button> 
+							                        </div>
+
+							                         <a href="javascript:;" id="filePicker-<?=$k?>" class="thumbnail filelist-<?=$k?> filePicker" 
+							                         		style="max-width:380px;max-height:280px;"
+									                        data-url="<?=Url::toRoute(["pl-upload"])?>" 
+									                        data-res_name="tomb"
+									                        data-use="thumb"
+							                         		>
+							                              <img src="<?=$model->getImg($k)?>">
+							                              <input name="Ins[img][<?=$k?>]" class="ins-img" type="hidden" value="<?=isset($imgs->$k)? $imgs->$k : ''?>" />
+							                        </a>
+							                    </div>
+							                    <div class="hr hr-18 dotted hr-double"></div>
+							                </div><!-- /.col -->
+							            <?php endforeach ?>
+					  				</div>
 								</div>
 							</div>
-						  </div>
-				        </div>
-					</div> 
-
+						</div>
+					</div>
+					<!--form 里第二个 div img-->
 
 					<div class="col-xs-12">
 						<div class="panel panel-default">
@@ -283,8 +320,8 @@ PluploadAssets::register($this);
 				  				<div class="col-xs-6">
 				  					<?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%']) ?>
 				  					<?php //echo $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num'])->label('总字数') ?>
-				  					<?= $form->field($model, 'new_big_num')->textInput(['style'=>'width:70%', 'id'=>'big_new'])->label('大字') ?>
-				  					<?= $form->field($model, 'new_small_num')->textInput(['style'=>'width:70%', 'id'=>'small_new'])->label('小字') ?>
+				  					<?= $form->field($model, 'big_new')->textInput(['style'=>'width:70%', 'id'=>'big_new'])->label('大字') ?>
+				  					<?= $form->field($model, 'small_new')->textInput(['style'=>'width:70%', 'id'=>'small_new'])->label('小字') ?>
                                     <?= $form->field($model, 'paint_price')->textInput(['style'=>'width:70%', 'id'=>'paint_price']) ?>
                                     <?= $form->field($model, 'letter_price')->textInput(['style'=>'width:70%', 'id'=>'letter_price']) ?>
                                     <?= $form->field($model, 'tc_price')->textInput(['style'=>'width:70%', 'id'=>'tc_price']) ?>
@@ -292,8 +329,8 @@ PluploadAssets::register($this);
                                     <?= $form->field($model, 'pre_finish')->textInput([
                                         'style'=>'width:70%', 
                                         'dt'=>'true', 
-                                        'dt-year' => 'true',
-                                        'dt-month' =>'true',
+                                        'y-chante' => 'true',
+                                        'm-change' =>'true',
                                         'class'=>'dt_pre_finished'
                                         ])->hint('立碑日期在三天内，需收加急费') ?>
 				  				</div>
@@ -481,12 +518,15 @@ PluploadAssets::register($this);
 				<input type="hidden" name="tomb_id" value="<?=$model->tomb_id?>" />
 				<input type="hidden" name="type" value="<?=$model->type?>" />
 
-				<input type="hidden" name="big_num" value="0" />
-				<input type="hidden" name="small_num" value="0" />
+				<input type="hidden" name="font_num" value="0" />
 
 				<input type="hidden" name="front_case" value="" />
 				<input type="hidden" name="back_case" value="" />
 				<input type="hidden" name="cover_case" value="" />
+
+				<input type="hidden" class="per_price"/>
+
+				<input type="hidden" class="is_second"/>
 
 				<div class="cache"></div>
 
@@ -601,6 +641,9 @@ $(function(){
 		auto(insContainer, changed);
 	};
 
+	if (ins_type==0) {
+		//img(insContainer);
+	};
 
     $('.is_created').change(function(){
         var is_created = $(this).val();
@@ -784,7 +827,17 @@ $(function(){
     });
 })
 
-
+function uploadSuc(file, serverData) {
+		var progress = new FileProgress(file,  this.customSettings.upload_target);
+        serverData = eval('('+serverData+')');
+		if (serverData.status === 200) {
+            var id = serverData.data.container_id;
+            $('#'+id+' img').attr('src',serverData.data.path);
+            $('#'+id+' input').val(serverData.data.id);
+			progress.setStatus("Thumbnail Created.");
+			progress.toggleCancel(false);
+        }
+}
 	
 
 function getImage(cla){

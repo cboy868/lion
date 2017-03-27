@@ -62,7 +62,7 @@ class InsProcess extends Ins
         $content = $this->ins_info['front'];
 
         $dead_keys = array('title', 'name', 'birth', 'fete', 'age','follow', 'second_name');
-        $dead_list = $this->getDead();
+        $dead_list = $this->deads();
 
 
         foreach ($dead_list as $k => $v) {
@@ -127,7 +127,7 @@ class InsProcess extends Ins
         }
 
         // $current = $this->getFrontContent();
-        $deads = $this->getDead();
+        $deads = $this->deads();
                          
         $info = array(
             'honorific' =>[['content'=>$honorific]],
@@ -322,7 +322,7 @@ class InsProcess extends Ins
 
         $current_ins_info= $ins_info['front'];
 
-        $deads = $this->getDead();
+        $deads = $this->deads();
 
         if (empty($current_ins_info)) {return $this->initFront();}
 
@@ -437,14 +437,14 @@ class InsProcess extends Ins
      * 
      * 取碑文整体信息
      */
-    public function getInsInfo(){
+    public function insInfo(){
 
         if ($this->type === self::TYPE_IMG || $this->type === self::TYPE_FREE) {
             return $this;
         }
         $ins_info = (array)json_decode($this->content, true);
 
-        if (empty($ins_info['front'])) {
+        if (!isset($ins_info['front']) || empty($ins_info['front'])) {
 
             $this->initFront();
             $this->initBack();
@@ -848,26 +848,7 @@ class InsProcess extends Ins
         }unset($v);
         return $data;
     }
-    /**
-     * @name 取使用人数量
-     */
-    public function getDead()
-    {
-        return Dead::find()->where(['tomb_id'=>$this->tomb_id])
-                           ->andWhere(['status'=>Dead::STATUS_NORMAL])
-                           ->indexBy('id')
-                           ->asArray()
-                           ->all();
 
-    }
-
-    /**
-     * @name 取使用人数量
-     */
-    public function getDeadCount($ext_follow = true){
-
-        return count($this->getDead());
-    }
 
     public function order()
     {
@@ -935,7 +916,6 @@ class InsProcess extends Ins
     }
 
 
-
     
     public function getDeadTitle($title){
         $conf = Yii::$app->controller->module->params['ins']['ins_title'];
@@ -954,7 +934,7 @@ class InsProcess extends Ins
         
         $dead_list = $this->ins_info['dead'];
 
-        $dead_list = $this->getDead();
+        $dead_list = $this->deads();
 
 
         foreach($dead_list as $k=>$v) {
@@ -976,8 +956,6 @@ class InsProcess extends Ins
         }
         return $honorific;
     }
-
-
 
 
 
@@ -1012,7 +990,7 @@ class InsProcess extends Ins
         }
 
 
-        $num = $this->getDeadCount();
+        $num = $this->deadCount();
 
         $front_filter = [
             'cfg_id' => isset($cfg_info[1])? $cfg_info[1] : [],

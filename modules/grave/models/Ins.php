@@ -173,6 +173,27 @@ class Ins extends \app\core\db\ActiveRecord
         return $cfg[$pos];
     }
 
+        /**
+     * @name 取使用人
+     */
+    public function deads()
+    {
+        return Dead::find()->where(['tomb_id'=>$this->tomb_id])
+                           ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                           ->indexBy('id')
+                           ->asArray()
+                           ->all();
+
+    }
+
+    /**
+     * @name 取使用人数量
+     */
+    public function deadCount($ext_follow = true){
+
+        return count($this->deads());
+    }
+
     
 
     /**

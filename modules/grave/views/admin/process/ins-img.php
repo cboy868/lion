@@ -67,20 +67,18 @@ PluploadAssets::register($this);
 
 
 		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
-			<li role="presentation" class="<?php if ($model->type == 0): ?>active <?php endif ?> sel-type" rel="3">
-			  	<a href="#img-ins-boxs" role="tab" data-toggle="tab">上传图片</a>
+			<li role="presentation" class="active sel-type" rel="3">
+			  	<a href="<?=Url::current(['type'=>0])?>">上传图片</a>
 			</li>
-		  <li role="presentation" class="<?php if ($model->type == 1): ?>active <?php endif ?> sel-type" rel="1">
-		  	<a href="#auto-ins-boxs" role="tab" data-toggle="tab">自动碑文</a>
+		  <li role="presentation" class="sel-type" rel="1">
+		  		<a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
 		  </li>
 		  
 		</ul>
 
 		<!-- Tab panes -->
 			<div class="row" role="">
-				<?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'tab-content form-horizontal']]); ?>
-				<!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
-					<!-- 手动上传图片 -->
+				<?php $form = ActiveForm::begin(['id'=>'img-ins-form', 'options'=>['class'=> 'tab-content form-horizontal']]); ?>
 
 					<div id="img-ins-boxs" class=" tab-pane <?php if ($model->type == 0): ?>active <?php endif ?>" role="tabpanel">
 						<div class="col-xs-12">
@@ -104,7 +102,7 @@ PluploadAssets::register($this);
 									                        data-res_name="tomb"
 									                        data-use="thumb"
 							                         		>
-							                              <img src="<?=$model->getImg($k, '/static/images/up.png')?>">
+							                              <img src="<?=$model->getImg($k, '/static/images/up.png')?>" style="max-width:380px;max-height:280px;">
 							                              <input name="Ins[img][<?=$k?>]" class="ins-img" type="hidden" value="<?=isset($imgs->$k)? $imgs->$k : ''?>" />
 							                        </a>
 							                    </div>
@@ -127,7 +125,7 @@ PluploadAssets::register($this);
             				$form->fieldConfig['template'] = '{label}<div class="col-sm-9">{input}{hint}{error}</div>'; 
 				  			 ?>
 				  				<div class="col-xs-6">
-				  					<?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%', 'class'=>'paint']) ?>
+				  					<?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%', 'class'=>'paint form-control']) ?>
 				  					<?php //echo $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num'])->label('总字数') ?>
 				  					<?= $form->field($model, 'new_big_num')->textInput(['style'=>'width:70%', 'id'=>'big_new'])->label('大字') ?>
 				  					<?= $form->field($model, 'new_small_num')->textInput(['style'=>'width:70%', 'id'=>'small_new'])->label('小字') ?>
@@ -179,21 +177,8 @@ PluploadAssets::register($this);
 
 				<input type="hidden" name="tomb_id" value="<?=$model->tomb_id?>" />
 
-				<input type="hidden" name="big_num" value="<?=$model->big_num?>" />
-				<input type="hidden" name="small_num" value="<?=$model->small_num?>" />
-
-				<input type="hidden" name="front_case" value="" />
-				<input type="hidden" name="back_case" value="" />
-				<input type="hidden" name="cover_case" value="" />
-
-				<input type="hidden" class="per_price"/>
-
-				<input type="hidden" class="is_second"/>
-
-				<div class="cache"></div>
 
 		        <div class="text-center cols-md-12">
-
 		         <div class="form-group">
 		            <div class="col-sm-12" style="text-align:center;">   
 		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
@@ -253,7 +238,6 @@ $(function(){
 		calFee();
 	});
 })
-
 
 
 <?php $this->endBlock() ?>  
