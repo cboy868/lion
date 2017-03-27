@@ -1,3 +1,8 @@
+<?php 
+
+\app\assets\AppAsset::register($this);
+
+?>
 <!DOCTYPE html>  
 <html>  
 <head>  
@@ -5,18 +10,19 @@
   <title>跳转中</title>  
   <style>  
       .buffer{  
-            background-color: black;  
-            height: 100%;  
-            width: 60%;  
+            /*background-color: black;  */
+            /*height: 100%;  */
+            /*width: 60%;  */
             margin: auto;  
             filter: alpha(Opacity=60);  
             -moz-opacity: 0.6;  
             opacity: 0.85;  
             border-radius: 7px;  
+            margin-top: 50px;
         }  
   
         .buffer_tip{  
-          color: wheat;  
+          color: #333;  
           font-size: 30px;  
           display: block;  
           padding-top: 10px;  
@@ -82,7 +88,6 @@
   </style>  
 </head>  
 <body>  
-  
 <div class='buffer' id='buffer' >  
         <span class='buffer_tip' id='buffer_tip' >  
         <php>  
@@ -99,7 +104,6 @@
           <div class="cube2"></div>  
         </div>  
 </div>  
-  
 <script type="text/javascript">  
 (function(){  
 var wait = document.getElementById('wait'),href = "<?=$gotoUrl?>";  
@@ -108,9 +112,9 @@ var interval = setInterval(function(){
         if(time <= 0) {  
 
                 if (href) {
-                    location.href = href;  
+                   location.href = href;  
                 } else {
-                    history.go(-1);
+                   history.go(-1);
                 }
                 clearInterval(interval);  
         };  
@@ -119,3 +123,6 @@ var interval = setInterval(function(){
 </script>  
 </body>  
 </html>  
+
+
+

@@ -86,11 +86,7 @@ class BackController extends \app\core\web\Controller
         $short_controller = substr($controller->id, strpos($controller->id, '/')+1);
 
         $item = implode('/', [$module, $short_controller, $action]);
-
-        // p($item);die;
-
         return Yii::$app->user->can($item);
-        // p(Yii::$app->user->id);die;
     }
 
     public function drop($id)
@@ -106,17 +102,20 @@ class BackController extends \app\core\web\Controller
     }
 
     public function success($msg="恭喜！操作成功！", $url = '' ,$sec = 3){  
+
+        $this->layout = "@app/core/views/layouts/single.php";
         if ($url) {
             $url = \yii\helpers\Url::toRoute($url);
         }
-        return $this->renderPartial('@app/core/views/single/backmsg',['message'=>$msg,'gotoUrl'=>$url,'sec'=>$sec]);
+        return $this->render('@app/core/views/single/backmsg',['message'=>$msg,'gotoUrl'=>$url,'sec'=>$sec]);
     }
 
     public function error($msg= '',$url='',$sec = 3){
+        $this->layout = "@app/core/views/layouts/single.php";
         if ($url) {
             $url = \yii\helpers\Url::toRoute($url);
         }
 
-        return $this->renderPartial('@app/core/views/single/backmsg',['message'=>$msg,'gotoUrl'=>$url,'sec'=>$sec]);
+        return $this->render('@app/core/views/single/backmsg',['message'=>$msg,'gotoUrl'=>$url,'sec'=>$sec]);
     }
 }
