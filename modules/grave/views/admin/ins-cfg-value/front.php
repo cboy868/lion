@@ -46,7 +46,7 @@ input, select {
                 <hr>
                 <?php
                     foreach($fields['fields'] as $key => $field):
-                    if(count($cfgs[$key])>1):
+                    if( isset($cfgs[$key]) && count($cfgs[$key])>1):
                         $ij = 0;
                         foreach($cfgs[$key] as $ck=>$cfg):
                 ?>
@@ -100,32 +100,32 @@ input, select {
 	                  <label class="col-sm-2 control-label no-padding-right"><?=$field?></label>
 	                  <div class="col-sm-10">
 	                    <span class="">
-	                        <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[<?=$key?>][1][size]" value="<?=$cfgs[$key][1]['size']?>">
+	                        <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[<?=$key?>][1][size]" value="<?=isset($cfgs[$key][1]['size']) ? $cfgs[$key][1]['size'] :''?>">
 	                    </span>
 	                    <span class="">
-	                        <input type="text" class="input-mini x" placeholder="x" name="tpl[<?=$key?>][1][x]" value="<?=$cfgs[$key][1]['x']?>">
+	                        <input type="text" class="input-mini x" placeholder="x" name="tpl[<?=$key?>][1][x]" value="<?=isset($cfgs[$key][1]['x']) ? $cfgs[$key][1]['x'] : '' ?>">
 	                    </span>
 	                    <span class="">
-	                        <input type="text" class="input-mini y" placeholder="y" name="tpl[<?=$key?>][1][y]" value="<?=$cfgs[$key][1]['y']?>">
+	                        <input type="text" class="input-mini y" placeholder="y" name="tpl[<?=$key?>][1][y]" value="<?=isset($cfgs[$key][1]['y']) ? $cfgs[$key][1]['y'] : '' ?>">
 	                    </span>
                           <!--
 	                    <span class="">
-	                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[<?=$key?>][1][color]"   value="<?=$cfgs[$key][1]['color']?>">
+	                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[<?=$key?>][1][color]"   value="<?=isset($cfgs[$key][1]['color'])?$cfgs[$key][1]['color'] :''?>">
 	                    </span>
                         -->
 	                    <span class="">
                     	<label>
-                    	<input name="tpl[<?=$key?>][1][direction]" type="checkbox" value="1" <?php if($cfgs[$key][1]['direction'] == 1) echo 'checked'; ?>>反向
+                    	<input name="tpl[<?=$key?>][1][direction]" type="checkbox" value="1" <?php if(isset($cfgs[$key][1]['direction']) && $cfgs[$key][1]['direction'] == 1) echo 'checked'; ?>>反向
                     	</label>
 	                    </span>
 	                    <span class="">
 	                    	<label>
-	                    	<input name="tpl[<?=$key?>][1][is_big]" type="checkbox" value="1" <?php if($cfgs[$key][1]['is_big'] == 1) echo 'checked'; ?>>大字
+	                    	<input name="tpl[<?=$key?>][1][is_big]" type="checkbox" value="1" <?php if(isset($cfgs[$key][1]['is_big']) && $cfgs[$key][1]['is_big'] == 1) echo 'checked'; ?>>大字
 	                    	</label>
 	                    </span>
 
 	                    <span class="">
-	                        <input type="text" class="input-sm" placeholder="测试值" style="width:100px;" name="tpl[<?=$key?>][1][value]" value="<?=$cfgs[$key][1]['text']?>">
+	                        <input type="text" class="input-sm" placeholder="测试值" style="width:100px;" name="tpl[<?=$key?>][1][value]" value="<?=isset($cfgs[$key][1]['text'])? $cfgs[$key][1]['text'] : ''?>">
 	                    </span>
 
 	                    
@@ -145,23 +145,23 @@ input, select {
                   <label class="col-sm-2 control-label no-padding-right"><?=$dead?></label>
                   <div class="col-sm-10">
                     <span class="">
-                        <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[<?=$key?>][<?=$i?>][size]" value="<?=$cfgs[$key][$i]['size']?>">
+                        <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[<?=$key?>][<?=$i?>][size]" value="<?=isset($cfgs[$key][$i]['size']) ? $cfgs[$key][$i]['size'] : ''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-mini x" placeholder="x" name="tpl[<?=$key?>][<?=$i?>][x]"  value="<?=$cfgs[$key][$i]['x']?>">
+                        <input type="text" class="input-mini x" placeholder="x" name="tpl[<?=$key?>][<?=$i?>][x]"  value="<?=isset($cfgs[$key][$i]['x']) ? $cfgs[$key][$i]['x'] : ''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-mini y" placeholder="y" name="tpl[<?=$key?>][<?=$i?>][y]"  value="<?=$cfgs[$key][$i]['y']?>">
+                        <input type="text" class="input-mini y" placeholder="y" name="tpl[<?=$key?>][<?=$i?>][y]"  value="<?=isset($cfgs[$key][$i]['y']) ? $cfgs[$key][$i]['y'] : ''?>">
                     </span>
 
                     <span class="">
                     	<label>
-                    		<input name="tpl[<?=$key?>][<?=$i?>][is_big]" type="checkbox" value="1" <?php if($cfgs[$key][$i]['is_big'] == 1) echo 'checked'; ?>>大字
+                    		<input name="tpl[<?=$key?>][<?=$i?>][is_big]" type="checkbox" value="1" <?php if(isset($cfgs[$key][$i]['is_big']) ? $cfgs[$key][$i]['is_big'] : '' == 1) echo 'checked'; ?>>大字
                     	</label>
                     </span>
                     
                     <span class="">
-                        <input type="text" class="input-sm" placeholder="测试值" style="width:100px;" name="tpl[<?=$key?>][<?=$i?>][value]" value="<?=$cfgs[$key][$i]['text']?>">
+                        <input type="text" class="input-sm" placeholder="测试值" style="width:100px;" name="tpl[<?=$key?>][<?=$i?>][value]" value="<?=isset($cfgs[$key][$i]['text']) ? $cfgs[$key][$i]['text'] : ''?>">
                     </span>
 
                     

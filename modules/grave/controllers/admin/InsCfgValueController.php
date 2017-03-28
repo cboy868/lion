@@ -110,8 +110,8 @@ class InsCfgValueController extends BackController
                         'y' => $val['y'],
                         'size' => $val['size'],
                         'text' => $val['value'],
-                        'color'=> $val['color'] ? $val['color'] : '#000000',
-                        'direction'=> $val['direction'] ? $val['direction'] : 0,
+                        'color'=> isset($val['color']) ? $val['color'] : '#000000',
+                        'direction'=> isset($val['direction']) ? $val['direction'] : 0,
                         'is_big' => isset($val['is_big'])? $val['is_big'] : 0
                         // 'add_time' => time()
                 );
@@ -143,7 +143,6 @@ class InsCfgValueController extends BackController
 
         }
 
-
         $Image = new Images('ins/inscfg');
 
         $tmp_path = trim(Yii::$app->request->post('imgpath'),'/');
@@ -159,6 +158,7 @@ class InsCfgValueController extends BackController
         $model->load(['img'=>$url] + $com, '');
 
         $model->save();
+
 
         return true;
     }
@@ -233,8 +233,8 @@ class InsCfgValueController extends BackController
                     'y' => $val['y'],
                     'size' => $val['size'],
                     'text' => $val['value'],
-                    'color'=> $val['color'],
-                    'direction'=> $val['direction']
+                    'color'=> isset($val['color']) ? $val['color'] : '000000',
+                    'direction'=> isset($val['direction']) ? $val['direction'] : 0
                 );
             }
         }

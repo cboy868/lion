@@ -68,12 +68,12 @@ PluploadAssets::register($this);
         <!-- Nav tabs -->
 
 
-		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
-			<li role="presentation" class="sel-type" rel="3">
-			  	<a href="<?=Url::current(['type'=>0])?>" role="tab" data-toggle="tab">上传图片</a>
+		<ul class="nav nav-tabs col-xs-6">
+			<li role="" class="sel-type" rel="3">
+			  	<a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
 			</li>
-		  <li role="presentation" class="active sel-type" rel="1">
-		  	<a href="<?=Url::current(['type'=>1])?>" role="tab" data-toggle="tab">自动碑文</a>
+		  <li role="" class="active sel-type" rel="1">
+		  	<a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
 		  </li>
 		  
 		</ul>
@@ -136,7 +136,7 @@ PluploadAssets::register($this);
 	                            </div>
 	                        </div><!-- PAGE CONTENT ENDS -->
 
-	                         <div class="row-fluid">
+	                         <!-- <div class="row-fluid">
 	                            <div class="panel panel-default">
 	                                <div class="panel-heading">&nbsp;
 	                                    盖板
@@ -160,7 +160,7 @@ PluploadAssets::register($this);
 	                                </div>
 
 	                            </div>
-	                        </div>
+	                        </div> -->
 	                        <!-- PAGE CONTENT ENDS -->
 						<!-- PAGE CONTENT ENDS -->
 						</div>
@@ -281,7 +281,7 @@ PluploadAssets::register($this);
 
 				  			 ?>
 				  				<div class="col-xs-6">
-				  					<?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%']) ?>
+				  					<?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%', 'class'=>'paint']) ?>
 				  					<?php //echo $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num'])->label('总字数') ?>
 				  					<?= $form->field($model, 'new_big_num')->textInput(['style'=>'width:70%', 'id'=>'big_new'])->label('大字') ?>
 				  					<?= $form->field($model, 'new_small_num')->textInput(['style'=>'width:70%', 'id'=>'small_new'])->label('小字') ?>
@@ -344,45 +344,45 @@ PluploadAssets::register($this);
 							  	<table class="table">
 							  		<tr>
 							  			<td>标签一</td>
-							  			<td><input type="text" name="front[born][content]" class="form-control input-sm" value="<?=$front['born'][0]['content']?>"></td>
+							  			<td><input type="text" name="front[born][content]" class="form-control input-sm" value="<?=isset($front['born'][0]['content']) ? $front['born'][0]['content'] : ''?>"></td>
 							  		</tr>
 
 		                            <tr>
 		                                <td>标签二</td>
-		                                <td><input type="text" name="front[die][content]" class="form-control input-sm" value="<?=$front['die'][0]['content']?>"></td>
+		                                <td><input type="text" name="front[die][content]" class="form-control input-sm" value="<?=isset($front['die'][0]['content']) ? $front['die'][0]['content'] : ''?>"></td>
 		                            </tr>
 
 
 							  		<tr>
 							  			<td>尊称</td>
-							  			<td><input type="text" name="front[honorific][content]" class="form-control input-sm" value="<?=$front['honorific'][0]['content']?>"></td>
+							  			<td><input type="text" name="front[honorific][content]" class="form-control input-sm" value="<?=isset($front['honorific'][0]['content']) ? $front['honorific'][0]['content'] : ''?>"></td>
 							  		</tr>
 
 		                            <tr>
 		                                <td>之墓</td>
-		                                <td><input name="front[tail][content]" type="text" class="form-control input-sm" value="<?=$front['tail'][0]['content']?>"></td>
+		                                <td><input name="front[tail][content]" type="text" class="form-control input-sm" value="<?=isset($front['tail'][0]['content']) ? $front['tail'][0]['content'] : ''?>"></td>
 		                            </tr>
 
 							  		<tr>
-							  			<td>落款</td><td><input type="text" name="front[inscribe][content]" class="form-control input-sm" value="<?= $front['inscribe'][0]['content'] ?>"></td>
+							  			<td>落款</td><td><input type="text" name="front[inscribe][content]" class="form-control input-sm" value="<?= isset($front['inscribe'][0]['content']) ? $front['inscribe'][0]['content'] : '' ?>"></td>
 							  		</tr>
 		                            <tr>
-		                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm" value="<?=$front['inscribe_date'][0]['content']?>"></td>
+		                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm" value="<?=isset($front['inscribe_date'][0]['content']) ? $front['inscribe_date'][0]['content'] : ''?>"></td>
 		                            </tr>
 
 		                            <tr>
-		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=$front['agelabel1'][0]['content']?>"></td>
-		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=$front['agelabel2'][0]['content']?>"></td>
+		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>"></td>
+		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>"></td>
 		                            </tr>
 
 		                            <tr>
-		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=$front['agelabel1'][0]['content']?>"></td>
-		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=$front['agelabel2'][0]['content']?>"></td>
+		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>"></td>
+		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>"></td>
 		                            </tr>
 		                            <tr>
 		                                <?php if($is_god):?>
 		                                <td>圣名标签</td>
-		                                <td><input type="text" name="front[second_name_label][content]" class="form-control input-sm" value="<?=$front['second_name_label'][0]['content']?>"></td>
+		                                <td><input type="text" name="front[second_name_label][content]" class="form-control input-sm" value="<?=isset($front['second_name_label'][0]['content']) ? $front['second_name_label'][0]['content'] : ''?>"></td>
 		                                <?php endif;?>
 		                            </tr>
 							  	</table>
@@ -481,8 +481,8 @@ PluploadAssets::register($this);
 				<input type="hidden" name="tomb_id" value="<?=$model->tomb_id?>" />
 				<input type="hidden" name="type" value="<?=$model->type?>" />
 
-				<input type="hidden" name="big_num" value="0" />
-				<input type="hidden" name="small_num" value="0" />
+				<input type="hidden" name="big_num" value="<?=$model->big_num?>" />
+				<input type="hidden" name="small_num" value="<?=$model->small_num?>" />
 
 				<input type="hidden" name="front_case" value="" />
 				<input type="hidden" name="back_case" value="" />
@@ -495,7 +495,7 @@ PluploadAssets::register($this);
 		         <div class="form-group">
 		            <div class="col-sm-12" style="text-align:center;">   
 		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
-		                <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>
+		                <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg  save-ins', 'style'=>'padding: 10px 36px']) ?>
 		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>下一步</a>
 		            </div>
 		        </div>
@@ -540,6 +540,7 @@ PluploadAssets::register($this);
 <script src="/static/assets/js/colorbox/jquery.colorbox-min.js"></script> -->
 
 <?php $this->beginBlock('up') ?>  
+var fee = eval('(' + '<?=json_encode($fee)?>'+ ')');
 $(function(){
 	var changed = "{$inscription_info.changed}";
 	var insContainer = $('#ins-container');
@@ -553,6 +554,7 @@ $(function(){
         var rel = $(this).attr('rel');
         $('.'+rel).toggle();
     });
+
 
     $('.modifyNote').click(function(){
         var url = '{:U("record/addnote")}';
@@ -727,33 +729,6 @@ $(function(){
             'ins[dt_pre_finished]' : { required: '刻碑日期必填'}
         }
     };
-    //insForm.validate(validSetting);  
-
-	insSaveBtn.click(function(e){
-        e.preventDefault();
-        if (insForm.valid()) {
-            if($('.dt_pre_finished').val()<"{:date('Y-m-d')}"){
-                alert('刻碑日期不可小于今天');
-                return ;
-            }
-
-        	insSaveBtn.button('loading');
-	        insForm.ajaxSubmit({
-	        	dataType : 'json',
-	        	success  : function(xhr, statusText, form) {
-	                if (!xhr.status) {
-	                   alert(xhr.info); 
-	                } else {
-                        alert('保存成功');
-                        location.reload();
-                    }
-
-	                insSaveBtn.button('reset');
-	            }
-	        });
-        };
-        
-    });
 
     $('input[name="ins[dt_pre_finished]"]').change(function(){
         var ur = "{$urgent}";
@@ -761,26 +736,9 @@ $(function(){
     	urgent();
     });
 
-    $(".image").click(function(e) {
-    	 e.preventDefault();
-         var title = $(this).attr('title');
-         $(".artimg").colorbox({
-             rel: 'artimg',
-             maxWidth:'600px',
-             maxHeight:'700px',
-             next:'',
-             previous:'',
-             close:'',
-             current:""
-         });
-     });
-
-    $('#letter_num').change(function(){
-       // getChangePrice();
-    });
 
     $('#big_new, #small_new').change(function(){
-    	reCal();
+    	calFee();
     });
 })
 
@@ -817,13 +775,9 @@ function getImage(cla){
 //取价格
 function getPrice($type){
 
-    if ($type=='back') {
-        var case_id = $('.back_selected').attr('case_id');
-    } else if ($type=='front') {
-        var case_id = $('.front_selected').attr('case_id');
-    } else {
-    	var case_id = $('.cover_selected').attr('case_id');
-    }
+	var front_case = $('.front_selected').attr('case_id');
+	var back_case = $('.back_selected').attr('case_id');
+    
     var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
     var data = $('#auto-ins-form').serialize();
     var date = +new Date();
@@ -832,111 +786,52 @@ function getPrice($type){
 	var cache = $('.cache');
 
     $.post(
-    	url + '?timstr=' + date + '&case_id='+case_id,
+    	url + '?timstr=' + date + '&front_case='+front_case + '&back_case='+back_case,
         data,
         function(json) {
             if(json.status) {
                 var data = json.data;
 
-                if (data.is_front == 1){
 
-                	$('.front_big_count').html(data.big);
-                	$('.front_small_count').html(data.small);
-                	$('.front_letter_price').html(data.letter_big_price + data.letter_small_price);
-                	$('.front_paint_price').html(data.paint_big_price + data.paint_small_price);
-                    $('#tc_price').val(data.tc_fee);
 
-                    cache.data('front_letter_count', (data.big + data.small));
-                    cache.data('front_letter_price', (data.letter_big_price + data.letter_small_price));
-                    cache.data('tc_price', (data.paint_big_price + data.paint_small_price));
-                    cache.data('front_big_new', data.big);
-                    cache.data('front_small_new', data.small);
+				$('.front_big_count').html(data.front.big);
+            	$('.front_small_count').html(data.front.small);
+            	$('.front_letter_price').html(data.front.letter_big_price + data.front.letter_small_price);
+            	$('.front_paint_price').html(data.front.paint_big_price + data.front.paint_small_price);
 
-                    cache.data('per.big_letter', data.per.big_letter);
-                    cache.data('per.small_letter', data.per.small_letter);
-                    cache.data('per.big_paint', data.per.big_paint);
-                    cache.data('per.small_paint', data.per.small_paint);
-                    
-                } else if(data.is_front == 0){
-                	
-                	$('.back_big_count').html(data.big);
-                	$('.back_small_count').html(data.small);
-                	$('.back_letter_price').html(data.letter_big_price + data.letter_small_price);
-                	$('.back_paint_price').html(data.paint_big_price + data.paint_small_price);
 
-                	cache.data('back_letter_count', (data.big + data.small));
-                    cache.data('back_letter_price', (data.letter_big_price+ data.letter_small_price));
-                    cache.data('back_paint_price', (data.paint_big_price + data.paint_small_price));
-                    cache.data('back_big_new', data.big);
-                    cache.data('back_small_new', data.small);
+            	$('.back_big_count').html(data.back.big);
+            	$('.back_small_count').html(data.back.small);
+            	$('.back_letter_price').html(data.back.letter_big_price + data.letter_small_price);
+            	$('.back_paint_price').html(data.back.paint_big_price + data.paint_small_price);
 
-                }
-
-                calPrice()//服务计算
+				$('#letter_price').val(data.total.letter_big_price + data.total.letter_small_price);
+				$('#paint_price').val(data.total.paint_big_price + data.total.paint_small_price);
+				$('#big_new').val(data.back.big + data.front.big);
+				$('#small_new').val(data.back.small + data.front.small);
+				$('#tc_price').val(data.tc_fee);
             }
             
         },'json');
 }
 
-
-function calPrice()
+function calFee()
 {
-	var cache = $('.cache');
+	var big = $('#big_new').val();
+	var small = $('#small_new').val();
+	var paint = $('.paint').val();
 
-	var front_letter_count = cache.data('front_letter_count') || 0;
-	var back_letter_count = cache.data('back_letter_count') || 0;
-
-	var front_letter_price = cache.data('front_letter_price') || 0;
-	var front_paint_price = cache.data('front_paint_price') || 0;
-
-	var back_letter_price = cache.data('back_letter_price') || 0;
-	var back_paint_price = cache.data('back_paint_price') || 0;
-
-	var front_big_count = cache.data('front_big_new') || 0;
-	var back_big_count = cache.data('back_big_new') || 0;
-
-	var front_small_count = cache.data('front_small_new') || 0;
-	var back_small_count = cache.data('back_small_new') || 0;
+	var letter = parseInt(big) * fee.letter.big[paint] + parseInt(small) * fee.letter.small[paint];
+	var paint = parseInt(big) * fee.paint.big[paint] + parseInt(small) * fee.paint.small[paint];
 
 
-	//$('#letter_num').val(front_letter_count + back_letter_count);
-	$('#letter_price').val(front_letter_price + back_letter_price);
-	$('#paint_price').val(front_paint_price + back_paint_price);
-	$('#big_new').val(front_big_count + back_big_count);
-	$('#small_new').val(front_small_count + back_small_count);
-
+	if (!isNaN(letter) && !isNaN(paint)) {
+		$('#letter_price').val(letter);
+		$('#paint_price').val(paint);
+	}
+	
 }
 
-function reCal()
-{
-
-	var cache = $('.cache');
-	var big_letter = cache.data('per.big_letter');
-    var small_letter = cache.data('per.small_letter');
-    var big_paint = cache.data('per.big_paint');
-    var small_paint = cache.data('per.small_paint');
-
-
-    var big_num = $('#big_new').val() || 0;
-    var small_num = $('#small_new').val() || 0;
-
-
-    //var front_big_count = cache.data('front_big_new') || 0;
-	//var back_big_count = cache.data('back_big_new') || 0;
-
-	//var front_small_count = cache.data('front_small_new') || 0;
-	//var back_small_count = cache.data('back_small_new') || 0;
-
-	$('#big_new').val(front_big_count + back_big_count);
-	$('#small_new').val(front_small_count + back_small_count);
-
-    $paint = (parseInt(big_num) * big_paint) + (parseInt(small_num) * small_paint);
-    $letter = (parseInt(big_num) * big_letter) + (parseInt(small_num) * small_letter);
-
-    $('#letter_price').val($letter);
-	$('#paint_price').val($paint);
-
-}
 
 function searchCaseId(){
 	$('input[name=front_case]').val($('.front_selected').attr('case_id'));
@@ -967,7 +862,7 @@ function auto(insContainer, changed){
 		if (changed == 1) {
 			getImage('front_selected');
 			getImage('back_selected');
-			getImage('cover_selected');
+			//getImage('cover_selected');
 		} else {
 			//如果没有图片，就取新图片
 		    if ($('.front_img', insContainer).attr('src') == '#'){
@@ -977,7 +872,7 @@ function auto(insContainer, changed){
 		        getImage('back_selected');
 		    }
 		    if ($('.cover_img', insContainer).attr('src') == '#'){
-		        getImage('cover_selected');
+		        //getImage('cover_selected');
 		    }
 		}
 
@@ -989,31 +884,12 @@ function auto(insContainer, changed){
 	        getPrice('back');
 	    }
 	    if ($('#cover_prices', insContainer).attr('flag') != 1){
-	        getPrice('cover');
+	        //getPrice('cover');
 	    }
 }
 
 
 
-function getChangePrice()
-{
-    var font_num = $('#letter_num').val();
-    var paint = $('.paint').val();
-    var tomb_id = "{$tomb_id}";
-    var url = '/ins/fontprice';
-//    if(paint==4) return ;
-    if(font_num == 0) {
-        return $('#letter_price').val(0);
-    }
-
-    $.get(url, {font_num:font_num, paint:paint, tomb_id:tomb_id}, function(xhr){
-        if(xhr.status) {
-            $('#letter_price').val(xhr.data.price);
-        } else {
-            alert(xhr.info);
-        }
-    }, 'json');
-}
 
 
 <?php $this->endBlock() ?>  

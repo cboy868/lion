@@ -144,7 +144,8 @@ class InsHelper
 
     static private function god($is_god=0)
     {
-        $god_pic = 'public/ins/img/s.gif';
+        $god_pic = '@app/web/static/images/grave/s.gif';
+        $god_pic = \Yii::getAlias($god_pic);
         $new_im = imagecreatefromgif($god_pic);
         $god_img_info = getimagesize($god_pic);
 

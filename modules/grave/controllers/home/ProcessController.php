@@ -27,10 +27,7 @@ class ProcessController extends \app\core\web\HomeController
 
     	$model = Process::insProcess();
 
-    	$num = $model->getDeadCount();
-
-    	// p($model->getDead());die;
-
+    	$num = $model->deadCount();
 
         if ($num==0) {
             $this->json(null, '请填写逝者信息');
@@ -39,9 +36,6 @@ class ProcessController extends \app\core\web\HomeController
         $model->handleIns();
 
         $info = $model->getCfgIns($query['case_id']);
-
-        // p($info);die;
-
 
         if ($info['is_front']==1) {
             // $god = $this->Ins->getIsGod($this->tomb_id);
@@ -68,41 +62,139 @@ class ProcessController extends \app\core\web\HomeController
     }
 
 
-    public function actionPrice($tomb_id, $case_id)
+    /**
+     * @name ajax取价格
+     */
+    public function actionPrice($tomb_id, $front_case, $back_case)
     {
         $model = Process::insProcess();
 
         $model->handleIns();
 
-        $data = $model->combinDbData($case_id);
+        $front_data = $model->combinDbData($front_case);
+        $back_data  = $model->combinDbData($back_case);
 
-        $case = InsCfgCase::findOne($case_id);
+        $front_case = InsCfgCase::findOne($front_case);
+        $back_case = InsCfgCase::findOne($back_case);
 
-        $is_front = $case->cfg->is_front;
 
-        $price = $this->calPrice($data, $is_front, $case_id);
 
-        $price['is_front'] = $is_front;
+        $front_num = self::fontNum($front_data, $front_case);
+        $back_num  = self::fontNum($back_data, $back_case);
 
-        return $this->json($price);
+        $total_num = [
+            'big' => $front_num['big'] + $back_num['big'] - $model->big_num,
+            'small' => $front_num['small'] + $back_num['small'] - $model->small_num
+        ];
+
+        $front_price = self::calPrice($front_num);
+        $back_price = self::calPrice($back_num);
+        $total_price = self::calPrice($total_num);
+
+
+        $is_second = $model->is_stand ? true : false;
+        $tc_fee = 0;
+        if($model->is_tc && $model->paint!=4 && !$model->is_stand) {
+            $tc_fee = $this->module->params['ins']['fee']['tc'];
+        }
+
+        return $this->json(['front'=>$front_price, 'back'=>$back_price, 'total'=>$total_price, 'tc_fee'=>$tc_fee]);
 
     }
 
-    public function calPrice($data, $is_front=0, $case_id){
+
+
+    public static function fontNum($data, $case_id)
+    {
+        $model = Process::insProcess();
+        $cfg_info = $model->getCfg($case_id);
+        $count = [
+            0 => 0,
+            1 => 0
+        ];
+
+        $result = [
+            'big' => 0,
+            'small' => 0
+        ];
+        if (array_key_exists('main', $data)){
+            
+            foreach ($data as $k=>$v) {
+
+                if ($k == 'main'){
+                    foreach ($v['content'] as $val){
+                        if (!isset($cfg_info[$k])) {
+                            continue;
+                        }
+
+                        $count[$cfg_info[$k][0]['is_big']] += self::getFontNum($val);
+                    }
+                } else {
+                    if (!$v) {
+                        continue;
+                    }
+                    $count[$cfg_info[$k][0]['is_big']] += self::getFontNum($v['content']);
+                }
+                
+                $result['big'] += $count[1]? $count[1] : 0;
+                $result['small'] += $count[0] ? $count[0] : 0;
+            }
+        } else {
+            foreach ($data as $k=>$v) {
+                $count = [];
+                foreach ($v as $key=>$val){
+                    if ($key == 'inscribe_date' && $model->shape=='v') {
+                        $count[$cfg_info[$k][0]['is_big']] = self::getFontNum($val['content'], true);
+                    } else {
+                        $count[$cfg_info[$k][0]['is_big']] = self::getFontNum($val['content']);
+                    }
+
+                    $result['big'] += isset($count[1])? $count[1] : 0;
+                    $result['small'] += isset($count[0]) ? $count[0] : 0;
+                }
+            }
+        }
+
+
+        return $result;
+    }
+
+
+
+    public function calPrice($num)
+    {
+        $post = Yii::$app->request->post();
+
+        $is_tc = $post['is_tc'];
+        $paint = $post['InsProcess']['paint'];
+
+        $fee = $this->module->params['ins']['fee'];
+
+        $result = [
+            'big' => $num['big'],
+            'small' => $num['small'],
+            'letter_big_price' => $num['big'] * $fee['letter']['big'][$paint],
+            'letter_small_price' => $num['small'] * $fee['letter']['small'][$paint],
+            'paint_big_price' => $num['big'] * $fee['paint']['big'][$paint],
+            'paint_small_price' => $num['small'] * $fee['paint']['small'][$paint],
+        ];
+
+        return $result;
+    }
+
+    public function calPrice1($data, $case_id, $is_front=0){
 
         $model = Process::insProcess();
         $post = Yii::$app->request->post();
         // $cfg = 
 
         $is_tc = $post['is_tc'];
-        $paint = $post['ins']['paint'];
+        $paint = $post['InsProcess']['paint'];
 
-        $cfg_info = InsProcess::getCfg($case_id);
+        $cfg_info = $model->getCfg($case_id);
 
 
         $font_price = $this->module->params['ins']['fee'];
-
-        $per_price = 10;
 
         $result = array();
 
@@ -111,15 +203,35 @@ class ProcessController extends \app\core\web\HomeController
         $model->load(Yii::$app->request->post());
         $paint = $model->paint;
 
-        if (array_key_exists('main', $data)){
 
+        $result = [
+            'big' => 0,
+            'small' => 0,
+            'letter_big_price' => 0,
+            'letter_small_price' => 0,
+            'paint_big_price' => 0,
+            'paint_small_price' => 0,
+        ];
+
+        if (array_key_exists('main', $data)){
+            $count = [
+                0 => 0,
+                1 => 0
+            ];
             foreach ($data as $k=>$v) {
-                $count = [];
+
                 if ($k == 'main'){
                     foreach ($v['content'] as $val){
+                        if (!isset($cfg_info[$k])) {
+                            continue;
+                        }
+
                         $count[$cfg_info[$k][0]['is_big']] += self::getFontNum($val);
                     }
                 } else {
+                    if (!$v) {
+                        continue;
+                    }
                     $count[$cfg_info[$k][0]['is_big']] += self::getFontNum($v['content']);
                 }
                 
@@ -140,12 +252,12 @@ class ProcessController extends \app\core\web\HomeController
                         $count[$cfg_info[$k][0]['is_big']] = self::getFontNum($val['content']);
                     }
 
-                    $result['big'] += $count[1]? $count[1] : 0;
-                    $result['small'] += $count[0] ? $count[0] : 0;
-                    $result['letter_big_price'] += $font_price['letter']['big'][$paint] * $count[1];
-                    $result['letter_small_price'] += $font_price['letter']['small'][$paint] * $count[0];
-                    $result['paint_big_price'] += $font_price['paint']['big'][$paint] * $count[1];
-                    $result['paint_small_price'] += $font_price['paint']['small'][$paint] * $count[0];
+                    $result['big'] += isset($count[1])? $count[1] : 0;
+                    $result['small'] += isset($count[0]) ? $count[0] : 0;
+                    $result['letter_big_price'] += $font_price['letter']['big'][$paint] * isset($count[1]) ?$count[1] :0;
+                    $result['letter_small_price'] += $font_price['letter']['small'][$paint] * isset($count[0]) ?$count[0] :0;
+                    $result['paint_big_price'] += $font_price['paint']['big'][$paint] * isset($count[1]) ?$count[1] :0;
+                    $result['paint_small_price'] += $font_price['paint']['small'][$paint] * isset($count[0]) ?$count[0] :0;
 
                 }
             }
@@ -158,7 +270,7 @@ class ProcessController extends \app\core\web\HomeController
             'small_paint' => $font_price['paint']['small'][$paint],
         ];
 
-        $result['per'] = $fee;
+        // $result['per'] = $fee;
 
         // if ($paint == 4) {//处理反喷的
         //     $result['letter'] = $is_front == 1 ? $per_price : 0;

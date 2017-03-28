@@ -249,40 +249,6 @@ class ProcessController extends BackController
             ]);
     }
 
-    // public function ins()
-    // {
-
-    //     $dead = Process::dead();
-
-
-    //     if (count($dead) == 0) {
-    //         Yii::$app->session->setFlash('error', '请先填写使用人信息');
-    //         return $this->pre(2);
-    //     }
-
-    //     $model = Process::ins();
-    //     $tomb = Process::tomb();
-
-    //     $req = Yii::$app->request;
-    //     if ($req->isPost) {
-    //         if ($model->load($req->post())) {
-    //             $model->img = json_encode($model->img);
-    //             $model->guide_id = $tomb->guide_id;
-    //             $model->user_id = $tomb->user_id;
-    //             if ($model->save()) {
-    //                 return $this->next();
-    //             }
-    //         }
-    //     }
-
-    //     return $this->render('ins', [
-    //         'model' => $model,
-    //         'imgs'  => json_decode($model->img),
-    //         'pos' => Yii::$app->controller->module->params['ins']['position'],
-    //         'get' => Yii::$app->request->get()
-    //     ]);
-    // }
-
 
 
     public function ins()
@@ -303,15 +269,12 @@ class ProcessController extends BackController
 
         $model->type = $req->get('type') ? $req->get('type') : $model->type;
 
-
         if ($model->load($req->post())) {
 
             $model->guide_id = $tomb->guide_id;
             $model->user_id = $tomb->user_id;
 
-
             $saveMethod = $model->type == InsProcess::TYPE_IMG ? 'imgSave' : 'autoSave';
-
 
             if ($model->$saveMethod()) {
 
@@ -335,13 +298,11 @@ class ProcessController extends BackController
 
         }
 
+        $cases = $model->getInsCfgCases($model->shape);
 
-
-        $cases = $model->getInsCfgCases();
         if (!$cases) {
             $model->type = InsProcess::TYPE_IMG;
         }
-
 
         $ins_data = [
             'model' => $model,
@@ -353,7 +314,6 @@ class ProcessController extends BackController
             'goods' => $model->getGoodsInfo(),
             'fee' => $fee
         ];
-        
 
         if ($model->type == InsProcess::TYPE_IMG) {
             return $this->render('ins-img',$ins_data);
@@ -386,7 +346,6 @@ class ProcessController extends BackController
 
         $req = Yii::$app->request;
         if ($req->isPost) {
-
 
 
             if ($model->load($req->post())) {

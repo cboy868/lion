@@ -53,7 +53,7 @@ class Images extends \app\core\db\ActiveRecord{
     {
         return [
             [['desc'], 'string'],
-            [['path', 'name', 'img_use', 'md5', 'ext'], 'required'],
+            [['path', 'name', 'md5', 'ext'], 'required'],
             [['owner_id', 'sort', 'status'], 'integer'],
             [['add_time'], 'safe'],
             [['title', 'path'], 'string', 'max' => 255],
@@ -381,19 +381,18 @@ class Images extends \app\core\db\ActiveRecord{
             'add_time'  =>  date('Y-m-d H:i:s',time()),
             'status'    =>  1,
             'md5'       =>  $md5,
-            'ext'       =>  $type
+            'ext'       =>  $type,
         );
-
 
         $this->load($data, '');
 
-        $this->save();
+        $result = $this->save();
 
         if($result === false) {
             $this->error = $this->getErrors();
             return false;
         }else {
-            $data['id'] = $result;
+            $data['id'] = $this->id;
             return $data;
         }
     }

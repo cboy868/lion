@@ -358,7 +358,7 @@ class InsProcess extends Ins
                     'birth' => array('content' => $birth),
                     'fete'  => array('content' =>$fete),
                     'age'   =>array('content' =>$age),
-                    'follow'  =>array('content' =>$current_ins_info['follow'][$i]['content']),
+                    'follow'  =>array('content' =>isset($current_ins_info['follow'][$i]['content']) ? $current_ins_info['follow'][$i]['content'] : '' ),
                     'second_name'  =>array('content' =>$v['second_name'])
                 );
             }
@@ -394,10 +394,11 @@ class InsProcess extends Ins
         ]);
 
 
+
         $this->content = json_encode([
             'front' => $this->combinDbData($front_case),
             'back'  => $this->combinDbData($back_case),
-            'cover' => $this->combinDbData($cover_case),
+            // 'cover' => $this->combinDbData($cover_case),
         ]);
 
         $str = str_pad($this->tomb_id, 8, "0", STR_PAD_LEFT);  
@@ -586,13 +587,16 @@ class InsProcess extends Ins
 
         if (array_key_exists('main', $cfg_info)){
             foreach ($cfg_info as $k=>$v) {
-                $new_cfg_data[$k] = $ins_info[$k];
+                $new_cfg_data[$k] = isset($ins_info[$k]) ? $ins_info[$k] : '';
             }unset($v);
         } else {
             $tmp_ins_info = $ins_info;
             foreach ($cfg_info as $k=>&$v){
                 foreach ($v as $key => &$val){
                    // $data = array_pop($tmp_ins_info[$k]); 
+                    if (!isset($tmp_ins_info[$k])) {
+                        continue ;
+                    }
                    $data = $shape == 'v' ? array_pop($tmp_ins_info[$k]) : array_shift($tmp_ins_info[$k]); 
                     if (empty($data['content']) && in_array($k, array('die', 'born', 'honorific', 'second_name_label'))) {
                         $data = $new_cfg_data[$k][0];
@@ -604,7 +608,7 @@ class InsProcess extends Ins
 
         }
 
-        $label_num = count($cfg_info['born']);
+        $label_num = isset($cfg_info['born']) ? count($cfg_info['born']) : 0;
         if ($label_num > 1) {
             foreach ($new_cfg_data as $k=>&$v){
                 foreach ($v as $key=>&$val){
@@ -663,26 +667,31 @@ class InsProcess extends Ins
                     $new_cfg[$k] = $v[0];
                 } else {
                     $v = $v[0];
-                    $v['text'] = $ins_info[$k]['content'];
+                    $v['text'] = isset($ins_info[$k]['content']) ? $ins_info[$k]['content'] : '';
                     $new_cfg[] = $v;
                 }
             };
             $new_cfg = $this->calPosition($new_cfg, $size, $is_front, $shape);
         } else {
             $tmp_info = array();
-            foreach ($cfg_info as $k=>$v){
 
+            foreach ($cfg_info as $k=>$v){
                 foreach ($v as $key => $val){
+
+                    if (!isset($ins_info[$k])) {
+                        continue;
+                    }
+
                     $d = array_values($ins_info[$k]);
 
-                    $val['text'] = $d[$key]['content'];
+                    $val['text'] = isset($d[$key]['content'])? $d[$key]['content'] : '';
 
                     if (empty($d[$key]['content']) && in_array($k, array('die', 'born', 'honorific', 'second_name_label'))){
                         $val['text'] = $d[0]['content'];
                     }
 
                     if ($k == 'name') {
-                        $val['is_die'] = $d[$key]['is_die'];
+                        $val['is_die'] = isset($d[$key]['is_die']) ? $d[$key]['is_die'] : 0;
                     }
 
                     $tmp_info[$k][$key] = $val;
@@ -690,9 +699,9 @@ class InsProcess extends Ins
             }
 
         }
-
 //        $label_num = count($cfg_info['die']);
-        $label_num = count($cfg_info['born']);
+        $label_num = isset($cfg_info['born']) ? count($cfg_info['born']) : 0;
+
         if ($label_num > 1) {
             foreach ($tmp_info as $k=>&$v){
                 foreach ($v as $key=>&$val){
@@ -735,27 +744,31 @@ class InsProcess extends Ins
 
         }
 
-        //处理圣名标签
-        if ($tmp_info['second_name_label']) {
-            foreach ($tmp_info['second_name_label'] as $k => $v) {
-                if (empty($tmp_info['second_name'][$k]['text'])){
-                    unset($tmp_info['second_name_label'][$k]);
+        if (isset($tmp_info)) {
+            //处理圣名标签
+            if (isset($tmp_info['second_name_label']) && !empty($tmp_info['second_name_label'])) {
+                foreach ($tmp_info['second_name_label'] as $k => $v) {
+                    if (empty($tmp_info['second_name'][$k]['text'])){
+                        unset($tmp_info['second_name_label'][$k]);
+                    }
+                }
+            }
+
+            foreach ($tmp_info as $k=>$v){
+                if ($k == 'name') {
+                    foreach ($v as $kk=>$vv) {
+                        if ($vv['is_die']) {
+                            $new_cfg[] = $this->angle($vv);
+                        }
+                    }
+                }
+                foreach ($v as $val){
+                    $new_cfg[] = $val;
                 }
             }
         }
 
-        foreach ($tmp_info as $k=>$v){
-            if ($k == 'name') {
-                foreach ($v as $kk=>$vv) {
-                    if ($vv['is_die']) {
-                        $new_cfg[] = $this->angle($vv);
-                    }
-                }
-            }
-            foreach ($v as $val){
-                $new_cfg[] = $val;
-            }
-        }
+        
 
         return $new_cfg;
     }
@@ -961,7 +974,7 @@ class InsProcess extends Ins
 
     
 
-    public function getInsCfgCases(){
+    public function getInsCfgCases($shape='v'){
 
 
         $tomb = $this->tomb();
@@ -980,6 +993,7 @@ class InsProcess extends Ins
 
 
         $cfgs = InsCfg::find()->where(['id'=>$cfg_ids])
+                              ->andWhere(['shape'=>$shape])
                               // ->andWhere(['is_front'=>1, 'shape'=>$this->shape])
                               ->asArray()
                               ->all();
@@ -1062,7 +1076,6 @@ class InsProcess extends Ins
 
 
 
-
         $result = array(
             'front_cases' => $front_cases,
             'back_cases'  => $back_cases,
@@ -1098,9 +1111,6 @@ class InsProcess extends Ins
         } else {
             $cover_current_case_id = substr($cover,strrpos($cover,'_')+1);
         }
-        // $front_current_case_id = empty($front) ? $front_cases[0]['id']:substr($front,strrpos($front,'_')+1);
-        // $back_current_case_id = empty($back) ? $back_cases[0]['id']:substr($back,strrpos($back,'_')+1);
-        // $cover_current_case_id = empty($cover) ? $cover_cases[0]['id'] : substr($cover, strrpos($cover, '_')+1);
 
 
         return [
