@@ -10,12 +10,6 @@ use app\core\helpers\StringHelper;
 
 use yii\widgets\LinkPager;
 
-
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\cms\models\AlbumSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = '焦点图管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -10,11 +10,7 @@ use app\core\helpers\StringHelper;
 
 use yii\widgets\LinkPager;
 
-
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\cms\models\AlbumSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+\app\assets\ColorBoxAsset::register($this);
 
 $this->title = '焦点图管理【' . $category->title .'】';
 $this->params['breadcrumbs'][] = ['label' => '列表', 'url' => ['index']];
@@ -91,8 +87,8 @@ $this->params['breadcrumbs'][] = $this->title . '拖拽排列显示顺序';
             <?php foreach ($dataProvider->getModels() as $k => $model): ?>
                  <li class="col-sm-3 col-md-3 ui-state-default" rel="<?=$model->id?>">
                     <div class="thumbnail <?php if($category->thumb == $model->image):?>active<?php endif;?>">
-                        <a href="#" class="img">
-                            <img src="<?=$model->image?>" alt="<?=$model->title?>">
+                        <a href="<?=$model->image?>" class="img artimg">
+                            <img src="<?=$model->image?>" alt="<?=$model->title?>" class="image">
                         </a>
                         <div class="caption">
                             <p><a href="#" title="<?=$model->intro?>"><?=StringHelper::truncate($model->title,20)?></a></p>
@@ -124,6 +120,21 @@ $this->params['breadcrumbs'][] = $this->title . '拖拽排列显示顺序';
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
+
+    $(".image").click(function(e) {
+         e.preventDefault();
+         var title = $(this).attr('title');
+         $(".artimg").colorbox({
+             rel: 'artimg',
+             maxWidth:'600px',
+             maxHeight:'700px',
+             next:'',
+             previous:'',
+             close:'',
+             current:""
+         });
+     });
+
     $( "#sortable" ).sortable({
         update:function(event, ui){
             var ids = [];

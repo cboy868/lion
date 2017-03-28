@@ -80,6 +80,7 @@ class DefaultController extends BackController
                 return $this->redirect(['list', 'id'=>$category_id]);
              }
         }
+        $model->link = 'http://';
         return $this->renderAjax('create', [
             'model' => $model,
             'category' => $category

@@ -49,8 +49,8 @@ $mod = Yii::$app->getRequest()->get('mod');
         <?php foreach ($dataProvider->getModels() as $model): ?>
             <li class="col-sm-3 col-md-2 ui-state-default" rel="<?=$model->id?>">
                 <div class="thumbnail <?php if($album->thumb == $model->id):?>active<?php endif;?>">
-                    <a href="<?=$model->getImg()?>" class="c-img" style="height: 80px;display: block;">
-                        <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" style="max-height:150px;">
+                    <a href="<?=$model->getImg()?>" class="artimg" style="height: 80px;display: block;">
+                        <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" style="max-height:150px;" class="image">
                     </a>
                     <div class="caption">
                         <h4><?=StringHelper::truncate($model->title,20)?></h4>
@@ -109,7 +109,21 @@ $(function(){
         }, 'json');
     });
 
-    $('.c-img').colorbox({rel:'c-img',slideshow:true,transition:'none',width:"75%", height:"75%"});
+
+    $(".image").click(function(e) {
+         e.preventDefault();
+         var title = $(this).attr('title');
+         $(".artimg").colorbox({
+             rel: 'artimg',
+             maxWidth:'600px',
+             maxHeight:'700px',
+             next:'',
+             previous:'',
+             close:'',
+             current:""
+         });
+     });
+
     
 })  
 <?php $this->endBlock() ?>  

@@ -11,10 +11,7 @@ use app\core\helpers\StringHelper;
 use yii\widgets\LinkPager;
 
 
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\cms\models\AlbumSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+\app\assets\ColorBoxAsset::register($this);
 
 $this->title = $modinfo->name . '管理';
 $this->params['breadcrumbs'][] = $this->title;
@@ -174,8 +171,8 @@ $category_id = Yii::$app->getRequest()->get('category_id');
             <?php foreach ($dataProvider->getModels() as $k => $model): ?>
                 <div class="col-sm-4 col-md-3">
                     <div class="thumbnail">
-                        <a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>">
-                            <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>">
+                        <a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>" class="artimg">
+                            <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" class="image">
                         </a>
                         <div class="caption">
                             <h4><a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>"><?=StringHelper::truncate($model->title,20)?></a></h4>
@@ -212,6 +209,20 @@ $category_id = Yii::$app->getRequest()->get('category_id');
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
+
+    $(".image").click(function(e) {
+         e.preventDefault();
+         var title = $(this).attr('title');
+         $(".artimg").colorbox({
+             rel: 'artimg',
+             maxWidth:'600px',
+             maxHeight:'700px',
+             next:'',
+             previous:'',
+             close:'',
+             current:""
+         });
+     });
 
     $('input:checkbox').change(function(){
         var keys = $('#w1').yiiGridView('getSelectedRows');

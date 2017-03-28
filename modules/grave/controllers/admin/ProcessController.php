@@ -267,7 +267,8 @@ class ProcessController extends BackController
 
         $req = Yii::$app->request;
 
-        $model->type = $req->get('type') ? $req->get('type') : $model->type;
+        $type = $req->get('type');
+        $model->type = isset($type) ? $type : $model->type;
 
         if ($model->load($req->post())) {
 

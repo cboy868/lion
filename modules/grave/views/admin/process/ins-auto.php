@@ -12,7 +12,7 @@ use app\assets\PluploadAssets;
 // PluploaduiAssets::register($this);
 ExtAsset::register($this);
 PluploadAssets::register($this);
-
+\app\assets\ColorBoxAsset::register($this);
 ?>
 
 <style type="text/css">
@@ -245,7 +245,7 @@ PluploadAssets::register($this);
 										</div>
 										<div class="col-sm-6 col-md-5">
 										    <div class="thumbnail">
-										    	<a href="<?=$model->getImg('back')?>" class="artimg">
+										      <a href="<?=$model->getImg('back')?>" class="artimg">
 											      <img class="back_img image" src="<?=$model->getImg('back')?>" alt="...">
 											      <input type="hidden" name="back_img" />
 											  </a>
@@ -269,7 +269,6 @@ PluploadAssets::register($this);
 						  </div>
 				        </div>
 					</div> 
-
 
 					<div class="col-xs-12">
 						<div class="panel panel-default">
@@ -554,6 +553,20 @@ $(function(){
         var rel = $(this).attr('rel');
         $('.'+rel).toggle();
     });
+
+    $(".image").click(function(e) {
+    	 e.preventDefault();
+         var title = $(this).attr('title');
+         $(".artimg").colorbox({
+             rel: 'artimg',
+             maxWidth:'600px',
+             maxHeight:'700px',
+             next:'',
+             previous:'',
+             close:'',
+             current:""
+         });
+     });
 
 
     $('.modifyNote').click(function(){

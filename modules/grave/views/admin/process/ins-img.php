@@ -97,12 +97,12 @@ PluploadAssets::register($this);
 							                        </div>
 
 							                         <a href="javascript:;" id="filePicker-<?=$k?>" class="thumbnail filelist-<?=$k?> filePicker" 
-							                         		style="max-width:380px;max-height:280px;"
+							                         		style="max-width:90%;max-height:90%;"
 									                        data-url="<?=Url::toRoute(["pl-upload"])?>" 
 									                        data-res_name="tomb"
 									                        data-use="thumb"
 							                         		>
-							                              <img src="<?=$model->getImg($k, '/static/images/up.png')?>" style="max-width:380px;max-height:280px;">
+							                              <img src="<?=$model->getImg($k, '/static/images/up.png')?>" style="max-width:90%;max-height:90%;">
 							                              <input name="Ins[img][<?=$k?>]" class="ins-img" type="hidden" value="<?=isset($imgs->$k)? $imgs->$k : ''?>" />
 							                        </a>
 							                    </div>

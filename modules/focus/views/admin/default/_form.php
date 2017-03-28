@@ -18,7 +18,7 @@ use yii\helpers\ArrayHelper;
     
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'link')->textInput(['maxlength' => true])->hint('请以http://开头'); ?>
 
     <?= $form->field($model, 'image')->fileInput(['maxlength' => true, 'class'=>'form-control img'])->hint($category->intro) ?>
 
