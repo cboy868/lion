@@ -541,12 +541,9 @@ PluploadAssets::register($this);
 <?php $this->beginBlock('up') ?>  
 var fee = eval('(' + '<?=json_encode($fee)?>'+ ')');
 $(function(){
-	var changed = "{$inscription_info.changed}";
+	var changed = "<?=$model->changed?>";
 	var insContainer = $('#ins-container');
-	var insForm = insContainer.find('#auto-ins-form');
-	var insSaveBtn = insContainer.find('.save-ins');
 	var selIns = insContainer.find('.sel');
-
 
     $('.btn-dis').click(function(e){
         e.preventDefault();
@@ -567,6 +564,8 @@ $(function(){
              current:""
          });
      });
+
+     auto(changed);
 
 
     $('.modifyNote').click(function(){
@@ -602,45 +601,6 @@ $(function(){
         return false;
     });
 
-    $('.dt_pre_finished').datepicker({
-        minDate:'%y-%M-%d'
-    });
-
-//    $('.date').datepicker({dateFormat:'yy.mm.dd'});
-//    $('.date').datepicker();
-	//图片碑文
-
-	var ins_type = $('input[name=type]',insContainer).val();
-
-	if (ins_type==1) {
-		auto(insContainer, changed);
-	};
-
-
-    $('.is_created').change(function(){
-        var is_created = $(this).val();
-        var url = '/admin/ins/changecreated';
-        var tomb_id = $('input[name=tomb_id]').val();
-        $.get(url, {tomb_id:tomb_id},function(xhr){
-            if(xhr.status) {
-                alert('修改成功');
-            } else {
-                alert('修改失败, 可能碑文尚未生成');
-            }
-        },'json');
-
-    });
-
-	$('#tabs a', insContainer).click(function (e){
-		e.preventDefault();
-		var type = $(this).parent().attr('rel');
-		$('input[name=type]').val(type);
-		if (type==1) {
-			auto(insContainer, changed);
-		} else {
-			//img(insContainer);
-		};
-	});
 
 	
 	selIns.click(function(e){
@@ -657,14 +617,13 @@ $(function(){
 	    
 	    searchCaseId();
 	    getImage(cla);
-        getPrice(driect);
+        getPrice();
 
 	});
 
 
     $('.paint', insContainer).change(function(){
-        getPrice('front');
-        getPrice('back');
+        getPrice();
         if ($(this).val() == 4) {
             $('.label_kezi').hide();
         } else {
@@ -673,14 +632,13 @@ $(function(){
 	});
 
     $('.front-edit-save', insContainer).click(function(){
-    	getImage('front_selected');
-	    getPrice('front');
+	    getPrice();
 	    $('#ins_front').modal('hide');
     });
 
     $('.back-edit-save', insContainer).click(function(){
     	getImage('back_selected');
-	    getPrice('back');
+	    getPrice();
 	    $('#ins_back').modal('hide');
     });
 
@@ -699,28 +657,22 @@ $(function(){
             $('.back-line').append(tr);
         }
         getImage('back_selected');
-        getPrice('back');
+        getPrice();
     });
 
     $('#font_style', insContainer).change(function(){
     	getImage('front_selected');
-        getPrice('front');
     	getImage('back_selected');
-        getPrice('back');
+        getPrice();
     });
 	
 	// 简繁体切换
 	$('#is_tc', insContainer).change(function() {
 		getImage('front_selected');
 		getImage('back_selected');
-		getPrice('front');
-		getPrice('back');
+		getPrice();
 	});
 
-	$('#insprocess-paint').change(function(){
-		getPrice('front');
-		getPrice('back');
-	});
 
 	$('body').on('click','.add-line',function(){
 		var obj = $(this).parents('tr');
@@ -733,17 +685,9 @@ $(function(){
 		$(this).parents('tr').remove();
 	})
 
-	// 表单验证规则
-    var validSetting = {
-        rules : {
-            'ins[dt_pre_finished]' : { required : true}
-        },
-        messages : {
-            'ins[dt_pre_finished]' : { required: '刻碑日期必填'}
-        }
-    };
 
-    $('input[name="ins[dt_pre_finished]"]').change(function(){
+
+    $('.dt_pre_finished ').change(function(){
         var ur = "{$urgent}";
         if (ur == 1) return false;
     	urgent();
@@ -754,8 +698,6 @@ $(function(){
     	calFee();
     });
 })
-
-
 	
 
 function getImage(cla){
@@ -868,7 +810,7 @@ function urgent(){
     }
 }
 
-function auto(insContainer, changed){
+function auto(changed){
 		
 		searchCaseId();
 
@@ -878,27 +820,18 @@ function auto(insContainer, changed){
 			//getImage('cover_selected');
 		} else {
 			//如果没有图片，就取新图片
-		    if ($('.front_img', insContainer).attr('src') == '#'){
+		    if ($('.front_img').attr('src') == '#'){
 		        getImage('front_selected');
 		    }
-		    if ($('.back_img', insContainer).attr('src') == '#'){
+		    if ($('.back_img').attr('src') == '#'){
 		        getImage('back_selected');
 		    }
-		    if ($('.cover_img', insContainer).attr('src') == '#'){
+		    if ($('.cover_img').attr('src') == '#'){
 		        //getImage('cover_selected');
 		    }
 		}
-
 		//如果还没取价格，则新取
-		if ($('#front_prices', insContainer).attr('flag') != 1){
-			getPrice('front');
-		}
-		if ($('#back_prices', insContainer).attr('flag') != 1){
-	        getPrice('back');
-	    }
-	    if ($('#cover_prices', insContainer).attr('flag') != 1){
-	        //getPrice('cover');
-	    }
+		getPrice();
 }
 
 

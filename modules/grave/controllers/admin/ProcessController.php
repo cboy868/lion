@@ -305,6 +305,9 @@ class ProcessController extends BackController
             $model->type = InsProcess::TYPE_IMG;
         }
 
+
+        $model->pre_finish = $model->pre_finish == '0000-00-00' ? '' : $model->pre_finish;
+
         $ins_data = [
             'model' => $model,
             'imgs'  => $model->img ? json_decode($model->img) : '',

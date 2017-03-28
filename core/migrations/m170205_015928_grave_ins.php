@@ -44,6 +44,7 @@ class m170205_015928_grave_ins extends Migration
             'paint_price' => $this->decimal(10,2), //颜料费
             'letter_price' => $this->decimal(10,2),//字费
             'tc_price'      => $this->decimal(10,2),//繁体字费 
+            'changed' => $this->smallInteger(1)->defaultValue(0),//使用人修改时，这里值 改1
             'status' => $this->smallInteger(1)->defaultValue(1),//-1删除 1
             'updated_at'=> $this->integer()->notNull(),
             'created_at'=> $this->integer()->notNull()

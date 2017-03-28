@@ -247,4 +247,17 @@ class Dead extends \app\core\db\ActiveRecord
 
         return$unpre;
     }
+
+
+    public function afterSave($insert, $attr)
+    {
+        $ins = \app\modules\grave\models\Ins::find()->where(['tomb_id'=>$this->tomb_id])->one();
+
+        if ($ins) {
+            $ins->changed = 1;
+            return $ins->save();
+        }
+
+        return true;
+    }
 }

@@ -225,7 +225,7 @@ class InsProcess extends Ins
         $dead_info = array();
         foreach ($dead as $k=>$v) {
             foreach ($keys as $val){
-                $dead_info[$val][$k] = $dead[$k][$val];
+                $dead_info[$val][$k] = isset($dead[$k][$val]) ? $dead[$k][$val] : '';
             }
         }
         
@@ -266,11 +266,11 @@ class InsProcess extends Ins
         // $fete = $dead['fete_type']   == 2 ? $dead['solar_feteday'] : $dead['lunar_feteday'];
 
         if (self::isNullDt($birth)) {
-            if($dead['birth_year'])
+            if(isset($dead['birth_year']))
                 $birth = $dead['birth_year'];
-            if($dead['birth_month'])
+            if(isset($dead['birth_month']))
                 $birth .= '-'.$dead['birth_month'];
-            if($dead['birth_day'])
+            if(isset($dead['birth_day']))
                 $birth .= '-'.$dead['birth_day'];
         }
 
@@ -290,16 +290,15 @@ class InsProcess extends Ins
         // $fete = $dead['fete_type']   == 2 ? $dead['solar_feteday'] : $dead['lunar_feteday'];
 
         if (self::isNullDt($fete)) {
-            if($dead['fete_year'])
+            if(isset($dead['fete_year']))
                 $fete = $dead['fete_year'];
-            if($dead['fete_month'])
+            if(isset($dead['fete_month']))
                 $fete .= '-'.$dead['fete_month'];
-            if($dead['fete_day'])
+            if(isset($dead['fete_day']))
                 $fete .= '-'.$dead['fete_day'];
         }
 
         $fete  = str_replace('-', '.', $fete);
-
 
         self::isNullDt($fete) && $fete = '';
 
@@ -1322,7 +1321,7 @@ class InsProcess extends Ins
         $ins->shape = self::getInsGoodsShape($sku->goods->id);
         $ins->user_id = $tomb->user_id;
         $ins->guide_id = $tomb->guide_id;
-        
+        $ins->pre_finish = '0000-00-00';
         return $ins->save();
     }
 

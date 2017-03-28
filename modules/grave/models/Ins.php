@@ -213,7 +213,7 @@ class Ins extends \app\core\db\ActiveRecord
             [['guide_id', 'user_id', 'tomb_id', 'pre_finish'], 'required'],
             [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 
             'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at', 'type',
-            'big_num','small_num','new_big_num', 'new_small_num'], 'integer'],
+            'big_num','small_num','new_big_num', 'new_small_num', 'changed'], 'integer'],
             [['content', 'note'], 'string'],
             [['confirm_date', 'pre_finish', 'finish_at'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
