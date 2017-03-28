@@ -117,12 +117,6 @@ class Customer extends \app\core\db\ActiveRecord
 
     public function getAddress()
     {
-        $search = [$this->province, $this->city, $this->zone];
-        $result = Area::find()->where(['id'=>$search])->asArray()->all();
-
-        $result = ArrayHelper::map($result, 'id', 'name');
-        $result[0] = '';
-
-        return $result[$this->province] . $result[$this->city] . $result[$this->zone];
+        return \app\core\models\Area::getText($this->province, $this->city, $this->zone);
     }
 }

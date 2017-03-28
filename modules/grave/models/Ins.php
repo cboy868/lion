@@ -46,8 +46,8 @@ class Ins extends \app\core\db\ActiveRecord
     const PAINT_PEN =4;
 
 
-    const SHAPE_H = 1; //横
-    const SHAPE_V = 2; //竖
+    const SHAPE_H = 'h'; //横
+    const SHAPE_V = 'v'; //竖
 
     const CONFIRM_YES = 1;
     const CONFIRM_NO = 0;
@@ -99,18 +99,22 @@ class Ins extends \app\core\db\ActiveRecord
 
     public function getPaintTxt()
     {
-        return self::paint($this->paint);
+        return $this->paint ? self::paint($this->paint) : '';
     }
 
 
-    public static function getShape($shpae = null)
+    public static function shapes($shape = null)
     {
         $shapes = [
             self::SHAPE_H => '横',
             self::SHAPE_V => '竖'
         ];
-
         return $shape === null ? $shapes : $shapes[$shape];
+    }
+
+    public function getShape()
+    {
+        return self::shapes($this->shape);
     }
 
     public function getImg($position = 'front', $default='#')
@@ -296,13 +300,39 @@ class Ins extends \app\core\db\ActiveRecord
     /**
      * @name 支付完成后的动作
      */
-    public function afterPay()
+    public static function afterPay($event)
     {
-        //1 修改 font_num 和 new_font_num值
-        //2 is_confirm=0;dt_confirm;
-        //3 繁体字费is_tc final_tc
-        //
 
+        $pay = $event->sender;
+
+        $order = $pay->order;
+
+        if (!in_array($order->progress, [\app\modules\order\models\Order::PRO_PAY, \app\modules\order\models\Order::PRO_OK])) {
+            return ;
+        }
+
+        if (!isset($order->tid) || empty($order->tid)) {
+            return;
+        }
+
+        $model = self::find()->where(['tomb_id'=>$order->tid])->one();
+
+        if (!$model) {
+            return ;
+        }
+
+        $model->big_num += $model->new_big_num;
+        $model->new_big_num = 0;
+        $model->small_num += $model->new_small_num;
+        $model->new_small_num = 0;
+
+        $model->final_tc = $model->is_tc;
+
+        $model->is_confirm = 0;
+        $model->confirm_date = null;
+        $model->confirm_by = 0;
+
+        return $model->save();
 
     }
 

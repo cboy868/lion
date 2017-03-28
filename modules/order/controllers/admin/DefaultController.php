@@ -83,6 +83,11 @@ class DefaultController extends BackController
                 }
                 $pay->on(Pay::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
                 $pay->on(Pay::EVENT_AFTER_PAY, [\app\modules\analysis\models\Settlement::className(), 'create'], ['pay'=>$pay]);
+                
+                if ($order->type == 5) {
+                    $pay->on(Pay::EVENT_AFTER_PAY, [\app\modules\grave\models\Ins::className(), 'afterPay']);
+                }
+                
                 $pay->pay($v, $post['price'][$k]);
             }
 

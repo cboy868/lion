@@ -748,7 +748,6 @@ function getPrice($type){
                 var data = json.data;
 
 
-
 				$('.front_big_count').html(data.front.big);
             	$('.front_small_count').html(data.front.small);
             	$('.front_letter_price').html(data.front.letter_big_price + data.front.letter_small_price);
@@ -762,8 +761,8 @@ function getPrice($type){
 
 				$('#letter_price').val(data.total.letter_big_price + data.total.letter_small_price);
 				$('#paint_price').val(data.total.paint_big_price + data.total.paint_small_price);
-				$('#big_new').val(data.back.big + data.front.big);
-				$('#small_new').val(data.back.small + data.front.small);
+				$('#big_new').val(data.total.big);
+				$('#small_new').val(data.total.small);
 				$('#tc_price').val(data.tc_fee);
             }
             

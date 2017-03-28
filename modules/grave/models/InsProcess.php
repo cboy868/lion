@@ -61,6 +61,7 @@ class InsProcess extends Ins
         
         $content = $this->ins_info['front'];
 
+
         $dead_keys = array('title', 'name', 'birth', 'fete', 'age','follow', 'second_name');
         $dead_list = $this->deads();
 
@@ -75,12 +76,11 @@ class InsProcess extends Ins
         if ($this->shape == 'v') {
             $dead_ids = array_reverse($dead_ids);
         }
-
         $info = array();
         foreach ($content as $k=>$v) {
             if (in_array($k, $dead_keys)) {
                 foreach ($dead_ids as $val) {
-                    $info[$k][$val]['content'] = isset($content[$k][$val]['content']) ? $content[$k][$val]['content']:'';
+                    $info[$k][$val] = isset($content[$k][$val]) ? $content[$k][$val]:'';
                 }
             } else {
                 $info[$k][] = $content[$k];
@@ -93,8 +93,8 @@ class InsProcess extends Ins
             // $v['content'] = $this->getRelDate($v['content'], $dead_list[$k]['birth_type']);
             $v['content'] = $this->getRelDate($v['content'],1);
             // $content['fete'][$k]['content'] = $this->getRelDate($content['fete'][$k]['content'], $dead_list[$k]['fete_type']);
-            $content['fete'][$k]['content'] = $this->getRelDate($content['fete'][$k]['content'], 1);
-            $content['age'][$k]['content']  = self::numberToChar($content['age'][$k]['content'], true, $this->is_tc);
+            $content['fete'][$k]['content'] = isset($content['fete'][$k]['content']) ? $this->getRelDate($content['fete'][$k]['content'], 1) : '';
+            $content['age'][$k]['content']  = isset($content['age'][$k]['content']) ? self::numberToChar($content['age'][$k]['content'], true, $this->is_tc) : '';
         }unset($v);
 
         return $content;
@@ -392,8 +392,6 @@ class InsProcess extends Ins
             'cover' => $cover_case
         ]);
 
-
-
         $this->content = json_encode([
             'front' => $this->combinDbData($front_case),
             'back'  => $this->combinDbData($back_case),
@@ -421,6 +419,9 @@ class InsProcess extends Ins
 
         $this->img = json_encode($img);
 
+        $this->changed = 0;
+        $this->op_id = Yii::$app->user->id;
+
         return $this->save();
     }
 
@@ -430,6 +431,7 @@ class InsProcess extends Ins
         $post = Yii::$app->request->post();
 
         $this->img = json_encode($post['Ins']['img']);
+        $this->op_id = Yii::$app->user->id;
         return $this->save();
     }
 
@@ -743,6 +745,8 @@ class InsProcess extends Ins
 
         }
 
+
+
         if (isset($tmp_info)) {
             //处理圣名标签
             if (isset($tmp_info['second_name_label']) && !empty($tmp_info['second_name_label'])) {
@@ -772,9 +776,9 @@ class InsProcess extends Ins
         return $new_cfg;
     }
 
-    public function angle()
+    public function angle($vv)
     {
-        $shape = $this->getShape();
+        $shape = $this->shape;
         if ($shape == 'v') {
             $x2 = $vv['x'] + $vv['size']*1.3;
             $y2 = $vv['y'] + $vv['size'] * mb_strlen($vv['text'], 'utf-8') * 1.3 - $vv['size'];
@@ -854,7 +858,7 @@ class InsProcess extends Ins
         $shape = $data[0]['shape'];
         $dire = $shape=='h' ? 'x' : 'y';
         foreach ($data as $k=>&$v){
-            if ($v['direction'] == 1) {
+            if (isset($v['direction']) && $v['direction'] == 1) {
                 $v[$dire] = $v[$dire] - mb_strlen($v['text'], 'utf-8') * $v['size'];
             }
         }unset($v);

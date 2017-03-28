@@ -275,6 +275,7 @@ class ProcessController extends BackController
             $model->guide_id = $tomb->guide_id;
             $model->user_id = $tomb->user_id;
 
+
             $saveMethod = $model->type == InsProcess::TYPE_IMG ? 'imgSave' : 'autoSave';
 
             if ($model->$saveMethod()) {
@@ -286,7 +287,8 @@ class ProcessController extends BackController
                     'price' => $model->letter_price + $model->paint_price + $model->tc_price,
                     'num' => $model->new_big_num + $model->new_small_num,
                     'note' => sprintf($note, $model->new_big_num, $model->new_small_num, $model->letter_price, $model->paint_price, $model->tc_price),
-                    'use_time' =>$model->pre_finish
+                    'use_time' =>$model->pre_finish,
+                    'type' => 5
                 ];
 
                 $goods_id = $this->module->params['goods']['id']['insword'];
