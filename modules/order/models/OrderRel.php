@@ -61,7 +61,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'tid', 'user_id', 'op_id'], 'integer'],
+            [['wechat_uid', 'type', 'category_id', 'goods_id', 'order_id', 'num', 'created_at', 'updated_at', 'status', 'sku_id', 'tid', 'user_id', 'op_id', 'is_refund'], 'integer'],
             [['price', 'price_unit','original_price'], 'number'],
             [['use_time'], 'safe'],
             [['note'], 'string'],

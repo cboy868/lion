@@ -307,6 +307,11 @@ class Order extends \app\core\db\ActiveRecord
         }
     }
 
+    public function getPro()
+    {
+        return self::pro($this->progress);
+    }
+
     public static function types($type=null)
     {
         $arr = [

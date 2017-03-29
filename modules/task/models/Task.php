@@ -144,6 +144,10 @@ class Task extends \app\core\db\ActiveRecord
             $goods_ids['model'][$v->id] = $v;
         }
 
+        if (count($goods_ids) < 1) {
+            return;
+        }
+
         $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$goods_ids['res_id']])->indexBy('res_id')->all();
 
         if ($goods_rels) {

@@ -46,6 +46,7 @@ class m161006_120844_order extends Migration
             'num'   => $this->integer(),//购买数量
             'use_time' => $this->dateTime(),//使用时间
             'note'   => $this->text(),//备注
+            'is_refund' => $this->smallInteger(1)->defaultValue(0),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'status'    => $this->smallInteger()->defaultValue(1) //1正常 2禁用 3 退款 －1删除
@@ -73,6 +74,7 @@ class m161006_120844_order extends Migration
 
         $this->createTable('{{%order_refund}}', [
             'id' => $this->primaryKey(),//id
+            'tid' =>$this->integer()->defaultValue(0),
             'order_id' => $this->integer(),
             'wechat_uid'    => $this->integer(),
             'user_id'    => $this->integer(),

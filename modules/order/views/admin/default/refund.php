@@ -47,6 +47,9 @@ $this->params['breadcrumbs'][] = '退款';
 						<div class="col-sm-10">
 
 						<?php foreach ($rels as $k => $v): ?>
+							<?php if ($v['type'] == 9): ?>
+								<?php continue; ?>
+							<?php endif ?>
 							<div style="margin-bottom:10px;">
 							  <label><?=$v->title?></label>
 							  <select class="form-control" name="item[<?=$v->id?>]" unit="<?=$v->price_unit?>" style="display: inline;width: auto;">

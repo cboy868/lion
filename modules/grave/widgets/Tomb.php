@@ -6,6 +6,7 @@ use app\core\helpers\ArrayHelper;
 use app\modules\grave\models\Tomb as TombModel;
 use app\modules\grave\models\Customer;
 use app\modules\grave\models\Ins;
+use app\modules\order\models\Order;
 /**
  * The ZActiveForm widget extend ActiveForm.
  *
@@ -36,6 +37,7 @@ class Tomb extends \yii\base\Widget
         'withdraw',    // 退墓记录
         // 'photo',       // 相册
         'todo',    // 墓位待办事项
+        'refund',
         // 'attachment',  // 墓位待办事项
         // 'complaint',   // 投诉
         // 'goods',       //墓位购买商品
@@ -70,7 +72,17 @@ class Tomb extends \yii\base\Widget
     }
     public function order()
     {
-      return $this->render('tomb/order');
+      $orders = Order::find()->where(['tid'=>$this->tomb_id, 'status'=>Order::STATUS_NORMAL])->all();
+      return $this->render('tomb/order', ['orders'=>$orders]);
+    }
+
+    /**
+     * @name 退款记录
+     */
+    public function refund()
+    {
+      $refunds = Order::find()->where(['tid'=>$this->tomb_id, 'status'=>Order::STATUS_NORMAL])->all();
+      return $this->render('tomb/refund', ['refunds'=>$refunds]);
     }
     public function car()
     {

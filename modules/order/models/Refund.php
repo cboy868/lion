@@ -3,6 +3,7 @@
 namespace app\modules\order\models;
 
 use Yii;
+use app\core\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
 
@@ -64,7 +65,7 @@ class Refund extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'wechat_uid', 'progress', 'created_at', 'updated_at', 'status', 'op_id', 'user_id'], 'integer'],
+            [['order_id', 'wechat_uid', 'progress', 'created_at', 'updated_at', 'status', 'op_id', 'user_id', 'tid'], 'integer'],
             [['fee'], 'number'],
             [['intro', 'note'], 'string'],
             [['checkout_at'], 'safe'],
@@ -97,13 +98,45 @@ class Refund extends \app\core\db\ActiveRecord
     {
 
         $this->progress = self::PRO_PASS;
-        if ($this->save()) {
-            $this->trigger(self::EVENT_AFTER_PASS);
+
+        $connection = Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            $this->save();
+            $intro = json_decode($this->intro);
+            if (is_array($intro)) {
+                $rels = ArrayHelper::getColumn($intro, 'rel_id');
+                $connection->createCommand()->update(OrderRel::tableName(), ['is_refund' => 1], ['id'=>$rels])->execute();
+            }
+            $transaction->commit();
             return true;
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            return $e->getMessages();
         }
 
-
         return false;
+
+
+
+
+
+
+
+
+
+        // if ($this->save()) {
+        //     // $this->trigger(self::EVENT_AFTER_PASS);
+        //     $intro = json_decode($this->intro);
+        //     $rels = [];
+        //     if (is_array($intro)) {
+        //         $rels = ArrayHelper::getColumn($intro, 'rel_id');
+        //         $connection = Yii::$app->db;
+        //         $connection->createCommand()->update(OrderRel::tableName(), ['is_refund' => 1], ['id'=>$rels])->execute();
+        //     }
+        //     return true;
+        // }
+        // return false;
     }
 
     public function noVerify()

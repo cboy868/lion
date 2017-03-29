@@ -21,7 +21,7 @@ AdminAsset::register($this);
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <?=Html::csrfMetaTags()?>
         
-        <title><?=Html::encode($this->title)?> 后台管理</title>
+        <title><?=Html::encode($this->title)?> 购墓流程</title>
         <?php $this->head()?>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
