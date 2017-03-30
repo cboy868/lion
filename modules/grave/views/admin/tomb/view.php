@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
         </div>
         <?php 
             Modal::begin([
-                'header' => '添增',
+                'header' => '新增',
                 'id' => 'modalAd',
                 // 'size' => 'modal'
             ]) ;
@@ -69,7 +69,6 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
              <?=Tomb::widget(['method'=>'bury', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'withdraw', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'note', 'tomb_id'=>$tomb_id])?>
-             <?=Tomb::widget(['method'=>'todo', 'tomb_id'=>$tomb_id])?>
 
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->

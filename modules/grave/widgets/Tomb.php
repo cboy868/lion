@@ -11,6 +11,7 @@ use app\modules\grave\models\CarRecord;
 use app\modules\grave\models\Bury;
 use app\modules\order\models\Refund;
 use app\modules\task\models\Task;
+use app\modules\sys\models\Note;
 /**
  * The ZActiveForm widget extend ActiveForm.
  *
@@ -115,7 +116,10 @@ class Tomb extends \yii\base\Widget
     }
     public function note()
     {
-      return $this->render('tomb/note');
+      $notes = Note::find()->where(['res_name'=>['tomb'], 'res_id'=>$this->tomb_id])->all();
+      $notes = ArrayHelper::index($notes, 'id', 'res_name');
+
+      return $this->render('tomb/note', ['notes'=>$notes]);
     }
     public function bury()
     {

@@ -1,6 +1,7 @@
 <?php 
 
 use yii\helpers\Url;
+use app\core\helpers\Html;
 use app\core\models\Attachment;
 use yii\widgets\LinkPager;
 
@@ -75,8 +76,8 @@ TooltipAsset::register($this);
                         </div>
                     <?php endif ?>
                     
-                    <div class="desc std">
-                    <?=$goods['intro']?>
+                    <div class="desc std" style="word-wrap: break-word;">
+                    <?=Html::cutstr_html($goods['intro'], 200)?>
                         <!-- <a href="?=Url::toRoute(['product-view', 'id'=>$goods['id']])?>" title="<?=$goods['name']?>" class="link-learn">Learn More</a> -->
                     </div>                                      
                 </div>
