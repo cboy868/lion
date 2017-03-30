@@ -103,6 +103,14 @@ class Bury extends \app\core\db\ActiveRecord
         return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'bury_user']);
     }
 
+    public function getDeads()
+    {
+        $dead_ids = explode(',', $this->dead_id);
+        $deads = Dead::find()->where(['id'=>$dead_ids, 'status'=>self::STATUS_NORMAL])->all();
+
+        return $deads;
+    }
+
 
 
 }

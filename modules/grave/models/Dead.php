@@ -260,4 +260,14 @@ class Dead extends \app\core\db\ActiveRecord
 
         return true;
     }
+
+    public function getBoneType()
+    {
+        $types = Yii::$app->controller->module->params['bone_type'];
+        if ($this->bone_type) {
+            return $types[$this->bone_type];
+        }
+
+        return '';
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 use app\core\helpers\Url;
 use app\modules\grave\models\Ins;
+\app\assets\ColorBoxAsset::register($this);
 ?>
 
 <?php if ($ins): ?>
@@ -43,3 +44,20 @@ use app\modules\grave\models\Ins;
         </div>
     </div>
 <?php endif ?>
+<?php $this->beginBlock('up') ?>  
+$(".image").click(function(e) {
+     e.preventDefault();
+     var title = $(this).attr('title');
+     $(".artimg").colorbox({
+         rel: 'artimg',
+         maxWidth:'600px',
+         maxHeight:'700px',
+         next:'',
+         previous:'',
+         close:'',
+         current:""
+     });
+ });
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['up'], \yii\web\View::POS_END); ?> 
+

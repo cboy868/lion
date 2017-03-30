@@ -72,7 +72,7 @@ class Task extends \app\core\db\ActiveRecord
     {
         $s = [
             self::STATUS_DEL => '删除',
-            self::STATUS_NORMAL => '正常',
+            self::STATUS_NORMAL => '未完成',
             self::STATUS_FINISH => '完成'
         ];
 

@@ -19,7 +19,7 @@ class MemberController extends \app\core\web\Controller
     public function init()
     {
 
-        Yii::$app->language = 'en-US';
+        // Yii::$app->language = 'en-US';
 
         Yii::$app->user->loginUrl = ['member/default/login'];
         Yii::$app->errorHandler->errorAction = 'member/default/error';

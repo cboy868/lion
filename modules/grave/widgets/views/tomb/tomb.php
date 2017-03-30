@@ -92,6 +92,16 @@ PluploadAssets::register($this);
                         </td>
                     </tr>
                 <?php endif ?>
+
+                <?php if ($tomb->memorial): ?>
+                    <tr>
+                        <th>纪念馆</th>
+                        <td>
+                            <a href="#"><?=$tomb->memorial->title?></a> <a href="#" class="btn btn-info btn-xs">编辑</a>
+                        </td>
+                    </tr>
+                    
+                <?php endif ?>
                 
             </tbody>
         </table>

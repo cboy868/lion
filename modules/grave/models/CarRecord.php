@@ -59,7 +59,6 @@ class CarRecord extends \app\core\db\ActiveRecord
     }
 
 
-
     /**
      * @inheritdoc
      */
@@ -127,6 +126,33 @@ class CarRecord extends \app\core\db\ActiveRecord
                 'class'=>TimestampBehavior::className(),
             ]
         ];
+    }
+
+    public function getDriver()
+    {
+        if (!$this->driver_id) {
+            return '';
+        }
+
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+    }
+
+    public function getCar()
+    {
+        if (!$this->car_id) {
+            return '';
+        }
+
+        return $this->hasOne(Car::className(),['id'=>'car_id']);
+    }
+
+    public function getAddress()
+    {
+        if (!$this->addr_id) {
+            return '';
+        }
+
+        return $this->hasOne(CarAddr::className(),['id'=>'addr_id']);
     }
 
 }

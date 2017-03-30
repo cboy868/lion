@@ -137,6 +137,7 @@ class DefaultController extends BackController
                 'intro'   => json_encode($intro),
                 'op_id'   => Yii::$app->user->id,
                 'fee'     => $total,
+                'tid'     => isset($model->tid) ? $model->tid : 0
             ];
             $refund->load($data, '');
             if ($refund->save()) {

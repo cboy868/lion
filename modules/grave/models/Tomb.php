@@ -188,6 +188,11 @@ class Tomb extends \app\core\db\ActiveRecord
         return $this->hasOne(\app\modules\grave\models\Card::className(),['tomb_id'=>'id'])->orderBy('id asc');
     }
 
+    public function getMemorial()
+    {
+        return $this->hasOne(\app\modules\memorial\models\Memorial::className(),['tomb_id'=>'id']);
+    }
+
     public function getCustomer()
     {
         return $this->hasOne(\app\modules\grave\models\Customer::className(),['id'=>'customer_id']);
@@ -196,7 +201,7 @@ class Tomb extends \app\core\db\ActiveRecord
 
     public function getDeads()
     {
-        return $this->hasMany(Dead::className(),['tomb_id'=>'id']);
+        return $this->hasMany(Dead::className(),['tomb_id'=>'id'])->where(['status'=>self::STATUS_NORMAL]);
     }
 
 

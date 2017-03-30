@@ -13,7 +13,17 @@ use app\core\helpers\Url;
 $this->title = $model->tomb_no;
 $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']];
 ?>
-
+<style type="text/css">
+    .table-header{
+        font-size: 14px;
+        line-height: 38px;
+        padding-left: 12px;
+        background-color: #90CFF0;
+        color: #393939;
+        border-bottom: none;
+        margin-bottom: 0px;
+    }
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -52,14 +62,13 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
              <?=Tomb::widget(['method'=>'ins', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'portrait', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'order', 'tomb_id'=>$tomb_id])?>
+             <?=Tomb::widget(['method'=>'refund', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'car', 'tomb_id'=>$tomb_id])?>
-             <?=Tomb::widget(['method'=>'memorial', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'dead', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'task', 'tomb_id'=>$tomb_id])?>
-             <?=Tomb::widget(['method'=>'note', 'tomb_id'=>$tomb_id])?>
-             <?=Tomb::widget(['method'=>'pre_bury', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'bury', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'withdraw', 'tomb_id'=>$tomb_id])?>
+             <?=Tomb::widget(['method'=>'note', 'tomb_id'=>$tomb_id])?>
              <?=Tomb::widget(['method'=>'todo', 'tomb_id'=>$tomb_id])?>
 
         </div><!-- /.row -->

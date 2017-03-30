@@ -7,6 +7,10 @@ use app\modules\grave\models\Tomb as TombModel;
 use app\modules\grave\models\Customer;
 use app\modules\grave\models\Ins;
 use app\modules\order\models\Order;
+use app\modules\grave\models\CarRecord;
+use app\modules\grave\models\Bury;
+use app\modules\order\models\Refund;
+use app\modules\task\models\Task;
 /**
  * The ZActiveForm widget extend ActiveForm.
  *
@@ -27,12 +31,12 @@ class Tomb extends \yii\base\Widget
         'ins',       //碑文
         'portrait',  //瓷像
         'order',     //订单
+        'refund',  //退款记录
         'car',       //派车
-        'memorial',  //纪念馆
+        // 'memorial',  //纪念馆
         'dead',      //逝者
         'task',      //任务
         'note',      //备注
-        'pre_bury',    // 预葬记录
         'bury',        // 安葬记录
         'withdraw',    // 退墓记录
         // 'photo',       // 相册
@@ -81,36 +85,43 @@ class Tomb extends \yii\base\Widget
      */
     public function refund()
     {
-      $refunds = Order::find()->where(['tid'=>$this->tomb_id, 'status'=>Order::STATUS_NORMAL])->all();
+      $refunds = Refund::find()->where(['tid'=>$this->tomb_id, 'status'=>Order::STATUS_NORMAL])->all();
       return $this->render('tomb/refund', ['refunds'=>$refunds]);
     }
     public function car()
     {
-      return $this->render('tomb/car');
+      $records = CarRecord::find()->where(['tomb_id'=>$this->tomb_id, 'status'=>Order::STATUS_NORMAL])->all();
+
+      $records = ArrayHelper::index($records, 'id', 'car_type');
+      return $this->render('tomb/car', ['records'=>$records]);
     }
     public function memorial()
     {
       return $this->render('tomb/memorial');
     }
+    /**
+     * @name 使用人信息
+     */
     public function dead()
     {
-      return $this->render('tomb/dead');
+      $deads = $this->tomb->deads;
+      return $this->render('tomb/dead', ['deads'=>$deads]);
     }
     public function task()
     {
-      return $this->render('tomb/task');
+      $tasks = Task::find()->where(['res_id'=>$this->tomb_id, 'res_name'=>'tomb'])->orderBy('id asc')->all();
+      $tasks = ArrayHelper::index($tasks, 'id', 'cate_id');
+      return $this->render('tomb/task', ['tasks'=>$tasks]);
     }
     public function note()
     {
       return $this->render('tomb/note');
     }
-    public function pre_bury()
-    {
-      return $this->render('tomb/pre_bury');
-    }
     public function bury()
     {
-      return $this->render('tomb/bury');
+      $burys = Bury::find()->where(['tomb_id'=>$this->tomb_id, 'status'=>[Bury::STATUS_NORMAL, Bury::STATUS_OK]])->orderBy('id asc')->all();
+      $burys = ArrayHelper::index($burys, 'id', 'status');
+      return $this->render('tomb/bury', ['burys'=>$burys]);
     }
     public function withdraw()
     {
@@ -120,10 +131,4 @@ class Tomb extends \yii\base\Widget
     {
       return $this->render('tomb/todo');
     }
-
-    
-
-
-
-
 }
