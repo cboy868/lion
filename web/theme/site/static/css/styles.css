@@ -186,7 +186,7 @@ a.infintus-button0 {
 
 /* Table */
 table         { border:0; border-collapse:collapse; border-spacing:0; empty-cells:show; font-size:100%; }
-caption,th,td { vertical-align:top; text-align:left; font-weight:normal; }
+caption,th,td { vertical-align:top; text-align:left; font-weight:normal; border:1px solid #ccc;}
 
 /* Content */
 p             { margin:0 0 10px; }

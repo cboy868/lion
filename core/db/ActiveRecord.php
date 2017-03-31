@@ -70,5 +70,14 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return static::gender($this->gender);
     }
 
+    public function getThumbImg($size, $default="/static/images/up.png")
+    {
+
+        if (isset($this->thumb) && !empty($this->thumb)) {
+            return \app\core\models\Attachment::getById($this->thumb, $size, $default);
+        }
+
+        return '';
+    }
 
 }

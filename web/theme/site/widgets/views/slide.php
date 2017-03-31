@@ -9,7 +9,7 @@ RevolutionAsset::register($this);
             <?php foreach ($focus as $v): ?>
                 <li data-transition="random" data-link="#" data-slotamount="7" data-masterspeed="300" >
                     <div class="slotholder">
-                        <img src="<?=$v['image']?>" class="defaultimg" style="">
+                        <img src="<?=$v['image']?>" class="defaultimg" style="" alt="<?=$v['title']?>">
                     </div>
                     <div class="tp-caption slider-text-description sft str"  data-x="20" data-y="200" data-start="1000" data-easing="easeOutBack" data-end="4500" data-endspeed="500" style="color:white;">
                         <p style="text-align:left;">

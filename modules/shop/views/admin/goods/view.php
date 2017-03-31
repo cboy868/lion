@@ -59,9 +59,7 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
             'original_price',
             'price',
             'recommend',
-            'status',
             'created_at:date',
-            'updated_at:date',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>
