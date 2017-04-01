@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => '打包品列表', 'url' => ['index
                 <small>
                     详细信息查看
                     <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
+                    <?= Html::a('关联商品', ['rel', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
                     <?= Html::a('Delete', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger  btn-xs',
                         'data' => [

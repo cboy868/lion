@@ -59,7 +59,7 @@ class Bag extends \app\core\db\ActiveRecord
         return [
             [['category_id', 'op_id', 'thumb', 'type', 'status', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'required'],
-            [['original_price', 'price'], 'number'],
+            [['original_price', 'price', 'rate'], 'number'],
             [['intro'], 'string'],
             [['title'], 'string', 'max' => 255],
         ];
@@ -93,7 +93,8 @@ class Bag extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '修改时间',
             'op.username' => '添加人',
-            'typeText' => '类型'
+            'typeText' => '类型',
+            'rate' => '折扣比'
         ];
     }
 

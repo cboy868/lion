@@ -18,6 +18,7 @@ class m170331_022311_shop_bag extends Migration
             'op_id' => $this->integer(),
             'original_price' => $this->decimal(10,2),//直接加起来的商品总价
             'price' => $this->decimal(10,2),
+            'rate' =>$this->decimal(10,2),
             'thumb' => $this->integer(),//缩图
             'intro' => $this->text(),//商品介绍 
             'type' => $this->smallInteger()->defaultValue(1),//是组合sku还是单个sku 1 组合  2单个
@@ -29,7 +30,8 @@ class m170331_022311_shop_bag extends Migration
         $this->createTable('{{%shop_bag_rel}}', [//任务类型信息
             'id' => $this->primaryKey(),
             'bag_id' => $this->integer()->notNull(),
-            'sku_id' => $this->integer()->notNull(),
+            'goods_id' => $this->integer(),//商品id
+            'sku_id' => $this->integer()->notNull(),//如果商品id不空，sku_id为空，则表示 客户选择此商品的任一规格
             'num'    => $this->integer()->defaultValue(1)->notNull(),
             'unit_price'  => $this->decimal(10,2),//添加时，单个商品的价格
             'price' => $this->decimal(10,2),//总价

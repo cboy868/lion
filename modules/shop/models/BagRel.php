@@ -46,10 +46,11 @@ class BagRel extends \app\core\db\ActiveRecord
         return [
             'id' => 'ID',
             'bag_id' => 'Bag ID',
+            'goods_id' => '商品id',
             'sku_id' => 'Sku ID',
-            'num' => 'Num',
-            'unit_price' => 'Unit Price',
-            'price' => 'Price',
+            'num' => '数量',
+            'unit_price' => '单价',
+            'price' => 'Price',//暂时没用
             'status' => 'Status',
             'created_at' => 'Created At',
         ];

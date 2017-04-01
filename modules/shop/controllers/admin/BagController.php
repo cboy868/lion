@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use app\core\models\AttachmentRel;
 use app\core\models\Attachment;
 use app\modules\shop\models\Goods;
+use app\core\base\Pagination;
 /**
  * BagController implements the CRUD actions for Bag model.
  */
@@ -115,6 +116,8 @@ class BagController extends BackController
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
 
+            $connection = Yii::$app->db;
+
             try {
                 $outerTransaction = Yii::$app->db->beginTransaction();
                 if ($post['sku']) {
@@ -124,6 +127,7 @@ class BagController extends BackController
                     $model->load($post);
                     $model->save();
 
+                    $connection->createCommand()->delete(BagRel::tableName(), ['bag_id'=>$model->id])->execute();
                     foreach ($post['sku'] as $k => $v) {
                         $rel = new BagRel;
                         $rel->sku_id = $k;
@@ -143,6 +147,10 @@ class BagController extends BackController
             }
         }
 
+        if (!$model->rate == 0) {
+            $model->rate = 100;
+        }
+
         return $this->render('rel',[
             'model' => $model,
             'searchModel' => $searchModel
@@ -154,11 +162,23 @@ class BagController extends BackController
     {
         $params = Yii::$app->request->queryParams;
 
-        $goods = Goods::find()->where($params)->all();
+        $query = Goods::find();
+        if (isset($params['category_id']) && !empty($params['category_id'])) {
+            $query->where(['category_id'=>$params['category_id']]);
+        }
 
+        if (isset($params['name']) && !empty($params['name'])) {
+            $query->andWhere(['like', 'name', $params['name']]);
+        }
+
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount'=>$count]);
+
+        $goods = $query->offset($pagination->offset)->limit($pagination->limit)->all();
 
         return $this->renderAjax('search-goods', [
-                'goods' => $goods
+                'goods' => $goods,
+                'pagination' => $pagination
         ]);
     }
 

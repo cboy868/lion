@@ -18,6 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="page-header">
 			<h1>
                 第二步  关联打包品明细
+                <small class="pull-right">
+                	<a href="<?=Url::toRoute(['view', 'id'=>$model->id])?>">打包明细</a>
+                	<a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>">编辑基础信息</a>
+                </small>
 			</h1>
 		</div><!-- /.page-header -->
 

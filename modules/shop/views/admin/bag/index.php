@@ -41,14 +41,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'category_id',
+            [
+                'label' => '分类',
+                'value' => function($data){
+                    return $data->category ? $data->category->name : '跨分类';
+                }
+            ],
             'title',
-            'op_id',
+            'op.username',
             'original_price',
-            // 'price',
+            'price',
             // 'thumb',
             // 'intro:ntext',
             // 'type',
@@ -56,7 +59,28 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [   
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update} {delete} {view} {rel}',
+                'buttons' => [
+                    'update' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑'] );
+                    },
+                    'rel' => function($url, $model, $key) {
+                        return Html::a('关联商品', $url, ['title' => '关联商品'] );
+                    },
+
+                    'view' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看'] );
+                    },
+                    'delete' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
+                    },
+
+                ],
+               'headerOptions' => ['width' => '240',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

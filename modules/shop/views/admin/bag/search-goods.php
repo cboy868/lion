@@ -1,22 +1,13 @@
 <?php
-
 use app\core\helpers\Html;
 use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
-use app\core\widgets\GridView;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\BagSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-
+use yii\widgets\LinkPager;
 ?>
 
 
 
-
-
-<div class="panel-group" >
+<?php if ($goods): ?>
+  <div class="panel-group" >
     <?php foreach ($goods as $k => $v): ?>
         <div class="panel panel-default">
             <div class="panel-heading" >
@@ -32,7 +23,7 @@ use app\core\widgets\GridView;
                   <table class="table table-striped table-hover table-bordered table-condensed sku-sel">
                       <tbody>
                       <?php foreach ($v->sku as $k => $v): ?>
-                          <tr data-rid="<?=$v->id?>" data-name="<?=$v->name?>" data-price="<?=$v->price?>" data-gid="<?=$v->id?>">
+                          <tr data-rid="<?=$v->id?>" data-name="<?=$v->getName()?>" data-price="<?=$v->price?>" data-gid="<?=$v->id?>">
                             <td><?=$v->name?></td>
                             <td><?=$v->price?></td>
                         </tr>
@@ -42,10 +33,19 @@ use app\core\widgets\GridView;
 
                 </div>
             <?php endif ?>
-            
         </div>
     <?php endforeach ?>
 </div>
+<?php 
+  echo LinkPager::widget([
+      'pagination' => $pagination,
+  ]);
+?>
+<?php else: ?>
+  <p>
+    没有找到数据
+  </p>
+<?php endif ?>
 
 
 
