@@ -44,9 +44,13 @@ class GoodsController extends BackController
             ],
             'ue-upload' => [
                 'class' => 'app\core\widgets\Ueditor\UploadAction',
+            ],
+            'kupload' => [
+                'class' => 'app\core\widgets\kindeditor\KindEditorAction',
             ]
         ];
     }
+
 
     /**
      * Lists all Goods models.

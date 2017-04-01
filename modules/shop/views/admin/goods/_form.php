@@ -34,7 +34,9 @@ border-color:#337ab7;
 
     <?= $form->field($model, 'serial')->textInput()->label()->hint('序列号如不填写，则自动生成')?>
 
-    <?= $form->field($model,'intro')->widget('app\core\widgets\Ueditor\Ueditor',['option' =>['res_name'=>'goods', 'use'=>'ue'] ]);?>
+    <?php echo $form->field($model,'intro')->widget('app\core\widgets\Ueditor\Ueditor',['option' =>['res_name'=>'goods', 'use'=>'ue'] ]);?>
+
+    <?php //echo $form->field($model,'intro')->widget('app\core\widgets\kindeditor\KindEditor',[]); ?>
 
     <?= $form->field($model, 'original_price')->textInput(['maxlength' => true, 'class'=>'o_pri form-control'])->label('原价') ?>
 
