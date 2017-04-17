@@ -16,6 +16,8 @@ use app\core\widgets\ActiveForm;
     <?= $form->field($model, 'module')->dropDownList($mods) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'intro')->textArea() ?>
 
     <?php //= $form->field($model, 'dir')->textInput(['maxlength' => true]) ?>
 

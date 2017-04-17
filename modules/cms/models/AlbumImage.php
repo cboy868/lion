@@ -94,7 +94,8 @@ class AlbumImage extends \yii\db\ActiveRecord
         $model->path = $event->path;
         $model->name = $event->fileName;
         $model->ext = $event->ext;
-        $model->title = $event->title;
+        // $model->title = $event->title;
+        $model->title = substr($event->title, 0, strrpos($event->title, '.'));
         $model->author_id = Yii::$app->user->id;
         $model->album_id = $post['album_id'];
         $model->mod = $post['mod'];

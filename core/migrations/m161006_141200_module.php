@@ -15,6 +15,7 @@ class m161006_141200_module extends Migration
             'id' => $this->primaryKey(),
             'module' =>$this->string(255)->notNull(),//模块
             'name' => $this->string(255)->notNull(), //模块名
+            'intro' => $this->text(),//对本模块的描述
             'dir' => $this->string(255), //静态文件目录
             'link' => $this->string(255), //连接地址
             'order'=> $this->smallInteger(4), //模块排序

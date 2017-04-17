@@ -29,8 +29,9 @@ $mod = Yii::$app->getRequest()->get('mod');
     .thumbnail{
         border: 3px solid #ddd;
     }
-    #colorbox{
-        z-index: 3;
+    .form-group{
+            border: 1px solid #999;
+            width: 100%;
     }
 </style>
 
@@ -49,11 +50,15 @@ $mod = Yii::$app->getRequest()->get('mod');
         <?php foreach ($dataProvider->getModels() as $model): ?>
             <li class="col-sm-3 col-md-2 ui-state-default" rel="<?=$model->id?>">
                 <div class="thumbnail <?php if($album->thumb == $model->id):?>active<?php endif;?>">
-                    <a href="<?=$model->getImg()?>" class="artimg" style="height: 80px;display: block;">
-                        <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" style="max-height:150px;" class="image">
+                    <a href="<?=$model->getImg()?>" class="artimg" style="height: 120px;display: block;">
+                        <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" style="max-height:100%;" class="image">
                     </a>
                     <div class="caption">
-                        <h4><?=StringHelper::truncate($model->title,20)?></h4>
+                        <!-- <h4><?=StringHelper::truncate($model->title,20)?></h4> -->
+                        <div class="dbox" rel = "<?=$model->id?>">
+                            <input type="" class="form-group title" name="" value="<?=StringHelper::truncate($model->title,20)?>">
+                            <textarea rows="3" class="form-group desc" placeholder="图片描述"><?=$model->desc?></textarea>
+                        </div>
                         <p>
                         <a href="<?=Url::toRoute(['del-img', 'id'=>$model->id, 'mod'=>$mod, 'album_id'=>$model->album_id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此图片吗？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a> 
                         <a href="<?=Url::toRoute(['cover', 'album_id'=>$album->id, 'mod'=>$mod, 'id'=>$model->id])?>" class="btn btn-success cover"><i class="fa fa-flag"></i>封面</a>
@@ -76,6 +81,38 @@ $mod = Yii::$app->getRequest()->get('mod');
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
+    $('.title, .desc').change(function(e){
+        e.preventDefault();
+        var box = $(this).closest('.dbox');
+
+        var title = box.find('.title').val();
+        var desc = box.find('.desc').val();
+        var id = box.attr('rel');
+        var csrf="<?=Yii::$app->request->csrfToken?>";
+        $.post("<?=Url::toRoute(['/cms/admin/album/tit-des'])?>", {title:title, desc:desc, id:id, _csrf:csrf}, function(xhr){
+            if (xhr.status) {
+                box.popover({ placement:'top', content:'修改成功'}).popover('toggle');
+            } else {
+                box.popover({ placement:'top', content:'修改失败，请重试'}).popover('toggle');
+            }
+        }, 'json');
+
+    });
+
+    $(".image").click(function(e) {
+         e.preventDefault();
+         var title = $(this).attr('title');
+         $(".artimg").colorbox({
+             rel: 'artimg',
+             maxWidth:'600px',
+             maxHeight:'700px',
+             next:'',
+             previous:'',
+             close:'',
+             current:""
+         });
+     });
+
     $( "#sortable" ).sortable({
         update:function(event, ui){
             var ids = [];
@@ -109,20 +146,6 @@ $(function(){
         }, 'json');
     });
 
-
-    $(".image").click(function(e) {
-         e.preventDefault();
-         var title = $(this).attr('title');
-         $(".artimg").colorbox({
-             rel: 'artimg',
-             maxWidth:'600px',
-             maxHeight:'700px',
-             next:'',
-             previous:'',
-             close:'',
-             current:""
-         });
-     });
 
     
 })  

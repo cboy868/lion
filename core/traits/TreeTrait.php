@@ -49,7 +49,26 @@ trait TreeTrait {
         }
 
         return $query->all();
+    }
 
+    /**
+     * @name 取所有子叶子节点 
+     */
+    public function getSonLeafs($asArray = false)
+    {
+        if ($this->isLeaf()) {
+            return [];
+        }
+
+        $query = self::find()->where(['is_leaf'=>1])
+                             ->andWhere(['like', 'code', $this->code . '%', false])
+                             ->orderBy('code asc');
+
+        if ($asArray) {
+            $query->asArray();
+        }
+
+        return $query->all();
     }
 
     /**

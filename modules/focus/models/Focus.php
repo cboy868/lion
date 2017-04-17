@@ -5,6 +5,7 @@ namespace app\modules\focus\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\focus\models\Category;
+use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%focus}}".
  *
@@ -115,7 +116,8 @@ class Focus extends \yii\db\ActiveRecord
             foreach ($list as $k => &$v) {
                 $dir = dirname($v['image']);
                 $filename = basename($v['image']);
-                $v['image'] = $dir . '/' . $size . "@" . $filename;
+                // $v['image'] = $dir . '/' . $size . "@" . $filename;
+                $v['image'] = Attachment::getBySrc($v['image'], $size); 
             }unset($v);
         }
         return $list;

@@ -107,6 +107,24 @@ class AlbumController extends BackController
         return $tree;
     }
 
+    public function actionTitDes()
+    {
+        $post = Yii::$app->request->post();
+
+        $tit = $post['title'];
+        $des = $post['desc'];
+        $id  = $post['id'];
+
+        $model = AlbumImage::findOne($id);
+        $model->title = $tit;
+        $model->desc = $des;
+        if ($model->save()) {
+            return $this->json();
+        }
+
+        return $this->json(null, null, 0);
+    }
+
     /**
      * Displays a single Album model.
      * @param integer $id

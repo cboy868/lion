@@ -41,6 +41,7 @@ class Module extends \yii\db\ActiveRecord
         return [
             [['module', 'name'], 'required'],
             [['order', 'show', 'created_at'], 'integer'],
+            [['intro'], 'string'],
             [['module', 'name', 'dir', 'link', 'logo'], 'string', 'max' => 255],
         ];
     }
@@ -83,6 +84,7 @@ class Module extends \yii\db\ActiveRecord
             'showLabel' => '显示',
             'logo' => 'Logo',
             'created_at' => '添加时间',
+            'intro' => '简述',
         ];
     }
 

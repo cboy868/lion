@@ -176,6 +176,37 @@ class Attachment extends \yii\db\ActiveRecord
         return $model->path . '/' . $model->name;
     }
 
+    public static function getBySrc($src, $size='', $default="/static/images/default.png")
+    {
+        if (!$src) {
+            if ($size) {
+                return self::thumbDefault($size, $default);
+            }
+            return $default;
+        }
+
+        if ($size) {
+            $size = str_replace('*', 'x', $size);
+
+            $dname = dirname($src);
+            $bname = basename($src);
+            $file = $dname . '/' . $size . '@' . $bname;
+            $thumb_path = Yii::getAlias('@app/web' . $file);
+            $srcFile = Yii::getAlias('@app/web'. $src);
+
+            if (!is_file($thumb_path)) {
+                if (is_file($srcFile)) {
+                    $size = explode('x', str_replace('X', 'x', $size));
+                    Image::autoThumb($srcFile, $thumb_path, $size);
+                } else {
+                    return self::thumbDefault($size, $default);;
+                }
+            }
+
+            return $file;
+        }
+    }
+
     public static function thumbDefault($size, $default='/static/images/default.png')
     {
         if (!$size) {
