@@ -23,6 +23,8 @@ use app\core\helpers\ArrayHelper;
 
     <?= $form->field($model, 'thumb')->fileInput() ?>
 
+    <?= $form->field($model, 'sort')->textInput()->label('排序')->hint('数字越大越靠前') ?>
+
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>

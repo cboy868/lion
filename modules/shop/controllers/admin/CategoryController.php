@@ -37,7 +37,9 @@ class CategoryController extends BackController
     public function actionIndex()
     {
 
-        $tree = Category::sortTree();
+        // $tree = Category::sortTree();
+        $records = Category::find()->asArray()->orderBy('sort desc')->all();
+        $tree = Category::makeTree($records);
         foreach ($tree as &$v) {
             $v['thumb'] = Category::getThumb($v['thumb'], '36x36');
         }unset($v);

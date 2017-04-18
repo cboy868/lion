@@ -84,6 +84,49 @@ Tabletree::register($this);
                                     ]) ?>
                             </td>
                         </tr>
+
+                            <?php if (isset($v['children'])): ?>
+                                <?php foreach ($v['children'] as $v2): ?>
+                                    <tr data-tt-id=<?=$v2['id']?> data-tt-parent-id=<?=$v2['pid']?>>
+                                        <td><?=$v2['name']?></td>
+                                        <td><img src="<?=$v2['thumb']?>" width="36" height="36"></td>
+                                        <td><?=date('Y/m/d',$v2['created_at'])?></td>
+                                        <td> 
+                                            <?= Html::a('编辑', ['update', 'id' => $v2['id']],
+                                                ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false" ]
+                                            ) ?> 
+                                            <?= Html::a('删除', ['delete', 'id' => $v2['id']], [
+                                                    'class' => 'btn btn-danger btn-xs delete',
+                                                    'data' => [
+                                                        'confirm' => '确定要删除此菜单吗?',
+                                                        'method' => 'post',
+                                                    ],
+                                                ]) ?>
+                                        </td>
+                                    </tr>
+                                    <?php if (isset($v2['children'])): ?>
+                                        <?php foreach ($v2['children'] as $v3): ?>
+                                          <tr data-tt-id=<?=$v3['id']?> data-tt-parent-id=<?=$v3['pid']?>>
+                                                <td><?=$v3['name']?></td>
+                                                <td><img src="<?=$v3['thumb']?>" width="36" height="36"></td>
+                                                <td><?=date('Y/m/d',$v3['created_at'])?></td>
+                                                <td> 
+                                                    <?= Html::a('编辑', ['update', 'id' => $v3['id']],
+                                                        ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false" ]
+                                                    ) ?> 
+                                                    <?= Html::a('删除', ['delete', 'id' => $v3['id']], [
+                                                            'class' => 'btn btn-danger btn-xs delete',
+                                                            'data' => [
+                                                                'confirm' => '确定要删除此菜单吗?',
+                                                                'method' => 'post',
+                                                            ],
+                                                        ]) ?>
+                                                </td>
+                                            </tr>  
+                                        <?php endforeach ?>
+                                    <?php endif ?>
+                                <?php endforeach ?>
+                            <?php endif ?>
                         <?php endforeach;?>
                     </tbody>
                 </table>
