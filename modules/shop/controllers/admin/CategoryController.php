@@ -80,9 +80,14 @@ class CategoryController extends BackController
                 $info = $up->getInfo();
                 $model->thumb = $info['path'] . '/' . $info['fileName'];
             }
+            if (!$model->sort) {
+                $model->sort = 0;
+            }
+
              $model->save();
             return $this->redirect(['index']);
         } else {
+            $model->sort = 0;
             return $this->renderAjax('create', [
                 'model' => $model,
             ]);

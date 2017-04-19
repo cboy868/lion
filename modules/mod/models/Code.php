@@ -62,8 +62,9 @@ class Code extends \app\core\db\ActiveRecord
             }
 
             $class = ucfirst($code->module) . $type;
+            $rclass = "app\modules\cms\models\mods\\" . $class;
 
-            if (class_exists("app\modules\cms\models\mods\\" . $class)) {
+            if (class_exists($rclass)) {
                 continue;
             }
 

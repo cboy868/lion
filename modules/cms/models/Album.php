@@ -5,6 +5,10 @@ namespace app\modules\cms\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
+use app\modules\mod\models\Module;
+use app\modules\mod\models\Code;
+use app\core\helpers\ArrayHelper;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "{{%album}}".
@@ -79,8 +83,77 @@ class Album extends \app\core\db\ActiveRecord
         ];
     }
 
-    public function getImg($size)
+    public function getImg($size='')
     {
-        return AlbumImage::getById($this->thumb, $size);
+        return Attachment::getById($this->thumb, $size);
+    }
+
+
+
+    public static function albumList($dir, $cid=0, $limit=20, $thumbSize='')
+    {
+
+        $model = Module::find()->where(['dir'=>$dir])->one();
+
+        if (!$model) {
+            return false;
+        }
+
+        Code::createObj('album', $model->id);
+        $class = '\app\modules\cms\models\mods\Album' . $model->id;
+
+        $query = $class::find()->where(['status' => Album::STATUS_NORMAL, 'category_id'=>$cid])->orderBy('sort desc');
+        $count = $query->count();
+
+        $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>$limit]);
+
+        $list = $query->offset($pagination->offset)
+                      ->limit($pagination->limit)
+                      ->all();
+
+        $result = [];
+        foreach ($list as $k=>$v) {
+            $result[$k] = ArrayHelper::toArray($v);
+            $result[$k]['thumb'] = $v->getImg($thumbSize);
+        }
+
+        return ['list' => $result, 'modinfo'=>$model, 'pagination'=>$pagination];
+    }
+
+    public static function photoList($dir, $album_id, $limit=2, $thumbSize='')
+    {
+        $model = Module::find()->where(['dir'=>$dir])->one();
+        if (!$model) {
+            return false;
+        }
+
+        $query = AlbumImage::find()->where(['mod'=>$model->id, 'album_id'=>$album_id, 'status'=>AlbumImage::STATUS_NORMAL])
+                                   ->orderBy('sort desc');
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>$limit]);
+
+        $list = $query->offset($pagination->offset)
+                      ->limit($pagination->limit)
+                      ->all();
+        $result = [];
+        foreach ($list as $k => $v) {
+            $result[$k] = ArrayHelper::toArray($v);
+            $result[$k]['thumb'] = $v->getImgBySrc($thumbSize);
+        }
+
+        return ['list' => $result, 'modinfo'=>$model, 'pagination'=>$pagination];
+
+    }
+
+    /**
+     * @name 更新图片数量 
+     */
+    public function updateNum()
+    {
+        $count = AlbumImage::find()->where(['album_id'=>$this->id, 'status'=>self::STATUS_NORMAL])->count();
+        $this->photo_num = $count;
+        return $this->save();
     }
 }
+
+

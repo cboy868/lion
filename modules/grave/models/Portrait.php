@@ -197,17 +197,17 @@ class Portrait extends \app\core\db\ActiveRecord
         return true;
     }
 
-    public function getOriginalImg($size)
+    public function getOriginalImg($size='')
     {
         return Attachment::getById($this->photo_original, $size);
     }
     
-    public function getProcessedImg($size)
+    public function getProcessedImg($size='')
     {
         return Attachment::getById($this->photo_processed, $size);
     }
 
-    public function getConfirmImg($size)
+    public function getConfirmImg($size='')
     {
         return Attachment::getById($this->photo_confirm, $size);
     }

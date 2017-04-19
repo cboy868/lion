@@ -16,7 +16,36 @@ use yii\widgets\LinkPager;
 $this->title = $modinfo->name . '管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style type="text/css">
+    .rmenu {
+        position: absolute;
+        top: 28px;
+        right: 0px;
+        list-style: none;
+        z-index: 100;
+        border: 1px solid #ccc;
+        padding:0;
+        display: none;
+        background:#fff;
+        /*padding-top: 30px;*/
+    }
 
+    .rmenu li{
+        height: 30px;
+        padding: 0 10px;
+        line-height: 30px;
+    }
+
+    .rmenu hr{
+        height: 1px;
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid #aaa;
+    }
+    table.table{
+        margin-bottom: 5px;
+    }
+</style>
 
 
 <div class="page-content">
@@ -59,7 +88,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
  ?>
             <div class="col-sm-12 col-md-2">
                  <ul class="nav nav-list">
-                     <?=  Html::a('<i class="fa fa-plus"></i> 添加顶级分类', ['create-cate','mod'=>$mod], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+                     <?=  Html::a('<i class="fa fa-plus"></i> 添加顶级分类', ['/cms/admin/category/create','res_name'=>'album'.$mod], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                      <li>
                          
                          <a href="<?=Url::toRoute(['index', 'mod'=>$mod, 'category_id'=>0])?>" class="dropdown-toggle">
@@ -78,13 +107,13 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                                     <b class="arrow fa fa-minus delete" style="right:30px;"></b> -->
                                 </a>
                                 <ul class="rmenu">
-                                    <li><a href="<?=Url::toRoute(['create-cate', 'category_id'=>$category_id, 'pid'=>$value['id'], 'mod'=>$mod])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">添加</a></li>
+                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/create', 'pid'=>$value['id'], 'res_name'=>'album'.$mod])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">添加</a></li>
                                     <?php if (!isset($value['child'])): ?>
                                         <hr>
-                                        <li><a href="<?=Url::toRoute(['delete-cate', 'id'=>$value['id'], 'mod'=>$mod, 'category_id'=>$category_id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
+                                        <li><a href="<?=Url::toRoute(['/cms/admin/category/delete', 'id'=>$value['id']])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
                                     <?php endif ?>
                                     <hr>
-                                    <li><a href="<?=Url::toRoute(['update-cate', 'category_id'=>$category_id, 'id'=>$value['id'], 'mod'=>$mod])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
+                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/update', 'id'=>$value['id']])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
                                 </ul>
                             <b class="arrow"></b>
                             <?php if (!isset($value['child'])) { continue; } ?>
@@ -99,11 +128,11 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                                                     <b class="arrow fa fa-angle-down rmu"></b>
                                                 </a>
                                                 <ul class="rmenu">
-                                                    <li><a href="<?=Url::toRoute(['create-cate', 'category_id'=>$category_id, 'pid'=>$val['id'], 'mod'=>Yii::$app->getRequest()->get('mod')])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">添加</a></li>
+                                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/create', 'pid'=>$val['id'], 'res_name'=>'album'.$mod])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">添加</a></li>
                                                     <hr>
-                                                    <li><a href="<?=Url::toRoute(['delete-cate', 'id'=>$val['id'], 'mod'=>$mod, 'category_id'=>$category_id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
+                                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/create', 'id'=>$val['id']])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
                                                     <hr>
-                                                    <li><a href="<?=Url::toRoute(['update-cate', 'category_id'=>$category_id, 'id'=>$val['id'], 'mod'=>$mod])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
+                                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/update', 'id'=>$val['id']])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
                                                 </ul>
                                                 <b class="arrow"></b>
                                             </li>
@@ -115,11 +144,11 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                                                     <b class="arrow fa fa-angle-down rmu"></b>
                                                 </a>
                                                 <ul class="rmenu">
-                                                    <li><a href="<?=Url::toRoute(['create-cate', 'category_id'=>Yii::$app->getRequest()->get('category_id'), 'pid'=>$val['id'], 'mod'=>Yii::$app->getRequest()->get('mod')])?>" class="modalAddButton">添加</a></li>
+                                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/create', 'pid'=>$val['id'], 'mod'=>'album'.$mod])?>" class="modalAddButton">添加</a></li>
                                                     <hr>
-                                                    <li><a href="<?=Url::toRoute(['delete-cate', 'id'=>$val['id'], 'mod'=>$mod, 'category_id'=>$category_id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
+                                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/delete', 'id'=>$val['id']])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
                                                     <hr>
-                                                    <li><a href="<?=Url::toRoute(['update-cate', 'category_id'=>$category_id, 'id'=>$val['id'], 'mod'=>$mod])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
+                                                    <li><a href="<?=Url::toRoute(['/cms/admin/category/update', 'id'=>$val['id'], 'res_name'=>'album'.$mod])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
                                                 </ul>
                                                 <b class="arrow"></b>
                                             </li>
@@ -133,9 +162,9 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                                                 <b class="arrow fa fa-angle-down rmu"></b>
                                             </a>
                                             <ul class="rmenu">
-                                                <li><a href="<?=Url::toRoute(['create-cate', 'category_id'=>$category_id, 'pid'=>$val['id'], 'mod'=>$mod])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">添加</a></li>
+                                                <li><a href="<?=Url::toRoute(['/cms/admin/category/create','pid'=>$val['id'], 'res_name'=>'album'.$mod])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">添加</a></li>
                                                 <hr>
-                                                <li><a href="<?=Url::toRoute(['update-cate', 'category_id'=>$category_id, 'id'=>$val['id'], 'mod'=>$mod])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
+                                                <li><a href="<?=Url::toRoute(['/cms/admin/category/update', 'id'=>$val['id']])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
                                             </ul>
                                             <b class="arrow"></b>
                                             <ul class="submenu" style="display:block;">
@@ -147,9 +176,9 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                                                            <b class="arrow fa fa-angle-down rmu"></b>
                                                         </a>
                                                         <ul class="rmenu">
-                                                            <li><a href="<?=Url::toRoute(['delete-cate', 'id'=>$last['id'], 'mod'=>$mod, 'category_id'=>$category_id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
+                                                            <li><a href="<?=Url::toRoute(['/cms/admin/category/delete', 'id'=>$last['id']])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">删除</a></li>
                                                             <hr>
-                                                            <li><a href="<?=Url::toRoute(['update-cate', 'category_id'=>$category_id, 'id'=>$last['id'], 'mod'=>$mod])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
+                                                            <li><a href="<?=Url::toRoute(['/cms/admin/category/update', 'id'=>$last['id']])?>" class="modalEditButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">更新</a></li>
                                                         </ul>
                                                         <b class="arrow"></b>
                                                     </li>
@@ -172,7 +201,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 <div class="col-sm-4 col-md-3">
                     <div class="thumbnail">
                         <a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>" class="artimg">
-                            <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" class="image">
+                            <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" class="image" style="height:165px;">
                         </a>
                         <div class="caption">
                             <h4><a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>"><?=StringHelper::truncate($model->title,20)?></a></h4>

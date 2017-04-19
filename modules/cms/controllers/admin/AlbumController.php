@@ -17,6 +17,7 @@ use app\modules\cms\models\AlbumImage;
 use app\modules\cms\models\AlbumImageSearch;
 
 use app\modules\mod\models\Code;
+use app\core\base\Upload;
 
 /**
  * AlbumController implements the CRUD actions for Album model.
@@ -238,6 +239,8 @@ class AlbumController extends BackController
     public function actionDelImg($id, $mod, $album_id)
     {
         $this->findImg($id)->delete();
+        $model = $this->findModel($album_id, $mod);
+        $model->updateNum();
         return $this->redirect(['view', 'mod'=>$mod, 'id'=>$album_id]);
     }
 
@@ -347,98 +350,5 @@ class AlbumController extends BackController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-
-    // ------------------------------- 以下部分处理分类 ------------------------------
-
-
-
-    /**
-     * @name 添加图集分类
-     */
-    public function actionCreateCate()
-    {
-
-        $request = Yii::$app->getRequest();
-
-        $model = new Category();
-
-        if (Yii::$app->request->isPost) {
-            $model->load($request->post());
-            // $upload = Up::getInstance($model, 'covert', 'foods_category');
-
-            // if ($upload) {
-            //     $upload->on(Up::EVENT_AFTER_UPLOAD, ['core\helpers\Image', 'thumb']);
-            //     $upload->on(Up::EVENT_AFTER_UPLOAD, ['core\helpers\Image', 'water'], null, false);
-            //     $upload->save();
-
-            //     $info = $upload->getInfo();
-            //     $model->cover = $info['path'] . '/' . $info['fileName'];
-            // }
-
-            // $model->pid = $request->get('pid');
-            $model->res_name = 'album' . $request->get('mod');
-
-            $model->save();
-
-            return $this->redirect(['index', 'mod'=>$request->get('mod'), 'category_id'=>$request->get('category_id')]);
-        } 
-
-        return $this->renderAjax('create-cate', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * @name 修改图集分类
-     */
-    public function actionUpdateCate($id)
-    {
-
-        $req = Yii::$app->getRequest();
-        $model = $this->findCate($id);
-
-        if ($model->load(Yii::$app->request->post())) {
-            // $upload = Up::getInstance($model, 'covert', 'foods_category');
-
-            // if ($upload) {
-            //     $upload->on(Up::EVENT_AFTER_UPLOAD, ['core\helpers\Image', 'thumb']);
-            //     $upload->on(Up::EVENT_AFTER_UPLOAD, ['core\helpers\Image', 'water'], null, false);
-            //     $upload->save();
-
-            //     $info = $upload->getInfo();
-            //     $model->cover = $info['path'] . '/' . $info['fileName'];
-            // }
-
-            if ($model->save()) {
-                return $this->redirect(['index', 'mod'=>$req->get('mod'), 'category_id'=>$req->get('category_id')]);
-            }
-        }
-
-        return $this->renderAjax('update-cate', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * @name 删除分类
-     */
-    public function actionDeleteCate($id)
-    {
-        $this->findCate($id)->delete();
-        $req = Yii::$app->getRequest();
-
-        return $this->redirect(['index', 'mod'=>$req->get('mod'), 'category_id'=>$req->get('category_id')]);
-    }
-
-    protected function findCate($id)
-    {
-        if (($model = Category::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
 
 }

@@ -24,6 +24,7 @@ use Yii;
  */
 class Category extends \app\core\models\Category
 {
+    public $covert;
     /**
      * @inheritdoc
      */
@@ -42,6 +43,7 @@ class Category extends \app\core\models\Category
             [['body', 'seo_description'], 'string'],
             [['name'], 'required'],
             [['res_name', 'code', 'name', 'seo_title', 'seo_keywords'], 'string', 'max' => 255],
+            [['covert'], 'safe']
         ];
     }
 
@@ -64,6 +66,7 @@ class Category extends \app\core\models\Category
             'created_at' => '添加时间',
             'status' => '状态',
             'res_name' => '资源类型',
+            'covert' => '封面'
         ];
     }
 

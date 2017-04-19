@@ -205,6 +205,8 @@ class Attachment extends \yii\db\ActiveRecord
 
             return $file;
         }
+
+        return $src;
     }
 
     public static function thumbDefault($size, $default='/static/images/default.png')

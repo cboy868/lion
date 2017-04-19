@@ -44,7 +44,10 @@ class AlbumImageSearch extends AlbumImage
         $query = AlbumImage::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->orderBy('sort ASC'),
+            'query' => $query->orderBy('sort DESC'),
+            'pagination' => [
+                'pageSize' => 18,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

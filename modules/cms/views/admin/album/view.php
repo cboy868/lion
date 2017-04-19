@@ -9,6 +9,8 @@ use app\core\helpers\StringHelper;
 
 use app\core\widgets\Webup\Areaup;
 use app\assets\ColorBoxAsset;
+use yii\widgets\LinkPager;
+
 
 ColorBoxAsset::register($this);
 
@@ -69,7 +71,13 @@ $mod = Yii::$app->getRequest()->get('mod');
         <?php endforeach ?>
             <div class="hr hr-18 dotted hr-double"></div>
         </ul><!-- /.row -->
-
+        <div class="row" style="text-align: right;">
+<?php 
+echo LinkPager::widget([
+    'pagination' => $dataProvider->pagination,
+]);
+?>
+        </div>
         <div class="row">
               <?php echo Areaup::widget(['options'=>['res_name'=>'album', 'album_id'=>$album->id, 'mod'=>Yii::$app->getRequest()->get('mod')]]);?>
         </div>

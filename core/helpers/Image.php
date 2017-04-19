@@ -33,6 +33,7 @@ class Image extends \yii\imagine\Image {
         
         foreach ($thumb as $k => $v) {
             $v = str_replace('X', 'x', $v);
+            $v = str_replace('*', 'x', $v);
             $size = explode('x', $v);
 
             if (!is_numeric($size[0]) || !is_numeric($size[1])) {

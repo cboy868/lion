@@ -69,10 +69,15 @@ $config = [
             'theme' => [
                 'basePath' => '@app/web/theme',
                 'baseUrl' => '@web/theme',
-                // 'pathMap' => [
+                'pathMap' => [
+                    '@app/modules/home/views/default' => '@app/web/theme/site/home',
+                    '@app/modules/cms/views/home/album' => '@app/web/theme/site/album',
+                    '@app/modules/cms/views/home/post' => '@app/web/theme/site/post',
+                    '@app/modules/shop/views/home/default' => '@app/web/theme/site/shop',
+                    '@app/modules/home/views/layouts' => '@app/web/theme/site/layouts',
                 //     '@app/modules/home/views' => '@app/web/theme/site', // <-- !!!
-                       // '@app/modules/home/views/layouts' => '@app/web/theme/site/layouts',
-                // ],
+                       
+                ],
             ],
         ],
         'i18n' => [

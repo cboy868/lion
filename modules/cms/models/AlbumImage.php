@@ -5,6 +5,7 @@ namespace app\modules\cms\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\mod\models\Code;
+use app\core\models\Attachment;
 
 /**
  * This is the model class for table "{{%attachment}}".
@@ -22,7 +23,7 @@ use app\modules\mod\models\Code;
  *
  * @property AttachmentRel[] $attachmentRels
  */
-class AlbumImage extends \yii\db\ActiveRecord
+class AlbumImage extends \app\core\db\ActiveRecord
 {
 
     public $url;
@@ -109,8 +110,8 @@ class AlbumImage extends \yii\db\ActiveRecord
 
         if (!$album->thumb) {
             $album->thumb = $model->id;
-            $album->save();
         }
+        $album->updateNum();
 
         return $event->sender->mid = $model->id;
 
@@ -155,6 +156,13 @@ class AlbumImage extends \yii\db\ActiveRecord
             }
         }
         return $this->path . '/' . $this->name;
+    }
+
+
+    public function getImgBySrc($size='')
+    {
+        $src = $this->path . '/' . $this->name;
+        return Attachment::getBySrc($src, $size);
     }
 
     public static function getById($id, $size='', $default='')
