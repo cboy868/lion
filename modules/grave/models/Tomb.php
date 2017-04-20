@@ -186,7 +186,11 @@ class Tomb extends \app\core\db\ActiveRecord
 
     public function getCard()
     {
-        return $this->hasOne(\app\modules\grave\models\Card::className(),['tomb_id'=>'id'])->orderBy('id asc');
+        return $this->hasOne(\app\modules\grave\models\Card::className(),['tomb_id'=>'id']);//->orderBy('id asc');
+    }
+    public function getIns()
+    {
+        return $this->hasOne(\app\modules\grave\models\Ins::className(),['tomb_id'=>'id']);//->orderBy('id asc');
     }
 
     public function getMemorial()
@@ -198,7 +202,6 @@ class Tomb extends \app\core\db\ActiveRecord
     {
         return $this->hasOne(\app\modules\grave\models\Customer::className(),['id'=>'customer_id']);
     }
-
 
     public function getDeads()
     {
@@ -390,12 +393,12 @@ class Tomb extends \app\core\db\ActiveRecord
             if (in_array($this->status, [self::STATUS_PART, self::STATUS_ALL, self::STATUS_SINGLE])) {
                 $common[] = [
                     '续费',
-                    '#',
+                    Url::toRoute(['/grave/admin/tomb/renew', 'id'=>$this->id]),
                     'tomb-shop'
                 ];
                 $common[] = [
                     '修金箔',
-                    '#',
+                    Url::toRoute(['/grave/admin/tomb/repair', 'id'=>$this->id]),
                     'tomb-shop'
                 ];
 

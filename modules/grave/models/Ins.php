@@ -336,6 +336,7 @@ class Ins extends \app\core\db\ActiveRecord
 
     }
 
+
     // public function getImgs($size=, $default='/static/images/defaut.png')
     // {
     //     $imgs = json_decode($this->img);

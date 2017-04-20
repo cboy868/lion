@@ -4,7 +4,6 @@ namespace app\modules\grave\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-
 /**
  * This is the model class for table "{{%grave_card_rel}}".
  *
@@ -89,7 +88,44 @@ class CardRel extends \app\core\db\ActiveRecord
 
         $this->card->start = $min;
         $this->card->end = $max;
+        $this->card->total = date('Y', strtotime($max)) - date('Y', strtotime($min));
         return $this->card->save();
+    }
+
+    public function afterDelete()
+    {
+        $tomb_id = $this->tomb_id;
+        $min = self::find()->where(['tomb_id'=>$tomb_id])->min('start');
+        $max = self::find()->where(['tomb_id'=>$tomb_id])->max('end');
+
+        $this->card->start = $min;
+        $this->card->end = $max;
+        $this->card->total = date('Y', strtotime($max)) - date('Y', strtotime($min));
+        return $this->card->save();
+    }
+
+    public static function afterPay($order_rel_id)
+    {
+
+        $rel = OrderRel::findOne($order_rel_id);
+        $mcard = Card::find()->where(['tomb_id'=>$rel->tid])->one();
+
+        if (!$mcard) {
+            return ;
+        }
+
+        $card = new self;
+
+        $card->card_id = $mcard->id;
+        $card->tomb_id = $rel->tid;
+        $card->price = $rel->price;
+        $card->num = $rel->num;
+        $card->order_id = $rel->id;
+        $card->total = 20 * $rel->num;
+        $card->start = $mcard->end;
+        $card->end = (substr($card->start, 0, 4) + $card->total) . substr($card->start, 4);
+
+        return $card->save();
     }
 
     public function getBy()

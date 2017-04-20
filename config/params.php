@@ -2,6 +2,7 @@
 
 $setting = require(__DIR__ . '/setting.php');
 $thumb = require(__DIR__ . '/thumb.php');
+$goods = require(__DIR__ . '/goods.php');
 
 $params = [
     'adminEmail' => 'cboy868@163.com',
@@ -45,7 +46,7 @@ $params = [
 
 ];
 
-return \yii\helpers\ArrayHelper::merge($setting, $params, $thumb);
+return \yii\helpers\ArrayHelper::merge($setting, $params, $thumb, $goods);
 
 
 

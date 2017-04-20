@@ -87,7 +87,7 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
     <div class="widget-box transparent ui-sortable-handle" id="widget-box-13">
     <?php $status = \app\modules\grave\models\Tomb::getSta(); ?>
         <div class="widget-header">
-            <div class="widget-toolbar no-border">
+            <div class="no-border">
                 <ul class="nav nav-tabs">
                     <li class="<?php if ($sta == null): ?>active<?php endif ?>">
                         <a href="<?=Url::toRoute(['index', 'grave_id'=>$grave_id])?>" aria-expanded="true">全部</a>

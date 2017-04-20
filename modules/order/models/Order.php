@@ -83,6 +83,18 @@ class Order extends \app\core\db\ActiveRecord
             } else {
                 \app\modules\task\models\Task::create($this->id);
             }
+
+
+            $gconfig = Yii::$app->params['goods'];
+
+            foreach ($this->rels as $k => $rel) {
+                if ($rel->goods_id == $gconfig['id']['renew']) {
+                    \app\modules\grave\models\CardRel::afterPay($rel->id);
+                }
+            }
+
+
+
         }
 
         $this->save();

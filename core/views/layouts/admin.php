@@ -564,6 +564,20 @@ $(function(){
 <?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>  
 
 
+<div style="clear:both;"></div>
+    <!--   <div style="
+      position: fixed;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 10px;">
+        <p class="text-center">
+           Copyright © 2017-2020 承德卓迅网络科技有限公司 版权所有 
+        </p>
+      </div> -->
+
        <?php $this->endBody()?>
     </body>
 </html>

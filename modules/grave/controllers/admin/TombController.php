@@ -9,8 +9,8 @@ use app\modules\grave\models\search\TombSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
-
+use app\modules\grave\models\Card;
+use app\modules\shop\models\Goods;
 use app\modules\grave\models\TombForm;
 
 /**
@@ -296,6 +296,54 @@ class TombController extends BackController
                 'options' => $options,
                 'desc' => $desc
             ]);
+    }
+
+    /**
+     * @name 续费
+     */
+    public function actionRenew($id)
+    {
+        $model = $this->findModel($id);
+
+        $config = $this->module->params['goods'];
+        $gid = $config['id']['renew'];
+        $fee = $config['fee']['renew'];
+
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+            $goods = Goods::findOne($gid);
+            $extra = [
+                'price' => $post['num'] * $fee * $model->price,
+                'num'   => $post['num'],
+                'tid'   => $model->id,
+                'note'  => $post['des']
+            ];
+            $info = $goods->order($model->user_id, $extra);
+            if ($info['order']) {
+                return $this->redirect(['/order/admin/default/view', 'id'=>$info['order']->id]);
+            }
+        }
+        
+        $ginfo = \app\modules\shop\models\Goods::findOne($gid);
+        $ginfo->original_price = $ginfo->price = $model->price * $fee;
+
+        return $this->render('renew', ['model'=>$model, 'ginfo'=>$ginfo]);
+    }
+
+    /**
+     * @name 改墓
+     */
+    public function actionRenovate()
+    {
+
+    }
+
+    /**
+     * @name 碑文修金箔
+     */
+    public function actionRepair()
+    {
+
     }
 
     /**

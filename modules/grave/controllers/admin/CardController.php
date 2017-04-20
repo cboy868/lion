@@ -73,16 +73,18 @@ class CardController extends BackController
         $model->tomb_id = $id;
 
         if ($model->load(Yii::$app->request->post()) ) {
+            $model->total = date('Y', strtotime($model->end)) - date('Y', strtotime($model->start));
             if ($card->isNewRecord) {
                 $card->start = $model->start;
                 $card->end   = $model->end;
-                $card->total = date('Y', strtotime($model->end)) - date('Y', strtotime($model->start));
+                // $card->total = date('Y', strtotime($model->end)) - date('Y', strtotime($model->start));
                 $card->created_by = Yii::$app->user->id;
                 $card->save();
-                
             }
             $model->card_id = $card->id;
+            $model->total = date('Y', strtotime($model->end)) - date('Y', strtotime($model->start));
             $model->save();
+
             return $this->redirect(Yii::$app->request->referrer);
         } else {
 
@@ -104,6 +106,7 @@ class CardController extends BackController
 
         if (Model::loadMultiple($rels, \Yii::$app->request->post()) && Model::validateMultiple($rels)) {
              foreach ($rels as $rel) {
+                $rel->total = date('Y', strtotime($rel->end)) - date('Y', strtotime($rel->start));
                 $rel->save(false);
             }
 
