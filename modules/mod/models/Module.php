@@ -89,88 +89,6 @@ class Module extends \yii\db\ActiveRecord
     }
 
 
-//     public static function createModel($model, $mod)
-//     {
-
-//         $ori_table = $model::tableName();
-//         $table = str_replace('}}', '_' . $mod . '}}', $ori_table);
-
-
-//         $class = '\\' . $model::className();
-
-//         $table_name = $class::getTableSchema()->name . '_' . $mod;
-
-//         $c = Yii::getAlias('@'.str_replace('\\', '/', $model));
-//         $dir = dirname($c) . '/mods/';
-
-//         $class = basename($c) . $mod;
-//         $filename = $class . '.php';
-
-//         $data = <<<'CLASS'
-// <?php
-
-// namespace app\modules\cms\models\mods;
-
-// use app\modules\mod\models\Field;
-// use app\core\helpers\ArrayHelper;
-
-
-// class %s extends \%s
-// {
-//     public $fields;
-
-//     public function init()
-//     {
-
-//         $mod = \Yii::$app->getRequest()->get('mod');
-//         $fields = Field::find()->where(['table'=>"%s"])->asArray()->all();
-
-//         $this->fields = ArrayHelper::map($fields, 'name', 'title');
-//         parent::init();
-
-//     }
-
-//     public static function tableName()
-//     {
-//         return "%s";
-//     }
-
-
-//     public function attributeLabels()
-//     {
-//         $attr = parent::attributeLabels();
-
-//         return $attr +$this->fields;
-//     }
-
-
-//     public function rules()
-//     {
-//         $rules = parent::rules();
-//         return array_merge($rules, [[array_keys($this->fields), 'safe']]);
-//     }
-// }
-// CLASS;
-
-
-//         $data = sprintf($data, $class, $model, $table_name, $table);
-
-//         FileHelper::createDirectory($dir);
-
-//         if(!file_put_contents($dir . $filename, $data)) {
-//             return false;
-//         }
-
-//         $search_filename = $class . 'Search.php';
-
-//         if (is_file($c . 'Search.php')) {
-//             $search = file_get_contents($c . 'Search.php');
-//             $search = str_replace(basename($c), $class, $search);
-//             $search = str_replace('models', 'models\\mods', $search);
-//             file_put_contents($dir . $search_filename, $search);
-//         }
-//     }
-
     public static function createTable($table, $mod)
     {
         $sql = "CREATE TABLE %s LIKE %s";
@@ -179,10 +97,9 @@ class Module extends \yii\db\ActiveRecord
 
     public static function deleteTable($table, $mod)
     {
-        $sql = "drop table " . $table . '_' . $mod;
+        $sql = "drop table IF EXISTS " . $table . '_' . $mod;
 
         Yii::$app->db->createCommand($sql)->execute();
-        
     }
 
     public static function delData($table, $mod)
@@ -194,28 +111,6 @@ class Module extends \yii\db\ActiveRecord
         Yii::$app->db->createCommand($field_sql)->execute();
     }
 
-    // public static function deleteFile($model, $mod)
-    // {
-
-    //     // 类文件
-    //     $c = Yii::getAlias('@'.str_replace('\\', '/', $model));
-    //     $dir = dirname($c) . '/mods/';
-    //     $class = basename($c) . $mod;
-    //     $filename = $class . '.php';
-
-    //     //查找文件
-    //     $search_filename = $class . 'Search.php';
-
-
-    //     // if (is_file($dir . $filename)) {
-    //         @unlink($dir . $filename);
-    //     // }
-
-    //     // if (is_file($dir . $search_filename)) {
-    //         @unlink($dir . $search_filename);
-    //     // }
-
-    // }
 
     public static function deleteMod($model)
     {
@@ -223,10 +118,9 @@ class Module extends \yii\db\ActiveRecord
 
         foreach ($tables as $k => $mod) {
             self::deleteTable($k, $model->id);
-            self::deleteFile($mod, $model->id);
         }
 
-        self::delData($model->module, $mod);
+        self::delData($model->module, $model->id);
     }
 
 
@@ -235,9 +129,7 @@ class Module extends \yii\db\ActiveRecord
         $tables = Yii::$app->controller->module->params['table'][$module->module];
 
         foreach ($tables as $k => $model) {
-            // self::createModel($model::className(), $module->id);
             self::createTable($k, $module->id);
         }
-
     }
 }

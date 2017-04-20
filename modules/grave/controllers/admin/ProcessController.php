@@ -146,7 +146,10 @@ class ProcessController extends BackController
         $agent = \app\modules\user\models\User::agents();
         $agents = ArrayHelper::map($agent, 'id', 'username');
 
-        return $this->render('customer',[
+        $tpl = $customer ? 'customer_edit' : 'customer';
+
+
+        return $this->render($tpl,[
                 'model'=> $customer,
                 'tomb' => $tomb,
                 'user' => $user,

@@ -53,20 +53,20 @@ $this->title="购墓流程"
                     <table class="table table-condensed">
                         <tr>
                         <?php 
-                          // $agent_disabled = $tomb->agent_id ? true : false;
-                          // $guide_disabled = $tomb->guide_id ? true : false;
-                          // $uname_disabled = $user->id ? true : false;
-                          // $customer_disabled = $model->id ? true : false;
+                          $agent_disabled = $tomb->agent_id ? true : false;
+                          $guide_disabled = $tomb->guide_id ? true : false;
+                          $uname_disabled = $user->id ? true : false;
+                          $customer_disabled = $model->id ? true : false;
                          ?>
                         <?php $form->fieldConfig['template'] = '{label}<div class="col-sm-8 ui-widget">{input}{hint}{error}</div>'; ?>
-                            <td><?= $form->field($tomb, 'agent_id')->dropDownList($agent,['class'=>'sel-ize'])->label('***(<font color="red">*</font>)') ?></td>
-                            <td><?= $form->field($tomb, 'guide_id')->dropDownList($guide,['class'=>'sel-ize'])->label("导购员(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($tomb, 'agent_id')->dropDownList($agent,['class'=>'sel-ize','disabled'=>$agent_disabled])->label('***(<font color="red">*</font>)') ?></td>
+                            <td><?= $form->field($tomb, 'guide_id')->dropDownList($guide,['class'=>'sel-ize','disabled'=>$guide_disabled])->label("导购员(<font color='red'>*</font>)") ?></td>
                         </tr>
                         <?php 
                             $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>';
                          ?>
                         <tr>
-                            <td><?= $form->field($user, 'username')->textInput(['enableAjaxValidation'=>true,
+                            <td><?= $form->field($user, 'username')->textInput(['disabled'=>$uname_disabled, 'enableAjaxValidation'=>true,
                                 'clientOptions' => [
                                     'validateOnSubmit' => true,
                                     'validateOnBlur' => true,
@@ -77,7 +77,7 @@ $this->title="购墓流程"
                         </tr>
 
                         <tr>
-                            <td><?= $form->field($model, 'name')->textInput(['class'=>'cname form-control'])->label("客户名(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($model, 'name')->textInput(['disabled'=>$uname_disabled,'class'=>'cname form-control'])->label("客户名(<font color='red'>*</font>)") ?></td>
                             <td><?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label("手机号(<font color='red'>*</font>)") ?></td>
                         </tr>
 

@@ -1,5 +1,8 @@
 <?php 
 use app\core\helpers\Url;
+
+\app\assets\BootBoxAsset::register($this);
+
 ?>
 <style type="text/css">
 #option-box { font-size:12px;}
@@ -70,11 +73,11 @@ use app\core\helpers\Url;
 <div id='ylw-tpl' style="display:none;">
   <div id="recommand-form" class="recommand-box">
     <form action="" method="post">
-      <textarea placeholder="推荐理由" rows="5" class="form-control" name="recommand_intro"></textarea>
+      <textarea placeholder="操作理由" rows="5" class="form-control" name="recommand_intro"></textarea>
   </div>
   <div id="retain-form" class="retain-box">
     <form action="" method="post">
-      <textarea placeholder="保留理由" rows="5" class="form-control" name="retain_intro"></textarea>
+      <textarea placeholder="操作理由" rows="5" class="form-control" name="retain_intro"></textarea>
     </form>
   </div>
 </div>
@@ -117,7 +120,7 @@ $(function(){
         var $this = $(this);
         var url = $(this).attr('href');
         var retainForm = $('#ylw-tpl').find('#retain-form')
-                                         .clone().removeAttr('id')
+                                         .clone().removeAttr('id');
         retainForm.find('textarea').attr('rel','retain-box');
         retainArt = bootbox.dialog({
             title: "保留该墓位",

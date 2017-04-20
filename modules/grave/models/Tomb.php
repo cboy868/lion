@@ -43,7 +43,7 @@ class Tomb extends \app\core\db\ActiveRecord
     // 1删除,1闲置，2预定，3定金 4全款，5 部分安葬 6全部安葬 7单葬
     const STATUS_DELETE = -1; //删除
     const STATUS_EMPTY = 1; //闲
-    const STATUS_SAVE = 9; //保留
+    const STATUS_RETAIN = 9; //保留
 
     const STATUS_PRE = 2; //预定
     const STATUS_DEPOSIT = 3; //定金
@@ -139,7 +139,8 @@ class Tomb extends \app\core\db\ActiveRecord
             self::STATUS_PAYOK => '全款',
             self::STATUS_PART => '部分安葬',
             self::STATUS_ALL => '全部安葬',
-            self::STATUS_SINGLE => '单葬'
+            self::STATUS_SINGLE => '单葬',
+            self::STATUS_RETAIN => '保留'
         ];
 
         if ($status == null) {
@@ -212,7 +213,7 @@ class Tomb extends \app\core\db\ActiveRecord
             return $this->save();
         }
 
-        if ($flag && ($this->status == self::STATUS_EMPTY || $this->status == self::STATUS_SAVE)) {
+        if ($flag && ($this->status == self::STATUS_EMPTY || $this->status == self::STATUS_RETAIN)) {
 
             $this->status = self::STATUS_PRE;
 
@@ -258,14 +259,14 @@ class Tomb extends \app\core\db\ActiveRecord
 
     public function retain($flag = true)
     {
-        if (!$flag && $this->status == self::STATUS_SAVE) {
+        if (!$flag && $this->status == self::STATUS_RETAIN) {
             $this->status = self::STATUS_EMPTY;
             return $this->save();
         }
 
 
         if ($flag && $this->status == self::STATUS_EMPTY) {
-            $this->status = self::STATUS_SAVE;
+            $this->status = self::STATUS_RETAIN;
             return $this->save();
         }
         return false;
@@ -291,13 +292,11 @@ class Tomb extends \app\core\db\ActiveRecord
                     '#',
                     'tomb-shop'
                 ]
+                
             ],//一般操作
             
         ];
 
-        // common
-
-        // $common = [];
         $common =& $options['common'];
 
         if ($this->status == self::STATUS_EMPTY) {
@@ -313,7 +312,7 @@ class Tomb extends \app\core\db\ActiveRecord
                     'tomb-retain'
                 ]
             ]);
-        } else if ($this->status == self::STATUS_SAVE) {
+        } else if ($this->status == self::STATUS_RETAIN) {
             $common[] = [
                 '取消保留',
                 Url::toRoute(['/grave/admin/tomb/un-retain', 'id'=>$this->id]),
@@ -328,7 +327,8 @@ class Tomb extends \app\core\db\ActiveRecord
         } 
 
         $opt_url = Yii::$app->controller->module->params['process'];
-        if ($this->status > self::STATUS_SAVE) {
+
+        if ($this->status >self::STATUS_EMPTY && $this->status != self::STATUS_RETAIN) {
             $options['operate'] = [];
             $operate =& $options['operate'];
             foreach ($opt_url as $key=>$opt) {
@@ -343,7 +343,7 @@ class Tomb extends \app\core\db\ActiveRecord
             }
         }
 
-        if ($this->status > self::STATUS_PRE) {
+        if ($this->status > self::STATUS_PRE && $this->status != self::STATUS_RETAIN) {
 
             $options['tombwithdraw'] = [];
             $tombwithdraw =& $options['tombwithdraw'];
@@ -388,6 +388,17 @@ class Tomb extends \app\core\db\ActiveRecord
             }
 
             if (in_array($this->status, [self::STATUS_PART, self::STATUS_ALL, self::STATUS_SINGLE])) {
+                $common[] = [
+                    '续费',
+                    '#',
+                    'tomb-shop'
+                ];
+                $common[] = [
+                    '修金箔',
+                    '#',
+                    'tomb-shop'
+                ];
+
                 $tombwithdraw = [
                     [
                         '退墓迁本园',
@@ -403,7 +414,7 @@ class Tomb extends \app\core\db\ActiveRecord
             }
         }
 
-        if ($this->status > self::STATUS_PAYOK) {
+        if ($this->status > self::STATUS_PAYOK && $this->status != self::STATUS_RETAIN) {
             $options['careful'][] = [
                 '改墓',
                 '/admin/changetomb/change/?tomb_id='.$this->id,

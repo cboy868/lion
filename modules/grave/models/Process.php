@@ -78,7 +78,10 @@ class Process extends \yii\base\Model
         $tomb = self::tomb(self::$tomb_id);
 
         if ($tomb->customer_id) {
-            return Customer::findOne($tomb->customer_id);
+            $customer = Customer::findOne($tomb->customer_id);
+            if ($customer) {
+                return $customer;
+            }
         }
         return new Customer();
     }
