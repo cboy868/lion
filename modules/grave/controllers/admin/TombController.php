@@ -305,7 +305,7 @@ class TombController extends BackController
     {
         $model = $this->findModel($id);
 
-        $config = $this->module->params['goods'];
+        $config = Yii::$app->params['goods'];
         $gid = $config['id']['renew'];
         $fee = $config['fee']['renew'];
 
@@ -341,9 +341,38 @@ class TombController extends BackController
     /**
      * @name 碑文修金箔
      */
-    public function actionRepair()
+    public function actionRepair($id)
     {
+        $model = $this->findModel($id);
 
+        if (!$model->ins) {
+            return $this->error('此墓位不存在碑文，请先完善或走特殊业务');
+        }
+
+        $config = Yii::$app->params['goods'];
+
+
+        $fee = $this->module->params['ins']['fee']['repair'];
+        $paint = $this->module->params['ins']['paint'];
+        $gid = $config['id']['repair'];
+
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $goods = Goods::findOne($gid);
+            $extra = [
+                'price' => $post['num'] * $fee[$post['paint']],
+                'num'   => $post['num'],
+                'tid'   => $model->id,
+                'note'  => $post['des']
+            ];
+            $info = $goods->order($model->user_id, $extra);
+            if ($info['order']) {
+                return $this->redirect(['/order/admin/default/view', 'id'=>$info['order']->id]);
+            }
+        }
+
+        return $this->render('repair',['model'=>$model, 'fee'=>$fee,'paint'=>$paint]);
     }
 
     /**

@@ -123,8 +123,13 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
             <th>
                 任务处理人
             </th>
-            <td>
-                <?= $form->field($model, 'default')->radioList($sels)->label(false) ?>
+            <td>    
+                <?php if (isset($sels)): ?>
+                    <?= $form->field($model, 'default')->radioList($sels)->label(false) ?>
+                <?php else: ?>
+                    <?= $form->field($model, 'default')->radioList([])->label(false) ?>
+                <?php endif ?>
+                
             </td>
         </tr>
 

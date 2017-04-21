@@ -89,7 +89,12 @@ class InsProcess extends Ins
 
 
         $content = $info;
+
+
         foreach ($content['birth'] as $k=>&$v) {
+            if (!isset($v['content'])) {
+                continue;
+            }
             // $v['content'] = $this->getRelDate($v['content'], $dead_list[$k]['birth_type']);
             $v['content'] = $this->getRelDate($v['content'],1);
             // $content['fete'][$k]['content'] = $this->getRelDate($content['fete'][$k]['content'], $dead_list[$k]['fete_type']);

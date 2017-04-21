@@ -5,7 +5,8 @@ namespace app\modules\task\controllers\admin;
 use Yii;
 use app\modules\task\models\Info;
 use app\modules\task\models\InfoForm;
-use app\modules\task\models\User;
+use app\modules\user\models\User;
+use app\modules\task\models\User as TaskUser;
 use app\modules\task\models\Goods;
 
 use app\modules\task\models\search\InfoSearch;
@@ -76,6 +77,8 @@ class InfoController extends BackController
         } else {
             $model->trigger = Info::TRIGGER_PAY;
             $model->msg_type = Info::MSG_EMAIL;
+
+            $user = User::find()->where(['is_staff'=>User::STAFF_YES, 'status'=>User::STATUS_ACTIVE])->all();
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user,
@@ -92,22 +95,32 @@ class InfoController extends BackController
         $info = $this->findModel($id);
 
         $goods = $info->goodsRels;
-
-        $result = [];
-        foreach ($goods as $k => $v) {
-            $result[$v->res_name][] = $v;
-        }
-        
-        $result['category'] = ArrayHelper::getColumn($result['category'], 'res_id');
-        $result['goods'] = ArrayHelper::getColumn($result['goods'], 'res_id');
-
         $model = new Goods;
 
-        $model->res_id = $result;
 
-        return $this->render('trigger', [
+        if ($goods) {
+            $result = [];
+            foreach ($goods as $k => $v) {
+                $result[$v->res_name][] = $v;
+            }
+
+            if (isset($result['category'])) {
+                $result['category'] = ArrayHelper::getColumn($result['category'], 'res_id');
+            }
+
+            if (isset($result['goods'])) {
+                $result['goods'] = ArrayHelper::getColumn($result['goods'], 'res_id');
+            }
+            
+            $model->res_id = $result;
+
+            return $this->render('trigger', [
                 'model' => $model,
                 'goods_info' => $result
+            ]);
+        }
+        return $this->render('trigger', [
+                'model' => $model,
             ]);
     }
 
@@ -199,7 +212,7 @@ class InfoController extends BackController
         $transaction = $connection->beginTransaction();
         try {
             $this->findModel($id)->delete();
-            $connection->createCommand()->delete(User::tableName(), ['info_id'=>$id])->execute();
+            $connection->createCommand()->delete(TaskUser::tableName(), ['info_id'=>$id])->execute();
             $transaction->commit();
 
         } catch (\Exception $e) {

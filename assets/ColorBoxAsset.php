@@ -34,5 +34,4 @@ class ColorBoxAsset extends AssetBundle
 <!-- \app\assets\ColorBoxAsset::register($this);
 <a href="" class="artimg">
   <img class="back_img image" src="" alt="...">
-  <input type="hidden" name="back_img" />
 </a> -->

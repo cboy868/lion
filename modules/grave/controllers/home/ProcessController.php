@@ -143,6 +143,11 @@ class ProcessController extends \app\core\web\HomeController
             foreach ($data as $k=>$v) {
                 $count = [];
                 foreach ($v as $key=>$val){
+
+                    if (!isset($val['content'])) {
+                        continue;
+                    }
+
                     if ($key == 'inscribe_date' && $model->shape=='v') {
                         $count[$cfg_info[$k][0]['is_big']] = self::getFontNum($val['content'], true);
                     } else {

@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="col-xs-12 info-create">
 				<?= $this->render('_form', [
 			        'model' => $model,
+			        'users'  => $user
 			    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

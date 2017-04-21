@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = '配置任务的触发条件, 勾选或取消�
 					  <div class="panel-heading">按分类触发</div>
 					  <div class="panel-body">
 					    <?php foreach ($cates as $cate): ?>
-							<label><input type="checkbox" name="category" value="<?=$cate->id?>" <?php if (in_array($cate->id, $model->res_id['category'])): ?>
+							<label><input type="checkbox" name="category" value="<?=$cate->id?>" <?php if (isset($model->res_id['category']) && in_array($cate->id, $model->res_id['category'])): ?>
 								checked="checked"
 							<?php endif ?>> <?=$cate->name?></label>
 						<?php endforeach ?>
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = '配置任务的触发条件, 勾选或取消�
 				    	<?php foreach ($cates as $cate): ?>
 				    		<h5>分类 <font color="green"> 【<?=$cate->name?>】</font> 下的商品</h5>
 				    		<?php foreach ($cate->goods as $goods): ?>
-				    			<label><input type="checkbox" name="goods" value="<?=$goods->id?>" <?php if (in_array($goods->id, $model->res_id['goods'])): ?>checked="checked"<?php endif ?>> <?=$goods->name?></label>
+				    			<label><input type="checkbox" name="goods" value="<?=$goods->id?>" <?php if (isset($model->res_id['goods']) && in_array($goods->id, $model->res_id['goods'])): ?>checked="checked"<?php endif ?>> <?=$goods->name?></label>
 				    		<?php endforeach ?>
 				    		<br>
 				    	<?php endforeach ?>

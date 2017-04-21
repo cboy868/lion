@@ -190,7 +190,7 @@ class Tomb extends \app\core\db\ActiveRecord
     }
     public function getIns()
     {
-        return $this->hasOne(\app\modules\grave\models\Ins::className(),['tomb_id'=>'id']);//->orderBy('id asc');
+        return $this->hasOne(\app\modules\grave\models\Ins::className(),['tomb_id'=>'id']);
     }
 
     public function getMemorial()
