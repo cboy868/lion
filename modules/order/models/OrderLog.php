@@ -26,6 +26,7 @@ class OrderLog extends \app\core\db\ActiveRecord
 
     /**
      * @inheritdoc
+     
      */
     public static function tableName()
     {
@@ -169,7 +170,5 @@ class OrderLog extends \app\core\db\ActiveRecord
         $model->type = $type;
 
         return $model->save();
-
-
     }
 }

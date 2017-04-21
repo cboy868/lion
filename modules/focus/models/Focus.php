@@ -45,7 +45,7 @@ class Focus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'link', 'category_id'], 'required'],
+            [['title', 'category_id'], 'required'],
             [['id', 'category_id', 'status'], 'integer'],
             [['intro'], 'string'],
             [['link'], 'url'],

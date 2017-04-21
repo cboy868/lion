@@ -425,7 +425,7 @@ class Tomb extends \app\core\db\ActiveRecord
         if ($this->status > self::STATUS_PAYOK && $this->status != self::STATUS_RETAIN) {
             $options['careful'][] = [
                 '改墓',
-                '/admin/changetomb/change/?tomb_id='.$this->id,
+                Url::toRoute(['/grave/admin/tomb/renovate', 'id'=>$this->id]),
                 'modify'
             ];
         }

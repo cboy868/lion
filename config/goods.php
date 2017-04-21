@@ -13,6 +13,7 @@ return  [
 	        'insword' => 1,//碑文商品
 	        'renew' => 3,//续费
             'repair' => 4, //修碑文
+            'renovate' => 5,//改墓
 	        //
 	    ],
 

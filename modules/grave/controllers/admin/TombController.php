@@ -333,9 +333,30 @@ class TombController extends BackController
     /**
      * @name 改墓
      */
-    public function actionRenovate()
+    public function actionRenovate($id)
     {
+        $model = $this->findModel($id);
 
+        $gid = Yii::$app->params['goods']['id']['renovate'];
+        $taskCate = \app\modules\task\models\Info::find()->all();
+
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $goods = Goods::findOne($gid);
+            $extra = [
+                'tid' => $id,
+                'use_time' => $post['sp']['use_time'],
+                'price' => $post['sp']['price'],
+                'note' => $post['sp']['intro']
+            ];
+            $info = $goods->order($model->user_id, $extra);
+            if ($info['order']) {
+                return $this->redirect(['/order/admin/default/view', 'id'=>$info['order']->id]);
+            }
+        }
+
+        return $this->render('renovate', ['model'=>$model]);
     }
 
     /**
