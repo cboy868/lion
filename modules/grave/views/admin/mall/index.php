@@ -4,6 +4,14 @@ use app\assets\MustacheAsset;
 use app\core\helpers\Url;
 Tabletree::register($this);
 MustacheAsset::register($this);
+
+$tomb_no = '';
+if ($tomb) {
+    $tomb_no = $tomb->tomb_no;
+}
+$this->title = $tomb_no .' 购买商品';
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="page-content">

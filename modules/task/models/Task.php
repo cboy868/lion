@@ -13,6 +13,7 @@ use app\modules\order\models\Order;
 use app\modules\task\models\Goods;
 use app\modules\shop\models\Goods as ShopGoods;
 use app\modules\grave\models\Tomb;
+use app\modules\task\models\Info;
 
 /**
  * This is the model class for table "{{%task}}".
@@ -124,6 +125,73 @@ class Task extends \app\core\db\ActiveRecord
     {
         self::createGoodsTask($order_id, $res_name, $res_id);
         self::createCategoryTask($order_id, $res_name, $res_id);
+        self::createSpecialTask($order_id, $res_name, $res_id);
+    }
+
+    /**
+     * @name 特殊商品任务
+     */
+    public static function createSpecialTask($order_id, $res_name="common", $res_id=0)
+    {
+        $order = Order::findOne($order_id);
+
+        $rels = $order->rels;
+
+
+        foreach ($rels as $k => $v) {
+            if ($v->type != \app\modules\order\models\OrderRel::TYPE_SPECIAL_GOODS) {
+                continue;
+            }
+
+            $tinfo = Info::findOne($v->category_id);
+
+            $content = $tinfo->msg;
+            $content = self::replace($v, $content, $res_name, $res_id);
+
+            $data = [
+                'res_name' => $res_name,
+                'res_id' => $res_id,
+                'user_id' => 0,
+                'cate_id' => $tinfo->id,
+                'title'  => $tinfo->name,
+                'op_id'  => $tinfo->default->user_id,
+                'content' => $content,
+                'pre_finish' => $v->use_time,
+                'order_rel_id' => $v->id
+            ];
+
+            $msg_time = str_replace('，', ',', $tinfo->msg_time);
+            $msgs = explode(',', $msg_time);
+
+            foreach ($msgs as $v) {
+                $model = new self;
+
+                $model->load($data, '');
+
+                if ($v < 0) {
+                    $model->pre_finish = date('Y-m-d H:i:s', strtotime($model->pre_finish .' '. $v .' days'));
+                } else if ($v > 0) {
+                    $model->pre_finish = date('Y-m-d H:i:s');
+                }
+
+                $model->save();
+
+                $msg_type = str_replace('，', ',', $tinfo->msg_type);
+                $msg_type = explode(',', $msg_type);
+
+                if (in_array(Info::MSG_SMS, $msg_type)) {
+                    \app\modules\sms\models\Send::create($tinfo->default->user->mobile, $content, $model->pre_finish);
+                }
+
+                if (in_array(Info::MSG_EMAIL, $msg_type)) {
+                    \app\modules\sms\models\EmailSend::create($tinfo->default->user->email, $tinfo->name, $content, $model->pre_finish, '系统邮件');
+                }
+
+                unset($model);
+            }
+
+        }
+
     }
 
     /**
@@ -138,6 +206,10 @@ class Task extends \app\core\db\ActiveRecord
         foreach ($rels as $k => $v) {
             if ($v->type == \app\modules\grave\models\OrderRel::TYPE_TOMB) {
                 continue ;
+            }
+
+            if ($v->type == \app\modules\order\models\OrderRel::TYPE_SPECIAL_GOODS) {
+                continue;
             }
 
             $goods_ids['res_id'][$v->id] = $v->goods_id;
@@ -172,7 +244,6 @@ class Task extends \app\core\db\ActiveRecord
                     'content' => $content,
                     'pre_finish' => $rel->use_time,
                     'order_rel_id' => $rel->id
-
                 ];
 
                 $msg_time = str_replace('，', ',', $goods->info->msg_time);
@@ -203,7 +274,6 @@ class Task extends \app\core\db\ActiveRecord
                         \app\modules\sms\models\EmailSend::create($goods->info->default->user->email, $goods->info->name, $content, $model->pre_finish, '系统邮件');
                     }
 
-
                     unset($model);
                 }
 
@@ -218,14 +288,21 @@ class Task extends \app\core\db\ActiveRecord
     {
         $order = Order::findOne($order_id);
         $rels = $order->rels;
-
         $category_ids = [];
         foreach ($rels as $k => $v) {
             if ($v->type == \app\modules\grave\models\OrderRel::TYPE_TOMB) {
                 continue ;
             }
+
+            if ($v->type == \app\modules\order\models\OrderRel::TYPE_SPECIAL_GOODS) {
+                continue;
+            }
             $category_ids['res_id'][$v->id] = $v->category_id;
             $category_ids['model'][$v->id] = $v;
+        }
+
+        if (count($category_ids) <= 0) {
+            return ;
         }
 
         $cate_rels = Goods::find()->where(['res_name'=>'category', 'res_id'=>$category_ids['res_id']])->indexBy('res_id')->all();
@@ -293,7 +370,7 @@ class Task extends \app\core\db\ActiveRecord
                 '{pre_finish}','{rel_note}', '{order_id}' , '{goods}'
             ],
             'replace' => [
-                $rel->use_time, $rel->note, $rel->order_id, $rel->goods->name
+                $rel->use_time, $rel->note, $rel->order_id, $rel->title
             ]
         ];
 

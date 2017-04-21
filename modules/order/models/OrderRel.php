@@ -35,6 +35,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     // const TYPE_SEAT = 2; //订桌
 
     const TYPE_GOODS = 1;//普通商品订单
+    const TYPE_SPECIAL_GOODS = 11;//特殊商品
 
     const EVENT_AFTER_CREATE = 'afterCreate';
 
@@ -126,7 +127,7 @@ class OrderRel extends \app\core\db\ActiveRecord
             $model = new OrderRel;
         }
 
-        $num = $data['num']>0 ? $data['num'] : 1;
+        $num = isset($data['num']) && $data['num']>0 ? $data['num'] : 1;
 
 
         $title = $goods->name;

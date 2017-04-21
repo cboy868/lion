@@ -59,6 +59,7 @@ class MallController extends BackController
             return $this->renderAjax('index', [
                 'goods_cates' => $tree,
                 // 'goods_list' => $first->goods,
+                'tomb' => isset($model) ? $model : '',
                 'first' => $first,
                 'tname' => $tname,
                 'get' => $req->get()
@@ -66,6 +67,7 @@ class MallController extends BackController
         }
         return $this->render('index', [
                 'goods_cates' => $tree,
+                'tomb' => isset($model) ? $model : '',
                 // 'goods_list' => $first->goods,
                 'tname' => $tname,
                 'first' => $first,
@@ -142,6 +144,41 @@ class MallController extends BackController
         }
 
         return $this->json(null, null, 1);
+    }
+
+    /**
+     * @name 特殊商品
+     */
+    public function actionSpecialGoods($tomb_id)
+    {
+        $tomb = Tomb::findOne($tomb_id);
+        $taskCate = \app\modules\task\models\Info::find()->all();
+
+
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $goods = new Goods;
+            $goods->id=0;
+            $goods->category_id = $post['sp']['task'];
+            $goods->price = $post['sp']['price'];
+            $goods->name = $post['sp']['name'];
+
+
+            $extra = [
+                'use_time' => $post['sp']['use_time'],
+                'note'     => $post['sp']['note'],
+                'tid'      => $tomb->id,
+                'type'     => \app\modules\order\models\OrderRel::TYPE_SPECIAL_GOODS
+            ];
+            $orderinfo = $goods->order($tomb->user_id, $extra);
+
+            if ($orderinfo['order']) {
+                return $this->redirect(['/order/admin/default/view', 'id'=>$orderinfo['order']->id]);
+            }
+
+        }
+        return $this->render('special-goods', ['tomb'=>$tomb, 'task'=>$taskCate]);
     }
 
 

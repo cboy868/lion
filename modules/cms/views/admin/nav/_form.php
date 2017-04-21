@@ -18,10 +18,6 @@ use app\core\helpers\ArrayHelper;
      ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'style'=>'width:50%']) ?>
-
-
-
-
     <?php 
         $mods = $this->context->module->params['nav_module'];
         $mods = ArrayHelper::map($mods, 'url', 'title');
