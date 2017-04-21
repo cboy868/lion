@@ -91,17 +91,13 @@ class Order extends \app\core\db\ActiveRecord
                 if ($rel->goods_id == $gconfig['id']['renew']) {
                     \app\modules\grave\models\CardRel::afterPay($rel->id);
                 }
-
-                // if ($rel->goods_id == $gconfig['id']['repair']) {
-                //     \app\modules\grave\models\Ins::repair($rel->id);
-                // }
             }
-
-
 
         }
 
         $this->save();
+
+        OrderLog::create($this->id);
     }
 
 
@@ -159,6 +155,7 @@ class Order extends \app\core\db\ActiveRecord
                                             ->sum('price');
 
         $this->save();
+        OrderLog::create($this->id);
     }
 
     /**
@@ -186,6 +183,8 @@ class Order extends \app\core\db\ActiveRecord
         }
 
         $model->save();
+
+        OrderLog::create($model->id);
 
         return $model;
     }
@@ -341,6 +340,12 @@ class Order extends \app\core\db\ActiveRecord
             return $arr[$type];
         }
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        // OrderLog::create($this->id);
+        // return parent::afterSave($insert, $changedAttributes);
+    } 
 
 
 }

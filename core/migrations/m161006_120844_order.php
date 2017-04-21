@@ -107,6 +107,18 @@ class m161006_120844_order extends Migration
             'updated_at' => $this->integer()->notNull(),
             'status'    => $this->smallInteger()->defaultValue(1), //1正常, -1删除
         ], $tableOptions);
+
+        $this->createTable('{{%order_log}}', [//订单日志
+            'id' => $this->primaryKey(),//id
+            'order_id' => $this->integer(),
+            'op_id' => $this->integer(),
+            'old' => $this->text(),
+            'diff' => $this->text(),//差别
+            'intro' => $this->text(),//简短描述
+            'type' => $this->smallInteger(),//1支付状态 2价格 3删除子订单 4其它 
+            'created_at' => $this->integer()->notNull(),
+        ], $tableOptions);
+
     }
 
     public function down()
@@ -116,6 +128,7 @@ class m161006_120844_order extends Migration
         $this->dropTable('{{%order_pay}}');
         $this->dropTable('{{%order_refund}}');
         $this->dropTable('{{%order_delay}}');
+        $this->dropTable('{{%order_log}}');//
     }
 
     /*
