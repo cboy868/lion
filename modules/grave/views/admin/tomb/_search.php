@@ -153,9 +153,6 @@ $(function(){
         var grave_id = $(this).val();
         var that = this;
 
-
-        console.log(leaf);
-
         $(this).closest('.form-group').nextAll().remove();
 
 

@@ -32,6 +32,7 @@ class m161006_121900_shop extends Migration
         $this->createTable('{{%shop_goods}}', [
             'id' => $this->primaryKey(),
             'category_id' => $this->integer(),
+            'pinyin' => $this->string(200),//首拼     
             'serial' => $this->string(200),
             'name' => $this->string(255),
             'thumb' => $this->integer(),
