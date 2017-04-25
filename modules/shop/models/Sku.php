@@ -73,6 +73,15 @@ class Sku extends \app\core\db\ActiveRecord
         ];
     }
 
+    public static function updateNum($sku_id, $num)
+    {
+        $model = self::findOne($sku_id);
+        $model->num += $num;
+        $model->save();
+        $model->goods->updateNum();
+        return true;
+    }
+
     public function getGoods()
     {
         return $this->hasOne(Goods::className(),['id'=>'goods_id']);
@@ -89,6 +98,11 @@ class Sku extends \app\core\db\ActiveRecord
     public function getName()
     {
 
+        return $this->name == $this->goods->name ? $this->name : $this->goods->name . $this->name;
+    }
+
+    public function getFullName()
+    {
         return $this->name == $this->goods->name ? $this->name : $this->goods->name . $this->name;
     }
 

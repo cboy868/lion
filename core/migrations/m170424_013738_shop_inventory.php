@@ -50,6 +50,7 @@ class m170424_013738_shop_inventory extends Migration
             'checker_name' => $this->string(100),//
             'total' => $this->decimal(10,2),//总金额
             'note' => $this->text(),//备注
+            'supply_at' => $this->date(),//供货日期
             'created_at' => $this->integer()->notNull(),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),//2退货
         ], $tableOptions);

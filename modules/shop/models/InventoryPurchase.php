@@ -22,6 +22,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class InventoryPurchase extends \app\core\db\ActiveRecord
 {
+    const STATUS_REFUND = 2;
     /**
      * @inheritdoc
      */
@@ -38,7 +39,7 @@ class InventoryPurchase extends \app\core\db\ActiveRecord
         return [
             [['supplier_id', 'op_id', 'checker_id', 'status'], 'integer'],
             [['total'], 'number'],
-            [['note'], 'string'],
+            [['note', 'supply_at'], 'string'],
             [['supplier_id'], 'required'],
             [['op_name', 'ct_name', 'checker_name'], 'string', 'max' => 100],
             [['ct_mobile'], 'string', 'max' => 15],
@@ -72,7 +73,7 @@ class InventoryPurchase extends \app\core\db\ActiveRecord
             'checker_name' => '验收人',
             'total' => '总金额',
             'note' => '备注',
-            'created_at' => '进货时间',
+            'supply_at' => '进货时间',
             'status' => '状态',
         ];
     }
@@ -80,5 +81,10 @@ class InventoryPurchase extends \app\core\db\ActiveRecord
     public function getSupplier()
     {
         return $this->hasOne(InventorySupplier::className(), ['id'=>'supplier_id']);
+    }
+
+    public function getRels()
+    {
+        return $this->hasMany(InventoryPurchaseRel::className(), ['record_id'=>'id'])->where(['status'=>self::STATUS_NORMAL]);
     }
 }

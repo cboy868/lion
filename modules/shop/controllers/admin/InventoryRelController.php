@@ -3,6 +3,7 @@
 namespace app\modules\shop\controllers\admin;
 
 use Yii;
+use app\modules\shop\models\InventoryPurchase;
 use app\modules\shop\models\InventoryPurchaseRel;
 use app\modules\shop\models\search\InventoryPurchaseRel as InventoryPurchaseRelSearch;
 use app\core\web\BackController;
@@ -30,15 +31,33 @@ class InventoryRelController extends BackController
      * Lists all InventoryPurchaseRel models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($record_id)
     {
         $searchModel = new InventoryPurchaseRelSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $params = Yii::$app->request->queryParams;
+        $params['InventoryPurchaseRel']['record_id'] = $record_id;
+        $params['InventoryPurchaseRel']["status"] = InventoryPurchaseRel::STATUS_NORMAL;
+
+        $dataProvider = $searchModel->search($params);
+
+        $record = InventoryPurchase::findOne($record_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'record' => $record
         ]);
+    }
+
+    public function actionRefund($id)
+    {
+        $model = $this->findModel($id);
+
+        $model->status = InventoryPurchaseRel::STATUS_REFUND;
+        $model->save();
+
+        return $this->redirect(['index', 'record_id'=>$model->record_id]);
     }
 
     /**

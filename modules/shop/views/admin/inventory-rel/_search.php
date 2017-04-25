@@ -12,36 +12,9 @@ use app\core\widgets\ActiveForm;
 <div class="inventory-purchase-rel-search">
 
     <?php $form = ActiveForm::searchBegin(); ?>
+    <?php $form->action= Url::toRoute(['index', 'record_id'=>Yii::$app->request->get('record_id')])?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'supplier_id') ?>
-
-    <?= $form->field($model, 'record_id') ?>
-
-    <?= $form->field($model, 'goods_id') ?>
-
-    <?= $form->field($model, 'sku_id') ?>
-
-    <?php // echo $form->field($model, 'unit_price') ?>
-
-    <?php // echo $form->field($model, 'num') ?>
-
-    <?php // echo $form->field($model, 'unit') ?>
-
-    <?php // echo $form->field($model, 'total') ?>
-
-    <?php // echo $form->field($model, 'retail') ?>
-
-    <?php // echo $form->field($model, 'op_id') ?>
-
-    <?php // echo $form->field($model, 'op_name') ?>
-
-    <?php // echo $form->field($model, 'note') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
+    <?= $form->field($model, 'gname') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

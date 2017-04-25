@@ -5,7 +5,7 @@ use app\core\helpers\ArrayHelper;
 use app\core\widgets\ActiveForm;
 use app\modules\shop\models\InventorySupplier;
 use kartik\select2\Select2;
-
+app\assets\ExtAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $model app\modules\shop\models\InventoryPurchase */
 /* @var $form yii\widgets\ActiveForm */
@@ -69,6 +69,8 @@ echo $form->field($model, 'checker_id')->widget(Select2::classname(), [
     <?= $form->field($model, 'total')->textInput(['maxlength' => true, 'style'=>'width:30%']) ?>
 
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'supply_at')->textInput(['dt'=>'true', 'style'=>'width:30%'])->label('供货日期'); ?>
 
     <?= $form->field($model, 'op_id')->hiddenInput()->label(false) ?>
 

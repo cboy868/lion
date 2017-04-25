@@ -12,6 +12,7 @@ use app\modules\shop\models\InventoryPurchaseRel as InventoryPurchaseRelModel;
  */
 class InventoryPurchaseRel extends InventoryPurchaseRelModel
 {
+    public $gname;
     /**
      * @inheritdoc
      */
@@ -20,7 +21,7 @@ class InventoryPurchaseRel extends InventoryPurchaseRelModel
         return [
             [['id', 'supplier_id', 'record_id', 'goods_id', 'sku_id', 'op_id', 'created_at', 'status'], 'integer'],
             [['unit_price', 'num', 'total', 'retail'], 'number'],
-            [['unit', 'op_name', 'note'], 'safe'],
+            [['unit', 'op_name', 'note', 'gname'], 'safe'],
         ];
     }
 
@@ -43,17 +44,19 @@ class InventoryPurchaseRel extends InventoryPurchaseRelModel
     public function search($params)
     {
         $query = InventoryPurchaseRelModel::find();
+        $query->joinWith(['goods']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
+            'record_id' => $this->record_id,
             'supplier_id' => $this->supplier_id,
             'record_id' => $this->record_id,
             'goods_id' => $this->goods_id,
@@ -64,12 +67,13 @@ class InventoryPurchaseRel extends InventoryPurchaseRelModel
             'retail' => $this->retail,
             'op_id' => $this->op_id,
             'created_at' => $this->created_at,
-            'status' => $this->status,
+            '{{%inventory_purchase_rel}}.status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'unit', $this->unit])
             ->andFilterWhere(['like', 'op_name', $this->op_name])
-            ->andFilterWhere(['like', 'note', $this->note]);
+            ->andFilterWhere(['like', 'note', $this->note])
+            ->andFilterWhere(['like', '{{%shop_goods}}.name', $this->gname]);
 
         return $dataProvider;
     }

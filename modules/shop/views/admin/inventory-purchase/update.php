@@ -8,7 +8,7 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = ' ' . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => '进货管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = '修改';
 ?>
 
 <div class="page-content">

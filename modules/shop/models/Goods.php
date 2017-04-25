@@ -69,6 +69,13 @@ class Goods extends \app\core\db\ActiveRecord
         ];
     }
 
+
+    public function updateNum()
+    {
+        $this->num = Sku::find()->where(['goods_id'=>$this->id])->sum('num');
+        return $this->save();
+    }
+
     /**
      * @inheritdoc
      */

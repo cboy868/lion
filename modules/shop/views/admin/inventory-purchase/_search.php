@@ -13,11 +13,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
-
     <?= $form->field($model, 'supplier_id') ?>
-
-    <?= $form->field($model, 'op_id') ?>
 
     <?= $form->field($model, 'op_name') ?>
 

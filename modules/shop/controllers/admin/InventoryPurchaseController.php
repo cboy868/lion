@@ -4,7 +4,10 @@ namespace app\modules\shop\controllers\admin;
 
 use Yii;
 use app\modules\shop\models\Goods;
+use app\modules\shop\models\Sku;
 use app\modules\shop\models\InventoryPurchase;
+use app\modules\shop\models\InventoryPurchaseRel;
+use app\modules\shop\models\search\InventoryPurchaseRel as InventoryPurchaseRelSearch;
 use app\modules\shop\models\search\InventoryPurchase as InventoryPurchaseSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
@@ -33,15 +36,93 @@ class InventoryPurchaseController extends BackController
      */
     public function actionIndex()
     {
+
+        $id = Yii::$app->request->get('id');
+
+        //record
         $searchModel = new InventoryPurchaseSearch();
         $params = Yii::$app->request->queryParams;
         $params['InventoryPurchase']['status'] = InventoryPurchase::STATUS_NORMAL;
         $dataProvider = $searchModel->search($params);
 
-        return $this->render('index', [
+        if (!$id) {
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            //record rel
+            $rel_searchModel = new InventoryPurchaseRelSearch();
+            $rel_params = Yii::$app->request->queryParams;
+            $rel_params['InventoryPurchaseRel']['record_id'] = $id;
+            $rel_params['InventoryPurchaseRel']["status"] = InventoryPurchaseRel::STATUS_NORMAL;
+
+            $rel_dataProvider = $rel_searchModel->search($rel_params);
+
+            $record = $this->findModel($id);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'rel_dataProvider' => $rel_dataProvider,
+                'rel_searchModel' => $rel_searchModel,
+                'record' => $record
+            ]);
+        }
+
+        
+    }
+
+    /**
+     * @name 退货记录
+     */
+    public function actionRefunds()
+    {
+        $searchModel = new InventoryPurchaseRelSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['InventoryPurchaseRel']["status"] = InventoryPurchaseRel::STATUS_REFUND;
+
+        $dataProvider = $searchModel->search($params);
+
+
+        return $this->render('refunds', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionRefund($id)
+    {
+        $outerTransaction = Yii::$app->db->beginTransaction();
+
+        try {
+            $model=  $this->findModel($id);
+            $model->status = InventoryPurchase::STATUS_REFUND;
+            $model->save();
+
+            foreach ($model->rels as $k => $rel) {
+                $rel->status = InventoryPurchaseRel::STATUS_REFUND;
+                $rel->save();
+                Sku::updateNum($rel->sku_id, -$rel->num);
+            }
+            $outerTransaction->commit();
+        } catch (\Exception $e) {
+            $outerTransaction->rollBack();
+        }
+
+        return $this->redirect('index');
+    }
+
+    public function actionRelRefund($id)
+    {
+
+        $model = InventoryPurchaseRel::findOne($id);
+
+        $model->status = InventoryPurchaseRel::STATUS_REFUND;
+        $model->save();
+        Sku::updateNum($model->sku_id, -$model->num);
+
+        return $this->redirect(['index', 'id'=>$model->record_id]);
     }
 
     /**
@@ -51,10 +132,72 @@ class InventoryPurchaseController extends BackController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $data = $post['in'];
+
+            if (!$data) {
+                return ;
+            }
+
+            $outerTransaction = Yii::$app->db->beginTransaction();
+
+            try {
+                foreach ($data as $k => $v) {
+                    $rel = new InventoryPurchaseRel;
+                    $data = [
+                        'record_id' => $id,
+                        'supplier_id' => $model->supplier->id,
+                        'goods_id'  => $v['goods_id'],
+                        'sku_id' => $k,
+                        'unit_price' => $v['unit_price'],
+                        'unit' => $v['unit'],
+                        'num' => $v['num'],
+                        'total' => $v['total'],
+                        'retail' => $v['retail'],
+                        'op_id' => Yii::$app->user->id,
+                        'op_name'=> Yii::$app->user->identity->username,
+                        'note' => $v['note']
+                    ];
+
+                    $rel->load($data, '');
+                    $rel->save();
+                    Sku::updateNum($k, $v['num']);
+
+                    unset($rel);
+                }
+
+                $outerTransaction->commit();
+            } catch (\Exception $e) {
+                $outerTransaction->rollBack();
+                return $this->json(null, $e->getMessage(), 0);
+            }
+
+            return $this->json();
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
+
+    // public function actionRels($id)
+    // {
+    //     $query = InventoryPurchaseRel::find()->where(['record_id'=>$id, 'status'=>InventoryPurchaseRel::STATUS_NORMAL]);
+
+    //     $count = $query->count();
+    //     $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>10]);
+    //     $list = $query->offset($pagination->offset)
+    //                   ->limit($pagination->limit)
+    //                   ->all();
+
+    //     return $this->renderAjax('rels', [
+    //             'list' => $list,
+    //             'pagination' => $pagination
+    //         ]);
+    // }
 
     /**
      * Creates a new InventoryPurchase model.
@@ -114,11 +257,19 @@ class InventoryPurchaseController extends BackController
     public function actionGlist($sp=null, $bm=null, $name=null)
     {
 
+        $sp = trim($sp);
+        $bm = trim($bm);
+        $name = trim($name);
+
+        if (empty($sp) && empty($bm) && empty($name)) {
+            return '';
+        }
+
         $get = Yii::$app->request->queryParams;
 
         $query = Goods::find()->andFilterWhere(['like','pinyin', $sp])
                               ->andFilterWhere(['like','serial',$bm])
-                              ->andFilterWhere(['name'=>$name]);
+                              ->andFilterWhere(['like','name', $name]);
 
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>10]);
