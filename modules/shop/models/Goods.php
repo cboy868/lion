@@ -55,7 +55,7 @@ class Goods extends \app\core\db\ActiveRecord
             // ['name', 'unique',  'message' => '此菜品已存在，请确定'],
             // [['name', 'price'], 'required'],
             [['name'], 'required'],
-            [['name',], 'string', 'max' => 255],
+            [['name','pinyin'], 'string', 'max' => 255],
             [['unit'], 'string', 'max' => 100]
         ];
     }
@@ -97,7 +97,8 @@ class Goods extends \app\core\db\ActiveRecord
             'recommend' => '是否推荐',
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
-            'serial' => '序列号'
+            'serial' => '序列号',
+            'pinyin' =>'拼音首字母'
         ];
     }
 

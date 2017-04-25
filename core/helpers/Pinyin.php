@@ -75,6 +75,31 @@ VALUE;
 		return $res;
 	}
 
+	public static function py($str, $code='utf8')
+	{
+		$data = self::arrayCombine();
+
+		arsort($data);
+		reset($data);
+
+		if($code != 'gb2312') {
+			$str = self::utf8_gb($str);
+		}
+		
+		$res = '';
+		for($i=0; $i<strlen($str); $i++)
+		{
+			$p = ord(substr($str, $i, 1));
+			if($p>160) { 
+				$q = ord(substr($str, ++$i, 1)); 
+				$p = $p*256 + $q - 65536; 
+			}
+
+			$res .= substr(self::pin($p, $data), 0, 1);
+		}
+		return $res;
+	}
+
 	public static function pin($num, $data)
 	{
 		if ($num>0 && $num<160 ) {

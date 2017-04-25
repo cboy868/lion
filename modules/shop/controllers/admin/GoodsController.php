@@ -19,6 +19,7 @@ use app\modules\shop\models\Attr;
 use app\modules\shop\models\AttrVal;
 use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Sku;
+use app\core\helpers\Pinyin;
 /**
  * GoodsController implements the CRUD actions for Goods model.
  */
@@ -158,14 +159,15 @@ class GoodsController extends BackController
         if ($model->load($info) && $model->save()) {
             $outerTransaction = Yii::$app->db->beginTransaction();
 
-
-            if (!$model->serial) {
-               $serial = 'L%sT%s';
-                $model->serial = sprintf($serial, str_pad($model->category_id, 3, '0', STR_PAD_LEFT), str_pad($model->id, 4, '0', STR_PAD_LEFT));
-                $model->save();
-            }
-
              try {
+
+                if (!$model->serial) {
+                   $serial = 'L%sT%s';
+                    $model->serial = sprintf($serial, str_pad($model->category_id, 3, '0', STR_PAD_LEFT), str_pad($model->id, 4, '0', STR_PAD_LEFT));
+                }
+                $model->pinyin=Pinyin::py($model->name);
+                $model->save();
+
                  $this->tagCreate($info['Goods']['tags'], $model->id);
 
                  if (isset($info['mid']) && count($info['mid']) > 0) {
@@ -180,12 +182,10 @@ class GoodsController extends BackController
                     
                 }
 
-
                 $sku = $req->post('sku');
                 $price = $sku['price'];
                 $num = $sku['num'];
                 $original_price = $sku['original_price'];
-
 
                 if ($num && count(array_filter($num))>0) {
                     $num = array_filter($num);
@@ -335,6 +335,7 @@ class GoodsController extends BackController
                 $serial = 'L%sT%s';
                 $model->serial = sprintf($serial, str_pad($model->category_id, 3, '0', STR_PAD_LEFT), str_pad($model->id, 4, '0', STR_PAD_LEFT));
             }
+            $model->pinyin=Pinyin::py($model->name);
             $model->save();
 
             try {

@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
         'attributes' => [
             'id',
             'category.name',
+            'pinyin',
             'serial',
             'name',
             [
