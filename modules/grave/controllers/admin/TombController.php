@@ -67,12 +67,10 @@ class TombController extends BackController
 
         $dataProvider = $searchModel->search($params);
 
-       
         $parents = null;
         if ($grave) {
             $parents = $grave->getParents();
         }
-
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -93,8 +91,6 @@ class TombController extends BackController
 
         $params['TombSearch']['grave_id'] = $params['grave_id'];
         $dataProvider = $searchModel->search($params);
-
-        // $this->layout = false;
 
         return $this->renderAjax('list', [
             'dataProvider' => $dataProvider
@@ -309,16 +305,18 @@ class TombController extends BackController
         $gid = $config['id']['renew'];
         $fee = $config['fee']['renew'];
 
+        $ginfo = Goods::createVirtual($gid['id'], $gid['name']);
+
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
-            $goods = Goods::findOne($gid);
+
             $extra = [
                 'price' => $post['num'] * $fee * $model->price,
                 'num'   => $post['num'],
                 'tid'   => $model->id,
                 'note'  => $post['des']
             ];
-            $info = $goods->order($model->user_id, $extra);
+            $info = $ginfo->order($model->user_id, $extra);
             if ($info['order']) {
                 return $this->redirect(['/order/admin/default/view', 'id'=>$info['order']->id]);
             }
@@ -340,10 +338,10 @@ class TombController extends BackController
         $gid = Yii::$app->params['goods']['id']['renovate'];
         $taskCate = \app\modules\task\models\Info::find()->all();
 
+        $goods = Goods::createVirtual($gid['id'], $gid['name']);
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
-
-            $goods = Goods::findOne($gid);
+            
             $extra = [
                 'tid' => $id,
                 'use_time' => $post['sp']['use_time'],
@@ -376,11 +374,11 @@ class TombController extends BackController
         $fee = $this->module->params['ins']['fee']['repair'];
         $paint = $this->module->params['ins']['paint'];
         $gid = $config['id']['repair'];
+        $goods = Goods::createVirtual($gid['id'], $gid['name']);
 
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
 
-            $goods = Goods::findOne($gid);
             $extra = [
                 'price' => $post['num'] * $fee[$post['paint']],
                 'num'   => $post['num'],

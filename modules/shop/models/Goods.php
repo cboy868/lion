@@ -198,4 +198,14 @@ class Goods extends \app\core\db\ActiveRecord
     {
         return Order::createGoods($user_id, $this, $extra);
     }
+
+    public static function createVirtual($goods_id, $name, $data=[])
+    {
+        $model = new self;
+        $model->id = $goods_id;
+        $model->name = $name;
+        $model->price = isset($data['price']) ? $data['price'] : 0;
+
+        return $model;
+    }
 }
