@@ -45,6 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
     table.table{
         margin-bottom: 5px;
     }
+    .caption a{
+        color:#000;
+    }
 </style>
 
 
@@ -193,34 +196,28 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 </ul><!-- /.nav-list -->
                 
             </div>
-            <div class="col-xs-10 album-index">
+            <div class="col-md-10 col-sm-12 album-index">
 
-            <div class="row">
 
             <?php foreach ($dataProvider->getModels() as $k => $model): ?>
-                <div class="col-sm-4 col-md-3">
-                    <div class="thumbnail">
-                        <a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>" class="artimg">
-                            <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" class="image" style="height:165px;">
+                    <div class="thumbnail" style="width:100px;height:100px;float: left;">
+                        <a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>">
+                            <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" style="height:65px;">
                         </a>
                         <div class="caption">
-                            <h4><a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>"><?=StringHelper::truncate($model->title,20)?></a></h4>
+                            <p><a href="<?=Url::toRoute(['view', 'mod'=>$mod, 'id'=>$model->id])?>"><?=StringHelper::truncate($model->title,20)?></a></p>
 
                             <p><a href="<?=Url::toRoute(['delete', 'id'=>$model->id, 'mod'=>$mod])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a> 
                             <a href="<?=Url::toRoute(['update', 'id'=>$model->id, 'mod'=>$mod])?>" class="btn btn-success modalEditButton" role="button"><i class="fa fa-pencil"></i></a></p>
                         </div>
                     </div>
-                </div>
             <?php endforeach ?>
 
-              <div class="col-sm-4 col-md-3">
-                <div class="thumbnail" style="cursor: pointer;">
+                <div class="thumbnail" style="width:100px;height:100px;float: left;cursor: pointer;">
                 <a href="<?=Url::toRoute(['create', 'mod'=>$mod])?>" class="modalAddButton">
                   <img src="/static/images/plus.png">
                 </a>
                 </div>
-              </div>
-            </div>
 
             <?php 
                 echo LinkPager::widget([

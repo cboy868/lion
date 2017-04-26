@@ -3,7 +3,7 @@
 namespace app\modules\cms\controllers\m;
 
 
-class DefaultController extends \app\core\web\MController
+class DefaultController extends \app\modules\m\controllers\DefaultController
 {
     public function actionIndex()
     {

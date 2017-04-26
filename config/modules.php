@@ -61,6 +61,12 @@ return [
     'analysis' => [
         'class' => 'app\modules\analysis\Module',
     ],
+    'blog' => [
+        'class' => 'app\modules\blog\Module',
+    ],
+    'news' => [
+        'class' => 'app\modules\news\Module',
+    ],
 
 
 ];

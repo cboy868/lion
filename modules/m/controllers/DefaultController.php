@@ -9,7 +9,7 @@ use yii\filters\VerbFilter;
 
 class DefaultController extends \app\core\web\MController
 {
-    public $layout = "m.php";
+    public $layout = "@app/modules/m/views/layouts/m.php";
     /**
      * @inheritdoc
      */

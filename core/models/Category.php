@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 
 use app\core\traits\TreeTrait;
+use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%shop_category}}".
  *
@@ -83,6 +84,33 @@ class Category extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'status' => '状态',
         ];
+    }
+
+    public function getCover($size='')
+    {
+        return Attachment::getById($this->thumb, $size);
+    }
+
+    /**
+     * @name 取出所有可做父组的节点，用于父级选择
+     */
+    public static function pids($except=null)
+    {
+        $query = self::find()->where(['status'=>self::STATUS_NORMAL]);
+
+        if ($except) {
+            $query->andWhere(['<>', 'id', $except]);
+        }
+
+        $records = $query->asArray()->all();
+        $tree = ArrayHelper::recursion($records, 0, 2);
+
+        $result = [];
+        foreach ($tree as $k => $v) {
+            $result[$v['id']] = $v['html'] . $v['name'];
+        }
+
+        return $result;
     }
 
     

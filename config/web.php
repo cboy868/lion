@@ -79,6 +79,9 @@ $config = [
 
                     '@app/modules/m/views/default' => '@app/web/theme/site/mobile/home',
                     '@app/modules/m/views/layouts' => '@app/web/theme/site/mobile/layouts',
+                    '@app/modules/user/views/m/default' => '@app/web/theme/site/mobile/user',
+                    '@app/modules/cms/views/m/default' => '@app/web/theme/site/mobile/news',
+                    '@app/modules/shop/views/m/default' => '@app/web/theme/site/mobile/goods',
                 ],
             ],
         ],

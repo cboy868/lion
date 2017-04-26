@@ -5,6 +5,7 @@ namespace app\core\traits;
 use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\db\Query;
+use app\core\models\Attachment;
 
 trait TreeTrait {
 
@@ -218,13 +219,17 @@ trait TreeTrait {
     /**
      * @name 为树排序，前台表格树使用
      */
-    public static function sortTree($condition=[], $order=null)
+    public static function sortTree($condition=[], $order=null, $size='')
     {
         $sort = static::find()
                           ->filterWhere($condition)
                           ->orderBy('code asc' . ',' . $order)
                           ->asArray()
                           ->all();
+
+        foreach ($sort as $k => &$v) {
+          $v['cover'] = Attachment::getById($v['thumb'], $size);
+        }unset($v);
         return $sort;
     }
 

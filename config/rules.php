@@ -9,7 +9,10 @@ return [
     'admin/default'=> 'admin/default/index',
     'admin/default/<action:(.+)>'=> 'admin/default/<action>',
 
-
+    //m端
+    'm/news'=> 'cms/m/default/index',
+    'm/goods'=> 'shop/m/default/index',
+    'm/user'=> 'user/m/default/index',
 
     'product/<id:\d+>.html' => 'home/default/product-view',
     'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',

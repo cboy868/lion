@@ -50,7 +50,7 @@ $mod = Yii::$app->getRequest()->get('mod');
         <ul class="row" id="sortable">
 
         <?php foreach ($dataProvider->getModels() as $model): ?>
-            <li class="col-sm-3 col-md-2 ui-state-default" rel="<?=$model->id?>">
+            <li class="col-md-2 col-sm-2 ui-state-default" rel="<?=$model->id?>">
                 <div class="thumbnail <?php if($album->thumb == $model->id):?>active<?php endif;?>">
                     <a href="<?=$model->getImg()?>" class="artimg" style="height: 120px;display: block;">
                         <img src="<?=$model->getImg('380x265')?>" alt="<?=$model->title?>" style="max-height:100%;" class="image">
