@@ -70,13 +70,15 @@ $config = [
                 'basePath' => '@app/web/theme',
                 'baseUrl' => '@web/theme',
                 'pathMap' => [
-                    '@app/modules/home/views/default' => '@app/web/theme/site/home',
-                    '@app/modules/cms/views/home/album' => '@app/web/theme/site/album',
-                    '@app/modules/cms/views/home/post' => '@app/web/theme/site/post',
-                    '@app/modules/shop/views/home/default' => '@app/web/theme/site/shop',
-                    '@app/modules/home/views/layouts' => '@app/web/theme/site/layouts',
+                    '@app/modules/home/views/default' => '@app/web/theme/site/home/home',
+                    '@app/modules/cms/views/home/album' => '@app/web/theme/site/home/album',
+                    '@app/modules/cms/views/home/post' => '@app/web/theme/site/home/post',
+                    '@app/modules/shop/views/home/default' => '@app/web/theme/site/home/shop',
+                    '@app/modules/home/views/layouts' => '@app/web/theme/site/home/layouts',
                 //     '@app/modules/home/views' => '@app/web/theme/site', // <-- !!!
-                       
+
+                    '@app/modules/m/views/default' => '@app/web/theme/site/mobile/home',
+                    '@app/modules/m/views/layouts' => '@app/web/theme/site/mobile/layouts',
                 ],
             ],
         ],

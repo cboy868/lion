@@ -38,9 +38,6 @@ return [
     'home/default/<action:(.+)>.html'=> 'home/default/<action>',
     'home/default/<action:(.+)>'=> 'home/default/<action>',
 
-
-
-
     'install'=> 'install/default/index',
     'install/default'=> 'install/default/index',
     'install/default/<action:(.+)>'=> 'install/default/<action>',

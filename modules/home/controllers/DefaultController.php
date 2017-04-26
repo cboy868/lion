@@ -5,8 +5,10 @@ use Yii;
 
 class DefaultController extends HomeController
 {
-   public function actionIndex()
-   {
-        return $this->render('index');
-   }
+
+	public $layout = "home.php";
+	public function actionIndex()
+	{
+	    return $this->render('index');
+	}
 }
