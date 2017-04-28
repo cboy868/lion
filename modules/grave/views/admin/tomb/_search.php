@@ -31,6 +31,9 @@ ExtAsset::register($this);
     .selg{
         width:200px;
     }
+    .selgroup .form-group{
+        width: 200px;
+    }
 </style>
 <div class="tomb-search">
 
