@@ -49,6 +49,51 @@ class TombController extends BackController
 
         return $tomb->saveAttach($info);
     }
+
+    public function actionIx()
+    {
+        $searchModel = new TombSearch();
+        $params = Yii::$app->request->queryParams;
+
+
+        $grave = null;
+        if (isset($params['grave_id'])) {
+            $params['TombSearch']['grave_id'] = $params['grave_id'];
+            $grave = Grave::findOne($params['grave_id']);
+        }
+
+        $dataProvider = $searchModel->search($params);
+
+        $parents = null;
+        if ($grave) {
+            $parents = $grave->getParents();
+        }
+
+        return $this->render('ix', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'grave' => $grave,
+            'parents' => $parents
+        ]);
+    }
+
+    public function actionIxlist(){
+        $searchModel = new TombSearch();
+
+        $params = Yii::$app->request->queryParams;
+
+        if (!$params['grave_id']) {
+            return '';
+        }
+
+        $params['TombSearch']['grave_id'] = $params['grave_id'];
+        $dataProvider = $searchModel->search($params);
+
+        return $this->renderAjax('ixlist', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
     /**
      * Lists all Tomb models.
      * @return mixed

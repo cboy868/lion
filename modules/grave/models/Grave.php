@@ -125,6 +125,8 @@ class Grave extends \app\core\db\ActiveRecord
     public function beforeSave($insert)
     {
 
+        // p($this);die;
+
         if (!parent::beforeSave($insert)) {
             return false;
         }

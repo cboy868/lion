@@ -58,7 +58,7 @@ class DefaultController extends BackController
 
     private function getGraves()
     {
-        $tree = Grave::sortTree(['is_leaf'=>0]);
+        $tree = Grave::sortTree(['level'=>1]);
 
         foreach ($tree as $k => &$v) {
             $v['url'] =Url::toRoute(['index', 'pid'=>$v['id']]);
@@ -92,7 +92,6 @@ class DefaultController extends BackController
         $model = new Grave();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
 
             $up = Upload::getInstance($model, 'thumb', 'grave');
             if ($up) {

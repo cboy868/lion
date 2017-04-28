@@ -25,21 +25,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 <small>
 
                     <div class="pull-right nc">
-                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/news/admin/category/index'])?>" target="_blank">
+                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/news/admin/category/index'])?>">
                             <i class="fa fa-list-ol fa-2x"></i>  分类管理</a>
                     </div>
                     
                     <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'text'])?>" target="_blank">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'text'])?>">
                             <i class="fa fa-file-text fa-2x"></i>  添加文本资讯</a>
                     </div>
 
                     <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'image'])?>" target="_blank">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'image'])?>">
                             <i class="fa fa-file-image-o fa-2x"></i>  添加图文资讯</a>
                     </div>
                     <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'video'])?>" target="_blank">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'video'])?>">
                             <i class="fa fa-file-video-o fa-2x"></i>  添加视频资讯</a>
                     </div>
                 </small>
