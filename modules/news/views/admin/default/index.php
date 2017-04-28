@@ -15,9 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
     .nc{margin-right: 10px;}
-    table.table>tbody>tr>td{
-        vertical-align:bottom;
-    }
 </style>
 <div class="page-content">
     <!-- /section:settings.box -->
@@ -26,6 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <?=  $this->title ?> 
                 <small>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/news/admin/category/index'])?>" target="_blank">
+                            <i class="fa fa-list-ol fa-2x"></i>  分类管理</a>
+                    </div>
+                    
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'text'])?>" target="_blank">
                             <i class="fa fa-file-text fa-2x"></i>  添加文本资讯</a>

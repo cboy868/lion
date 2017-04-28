@@ -7,6 +7,7 @@ use yii\behaviors\TimestampBehavior;
 
 use app\core\traits\TreeTrait;
 use app\core\models\Attachment;
+use app\core\helpers\ArrayHelper;
 /**
  * This is the model class for table "{{%shop_category}}".
  *
