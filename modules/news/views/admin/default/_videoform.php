@@ -5,9 +5,8 @@ use yii\widgets\ActiveForm;
 use app\modules\news\models\Category;
 use yii\helpers\Url;
 use app\core\models\Attachment;
-/* @var $this yii\web\View */
-/* @var $model app\modules\news\models\News */
-/* @var $form yii\widgets\ActiveForm */
+
+\app\assets\PluploadAssets::register($this);
 ?>
 
 <div class="news-form">

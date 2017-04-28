@@ -32,9 +32,6 @@ class DefaultController extends BackController
     public function actions()
     {
         return [
-            // 'web-upload' => [
-            //     'class' => 'app\core\web\WebuploadAction',
-            // ],
             'web-upload' => [
                 'class' => 'app\core\web\AlbumUploadAction',
                 'type' =>'news',
@@ -44,6 +41,7 @@ class DefaultController extends BackController
             ],
             'pl-upload' => [
                 'class' => 'app\core\web\PluploadAction',
+                'type' =>'news',
             ],
         ];
     }
@@ -219,7 +217,23 @@ class DefaultController extends BackController
 
     public function updateVideo($model)
     {
+        $class = '\app\modules\news\models\NewsVideoForm';
+        $formModel = new $class();
 
+        $req = Yii::$app->request;
+
+        if ($model->load($req->post(), 'NewsVideoForm') && $model->save()) {
+            return $this->redirect(['index', 'type' => $model->type]);
+        }
+
+        $data = ArrayHelper::toArray($model);
+
+        $formModel->load($data, '');
+
+        return $this->render('update', [
+            'model' => $formModel,
+            'type' => 'video'
+        ]);
     }
 
     public function actionRecommend($id)
