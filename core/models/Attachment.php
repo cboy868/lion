@@ -147,7 +147,7 @@ class Attachment extends \yii\db\ActiveRecord
      */
     public static function getById($id, $size='', $default='/static/images/default.png')
     {
-        $model = self::findOne($id);
+        $model = Static::findOne($id);
 
         if (!$model) {
             if ($size) {

@@ -3,6 +3,7 @@
 namespace app\modules\news\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%news_photo}}".
@@ -23,8 +24,9 @@ use Yii;
  * @property integer $updated_at
  * @property integer $status
  */
-class NewsPhoto extends \app\core\db\ActiveRecord
+class NewsPhoto extends \app\core\models\Attachment
 {
+    const STATUS_NORMAL = 1;
     /**
      * @inheritdoc
      */
@@ -41,7 +43,7 @@ class NewsPhoto extends \app\core\db\ActiveRecord
         return [
             [['news_id', 'sort', 'view_all', 'com_all', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
             [['body'], 'string'],
-            [['created_at', 'updated_at'], 'required'],
+            [['path', 'name'], 'required'],
             [['title', 'path', 'name', 'ip'], 'string', 'max' => 200],
             [['ext'], 'string', 'max' => 100],
         ];
@@ -69,5 +71,36 @@ class NewsPhoto extends \app\core\db\ActiveRecord
             'updated_at' => 'Updated At',
             'status' => 'Status',
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
+    }
+
+    public static function db($event)
+    {
+        $model = new self;
+        $model->path = $event->path;
+        $model->name = $event->fileName;
+        $model->ext = $event->ext;
+        // $model->title = $event->title;
+        $model->title = substr($event->title, 0, strrpos($event->title, '.'));
+        $model->created_by = Yii::$app->user->id;
+        $model->save();
+
+        return $event->sender->mid = $model->id;
+    }
+
+    /**
+     * @name 取封面
+     */
+    public function getCover($size='')
+    {
+        return self::getById($this->id, $size);
     }
 }

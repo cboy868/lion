@@ -45,8 +45,13 @@ $this->params['breadcrumbs'][] = ['label' => '新闻资讯管理', 'url' => ['in
             'pic_author',
             'video_author',
             'source',
-            'thumb',
-            'video',
+            'thumb:image',
+            [
+                'label' => '视频',
+                'value' => '<embed allowscriptaccess="never" allownetworking="internal" invokeurls="false" src="'.$model->video.'" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" autostart="0" wmode="transparent" width="100%" height="300" align="middle">',
+                'format' =>'raw'
+
+            ],
             'sort',
             'view_all',
             'com_all',
@@ -54,9 +59,8 @@ $this->params['breadcrumbs'][] = ['label' => '新闻资讯管理', 'url' => ['in
             'is_top',
             'type',
             'created_by',
-            'created_at',
-            'updated_at',
-            'status',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

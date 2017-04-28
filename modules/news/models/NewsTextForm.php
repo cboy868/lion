@@ -20,6 +20,7 @@ class NewsTextForm extends Model
     public $tag;
     public $body;
     public $type = 1;//文字 2图片 3video
+    public $id=0;
 
     /**
      * @return array the validation rules.
@@ -28,7 +29,7 @@ class NewsTextForm extends Model
     {
         return [
             [['title','body'], 'required'],
-            [['category_id', 'type'], 'integer'],
+            [['category_id', 'type', 'id'], 'integer'],
             [['summary'], 'string'],
             [['title', 'subtitle'], 'string', 'max' => 255],
             [['author'], 'string', 'max' => 100],
@@ -53,6 +54,31 @@ class NewsTextForm extends Model
             'tag' => '标签',
             'body' => '内容',
         ];
+    }
+
+    public function save()
+    {
+        $model = new News();
+
+        $model->category_id = $this->category_id;
+        $model->title = $this->title;
+        $model->subtitle = $this->subtitle;
+        $model->summary = $this->summary;
+        $model->author = $this->author;
+        $model->source = $this->source;
+        $model->thumb = $this->thumb;
+        // $model->tag = $this->tag;
+        $model->type = $this->type;
+        $model->created_by = Yii::$app->user->id;
+        $model->save();
+
+        $body = new NewsData();
+        $body->news_id = $model->id;
+        $body->body = $this->body;
+        $body->save();
+
+        return $model;
+
     }
 
 }

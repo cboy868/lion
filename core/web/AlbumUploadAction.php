@@ -8,6 +8,8 @@ use app\core\base\Upload;
 class AlbumUploadAction extends Action
 {
 
+    public $type='album';
+
     public $view;
 
     public function init()
@@ -40,8 +42,14 @@ class AlbumUploadAction extends Action
             $upload = Upload::getInstanceByName('file', $res_name);
             $upload->use = $use ? $use : null;
 
-            $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\modules\cms\models\AlbumImage', 'db']);
+            if ($this->type == 'album') {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\modules\cms\models\AlbumImage', 'db']);
+            }
 
+            if ($this->type == 'news') {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\modules\news\models\NewsPhoto', 'db']);
+            }
+            
             $upload->save();
 
             $info = $upload->getInfo();

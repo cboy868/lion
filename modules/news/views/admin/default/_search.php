@@ -19,6 +19,8 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'author') ?>
 
+    <?= $form->field($model, 'type')->hiddenInput()->label(false) ?>
+
     <?= $form->field($model, 'created_by')->label('添加人 ') ?>
 
     <div class="form-group">

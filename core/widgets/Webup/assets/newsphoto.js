@@ -234,7 +234,10 @@ $(function() {
                     '<p class="title">' + file.name + '</p>' +
                     '<p class="imgWrap"></p>'+
                     '<p class="progress"><span></span></p>' +
-                    //'<p class="addition"><input placeholder="图片名" name="title[]" value="'+file.name+'">' +
+                    '<p class="addition"><label style="width:40%" for="f'+file.id+'">封面</label>'+
+                    '<input style="width:50%" type="radio" class="webup-cover" id="f'+file.id+'" name="cover">' +
+                    '<input placeholder="图片名" name="title[]" value="'+file.name+'">' +
+                    '<textarea name="intro[]" placeHolder="图片简介" style="margin-top:5px;"></textarea>' +
                     // '<input type="hidden" class="imgurl" name="img_url[]">' +
                     '<input type="hidden" class="mid" name="mid[]"></p>' +
                     '</li>' ),
@@ -264,6 +267,8 @@ $(function() {
 
                     $info.text( text ).appendTo( $li );
                 };
+
+                // $(".webup-cover:first").attr('checked', 'checked');
 
             if ( file.getStatus() === 'invalid' ) {
                 showError( file.statusText );
@@ -323,7 +328,6 @@ $(function() {
                     $prgress.css('display', 'block');
                 } else if ( cur === 'complete' ) {
                     $li.append( '<span class="success"></span>' );
-                    location.reload();
                 }
 
                 $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
@@ -583,8 +587,8 @@ $(function() {
         uploader.on( 'uploadSuccess', function( file, response ) {
 
             // $('#'+file.id).find('.addition .imgurl').val(response.data.web_url);
-
             $('#'+file.id).find('.addition .mid').val(response.data.mid);
+            $('#'+file.id).find('.addition .cover').val(response.data.mid);
 
         });
 

@@ -3,7 +3,8 @@
 namespace app\modules\news\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%news}}".
  *
@@ -31,12 +32,31 @@ use Yii;
  */
 class News extends \app\core\db\ActiveRecord
 {
+
+    const TYPE_TEXT = 1;
+    const TYPE_IMAGE = 2;
+    const TYPE_VIDEO = 3;
+
+    public static $types = [
+        'text'  => '文本',//文字
+        'image' => '图片',//图片
+        'video' => '视频'//视频
+    ];
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%news}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
     }
 
     /**
@@ -46,7 +66,7 @@ class News extends \app\core\db\ActiveRecord
     {
         return [
             [['category_id', 'thumb', 'sort', 'view_all', 'com_all', 'recommend', 'is_top', 'type', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
-            [['title', 'created_at', 'updated_at'], 'required'],
+            [['title'], 'required'],
             [['summary'], 'string'],
             [['title', 'subtitle', 'video'], 'string', 'max' => 255],
             [['author', 'pic_author', 'video_author'], 'string', 'max' => 100],
@@ -82,5 +102,23 @@ class News extends \app\core\db\ActiveRecord
             'updated_at' => '修改时间',
             'status' => '状态',
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id'=>'category_id']);
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(), ['id'=>'created_by']);
+    }
+
+    /**
+     * @name 取封面
+     */
+    public function getCover($size='')
+    {
+        return NewsPhoto::getById($this->thumb, $size);
     }
 }

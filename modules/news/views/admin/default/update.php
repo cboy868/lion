@@ -25,8 +25,12 @@ $this->params['breadcrumbs'][] = '修改';
 
 		<div class="row">
 			<div class="col-xs-12 news-update">
-				 <?= $this->render('_form', [
+				<?php 
+					$fm = '_' . $type . 'form';
+				 ?>
+				 <?= $this->render($fm, [
 				        'model' => $model,
+				        'imgs' => isset($imgs) ? $imgs :''
 				    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

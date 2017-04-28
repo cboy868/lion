@@ -22,14 +22,13 @@ class NewsVideoForm extends Model
     public $video_author;//视频作者
     public $video;
 
-
     /**
      * @return array the validation rules.
      */
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['title', 'video'], 'required'],
             [['category_id', 'type'], 'integer'],
             [['summary'], 'string'],
             [['title', 'subtitle', 'video'], 'string', 'max' => 255],
@@ -50,7 +49,7 @@ class NewsVideoForm extends Model
             'subtitle' => '副标题',
             'summary' => '概要',
             'author' => '作者',
-            'video_author' => '图片作者',
+            'video_author' => '视频作者',
             'source' => '来源',
             'thumb' => '封面图',
             'tag' => '标签',
@@ -58,4 +57,35 @@ class NewsVideoForm extends Model
         ];
     }
 
+
+
+    /**
+     * @name 保存
+     */
+    public function save()
+    {
+        $model = new News();
+
+        $uname = Yii::$app->user->identity->username;
+
+        $model->category_id = $this->category_id;
+        $model->title = $this->title;
+        $model->subtitle = $this->subtitle;
+        $model->summary = $this->summary;
+        $model->author = $this->author ? $this->author : $uname;
+        $model->video_author = $this->video_author ? $this->video_author : $uname;
+        $model->source = $this->source;
+        $model->thumb = $this->thumb;
+        // $model->tag = $this->tag;
+        $model->type = $this->type;
+        $model->created_by = Yii::$app->user->id;
+        $model->video = $this->video;
+        $model->save();
+
+        return $model;
+
+    }
+
 }
+
+
