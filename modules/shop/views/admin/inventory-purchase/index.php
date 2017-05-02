@@ -14,7 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
-
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -25,7 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
             -->
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 进 货', ['create'], ['class' => 'btn btn-info btn-sm']) ?>
-                    <?=  Html::a('退货记录', ['refunds'], ['class' => 'btn btn-info btn-sm']) ?>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-supplier/index'])?>">
+                            <i class="fa fa-hand-o-right fa-2x"></i>  供货商管理</a>
+                    </div>
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-purchase/refunds'])?>">
+                            <i class="fa fa-rotate-left fa-2x"></i>  退货管理</a>
+                    </div>
                 </small>
             </h1>
         </div><!-- /.page-header -->

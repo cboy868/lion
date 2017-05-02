@@ -16,7 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
-
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -27,6 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             -->
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/category/index'])?>">
+                            <i class="fa fa-sitemap fa-2x"></i>  商品分类管理</a>
+                    </div>
                 </small>
             </h1>
         </div><!-- /.page-header -->

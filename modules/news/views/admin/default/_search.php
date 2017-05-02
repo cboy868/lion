@@ -21,7 +21,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'type')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'created_by')->label('添加人 ') ?>
+    <?php // $form->field($model, 'created_by')->label('添加人 ') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

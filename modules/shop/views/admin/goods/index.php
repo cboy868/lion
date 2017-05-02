@@ -18,6 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 FootableAsset::register($this);
 ?>
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -27,7 +30,7 @@ FootableAsset::register($this);
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
 
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> 添加商品 </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus"></i> 新增 </button>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -63,10 +66,16 @@ FootableAsset::register($this);
 </div>
 
 
-<!-- 
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
-                </small> -->
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/bag/index'])?>">
+                            <i class="fa fa-shopping-bag fa-2x"></i>  打包品管理</a>
+                    </div>
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/category/index'])?>">
+                            <i class="fa fa-sitemap fa-2x"></i>  商品分类管理</a>
+                    </div>
+                </small>
             </h1>
         </div><!-- /.page-header -->
 

@@ -9,4 +9,9 @@ class DefaultController extends \app\modules\m\controllers\DefaultController
     {
         return $this->render('index');
     }
+
+    public function actionView()
+    {
+    	echo 'sss';
+    }
 }

@@ -13,9 +13,10 @@ $this->title = '退货明细';
 $this->params['breadcrumbs'][] = ['label' => '进货记录', 'url' => ['/shop/admin/inventory-purchase/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-
 ?>
-
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -23,6 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <?=  $this->title ?> 
                 <small>
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-supplier/index'])?>">
+                            <i class="fa fa-hand-o-right fa-2x"></i>  供货商管理</a>
+                    </div>
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-purchase/index'])?>">
+                            <i class="fa fa-cart-plus fa-2x"></i>  进货记录</a>
+                    </div>
                 </small>
             </h1>
         </div><!-- /.page-header -->

@@ -103,6 +103,9 @@ class Sku extends \app\core\db\ActiveRecord
 
     public function getFullName()
     {
+        if (!$this->goods) {
+            return '';
+        }
         return $this->name == $this->goods->name ? $this->name : $this->goods->name . $this->name;
     }
 

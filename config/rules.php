@@ -10,7 +10,8 @@ return [
     'admin/default/<action:(.+)>'=> 'admin/default/<action>',
 
     //m端
-    'm/news'=> 'cms/m/default/index',
+    'm/news'=> 'news/m/default/index',
+    'm/news/<id:\d+>.html'=> 'news/m/default/view',
     'm/goods'=> 'shop/m/default/index',
     'm/user'=> 'user/m/default/index',
 
@@ -105,12 +106,12 @@ return [
     'm/<module:(.+)>.html'=> '<module>/m/default/index',
     'm/<module:(.+)>'=> '<module>/m/default/index',
 
-    '<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/home/<controller>/<action>',
-    '<module:(.+)>/<controller:(.+)>/<action:(.+)>'=> '<module>/home/<controller>/<action>',
-    '<module:(.+)>/<controller:(.+)>.html'=> '<module>/home/<controller>/index',
-    '<module:(.+)>/<controller:(.+)>'=> '<module>/home/<controller>/index',
-    '<module:(.+)>.html'=> '<module>/home/default/index',
-    '<module:(.+)>'=> '<module>/home/default/index',
+    // '<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/home/<controller>/<action>',
+    // '<module:(.+)>/<controller:(.+)>/<action:(.+)>'=> '<module>/home/<controller>/<action>',
+    // '<module:(.+)>/<controller:(.+)>.html'=> '<module>/home/<controller>/index',
+    // '<module:(.+)>/<controller:(.+)>'=> '<module>/home/<controller>/index',
+    // '<module:(.+)>.html'=> '<module>/home/default/index',
+    // '<module:(.+)>'=> '<module>/home/default/index',
 
     # mg group
     // 'mg/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/mg/<controller>/<action>',

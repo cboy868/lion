@@ -64,14 +64,17 @@ use app\modules\sys\models\Set;
                 </div>
             </div>
         <?php $i++; endforeach;?>
-      </div>
 
-    
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-3">
                 <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
             </div>
         </div>
+        <div style="clear:both;"></div>
+      </div>
+
+    
+        
 
     </div>
 

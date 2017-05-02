@@ -2,6 +2,9 @@
 use app\assets\WeuiAsset;
 use app\core\helpers\Html;
 use app\core\helpers\Url;
+
+
+\app\assets\VueAsset::register($this);
 ?>
 
 <?php $this->beginPage() ?>
@@ -10,7 +13,7 @@ use app\core\helpers\Url;
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title>微信端页面</title>
+        <title><?=g("cp_name")?></title>
         <title><?= Html::encode($this->title) ?></title>
         <?= Html::csrfMetaTags() ?>
         <?php $this->head() ?>
@@ -24,13 +27,9 @@ use app\core\helpers\Url;
     <?php $this->beginBody() ?>
 
         <header class="bar bar-nav">
-            <h1 class="title">承德卓迅网络</h1>
-            <!-- <a href="http://m.shensuantang.com/ucenter/member/login.html" class="icon pull-right"><i class="sstfont sst-wode"></i></a> -->
+            <h1 class="title"><?=g("cp_name")?></h1>
         </header>
-            
         <?=$content?>
-
-            
         <div class="weui-tabbar">
             <a href="<?=Url::toRoute('/m')?>" class="weui-tabbar__item weui-bar__item--on">
                 <div class="weui-tabbar__icon"> <i class="sstfont sst-shouye"></i> </div>
@@ -57,9 +56,6 @@ use app\core\helpers\Url;
         <script type="text/javascript" src="/theme/site/static/js/swiper.js"></script>
 
         <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
-
-        <!-- 如果使用了某些拓展插件还需要额外的JS -->
-        <!-- <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/swiper.min.js"></script> -->
         <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js"></script>
 
         <script type="text/javascript">

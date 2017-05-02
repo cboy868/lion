@@ -25,6 +25,12 @@ class Image extends \yii\imagine\Image {
         }
 
         $thumb = self::getConfig($event->res, 'thumb');
+        if (!$thumb || !is_array($thumb)) {
+            self::water($event->res, $event->filePath);
+            return ;
+        }
+
+
         $thumb = array_filter($thumb);
 
         if (!is_array($thumb)) {
@@ -62,6 +68,9 @@ class Image extends \yii\imagine\Image {
         $config = array_merge($configs['common'], $current_config);
 
         if ($field) {
+            if (!isset($config[$field])) {
+                return false;
+            }
             return $config[$field];
         } else {
             return $config;
@@ -216,7 +225,7 @@ class Image extends \yii\imagine\Image {
         $config = self::getConfig($res);
 
         //缩略
-        $thumb =array_filter($config['thumb']);
+        $thumb = isset($config['thumb']) ? array_filter($config['thumb']) : false;
 
         //水印
         $watermark = $config['water_text'];

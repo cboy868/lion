@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\blog;
+namespace app\modules\api;
 
 
 class Module extends \app\core\base\Module
@@ -12,6 +12,4 @@ class Module extends \app\core\base\Module
 
         // custom initialization code goes here
     }
-    
-   
 }

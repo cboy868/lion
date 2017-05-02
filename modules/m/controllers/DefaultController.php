@@ -63,7 +63,6 @@ class DefaultController extends \app\core\web\MController
     }
 
 
-
     /**
      * Displays about page.
      *

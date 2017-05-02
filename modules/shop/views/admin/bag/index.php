@@ -14,7 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
-
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -22,6 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/goods/index'])?>">
+                            <i class="fa fa-shopping-basket fa-2x"></i>  普通商品管理</a>
+                    </div>
                 </small>
             </h1>
         </div><!-- /.page-header -->

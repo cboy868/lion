@@ -30,21 +30,13 @@
                       <span>虎</span>
                   </a>
               </div>
-              <div class="swiper-slide swiper-slide-next" style="display: none;">
-              <a href="/news/4.html">
-                  <span>虎</span>
-              </a>
-              </div><!--"-->
+              
               <div class="swiper-slide" style="display: none;display: block">
                   <a href="/news/5.html">
                       <span>龙</span>
                   </a>
               </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/5.html">
-                  <span>龙</span>
-              </a>
-              </div><!--"-->
+             
               <div class="swiper-slide" style="display: none;display: block">
                   <a href="/news/6.html">
                       <span>鼠</span>
@@ -60,115 +52,20 @@
                       <span>牛</span>
                   </a>
               </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/7.html">
-                  <span>牛</span>
-              </a>
-              </div><!--"-->
+              
               <div class="swiper-slide" style="display: none;display: block">
                   <a href="/news/8.html">
                       <span>兔</span>
                   </a>
               </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/8.html">
-                  <span>兔</span>
-              </a>
-              </div><!--"-->
-              <div class="swiper-slide" style="display: none;display: block">
-                  <a href="/news/9.html">
-                      <span>蛇</span>
-                  </a>
-              </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/9.html">
-                  <span>蛇</span>
-              </a>
-              </div><!--"-->
-              <div class="swiper-slide" style="display: none;display: block">
-                  <a href="/news/10.html">
-                      <span>马</span>
-                  </a>
-              </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/10.html">
-                  <span>马</span>
-              </a>
-              </div><!--"-->
-              <div class="swiper-slide" style="display: none;display: block">
-                  <a href="/news/11.html">
-                      <span>羊</span>
-                  </a>
-              </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/11.html">
-                  <span>羊</span>
-              </a>
-              </div><!--"-->
-              <div class="swiper-slide" style="display: none;display: block">
-                  <a href="/news/12.html">
-                      <span>猴</span>
-                  </a>
-              </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/12.html">
-                  <span>猴</span>
-              </a>
-              </div><!--"-->
-              <div class="swiper-slide" style="display: none;display: block">
-                  <a href="/news/13.html">
-                      <span>鸡</span>
-                  </a>
-              </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/13.html">
-                  <span>鸡</span>
-              </a>
-              </div><!--"-->
-              <div class="swiper-slide" style="display: none;display: block">
-                  <a href="/news/14.html">
-                      <span>狗</span>
-                  </a>
-              </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/14.html">
-                  <span>狗</span>
-              </a>
-              </div><!--"-->
-              <div class="swiper-slide" style="display: none;display: block">
-                  <a href="/news/15.html">
-                      <span>猪</span>
-                  </a>
-              </div>
-              <div class="swiper-slide" style="display: none;">
-              <a href="/news/15.html">
-                  <span>猪</span>
-              </a>
-              </div>
-              
-              
-              
-                            </div>
+            </div>
           </div>
       </div>
-
-
   </div>
 
 
 
-  <div class="swiper-container swiper-container-horizontal swiper-container-android" data-space-between="10" data-pagination=".swiper-pagination" data-autoplay="1000">
-
-        <div class="swiper-wrapper">
-            
-   <!-- <div class="weui-panel__hd">
-
-            
-
-
-    </div>-->        </div>
-        <div class="swiper-pagination swiper-pagination-bullets"></div>
-    </div>
+ 
     <div class="weui-panel weui-panel_access zixun_list">
         <div class="weui-panel__bd" id="listbox">
             <a href="/news/detail_4.html" class="weui-media-box weui-media-box_appmsg">

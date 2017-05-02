@@ -10,6 +10,9 @@ return [
     'm' => [
         'class' => 'app\modules\m\Module',
     ],
+    'api' => [
+        'class' => 'app\modules\api\Module',
+    ],
     'sms' => [
         'class' => 'app\modules\sms\Module',
     ],

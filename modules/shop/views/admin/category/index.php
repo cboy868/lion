@@ -17,7 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 Tabletree::register($this);
 
 ?>
-
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -25,6 +27,19 @@ Tabletree::register($this);
             <h1>
                 <small>
                     <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' data-loading-text="页面加载中, 请稍后..." onclick="return false" title="添加分类"><i class="fa fa-plus"></i>添加分类</a>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/type/index'])?>">
+                            <i class="fa fa-cubes fa-2x"></i>  商品类型管理</a>
+                    </div>
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/goods/index'])?>">
+                            <i class="fa fa-shopping-basket fa-2x"></i>  商品管理</a>
+                    </div>
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/bag/index'])?>">
+                            <i class="fa fa-shopping-bag fa-2x"></i>  打包品管理</a>
+                    </div>
                 </small>
             </h1>
         </div><!-- /.page-header -->
