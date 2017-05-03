@@ -81,6 +81,7 @@ var demo = new Vue({
         sendData:{fields:['id', 'name']},
         apiUrl: 'http://api.ibagou.com/v1/news/cates',
 
+        
         clistUrl : 'http://api.ibagou.com/v1/news/clist',
         clistParams : {cid:1, page:1, pageSize:2},
         clist:[],
