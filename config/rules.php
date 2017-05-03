@@ -11,6 +11,7 @@ return [
 
     //m端
     'm/news'=> 'news/m/default/index',
+    'm/news/c<id:\d+>.html'=> 'news/m/default/index',
     'm/news/<id:\d+>.html'=> 'news/m/default/view',
     'm/goods'=> 'shop/m/default/index',
     'm/user'=> 'user/m/default/index',

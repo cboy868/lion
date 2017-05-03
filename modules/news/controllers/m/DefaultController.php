@@ -12,6 +12,9 @@ class DefaultController extends \app\modules\m\controllers\DefaultController
 
     public function actionView()
     {
-    	return $this->render('view');
+
+    	return $this->render('view', [
+			'get' => \Yii::$app->request->get()
+		]);
     }
 }

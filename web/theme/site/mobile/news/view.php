@@ -1,22 +1,21 @@
-<div class="content">
+<div class="content" id="news-box">
   <article class="weui-article">
-    <h1 class="sst_article">教你几招轻松改善客厅风水</h1>
-    <div class="sst_article_meta">2016-05-30 18:57 </div>
-    <section>
-      <p style="text-align: left;">&nbsp;<img src="./static/images/58f1cbd83c803.jpg" title="" alt="20160321061632327.jpg"></p><p style="text-align: left;">一、客厅位置</p><p style="text-align: left;">客厅应设在住家的最前方。进入大门后首先应看见客厅，而卧房、厨房以及其他空间应设在房子后方。空间运用配置颠倒，误将客厅设置在后方，会造成退财格局，容易使财运走下坡。</p><p style="text-align: left;">二、客厅不宜摆放的饰品</p><p style="text-align: left;">尖锐的物品，例如刀剑、火器、奖牌、动物标本，都不应该挂在客厅墙上。因为这些物品都会产生阴气，导致争吵或暴力行为。同样的也应避免摆设有棱角的台灯或装饰品。</p><p style="text-align: left;">三、家具造型</p><p style="text-align: left;">家具的造型要坚实，使用高背的沙发和座椅，因为不但舒适也象征家庭生活有依靠。理想上，客厅家具的摆设最好呈八卦形，由于座椅是彼此相邻，可促进人际关系的合谐。</p><p style="text-align: left;">四、客厅色彩色彩</p><p style="text-align: left;">1、客厅正北方颜色</p><p style="text-align: left;">检查客厅正北方位的布置。正北方代表事业运，属水行，喜用色是蓝色或黑色。在这个方位放置属水的物品对居住者的事业运有帮助，例如鱼缸、山水画、水车等。或者放置黑色的金属饰品也可以，因为金能生水。</p><p style="text-align: left;">2、客厅正南方颜色</p><p style="text-align: left;">正南方位布置好风水会为家人带来声名和肯定，尤其是负责生计的家长。正南方属火行，喜用色是红色。适合悬挂凤凰、火鹤或日出的图画。红色地毯或红色的木制装饰品（因为木能生火）也很合适。</p><p style="text-align: left;">3、客厅西北方颜色</p><p style="text-align: left;">强化客厅西北方位的能量，有助于增加贵人运和人际关系。这个区域属金，所以适合摆放白色、金色或银色的金属饰品，例如金属雕刻品或金属底座的台灯。</p><p><br></p>                 
+    <h1 class="sst_article">{{item.title}}</h1>
+    <div class="sst_article_meta">{{item.created_at}} </div>
+    <section v-html="item.body">
     </section>
   </article>
 
   <div class="weui-panel weui-panel_access zixun_list">
       <div class="weui-panel__hd">热门推荐</div>
       <div class="weui-panel__bd" id="listbox">
-        <a href="/news/detail_4.html" class="weui-media-box weui-media-box_appmsg">
+        <a :href="'/m/news/' + it.id +'.html'" class="weui-media-box weui-media-box_appmsg" v-for="it in recommend">
           <div class="weui-media-box__hd">
-              <img class="weui-media-box__thumb" src="./static/images/m4.png" alt="">
+              <img class="weui-media-box__thumb" :src="it.cover" alt="">
           </div>
           <div class="weui-media-box__bd">
-              <h4 class="weui-media-box__title">家居风水</h4>
-              <p class="weui-media-box__desc">2016-05-19 14:40</p>
+              <h4 class="weui-media-box__title">{{it.title}}</h4>
+              <p class="weui-media-box__desc">{{it.created_date}}</p>
           </div>
       </a>
       </div>        
@@ -24,5 +23,66 @@
     
 </div>
 
-        
-            
+<?php $this->beginBlock('news') ?>  
+var demo = new Vue({
+    el: '#news-box',
+    data: {
+        item: [],
+        recommend:[],
+        sendData:{condition:['recommend']},
+        apiUrl: 'http://api.lion.cn/v1/news/<?=$get['id']?>',
+    },
+    beforeMount: function() {
+        this.getNews();
+        this.getRecommend();
+    },
+    methods: {
+        getNews: function() {
+            this.$http.jsonp(this.apiUrl,{'jsonp':'lcb'}).then((response) => {
+              var item = response.data;
+              item.created_at = this.goodTime(item.created_at * 1000);
+                this.$set(this, 'item', item);
+            }).catch(function(response) {
+                console.log(response)
+            })
+        },
+        getRecommend:function(){
+          this.$http.jsonp('http://api.lion.cn/v1/news/list',{'jsonp':'lcb',params:this.sendData}).then((response) => {
+            this.$set(this, 'recommend', response.data);
+            console.dir(response.data);
+          }).catch(function(response) {
+            console.log(response)
+          })
+        },
+        goodTime: function(str){
+          var now = new Date().getTime(),
+              oldTime = new Date(str).getTime(),
+              difference = now - oldTime,
+              result='',
+              minute = 1000 * 60,
+              hour = minute * 60,
+              day = hour * 24,
+              halfamonth = day * 15,
+              month = day * 30,
+              year = month * 12,
+
+              _year = difference/year,
+              _month =difference/month,
+              _week =difference/(7*day),
+              _day =difference/day,
+              _hour =difference/hour,
+              _min =difference/minute;
+               if(_year>=1) {result= "发表于 " + ~~(_year) + " 年前"}
+          else if(_month>=1) {result= "发表于 " + ~~(_month) + " 个月前"}
+          else if(_week>=1) {result= "发表于 " + ~~(_week) + " 周前"}
+          else if(_day>=1) {result= "发表于 " + ~~(_day) +" 天前"}
+          else if(_hour>=1) {result= "发表于 " + ~~(_hour) +" 个小时前"}
+          else if(_min>=1) {result= "发表于 " + ~~(_min) +" 分钟前"}
+          else result="刚刚";
+          return result;
+      }
+    }
+})
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['news'], \yii\web\View::POS_END); ?>  
+       

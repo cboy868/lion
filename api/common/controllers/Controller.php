@@ -16,10 +16,57 @@ class Controller extends ActiveController
 
 	public $imgBaseUrl = 'http://www.lion.cn';
 
-	public function init()
-	{
-		$this->callback = Yii::$app->request->get('lcb',null);
-	}
+	public function behaviors() {
+
+        $behaviors = parent::behaviors();
+
+        // $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_HTML;
+
+        $this->callback = Yii::$app->request->get('lcb',null);
+        
+        if ($this->callback) {
+        	$behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSONP;	
+        }
+
+        return $behaviors;
+    }
+
+
+    public function actions()
+    {
+        return [
+            'index' => [
+                'class' => 'api\common\actions\IndexAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+            ],
+            'view' => [
+                'class' => 'api\common\actions\ViewAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+            ],
+            'create' => [
+                'class' => 'api\common\actions\CreateAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+                'scenario' => $this->createScenario,
+            ],
+            'update' => [
+                'class' => 'api\common\actions\UpdateAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+                'scenario' => $this->updateScenario,
+            ],
+            'delete' => [
+                'class' => 'api\common\actions\DeleteAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+            ],
+            'options' => [
+                'class' => 'api\common\actions\OptionsAction',
+            ],
+        ];
+    }
 
 
 }

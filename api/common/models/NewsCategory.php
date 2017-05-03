@@ -21,7 +21,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class News extends ActiveRecord
+class NewsCategory extends ActiveRecord
 {
 
     /**
@@ -29,19 +29,7 @@ class News extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%news}}';
+        return '{{%news_category}}';
     }
 
-    /**
-     * @name 取封面
-     */
-    public function getCover($size='')
-    {
-        return NewsPhoto::getById($this->thumb, $size);
-    }
-
-    public function getBody()
-    {
-        return $this->hasOne(NewsData::className(), ['news_id'=>'id']);
-    }
 }

@@ -11,6 +11,7 @@ class VueAsset extends AssetBundle
     public $js = [
         'static/libs/vue/vue.min.js',
         'static/libs/vue/vue-resource/vue-resource.min.js',
+        'static/libs/vue/vue-router/vue-router.js'
     ];
     public $css = [
     ];
