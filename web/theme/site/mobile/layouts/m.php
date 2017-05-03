@@ -26,9 +26,9 @@ use app\core\helpers\Url;
     <body>
     <?php $this->beginBody() ?>
 
-        <header class="bar bar-nav">
+        <!-- <header class="bar bar-nav">
             <h1 class="title"><?=g("cp_name")?></h1>
-        </header>
+        </header> -->
         <?=$content?>
         <div class="weui-tabbar">
             <a href="<?=Url::toRoute('/m')?>" class="weui-tabbar__item weui-bar__item--on">
