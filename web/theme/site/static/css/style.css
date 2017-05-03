@@ -134,7 +134,7 @@ a{text-decoration:none;color:#000;}
 .qf_tab{ position:fixed; bottom:0; width:100%; z-index:9999;}
 .blank60{ height:60px;}
 /*.content{overflow-y:auto;-webkit-overflow-scrolling:touch; padding-bottom:55px; padding-top:2.2rem;height:100%}*/
-.content{-webkit-overflow-scrolling:touch; padding-bottom:55px; padding-top:2.2rem;}
+.content{-webkit-overflow-scrolling:touch; padding-bottom:55px; /*padding-top:2.2rem;*/}
 /*.content-block{padding:10px;!*margin:.75rem 0*!}*/
 
 
