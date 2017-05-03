@@ -82,9 +82,9 @@ var demo = new Vue({
         gridColumns: ['title', 'author', 'id'],
         nitems: [],
         sendData:{fields:['id', 'name']},
-        apiUrl: 'http://api.lion.cn/v1/news/cates',
+        apiUrl: 'http://api.ibagou.com/v1/news/cates',
 
-        clistUrl : 'http://api.lion.cn/v1/news/clist',
+        clistUrl : 'http://api.ibagou.com/v1/news/clist',
         clistParams : {cid:1, page:1, pageSize:2},
         clist:[],
         pageCount:1,

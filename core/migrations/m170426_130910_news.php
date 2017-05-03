@@ -47,7 +47,7 @@ class m170426_130910_news extends Migration
             'level'=> $this->smallInteger()->notNull()->defaultValue(1),//树级
             'code' => $this->string(255),
             'name' => $this->string(255)->notNull(),
-            'cover' => $this->integer(), //存图片的id
+            'thumb' => $this->integer(), //存图片的id
             'body' => $this->text(),//分类的介绍
             'sort' => $this->smallInteger()->notNull()->defaultValue(0),
             'is_leaf' => $this->smallInteger(1)->defaultValue(1),
