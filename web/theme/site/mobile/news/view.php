@@ -21,8 +21,6 @@
   </div>
 </div>
 
-
-
 <?php $this->beginBlock('news') ?>  
 var demo = new Vue({
     el: '#news-box',
