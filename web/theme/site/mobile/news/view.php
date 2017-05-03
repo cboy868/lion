@@ -5,7 +5,6 @@
     <section v-html="item.body">
     </section>
   </article>
-
   <div class="weui-panel weui-panel_access zixun_list">
       <div class="weui-panel__hd">热门推荐</div>
       <div class="weui-panel__bd" id="listbox">
@@ -20,7 +19,6 @@
       </a>
       </div>        
   </div>
-    
 </div>
 
 <?php $this->beginBlock('news') ?>  
