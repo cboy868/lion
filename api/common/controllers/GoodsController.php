@@ -11,12 +11,30 @@ use api\common\models\GoodsAvRel;
 use api\common\models\GoodsAttr;
 use api\common\models\GoodsSku;
 use yii\helpers\ArrayHelper;
+use yii\filters\Cors;
+
+use api\common\models\GoodsCart;
 /**
  * Site controller
  */
 class GoodsController extends Controller
 {
 	public $modelClass = 'api\common\models\Goods';
+
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge([
+            [
+                'class' => Cors::className(),
+                'cors' => [
+                    'Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                    'Access-Control-Request-Headers' => ['*'],
+                ]
+            ],
+        ], parent::behaviors());
+    }
 
     public function actions() {  
         $actions = parent::actions();  
@@ -125,7 +143,6 @@ class GoodsController extends Controller
         //取出sku
         $skus = GoodsSku::find()->where(['goods_id'=>$id])->indexBy('av')->asArray()->all();
 
-
         if($this->callback){
             return [
                 'callback' => $this->callback,
@@ -137,5 +154,39 @@ class GoodsController extends Controller
             ];
         }
         return $item;
+    }
+
+    /**
+     * @name 购物车
+     */
+    public function actionCart()
+    {
+        $post = Yii::$app->request->post();
+        $sku_id = $post['sku_id'];
+        $sku = GoodsSku::findOne($sku_id);
+        $goods_model = $sku->goods;
+        $result = GoodsCart::create($post['user'],$sku_id, $goods_model);
+        return $result;
+    }
+
+    public function actionCartList($thumbSize='64x64')
+    {
+        $post = Yii::$app->request->post();
+        $list = GoodsCart::find()->where(['user_id'=>$post['user']])->asArray()->all();
+
+        $thumbSize = isset($post['thumbSize'])? $post['thumbSize'] : '64x64';
+        $result = [];
+        foreach ($list as $k => &$v) {
+            $sku = GoodsSku::findOne($v['sku_id']);
+            $v['cover'] = Attachment::getById($sku->goods->thumb, $thumbSize);
+            $v['goods_name'] = $sku->goods->name;
+            $v['sku_name'] = $sku->name;
+
+            // $v['name'] = $sku->goods->name == $sku->name ? $sku->goods->name : $sku->goods->name . $sku->name;
+            $v['price'] = $sku->price;
+
+        }unset($v);
+
+        return $list;
     }
 }

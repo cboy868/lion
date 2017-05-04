@@ -28,6 +28,7 @@ class DefaultController extends \app\modules\m\controllers\DefaultController
 	 */
 	public function actionCart()
 	{
+		$this->layout = "@app/modules/m/views/layouts/nofooter.php";
 		return $this->render('cart');
 	}
 }

@@ -70,10 +70,9 @@ class GoodsCart extends ActiveRecord
         ];
     }
 
-    public static function create($sku_id, $goods_model, array $extra=[], $type=self::TYPE_FOOD)
+    public static function create($user_id, $sku_id, $goods_model, array $extra=[], $type=self::TYPE_FOOD)
     {
 
-        $user_id = Yii::$app->user->id;
         $model = self::find()->where(['user_id'=>$user_id, 'goods_id'=>$goods_model->id, 'sku_id'=>$sku_id])->one();
 
         if (!$model) {
@@ -83,7 +82,8 @@ class GoodsCart extends ActiveRecord
             $model->goods_id = $goods_model->id;
             $model->sku_id = $sku_id;
         }
-        
+
+
         $model->num = isset($extra['num']) ? $extra['num'] : 1;
         $model->note = isset($extra['note']) ? $extra['note'] : '';
 

@@ -20,13 +20,14 @@
         <!-- <div class="prod-act">每位缘主都应该请一尊本命佛</div> -->
     </div>
    <div class="weui-cells">
-        <div class="weui-cell chooseshuxiang">
-            <div class="weui-cell__bd weui-cell_primary">
-                <p>请选择商品规格</p>
-            </div>
-            <div class="weui-cell__ft"><i class="sstfont sst-xiangshang"></i></div>
-        </div>
+        
         <div class="shuxingbox">
+            <div class="weui-cell chooseshuxiang">
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p>请选择商品规格</p>
+                </div>
+                <div class="weui-cell__ft"><i class="sstfont sst-xiangshang"></i></div>
+            </div>
             <div class="weui-cell">
                 <div class="yListr">
                     <ul>
@@ -37,12 +38,8 @@
                             :class="{'yListrclickem':currentSku.attr.indexOf(spec.attr_id + ':' + v.id)>=0}"  
                             :vid="v.id" @click="selSku">{{v.val}}<i></i></em> 
                         </li>
-                        <!-- <li><span>内存</span><em class="yListrclickem">16G ROM<i></i></em> </li>
-                        <li><span>尺寸</span><em class="yListrclickem">5.5寸<i></i></em> </li>
-                        <li><span>尺寸</span><em class="yListrclickem">港版（二网）<i></i></em> <em>类型<i></i></em> </li> -->
                     </ul>
                 </div>
-
                 
             </div>
             <div class="weui-cell">
@@ -57,7 +54,7 @@
             </div>
                 <a href="javascript:;" class="weui-btn weui-btn_primary"
                     :class="{'weui-btn_disabled':currentSku.id==0}" 
-                  @click="buy">购买</a>
+                  @click="toCart">加入购物车</a>
         </div>
     </div>
 
@@ -82,6 +79,7 @@ var demo = new Vue({
     data: {
         item: [],
         apiUrl: 'http://api.lion.cn/v1/goods/<?=$get['id']?>',
+        cartUrl: 'http://api.lion.cn/v1/goods/cart',
         specs:[],
         currentSku:{id:0, price:1, num:1,attr:'',total_num:1},
         skus:[],
@@ -104,21 +102,33 @@ var demo = new Vue({
                 this.$set(this, 'item', response.data.item);
                 this.$set(this, 'specs', response.data.specs);
 
-                //sku数据存储
-                var skus = {};
-                var tmp_skus = response.data.skus;
-                for (i in tmp_skus) {
-                    skus[tmp_skus[i].av] ={
-                        'id' : tmp_skus[i].id,
-                        'price' : tmp_skus[i].price,
-                        'total_num' : tmp_skus[i].num,
-                        'name' : tmp_skus[i].name
-                    };
-                }
-                this.$set(this, 'skus', skus);
-
+                var speclength = Object.keys(response.data.specs).length;
                 //初始化数据
                 this.currentSku.price = this.item.price;
+
+                if (speclength == 0) {
+                    var sku = response.data.skus['0:0']
+                    this.currentSku.attr = '0:0';
+                    this.currentSku.id = sku.id;
+                    this.currentSku.price = sku.price;
+                    this.currentSku.num = 1;
+                    this.currentSku.total_num = sku.num ? sku.num : 1;
+                    this.currentSku.name = sku.name;
+
+                }  else {
+                    //sku数据存储
+                    var skus = {};
+                    var tmp_skus = response.data.skus;
+                    for (i in tmp_skus) {
+                        skus[tmp_skus[i].av] ={
+                            'id' : tmp_skus[i].id,
+                            'price' : tmp_skus[i].price,
+                            'total_num' : tmp_skus[i].num,
+                            'name' : tmp_skus[i].name
+                        };
+                    }
+                    this.$set(this, 'skus', skus);
+                }
 
             }).catch(function(response) {
                 console.log(response)
@@ -131,7 +141,6 @@ var demo = new Vue({
         },
         skuPlus: function(){
             this.currentSku.num++;
-
             if (this.currentSku.num >= this.currentSku.total_num) {
                 this.currentSku.num = this.currentSku.total_num;
             }
@@ -174,9 +183,13 @@ var demo = new Vue({
             }
             return tmp_attr;
         },
-        buy:function(){
-            var data = {sku_id:this.currentSku.id,num:this.currentSku.num};
-            console.dir(data);
+        toCart:function(){
+            var data = {sku_id:this.currentSku.id,num:this.currentSku.num,user:1};
+            this.$http.post(this.cartUrl, data,{emulateJSON:true}).then(function(response){
+                //console.dir(response);
+            }, function(response){
+
+            });
         }
     }
 })

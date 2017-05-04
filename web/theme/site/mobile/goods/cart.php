@@ -1,6 +1,6 @@
-<div class="content">
+<div class="content" id="cart-box">
     <div class="cart_list">
-        <div class="weui-panel weui-panel_access oneGood" goodid="27">
+        <div class="weui-panel weui-panel_access oneGood" v-for="item in items">
             <div class="weui-panel__bd">
                 <div class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd" style="padding-left: 20px;">
@@ -9,122 +9,27 @@
                                 <input type="checkbox" autocomplete="off" name="sel_cartgoods[]" value="274" id="sel_cartgoods_274" checked="checked">
                             </span>
                         </div>
-                        <img class="weui-media-box__thumb" src="./static/images/58f1e76d6b023_64_64.jpg" alt="">
+                        <img class="weui-media-box__thumb" src="/theme/site/static/images/58f1e76d6b023_64_64.jpg" alt="">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">每位缘主都应该请一尊本命佛</h4>
+                        <h4 class="weui-media-box__title">{{item.goods_name}}</h4>
                         <p class="weui-media-box__desc">
-                            <span>颜色:米色 尺码:S </span>
-                            <span class="fr f-red">￥<span class="oneGoodPrice">198</span>元</span>
+                            <span>{{item.sku_name}}</span>
+                            <span class="fr f-red">￥<span class="oneGoodPrice">{{item.price}}</span>元</span>
                         </p>
                         <div class="caozuo">
                             <div style="font-size: 0px;" class="weui-cell__ft">
-                                <a class="number-selector number-selector-sub needsclick f-red" goodid="27">-</a>
-                                <input pattern="[0-9]*" class="number-input oneGoodNum" style="width: 50px;" value="4" data-min="1" data-step="1" goodid="27">
-                                <a class="number-selector number-selector-plus needsclick f-red" goodid="27">+</a>
+                                <a class="number-selector number-selector-sub needsclick f-red" :skuid="item.sku_id">-</a>
+                                <input class="number-input oneGoodNum" style="width: 50px;" :value="item.num" :skuid="item.sku_id">
+                                <a class="number-selector number-selector-plus needsclick f-red" :skuid="item.sku_id">+</a>
                             </div>
-                            <span class="fr sc oneGoodDelBtn" goodid="27"></span>
+                            <span class="fr sc sstfont sst-shanchu" sku_id="item.sku_id"></span>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="weui-panel weui-panel_access oneGood" goodid="27">
-            <div class="weui-panel__bd">
-                <div class="weui-media-box weui-media-box_appmsg">
-                    <div class="weui-media-box__hd" style="padding-left: 20px;">
-                        <div class="check-wrapper" goodid="27">
-                            <span class="cart-checkbox checked" state="1">
-                                <input type="checkbox" autocomplete="off" name="sel_cartgoods[]" value="274" id="sel_cartgoods_274" checked="checked">
-                            </span>
-                        </div>
-                        <img class="weui-media-box__thumb" src="./static/images/58f1e76d6b023_64_64.jpg" alt="">
-                    </div>
-                    <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">每位缘主都应该请一尊本命佛</h4>
-                        <p class="weui-media-box__desc">
-                            <span>颜色:米色 尺码:S </span>
-                            <span class="fr f-red">￥<span class="oneGoodPrice">198</span>元</span>
-                        </p>
-                        <div class="caozuo">
-                            <div style="font-size: 0px;" class="weui-cell__ft">
-                                <a class="number-selector number-selector-sub needsclick f-red" goodid="27">-</a>
-                                <input pattern="[0-9]*" class="number-input oneGoodNum" style="width: 50px;" value="4" data-min="1" data-step="1" goodid="27">
-                                <a class="number-selector number-selector-plus needsclick f-red" goodid="27">+</a>
-                            </div>
-                            <span class="fr sc oneGoodDelBtn" goodid="27"></span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="weui-panel weui-panel_access oneGood" goodid="27">
-            <div class="weui-panel__bd">
-                <div class="weui-media-box weui-media-box_appmsg">
-                    <div class="weui-media-box__hd" style="padding-left: 20px;">
-                        <div class="check-wrapper" goodid="27">
-                            <span class="cart-checkbox checked" state="1">
-                                <input type="checkbox" autocomplete="off" name="sel_cartgoods[]" value="274" id="sel_cartgoods_274" checked="checked">
-                            </span>
-                        </div>
-                        <img class="weui-media-box__thumb" src="./static/images/58f1e76d6b023_64_64.jpg" alt="">
-                    </div>
-                    <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">每位缘主都应该请一尊本命佛</h4>
-                        <p class="weui-media-box__desc">
-                            <span>颜色:米色 尺码:S </span>
-                            <span class="fr f-red">￥<span class="oneGoodPrice">198</span>元</span>
-                        </p>
-                        <div class="caozuo">
-                            <div style="font-size: 0px;" class="weui-cell__ft">
-                                <a class="number-selector number-selector-sub needsclick f-red" goodid="27">-</a>
-                                <input pattern="[0-9]*" class="number-input oneGoodNum" style="width: 50px;" value="4" data-min="1" data-step="1" goodid="27">
-                                <a class="number-selector number-selector-plus needsclick f-red" goodid="27">+</a>
-                            </div>
-                            <span class="fr sc oneGoodDelBtn" goodid="27"></span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="weui-panel weui-panel_access oneGood" goodid="27">
-            <div class="weui-panel__bd">
-                <div class="weui-media-box weui-media-box_appmsg">
-                    <div class="weui-media-box__hd" style="padding-left: 20px;">
-                        <div class="check-wrapper" goodid="27">
-                            <span class="cart-checkbox checked" state="1">
-                                <input type="checkbox" autocomplete="off" name="sel_cartgoods[]" value="274" id="sel_cartgoods_274" checked="checked">
-                            </span>
-                        </div>
-                        <img class="weui-media-box__thumb" src="./static/images/58f1e76d6b023_64_64.jpg" alt="">
-                    </div>
-                    <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">每位缘主都应该请一尊本命佛</h4>
-                        <p class="weui-media-box__desc">
-                            <span>颜色:米色 尺码:S </span>
-                            <span class="fr f-red">￥<span class="oneGoodPrice">198</span>元</span>
-                        </p>
-                        <div class="caozuo">
-                            <div style="font-size: 0px;" class="weui-cell__ft">
-                                <a class="number-selector number-selector-sub needsclick f-red" goodid="27">-</a>
-                                <input pattern="[0-9]*" class="number-input oneGoodNum" style="width: 50px;" value="4" data-min="1" data-step="1" goodid="27">
-                                <a class="number-selector number-selector-plus needsclick f-red" goodid="27">+</a>
-                            </div>
-                            <span class="fr sc oneGoodDelBtn" goodid="27"></span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
 
@@ -150,3 +55,31 @@
         去结算<span id="checkedNum">(5)</span>
     </a>
 </div>
+
+
+<?php $this->beginBlock('news') ?>  
+var demo = new Vue({
+    el: '#cart-box',
+    data: {
+        items: [],
+        apiUrl: 'http://api.lion.cn/v1/goods/cart-list',
+        user:1
+    },
+    beforeMount: function() {
+        this.getCart();
+    },
+    methods: {
+        getCart:function(){
+            var data = {user:this.user};
+            this.$http.post(this.apiUrl, data,{emulateJSON:true}).then(function(response){
+                this.$set(this, 'items',response.data);
+            }, function(response){
+
+            });
+        }
+    }
+})
+
+<?php $this->endBlock() ?>  
+<?php $this->registerJs($this->blocks['news'], \yii\web\View::POS_END); ?>  
+       

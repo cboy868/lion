@@ -16,6 +16,7 @@ return [
     'm/goods'=> 'shop/m/default/index',
     'm/goods/<id:\d+>'=> 'shop/m/default/view',
     'm/goods/<id:\d+>.html'=> 'shop/m/default/view',
+    'm/goods/cart'=> 'shop/m/default/cart',
     'm/user'=> 'user/m/default/index',
 
     'product/<id:\d+>.html' => 'home/default/product-view',
