@@ -14,6 +14,8 @@ return [
     'm/news/c<id:\d+>.html'=> 'news/m/default/index',
     'm/news/<id:\d+>.html'=> 'news/m/default/view',
     'm/goods'=> 'shop/m/default/index',
+    'm/goods/<id:\d+>'=> 'shop/m/default/view',
+    'm/goods/<id:\d+>.html'=> 'shop/m/default/view',
     'm/user'=> 'user/m/default/index',
 
     'product/<id:\d+>.html' => 'home/default/product-view',

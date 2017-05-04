@@ -59,10 +59,10 @@ use app\core\helpers\Url;
         <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js"></script>
 
         <script type="text/javascript">
-           $(".swiper-container").swiper({
-                loop: true,
-                autoplay: 3000
-              });
+           // $(".swiper-container").swiper({
+           //      loop: true,
+           //      autoplay: 3000
+           //    });
         </script>
         <?php $this->endBody() ?>
     </body>

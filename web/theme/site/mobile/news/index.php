@@ -66,6 +66,9 @@
     <div class="button_load" v-show="pageCount>clistParams.page">
       <a href="javascript:;" @click="pullLoad" class="weui-btn weui-btn_default">加载更多</a>
     </div>
+    <div class="weui-loadmore weui-loadmore_line" v-show="pageCount==clistParams.page">
+          <span class="weui-loadmore__tips">暂无数据</span>
+        </div>
     <div class="weui-loadmore" v-show="loading"> <!--如有需要可增加style="display: none"-->
         <i class="weui-loading"></i>
         <span class="weui-loadmore__tips">正在加载...*\(^_^)/*</span>
@@ -76,13 +79,12 @@
 var demo = new Vue({
     el: '#news-box',
     data: {
-        gridColumns: ['title', 'author', 'id'],
         nitems: [],
         sendData:{fields:['id', 'name']},
-        apiUrl: 'http://api.ibagou.com/v1/news/cates',
+        apiUrl: 'http://api.lion.cn/v1/news/cates',
 
         
-        clistUrl : 'http://api.ibagou.com/v1/news/clist',
+        clistUrl : 'http://api.lion.cn/v1/news/clist',
         clistParams : {cid:1, page:1, pageSize:2},
         clist:[],
         pageCount:1,
@@ -109,9 +111,8 @@ var demo = new Vue({
               } else {
                 this.$set(this, 'clist', response.data.items);
               }
-
-              console.dir(this.clist);
               this.$set(this, 'pageCount', response.data.pageCount);
+              this.$set(this, 'loading', 0);
             }).catch(function(response) {
                 //console.log(response)
             })
@@ -125,9 +126,10 @@ var demo = new Vue({
         },
         pullLoad:function(){
           var p = this.clistParams.page + 1;
-          if (this.pageCount >= p) { //页面到头了
+          if (this.pageCount >= p) { 
             this.clistParams.page = p;
             this.getCList(true);
+            this.loading = 1;
           }
         }
     }

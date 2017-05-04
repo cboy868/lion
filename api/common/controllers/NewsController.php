@@ -42,11 +42,11 @@ class NewsController extends Controller
 
     	$model = $this->modelClass;
     	$query = $model::find()->where(['status'=>$model::STATUS_ACTIVE])->limit($limit);
-    	if (in_array('recommend', $condition)) {
+    	if (is_array($condition) && in_array('recommend', $condition)) {
     		$query->andFilterWhere(['recommend'=>1]);
     	}
 
-    	if (in_array('top', $condition)) {
+    	if (is_array($condition) && in_array('top', $condition)) {
     		$query->andFilterWhere(['is_top'=>1]);
     	}
         $items = $query->asArray()->all();

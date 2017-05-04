@@ -43,11 +43,8 @@ class ProductController extends HomeController
 
     public function actionView($id)
     {
-
         $model = Goods::findOne($id);
-
         $goods = $model->toArray();
-
         // $goods['small'] = Attachment::getById($goods['thumb'], '50*50');
         // $goods['middle'] = Attachment::getById($goods['thumb'], '425x350');
         // $goods['big'] = Attachment::getById($goods['thumb'], '600x730');
@@ -56,9 +53,7 @@ class ProductController extends HomeController
 
         $imgs = AttachmentRel::getByRes('goods', $id);
 
-
         $rels = $this->getSeries($id);
-
 
         return $this->render('view', [
             'data'=>$goods, 

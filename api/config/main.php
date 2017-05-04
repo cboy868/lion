@@ -52,6 +52,7 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
                         'v1/news',
+                        'v1/goods'
                     ]
                 ],
                 [

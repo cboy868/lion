@@ -42,12 +42,17 @@ function focus($category_id, $limit, $imgSize=null)
 /**
  * @name 取文章列表 
  */
-function postList($mod, $category_id=0, $rows=null)
+function postList($mod, $category_id=null, $rows=null)
 {
 	Code::createObj('post', $mod);
 	$class = '\app\modules\cms\models\mods\Post' . $mod;
 
-	$list = $class::find()->where(['category_id'=>$category_id])->limit($rows)->asArray()->all();
+	if ($category_id !== null) {
+		$list = $class::find()->where(['category_id'=>$category_id])->limit($rows)->asArray()->all();
+	} else {
+		$list = $class::find()->limit($rows)->asArray()->all();
+	}
+	
 	$post_ids = ArrayHelper::getColumn($list, 'id');
 
 	$dataClass = '\app\modules\cms\models\mods\PostData' . $mod;

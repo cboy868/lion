@@ -28,7 +28,7 @@ var demo = new Vue({
         item: [],
         recommend:[],
         sendData:{condition:['recommend']},
-        apiUrl: 'http://api.ibagou.com/v1/news/<?=$get['id']?>',
+        apiUrl: 'http://api.lion.cn/v1/news/<?=$get['id']?>',
     },
     beforeMount: function() {
         this.getNews();
@@ -45,7 +45,7 @@ var demo = new Vue({
             })
         },
         getRecommend:function(){
-          this.$http.jsonp('http://api.ibagou.com/v1/news/list',{'jsonp':'lcb',params:this.sendData}).then((response) => {
+          this.$http.jsonp('http://api.lion.cn/v1/news/list',{'jsonp':'lcb',params:this.sendData}).then((response) => {
             this.$set(this, 'recommend', response.data);
             console.dir(response.data);
           }).catch(function(response) {
