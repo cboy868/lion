@@ -163,16 +163,19 @@ class GoodsController extends Controller
     {
         $post = Yii::$app->request->post();
         $sku_id = $post['sku_id'];
+        if (!$sku_id) {
+            return ['errno'=>1, 'msg'=>'请选择商品规格'];
+        }
         $sku = GoodsSku::findOne($sku_id);
         $goods_model = $sku->goods;
-        $result = GoodsCart::create($post['user'],$sku_id, $goods_model);
+        $result = GoodsCart::create($post['user'],$sku_id, $goods_model,['num'=>$post['num']]);
         return $result;
     }
 
     public function actionCartList($thumbSize='64x64')
     {
         $post = Yii::$app->request->post();
-        $list = GoodsCart::find()->where(['user_id'=>$post['user']])->asArray()->all();
+        $list = GoodsCart::find()->where(['user_id'=>$post['user']])->indexBy('sku_id')->asArray()->all();
 
         $thumbSize = isset($post['thumbSize'])? $post['thumbSize'] : '64x64';
         $result = [];
@@ -184,9 +187,76 @@ class GoodsController extends Controller
 
             // $v['name'] = $sku->goods->name == $sku->name ? $sku->goods->name : $sku->goods->name . $sku->name;
             $v['price'] = $sku->price;
+            $v['original_price'] = $sku->original_price;
 
         }unset($v);
 
         return $list;
+    }
+
+    public function actionCartCount()
+    {
+        $get = Yii::$app->request->get();
+        if (!isset($get['user'])) {
+            return ['errno'=>1, 'msg'=>'尚未注册账号'];
+        }
+
+        $query = GoodsCart::find()->where(['user_id'=>$get['user']]);
+        $type_num = $query->count();
+        $goods_num = $query->sum('num');
+
+        $total = 0;
+        $o_total = 0;
+        $list = $query->all();
+        foreach ($list as $k => $v) {
+            $total += $v->sku->price * $v->num;
+            $o_total +=$v->sku->original_price * $v->num;
+        }
+
+        $data = [
+            'goods_num' => $goods_num,
+            'type_num'  => $type_num,
+            'total' => $total,
+            'o_total' => $o_total
+        ];
+        if($this->callback){
+            return [
+                'callback' => $this->callback,
+                'data' => $data
+            ];
+        }
+
+        return $data;
+    }
+
+    public function actionUpdateCart()
+    {
+        $post = Yii::$app->request->post();
+        $params = array_filter($post['params']);
+        $user_id = $post['user'];
+
+        foreach ($params as $k => $v) {
+            $model = GoodsCart::findOne($v['id']);
+            $model->num = $v['num'];
+            $model->save();
+        }
+
+        return true;
+    }
+
+    /**
+     * @name 删除购物车商品
+     */
+    public function actionDelCart()
+    {
+        $post = Yii::$app->request->post();
+        $user_id = $post['user'];
+        $sku_id = $post['sku_id'];
+
+
+        $model = GoodsCart::find()->where(['user_id'=>$user_id])
+                                  ->andWhere(['sku_id'=>$sku_id])
+                                  ->one();
+        return $model->delete();
     }
 }

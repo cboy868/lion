@@ -5,7 +5,6 @@ namespace api\common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
-use app\modules\order\models\Order;
 /**
  * This is the model class for table "{{%order_pay}}".
  *
@@ -25,7 +24,7 @@ use app\modules\order\models\Order;
  * @property string $note
  * @property integer $status
  */
-class OrderPay extends \app\core\db\ActiveRecord
+class OrderPay extends ActiveRecord
 {
     const STATUS_NORMAL = 1;
     const STATUS_DEL = -1;

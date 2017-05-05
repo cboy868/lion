@@ -82,6 +82,7 @@ $config = [
                     '@app/modules/user/views/m/default' => '@app/web/theme/site/mobile/user',
                     '@app/modules/news/views/m/default' => '@app/web/theme/site/mobile/news',
                     '@app/modules/shop/views/m/default' => '@app/web/theme/site/mobile/goods',
+                    '@app/modules/order/views/m/default' => '@app/web/theme/site/mobile/order',
                 ],
             ],
         ],

@@ -115,6 +115,6 @@ class GoodsCart extends ActiveRecord
 
     public function getSku()
     {
-        return $this->hasOne(Sku::className(), ['id' => 'sku_id']);
+        return $this->hasOne(GoodsSku::className(), ['id' => 'sku_id']);
     }
 }

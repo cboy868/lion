@@ -4,8 +4,8 @@ namespace api\common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use app\modules\user\models\User;
-use app\modules\shop\models\Goods;
+use api\common\models\User;
+use api\common\models\Goods;
 
 /**
  * This is the model class for table "{{%order_rel}}".
@@ -26,7 +26,7 @@ use app\modules\shop\models\Goods;
  * @property integer $updated_at
  * @property integer $status
  */
-class OrderRel extends \app\core\db\ActiveRecord
+class OrderRel extends ActiveRecord
 {
     const STATUS_NORMAL = 1;
     const STATUS_DEL = -1;

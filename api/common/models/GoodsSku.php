@@ -4,7 +4,6 @@ namespace api\common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use app\modules\order\models\Order;
 /**
  * This is the model class for table "{{%shop_sku}}".
  *

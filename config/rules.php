@@ -18,6 +18,9 @@ return [
     'm/goods/<id:\d+>.html'=> 'shop/m/default/view',
     'm/goods/cart'=> 'shop/m/default/cart',
     'm/user'=> 'user/m/default/index',
+    'm/order'=> 'order/m/default/index',
+    'm/order/<id:\d+>'=> 'order/m/default/view',
+    'm/order/<id:\d+>.html'=> 'order/m/default/view',
 
     'product/<id:\d+>.html' => 'home/default/product-view',
     'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',

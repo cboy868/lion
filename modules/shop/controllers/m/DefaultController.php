@@ -18,6 +18,7 @@ class DefaultController extends \app\modules\m\controllers\DefaultController
 	 */
 	public function actionView()
 	{
+		$this->layout = "@app/modules/m/views/layouts/nofooter.php";
 		return $this->render('view', [
 			'get' => \Yii::$app->request->get()
 		]);

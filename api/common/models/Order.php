@@ -21,7 +21,7 @@ use app\modules\user\models\User;
  * @property integer $updated_at
  * @property integer $status
  */
-class Order extends \app\core\db\ActiveRecord
+class Order extends ActiveRecord
 {
 
     const STATUS_DEL = -1;//删除
@@ -217,7 +217,9 @@ class Order extends \app\core\db\ActiveRecord
 
     public function getPays()
     {
-        return $this->hasMany(Pay::className(), ['order_id' => 'id'])->andWhere(['status'=>self::STATUS_NORMAL])->orderBy('id asc');
+        return $this->hasMany(OrderPay::className(), ['order_id' => 'id'])
+                    ->andWhere(['status'=>self::STATUS_NORMAL])
+                    ->orderBy('id asc');
     }
 
     /**
@@ -225,7 +227,7 @@ class Order extends \app\core\db\ActiveRecord
      */
     public function getSettles()
     {
-        return $this->hasMany(Pay::className(), ['order_id' => 'id'])
+        return $this->hasMany(OrderPay::className(), ['order_id' => 'id'])
                     ->andWhere(['status'=>self::STATUS_NORMAL])
                     ->andWhere(['checkout_at'=>null])
                     ->orderBy('id asc');

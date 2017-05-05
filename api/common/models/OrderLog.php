@@ -16,7 +16,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $intro
  * @property integer $created_at
  */
-class OrderLog extends \app\core\db\ActiveRecord
+class OrderLog extends ActiveRecord
 {
 
     const TYPE_PRO = 1;
