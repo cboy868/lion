@@ -116,12 +116,12 @@ class GoodsController extends Controller
                 'data' => [
                     'items' => $items,
                     'pageCount' => $pagination->getPageCount(),
-                    'pageLinks' => $pagination->getLinks()
+                    // 'pageLinks' => $pagination->getLinks()
                 ]
             ];
         }
 
-        return $items;
+        return ['items'=>$items, 'pageCount'=>$pagination->getPageCount()];
     }
 
     public function actionView($id)

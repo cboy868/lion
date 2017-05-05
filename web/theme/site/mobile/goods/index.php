@@ -102,6 +102,7 @@ var demo = new Vue({
         getCList: function(append=false) {
             this.$http.jsonp(this.clistUrl,{'jsonp':'lcb', params:this.clistParams}).then((response) => {
               if (append) {
+              console.dir(response.data.items);
                 this.$set(this, 'clist', this.clist.concat(response.data.items));
               } else {
                 this.$set(this, 'clist', response.data.items);
@@ -122,8 +123,6 @@ var demo = new Vue({
         },
         pullLoad:function(){
           var p = this.clistParams.page + 1;
-          console.log(p);
-          console.log(this.pageCount);
           if (this.pageCount >= p) { 
             this.clistParams.page = p;
             this.getCList(true);

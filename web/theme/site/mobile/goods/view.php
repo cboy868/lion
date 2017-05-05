@@ -169,8 +169,6 @@ var demo = new Vue({
 
                 if (speclength == 0) {
                     var sku = response.data.skus['0:0']
-
-
                     var tp = {
                         attr:'0:0',
                         id:sku.id,
