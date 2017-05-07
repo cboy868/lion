@@ -84,7 +84,7 @@ Tabletree::register($this);
                         <?php foreach ($cate as $k => $v):?>
                         <tr data-tt-id=<?=$v['id']?> data-tt-parent-id=<?=$v['pid']?>>
                             <td><?=$v['name']?></td>
-                            <td><img src="<?=$v['thumb']?>" width="36" height="36"></td>
+                            <td><img src="<?=$v['cover']?>" width="36" height="36"></td>
                             <td><?=date('Y/m/d',$v['created_at'])?></td>
                             <td> 
                                 <?= Html::a('编辑', ['update', 'id' => $v['id']],

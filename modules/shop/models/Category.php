@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\shop\models\Attr;
 use app\core\traits\TreeTrait;
+use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%shop_category}}".
  *
@@ -76,6 +77,11 @@ class Category extends \app\core\models\Category
         return $this->hasMany(Attr::className(), ['category_id' => 'id']);
     }
 
+    public function getCover($size=null)
+    {
+        return Attachment::getById($this->thumb, $size);
+    }
+
 
 
     public static function getThumb($thumb, $size=null)
@@ -83,10 +89,14 @@ class Category extends \app\core\models\Category
         if (!$thumb) {
             return '';
         }
-        $dir = dirname($thumb);
-        $file = basename($thumb);
 
-        return $size ? $dir . '/' . $size . '@' . $file : $thumb;
+        return Attachment::getById($thumb, $size);
+
+
+        // $dir = dirname($thumb);
+        // $file = basename($thumb);
+
+        // return $size ? $dir . '/' . $size . '@' . $file : $thumb;
     }
 
     public function getGoods()

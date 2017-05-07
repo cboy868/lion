@@ -5,10 +5,77 @@ use Yii;
 
 class DefaultController extends HomeController
 {
+	public $layout = "@app/modules/home/views/layouts/home.php";
 
-	public $layout = "home.php";
+	public function init()
+    {
+    	parent::init();
+		\Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
+		$this->_theme();
+
+    }
+
 	public function actionIndex()
 	{
 	    return $this->render('index');
 	}
+
+	public function actionAbout()
+	{
+		return $this->render('about');
+	}
+
+	/**
+	 * @name 联系我们
+	 */
+	public function actionContact()
+	{
+		return $this->render('contact');
+	}
+
+
+
+    
+
+    protected function _theme() {
+    	$model = \app\modules\sys\models\Set::findOne('theme');
+
+    	$this->view->theme->pathMap = [
+    		'@app/modules/home/views/default' => '@app/web/theme/'.$model->svalue.'/home/home',
+    		'@app/modules/cms/views/home/album' => '@app/web/theme/'. $model->svalue .'/home/album',
+    		'@app/modules/cms/views/home/post' => '@app/web/theme/' . $model->svalue . '/home/post',
+    		'@app/modules/news/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/news',
+			'@app/modules/shop/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/shop',
+			'@app/modules/home/views/layouts' => '@app/web/theme/' . $model->svalue . '/home/layouts',
+			'@app/modules/m/views/default' => '@app/web/theme/' . $model->svalue . '/mobile/home',
+			'@app/modules/m/views/layouts' => '@app/web/theme/' . $model->svalue . '/mobile/layouts',
+			'@app/modules/user/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/user',
+			'@app/modules/news/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/news',
+			'@app/modules/shop/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/goods',
+			'@app/modules/order/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/order'
+    	];
+
+	}
+
+
+
+//                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -11,22 +11,22 @@ return [
             [
                 'name' => 'product',
                 'title' => '商品聚合',
-                'url' => '/home/default/product'
+                'url' => '/products.html'
+            ],
+            [
+                'name' => 'news',
+                'title' => '新闻资讯',
+                'url' => '/news.html'
             ],
             [
                 'name' => 'about',
-                'title' => '公司介绍',
-                'url' => '/home/default/about'
-            ],
-            [
-                'name' => 'resource',
-                'title' => '资料',
-                'url' => '/home/default/resource'
+                'title' => '关于我们',
+                'url' => '/about.html'
             ],
             [
                 'name' => 'contact',
                 'title' => '联系',
-                'url' => '/home/default/contact'
+                'url' => '/contact.html'
             ],
 
         ]

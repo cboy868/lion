@@ -41,7 +41,7 @@ class CategoryController extends BackController
         $records = Category::find()->asArray()->orderBy('sort desc')->all();
         $tree = Category::makeTree($records);
         foreach ($tree as &$v) {
-            $v['thumb'] = Category::getThumb($v['thumb'], '36x36');
+            $v['cover'] = Category::getThumb($v['thumb'], '36x36');
         }unset($v);
 
         return $this->render('index', [
@@ -78,7 +78,7 @@ class CategoryController extends BackController
             if ($up) {
                 $up->save();
                 $info = $up->getInfo();
-                $model->thumb = $info['path'] . '/' . $info['fileName'];
+                $model->thumb = $info['mid'];
             }
             if (!$model->sort) {
                 $model->sort = 0;
@@ -109,13 +109,14 @@ class CategoryController extends BackController
 
             $up = Upload::getInstance($model, 'thumb', 'shop_category');
             if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $up->save();
                 $info = $up->getInfo();
 
-                $model->thumb = $info['path'] . '/' . $info['fileName'];
+                $model->thumb = $info['mid'];
             }
-            $model->save();
 
+            $model->save();
 
             return $this->redirect(['index']);
         } else {

@@ -22,25 +22,51 @@ return [
     'm/order/<id:\d+>'=> 'order/m/default/view',
     'm/order/<id:\d+>.html'=> 'order/m/default/view',
 
-    'product/<id:\d+>.html' => 'home/default/product-view',
-    'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',
-    'msg/<id:\d+>.html' => 'home/default/product-msg',
 
-    'product-msg' => 'home/default/product-msg',
-    'product-msg.html' => 'home/default/product-msg',
+    //pc端
+    'news' => 'news/home/default/index',
+    'news.html' => 'news/home/default/index',
+    'news/<id:\d+>' => 'news/home/default/index',
+    'news/<id:\d+>.html' => 'news/home/default/index',
+    'newsv/<id:\d+>' => 'news/home/default/view',
+    'newsv/<id:\d+>.html' => 'news/home/default/view',
+
+    //商品列表
+    'products' => 'shop/home/default/index',
+    'products.html' => 'shop/home/default/index',
+    //商品分类列表
+    'products/<id:\d+>' => 'shop/home/default/index',
+    'products/<id:\d+>.html' => 'shop/home/default/index',
+    //商品详情
+    'product/<id:\d+>' => 'shop/home/default/view',
+    'product/<id:\d+>.html' => 'shop/home/default/view',
+
+    'about' => 'home/default/about',
+    'about.html' => 'home/default/about',
+    'contact.html' => 'home/default/contact',
+    'contact' => 'home/default/contact',
 
 
-    'products.html'=> 'home/default/product',
-    'products'=> 'home/default/product',
 
-    'abouts.html'=> 'home/default/about',
-    'abouts'=> 'home/default/about',
+    // 'product/<id:\d+>.html' => 'home/default/product-view',
+    // 'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',
+    // 'msg/<id:\d+>.html' => 'home/default/product-msg',
 
-    'contact.html'=> 'home/default/contact',
-    'contact'=> 'home/default/contact',
+    // 'product-msg' => 'home/default/product-msg',
+    // 'product-msg.html' => 'home/default/product-msg',
 
-    'resource.html'=> 'home/default/resource',
-    'resource'=> 'home/default/resource',
+
+    // 'products.html'=> 'home/default/product',
+    // 'products'=> 'home/default/product',
+
+    // 'abouts.html'=> 'home/default/about',
+    // 'abouts'=> 'home/default/about',
+
+    // 'contact.html'=> 'home/default/contact',
+    // 'contact'=> 'home/default/contact',
+
+    // 'resource.html'=> 'home/default/resource',
+    // 'resource'=> 'home/default/resource',
 
     'home.html'=> 'home/default/index',
     'home'=> 'home/default/index',

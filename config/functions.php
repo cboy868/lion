@@ -10,8 +10,8 @@ use app\core\helpers\StringHelper;
 use app\modules\focus\models\Focus;
 use app\modules\cms\models\Links;
 use app\modules\mod\models\Code;
-
-
+use app\modules\shop\models\Category;
+use app\modules\shop\models\Goods;
 //  按格式打印数组
 function p($arr)
 {
@@ -37,6 +37,26 @@ function getFullAction()
 function focus($category_id, $limit, $imgSize=null)
 {
 	return Focus::getFocusByCategory($category_id, $limit, $imgSize);
+}
+
+function ProductCateList($rows=5, $thumb='')
+{
+	$list = Category::find()->limit($rows)->asArray()->all();
+
+	foreach ($list as $k => &$v) {
+		$v['cover'] = Attachment::getById($v['thumb'], $thumb);
+	}unset($v);
+	return $list;
+}
+
+function ProductList($rows=10, $thumb='')
+{
+	$list = Goods::find()->limit($rows)->asArray()->all();
+
+	foreach ($list as $k => &$v) {
+		$v['cover'] = Attachment::getById($v['thumb'], $thumb);
+	}unset($v);
+	return $list;
 }
 
 /**
