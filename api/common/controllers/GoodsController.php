@@ -175,7 +175,10 @@ class GoodsController extends Controller
     public function actionCartList($thumbSize='64x64')
     {
         $post = Yii::$app->request->post();
-        $list = GoodsCart::find()->where(['user_id'=>$post['user']])->indexBy('sku_id')->asArray()->all();
+        $list = GoodsCart::find()->where(['user_id'=>$post['user']])
+            ->indexBy('sku_id')
+            ->asArray()
+            ->all();
 
         $thumbSize = isset($post['thumbSize'])? $post['thumbSize'] : '64x64';
         $result = [];

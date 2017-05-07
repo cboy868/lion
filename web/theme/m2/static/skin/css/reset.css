@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section{
+	font-family:"Microsoft Yahei";
+	font-size:14px;
+	margin:0;
+	padding:0;
+	color: #333;
+}
+body{
+	background-color: #f8fff0;
+	background-repeat: no-repeat;
+	background-position: center top;
+	 
+}
+html { _background-image:url(about:blank); _background-attachment:fixed;*overflow-x:hidden;}
+li{
+	list-style:none;
+}
+a{
+	text-decoration:none;
+	outline: none;
+}
+img{
+	border:none;
+}
+button{
+	border:none;
+	font-family:"Microsoft Yahei";
+	cursor:pointer;
+}
+table {
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+dl,
+dt,
+dd{
+	display: block;
+}

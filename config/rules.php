@@ -13,15 +13,15 @@ return [
     'm/news'=> 'news/m/default/index',
     'm/news/c<id:\d+>.html'=> 'news/m/default/index',
     'm/news/<id:\d+>.html'=> 'news/m/default/view',
-    'm/goods'=> 'shop/m/default/index',
-    'm/goods/<id:\d+>'=> 'shop/m/default/view',
-    'm/goods/<id:\d+>.html'=> 'shop/m/default/view',
-    'm/goods/cart'=> 'shop/m/default/cart',
+    'm/products'=> 'shop/m/default/index',
+    'm/products/<id:\d+>'=> 'shop/m/default/index',
+    'm/product/<id:\d+>'=> 'shop/m/default/view',
+    'm/product/<id:\d+>.html'=> 'shop/m/default/view',
+    'm/product/cart'=> 'shop/m/default/cart',
     'm/user'=> 'user/m/default/index',
     'm/order'=> 'order/m/default/index',
     'm/order/<id:\d+>'=> 'order/m/default/view',
     'm/order/<id:\d+>.html'=> 'order/m/default/view',
-
 
     //pc端
     'news' => 'news/home/default/index',
@@ -30,6 +30,12 @@ return [
     'news/<id:\d+>.html' => 'news/home/default/index',
     'newsv/<id:\d+>' => 'news/home/default/view',
     'newsv/<id:\d+>.html' => 'news/home/default/view',
+
+    //博客
+    'blog' => 'blog/home/default/index',
+    'blog.html' => 'blog/home/default/index',
+    'blog/<id:\d+>' => 'blog/home/default/view',
+    'blog/<id:\d+>.html' => 'blog/home/default/view',
 
     //商品列表
     'products' => 'shop/home/default/index',
@@ -41,12 +47,28 @@ return [
     'product/<id:\d+>' => 'shop/home/default/view',
     'product/<id:\d+>.html' => 'shop/home/default/view',
 
+    //墓区墓位
+    'grave' => 'grave/home/default/index',
+    'grave.html' => 'grave/home/default/index',
+    'grave/<id:\d+>.html' => 'grave/home/default/view',
+    'grave/<id:\d+>' => 'grave/home/default/view',
+    'tomb/<id:\d+>' => 'grave/home/default/tomb',
+
+    'panel' => 'memorial/home/default/panel',//祭祀平台
+    'panel.html' => 'memorial/home/default/panel',
+    'memorial' => 'memorial/home/default/index',//纪念馆聚合
+    'memorial.html' => 'memorial/home/default/index',
+    'remote' => 'memorial/home/default/remote',
+    'remote.html' => 'memorial/home/default/remote',
+    'grave/<id:\d+>' => 'memorial/home/default/view',
+    'grave/<id:\d+>.html' => 'memorial/home/default/view',
+
     'about' => 'home/default/about',
     'about.html' => 'home/default/about',
     'contact.html' => 'home/default/contact',
     'contact' => 'home/default/contact',
-
-
+    
+    'login' => 'home/default/login',
 
     // 'product/<id:\d+>.html' => 'home/default/product-view',
     // 'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',
@@ -79,11 +101,11 @@ return [
     'install/default'=> 'install/default/index',
     'install/default/<action:(.+)>'=> 'install/default/<action>',
 
-    'm'=> 'm/default/index',
-    'm/default'=> 'm/default/index',
-    'm/default/<action:(.+)>'=> 'm/default/<action>',
+    // 'm'=> 'm/default/index',
+    // 'm/default'=> 'm/default/index',
+    // 'm/default/<action:(.+)>'=> 'm/default/<action>',
 
-    'login' => 'admin/default/login',
+    // 'login' => 'admin/default/login',
     'member/login' => 'member/default/login',
 
     '/upload/<t:(.+)>' => '/home/default/thumb',  //生成缩略图用的东西，配合nginx使用,nginx配置如下

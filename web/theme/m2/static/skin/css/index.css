@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+body.index{
+	background-image: url(../img/index/bodybg.jpg);
+}
+
+/*--流程--*/
+h2.titbg1,
+h2.titbg2,
+h2.titbg3{
+	background-repeat: no-repeat;
+	background-position: center bottom;
+}
+h2.titbg0{
+	background-image: url(../img/index/tit0.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+h2.titbg1{
+	background-image: url(../img/index/tit1.gif);
+}
+h2.titbg2{
+	background-image: url(../img/index/tit2.gif);
+}
+h2.titbg3{
+	background-image: url(../img/index/tit3.gif);
+}
+
+.show_list_n{
+	background:  url(../img/global/show_list_nbg.gif) repeat-x #dbeadc;
+	padding: 13px 0 0 15px;
+	_height: 396px;
+	overflow: hidden;
+	margin-top: 20px;
+	border-radius: 4px 4px 0 0;
+}
+.show_list_n .det{
+	width: 579px;
+	float: left;
+	margin-right: 13px;
+	overflow: hidden;
+}
+.show_list_n .det h2{
+	height: 68px;
+	text-indent: -9999px;
+}
+.show_list_n .det h2.bg1{
+	background:  url(../img/index/tit_remote.gif) no-repeat;
+}
+.show_list_n .det h2.bg2{
+	background:  url(../img/index/tit_flowers.gif) no-repeat;
+}
+
+.show_list_n .tabs div.clearfix{
+	background: url(../img/global/itemsbg.png) repeat-x left bottom;
+	padding-left: 12px;
+}
+.show_list_n .tabs div.clearfix div.items{
+	width: 160px;
+	float: left;
+	padding: 28px 12px 0px;
+}
+.show_list_n .tabs div.clearfix div.items.active{
+	background: url(../img/global/itemsbg_active.png) repeat-x center bottom;
+}
+.show_list_n .tabs div.clearfix div.items p.tit{
+	height: 43px;
+	line-height: 43px;
+	text-align: center;
+	color: #619e2f;
+}
+.show_list_n .tabs div.clearfix div.items a.reservation{
+	display: block;
+	width: 160px;
+	height: 31px;
+	background-image: url(../img/global/gbtns.png);
+	background-position: 0 -96px;
+	text-indent: -9999px;
+	margin-bottom: 31px;
+}
+.show_list_n .tabs div.clearfix div.items a.reservation:hover{
+	background-position: 0 -127px;
+}
+.show_list_n .tabs ul{
+	background:#e5f2e6;
+}
+.show_list_n .tabs ul li{
+	display: none;
+	height: 75px;
+	line-height: 65px;
+	text-indent: 2em;
+	color: #636e5a;
+	overflow: hidden;
+}
+.show_list_n .det ul.news_list{
+	background: #fff;
+	padding: 10px;
+	margin-top: 5px;
+	border-radius: 0 0 4px 4px;
+}

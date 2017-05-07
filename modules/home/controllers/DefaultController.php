@@ -33,6 +33,11 @@ class DefaultController extends HomeController
 		return $this->render('contact');
 	}
 
+	public function actionLogin()
+	{
+		return $this->render('login');
+	}
+
 
 
     
@@ -47,12 +52,15 @@ class DefaultController extends HomeController
     		'@app/modules/news/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/news',
 			'@app/modules/shop/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/shop',
 			'@app/modules/home/views/layouts' => '@app/web/theme/' . $model->svalue . '/home/layouts',
-			'@app/modules/m/views/default' => '@app/web/theme/' . $model->svalue . '/mobile/home',
-			'@app/modules/m/views/layouts' => '@app/web/theme/' . $model->svalue . '/mobile/layouts',
-			'@app/modules/user/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/user',
-			'@app/modules/news/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/news',
-			'@app/modules/shop/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/goods',
-			'@app/modules/order/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/order'
+			'@app/modules/grave/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/grave',
+			'@app/modules/blog/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/blog',
+			'@app/modules/memorial/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/memorial',
+			// '@app/modules/m/views/default' => '@app/web/theme/' . $model->svalue . '/mobile/home',
+			// '@app/modules/m/views/layouts' => '@app/web/theme/' . $model->svalue . '/mobile/layouts',
+			// '@app/modules/user/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/user',
+			// '@app/modules/news/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/news',
+			// '@app/modules/shop/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/goods',
+			// '@app/modules/order/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/order'
     	];
 
 	}

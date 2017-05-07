@@ -1,0 +1,337 @@
+@charset "utf-8";
+
+/*--自助服务--*/
+.self_service{
+	margin: 10px 0 25px;
+}
+.self_service h2.bg1{
+	background: url(../img/product/self_tit.gif) no-repeat center center;
+}
+.self_service div.det{
+	text-align: center;
+}
+.self_service div.det a{
+	display: inline-block;
+	width: 125px;
+	margin: 0 8px;
+}
+.self_service div.det a .pic{
+	height: 90px;
+}
+.self_service div.det a h4{
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	color: #67a032;
+	font-weight: normal;
+	_cursor: pointer;
+	*cursor: pointer;
+}
+/*--永安环境--*/
+.environment{
+	background-color: #529423;
+	padding-bottom: 20px;
+	border-radius: 4px;
+}
+.environment h2.bg2{
+	background-image: url(../img/product/environment_tit.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.e_slider{
+	width: 1163px;
+	height: 332px;
+	margin: 0 auto;
+	position: relative;
+}
+.e_slider_main li{
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+}
+.e_slider .btns{
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	bottom:-20px;
+	_bottom:-17px;
+	*bottom:-17px;
+	text-align: center;
+	width: 100%;
+}
+.e_slider .btns a{
+	box-shadow: 1px 1px 3px rgba(0,0,0,.3) inset;
+	display:inline-block;
+	width:13px;
+	height:13px;
+	border-radius:100%;
+	background:#d2d2d2;
+	margin-right:5px;
+	cursor:pointer;
+	overflow:hidden;
+}
+.e_slider .btns a.active{
+	background:#fea00c;
+}
+/*--tomb-list--*/
+.product_items .bg3{
+	background-image: url(../img/product/tomb_tit.jpg);
+	background-repeat: no-repeat;
+	background-position: center 28px;
+}
+.product_items .det{
+	background: url(../img/global/color_line.gif) repeat-x #dbeadc;
+	padding: 13px 0 15px;
+}
+.product_items .det h3{
+	background: url(../img/product/product_titbg.jpg) no-repeat 26px 8px;
+	color: #fff;
+	font-size: 18px;
+	font-weight: normal;
+	height: 48px;
+	line-height: 48px;
+	padding: 0 30px 0 45px;
+}
+.product_items .det h3 a.more{
+	color: #8eae4d;
+	font-size: 18px;
+}
+
+/*--鲜花--*/
+.product_flower_slider,
+.product_flower_slider .slider_main li,
+.product_flower_slider a.link{
+	height: 383px !important;
+	overflow: hidden;
+}
+.product_flower_slider a.prev,
+.product_flower_slider a.next{
+	width: 66px;
+	height: 66px;
+	background-repeat: no-repeat; 
+	background-position: left top;
+}
+.product_flower_slider a.prev:hover,
+.product_flower_slider a.next:hover{
+	background-position: left top;
+}
+.product_flower_slider a.prev{
+	background-image: url(../img/product/prev_btn.png);
+	_background-image: url(../img/product/prev_btn.gif);
+	left: 25%;
+}
+.product_flower_slider a.next{
+	background-image: url(../img/product/next_btn.png);
+	_background-image: url(../img/product/next_btn.gif);
+	right: 25%;
+}
+.product_flower_slider .rq_code{
+	position: absolute;
+	right: 10%;
+	top: 100px;
+}
+.product_video{
+	border-radius: 4px;
+	background:#89b918;
+	height:546px;
+	margin:20px 0 0;
+	padding:15px 14px 15px 0;
+	overflow: hidden;
+}
+.product_video ul{
+	background:url(../img/product/flowers_video.jpg) no-repeat;
+	width:231px;
+	padding:100px 10px 0;
+	margin:30px 0 0 10px;
+	height: 380px;
+}
+.product_video ul li{
+	font-size:18px;
+	color:#fff;
+	width:195px;
+	line-height:2em;
+}
+
+/*鲜花分类*/
+.retrieve{
+	height: 281px;
+	background: url(../img/product/retrieve_bg.jpg) center bottom repeat-x;
+}
+.retrieve .container{
+	padding-top: 35px;
+}
+.retrieve h2{
+	height: 60px;
+	background: url(../img/product/retrieve_tit.gif) center center no-repeat;
+	text-indent: -9999px;
+}
+.retrieve .items{
+	padding: 5px 100px;
+}
+.retrieve .items a,
+.retrieve .items span{
+	display: inline-block;
+	color: #706b61;
+	line-height: 1.5em
+}
+.retrieve .items span{
+	margin: 0 5px;
+}
+.retrieve .items span.first{
+	color: #dc8e5d;
+	display: block;
+	float: left;
+}
+.retrieve .items div.left{
+	width: 890px;
+}
+
+.flower_list0 .product_box{
+	width: 1139px;
+	padding-left: 30px !important;
+}
+.flower_list0 .det{
+	background: url(../img/global/color_line.gif) repeat-x #DBEADC;
+    padding: 13px 0 15px;
+}
+.flower_list0 h2{
+	width: 1200px;
+	height: 60px;
+	line-height: 60px;
+	color: #6b9735;
+	margin: 0 auto;
+	font-size: 28px;
+	text-indent: 2em;
+	font-weight: normal;
+}
+.flower_list1{
+	height: 629px;
+}
+.flower_list2,
+.flower_list3,
+.flower_list4,
+.flower_list5{
+	height: 743px;
+}
+.flower_list6{
+	height: 750px;
+}
+.flower_list1{
+	background: url(../img/product/fbg1.jpg) center top no-repeat;
+}
+.flower_list2{
+	background: url(../img/product/fbg2.jpg) center top no-repeat #f7e4e0;
+}
+.flower_list3{
+	background: url(../img/product/fbg3.jpg) center top no-repeat #dcd4ef;
+}
+.flower_list4{
+	background: url(../img/product/fbg4.jpg) center top no-repeat #f7dce8;
+}
+.flower_list5{
+	background: url(../img/product/fbg5.jpg) center top no-repeat #a4deec;
+}
+.flower_list6{
+	background: url(../img/product/fbg6.jpg) center top no-repeat #c5e29f;
+}
+.flower_list1 .container h2{
+	height: 72px;
+	text-indent: -9999px;
+}
+.flower_list2 .container h2,
+.flower_list3 .container h2,
+.flower_list4 .container h2,
+.flower_list5 .container h2,
+.flower_list6 .container h2{
+	height: 180px;
+	text-indent: -9999px;
+}
+
+.flower_list div.clearfix{
+	padding-left:45px;
+}
+.flower_list div.clearfix div.items{
+	width: 160px;
+	float: left;
+	padding: 22px 12px 0px;
+}
+.flower_list div.clearfix div.items p.tit{
+	height: 26px;
+	line-height: 24px;
+	text-align: center;
+	color: #619e2f;
+}
+.flower_list div.clearfix div.items span.tit{
+	display: block;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	color: #5b5a58;
+}
+.flower_list div.clearfix div.items a.reservation{
+	display: block;
+	width: 160px;
+	height: 31px;
+	background-position: 0 -96px;
+	text-indent: -9999px;
+	margin-bottom: 15px;
+}
+.flower_list0 a.reservation,
+.flower_list1 a.reservation{
+	background-image: url(../img/global/gbtns.png);
+}
+.flower_list2 a.reservation{
+	background: url(../img/product/fbtn2.jpg) left top !important;
+}
+.flower_list3 a.reservation{
+	background: url(../img/product/fbtn3.jpg) left top !important;
+}
+.flower_list4 a.reservation{
+	background: url(../img/product/fbtn4.jpg) left top !important;
+}
+.flower_list5 a.reservation{
+	background: url(../img/product/fbtn5.jpg) left top !important;
+}
+.flower_list6 a.reservation{
+	background: url(../img/product/fbtn6.jpg) left top !important;
+}
+.flower_list div.clearfix div.items a.reservation:hover{
+	background: url(../img/global/gbtns.png) 0 -127px !important;
+}
+
+/*--随葬品--*/
+.with_video{
+	background-color: #6f752b; 
+}
+.with_video ul{
+	background:url(../img/product/with_video.jpg) no-repeat;
+}
+.with_bg1{
+	background:url(../img/product/with_bg_1.jpg) no-repeat center top;
+	height: 786px;
+}
+.with_bg2{
+	background:url(../img/product/with_bg_2.jpg) no-repeat center top;
+	height: 787px;
+}
+.with_bg3{
+	background:url(../img/product/with_bg_3.jpg) no-repeat center top;
+	height: 786px;
+}
+.with_bg4{
+	background:url(../img/product/with_bg_4.jpg) no-repeat center top;
+	height: 786px;
+}
+.with_bg5{
+	background:url(../img/product/with_bg_5.jpg) no-repeat center top;
+	height: 787px;
+}
+.with_bg6{
+	background:url(../img/product/with_bg_6.jpg) no-repeat center top;
+	height: 786px;
+}
+.with_bg7{
+	background:url(../img/product/with_bg_7.jpg) no-repeat center top;
+	height: 468px;
+}

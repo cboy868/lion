@@ -1,0 +1,673 @@
+@charset "utf-8";
+.slider{
+	margin-top: 15px;
+}
+.slider,
+.slider .slider_main li{
+	height: 315px;
+	overflow: hidden;
+}
+.slider .btns{
+	right: 10px;
+	left: inherit;
+	_left: 915px;
+	*left: 915px;
+	margin-left: 0;
+	width: 275px;
+	overflow: hidden;
+	bottom: 5px;
+}
+.slider .btns a{
+	width: 50px;
+	height: 57px;
+	
+}
+.slider .btns a.active .smallpic{
+	background-image: url(../img/global/slider_smallbg.png);
+	_background-image: url(../img/global/slider_smallbg.gif);
+	background-position: 129px top !important;
+}
+.slider .smallpic{
+	width: inherit;
+	height: 46px;
+	background-image: none; 
+}
+.slider .smallpic img{
+	width: 46px;
+	height: 46px;
+}
+.slider_main li img{
+	width: 1200px;
+	height: 315px;
+	border-radius: 6px;
+}
+.slider_main li h2.png{
+	position: absolute;
+	bottom: 0;
+	_bottom: -1px;
+	left: 0;
+	width: 100%;
+	color: #fff;
+	font-size: 22px;
+	height: 63px;
+	line-height: 63px;
+	font-weight: normal;
+	text-indent: 2em;
+	background: url(../img/global/opacity07_green.png);
+	border-radius: 0 0 6px 6px;
+}
+
+/*----祭祀广场----*/
+.sa_con{
+	margin-top: 15px;
+	position: relative;
+}
+.conbar{
+	height: 98px;
+	overflow: hidden;
+	padding-top: 32px;
+	background: url(../img/sacrifice/conbar_bg.jpg) no-repeat;
+	text-align: center;
+}
+.conbar a{
+	display: inline-block;
+	width: 212px;
+	height: 100%;
+	line-height: 72px;
+	background: url(../img/sacrifice/conbar_abg.jpg) no-repeat;
+	font-size: 26px;
+	color: #fff;
+	text-shadow: 1px 1px 2px rgba(0,0,0,.75);
+}
+.conbar a.active{
+	background: url(../img/sacrifice/conbar_abg_active.jpg) no-repeat;
+}
+.sa_con_det{
+	background: #529423;
+	padding: 0 20px 20px;
+}
+.sa_con .sa_con_det .main{
+	width: 870px;
+	overflow: hidden;
+}
+.wechat{
+	background: #689d21;
+	border-radius: 4px;
+	padding: 15px 15px 0;
+	height: 523px;
+	overflow: hidden;
+}
+.wechat h2{
+	padding: 0 70px 0 20px;
+	height: 88px;
+	line-height: 88px;
+	margin-bottom: 15px;
+	background: url(../img/sacrifice/wechat_hnbg.jpg) no-repeat;
+	color: #fff;
+	font-size: 24px;
+	font-weight: normal;
+}
+.wechat h2 span{
+	margin-left: 50px;
+	font-size: 20px;
+	color: #fff;
+}
+.rq_code_ab{
+	position: absolute;
+	z-index: 2;
+	top: 156px;
+	left: 795px;
+}
+.me_con .rq_code_ab{
+	top: 693px;
+}
+.rq_code_ab img{
+	display: block;
+	width: 63px;
+	height: 63px;
+}
+.wechat .det .items{
+	background: #fff;
+	padding: 20px 0;
+	margin-bottom: 15px;
+}
+.wechat .det .items a.avatar{
+	display: block;
+	float: left;
+	padding-left: 14px;
+	margin-right: 12px;
+	width: 50px;
+	height: 50px;
+}
+.wechat .det .items a.avatar img{
+	width: 50px;
+	height: 50px;
+	border-radius: 4px;
+}
+.wechat .det .items .middle{
+	float: left;
+	width: 490px;
+}
+.wechat .det .items .middle a.name{
+	display: block;
+	height: 18px;
+	color: #26709a;
+}
+.wechat .det .items .middle p{
+	line-height: 1.8em;
+}
+.wechat .det .items span.right{
+	line-height: 20px;
+	font-size: 13px;
+	color: #9c9c9c;
+	margin-right: 15px;
+}
+.memorial_mess{
+	background: #f8fff0;
+	margin-top: 15px;
+	padding-bottom: 15px;
+	border-radius: 4px;
+}
+h2.sa_hn{
+	padding: 0 20px 0 8px;
+	height: 40px;
+	background: url(../img/sacrifice/hnbg.gif) repeat-x;
+	border-radius: 4px 4px 0 0;
+}
+h2.sa_hn span{
+	display: block;
+	margin-top: 5px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 15px;
+	padding: 0 15px;
+	background: #fff;
+	float: left;
+	box-shadow: 0 3px 0px #ccc inset;
+	font-size: 18px;
+	font-weight: normal;
+	color: #696c0b;
+}
+h2.sa_hn a.right{
+	font-size: 18px;
+	color: #fff;
+	line-height: 35px;
+	font-weight: normal;
+}
+.memorial_mess .det{
+	height:460px;
+	overflow:hidden;
+}
+.memorial_mess .det .message_li{
+	margin:0 10px;
+	border-bottom:1px dotted #d1d1d1;
+	padding:10px 12px;
+}
+.memorial_mess .det .message_li h3{
+	font-weight:normal;
+	font-size:14px;
+	color:#965100;
+	height:25px;
+}
+.memorial_mess .det .message_li h3 a{
+	margin-right:10px;
+	font-size:14px;
+	color:#965100;
+}
+.memorial_mess .det .message_li h3 span.right{
+	font-size:12px;
+}
+.memorial_mess .det .message_li p{
+	font-size:14px;
+	color:#37302f;
+	line-height:2em;
+	clear:both;
+}
+.memorial_mess .mess_prompt{
+	width: 637px;
+	margin: 20px auto 0;
+	font-size: 14px;
+}
+.memorial_day{
+	margin-top: 15px;
+	height: 238px;
+	background: url(../img/sacrifice/smbg.jpg) no-repeat #f5af05;
+}
+.memorial_day .bg{
+	_display: inline;
+	width: 369px;
+	height: 118px;
+	margin: 20px 15px;
+	float: right;
+	overflow: hidden;
+	padding: 40px 0;
+	background: #f5ebd3;
+	border-radius: 6px;
+	box-shadow: 0 3px 0px #ccc inset;
+}
+.memorial_day .day_scroll ul li{
+	font-size: 16px;
+	color: #5c514f;
+	line-height: 22px;
+	padding: 0 80px;
+}
+.memorial_day .today h2{
+	font-size: 42px;
+	color: #fff;
+	font-weight: normal;
+	padding-top: 60px;
+	text-indent: 170px;
+}
+.memorial_day .today p{
+	color: #fff;
+	font-size: 24px;
+	text-indent: 100px;
+	line-height: 2em;
+}
+
+.sa_con .sa_con_det .aside{
+	width: 270px;
+	overflow: hidden;
+}
+
+.holiday,
+.sa_flower,
+.rank,
+.user_list{
+	background: #f8fff0;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-radius: 4px;
+}
+ul.sa_list{
+	padding: 10px 0 0;
+}
+ul.sa_list li{
+	margin: 0 10px;
+	padding: 5px 0 5px 5px;
+	border-bottom: 1px dotted #cbd1c5;
+}
+ul.sa_list li div.right{
+	width: 199px;
+	overflow: hidden;
+}
+ul.sa_list li a.avatar{
+	display: block;
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+}
+ul.sa_list li span{
+	color: #db4e18;
+	line-height: 1.5em;
+}
+ul.sa_list li p{
+	line-height: 1.5em;
+}
+ul.sa_list li p span.txt{
+	margin-right: 3px;
+}
+.holiday h3{
+	line-height: 50px;
+	font-size: 20px;
+	font-weight: normal;
+	color: #37302f;
+	text-align: center;
+}
+a.miss_btn,
+.sa_flower a.goto{
+	display: block;
+	width: 241px;
+	height: 32px;
+	margin: 0 auto;
+	text-indent: -9999px;
+}
+a.miss_btn{
+	background: url(../img/sacrifice/miss_btn.jpg) no-repeat;
+}
+.sa_flower a.goto{
+	background: url(../img/sacrifice/goto_btn.jpg) no-repeat;
+	margin-top: 20px;
+}
+.sa_hn2{
+	margin: 0 10px;
+	border-bottom: 4px solid #a8d6b8;
+	height: 40px;
+	text-indent: -9999px;
+}
+.sa_flower h2.bg{
+	background: url(../img/sacrifice/sa_hn1.gif) 5px 10px no-repeat;
+}
+.sa_flower h2.remote_bg{
+	background: url(../img/sacrifice/remote_tit2.gif) 5px 10px no-repeat;
+}
+.rank{
+	margin-bottom: 0px;
+}
+.rank h2.bg{
+	background: url(../img/sacrifice/sa_hn2.gif) 5px 10px no-repeat;
+}
+.rank h2 span{
+	font-size:12px;
+	font-family:"宋体";
+	color:#999;
+	font-weight:normal;
+	margin-top:5px;
+}
+.rank ul li{
+	_height: 44px;
+	margin: 0 10px;
+	padding:8px;
+	_padding:6px 6px 6px 8px;
+	border-bottom:1px dashed #e5e5e5;
+	overflow:hidden;
+}
+.rank ul li p.left{
+	width:25px;
+}
+.rank ul li div.left{
+	margin-right:10px;
+}
+.rank .more{
+	float:right;
+	padding: 10px 0 0;
+}
+.rank .more a{
+	color:#006a92;
+}
+.friendhead a img{
+	width:40px;
+	height:40px;
+}
+.rank a.right{
+	color: #006a89;
+	display: block;
+	height: 41px;
+	line-height: 40px;
+	padding-right: 10px;
+}
+
+/*----远程祭祀----*/
+.sa_con_det .remote{
+	background: #89b918;
+	border-radius: 4px;
+	padding-bottom: 20px;
+}
+.sa_con_det .remote h2{
+	background: url(../img/sacrifice/remote_tit.gif) 60px 26px no-repeat;
+	height: 80px;
+	text-indent: -9999px;
+}
+.remote_pic{
+	display: block;
+	width: 1127px;
+	height: 545px;
+	margin:0 auto 15px; 
+}
+.sa_con_det .remote table{
+	margin-left: 220px;
+}
+.sa_con_det .remote table tr,
+.sa_con_det .remote table td{
+	padding: 2px 5px;
+	color: #fff;
+}
+.sa_con_det .remote table td button{
+	width: 64px;
+	height: 20px;
+	color: #5ea22a;
+	background: #fff;
+	border-radius: 2px;
+	border: none;
+}
+.sa_con_det .video{
+	border-radius: 4px;
+	background:#89b918;
+	height:546px;
+	margin:20px 0;
+	padding:15px 14px 15px 0;
+	overflow: hidden;
+}
+.sa_con_det .video ul{
+	background:url(../img/sacrifice/vlistbg.jpg)
+	no-repeat;
+	width:231px;
+	padding:150px 10px 0;
+	margin:30px 0 0 10px;
+	height: 300px;
+}
+.sa_con_det .video ul li{
+	font-size:18px;
+	color:#fff;
+	width:195px;
+	line-height:2em;
+}
+.sa_con_det .main .product_box{
+	width: 825px;
+	margin: 0 auto;
+	padding:25px 0 0 8px;
+}
+.product_items{
+	background: url(../img/global/color_line.gif) repeat-x #dbeadc;
+	padding: 13px 0 15px;
+}
+
+.sa_con_det .main .product_box div.items{
+	width: 180px;
+	float: left;
+	padding: 0 12px 0px;
+}
+.sa_con_det .main .product_box div.items.active{
+	background: url(../img/global/itemsbg_active.png) repeat-x center bottom;
+}
+.sa_con_det .main .product_box div.items .pic{
+	_margin-bottom: 4px;
+}
+.sa_con_det .main .product_box div.items .pic img{
+	width: 180px;
+	height: 135px;
+}
+ div.items p.tit{
+	height: 21px;
+	line-height: 21px;
+	text-align: center;
+	color: #619e2f;
+}
+.sa_con_det .main .product_box div.items a.reservation{
+	display: block;
+	width: 160px;
+	height: 31px;
+	background-image: url(../img/global/gbtns.png);
+	background-position: 0 -96px;
+	text-indent: -9999px;
+	margin:10px auto 22px;
+}
+.sa_con_det .main .product_box div.items a.reservation:hover{
+	background-position: 0 -127px;
+}
+.rank h2.miss_bg{
+	background: url(../img/sacrifice/rank_missbg.gif) 5px 10px no-repeat;
+}
+.rank a.right.hei{
+	height: 30px;
+	line-height: 30px;
+}
+.sa_flower_remote{
+	margin-bottom: 0;
+	margin-top: 20px;
+}
+.sa_flower_remote a.goto{
+	margin-top: 15px;
+	_margin-top: 10px;
+	*margin-top: 10px;
+}
+.sa_flower_remote ul.sa_list{
+	_padding: 0;
+	*padding: 0;
+}
+
+
+
+
+
+
+
+/*----电子纪念屏----*/
+.sa_con_det .screen{
+	background: #89b918;
+	border-radius: 4px;
+	padding-bottom: 20px;
+}
+.sa_con_det .screen h2{
+	background: url(../img/sacrifice/screen_tit.gif) 60px 26px no-repeat;
+	height: 80px;
+	text-indent: -9999px;
+}
+.sa_con_det .screen .det .bg1,
+.sa_con_det .screen .det .bg2,
+.sa_con_det .screen .det .bg3,
+.sa_con_det .screen .det .bg4,
+.sa_con_det .screen .det .bg5,
+.sa_con_det .screen .det .bg6{
+	width: 1127px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.sa_con_det .screen .det .bg1{
+	background: url(../img/sacrifice/screen_1.jpg) no-repeat;
+	height: 100px;
+}
+.sa_con_det .screen .det .bg2{
+	background: url(../img/sacrifice/screen_2.jpg) no-repeat;
+	height: 492px;
+}
+.sa_con_det .screen .det .bg3{
+	background: url(../img/sacrifice/screen_3.jpg) no-repeat;
+	height: 159px;
+}
+.sa_con_det .screen .det .bg4{
+	background: url(../img/sacrifice/screen_4.jpg) no-repeat;
+	height: 250px;
+}
+.sa_con_det .screen .det .bg5{
+	background: url(../img/sacrifice/screen_5.jpg) no-repeat;
+	height: 250px;
+}
+.sa_con_det .screen .det .bg6{
+	background: url(../img/sacrifice/screen_6.jpg) no-repeat;
+	height: 250px;
+}
+.list_scroll{
+	width: 900px;
+	margin: 0 auto;
+}
+.list_scroll ul li{
+	height: 492px;
+	padding: 0 60px;
+}
+.list_scroll ul li h3,
+.list_scroll ul li h4,
+.list_scroll ul li p{
+	color: #ff1e00;
+}
+.list_scroll ul li h3,
+.list_scroll ul li h4,
+.list_scroll ul li h4 span{
+	font-size: 28px;
+}
+.list_scroll ul li h3,
+.list_scroll ul li h4{
+	line-height: 60px;
+}
+
+.list_scroll ul li h3{
+	padding-top: 60px;
+}
+.list_scroll ul li h4{
+	margin-bottom: 30px;
+}
+.list_scroll ul li h4 span{
+	margin: 0 10px;
+}
+.list_scroll ul li p{
+	font-size: 36px;
+	line-height: 1.3em;
+}
+p.mess_prompt{
+	border: 3px solid #a8ad29;
+	border-radius: 8px;
+	background: #f8f7e7;
+	color: #37302f;
+	font-size: 20px;
+	padding: 30px 100px;
+	line-height: 30px;
+	margin-top: 20px;
+}
+p.mess_prompt span{
+	margin: 0 5px;
+	color: #965100;
+	font-size: 20px;
+}
+
+/*--永安大家庭--*/
+.me_con .memorial_mess{
+	margin-top: 0;
+	margin-bottom: 15px;
+}
+.new_pic,
+.new_vid{
+	margin-top: 15px;
+}
+.new_pic .write_bg,
+.new_vid .write_bg{
+	padding: 18px 0 0 20px;
+	*height: 189px;
+}
+.new_pic .write_bg .greenbor_items,
+.new_vid .write_bg .greenbor_items{
+	margin: 0 19px 15px 0;
+}
+.user_list{
+	margin-top: 15px;
+}
+.user_list .friend_bg{
+	background: url(../img/sacrifice/friend_tit.jpg) no-repeat 5px 10px;
+}
+.user_list .newadd_bg{
+	background: url(../img/sacrifice/newadd_tit.jpg) no-repeat 5px 10px;
+}
+.user_list .det{
+	padding: 0 32px;
+}
+
+/*--大家庭文集--*/
+.corpus{
+	background: url(../img/global/color_line.gif) repeat-x #dbeadc;
+	padding: 13px;
+	margin-top: 20px;
+	position: relative;
+}
+.corpus .clearfix h2{
+	text-indent: -9999px;
+	height: 40px;
+	background: url(../img/sacrifice/corpus_tit.gif) 10px bottom no-repeat;
+
+}
+.corpus div.clearfix a.more{
+	float: right;
+	font-size: 20px;
+	color: #6b992d;
+	line-height: 40px;
+}
+.corpus .product_box{
+	margin-top: 10px;
+}
+.corpus .product_box .news_list{
+	width: 780px;
+	padding: 20px;
+}
+.corpus img.png{
+	position: absolute;
+	right: 0;
+	top: 38px;
+}

@@ -13,44 +13,44 @@ class DefaultController extends \app\core\web\MController
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+    // public function behaviors()
+    // {
+    //     return [
+    //         'access' => [
+    //             'class' => AccessControl::className(),
+    //             'only' => ['logout'],
+    //             'rules' => [
+    //                 [
+    //                     'actions' => ['logout'],
+    //                     'allow' => true,
+    //                     'roles' => ['@'],
+    //                 ],
+    //             ],
+    //         ],
+    //         'verbs' => [
+    //             'class' => VerbFilter::className(),
+    //             'actions' => [
+    //                 'logout' => ['post'],
+    //             ],
+    //         ],
+    //     ];
+    // }
 
     // /**
     //  * @inheritdoc
     //  */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
+    // public function actions()
+    // {
+    //     return [
+    //         'error' => [
+    //             'class' => 'yii\web\ErrorAction',
+    //         ],
+    //         'captcha' => [
+    //             'class' => 'yii\captcha\CaptchaAction',
+    //             'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+    //         ],
+    //     ];
+    // }
 
     /**
      * Displays homepage.
@@ -72,4 +72,39 @@ class DefaultController extends \app\core\web\MController
     {
         return $this->render('about');
     }
+
+    public function init()
+    {
+        parent::init();
+        \Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
+        $this->_theme();
+    }
+
+    protected function _theme() {
+        
+        $model = \app\modules\sys\models\Set::findOne('theme');
+
+        $this->view->theme->pathMap = [
+            // '@app/modules/home/views/default' => '@app/web/theme/'.$model->svalue.'/home/home',
+            // '@app/modules/cms/views/home/album' => '@app/web/theme/'. $model->svalue .'/home/album',
+            // '@app/modules/cms/views/home/post' => '@app/web/theme/' . $model->svalue . '/home/post',
+            // '@app/modules/news/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/news',
+            // '@app/modules/shop/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/shop',
+            // '@app/modules/home/views/layouts' => '@app/web/theme/' . $model->svalue . '/home/layouts',
+
+            '@app/modules/m/views/default' => '@app/web/theme/' . $model->svalue . '/mobile/home',
+            '@app/modules/m/views/layouts' => '@app/web/theme/' . $model->svalue . '/mobile/layouts',
+            '@app/modules/news/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/news',
+            '@app/modules/shop/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/goods',
+
+            '@app/modules/user/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/user',
+            '@app/modules/order/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/order'
+        ];
+    }
+
+
+
+
+
+
 }

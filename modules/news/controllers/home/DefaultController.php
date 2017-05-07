@@ -74,6 +74,6 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
         $model->view_all = $model->view_all + 1;
         $model->save();
 
-        return $this->render('view', $data);
+        return $this->render('view_img', $data);
     }
 }
