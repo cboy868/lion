@@ -28,7 +28,6 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
 					    ->asArray()
 					    ->all();
 
-
 		foreach ($items as $k => &$v) {
             $v['cover'] = Attachment::getById($v['thumb'], '600x450');
         }unset($v);
