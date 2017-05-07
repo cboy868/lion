@@ -1,10 +1,14 @@
+<?php 
+
+use yii\widgets\LinkPager;
+ ?>
 <link rel="stylesheet" type="text/css" href="/theme/m1/static/css/18282a6d914c423b874b74481b8269cd.css">
     <div class="main-wrap clearfix" style="*z-index:10;*position:relative;width:100%;margin-left:auto;margin-right:auto;;background-color:">
         <div class="main clearfix page_main" style="width:1000px;">
         	<div class="content yibuLayout_Body" style="min-height:100px;margin-left:auto;margin-right:auto;;background-color:;background-color:" id="yibuLayout_center">
         	    <div id="view_main_1_37675" class="mainSamrtView yibuSmartViewMargin">
 <div class="yibuFrameContent main__Item0" style="height:1099px;width:100%;"><div class="runTimeflowsmartView"><div id="view_listproducts_11_37675" class="yibuSmartViewMargin absPos" oldbottom="897">
-<div class="yibuFrameContent overflow_hidden listproducts_Style2_Item0 view_listproducts_11_37675_Style2_Item0" style="width:1020px;">    <div class="w-product">
+<div class="yibuFrameContent overflow_hidden listproducts_Style2_Item0 view_listproducts_11_37675_Style2_Item0" style="width:1030px;">    <div class="w-product">
         <ul class="w-product-list clearfix" id="ulList_view_listproducts_11_37675">
             <?php foreach ($list as $k => $v): ?>
                 <li class="w-pl-unit">
@@ -22,8 +26,17 @@
         <div style="clear:both;"></div>
     </div>
 <div class="w_pager f_clearfix" id="pager_view_listproducts_11_37675"><div class="w-pageline" style="float: none">
-<ul class="w-page-square  w-clearfix" id="pagerHtml">
-<li><a href="javascript:;" class="w-page-cm w-page-flip" id="prePage"><span>上一页</span><i>&lt;</i></a></li><li><a href="javascript:;" class="w-page-cm activi">1</a></li><li><a href="javascript:;" class="w-page-cm">2</a></li><li style="margin-right: 0px;"><a href="javascript:;" class="w-page-cm  w-page-flip" id="nextPage"><span>下一页</span><i>&gt;</i></a></li></ul></div></div><script type="text/javascript">$(function(){PcListPagination("view_listproducts_11_37675","productList","PageNumber","6","2","-1","","0","CreatedOnUtc","DESC","off","","","False","False","view_listproducts_11_37675_callback")});</script>        <script type="text/template" id="listTemplate_view_listproducts_11_37675">
+
+<?php 
+
+echo LinkPager::widget([
+    'pagination' => $pagination,
+]);
+ ?>
+
+
+
+</div></div><script type="text/javascript">$(function(){PcListPagination("view_listproducts_11_37675","productList","PageNumber","6","2","-1","","0","CreatedOnUtc","DESC","off","","","False","False","view_listproducts_11_37675_callback")});</script>        <script type="text/template" id="listTemplate_view_listproducts_11_37675">
             <li class="w-pl-unit">
                 <a href="$data.Url" target="_blank">
                     <div class="w-pl-pic"><img src="$data.ImageUrl" /></div>

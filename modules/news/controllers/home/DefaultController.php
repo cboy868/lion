@@ -21,8 +21,7 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
     	$count = $query->count();
 
 		// 使用总数来创建一个分页对象
-		$pagination = new Pagination(['totalCount' => $count]);
-
+		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>6]);
 
     	$items = $query->offset($pagination->offset)
 					    ->limit($pagination->limit)
@@ -36,7 +35,7 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
 
         return $this->render('index', [
         		'list' =>$items,
-        		'page' => $pagination
+        		'pagination' => $pagination
         	]);
     }
 

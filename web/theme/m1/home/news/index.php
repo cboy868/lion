@@ -1,3 +1,6 @@
+<?php 
+use yii\widgets\LinkPager;
+ ?>
 <link rel="stylesheet" type="text/css" href="/theme/m1/static/css/abc.css">
 
     <div class="main-wrap clearfix" style="*z-index:10;*position:relative;width:100%;margin-left:auto;margin-right:auto;;background-color:">
@@ -35,8 +38,15 @@
         </ul>
     </div>
 <div class="w_pager f_clearfix" id="pager_view_listnews_9_37674"><div class="w-pageline"style="float: none">
-<ul class='w-page-square  w-clearfix'id='pagerHtml'>
-<li><a href="javascript:;" class="w-page-cm w-page-flip"id="prePage"><span>上一页</span><i>&lt;</i></a></li><li><a href="javascript:;" class="w-page-cm activi">1</a></li><li><a href="javascript:;" class="w-page-cm">2</a></li><li style="margin-right: 0px;"><a href="javascript:;" class="w-page-cm  w-page-flip"id="nextPage"><span>下一页</span><i>&gt;</i></a></li></ul></div></div><script type="text/javascript">$(function(){PcListPagination("view_listnews_9_37674","newsList","PageNumber","5","2","-1","","1","CreatedOnUtc","DESC","off","","","False","False","view_listnews_9_37674_callback")});</script>        <script type="text/template" id="listTemplate_view_listnews_9_37674">
+
+
+<?php 
+
+echo LinkPager::widget([
+    'pagination' => $pagination,
+]);
+ ?>
+</div></div><script type="text/javascript">$(function(){PcListPagination("view_listnews_9_37674","newsList","PageNumber","5","2","-1","","1","CreatedOnUtc","DESC","off","","","False","False","view_listnews_9_37674_callback")});</script>        <script type="text/template" id="listTemplate_view_listnews_9_37674">
             $if (data.ImageUrl==""|| "False".toLowerCase()=="false")
             {
             <li class="w-list-nopic f-clearfix">
