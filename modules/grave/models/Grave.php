@@ -40,6 +40,9 @@ class Grave extends \app\core\db\ActiveRecord
     const STATUS_SALE = 2;
     const STATUS_FINISH = 3;
 
+    const SHOW_NO = 0;
+    const SHOW_YES = 1;
+
     /**
      * @inheritdoc
      */
@@ -66,7 +69,7 @@ class Grave extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'level', 'status', 'user_id', 'sort', 'is_leaf', 'created_at'], 'integer'],
+            [['pid', 'level', 'status', 'user_id', 'sort', 'is_leaf', 'created_at', 'is_show'], 'integer'],
             [['intro'], 'string'],
             [['area_totle', 'area_use', 'price'], 'number'],
             [['name'], 'required'],

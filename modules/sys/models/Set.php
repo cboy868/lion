@@ -94,7 +94,7 @@ class Set extends \yii\db\ActiveRecord
     {
         $arr = [
             self::TYPE_INPUT => 'Input',
-            // self::TYPE_FILE  => 'File',
+             self::TYPE_FILE  => 'File',
             // self::TYPE_CHECKBOX => 'Checkbox',
             // self::TYPE_RADIO    => 'Radio',
             self::TYPE_SELECT   => 'Select',

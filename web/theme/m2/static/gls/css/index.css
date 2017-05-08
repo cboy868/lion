@@ -212,7 +212,7 @@
 	transition: .3s;
 }
 
-/* 观陵山内部管理 */
+/* <?=g('cp_name')?>内部管理 */
 .last{
 	margin-bottom: 15px;
 }
@@ -340,6 +340,7 @@
 }
 
 .figure{
+	height:402px;
 	width: 280px;
 	float: left;
 	_display: inline;
@@ -357,7 +358,7 @@
 	text-indent: 2em;
 }
 
-/* 观陵山动态 */
+/* <?=g('cp_name')?>动态 */
 .deve .tabbox{
 	background: #fff;
 	padding: 0;

@@ -41,21 +41,30 @@ use app\modules\sys\models\Set;
                     elseif($model->stype == Set::TYPE_SELECT)
                         echo $form->field($model, "[$model->sname]svalue")->dropDownList(unserialize($model->svalues))->label($model->sintro)->hint('&lt?=g("'.$model->sname.'")?&gt');
                     elseif($model->stype == Set::TYPE_CHECKBOX)
-                        echo $form->field($model, "[$model->sname]svalue")->checkboxList(unserialize($model->svalues))->label($model->sintro)->hint('&lt?=g("'.$model->sname.'")?&gt');
+                        echo $form->field($model, "[$model->sname]svalue")
+                            ->checkboxList(unserialize($model->svalues))
+                            ->label($model->sintro)
+                            ->hint('&lt?=g("'.$model->sname.'")?&gt');
                     elseif($model->stype == Set::TYPE_RADIO)
-                        echo $form->field($model, "[$model->sname]svalue")->radioList(unserialize($model->svalues))->label($model->sintro)->hint('&lt?=g("'.$model->sname.'")?&gt');
+                        echo $form->field($model, "[$model->sname]svalue")
+                                    ->radioList(unserialize($model->svalues))
+                                    ->label($model->sintro)
+                                    ->hint('&lt?=g("'.$model->sname.'")?&gt');
                     elseif($model->stype == Set::TYPE_FILE) {
 
-//                         $str = <<<STR
-//                         <div class="form-group field-set-keywords-svalue">
-// <label class="control-label col-sm-3" for="set-keywords-svalue">原logo</label>
-// <div class="col-sm-9"><img src="%s" alt="" style="max-width:200px;max-height:100px;"></div>
-// </div>
-// STR;
+                         $str = <<<'STR'
+                         <div class="form-group field-set-keywords-svalue">
+ <label class="control-label col-sm-2" for="set-keywords-svalue">原%s</label>
+ <div class="col-sm-9"><img src="%s" alt="" style="max-width:200px;max-height:100px;"></div>
+ </div>
+STR;
 
-//                         $str = sprintf($str, $model->svalue);
-//                         echo $str;
-                        echo $form->field($model, "[$model->sname]svalue")->fileInput()->label($model->sintro)->hint('&lt?='.$model->sname.'?&gt');
+                         $str = sprintf($str, $model->sname, $model->svalue);
+                        echo $str;
+                        echo $form->field($model, "[$model->sname]svalue")
+                                    ->fileInput()
+                                    ->label($model->sintro)
+                                    ->hint('&lt?=g("'.$model->sname.'")?&gt');
                     }
                         
                     ?>

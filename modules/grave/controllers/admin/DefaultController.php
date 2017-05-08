@@ -2,6 +2,8 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\core\models\Attachment;
+use app\core\models\AttachmentRel;
 use Yii;
 use yii\helpers\Url;
 use app\modules\grave\models\Tomb;
@@ -25,6 +27,18 @@ class DefaultController extends BackController
                 'actions' => [
                     'delete' => ['post'],
                 ],
+            ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'web-upload' => [
+                'class' => 'app\core\web\WebuploadAction',
+            ],
+            'ue-upload' => [
+                'class' => 'app\core\widgets\Ueditor\UploadAction',
             ],
         ];
     }
@@ -93,12 +107,11 @@ class DefaultController extends BackController
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $up = Upload::getInstance($model, 'thumb', 'grave');
-            if ($up) {
-                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-                $up->save();
-                $info = $up->getInfo();
-                $model->thumb = $info['mid'];
+            $post = Yii::$app->request->post();
+
+            if (isset($post['mid']) && !empty($post['mid'])) {
+                AttachmentRel::updateResId('grave', $post['mid'], $model->id);
+                $model->thumb = $post['mid'][0];
             }
 
             if ($model->save(false)) {
@@ -106,7 +119,8 @@ class DefaultController extends BackController
             }
             
         }
-        return $this->renderAjax('create', [
+        $model->loadDefaultValues();
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
@@ -122,13 +136,13 @@ class DefaultController extends BackController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $post = Yii::$app->request->post();
 
-            $up = Upload::getInstance($model, 'thumb', 'grave');
-            if ($up) {
-                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-                $up->save();
-                $info = $up->getInfo();
-                $model->thumb = $info['mid'];
+            if (isset($post['mid']) && !empty($post['mid'])) {
+                AttachmentRel::updateResId('grave', $post['mid'][0], $model->id);
+                if (!$model->thumb) {
+                    $model->thumb = $post['mid'][0];
+                }
             }
 
             if ($model->save(false)) {
@@ -137,8 +151,12 @@ class DefaultController extends BackController
 
         }
 
-        return $this->renderAjax('update', [
+        //已上传图片
+        $imgs = AttachmentRel::getByRes('grave', $id, '100x100');
+
+        return $this->render('update', [
             'model' => $model,
+            'imgs' => $imgs
         ]);
     }
 
@@ -167,6 +185,34 @@ class DefaultController extends BackController
         Yii::$app->getSession()->setFlash('success', '墓区删除成功。');
         
         return $this->redirect(['index', 'pid'=>$model->pid]);
+    }
+
+    public function actionCover()
+    {
+        $post = Yii::$app->getRequest()->post();
+
+        $model = self::findModel($post['grave_id']);
+        $model->thumb = $post['thumb'];
+        if ($model->save()) {
+            return $this->json();
+        }
+
+        return $this->json(null, '修改封面失败', 0);
+
+    }
+
+    public function actionDelImg()
+    {
+        $post = Yii::$app->getRequest()->post();
+
+        $model = Attachment::findOne($post['thumb']);
+        $model->status = Attachment::STATUS_DEL;
+        if ($model->save()) {
+            return $this->json();
+        }
+
+
+        return $this->json(null, '图片删除失败', 0);
     }
 
     /**

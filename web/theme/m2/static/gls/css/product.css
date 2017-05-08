@@ -86,7 +86,7 @@
 	*cursor: pointer;
 }
 
-/* 观陵山环境 */
+/* <?=g('cp_name')?>环境 */
 .environment .slider{
 	position: relative;
 	height: 332px;
@@ -227,7 +227,7 @@ ul.ins_shape.product_box.tomb_box li a.tomb-avatar{
 	overflow: hidden;
 }
 
-/* 观陵山产品 */
+/* <?=g('cp_name')?>产品 */
 .main .right{
 	width:450px;
 }

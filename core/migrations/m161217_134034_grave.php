@@ -27,7 +27,8 @@ class m161217_134034_grave extends Migration
             'sort' => $this->smallInteger()->notNull()->defaultValue(0),
             'is_leaf' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_show' =>$this->smallInteger(1)->defaultValue(1),//是否在门户和手机显示
+            'status' => $this->smallInteger()->notNull()->defaultValue(2),
         ], $tableOptions);
 
         $this->createTable('{{%grave_tomb}}', [

@@ -3,18 +3,18 @@
 namespace app\modules\cms\controllers\admin;
 
 use Yii;
-use app\core\helpers\ArrayHelper;
+use app\modules\cms\models\Subject;
+use app\modules\cms\models\SubjectSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
-use app\core\helpers\Url;
+use yii\filters\VerbFilter;
 use app\core\base\Upload;
+
 /**
- * PostController implements the CRUD actions for Post model.
+ * SubjectController implements the CRUD actions for Subject model.
  */
 class SubjectController extends BackController
 {
-    
-
     public function behaviors()
     {
         return [
@@ -27,47 +27,140 @@ class SubjectController extends BackController
         ];
     }
 
-
     /**
-     * @name 专题列表
+     * Lists all Subject models.
+     * @return mixed
      */
     public function actionIndex()
     {
+        $searchModel = new SubjectSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
-     * @name 添加专题
+     * Displays a single Subject model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Subject model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
      */
     public function actionCreate()
     {
+        $model = new Subject();
 
+        if ($model->load(Yii::$app->request->post())) {
+
+            $upload = Upload::getInstance($model, 'cover', 'subject');
+
+            if ($upload) {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $upload->save();
+
+                $info = $upload->getInfo();
+                $model->cover = $info['mid'];
+            }
+
+            $link = '/zhuanti/' . $model->path;
+
+            if (!$model->link) {
+                $model->link = $link;
+            }
+
+            $model->save();
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            $model->user_id = \Yii::$app->user->id;
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
-     * @name 修改
+     * Updates an existing Subject model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
      */
-    public function actionUpdate()
+    public function actionUpdate($id)
     {
+        $model = $this->findModel($id);
 
+        if ($model->load(Yii::$app->request->post())) {
+
+            $link = '/zhuanti/' . $model->path;
+
+            if (!$model->link) {
+                $model->link = $link;
+            }
+
+            $upload = Upload::getInstance($model, 'cover', 'subject');
+
+            if ($upload) {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $upload->save();
+
+                $info = $upload->getInfo();
+
+                $model->cover = $info['mid'];
+            } else {
+                unset($model->cover);
+            }
+
+            $model->save();
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
-     * @name 删除
+     * Deletes an existing Subject model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
      */
-    public function actionDelete()
+    public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        $model->status = Subject::STATUS_DEL;
+        $model->save();
 
+        return $this->redirect(['index']);
     }
 
+    /**
+     * Finds the Subject model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Subject the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     protected function findModel($id)
     {
-        if (($model = Subjcet::findOne($id)) !== null) {
+        if (($model = Subject::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-
 }

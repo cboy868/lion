@@ -24,51 +24,51 @@ return [
     'm/order/<id:\d+>.html'=> 'order/m/default/view',
 
     //pc端
-    'news' => 'news/home/default/index',
+//    'news' => 'news/home/default/index',
     'news.html' => 'news/home/default/index',
-    'news/<id:\d+>' => 'news/home/default/index',
+//    'news/<id:\d+>' => 'news/home/default/index',
     'news/<id:\d+>.html' => 'news/home/default/index',
-    'newsv/<id:\d+>' => 'news/home/default/view',
+//    'newsv/<id:\d+>' => 'news/home/default/view',
     'newsv/<id:\d+>.html' => 'news/home/default/view',
 
     //博客
-    'blog' => 'blog/home/default/index',
+//    'blog' => 'blog/home/default/index',
     'blog.html' => 'blog/home/default/index',
-    'blog/<id:\d+>' => 'blog/home/default/view',
+//    'blog/<id:\d+>' => 'blog/home/default/view',
     'blog/<id:\d+>.html' => 'blog/home/default/view',
 
     //商品列表
-    'products' => 'shop/home/default/index',
+//    'products' => 'shop/home/default/index',
     'products.html' => 'shop/home/default/index',
     //商品分类列表
-    'products/<id:\d+>' => 'shop/home/default/index',
+//    'products/<id:\d+>' => 'shop/home/default/index',
     'products/<id:\d+>.html' => 'shop/home/default/index',
     //商品详情
-    'product/<id:\d+>' => 'shop/home/default/view',
+//    'product/<id:\d+>' => 'shop/home/default/view',
     'product/<id:\d+>.html' => 'shop/home/default/view',
 
     //墓区墓位
-    'grave' => 'grave/home/default/index',
+//    'grave' => 'grave/home/default/index',
     'grave.html' => 'grave/home/default/index',
     'grave/<id:\d+>.html' => 'grave/home/default/view',
-    'grave/<id:\d+>' => 'grave/home/default/view',
-    'tomb/<id:\d+>' => 'grave/home/default/tomb',
+//    'grave/<id:\d+>' => 'grave/home/default/view',
+    'tomb/<id:\d+>.html' => 'grave/home/default/tomb',
 
-    'panel' => 'memorial/home/default/panel',//祭祀平台
+//    'panel' => 'memorial/home/default/panel',//祭祀平台
     'panel.html' => 'memorial/home/default/panel',
-    'memorial' => 'memorial/home/default/index',//纪念馆聚合
+//    'memorial' => 'memorial/home/default/index',//纪念馆聚合
     'memorial.html' => 'memorial/home/default/index',
-    'remote' => 'memorial/home/default/remote',
+//    'remote' => 'memorial/home/default/remote',
     'remote.html' => 'memorial/home/default/remote',
-    'grave/<id:\d+>' => 'memorial/home/default/view',
+//    'grave/<id:\d+>' => 'memorial/home/default/view',
     'grave/<id:\d+>.html' => 'memorial/home/default/view',
 
-    'about' => 'home/default/about',
+//    'about' => 'home/default/about',
     'about.html' => 'home/default/about',
     'contact.html' => 'home/default/contact',
-    'contact' => 'home/default/contact',
+//    'contact' => 'home/default/contact',
     
-    'login' => 'home/default/login',
+    'login.html' => 'home/default/login',
 
     // 'product/<id:\d+>.html' => 'home/default/product-view',
     // 'about/<mod:\d+>/<id:\d+>.html' => 'home/default/about-view',

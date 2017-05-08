@@ -11,7 +11,7 @@ use yii\base\Widget;
 
 /**
  * Webuploader Widget
- * <?php echo Webup::widget(['options'=>['formData'=>['res_name'=>'article']]]);?>
+ * <?php echo Webup::widget(['options'=>['res_name'=>'goods', 'id'=>'goods']]);?>
  */
 class Webup extends Widget {
    

@@ -1,84 +1,69 @@
+<?php
+use yii\helpers\Url;
+?>
 <link rel="stylesheet" type="text/css" href="/theme/m2/static/gls/css/index.css">
 <div class="index">
+
+    <?php
+    $banner = focus(1, 3, '1920x450')
+    ?>
+
     <div class="full_slider">
         <ul class="slider_main">
-            <li style="display:block; background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>
-            <li style="background-image:url(http://placehold.it/1920x450)"><a href="#"></a></li>
-            <li style="background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>
+
+
+
+            <?php foreach ($banner as $k => $v):?>
+                <li style="<?php if($k==0):?>display:block;<?php endif;?>background-image:url(<?=$v['image']?>)"><a href="<?=$v['link']?>"></a></li>
+            <?php endforeach;?>
+
+<!--            <li style="display:block; background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>-->
+<!--            <li style="background-image:url(http://placehold.it/1920x450)"><a href="#"></a></li>-->
+<!--            <li style="background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>-->
         </ul>
         <div class="btns">
-            <span class="active"></span>
-            <span></span>
-            <span></span>
+            <?php foreach ($banner as $k => $v):?>
+                <span class="<?php if($k==0):?>active<?php endif;?>"></span>
+            <?php endforeach;?>
         </div>
     </div>
     <div class="container">
         <div class="wrap-item youku-news">
             <div class="impor-news">
                 <h2 class="title ico ico1">
-                    <a href="#" class="more-green right">more</a>
-                    观陵山重大新闻
+                    <a href="<?=Url::toRoute(['/news/home/default/index'])?>" class="more-green right">more</a>
+                    <?=g('cp_name')?>新闻
                 </h2>
+                <?php
+                    $news = news(null, 15);
+                ?>
                 <div class="inner scroll-news">
+                    <?php foreach ($news as $k => $item):?>
                     <dl>
                         <dt>
-                            <span class="right">2015-04-05</span>
-                            <a href="#">蒲源关帝庙落成周年庆典</a>
+                            <span class="right"><?=date('Y-m-d H:i',$item['created_at'])?></span>
+                            <a href="<?=Url::toRoute(['/news/home/default/view', 'id'=>12])?>"><?=$item['title']?></a>
                         </dt>
-                        <dd><a href="#">2014年11月15日10时， 辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。</a></dd>
+                        <dd><a href="<?=Url::toRoute(['/news/home/default/view', 'id'=>12])?>"><?=$item['subtitle']?></a></dd>
                     </dl>
-                    <dl>
-                        <dt>
-                            <span class="right">2015-04-05</span>
-                            <a href="#">蒲源关帝庙落成周年庆典</a>
-                        </dt>
-                        <dd><a href="#">2014年11月15日10时， 辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <span class="right">2015-04-05</span>
-                            <a href="#">蒲源关帝庙落成周年庆典</a>
-                        </dt>
-                        <dd><a href="#">2014年11月15日10时， 辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <span class="right">2015-04-05</span>
-                            <a href="#">蒲源关帝庙落成周年庆典</a>
-                        </dt>
-                        <dd><a href="#">2014年11月15日10时， 辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <span class="right">2015-04-05</span>
-                            <a href="#">蒲源关帝庙落成周年庆典</a>
-                        </dt>
-                        <dd><a href="#">2014年11月15日10时， 辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <span class="right">2015-04-05</span>
-                            <a href="#">蒲源关帝庙落成周年庆典</a>
-                        </dt>
-                        <dd><a href="#">2014年11月15日10时， 辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。</a></dd>
-                    </dl>
+                    <?php endforeach;?>
                 </div>
             </div>
 
             <div class="youku">
-                <h2>2013年 观陵山艺术园林公墓元年纪事</h2>
+                <h2>2013年 <?=g('cp_name')?>元年纪事</h2>
                 <div id="a1"></div>
-                <script type="text/javascript" src="/static/libs/CKplayer/ckplayer/ckplayer.js" charset="utf-8"></script>
+                <script type="text/javascript" src="/theme/m2/static/libs/CKplayer/ckplayer/ckplayer.js" charset="utf-8"></script>
                 <script type="text/javascript">
                     var flashvars={
-                        f:'http://www.gls024.com/static/upload/gls_xc.flv',
+                        f:'http://gls.gls024.com/static/upload/gls_xc.flv',
                         c:0,
                         p:1,
                         wh:'16:9',
                         h:2
                     };
                     var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
-                    CKobject.embedSWF('/static/libs/CKplayer/ckplayer/ckplayer.swf','a1','ckplayer_a1','828','490',flashvars,params);
+                    CKobject.embedSWF('/theme/m2/static/libs/CKplayer/ckplayer/ckplayer.swf','a1','ckplayer_a1','828','490',flashvars,params);
                 </script>
             </div>
         </div><!--/wrap-item-->
@@ -87,80 +72,45 @@
                 <a href="#" class="more-green right">more</a>
                 媒体聚焦
             </h2>
+            <?php
+            $news = news(4, 4, '280x270');
+            ?>
             <div class="inner">
+                <?php foreach ($news as $k => $v): ?>
                 <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
+                    <a href="#"><img src="<?=$v['cover']?>" alt=""></a>
                     <a href="#" class="play-ico"><img src="/theme/m2/static/gls/img/global/play-ico.png" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
+                    <h3><?=$v['title']?></h3>
                     <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
+                        <?=$v['subtitle']?>
                     </p>
                 </div>
-                <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
-                    <a href="#" class="play-ico"><img src="/theme/m2/static/gls/img/global/play-ico.png" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
-                    <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
-                    </p>
-                </div>
-                <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
-                    <a href="#" class="play-ico"><img src="/theme/m2/static/gls/img/global/play-ico.png" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
-                    <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
-                    </p>
-                </div>
-                <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
-                    <a href="#" class="play-ico"><img src="/theme/m2/static/gls/img/global/play-ico.png" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
-                    <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
-                    </p>
-                </div>
+                <?php endforeach;?>
             </div>
         </div><!--/wrap-item-->
         <div class="wrap-item">
+            <?php
+            $news = news(1, 4, '280x270');
+            ?>
             <h2 class="title ico ico3">
                 <a href="#" class="more-green right">more</a>
-                观陵山专题
+                <?=g('cp_name')?>专题
             </h2>
             <div class="inner">
+                <?php foreach ($news as $k => $v):?>
                 <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
+                    <a href="#"><img src="<?=$v['cover']?>" alt=""></a>
+                    <h3><?=$v['title']?></h3>
                     <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
+                        <?=$v['subtitle']?>
                     </p>
                 </div>
-                <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
-                    <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
-                    </p>
-                </div>
-                <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
-                    <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
-                    </p>
-                </div>
-                <div class="figure shadow">
-                    <a href="#"><img src="http://placehold.it/280x270" alt=""></a>
-                    <h3>观陵山•蒲河源‘三十六景’摄影大赛启动</h3>
-                    <p class="figcaption">
-                        2014年11月15日10时，辽宁蒲源关帝庙落成一周年之际，举行了隆重的庆典仪式。立冬已过，这一天，原本连续降温的初冬天气
-                    </p>
-                </div>
+                <?php endforeach;?>
             </div>
         </div><!--/wrap-item-->
         <div class="wrap-item deve">
             <h2 class="title title-green ico ico4">
-                观陵山动态
+                <?=g('cp_name')?>动态
             </h2>
             <div class="inner tabbox clearfix">
                 <div class="items">
@@ -173,7 +123,7 @@
                             <div class="tabtit">
                                 <a href="javascript:;" class="first active">服务故事</a>
                                 <a href="javascript:;">学习创新</a>
-                                <a href="javascript:;">观陵山生活</a>
+                                <a href="javascript:;"><?=g('cp_name')?>生活</a>
                             </div>
                             <div class="tabcon">
                                 <ul class="news_list" style="display:block;">
@@ -217,41 +167,43 @@
                     </h2>
                     <div class="bor">
                         <div class="tab">
+                            <?php
+                            $news1 = news(2, 8);
+                            $news2 = news(3, 8);
+                            $news3 = news(4, 8);
+                            ?>
                             <div class="tabtit">
                                 <a href="javascript:;" class="first active">客户服务</a>
-                                <a href="javascript:;">媒体聚焦</a>
                                 <a href="javascript:;">交流活动</a>
+                                <a href="javascript:;">媒体聚焦</a>
                             </div>
                             <div class="tabcon">
                                 <ul class="news_list" style="display:block;">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
+                                    <?php foreach ($news1 as $k => $v):?>
+                                    <li><span class="right">
+                                        <a class="name" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['author']?></a>
+                                        <?=date('Y-m-d H:i',$v['created_at'])?></span>
+                                        <a class="txt" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['title']?></a>
+                                    </li>
+                                    <?php endforeach;?>
                                 </ul>
                                 <ul class="news_list">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
+                                    <?php foreach ($news2 as $k => $v):?>
+                                        <li><span class="right">
+                                        <a class="name" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['author']?></a>
+                                                <?=date('Y-m-d H:i',$v['created_at'])?></span>
+                                            <a class="txt" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['title']?></a>
+                                        </li>
+                                    <?php endforeach;?>
                                 </ul>
                                 <ul class="news_list">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
+                                    <?php foreach ($news3 as $k => $v):?>
+                                        <li><span class="right">
+                                        <a class="name" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['author']?></a>
+                                                <?=date('Y-m-d H:i',$v['created_at'])?></span>
+                                            <a class="txt" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['title']?></a>
+                                        </li>
+                                    <?php endforeach;?>
                                 </ul>
                             </div>
                         </div>
@@ -265,7 +217,7 @@
                     <div class="bor">
                         <div class="tab">
                             <div class="tabtit">
-                                <a href="javascript:;" class="first active">我与观陵山</a>
+                                <a href="javascript:;" class="first active">我与<?=g('cp_name')?></a>
                                 <a href="javascript:;">我的亲人</a>
                                 <a href="javascript:;">思念亲人</a>
                             </div>
@@ -317,7 +269,7 @@
                     <h4>An appointment to visit</h4>
                 </a>
                 <div class="tip">
-                    <p>电话预约4006-264-999，营销接待中心为您准备免费参观车辆。</p>
+                    <p>电话预约<?=g('cmobile')?>，营销接待中心为您准备免费参观车辆。</p>
                 </div>
                 <a href="javascript:;">
                     <span>02</span>

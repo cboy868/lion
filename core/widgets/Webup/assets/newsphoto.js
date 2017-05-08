@@ -588,7 +588,7 @@ $(function() {
 
             // $('#'+file.id).find('.addition .imgurl').val(response.data.web_url);
             $('#'+file.id).find('.addition .mid').val(response.data.mid);
-            $('#'+file.id).find('.addition .cover').val(response.data.mid);
+            $('#'+file.id).find('.addition .webup-cover').val(response.data.mid);
 
         });
 

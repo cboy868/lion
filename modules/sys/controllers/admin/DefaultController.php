@@ -119,49 +119,54 @@ class DefaultController extends \app\core\web\BackController
 
         if (Model::loadMultiple($settings, \Yii::$app->request->post()) && Model::validateMultiple($settings)) {
 
-
             $info = [];
-
             foreach ($settings as $setting) {
 
-                // if ($setting->stype == 'file') {
-                //     $upload = Upload::getInstanceByName('Set['.$setting->sname.'][svalue]');
-                //     if (!$upload) {
-                //         continue;
-                //     } 
+                if ($setting->stype == 'file') {
+                    $upload = Upload::getInstance($setting, $setting->sname.'[svalue]', 'sys_set');
+//
+                    if ($upload) {
+//                        $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+//                        $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                        $upload->save();
 
-                //     $upload_info = $upload->save($setting->sname);
-                //     $setting->svalue = '/'. $upload_info['path'];
-                // }
-                
-                $setting->save(false);
+                        $img_info = $upload->getInfo();
+                        $setting->svalue = $img_info['path'] . '/' . $img_info['fileName'];
+                        $setting->save(false);
+                    }
+                } else {
+                    $setting->save(false);
+                }
 
-                $info[$setting['sname']] = $setting['svalue'];
             }
 
-
-            // $dbConfig = var_export($dbConfig, true);
-            // $dbConfig = '<?php return ' . $dbConfig . ' ;';
-
-
-            $content = var_export($info, true);
-            $content = '<?php return ' . $content . ' ;';
-
-
-
-            try {
-                $path = Yii::getAlias('@app/config/setting.php');
-                file_put_contents($path, $content);
-            } catch (\Exception $e) {
-            }
+            $this->updateSettings();
             
-
-
             return $this->redirect(['index']);
         }
 
         $settings = ArrayHelper::group($settings, 'smodule');
         return $this->render('index', ['settings' => $settings]);
+    }
+
+    private function updateSettings()
+    {
+        $settings = Set::find()->indexBy('sname')->orderBy('sort asc')->all();
+        foreach ($settings as $setting) {
+            $info[$setting['sname']] = $setting['svalue'];
+        }
+
+        $content = var_export($info, true);
+        $content = '<?php return ' . $content . ' ;';
+
+        try {
+            $path = Yii::getAlias('@app/config/setting.php');
+            file_put_contents($path, $content);
+        } catch (\Exception $e) {
+        }
+
+        return true;
+
     }
 
     /**

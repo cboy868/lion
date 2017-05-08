@@ -4,6 +4,7 @@ namespace app\modules\cms\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%subject}}".
  *
@@ -34,8 +35,9 @@ class Subject extends \app\core\db\ActiveRecord
     {
         return [
             [['user_id', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['user_id', 'title', 'link'], 'required'],
-            [['title', 'link', 'cover', 'path'], 'string', 'max' => 200],
+            [['user_id', 'title'], 'required'],
+            [['title', 'link', 'path'], 'string', 'max' => 200],
+            [['cover'], 'safe']
         ];
     }
 
@@ -61,8 +63,24 @@ class Subject extends \app\core\db\ActiveRecord
             'cover' => '封面',
             'path' => '路径',
             'status' => '状态',
-            'updated_at' => 'Updated At',
-            'created_at' => 'Created At',
+            'updated_at' => '更新时间',
+            'created_at' => '添加时间',
         ];
+    }
+
+    /**
+     * @name 获取用户
+     */
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(), ['id'=>'user_id']);
+    }
+
+    /**
+     * @name 获取封面
+     */
+    public function getImg($size=null)
+    {
+        return Attachment::getById($this->cover, $size);
     }
 }

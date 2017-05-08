@@ -41,13 +41,13 @@ $navs = \app\modules\cms\models\Nav::navs();
     </div>
     <div class="header">
         <div class="container posf">
-            <a href="/page" class="logo" title="观陵山艺术园林">
-                <img src="/theme/m2/static/gls/img/global/logo.jpg" alt="logo">
+            <a href="/page" class="logo" title="<?=g("cp_name")?>">
+                <img src="<?=g('logo')?>" alt="logo">
             </a>
             <span class="wechat">
-                <img src="/theme/m2/static/gls/img/global/wechat.gif" alt="wechat">
+<!--                <img src="/theme/m2/static/gls/img/global/wechat.gif" alt="wechat">-->
             </span>
-            <img class="flower" src="/theme/m2/static/gls/img/global/head_flower.png" alt="">
+<!--            <img class="flower" src="/theme/m2/static/gls/img/global/head_flower.png" alt="">-->
         </div>
     </div>
     <div class="nav">
@@ -59,22 +59,21 @@ $navs = \app\modules\cms\models\Nav::navs();
             </div>
             <ul>
                 <li><a href="/" class="active">首页</a></li>
-                <li><a href="/contact.html">联系</a></li>
-                <li><a href="/news">动态</a></li>
-                <li><a href="/grave">墓区产品</a></li>
-                <li><a href="/blog">博客</a></li>
-                <li><a href="/products">小商品</a></li>
-                <li><a href="/panel">祭祀广场</a></li>
-                <li><a href="/memorial">观陵山大家庭</a></li>
+                <li><a href="<?=Url::toRoute(['/home/default/contact'])?>">联系</a></li>
+                <li><a href="<?=Url::toRoute(['/news/home/default/index'])?>">动态</a></li>
+                <li><a href="<?=Url::toRoute(['/grave/home/default/index'])?>">墓区产品</a></li>
+                <li><a href="<?=Url::toRoute(['/blog/home/default/index'])?>">博客</a></li>
+                <li><a href="<?=Url::toRoute(['/shop/home/default/index'])?>">小商品</a></li>
+                <li><a href="<?=Url::toRoute(['/memorial/home/default/panel'])?>">祭祀广场</a></li>
+                <li><a href="<?=Url::toRoute(['/memorial/home/default/index'])?>"><?=g('cp_name')?>大家庭</a></li>
             </ul>
         </div>
     </div>
     <?=$content?>
-    
     <div class="footer">
         <div class="container">
-            <p>辽宁观陵山艺术园林公墓有限公司客服电话:024-24156777、78836555</p>
-            <p>传真:024-24156777  辽ICP备14015905号</p>
+            <p><?=g("fullname")?>客服电话:<?=g("cmobile")?></p>
+            <p>传真:<?=g("chuanzhen")?>  <?=g("beian")?></p>
         </div>
     </div>
 <?php $this->endBody() ?>

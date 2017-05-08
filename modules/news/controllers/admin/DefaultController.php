@@ -146,6 +146,11 @@ class DefaultController extends BackController
         $formModel = new $class();
         $ndata = NewsData::findOne($model->id);
 
+        if (!$ndata) {
+            $ndata = new NewsData();
+            $ndata->news_id = $model->id;
+        }
+
         $req = Yii::$app->request;
 
         if ($model->load($req->post(), 'NewsTextForm') && $ndata->load($req->post(), 'NewsTextForm')) {
@@ -173,9 +178,10 @@ class DefaultController extends BackController
 
         $req = Yii::$app->request;
 
-        if ($model->load($req->post(), 'NewsImageForm') && $model->save()) {
-
+        if ($model->load($req->post(), 'NewsImageForm')) {
+            $post = $req->post();
             $model->thumb = isset($post['cover']) ? $post['cover'] : $model->thumb;
+            $model->save();
 
             $post = $req->post();
             if (isset($post['mid'])) {

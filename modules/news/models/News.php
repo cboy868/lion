@@ -50,6 +50,22 @@ class News extends \app\core\db\ActiveRecord
         return '{{%news}}';
     }
 
+    public static function types($type=null)
+    {
+        $t = [
+            self::TYPE_TEXT => 'text',
+            self::TYPE_IMAGE=> 'image',
+            self::TYPE_VIDEO=> 'video'
+        ];
+
+        if ($type === null) {
+            return $t;
+        }
+
+        return $t[$type];
+    }
+
+
     public function behaviors()
     {
         return [

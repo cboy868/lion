@@ -9,9 +9,12 @@ use app\core\helpers\StringHelper;
 
 use app\modules\focus\models\Focus;
 use app\modules\cms\models\Links;
+use app\modules\cms\models\Subject;
 use app\modules\mod\models\Code;
 use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
+use app\modules\news\models\News;
+use app\modules\news\models\Category as NewsCategory;
 //  按格式打印数组
 function p($arr)
 {
@@ -31,12 +34,95 @@ function getFullAction()
 	return $currentPermission;
 }
 
+
+/**
+ * @param null $category_id
+ * @param int $limit
+ * @param $thumb
+ */
+function news($category_id=null, $limit=10, $thumb=null, $type=null)
+{
+
+
+    $query = News::find()->where(['status'=>News::STATUS_NORMAL]);
+    if ($category_id !== null) {
+        $query->andWhere(['category_id'=>$category_id]);
+    }
+
+    if ($type !== null) {
+        $t = array_search($type, News::types());
+        $query->andWhere(['type'=>$t]);
+    }
+    $list = $query->limit($limit)->all();
+
+    $result = [];
+
+    foreach ($list as $k => $v) {
+        $result[$v['id']] = $v->toArray();
+        $result[$v['id']]['cover'] = $v->getCover($thumb);
+    }
+
+    return $result;
+}
+
+
+/**
+ * @return array
+ */
+function newsCates($cates, $limit=10, $thumb=null, $type=null)
+{
+    if (!is_array($cates)) {
+        return [];
+    }
+
+    $result = NewsCategory::find()->where(['status'=>NewsCategory::STATUS_ACTIVE])
+                                        ->andWhere(['id'=>$cates])
+                                        ->indexBy('id')
+                                        ->asArray()
+                                        ->all();
+    if ($type !== null) {
+        $type = array_search($type, News::types());
+    }
+
+    foreach ($cates as $k => $v) {
+        $tmp = News::find()->where(['status'=>News::STATUS_NORMAL])
+                            ->andWhere(['category_id'=>$v])
+                            ->andFilterWhere(['type'=>$type])
+                            ->limit($limit)
+                            ->all();
+        $tp = [];
+        foreach ($tmp as $val) {
+            $tp[$val['id']] = $val->toArray();
+            $tp[$val['id']]['cover'] = $val->getCover($thumb);
+        }
+        $result[$v]['child'] = $tp;
+    }
+
+
+    return $result;
+}
 /**
  * @name 取焦点图
  */
 function focus($category_id, $limit, $imgSize=null)
 {
 	return Focus::getFocusByCategory($category_id, $limit, $imgSize);
+}
+
+function subject($rows, $thumbSize=null)
+{
+    $list = Subject::find()->where(['status'=>Subject::STATUS_NORMAL])
+                            ->asArray()
+                            ->all();
+
+    foreach ($list as $k => &$v) {
+        $v['cover'] = Attachment::getById($v['cover'], $thumbSize);
+    }unset($v);
+
+
+
+    return $list;
+
 }
 
 function ProductCateList($rows=5, $thumb='')
@@ -116,14 +202,14 @@ function url($params)
 function g($name)
 {
 
-	$path = Yii::$app->request->pathInfo;
-	$path = substr($path, 0, strpos($path, '.'));
-
-	$nav = \app\modules\cms\models\Nav::find()->where(['like', 'url', $path])->one();
-
-	if (!empty($nav[$name])) {
-		return $nav[$name];
-	}
+//	$path = Yii::$app->request->pathInfo;
+//	$path = substr($path, 0, strpos($path, '.'));
+//
+//	$nav = \app\modules\cms\models\Nav::find()->where(['like', 'url', $path])->one();
+//
+//	if (!empty($nav[$name])) {
+//		return $nav[$name];
+//	}
 
 	return Yii::$app->params[$name];
 }

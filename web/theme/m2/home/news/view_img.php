@@ -7,7 +7,7 @@
 				<span>图片新闻</span>
 			</h2>
 			<div class="det">
-				<p class="breadcrumb">当前位置：<a href="/page">首页</a><span>&gt;</span> <a href="/page/index/dynamic">观陵山动态</a><span>&gt;</span> 标题~~</p>
+				<p class="breadcrumb">当前位置：<a href="/page">首页</a><span>&gt;</span> <a href="/page/index/dynamic"><?=g('cp_name')?>动态</a><span>&gt;</span> 标题~~</p>
 				<h1>鱼龙百戏回眸安葬在华夏陵园的曲艺大师</h1>
 				<div class="picture_album picture_album_big">
                     <div class="bigimg_box">

@@ -99,10 +99,10 @@
         <div class="main">
             <div class="borbox">
                 <h2 class="tit2">
-                    <span class="txta">观陵山动态</span>
+                    <span class="txta"><?=g('cp_name')?>动态</span>
                 </h2>
                 <div class="det">
-                    <p class="breadcrumb">当前位置：<a href="/page">首页</a><span>&gt;</span> <a href="/page/index/dynamic">观陵山动态</a><span>&gt;</span> 标题~~</p>
+                    <p class="breadcrumb">当前位置：<a href="/page">首页</a><span>&gt;</span> <a href="/page/index/dynamic"><?=g('cp_name')?>动态</a><span>&gt;</span> 标题~~</p>
                     <h1>鱼龙百戏回眸安葬在华夏陵园的曲艺大师</h1>
                     <div class="article_mark">
                         <p class="right">

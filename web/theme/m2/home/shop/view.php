@@ -5,10 +5,13 @@
             <div class="main right">
                 <div class="borbox">
                     <h2 class="tit2">
-                        <span class="txtd">观陵山产品</span>
+                        <span class="txtd"><?=g('cp_name')?>产品</span>
                     </h2>
                     <div class="det clearfix">
                         <p class="breadcrumb">当前位置：<a href="/page">首页</a><span>&gt;</span> <a href="/page/index/product">产品</a><span>&gt;</span> 墓碑墓型</p>
+                        <div class="product_album">
+
+                        </div>
                         <div class="right">
                             <form action="">
                                 <table cellpadding="0" cellspacing="0" border="0">
