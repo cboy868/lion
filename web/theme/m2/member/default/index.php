@@ -1,420 +1,279 @@
-<?php
-use yii\helpers\Url;
-?>
-<link rel="stylesheet" type="text/css" href="/theme/m2/static/gls/css/index.css">
-<div class="index">
+<div id="container" class="pad12">
+    <div id="app-menu" class="corner12">
 
-    <?php
-    $banner = focus(1, 3, '1920x450')
-    ?>
-
-    <div class="full_slider">
-        <ul class="slider_main">
-
-
-
-            <?php foreach ($banner as $k => $v):?>
-                <li style="<?php if($k==0):?>display:block;<?php endif;?>background-image:url(<?=$v['image']?>)"><a href="<?=$v['link']?>"></a></li>
-            <?php endforeach;?>
-
-<!--            <li style="display:block; background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>-->
-<!--            <li style="background-image:url(http://placehold.it/1920x450)"><a href="#"></a></li>-->
-<!--            <li style="background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>-->
+        <div id="user-box">
+            <a href="http://gls.gls024.com/home/profile/1" target="_blank" class="self-avatar">
+                <img src="#" alt="观陵山网络">
+            </a>
+            <span class="user-name">观陵山网络</span>
+            <div class="home-func-box">
+                <!--
+                 <a href="javascript:void(0)" id="hairAnnouncement" class="my-home home-func" style="font-size:14px;">发布公告</a><br />
+                  -->
+                <a href="http://gls.gls024.com/member/setting/index" class="my-home home-func" style="font-size:14px;">个人设置</a><br>
+                <a href="http://gls.gls024.com/member/setting/password" class="my-home home-func" style="font-size:14px;">修改密码</a><br>
+                <a href="/user/mobile_bind.html" target="_blank" class="my-home
+                     home-func" style="font-size:14px;">绑定微信</a>
+            </div>
+        </div>
+        <ul id="my-menu">
+            <li class="my-blog"><a target="_blank" href="http://gls.gls024.com/blog/index">我的日志</a><a class="publish" href="http://gls.gls024.com/member/blog/add">发表</a></li>
+            <li class="my-album"><a target="_blank" href="http://gls.gls024.com/album/index">我的相册</a><a class="publish" href="http://gls.gls024.com/member/album/addPhoto">上传</a></li>
+            <li class="my-video"><a target="_blank" href="http://gls.gls024.com/video/index">我的视频</a><a class="publish" href="http://gls.gls024.com/member/video/add">发表</a></li>
+            <li class="my-relative"><a target="_blank" href="http://gls.gls024.com/member/memorial">我的纪念馆</a></li>
+            <li class="my-order"><a target="_blank" href="http://gls.gls024.com/member/order">我的订单</a></li>
+            <li class="my-task"><a target="_blank" href="http://gls.gls024.com/member/inscription/index">碑文确认</a></li>
+            <li class="my-collect"><a target="_blank" href="http://gls.gls024.com/member/fav/index?type=0">我的收藏</a></li>
         </ul>
-        <div class="btns">
-            <?php foreach ($banner as $k => $v):?>
-                <span class="<?php if($k==0):?>active<?php endif;?>"></span>
-            <?php endforeach;?>
+    </div>
+    <div id="main-content">
+        <div id="content">
+            <div id="content-hook">
+                <div class="tab-container clearboth">
+                    <div class="tab-header">
+                        <ul class="tabs clearfix" id="feedListSelecter">
+
+                            <li class="curr"><a href="javascript:;" type="me" class="feedChange" data="photoList">我的相册</a></li>
+                            <li><a href="javascript:;" type="frd" class="feedChange" data="blogList">我的博客</a></li>
+                            <li><a href="javascript:;" type="frd" class="feedChange" data="videoList">我的视频</a></li>
+                        </ul>
+                    </div>
+                    <div class="moreList  aa" id="photoList">
+                        <div class="album-list2">
+
+                            <ul class="clearfix" id="albumList">
+                                <li class="left viewOrder" id="album_39274">
+                                    <div class="avatar avatar-photo">
+                                        <a href="/album/photo/id/39274.html">
+                                            <div class="loadingImg" style="position: absolute; width: 140px; height: 140px; display: none;"></div><img class="img" src="http://www.yagm.com.cn/upload/2015/11/26/middle_20151126145919000000_1_309897_37.jpg" style="max-width: 138px; max-height: 138px; display: inline; background: rgb(255, 255, 255); padding: 0.5px; border: 1px solid rgb(204, 204, 204);">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-info">
+                                        <h6>
+                                            <a title="塘沽遇难消防员[来自客户]" alt="塘沽遇难消防员[来自客户]" href="/album/photo/id/39274.html">
+                                                塘沽遇难消防员[...                    </a>
+                                        </h6>
+                                        <p>
+                                            <!--
+                          <a href="#" id="edit_39274" class="editAlbum">编辑</a>                  -->
+                                            11张照片
+                                        </p>
+                                    </div>
+                                </li><li class="left viewOrder" id="album_39273">
+                                    <div class="avatar avatar-photo">
+                                        <a href="/album/photo/id/39273.html">
+                                            <div class="loadingImg" style="position: absolute; width: 140px; height: 140px; display: none;"></div><img class="img" src="http://www.yagm.com.cn/upload/2016/02/16/middle_20160216155828000000_1_1545343_23.jpg" style="max-width: 138px; max-height: 138px; display: inline; background: rgb(255, 255, 255); padding: 0.5px 17.5px; border: 1px solid rgb(204, 204, 204);">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-info">
+                                        <h6>
+                                            <a title="东方之星[来自客户]" alt="东方之星[来自客户]" href="/album/photo/id/39273.html">
+                                                东方之星[来自客...                    </a>
+                                        </h6>
+                                        <p>
+                                            <!--
+                          <a href="#" id="edit_39273" class="editAlbum">编辑</a>                  -->
+                                            17张照片
+                                        </p>
+                                    </div>
+                                </li><li class="left viewOrder" id="album_39204">
+                                    <div class="avatar avatar-photo">
+                                        <a href="/album/photo/id/39204.html">
+                                            <div class="loadingImg" style="position: absolute; width: 140px; height: 140px; display: none;"></div><img class="img" src="http://www.yagm.com.cn/upload/2015/08/16/middle_20150816112854000000_1_22096_27.jpg" style="max-width: 138px; max-height: 138px; display: inline; background: rgb(255, 255, 255); padding: 28.5px 0.5px; border: 1px solid rgb(204, 204, 204);">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-info">
+                                        <h6>
+                                            <a title="致最伟大的逆行" alt="致最伟大的逆行" href="/album/photo/id/39204.html">
+                                                致最伟大的逆行                    </a>
+                                        </h6>
+                                        <p>
+                                            <!--
+                          <a href="#" id="edit_39204" class="editAlbum">编辑</a>                  -->
+                                            4张照片
+                                        </p>
+                                    </div>
+                                </li>            </ul>
+                        </div>
+                    </div>
+                    <div class="aa hidden" id="blogList">
+                        <div id="myblog-container">
+                            <div class="myblog-content left">
+                                <ol>
+                                    <li id="box3095766">
+                                        <div class="myblog-hdskin">
+                                            <h6>
+                                                <a href="/blog/detail/id/3095766.html">
+                                                    这样的公墓---没有          </a>
+                                            </h6>
+                                            <div class="blog-t-tool">
+                                                <div class="blog-msg">
+                                                    <span class="time">2016-12-11 15:32:10 发表</span>
+                                                    <span>分类：
+                            <a href="/blog/index/category_id/0/uid/681.html">默认分类</a>              </span>
+                                                    <!--
+                                                    <span>权限：
+                                                                                            <a href="#">好友可访问</a>	                            </span>
+                                                     -->
+                                                </div>
+                                                <div class="toolbar">
+       <span class="cursor edit-blog">
+       <a href="/member/blog/edit/id/3095766.html">编辑</a></span>
+                                                    <span><img src="/theme/m2/static/images/blog/v_dotted.png" alt=""></span>
+                                                    <span class="cursor del-myblog"><a id="delete-3095766" class="delete-btn" href="/blog/del/id/3095766.html">删除</a></span>     </div>                  </div>
+                                        </div>
+                                        <div class="myblog-body">
+                                            今天的天气真不正常啊,现在是大雪节都过去了,一点也不冷,就别提雪了,要下早着呢~现在这天就是开春时似的,还好这样的天气我们干活儿是一种幸福啊~呵呵我们的业务是一点也不见少,我们的迎灵每天都要用四辆车才能保证业务的顺利的完成,我今年就是三趟迎灵,还都是北仓的,,第一趟我们到时家属就已经到了,提前在等我们,我们见了面后一起...      </div>
+                                        <div class="myblog-foot">
+                                            <a href="#">阅读(1609)</a>
+                                            <span>|</span>
+                                            <a href="#">评论(3)</a>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div class="clear"></div>
+                            <div style="float:right;"><ul class="pagination yw-page"><li><a href="/blog/index/uid/681.html?p=1"><i class="fa fa-home"></i> 首页</a></li><li><a href="/blog/index/uid/681.html?p=1"><i class="fa fa-arrow-left">&lt;&lt;</i></a></li><li class="active"><a href="/blog/index/uid/681.html?p=1">1</a></li><li><a href="/blog/index/uid/681.html?p=2">2</a></li><li><a href="/blog/index/uid/681.html?p=3">3</a></li><li><a href="/blog/index/uid/681.html?p=4">4</a></li><li><a href="/blog/index/uid/681.html?p=5">5</a></li><li><a href="/blog/index/uid/681.html?p=6">6</a></li><li><a href="/blog/index/uid/681.html?p=7">7</a></li><li><a href="/blog/index/uid/681.html?p=8">8</a></li><li><a href="/blog/index/uid/681.html?p=9">9</a></li><li><a href="/blog/index/uid/681.html?p=10">10</a></li><li><a href="/blog/index/uid/681.html?p=2"><i class="fa fa-arrow-right">&gt;&gt;</i></a></li><li><a href="/blog/index/uid/681.html?p=56">尾页</a></li></ul></div>
+                        </div>
+                    </div>
+
+                    <div class="aa hidden" id="videoList">
+                        <div id="myblog-container">
+                            <div class="myblog-content">
+                                <ol>
+                                    <li id="box473341">
+                                        <div class="myblog-hdskin">
+                                            <h6>
+                                                <a href="/video/detail/id/473341.html">
+                                                    视频: 永安与失独父母共庆月亮节          </a>
+
+                                            </h6>
+                                            <div class="blog-t-tool">
+                                                <div class="blog-msg">
+                                                    <span class="time">2016-01-23 10:36:57 发表</span>
+                                                    <span>分类：
+              <a href="/video/index/self_id/0"></a>
+
+              </span>
+                                                    <span>权限：所有人可见              </span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="myblog-foot">
+                                            <a href="javascript:void(0);">阅读(9362)</a>
+                                            <span>|</span>
+                                            <a href="javascript:void(0);">评论(0)</a>
+                                        </div>
+                                    </li><li id="box472902">
+                                        <div class="myblog-hdskin">
+                                            <h6>
+                                                <a href="/video/detail/id/472902.html">
+                                                    永安毕业生院庆演出节目          </a>
+
+                                            </h6>
+                                            <div class="blog-t-tool">
+                                                <div class="blog-msg">
+                                                    <span class="time">2015-11-07 15:30:03 发表</span>
+                                                    <span>分类：
+              <a href="/video/index/self_id/0"></a>
+
+              </span>
+                                                    <span>权限：所有人可见              </span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="myblog-foot">
+                                            <a href="javascript:void(0);">阅读(8775)</a>
+                                            <span>|</span>
+                                            <a href="javascript:void(0);">评论(0)</a>
+                                        </div>
+                                    </li><li id="box470215">
+                                        <div class="myblog-hdskin">
+                                            <h6>
+                                                <a href="/video/detail/id/470215.html">
+                                                    英雄妈妈 有我们不孤单          </a>
+
+                                            </h6>
+                                            <div class="blog-t-tool">
+                                                <div class="blog-msg">
+                                                    <span class="time">2014-10-07 14:51:13 发表</span>
+                                                    <span>分类：
+              <a href="/video/index/self_id/0"></a>
+
+              </span>
+                                                    <span>权限：所有人可见              </span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="myblog-foot">
+                                            <a href="javascript:void(0);">阅读(10107)</a>
+                                            <span>|</span>
+                                            <a href="javascript:void(0);">评论(1)</a>
+                                        </div>
+                                    </li><li id="box470156">
+                                        <div class="myblog-hdskin">
+                                            <h6>
+                                                <a href="/video/detail/id/470156.html">
+                                                    歌唱祖国 缅怀人民音乐家王莘          </a>
+
+                                            </h6>
+                                            <div class="blog-t-tool">
+                                                <div class="blog-msg">
+                                                    <span class="time">2014-10-01 22:44:05 发表</span>
+                                                    <span>分类：
+              <a href="/video/index/self_id/0"></a>
+
+              </span>
+                                                    <span>权限：所有人可见              </span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="myblog-foot">
+                                            <a href="javascript:void(0);">阅读(9398)</a>
+                                            <span>|</span>
+                                            <a href="javascript:void(0);">评论(2)</a>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div class="clear"></div>
+
+                            <div class="mb15 txtright"><ul class="pagination yw-page"><li>
+                                        <a href="/video/index/uid/291.html?p=1"><i class="fa fa-home"></i> 首页</a></li>
+                                    <li><a href="/video/index/uid/291.html?p=1"><i class="fa fa-arrow-left">&lt;&lt;</i></a></li>
+                                    <li class="active"><a href="/video/index/uid/291.html?p=1">1</a></li><li><a href="/video/index/uid/291.html?p=2">2</a></li>
+                                    <li><a href="/video/index/uid/291.html?p=3">3</a></li><li><a href="/video/index/uid/291.html?p=4">4</a></li>
+                                    <li><a href="/video/index/uid/291.html?p=5">5</a></li><li><a href="/video/index/uid/291.html?p=6">6</a></li>
+                                    <li><a href="/video/index/uid/291.html?p=2"><i class="fa fa-arrow-right">&gt;&gt;</i></a></li>
+                                    <li><a href="/video/index/uid/291.html?p=6">尾页</a></li></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-cornerb"></div>
         </div>
     </div>
-    <div class="container">
-        <div class="wrap-item youku-news">
-            <div class="impor-news">
-                <h2 class="title ico ico1">
-                    <a href="<?=Url::toRoute(['/news/home/default/index'])?>" class="more-green right">more</a>
-                    <?=g('cp_name')?>新闻
-                </h2>
-                <?php
-                    $news = news(null, 15);
-                ?>
-                <div class="inner scroll-news">
-                    <?php foreach ($news as $k => $item):?>
-                    <dl>
-                        <dt>
-                            <span class="right"><?=date('Y-m-d H:i',$item['created_at'])?></span>
-                            <a href="<?=Url::toRoute(['/news/home/default/view', 'id'=>12])?>"><?=$item['title']?></a>
-                        </dt>
-                        <dd><a href="<?=Url::toRoute(['/news/home/default/view', 'id'=>12])?>"><?=$item['subtitle']?></a></dd>
-                    </dl>
-                    <?php endforeach;?>
-                </div>
-            </div>
+    <div class="clear"></div>
 
-            <div class="youku">
-                <h2>2013年 <?=g('cp_name')?>元年纪事</h2>
-                <div id="a1"></div>
-                <script type="text/javascript" src="/theme/m2/static/libs/CKplayer/ckplayer/ckplayer.js" charset="utf-8"></script>
-                <script type="text/javascript">
-                    var flashvars={
-                        f:'http://gls.gls024.com/static/upload/gls_xc.flv',
-                        c:0,
-                        p:1,
-                        wh:'16:9',
-                        h:2
-                    };
-                    var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
-                    CKobject.embedSWF('/theme/m2/static/libs/CKplayer/ckplayer/ckplayer.swf','a1','ckplayer_a1','828','490',flashvars,params);
-                </script>
-            </div>
-        </div><!--/wrap-item-->
-        <div class="wrap-item media-focus">
-            <h2 class="title ico ico2">
-                <a href="#" class="more-green right">more</a>
-                媒体聚焦
-            </h2>
-            <?php
-            $news = news(4, 4, '280x270');
-            ?>
-            <div class="inner">
-                <?php foreach ($news as $k => $v): ?>
-                <div class="figure shadow">
-                    <a href="#"><img src="<?=$v['cover']?>" alt=""></a>
-                    <a href="#" class="play-ico"><img src="/theme/m2/static/gls/img/global/play-ico.png" alt=""></a>
-                    <h3><?=$v['title']?></h3>
-                    <p class="figcaption">
-                        <?=$v['subtitle']?>
-                    </p>
-                </div>
-                <?php endforeach;?>
-            </div>
-        </div><!--/wrap-item-->
-        <div class="wrap-item">
-            <?php
-            $news = news(1, 4, '280x270');
-            ?>
-
-            <?php
-            $subject = subject('gongsi',7, '280x270');
-            ?>
-            <h2 class="title ico ico3">
-                <a href="#" class="more-green right">more</a>
-                <?=g('cp_name')?>专题
-            </h2>
-            <div class="inner">
-                <?php foreach ($subject as $k => $v):?>
-                <div class="figure shadow">
-                    <a href="#"><img src="<?=$v['cover']?>" alt=""></a>
-                    <h3><?=$v['title']?></h3>
-                    <p class="figcaption">
-                        <?=\yii\helpers\StringHelper::truncate($v['intro'], 30)?>
-                    </p>
-                </div>
-                <?php endforeach;?>
-            </div>
-        </div><!--/wrap-item-->
-        <div class="wrap-item deve">
-            <h2 class="title title-green ico ico4">
-                <?=g('cp_name')?>动态
-            </h2>
-            <div class="inner tabbox clearfix">
-                <div class="items">
-                    <h2>
-                        <a href="#" class="more-green right">more</a>
-                        员工日志
-                    </h2>
-                    <div class="bor">
-                        <div class="tab">
-                            <div class="tabtit">
-                                <a href="javascript:;" class="first active">服务故事</a>
-                                <a href="javascript:;">学习创新</a>
-                                <a href="javascript:;"><?=g('cp_name')?>生活</a>
-                            </div>
-                            <div class="tabcon">
-                                <ul class="news_list" style="display:block;">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                </ul>
-                                <ul class="news_list">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                </ul>
-                                <ul class="news_list">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="items">
-                    <h2>
-                        <a href="#" class="more-green right">more</a>
-                        资讯
-                    </h2>
-                    <div class="bor">
-                        <div class="tab">
-                            <?php
-                            $news1 = news(2, 8);
-                            $news2 = news(3, 8);
-                            $news3 = news(4, 8);
-                            ?>
-                            <div class="tabtit">
-                                <a href="javascript:;" class="first active">客户服务</a>
-                                <a href="javascript:;">交流活动</a>
-                                <a href="javascript:;">媒体聚焦</a>
-                            </div>
-                            <div class="tabcon">
-                                <ul class="news_list" style="display:block;">
-                                    <?php foreach ($news1 as $k => $v):?>
-                                    <li><span class="right">
-                                        <a class="name" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['author']?></a>
-                                        <?=date('Y-m-d H:i',$v['created_at'])?></span>
-                                        <a class="txt" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['title']?></a>
-                                    </li>
-                                    <?php endforeach;?>
-                                </ul>
-                                <ul class="news_list">
-                                    <?php foreach ($news2 as $k => $v):?>
-                                        <li><span class="right">
-                                        <a class="name" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['author']?></a>
-                                                <?=date('Y-m-d H:i',$v['created_at'])?></span>
-                                            <a class="txt" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['title']?></a>
-                                        </li>
-                                    <?php endforeach;?>
-                                </ul>
-                                <ul class="news_list">
-                                    <?php foreach ($news3 as $k => $v):?>
-                                        <li><span class="right">
-                                        <a class="name" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['author']?></a>
-                                                <?=date('Y-m-d H:i',$v['created_at'])?></span>
-                                            <a class="txt" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['title']?></a>
-                                        </li>
-                                    <?php endforeach;?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="items">
-                    <h2>
-                        <a href="#" class="more-green right">more</a>
-                        客户博客
-                    </h2>
-                    <div class="bor">
-                        <div class="tab">
-                            <div class="tabtit">
-                                <a href="javascript:;" class="first active">我与<?=g('cp_name')?></a>
-                                <a href="javascript:;">我的亲人</a>
-                                <a href="javascript:;">思念亲人</a>
-                            </div>
-                            <div class="tabcon">
-                                <ul class="news_list" style="display:block;">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信1</a></li>
-                                </ul>
-                                <ul class="news_list">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信2</a></li>
-                                </ul>
-                                <ul class="news_list">
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                    <li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--/wrap-item-->
-        <div class="wrap-item process">
-            <h2 class="title title-green ico ico5">
-                购墓服务流程
-            </h2>
-            <div class="inner clearfix">
-                <a href="javascript:;">
-                    <span>01</span>
-                    <h3>预约参观</h3>
-                    <h4>An appointment to visit</h4>
-                </a>
-                <div class="tip">
-                    <p>电话预约<?=g('cmobile')?>，营销接待中心为您准备免费参观车辆。</p>
-                </div>
-                <a href="javascript:;">
-                    <span>02</span>
-                    <h3>乘车来园</h3>
-                    <h4>To get to the park</h4>
-                </a>
-                <div class="tip">
-                    <p>根据预约的时间、乘坐免费参观车，亦可自行驾车参观。</p>
-                </div>
-                <a href="javascript:;">
-                    <span>03</span>
-                    <h3>墓穴选购</h3>
-                    <h4>The tomb of choose and buy</h4>
-                </a>
-                <div class="tip">
-                    <p>引导员为您详细介绍企业文化及墓穴产品，并带您实地参观讲解。</p>
-                </div>
-                <a href="javascript:;">
-                    <span>04</span>
-                    <h3>确定墓穴</h3>
-                    <h4>Determination of the grave</h4>
-                </a>
-                <div class="tip">
-                    <p>如果您选择了符合要求的墓穴有以下两种方式：<br>A.您可以交付预定金500元；<br>B.您也可以直接交付全款并签订墓穴使用协议办理各项手续。</p>
-                </div>
-                <a href="javascript:;">
-                    <span>05</span>
-                    <h3>预约安葬</h3>
-                    <h4>Make an appointment</h4>
-                </a>
-                <div class="tip">
-                    <p>在安葬前15天办理碑文手续，选择配套商品和礼仪产品，确定安葬日期。</p>
-                </div>
-                <a href="javascript:;">
-                    <span>06</span>
-                    <h3>安葬</h3>
-                    <h4>Buried</h4>
-                </a>
-                <div class="tip">
-                    <p>至安葬登记处登记，首次免费安葬，如需安葬礼仪提前预约。</p>
-                </div>
-            </div>
-        </div><!--/wrap-item-->
-        <div class="wrap-item after-sales">
-            <h2 class="title ico ico6">
-                售后服务项目
-            </h2>
-            <div class="inner clearfix">
-                <div class="shadow">
-                    <div class="after-item">
-                        <img src="/theme/m2/static/gls/img/index/1.png" alt="">
-                        <h3>祭祀乘车</h3>
-                        <p>当您想来园祭祀亲人时，请提前拨打400-6264-999订车，或者乘坐龙之梦至三岔子的城际公交来园；清明节期间定时定点发车</p>
-                    </div>
-                </div>
-                <div class="shadow">
-                    <div class="after-item">
-                        <img src="/theme/m2/static/gls/img/index/2.png" alt="">
-                        <h3>代理祭祀</h3>
-                        <p>可为前来祭祀的人群提供代理祭祀，献花服务。</p>
-                    </div>
-                </div>
-                <div class="shadow">
-                    <div class="after-item">
-                        <img src="/theme/m2/static/gls/img/index/3.png" alt="">
-                        <h3>祭祀提醒</h3>
-                        <p>在逝者下葬周年，每年的清明节，中元节（七月十五），寒衣节（十月初一），小年（腊月二十三），除夕（腊月三十）。免费提供祭祀提醒服务</p>
-                    </div>
-                </div>
-                <div class="shadow">
-                    <div class="after-item">
-                        <img src="/theme/m2/static/gls/img/index/4.png" alt="">
-                        <h3>鲜花预定</h3>
-                        <p>为您提供网上订购鲜花服务，在5月至9月之间有偿提供鲜花及绢花摆租服务。</p>
-                    </div>
-                </div>
-                <div class="shadow">
-                    <div class="after-item">
-                        <img src="/theme/m2/static/gls/img/index/5.png" alt="">
-                        <h3>合葬服务</h3>
-                        <p>在逝者安葬前请提前三天办理二次合葬手续，我园将准备好安葬前的一切工作。</p>
-                    </div>
-                </div>
-                <div class="shadow">
-                    <div class="after-item">
-                        <img src="/theme/m2/static/gls/img/index/6.png" alt="">
-                        <h3>维护登记</h3>
-                        <p>您所购墓地石材及绿化所需要维护请电询：4006-264-999</p>
-                    </div>
-                </div>
-            </div>
-        </div><!--/wrap-item-->
-    </div>
 </div>
-<script type="text/javascript" src="/theme/m2/static/libs/cSwitch/cSwitch.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-            $('.full_slider').cSwitch({
-                bigImg : '.slider_main li',
-                btnItems : '.btns span',
-                PNBtnShow : false,
-                changeFade : true,
-                changeTime : 3000
-            });
+<script type="text/javascript">
+    $(function(){
 
-            $('.tab').cSwitch({
-                btnItems : '.tabtit a',
-                bigImg : '.tabcon ul.news_list',
-                PNBtnShow : false,
-                changeFade : false,
-                autoPlay : false
-            });
-
-            $.AutoScroll($('.scroll-news'), {
-                speed : 1000,
-                interval : 5000,
-                toStop : true //鼠标移入停止滚动 默认为 false
-            });
-
-            (function () {
-                var posLeft = [],
-                    aTit = $('.process .inner a');
-
-                aTit
-                    .each(function (i, ele) {
-                        posLeft.push($(ele).position().left);
-
-                        $(ele).hover(
-                            function () {
-                                $(this).next()
-                                    .css('left', posLeft[i] + 'px')
-                                    .stop()
-                                    .slideDown(function () { $(this).addClass('shadow') });
-                            },
-                            function () {
-                                $(this).next().stop().slideUp(function () { $(this).removeClass('shadow') });
-                            } 
-                        );
-                    })
-                    
-            })();
-            
+        $(".feedChange").click(function(){
+            var id = $(this).attr("data");
+            $(".aa").hide();
+            $("#"+id).show();
+            $(this).parent().addClass("curr").siblings().removeClass("curr");
         });
-    </script>
+
+    })
+</script>

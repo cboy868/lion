@@ -1,0 +1,98 @@
+#container {  width:956px; height:auto; margin:0 auto; position:relative; background:#ebebca url(../../images/product/big_corner_top.png) no-repeat left top;  }
+/***main-content**/
+#main-content { width:796px; float:right; }
+#myblog { border:1px solid #dddcc0; padding:20px 18px; overflow:hidden; background:#FEF7DE; }
+#myblog h2 { margin-bottom:12px; }
+#blog-add { height:17px; line-height:17px; position:absolute; left:220px; top:7px; padding-left:20px; background:url(../../images/blog/blog/wirte_icon.png) no-repeat left center; color:#5d874a; }
+.myblog-content { width:543px; }
+.myblog-content ol li { padding-bottom:10px; border-bottom:1px solid #dddcc0; margin-bottom:18px; }
+.myblog-hdskin { background:#F8EFD5; border-radius:8px; -moz-border-radius:8px; padding:12px; margin-bottom:14px; }
+.myblog-hdskin h6 { color:#595344; font-weight:bold; font-size:14px; margin-bottom:8px; }
+.myblog-hdskin h6 a { color:#595344;}
+.blog-t-tool { font-size:12px; color:#6c6961; position:relative; }
+.blog-msg span { padding-right:20px;}
+.blog-msg a { color:#6c6961; }
+.toolbar { position:absolute; right:0; top:0; color:#773000; }
+.toolbar a { color:#773000; }
+.myblog-body { padding:0 8px; line-height:1.4; text-indent:2em; color:#595344; margin-bottom:22px; }
+.myblog-foot { padding:0 8px; color:#773000; font-size:12px; position:relative; }
+.myblog-foot a { color:#773000; }
+/*********/
+.myblog-aside { width:190px; color:#595344; }
+.catalog { background:#F8EFD5; border-radius:8px; -moz-border-radius:8px; padding:16px 14px 10px 16px; margin-bottom:10px; }
+.catalog h3 { font-weight:bold;color:#595344; padding-bottom:6px; border-bottom:1px solid #dddcc0; margin-bottom:10px; }
+.catalog dl { color:#595344; padding-left:6px; border-bottom:1px solid #dddcc0; margin-bottom:8px; }
+.catalog dl a { color:#595344; }
+.catalog dl dt { padding-bottom:10px; }
+.catalog dl dd { padding:0 0 10px 14px;  }
+.catalog dl dd.curr a { color:#9d9789; }
+.manage-category { color:#773000; padding-right:8px; }
+.manage-category a { display:inline-block; height:16px; color:#773000; padding-left:24px; background:url(../../images/blog/blog/manage_icon.png) no-repeat left center; }
+.private-blog { background:#F8EFD5; border-radius:8px; -moz-border-radius:8px; padding:12px 18px 4px; margin-bottom:10px; }
+.private-blog a { display:block; height:18px; line-height:18px; margin-bottom:8px; color:#595344; padding-left:24px; }
+.private-blog a.private { background:url(../../images/blog/blog/private_blog_icon.png) no-repeat left center;}
+.private-blog a.draft { background: url(../../images/blog/blog/draft_icon.png) no-repeat left center;}
+#tag { padding-left:6px; margin-bottom:10px; }
+#tag dt { font-weight:bold; margin-bottom:10px; }
+#tag dd { padding:0 6px; line-height:1.5; }
+#tag dd a { color:#773000; padding-right:4px; }
+.myblog-aside .track-list h4 { background:none; text-indent:0; font-weight:bold; }
+
+/**********************/
+.blog-addbox { width:715px; padding:0 0 30px 16px; color:#595344; }
+.blog-add-area { padding-left:16px; }
+h4.blog-add { height:17px; line-height:17px; font-weight:bold; margin-bottom:18px; color:#5d874a; padding-left:20px; padding-bottom:6px; border-bottom:1px solid #dddcc0; background:url(../../images/blog/blog/wirte_icon.png) no-repeat left top;}
+input.blog-name { width:243px; height:21px; line-height:21px; border:1px solid #c8c8ba;}
+.blog-addbox td.padding-hook { padding-bottom:12px; }
+#blog-input { width:558px; height:312px; display:block; overflow:auto; }
+.blog-addbox table input { vertical-align:baseline; }
+.blog-addbox table select { padding:2px 2px 2px 4px; font-size:14px; color:#595344; }
+.editor-box { width:560px; overflow:hidden; }
+.editor-box p.txtright { font-size:12px; color:#773000; height:22px; line-height:22px; background:#f2f2ef; border:1px solid #c5c5c5; border-width:0 1px 1px; padding-right:12px; }
+.blog-addbox .tips-sorts { font-size:12px; color:#ab422d; }
+input.blog-tag { width:280px; height:22px; line-height:22px; border:1px solid #c8c8ba; border-width:1px 2px; color:#cbcbc8; }
+.synchro-fz { color:#773000; }
+.function-bar { padding-top:10px; color:#49482a; }
+.function-bar span { display:inline-block; height:29px; text-align:center; line-height:29px; overflow:hidden; margin-right:4px; }
+.function-bar span.submit { width:62px; background:url(../../images/blog/blog/publish_iocn.png) no-repeat; }
+.function-bar span.save-draft { width:100px; background:url(../../images/blog/blog/publish_iocn.png) no-repeat right top; }
+span.sorts-add { font-size:12px; color:#773000; }
+
+/***********日志正文*************/
+.myb-p p { margin-bottom:16px; line-height:1.6; }
+.support-wrap { position:relative; height:30px; margin-bottom:10px; }
+.support-box { position:absolute; right:40px; width:51px; height:29px; background:url(../../images/blog/blog/recommend_btn.png) no-repeat; }
+.support-box .support { position:absolute; left:47px; top:0; height:29px; padding-left:10px; background:url(../../images/blog/blog/buble_left.png) no-repeat; }
+.support-box .support em { display:inline-block; height:29px; line-height:29px; padding-right:6px; color:#595344; background:url(../../images/blog/blog/buble_right.png) no-repeat right top;}
+.support-userbox { margin-bottom:16px; overflow:hidden; background:#F8EFD5; padding:12px 12px 4px 14px; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; }
+.support-userbox h5 { font-weight:bold; color:#595344; margin-bottom:12px; }
+.support-userbox ul { width:530px; }
+.support-userbox ul li { border:0 none; margin:0; float:left; display:inline; text-align:center; padding:0 13px 10px 0; }
+.support-userbox .avatar { padding:3px; border:1px solid #D9D9BA; margin-bottom:6px; }
+.support-userbox ul li a { color:#595344; }
+.myblog-crumbs { color:#785149; padding-bottom:6px; border-bottom:1px solid #dddcc0; padding-left:4px; margin-bottom:18px; }
+.myblog-crumbs a { color:#785149; font-weight:bold; }
+.myblog-crumbs span.curr { font-weight:normal; }
+.page-bottom { font-size:12px; color:#773000; padding:0 6px 6px; border-bottom:1px solid #dddcc0; margin-bottom:6px; }
+.page-bottom  a { color:#773000; }
+.ip-address { font-size:12px; color:#799886; position:absolute; right:6px; top:0; }
+/***我的相册css**/
+.myalbums { padding:18px 24px 80px; overflow:hidden; border:1px solid d1e2c2; background:#FEF7DE; }
+.myalbums .title { margin-bottom:13px; width:73px; height:0px; background:url(../../images/blog/comm/album_tt.png) no-repeat; overflow:hidden; padding-top:25px; }
+.tab-header { padding-left:5px; } 
+.tab-header-area { width:542px; height:68px; border:1px solid #d1e2c2; overflow:auto; }
+.upload { display:inline; margin:0px 13px; padding-bottom:4px; }
+.tab-header a { color:#785149; } 
+.tab-footer a { color:#595344; } 
+.tab-footer { margin-left:20px; margin-bottom:15px; }
+.album-list { overflow:hidden; }
+.album-list ul { width:793px; }
+.album-list .list { position:relative; margin:0 22px 20px 0; text-align:center; }
+.myalbums .avatar { width:145px; height:145px; padding:7px; margin-bottom:8px; border:1px solid #fff; background-color:#F8EFD5; }
+.album-show-list a { margin-bottom:5px; color:#595344; display:inline-block; }
+.album-show-list a.edite { color:#4D4949; padding-left:5x; }
+.avatar-info h6 { font-size:12px; color:#97958f; padding-top:5px; }
+.avatar-info { }
+img.lock { padding-right:6px; vertical-align:baseline; }
+.album-show-list .an_ccc { color:#ccc;}
+

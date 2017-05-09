@@ -1,0 +1,67 @@
+#container {  width:956px; height:auto; margin:0 auto; position:relative; background:#ebebca url(../../images/product/big_corner_top.png) no-repeat left top;  }
+#confirm-delivery { width:768px; overflow:hidden; position:relative; padding:13px 13px 60px; border:1px solid #dddcc0; background:#FEF7DE; }
+div.my-trade { position:absolute; right:12px; top:24px; color:#868686; }
+div.my-trade b { color:#ab422d; }
+#confirm-delivery h2 { height:28px; text-indent:-9999px; margin-bottom:16px; background:url(../../images/blog/order/my_order_tt.png) no-repeat; }
+.table-wrap { width:768px; margin-bottom:16px; position:relative; }
+#order-search { position:absolute; right:0; top:4px; font-size:0; -webkit-text-size-adjust:none; padding-right:48px; z-index:20; }
+#order-search input { height:26px; line-height:24px; border:0 none; font-size:14px;}
+#order-search select { font-size:14px; width:100px; height:26px; color:#777045; padding:3px; margin-right:2px; border:1px solid #d1d0b8; }
+#order-search input.text { width:98px; padding-left:25px; color:#d1d1c6; background:url(../../images/blog/order/order_search.png) no-repeat; }
+#order-search input.submit { width:48px; cursor:pointer; position:absolute; right:0; top:0; *top:1px; background:url(../../images/blog/order/order_search.png) no-repeat right top; }
+.pos-hook { position:relative; z-index:1; }
+
+.table-wrap table { width:100%; border-spacing:0; border:1px solid #dddcc0; border-width:0 1px 1px 0; }
+.table-wrap table a { color:#000; }
+.table-wrap table a img { border:1px solid #dcdcc2; display:inline-block; /* margin-right:10px; */ }
+.table-wrap table a.order-goods-name { width:140px; display:inline-block; vertical-align:middle; }
+
+.table-wrap table input { vertical-align:baseline; }
+.table-wrap table td { border:1px solid #dddcc0; border-width:1px 0 0 1px; text-align:center; }
+.table-wrap table th {  width:5%; height:33px; text-align:center; height:32px; border-top:1px solid #dddcc0; font:15px "微软雅黑", "宋体"; color:#785149; background:#F8EFD5; }
+.table-wrap table th.txtleft { border-left:1px solid #dddcc0; text-align:left; }
+.td-wid-hook { white-space:nowrap; width:200px; }
+.table-wrap table th.border-left { border-left:1px solid #dddcc0; }
+.table-wrap table td,#confirm-delivery table th { padding:0px 4px; line-height:1.5; }
+.table-wrap table td.txtleft { text-align:left; }
+.table-wrap table .tr-hook td { height:16px; }
+.table-wrap table tbody td { padding-top:8px; padding-bottom:8px; }
+.table-wrap table tbody .delivery-title,
+h3.delivery-title { height:30px; line-height:30px; text-align:left; background:#F8EFD5;}
+.table-wrap table tbody .delivery-title span,
+h3.delivery-title span { color:#aaa878; padding-right:20px; }
+h3.delivery-title,
+.table-wrap .video_box { padding:8px 4px; border:1px solid #DDDCC0; border-top:none;}
+.table-wrap .video_box embed { width:600px; margin:0 auto; display:block;}
+.table-wrap table tfoot td { height:30px; text-align:left; background:#F8EFD5; color:#aaa878; }
+.table-wrap table tfoot td a { color:#aaa878; padding-right:32px; }
+.table-wrap table tfoot td span { padding:0 32px 0 8px; }
+.remote_album{border:1px solid #DDDCC0; border-top:none; padding:30px 0 0 30px;}
+.remote_album .avatar{ margin-bottom:0px !important;}
+.status-confirm { color:#ab422d; margin-bottom:4px; }
+.table-wrap .status-confirm a { color:#ab422d; }
+.status-success { color:#008238; margin-bottom:4px; }
+/**评分**/
+#rate-credit { border:1px solid #dddcc0; }
+#rate-credit h4 { height:45px; font:18px "微软雅黑", "宋体"; color:#785149; line-height:45px; padding-left:20px; background:url(../../images/blog/comm/ttpart_line.png) repeat-x left bottom; }
+.rate-content { color:#616161; padding:16px 20px 120px; }
+.rate-content a { color:#616161; }
+.rate-item { margin-bottom:22px; }
+.rate-item a img { border:1px solid #dcdcc2; }
+#rate-box { margin-bottom:30px; position:relative; }
+#rate-box table td { padding:6px 0; }
+.rate-tips { width:149px; height:58px; position:absolute; left:300px; top:-20px; color:#785149; line-height:1.6; padding:20px 0 0 23px; background:url(../../images/blog/order/pop_tips.png) no-repeat; }
+.rate-choose { margin-bottom:12px; }
+.rate-choose input { vertical-align:baseline; }
+.textarea-box { margin-bottom:30px; }
+.rate-submit { margin-bottom:10px; }
+.rate-submit input { vertical-align:baseline; }
+.rate-submit .submit { width:103px; height:46px; margin-left:8px; border:0 none; background:url(../../images/blog/comm/confirm_btn.png) no-repeat; }
+
+
+.rate-list-wrap {}
+.rate-list-wrap li { margin-right:40px;}
+
+.rate-list-wrap textarea { width:230px; height:76px; overflow:auto; }
+
+

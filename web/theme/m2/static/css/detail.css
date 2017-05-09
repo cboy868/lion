@@ -1,0 +1,142 @@
+/*相片详情*/
+.greens { color:#4D4949; }
+.photo-detail-a { padding:15px 27px 0; }
+.width93 { width:93px !important; }
+.width80 { width:80px !important; }
+.no-border { border:0 none !important; }
+.photo-detail-a h4.my-album-title { margin-left:-5px !important; }
+.piece-box { padding-left:5px; position:relative; font-size:12px; margin-bottom:15px; }
+.piece-box .piece-counter { display:inline-block; width:40px; text-align:center; }
+.piece-box .return-album { display:inline-block; width:70px; text-align:center; margin-left:5px; border-left:1px dotted #333; color:#000; font-size:12px; }
+.piece-box .piece-btn-box { position:absolute; right:8px; top:-5px; }
+.piece-box .piece-btn-box a { display:inline-block; width:26px; height:23px; background:url(../../images/blog/center/piece_btn.jpg) no-repeat; }
+.piece-box .piece-btn-box a.piece-btn-next { margin-left:5px; background:url(../../images/blog/center/piece_btn.jpg) no-repeat right top; }
+.photoshow-box { padding:25px 45px 15px; border:1px solid #ebebca; background:#f9f9ee; margin-bottom:15px; }
+.imgshows { margin-bottom:15px; width:646px; height:453px; }
+.imgshow-msg { line-height:1.6; font-size:12px; }
+.photocomment-box { padding-left:5px; margin-bottom:30px; }
+/*我的消息*/
+.mb10 { margin-bottom:10px; }
+.my-news h2 { widows:85px; padding-left:10px; background:url(../../images/blog/center/my_news_title.png) no-repeat 10px top !important; }
+.my-news .send-news { left:338px !important; }
+.my-news .send-news a.sendnew-btn { background:url(../../images/blog/center/send_newbtn.png) no-repeat left center; color:#4D4949; }
+.news-list .piece-box { margin-bottom:8px; color:#785149; }
+.news-list .piece-box .empty-btn { cursor:pointer; color:#4D4949; text-decoration:underline; }
+.mailbox .mailbox-list { border-top:1px dashed #e2e1e1; margin-bottom:30px; }
+.mailbox .mailbox-list li { padding:11px 15px 12px; border-bottom:1px dashed #e2e1e1; position:relative; color:#785149; margin:0; background-image:url(../../images/blog/center/new.png); background-repeat:no-repeat; background-position:10px 30px; }
+.mailbox .mailbox-list li.curr { background-color:#F8EFD5; }
+.mailbox .mailbox-list li.read { background-image:url(../../images/blog/center/news.png); }/*已读时背景*/
+.mailbox .mailbox-list li .mail-avatar { width:47px; height:46px; padding:2px; border:1px solid #d9d9ba; margin:0 15px 0 23px; }
+.mailbox .mailbox-list li .mail-info { width:550px; padding-top:5px; position:relative; }
+.mailbox .mailbox-list li .mail-msg .mail-user { color:#785149; font-weight:bold; }
+.mailbox .mailbox-list li .mail-msg .mail-time { position:absolute; right:0; top:0; }
+.mailbox .mailbox-list li .mail-cont p.mail-title { font-weight:bold; }
+.mailbox .mail-cont p.mail-title a { color:#785149; }
+.mailbox .mailbox-list li:hover .mail-cont p.mail-title { text-decoration:underline; }
+.mailbox .mailbox-list li .del-box { position:absolute; top:14px; right:20px; width:12px; height:12px; cursor:pointer; background:url(../../images/blog/center/del.png) no-repeat; }
+.mailbox .mailbox-list li:hover .del-box { background:url(../../images/blog/center/del.png) no-repeat left bottom; }
+
+.my-inbox .mailbox-list li{ background:#F8EFD5 url(../../images/blog/center/new.png) no-repeat 10px 30px; }
+.my-inbox .mailbox-list li.read { background:#fff url(../../images/blog/center/news.png) no-repeat 10px 30px; }/*已读时背景*/
+/*好友请求*/
+.green-f { color:#4D4949; }
+.green-h { color:#49482a; }
+.the-request .mailbox-list li { background-image:none; }
+.the-request .mailbox-list li .mail-avatar { margin-left:0 !important; }
+.the-request .mailbox-list li .mail-info { width:600px !important; }
+.the-request .mailbox-list li .mail-info a.comf-btn:hover { text-decoration:underline; }
+.the-request .mailbox-list li .mail-info .comf-box .comfs { display:inline; float:left; margin:0 10px 5px 0; }
+.the-request .mailbox-list li .mail-info .comf-avatar { width:34px; height:34px; padding:2px; border:1px solid #d9d9ba; }
+.the-request .mail-info .request-agreebtn,.the-request .mail-info .request-refusebtn { display:inline-block; width:62px; height:0; padding-top:29px; overflow:hidden; margin-right:20px; background:url(../../images/blog/center/request_btn.png) no-repeat; }
+.the-request .mail-info .request-refusebtn { background-position:right top; }
+/*通知*/
+.the-notice .mail-info { margin-left:20px; width:650px !important; }
+.the-notice .mailbox-list li { background-position:10px 18px; }
+.the-notice .mailbox-list li p { line-height:1.5; }
+/*发件箱*/
+.news-list .piece-box .retruns-btn { cursor:pointer; color:#4D4949; text-decoration:underline; }
+.send-newsBox { width:610px; padding-left:8px; }
+
+.send-newsBox .send-address b,.send-newsBox .send-conts b { color:#785149; }
+.send-newsBox .send-address .send-input { height:22px; line-height:22px; _height:24px; width:370px; border:1px solid #c8c8ba; margin-left:1px; padding:0 5px; color:#a6a590; }
+.send-newsBox .send-conts .send-teatarea { width:547px; height:330px; line-height:1.5; border:1px solid #c8c8ba; font-size:12px; overflow:hidden; }
+.send-newsBox .send-mail-btn { display:inline-block; width:62px; text-align:center; height:29px; line-height:29px; color:#49482a; border:0 none; background:url(../../images/blog/center/send_btn.png) no-repeat; }
+
+.send-newsBox table { color:#785149; }
+.send-newsBox table td { padding-bottom:10px; }
+.send-newsBox table  .send-teatarea { width:547px; height:330px; line-height:1.5; border:1px solid #c8c8ba; font-size:12px; overflow:hidden; }
+.send-newsBox .send-mail-btn { width:62px; text-align:center; height:29px; line-height:29px; border:0 none; color:#49482a; background:url(../../images/blog/center/send_btn.png) no-repeat; }
+/*我的好友列表*/
+.my-friends-list { overflow:hidden; padding:15px 25px 30px; border:1px solid #dddcc0; background:#FEF7DE; }
+.my-friends-list h2 { width:92px; height:0px; padding-top:24px; margin:0 0 15px -2px; overflow:hidden; background:url(../../images/blog/center/my_friend_title.png) no-repeat; }
+.my-friends-list .tab-header,.setting .tab-header { margin-bottom:5px; }
+.friend-boxs { overflow:hidden; margin-bottom:1px; }
+.friend-boxs-left { padding-left:5px; width:515px; color:#785149; padding-bottom:50px; }
+.friend-boxs-right { width:190px; background:#F8EFD5; color:#595344; padding:13px 15px; margin-bottom:30px; }
+.friend-boxs-right h6 { font-weight:bold; line-height:24px; border-bottom:1px solid #d6d6b9; }
+.friend-right-dl { border-bottom:1px solid #d6d6b9; margin-bottom:5px; }
+.friend-right-dl dt { padding:8px 10px 5px; }
+.friend-right-dl dd a { display:inline-block; width:173px; padding-left:15px; color:#595344; height:25px; line-height:25px; }
+.friend-right-dl dd a.curr { background:#fff; border:1px solid #eeeee3; }
+.friend-boxs-left .friend-boxs-ul li { padding:12px 8px 10px 10px; border-bottom:1px dotted #e2e1e1; position:relative; }
+.friend-boxs-ul li .friend-avatar { width:47px; height:46px; padding:2px; border:1px solid #d9d9ba; margin-right:12px; }
+.friend-boxs-ul li .friend-info { padding-top:5px; width:280px; }
+.friend-boxs-ul li .friend-groups { position:relative; }
+.friend-groups .modify-groups { display:inline-block; width:62px; height:27px; line-height:27px; padding-left:24px; cursor:pointer; background:url(../../images/blog/center/select_i.png) no-repeat 8px 50%; }
+.friend-groups span.hover { background:url(../../images/blog/center/select_bg.png) no-repeat; }
+.friend-groups .del-groups { display:inline-block; width:45px; height:17px; line-height:17px; border-left:1px dotted #785149; margin-left:5px; text-align:center; }
+.friend-groups .groups-ul-list { border:1px solid #d9d9ba; padding:2px 0; background:#fff; position:absolute; z-index:9999; }
+.friend-groups .groups-ul-list li { border:0 none; height:22px; line-height:22px; padding:0; width:135px; text-align:center; cursor:pointer; }
+.friend-groups .groups-ul-list li.curr  { background:#e8f8dc; }
+/*设置*/
+.pb13 { padding-bottom:13px; }
+.w55 { width:55px; }
+.w90 { width:90px; }
+.w97 { width:97px; }
+.w130 { width:130px; }
+.w215 { width:215px; }
+.w280 { width:280px; }
+.setting { overflow:hidden; padding:15px 25px 30px; border:1px solid #dddcc0; color:#785149; background:#FEF7DE; }
+.setting h2 { width:87px; height:0px; padding-top:29px; margin:0 0 15px -2px; overflow:hidden; background:url(../../images/blog/center/set_up.png) no-repeat; }
+.setting-boxs .setting-subnav { padding-left:10px; margin-bottom:20px; }
+.setting-boxs .setting-subnav .setting-subnav-a { display:inline-block; width:59px; text-align:center; color:#94926b; padding-left:6px; font-size:12px; border-left:1px dotted #94926b; }
+.setting-boxs .setting-subnav .setting-subnav-a.curr { color:#785149; }
+.setting-info .basic-info td.txtright { width:105px; vertical-align:top; padding-top:3px; }
+.setting-info td input[type="text"] { padding:3px; border:1px solid #c8c8ba; margin:0; vertical-align:middle; }
+.setting-info td input[type="radio"] { margin-right:7px; vertical-align:middle;}
+.setting-info table.basic-info td select { padding:2px; margin:0; border:1px solid #c8c8ba; }
+.setting-info .basic-info td textarea { width:286px; _width:283px; height:83px; line-height:1.5l; border:1px solid #c8c8ba; overflow:auto; }
+.setting-info .basic-info td .setup-submit { width:62px; height:30px; cursor:pointer; border:0 none; background:url(../../images/blog/center/setup_submit.png) no-repeat; }
+/*日志分类管理*/
+.blog-manage { overflow:hidden; padding:15px 25px 30px; border:1px solid #dddcc0; color:#785149; background:#FEF7DE; }
+.blog-manage h2 { width:180px; height:0px; padding-top:25px; margin:0 0 10px -2px; overflow:hidden; background:url(../../images/blog/center/blog_manage.png) no-repeat; }
+.blog-manage .add-class { padding:15px 15px 15px 20px; border-top:1px solid #ccc; }
+.blog-manage .add-class .addclass-btn { width:71px; height:23px; border:0 none; cursor:pointer; background:url(../../images/blog/center/add_class.png) no-repeat; }
+.blog-manage input.in-text { width:150px !important; padding:3px; border:1px solid #c8c8ba; margin-right:15px; }
+.blog-manage .manage-class-table { margin:0 15px 15px; }
+.blog-manage .manage-class-table td,.blog-manage .manage-class-table th { padding:10px 0 10px 5px; border-bottom:1px dotted #dddcc0; }
+.blog-manage .manage-class-table .pr40 { padding-right:40px !important; }
+.save-btn .save-change { width:100px; height:29px; border:0 none; margin:0 0 30px 18px; cursor:pointer; background:url(../../images/blog/center/save_changes.png) no-repeat; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

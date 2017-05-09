@@ -1,0 +1,21 @@
+/*我的亲人*/
+#my-relative { width:768px; overflow:hidden; position:relative; padding:16px 13px 500px; border:1px solid #dddcc0; background:#FEF7DE; }
+#my-relative h2 { height:0; padding-top:25px; overflow:hidden; margin-bottom:14px; background:url(../../images/blog/center/my_qin_tt.png) no-repeat; }
+#my-relative table.memorial_table_hook { width:100%; color:#7b7955; text-align:center; border-collapse:separate; border:1px solid #dddcc0; border-width:1px 1px 0 0; }
+#my-relative table.memorial_table_hook th { height:42px; text-align:center; font:16px "微软雅黑", "宋体"; background:#F8EFD5; border:1px solid #dddcc0; border-width:0 0 1px 1px; }
+#my-relative table.memorial_table_hook td.memorial_hook { border:1px solid #dddcc0; border-width:0 0 1px 1px; padding:8px 0; }
+#my-relative table.memorial_table_hook td.memorial_hook a { color:#7b7955; text-decoration:underline; }
+
+#ins { width:768px; overflow:hidden; position:relative; padding:16px 13px 500px; border:1px solid #dddcc0; background:#FEF7DE; }
+#ins h2 { height:0; padding-top:25px; overflow:hidden; margin-bottom:14px; background:url(../../images/blog/center/my_tom_tt.png) no-repeat; }
+#ins table.memorial_table_hook { width:100%; color:#7b7955; text-align:center; border-collapse:separate; border:1px solid #dddcc0; border-width:1px 1px 0 0; }
+#ins table.memorial_table_hook th { height:42px; text-align:center; font:16px "微软雅黑", "宋体"; background:#F8EFD5; border:1px solid #dddcc0; border-width:0 0 1px 1px; }
+#ins table.memorial_table_hook td.memorial_hook { border:1px solid #dddcc0; border-width:0 0 1px 1px; padding:8px 0; }
+#ins table.memorial_table_hook td.memorial_hook a { color:#7b7955; text-decoration:underline; }
+/**/
+.edite-my-relative { font-size:16px;}
+/*.edite-my-relative table { border:0 none !important; }*/
+.edite-my-relative table.memorial_table_hook td.memorial_hook { vertical-align:top; border:0 none !important; text-align:left !important; !important; }
+.edite-my-relative table.memorial_table_hook td.txtright { width:100px; text-align:right !important; }
+
+.edite-my-relative .input-disbaled { height:22px; line-height:22px; }

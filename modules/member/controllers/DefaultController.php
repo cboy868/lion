@@ -68,21 +68,8 @@ class DefaultController extends \app\core\web\MemberController
 
         $this->view->theme->pathMap = [
             '@app/modules/member/views/default' => '@app/web/theme/'.$model->svalue.'/member/default',
-            '@app/modules/default/views/layouts' => '@app/web/theme/' . $model->svalue . '/default/layouts',
+            '@app/modules/member/views/layouts' => '@app/web/theme/' . $model->svalue . '/member/layouts',
 
-//            '@app/modules/cms/views/default/album' => '@app/web/theme/'. $model->svalue .'/default/album',
-//            '@app/modules/cms/views/default/post' => '@app/web/theme/' . $model->svalue . '/default/post',
-//            '@app/modules/news/views/home/default' => '@app/web/theme/' . $model->svalue . '/default/news',
-//            '@app/modules/shop/views/home/default' => '@app/web/theme/' . $model->svalue . '/default/shop',
-//            '@app/modules/grave/views/home/default' => '@app/web/theme/' . $model->svalue . '/default/grave',
-//            '@app/modules/blog/views/home/default' => '@app/web/theme/' . $model->svalue . '/default/blog',
-//            '@app/modules/memorial/views/home/default' => '@app/web/theme/' . $model->svalue . '/default/memorial',
-            // '@app/modules/m/views/default' => '@app/web/theme/' . $model->svalue . '/mobile/default',
-            // '@app/modules/m/views/layouts' => '@app/web/theme/' . $model->svalue . '/mobile/layouts',
-            // '@app/modules/user/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/user',
-            // '@app/modules/news/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/news',
-            // '@app/modules/shop/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/goods',
-            // '@app/modules/order/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/order'
         ];
     }
 

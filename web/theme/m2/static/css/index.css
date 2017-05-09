@@ -1,0 +1,82 @@
+#container {  width:964px; height:auto; margin:0 auto; position:relative; background:#ebebca url(../../images/product/big_corner_top.png) no-repeat left top;  }
+.index-aside { width:180px; font-size:13px; color:#785149; }
+#profile-wrap { text-align:center; padding:0 14px; margin-bottom:8px; }
+#profile-wrap dt { width:150px; height:auto; padding:8px 0; margin-bottom:8px; text-align:center; border:1px solid #dfdec1; background:#fefefe; }
+.friend-add,.profile-edit { height:16px; line-height:16px; display:block; color:#5a5a5a !important; font-size:14px; margin-bottom:4px; }
+.friend-add { background:url(../../images/blog/comm/add_icon.png) no-repeat 28px center; }
+.profile-edit { background:url(../../images/blog/comm/edite_icon.png) no-repeat 28px center; }
+.index-aside a { color:#785149; }
+.index-aside span.time { display:block; color:#8d8c8c; }
+.list-bgcolor { padding:14px 12px; position:relative; background:#F8EFD5; margin-bottom:12px; overflow:hidden; }
+.list-bgcolor .more { position:absolute; right:12px; top:18px; }
+.list-bgcolor h4 { text-indent:-9999px; margin-bottom:14px; }
+.rate-list h4 { height:22px; background:url(../../images/blog/comm/service_rate_tt.png) no-repeat; }
+.rate-info { padding:0 0 10px 10px; margin-bottom:12px; border-bottom:1px dashed #a6a46c; background:url(../../images/blog/comm/square_yellow.png) no-repeat 2px 7px; }
+.rate-info h6 { font-weight:bold; margin-bottom:6px; }
+.rate-info p { line-height:1.4; margin-bottom:8px;  }
+
+.blog-list h4 { height:23px; background:url(../../images/blog/comm/blog_tt.png) no-repeat; }
+.blog-list ol li { padding-left:10px; line-height:1.5; background:url(../../images/blog/comm/square_yellow.png) no-repeat 2px 7px; }
+
+.album-list h4 { height:23px; background:url(../../images/blog/comm/album_tt.png) no-repeat; }
+.album-list ul li { margin-bottom:20px; }
+.album-list ul li .avatar { width:82px; height:82px; padding:6px 6px 6px 8px; margin-right:4px; background:url(../../images/blog/comm/avatar_96.png) no-repeat; }
+.album-list ul li h6 { font-weight:bold; color:#494e51; line-height:1.5; }
+.album-list ul li h6 a { color:#494e51; }
+.album-list .album-msg { color:#8e8e8e; font-size:12px; line-height:1.6; }
+.album-list .album-name { color:#4b4b4b; }
+
+/***main-content**/
+#main-content { width:775px !important; float:right; }
+#bloger-info { color:#5a5a5a; padding-top:8px; margin-bottom:12px; position:relative; }
+#notice-newest { width:730px; height:32px; line-height:32px; padding:0 12px; -moz-border-radius:4px; border-radius:4px; background:#f7f7ec; }
+#bloger-name { margin-bottom:12px; }
+#bloger-name b { font-size:16px; }
+#bloger-name .online-ask { display:inline-block; color:#2e9846; margin-left:12px; padding-left:24px; background:url(../../images/blog/comm/online_ask.png) no-repeat left center; }
+#bloger-data { margin-bottom:12px; }
+#bloger-data em { display:inline-block; width:10px; height:15px; margin-right:4px; background:url(../../images/blog/comm/profile_icon.png) no-repeat; }
+#bloger-data span { display:inline-block; margin-right:8px; }
+#bloger-data .birthday em { background-position:-21px center; }
+#bloger-data .position em { background-position:-9px center; }
+#bloger-data .mobile em { width:7px; background-position:0 center; }
+#bloger-data .email em { background-position:100% center; }
+#bloger-data .qq em { background-position:-33px center; }
+#blog-nav { margin-left:16px; position:relative; z-index:10; margin-bottom:-1px; }
+#blog-nav a { width:98px; height:16px; line-height:16px; padding:8px 0 7px; text-align:center; display:inline-block; margin-right:4px; color:#5a5a5a; background:url(../../images/blog/comm/blog_nav_bg.png) no-repeat right top; }
+#blog-nav a.curr { background-position:0 0; font-weight:bold; }
+.blog-content { border:1px solid #c6c387; width:746px; padding:18px 10px 40px 16px; overflow:hidden; position:relative; z-index:1; background:#ffffff url(../../images/blog/comm/no-white_bg.png) repeat-x; }
+#content { width:547px; }
+#message-board { color:#616161; margin-bottom:10px; }
+.message-hd { margin-bottom:8px; }
+.message-hd em { font-size:16px; }
+.message-hd a { color:#616161; }
+#message-area { width:542px; height:68px; border:1px solid #c4c4c4; overflow:auto; }
+.message-func { padding-top:8px; text-align:right; }
+.message-func .publish { width:71px; height:34px; border:0 none; outline:0 none; margin-left:10px; background:url(../../images/blog/index/share_submit.png) no-repeat; }
+/*.message-func input { vertical-align:baseline; }*/
+#main-aside { width:190px; }
+#main-aside h4 { margin-bottom:12px; }
+.service-list { color:#616161; position:relative; margin-bottom:10px; margin-top:10px; }
+.service-list .more { position:absolute; right:12px; top:8px; color:#696968; font-size:12px; }
+.service-list h4 { height:26px; margin-left:12px; text-indent:-9999px; background:url(../../images/blog/comm/service_list_tt.png) no-repeat; }
+.service-list ol { padding-left:14px; }
+.service-list ol li { padding:0 0 10px 12px; line-height:1.4; background:url(../../images/blog/comm/oblong_icon.png) no-repeat 0 6px; }
+
+/*****/
+.rater a { display:inline-block; width:16px; height:16px; background:url(../../images/blog/comm/y_heart.png) no-repeat right top; }
+.rater a.active { background-position:left top; }
+
+/**服务评价列表**/
+.home-rate-list-wrapper .blog-content { width:auto; }
+.service-comment-wrap { color:#5a5a5a; }
+.service-comment-wrap h4.tt { margin-bottom:10px; }
+.service-comment-wrap h4.tt img { margin-right:20px; }
+.service-comment-wrap h4.tt em { color:#ab4133; }
+.service-comment-list { /* width:726px; */ padding:8px; }
+.service-comment-list li { padding:12px 20px 10px; margin-bottom:13px; border:1px solid #eaeaea; background:#fff; }
+.service-comment-body { width:620px; line-height:1.6; padding-right:16px; border-right:1px dashed #d6d6d6; }
+.service-comment-body a { color:#5a5a5a; }
+.rater-show2 em { font-size:14px; vertical-align:top; }
+.rater-show2 span { width:18px; background:url(../../images/blog/comm/raty_icon.png) no-repeat; }
+.rater-show2 span.active { background-position:0 -16px; }
+
