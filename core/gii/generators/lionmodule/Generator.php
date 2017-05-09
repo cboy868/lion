@@ -206,12 +206,12 @@ EOD;
     {
        
         $files[] = new CodeFile(
-            $modulePath . '/controllers/home/DefaultController.php',
-            $this->render("home-controller.php")
+            $modulePath . '/controllers/default/DefaultController.php',
+            $this->render("default-controller.php")
         );
         $files[] = new CodeFile(
-            $modulePath . '/views/home/default/index.php',
-            $this->render("home-view.php")
+            $modulePath . '/views/default/default/index.php',
+            $this->render("default-view.php")
         );
         return $files;
     }

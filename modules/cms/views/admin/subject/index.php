@@ -54,6 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw'
             ],
             'title',
+            [
+                'label' => '专题分类',
+                'value' => function($model) {
+
+                    return \app\modules\cms\models\Subject::cates($model->cate);
+                }
+            ],
             'user.username',
 
             [

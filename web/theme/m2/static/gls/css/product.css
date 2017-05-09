@@ -437,7 +437,8 @@ span.img_mark{ width:150px; height:150px; background:yellowgreen; opacity:0.4; f
 
 /*介绍&评价*/
 .product_tab{
-	background:#f4f4f4;
+	/*background:#f4f4f4;*/
+	border:#f4f4f4 2px solid;
 	border-top:2px solid #8d1e1f;
 	position:relative;
 	clear:both;

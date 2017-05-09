@@ -77,7 +77,7 @@
                     <span class="focus-info"> 关注 </span>
                 </div>
             </a>
-            <a class="cart-car-icn" id="toCart" href="/m/goods/cart">
+            <a class="cart-car-icn" id="toCart" href="/m/product/cart">
                  <em class="btm-act-icn" id="shoppingCart"> <i class="order-numbers" v-text="nums.type_num"></i> </em> <span class="focus-info">购物车</span>
             </a>
         </div>

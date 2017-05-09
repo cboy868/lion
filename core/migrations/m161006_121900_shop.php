@@ -22,6 +22,7 @@ class m161006_121900_shop extends Migration
             'body' => $this->text(),//分类的介绍
             'sort' => $this->smallInteger()->notNull()->defaultValue(0),
             'is_leaf' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_show' =>$this->smallInteger(1)->defaultValue(1),//是否前台显示
             'seo_title' => $this->string(255),
             'seo_keywords' => $this->string(255),
             'seo_description' => $this->text(),
@@ -43,6 +44,7 @@ class m161006_121900_shop extends Migration
             'price' => $this->decimal(10,2),//现价
             'num' => $this->integer(),
             'is_recommend' => $this->smallInteger()->defaultValue(0),//是否推荐，值越大，优先级越高
+            'is_show' =>$this->smallInteger(1)->defaultValue(1),//是否前台显示
             'status' => $this->smallInteger()->notNull()->defaultValue(1), //-1删除
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),

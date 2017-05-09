@@ -315,7 +315,7 @@ class BaseUrl
     }
 
     /**
-     * Returns the home URL.
+     * Returns the default URL.
      *
      * @param boolean|string $scheme the URI scheme to use for the returned URL:
      *
@@ -323,7 +323,7 @@ class BaseUrl
      * - `true`: returning an absolute base URL whose scheme is the same as that in [[\yii\web\UrlManager::hostInfo]].
      * - string: returning an absolute URL with the specified scheme (either `http` or `https`).
      *
-     * @return string home URL
+     * @return string default URL
      */
     public static function home($scheme = false)
     {

@@ -41,7 +41,7 @@ use app\core\helpers\Url;
                 <p class="weui-tabbar__label">新闻资讯</p>
             </a>
 
-            <a href="<?=Url::toRoute('/m/goods')?>" class="weui-tabbar__item weui-bar__item--on">
+            <a href="<?=Url::toRoute('/m/products')?>" class="weui-tabbar__item weui-bar__item--on">
                 <div class="weui-tabbar__icon"> <i class="sstfont sst-gouwuche"></i> </div>
                 <p class="weui-tabbar__label">祭祀</p>
             </a>

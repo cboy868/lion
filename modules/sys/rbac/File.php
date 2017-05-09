@@ -79,7 +79,7 @@ class File{
         $namespaces = [];
 
         //不要接受控制的 module
-        $sys_module = ['debug', 'gii', 'admin', 'home'];  //admin也不接受rbac控制，这里只有一个主页面，大家只要登录就都有使用权
+        $sys_module = ['debug', 'gii', 'admin', 'default'];  //admin也不接受rbac控制，这里只有一个主页面，大家只要登录就都有使用权
 
         $modules = Yii::$app->getModules();
 

@@ -41,7 +41,7 @@ class NavSearch extends Nav
      */
     public function search($params)
     {
-        $query = Nav::find();
+        $query = Nav::find()->orderBy('sort asc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

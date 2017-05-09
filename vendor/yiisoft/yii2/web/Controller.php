@@ -147,12 +147,12 @@ class Controller extends \yii\base\Controller
     }
 
     /**
-     * Redirects the browser to the home page.
+     * Redirects the browser to the default page.
      *
      * You can use this method in an action by returning the [[Response]] directly:
      *
      * ```php
-     * // stop executing this action and redirect to home page
+     * // stop executing this action and redirect to default page
      * return $this->goHome();
      * ```
      *

@@ -1,18 +1,18 @@
-$(document).on("pageInit", "#page-home", function(e, id, $page) {
+$(document).on("pageInit", "#page-default", function(e, id, $page) {
 
-  $(document).on('refresh', '.page-home',function(e) {
+  $(document).on('refresh', '.page-default',function(e) {
     setTimeout(function() {
       $($("#index-tpl").html()).insertBefore($(".list a").eq(0));
-      $.pullToRefreshDone('.page-home');
+      $.pullToRefreshDone('.page-default');
     }, 2000);
   });
 
   var loading = false;
-  $(document).on('infinite', '.page-home',function() {
+  $(document).on('infinite', '.page-default',function() {
     if(loading) return;
     loading = true;
     setTimeout(function() {
-      $(".page-home .list").append($($("#index-tpl").html()));
+      $(".page-default .list").append($($("#index-tpl").html()));
       loading = false;
     }, 2000);
   });

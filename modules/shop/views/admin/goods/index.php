@@ -252,9 +252,9 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'header' => '操作',
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete} {view} {home}',
+                'template' => '{update} {delete} {view} {default}',
                 'buttons' => [
-                    'home' => function($url, $model, $key) {
+                    'default' => function($url, $model, $key) {
                         return Html::a('前台查看', Url::toRoute(['/home/default/product-view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
                     },
                     'update' => function($url, $model, $key) {

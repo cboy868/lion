@@ -46,6 +46,8 @@ border-color:#337ab7;
 
     <?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'is_show')->radioList([0=>'不显示', 1=>'显示'])->label('前台显示') ?>
+
     <?= $form->field($model, 'skill')->textArea(['maxlength' => true])->label('附加') ?>
 
     <?php if (isset($imgs)): ?>

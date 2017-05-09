@@ -845,7 +845,7 @@ function getImage(cla){
     var driect = $('.'+cla).attr('rel');
     var tomb_id = $('input[name=tomb_id]').val();
     var data = $('#auto-ins-form').serialize();
-    var url = "<?=Url::toRoute(['/grave/home/process/sel', 'tomb_id'=>$get['tomb_id']])?>";
+    var url = "<?=Url::toRoute(['/grave/default/process/sel', 'tomb_id'=>$get['tomb_id']])?>";
 
     if (url.indexOf('?') >= 0) {
     	url += '&case_id=' + case_id;
@@ -877,7 +877,7 @@ function getPrice($type){
     } else {
     	var case_id = $('.cover_selected').attr('case_id');
     }
-    var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
+    var url = "<?=Url::toRoute(['/grave/default/process/price', 'tomb_id'=>$get['tomb_id']])?>";
     var data = $('#auto-ins-form').serialize();
     var date = +new Date();
 	

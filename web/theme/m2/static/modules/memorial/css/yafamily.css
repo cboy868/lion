@@ -1,0 +1,239 @@
+/*  reset  */
+html,body,
+ol,ul,li,dl,dt,dd,
+form,label,fieldset,legend,
+h1,h2,h3,h4,h5,h6,p,div,span,img,
+table,thead,tbody,tfoot,th,td,caption,
+em,strong,cite,small,big,q,blockquote,pre { margin:0; padding:0; }
+fieldset,img { border:0; }
+q:after,blockquote:after { content:""; }
+table { border-collapse:collapse; border-spacing:0; }
+th,td { text-align:left; }
+ol,ul { list-style:none; }
+a:link,a:visited { text-decoration:none; }
+a:hover,a:active { text-decoration:underline; }
+
+
+/*  typography  */
+body,
+th,td,
+blockquote,p,
+input,select,textarea { font-size:12px; font-family:"宋体"; }
+h1,h2,h3 { font-size:14px; }
+h4,h5,h6 { font-size:12px; }
+a:link,a:visited { text-decoration:none; }
+a:hover,a:active { text-decoration:underline; }
+body { background:#fff; }
+img,input,select { vertical-align:middle; }
+.container:after,.grid2col:after,.skin .bd:after,.clearfix:after { content:""; display:block; clear:both; height:0px; visibility:hidden; }
+.container,.grid2col,.skin .bd,.clearfix { *display:inline-block; zoom:1; }
+.fL { float:left; }
+.fR { float:right; }
+.mR0 { margin-right:0px !important; }
+.mR15 { margin-right:15px; }
+.mB10 { margin-bottom:10px; }
+
+
+/*  layout  */
+body { background:url(../../images/blog_original_images/blog/yafamily/pg_top_repeat.gif) 0 0 repeat-x #faf5ed; }
+.topBg { height:164px; width:100%; background:url(../../images/blog_original_images/blog/yafamily/bg_header.gif) no-repeat; }
+.topWrap { width:960px; height:auto; margin:0 auto; position:relative; }
+.wrap { width:960px; height:750px; margin:0 auto; background:url(../../images/blog_original_images/blog/yafamily/bg_wrap.gif) 0 0 repeat-x #faf5ed; }
+
+.header { height:80px; padding:20px 0 0 40px; }
+.quickNav {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}													
+
+.quickNav li {
+	float: left;
+	margin-left: 12px;
+}
+
+.quickNav li a {
+	/*color: #d9efc6;*/
+	/*color:#450704;*/
+	color:#415320;
+	background: url(../../images/blog_original_images/quicknav_sprite.gif) no-repeat;
+	padding-left: 13px;
+	font-size: 14px;
+}
+
+.quickNav .qSign a {
+	background-position: 0 -30px;
+}
+
+.quickNav .qSign a.qSignout {
+	background: none;
+	padding-left: 5px;
+}
+
+.quickNav .qHelp a {
+	background-position: right -60px;
+	padding: 0 11px 0 0;
+}
+
+.header .notice { height:38px; overflow:hidden; }
+.header .noticeTxt { float:left; width:735px; height:40px; margin-left:15px; text-indent:2em; line-height:1.5; color:#450704; }
+.header .searchBox { height:32px;/*overflow:hidden; text-align:right; padding-right:187px;*/ text-align:left; padding-left:187px; position:relative; z-index:10; }
+.searchBox label { /*vertical-align:middle;*/ float:left; line-height:2.5; margin-right:5px; }
+.searchBox .selectOutter { width:105px; font-size:14px; height:26px; /*padding:4px 2px;*/ border:1px solid #d9a06a; /*display:inline-block; vertical-align:middle;*/ float:left; margin-right:5px; background:#fff url(../../images/blog_original_images/blog/yafamily/down.gif) no-repeat 90px center; position:relative; cursor:pointer; }/*sunxh修改*/
+#memorSorts { display:none; width:105px; height:auto; position:absolute; left:-1px; top:27px; z-index:999; background:#fff; border:1px solid #D9A06A; border-top:none;}/*孙小辉添加*/
+#memorSorts li { padding:0 12px; line-height:1.8; border-bottom:1px solid #D9A06A;}/*孙小辉添加*/
+#memorSorts li.last { border:0 none;}/*孙小辉添加*/
+#memorSorts li.curr { background:#f2f2f2;}/*孙小辉添加*/
+.searchBox .selectInner { width:90px; height:16px; padding-left:10px; overflow:hidden; margin:5px auto 0; color:#666;}/*sunxh添加背景图片*/
+/*.searchBox .schType { width:105px; font-size:14px; height:auto; padding:3px 2px; border:1px solid #d9a06a; }*/
+.searchBox .schType { width:105px; font-size:14px; border:0 none; margin:-2px 0 0 -2px }
+.searchBox .schTxt { font-size:14px; /*height:20px; line-height:20px; padding:2px 3px;*/ padding:6px 2px; width:304px; border:1px solid #d9a06a; float:left; margin-right:5px; }
+.searchBox .schSub { height:31px; width:74px; border:0 none; background:url(../../images/blog_original_images/blog/yafamily/btn_search.gif); cursor:pointer; float:left; }
+
+.container { width:915px; margin:0 auto; }
+.sideL { width:226px; float:left; position:relative; }
+.slBox { text-align:left; }
+.slBox .slHd { width:167px; height:36px; background:url(../../images/blog_original_images/blog/yafamily/bg_sl_repeat.gif) 0px 0px repeat-x; position:relative;  }
+.slBox .slHd .bgHdLf { width:17px; height:36px; background:url(../../images/blog_original_images/blog/yafamily/bg_sl_nav.gif) 0px 0px no-repeat; position:absolute; left:0; }
+.slBox .slHd .bgHdRt { width:17px; height:36px; background:url(../../images/blog_original_images/blog/yafamily/bg_sl_nav.gif) -18px 0px no-repeat; position:absolute; right:-1px; }
+.slBox .slHdTit { float:left; font-size:18px; margin-left:20px; line-height:36px; color:#4f2701; }
+.slBox .slBd { height:233px; background:url(../../images/blog_original_images/blog/yafamily/bg_slBd_repeat1.gif) repeat-y; position:relative; }
+.slBox .slBd .slBgBdTop { width:226px; height:10px; background:url(../../images/blog_original_images/blog/yafamily/bg_slBd1.gif) 0px 0px no-repeat; position:absolute; top:0; }
+.slBox .slBd .slBgBdBtm { width:226px; height:10px; background:url(../../images/blog_original_images/blog/yafamily/bg_slBd1.gif) 0px -12px no-repeat; position:absolute; bottom:-1px; }
+.slBox .slBd .slBgBdBtm { background-position:0 -12px !important; background-position:0 -10px; }
+
+.yabNewsList { padding:0 10px; }
+.yabNewsList li { width:100%; height:51px; padding:20px 0 5px; border-bottom:1px dashed #fcbb8d; display:inline-block; }
+.yabNewsList .yabLstPic { float:left; margin:0 5px; height:52px; }
+.yabNewsList .yabLstPic img { width:45px; height:45px; padding:2px; border:1px solid #AE512B; background:#FFF; }
+.yabNewsList .yabCon { float:left; height:51px; overflow:hidden; width:140px; }
+.yabNewsList .yabName, .yabNewsList .yabDate { float:left; padding-right:10px; color:#730d01; }
+.yabNewsList .yabDate { color:#ABABAB; }
+.yabNewsList .yabReply { float:right; /*padding-right:10px;*/ font-weight:bold; } 
+.yabNewsList .yabReply a { color:#730d01; text-decoration:none; }
+.yabNewsList li p { clear:both; padding-left:5px; line-height:1.5; }
+.yabNewsList .yabMsg { /*white-space:nowrap; text-overflow:ellipsis;*/ height:35px; overflow:hidden; }
+.yabNewsList .yabMsg a { color:#730d01; } 
+
+/*永安服务列表页样式*/
+.servList .yabNewsList li { width:49%; }
+.servList .yabNewsList .yabCon { width:250px; }
+
+.servTeam { margin-top:-27px; }
+.funeral .slHd { background-position:0 -37px; } 
+.funeral .slHd .bgHdLf { background-position:0 -37px; }
+.funeral .slHd .bgHdRt { background-position:-18px -37px; }
+.more { position:absolute; right:-50px; top:12px; }
+.more .lnkMore { display:block; width:47px; height:15px; background:url(../../images/blog_original_images/blog/yafamily/btn_more.gif) 0px 0px no-repeat; }
+.funeral .slBd { height:174px; }
+.celebrity .slBd { height:406px; overfolw:hidden; }
+
+.content { width:674px; float:right; }
+.cont { width:674px; margin-top:10px; clear:both; position:relative; }
+.cont .conTit { color:#FFF; float:left; font-size:18px; line-height:42px; margin-left:27px; }
+.cont .sideM { float:left; width:218px; height:233px; margin-right:10px; position:relative; }
+.sideM .smHd { height:39px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_short.gif) 0px 0px no-repeat; overflow:hidden; }
+.sideM .smBd { height:194px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_short_repeat.gif) repeat-y; }
+.sideM .smBd .smBgBdBtm { width:226px; height:10px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_short.gif) 0px -47px no-repeat; position:absolute; bottom:-1px; }
+.sideM .smBd .smBgBdBtm { background-position:0 -47px !important; background-position:0 -45px; }
+.missing { background:url(../../images/blog_original_images/blog/yafamily/btn_sider.gif) 0px 0px no-repeat; height:166px !important; position:absolute !important; right:-10px; width:226px !important; }
+.missing a { display:block; width:226px; height:73px; }
+
+.missArticle .cHd { height:41px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_long.gif) 0px 0px no-repeat; overflow:hidden; }
+.missArticle .cBd { min-height:382px/*165px*/; height:auto !important; height:382px/*165px*/; overflow:visible; background:#fdebc9; border:solid #c38702; border-width:0 1px; padding-bottom:30px; }
+.missArticle .cBgBdBtm { width:674px; height:8px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_long.gif) 0px -44px no-repeat; position:absolute; bottom:-5px; }
+.missArticle .cBgBdBtm { background-position:0 -44px !important; background-position:0 -41px; }
+
+.more2 { float:right; margin:13px 15px 0 0; display:inline; }
+.more2 .lnkMore2 { display:block; width:47px; height:18px; background:url(../../images/blog_original_images/blog/yafamily/btn_more.gif) 0px -18px no-repeat; }
+
+.photoTV { width:672px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_long_repeat.gif) repeat-y; margin-top:15px; }
+.photoTV .cHd { height:40px; padding-left:10px; }
+.photoTV .cBgHd { width:672px; height:9px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_long.gif) -1px -59px no-repeat; position:absolute; top:-5px; left:0; }
+.photoTV .ptTit { float:left; margin-top:10px; text-align:center; }
+.photoTV .ptTit a { display:block; width:117px; height:25px; line-height:25px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_tit.gif) 0px -35px no-repeat; color:#ff7b00; text-decoration:none; font-size:18px; font-weight:bold; }
+.photoTV .ptSel a { background-position:0px 0px; }
+.photoTV .lnkMore2 { background-position:0 -36px; }
+.photoTV .cBd { min-height:145px/*392px*/; height:auto !important; height:145px/*392px*/; overflow:visible; }
+.photoTV .cBgBdBtm { width:672px; height:7px; background:url(../../images/blog_original_images/blog/yafamily/bg_sider_long.gif) 0px -77px no-repeat; position:absolute; bottom:-5px; }
+.photoTV .cBgBdBtm { background-position:0 -77px !important; background-position:0 -72px; }
+
+.groupActivity .cBd { height:210px !important; height:214px; }
+
+.picList { padding:15px 0 0 15px; /*height:383px;*/ overflow:hidden; }
+.picList li { height:70px; display:inline-block; overflow:hidden; }
+.picList li .innerLi { height:60px; padding-bottom:5px; text-align:left; overflow:hidden; }
+.picList .lastPic { border:0 none; margin:0; }
+.picList a { text-decoration:none !important; }
+.picList .picBg { float:left; margin-right:10px; width:60px; height:60px; /*background:url(../../images/blog_original_images/blog/yafamily/album_list_small.png) no-repeat; padding:6px 7px; display:inline-block;*/ }
+.picList .picBg img { width:75px; height:75px; padding:2px; border:1px solid #AE512B; }
+.picList .picInfo { height:60px; width:120px; float:left; overflow:hidden; }
+.picList .picInfo p { font-size:12px; line-height:1.5; /*white-space:nowrap;*/ overflow:hidden; text-overflow:ellipsis; text-align:left; }
+.picList .picTit { padding-top:15px; /*font-weight:bold; height:37px; font-size:14px !important; text-overflow:ellipsis;*/ white-space:normal !important; overflow:hidden; }
+.picList .picTit a { color:#2f2f2f; }
+.picList .picDate, .picList .picNum { color:#919191; }
+.picList .picAuthor a { color:#336600; }
+.picList .picNum span { font-weight:bold; padding-right:3px; }
+
+.servTeam .picList { padding:15px 5px 0; }
+.servTeam li { width:108px; height:100px; margin-bottom:5px; float:left; }
+.servTeam li .innerLi { width:100px; height:105px; padding-bottom:5px; margin:0 auto; text-align:center; }
+.servTeam .picBg { float:none; margin:0 auto 5px; width:75px; height:78px; }
+.servTeam .picInfo { height:36px; width:83px; float:none; margin:0 auto; }
+.servTeam .picTit { padding-top:0; text-align:center !important;; }
+
+.celebrity li { height:130px; }
+.celebrity li .innerLi { height:120px; padding-bottom:5px; text-align:left; overflow:hidden; }
+.celebrity .picBg { float:left; margin-right:10px; width:90px; height:120px; }
+.celebrity .picBg img { width:90px; height:120px; padding:0; }
+.celebrity .picInfo { width:90px; height:120px; }
+.celebrity .picInfo p { line-height:1.8; }
+.celebrity .picTit a { color:#76330e; }
+
+ul.infoList { padding:15px 0 0 15px; width:90%; }
+ul.infoList li { width:90%; height:23px; line-height:23px; text-align:left; overflow:hidden; background:url(../../images/blog_original_images/blog/yafamily/info_square.gif) left center no-repeat; }
+ul.infoList li .infoTxt { padding-left:10px; width:85%; float:left; white-space:nowrap; word-break:keep-all; text-overflow:ellipsis; overflow:hidden; }
+ul.infoList li .date { color:#9a9a9a; float:right; }
+ul.infoList li a { color:#545353; }
+ul.infoList li a:hover { text-decoration:none; }
+
+.newMember ul.infoList li { background:none; width:95%; height:57px; }
+
+.missArticle { margin-bottom:20px; }
+.missArticle ul.infoList { width:656px; }
+/*.missArticle ul.infoList li { width:305px; float:left; margin-left:12px !important; margin-left:6px; }*/
+.missArticle ul.infoList li { width:328px !important; float:left; text-align:left; }
+.missArticle li .ilInnerLi { width:312px !important; }
+.missArticle li .infoTxt { width:42% !important; font-size:14px; }
+.missArticle li .date { overflow:hidden; white-space:nowrap; width:45%; text-align:right; }
+.missArticle .date a { color:#76330e; /*display:inline-block; line-height:12px !important; line-height:23px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; width:34%;*/ }
+
+.photoTVList { padding-left:10px; overflow:hidden; }
+.photoTVList li { float:left; width:163px; text-align:center; }
+.photoTVList li a { text-decoration:none !important; }
+.photoTVList li .itemPic { height:135px; padding:5px 0; margin:0 auto; }
+.photoTVList li img { /*height:100px; width:153px; padding:2px; border:1px solid #d6d6d6;*/ margin-bottom:5px; }
+.photoTVList li p { font-size:12px; line-height:1.5; white-space:nowrap; overflow:hidden; }
+.photoTVList .itemTit a { color:#2f2f2f; }
+
+.groupActivity .photoTVList { padding:23px 0 0 6px; }
+.groupActivity li { width:165px; }
+.groupActivity li img { height:129px; width:155px; margin-bottom:5px; }
+
+.cBd .pagerB { padding:20px 0 15px; clear:both; text-align:center; /* position:absolute; bottom:5px; left:50px;*/ }
+.pagerB ul { width:600px; margin:0 auto; }
+.pagerB li { float:left; margin-left:10px; border:1px solid #CCCCCC; padding:1px 8px; display:inline; line-height:20px; }
+.pagerB li a {   color:#82899B; }
+.pagerB .currP { border:none; }
+.pagerB .next { background:url(../../images/blog_original_images/pageb_next.png) repeat scroll 0; }
+
+.footer { width:100%; height:360px; background:url(../../images/blog_original_images/blog/yafamily/bg_footer_repeat.gif) repeat-x; margin-top:0px !important; margin-top:-270px; }
+.footer .inner_fter { width:915px; /*height:139px;*/ padding-top:290px; margin:0 auto; }
+.footer p { color: #171515; font-size: 14px; line-height:2; }
+.footer p a { font-weight: 700; color: #171515; }
+.footer span { margin-right: 20px; }
+.footer .copyright { font-family: Arial; font-weight:bold; float: left; }
+.footerFr { float:right; }
+.footer .copyright a { /*text-decoration:none;*/ }
+.footer .ftNav { font-size:14px; font-weight:bold; padding:20px 0; line-height:1.8; text-align:center; }
+.footer .ftNav a { text-decoration:none; color: #171515; }

@@ -37,7 +37,7 @@ use app\core\helpers\Url;
     <div class="spbox">
         <ul class="sp_list" id="goodslist">
             <li v-for="goods in clist">
-                <a :href="'/m/goods/' + goods.id+'.html'" title="">
+                <a :href="'/m/product/' + goods.id+'.html'" title="">
                     <div class="pic_div"><img :src="goods.cover" style="height: 188px;"></div>
                     <div class="tit_div">{{goods.name}}</div>
                     <div class="price_div">

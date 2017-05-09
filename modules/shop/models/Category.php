@@ -40,7 +40,7 @@ class Category extends \app\core\models\Category
     public function rules()
     {
         return [
-            [['pid', 'level', 'sort', 'is_leaf', 'created_at', 'status'], 'integer'],
+            [['pid', 'level', 'sort', 'is_leaf', 'created_at', 'status', 'is_show'], 'integer'],
             [['body', 'seo_description'], 'string'],
             [['name', 'type_id'], 'required'],
             [['code', 'name', 'seo_title', 'seo_keywords'], 'string', 'max' => 255],
@@ -66,6 +66,7 @@ class Category extends \app\core\models\Category
             'seo_keywords' => 'Seo 关键词',
             'seo_description' => 'Seo 描述',
             'created_at' => '添加时间',
+            'is_show' => '是否前台显示',
             'status' => '状态',
         ];
     }

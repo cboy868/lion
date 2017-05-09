@@ -28,6 +28,16 @@ class Subject extends \app\core\db\ActiveRecord
         return '{{%subject}}';
     }
 
+    public static function cates($cate=null)
+    {
+        $c = Yii::$app->controller->module->params['subject_cate'];
+
+        if ($cate === null) {
+            return $c;
+        }
+        return $c[$cate];
+    }
+
     /**
      * @inheritdoc
      */
@@ -36,7 +46,8 @@ class Subject extends \app\core\db\ActiveRecord
         return [
             [['user_id', 'status', 'updated_at', 'created_at'], 'integer'],
             [['user_id', 'title'], 'required'],
-            [['title', 'link', 'path'], 'string', 'max' => 200],
+            [['intro'], 'string'],
+            [['title', 'link', 'path', 'cate'], 'string', 'max' => 200],
             [['cover'], 'safe']
         ];
     }
@@ -63,6 +74,8 @@ class Subject extends \app\core\db\ActiveRecord
             'cover' => '封面',
             'path' => '路径',
             'status' => '状态',
+            'cate' => '分类',
+            'intro' => '简介',
             'updated_at' => '更新时间',
             'created_at' => '添加时间',
         ];

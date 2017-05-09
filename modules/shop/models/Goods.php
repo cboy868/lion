@@ -49,7 +49,7 @@ class Goods extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'thumb', 'num', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'thumb', 'num', 'status', 'created_at', 'updated_at', 'is_show'], 'integer'],
             [['intro', 'skill', 'serial'], 'string'],
             [['price', 'original_price'], 'number'],
             // ['name', 'unique',  'message' => '此菜品已存在，请确定'],
@@ -98,6 +98,7 @@ class Goods extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
             'serial' => '序列号',
+            'is_show' => '是否前台显示',
             'pinyin' =>'拼音首字母'
         ];
     }

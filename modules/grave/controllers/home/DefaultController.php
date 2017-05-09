@@ -38,11 +38,7 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
 
         $data = $model->toArray();
 
-
         $imgs = AttachmentRel::getByRes('grave', $model->id, '800x330');
-
-
-
         return $this->render('view', [
             'data' => $data,
             'thumbs' => $imgs

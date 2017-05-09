@@ -16,6 +16,8 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'cate')->dropDownList(\app\modules\cms\models\Subject::cates()) ?>
+
     <?= $form->field($model, 'link')->textInput(['maxlength' => true])
         ->hint('专题的连接，如果是上传的文件，则无需填写。')
     ?>
@@ -24,6 +26,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'path')->textInput(['maxlength' => true])->hint('如果是上传的专题，请填写文件名到此处') ?>
 
+    <?= $form->field($model, 'intro')->textarea(['rows' => 6]) ?>
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

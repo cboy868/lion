@@ -69,20 +69,6 @@ $config = [
             'theme' => [
                 'basePath' => '@app/web/theme',
                 'baseUrl' => '@web/theme',
-                // 'pathMap' => [
-                //     '@app/modules/home/views/default' => '@app/web/theme/site/home/home',
-                //     '@app/modules/cms/views/home/album' => '@app/web/theme/site/home/album',
-                //     '@app/modules/cms/views/home/post' => '@app/web/theme/site/home/post',
-                //     '@app/modules/shop/views/home/default' => '@app/web/theme/site/home/shop',
-                //     '@app/modules/home/views/layouts' => '@app/web/theme/site/home/layouts',
-                    
-                //     '@app/modules/m/views/default' => '@app/web/theme/site/mobile/home',
-                //     '@app/modules/m/views/layouts' => '@app/web/theme/site/mobile/layouts',
-                //     '@app/modules/user/views/m/default' => '@app/web/theme/site/mobile/user',
-                //     '@app/modules/news/views/m/default' => '@app/web/theme/site/mobile/news',
-                //     '@app/modules/shop/views/m/default' => '@app/web/theme/site/mobile/goods',
-                //     '@app/modules/order/views/m/default' => '@app/web/theme/site/mobile/order',
-                // ],
             ],
         ],
         'i18n' => [

@@ -23,6 +23,8 @@ use app\core\helpers\ArrayHelper;
 
     <?= $form->field($model, 'thumb')->fileInput() ?>
 
+    <?= $form->field($model, 'is_show')->radioList([0=>'不显示', 1=>'显示'])->label('前台显示') ?>
+
     <?= $form->field($model, 'sort')->textInput()->label('排序')->hint('数字越大越靠前') ?>
 
 	<div class="form-group">

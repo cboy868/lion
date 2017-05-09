@@ -87,6 +87,7 @@ class CategoryController extends BackController
              $model->save();
             return $this->redirect(['index']);
         } else {
+            $model->loadDefaultValues();
             $model->sort = 0;
             return $this->renderAjax('create', [
                 'model' => $model,

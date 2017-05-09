@@ -61,7 +61,7 @@ HomeAsset::register($this);
 
                 </div>
                 <nav class="navbar">
-                      <form class="navbar-form pull-right" role="search" action="<?=Url::toRoute(['/home/default/product'])?>">
+                      <form class="navbar-form pull-right" role="search" action="<?=Url::toRoute(['/default/default/product'])?>">
                         <div class="form-group">
                           <input type="text" class="form-control" placeholder="Product name or code" name="product" value="<?=Yii::$app->request->get('product')?>">
                         </div>

@@ -98,15 +98,19 @@ class TagRel extends \yii\db\ActiveRecord
         return $query->all();
     }
 
-    public static function getReleted($res_name, $res_id)
+    public static function getReleted($res_name, $res_id, $limit=null)
     {
         $tags = self::find()->where(['res_name'=>$res_name, 'res_id'=>$res_id])->asArray()->all();
         $tag_ids = ArrayHelper::getColumn($tags, 'tag_id');
 
-        $res = self::find()->where(['res_name'=>$res_name, 'tag_id'=>$tags])
-                            ->andWhere(['<>', 'res_id', $res_id])
-                            ->asArray()
-                            ->all();
+        $query = self::find()->where(['res_name'=>$res_name, 'tag_id'=>$tag_ids])
+                            ->andWhere(['<>', 'res_id', $res_id]);
+
+
+        if ($limit !== null) {
+            $query->limit($limit);
+        }
+        $res = $query->asArray()->all();
 
         return ArrayHelper::getColumn($res, 'res_id');        
 

@@ -2,6 +2,7 @@
 
 namespace app\modules\shop\controllers\home;
 
+use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
 use yii\data\Pagination;
 use app\core\models\Attachment;
@@ -21,15 +22,25 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
         }
 
         $cnt = $query->count();
-        $pagination = new Pagination(['totalCount'=>$cnt, 'pageSize'=>9]);
+        $pagination = new Pagination(['totalCount'=>$cnt, 'pageSize'=>24]);
         $list = $query->offset($pagination->offset)
                       ->limit($pagination->limit)
                       ->asArray()
                       ->all();
 
         foreach ($list as $k => &$v) {
-            $v['cover'] = Attachment::getById($v['thumb'], '600x450');
+            $v['cover'] = Attachment::getById($v['thumb'], '160x120');
         }unset($v);
+
+
+        if ($cid) {
+            $cate = Category::findOne($cid)->toArray();
+            return $this->render('list', [//如果有分类预定，则只显示此分类下的商品
+                'list' => $list,
+                'cate' => $cate,
+                'pagination' => $pagination
+            ]);
+        }
 
         return $this->render('index', [
                 'list' => $list,
@@ -62,7 +73,7 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
 
         $data = [
             'data' => $model,
-            'thumbs' => $thumbs
+            'thumbs' => $thumbs,
         ];
 
         if ($pre_id) {

@@ -15,6 +15,7 @@ use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
 use app\modules\news\models\News;
 use app\modules\news\models\Category as NewsCategory;
+use app\core\models\TagRel;
 //  按格式打印数组
 function p($arr)
 {
@@ -109,9 +110,10 @@ function focus($category_id, $limit, $imgSize=null)
 	return Focus::getFocusByCategory($category_id, $limit, $imgSize);
 }
 
-function subject($rows, $thumbSize=null)
+function subject($cate, $rows, $thumbSize=null)
 {
     $list = Subject::find()->where(['status'=>Subject::STATUS_NORMAL])
+                            ->andWhere(['cate'=>$cate])
                             ->asArray()
                             ->all();
 
@@ -125,9 +127,9 @@ function subject($rows, $thumbSize=null)
 
 }
 
-function ProductCateList($rows=5, $thumb='')
+function productCateList($rows=5, $thumb='')
 {
-	$list = Category::find()->limit($rows)->asArray()->all();
+	$list = Category::find()->where(['is_show'=>1])->limit($rows)->asArray()->all();
 
 	foreach ($list as $k => &$v) {
 		$v['cover'] = Attachment::getById($v['thumb'], $thumb);
@@ -135,13 +137,97 @@ function ProductCateList($rows=5, $thumb='')
 	return $list;
 }
 
-function ProductList($rows=10, $thumb='')
+/**
+ * @param $type_id
+ * @param int $rows
+ * @param string $thumb
+ * @return array|\yii\db\ActiveRecord[]
+ */
+function productByType($type_id, $rows=10, $thumb='')
 {
-	$list = Goods::find()->limit($rows)->asArray()->all();
+    $cates = Category::find()->where(['status'=>Category::STATUS_ACTIVE])
+        ->andWhere(['type_id'=>$type_id])
+        ->andWhere(['is_leaf'=>1, 'is_show'=>1])
+        ->asArray()
+        ->all();
+
+    $cids = ArrayHelper::getColumn($cates, 'id');
+
+    $goods = Goods::find()->where(['status'=>Goods::STATUS_ACTIVE])
+                            ->andWhere(['category_id'=>$cids])
+                            ->andWhere(['is_show'=>1])
+                            ->limit($rows)
+                            ->asArray()
+                            ->all();
+
+    foreach ($goods as $k => &$v) {
+        $v['cover'] = Attachment::getById($v['thumb'], $thumb);
+    }unset($v);
+
+    return $goods;
+}
+
+function getTagGoods($res_id,$limit=null, $thumb=null)
+{
+    $goods_ids = TagRel::getReleted('goods', $res_id, $limit);
+    $goods = Goods::find()->where(['status'=>Goods::STATUS_ACTIVE])
+                            ->andWhere(['id'=>$goods_ids])
+                            ->andWhere(['is_show'=>1])
+                            ->asArray()
+                            ->all();
+    foreach ($goods as $k => &$v) {
+        $v['cover'] = Attachment::getById($v['thumb'], $thumb);
+    }unset($v);
+
+    return $goods;
+
+}
+
+/**
+ * @name 按类型取商品
+ * @des 并按分类整理
+ */
+function productCateByType($type_id, $rows=10, $thumb='')
+{
+    $cates = Category::find()->where(['status'=>Category::STATUS_ACTIVE])
+                            ->andWhere(['type_id'=>$type_id])
+                            ->andWhere(['is_leaf'=>1, 'is_show'=>1])
+                            ->asArray()
+                            ->all();
+
+    foreach ($cates as $k =>&$v) {
+        $goods = Goods::find()->where(['status'=>Goods::STATUS_ACTIVE])
+                            ->andWhere(['category_id'=>$v['id']])
+                            ->andWhere(['is_show'=>1])
+                            ->limit($rows)
+                            ->asArray()
+                            ->all();
+        foreach ($goods as $key => $val) {
+            $v['child'][$val['id']]= $val;
+            $v['child'][$val['id']]['cover'] = Attachment::getById($val['thumb'], $thumb);
+        }
+    }unset($v);
+
+    return $cates;
+
+}
+
+function productList($category_id=null,$rows=10, $thumb='')
+{
+
+    $query = Goods::find()->where(['status'=>Goods::STATUS_ACTIVE])
+                            ->andWhere(['is_show'=>1]);
+
+    if ($category_id !== null) {
+        $query->andWhere(['category_id'=>$category_id]);
+    }
+
+    $list = $query->limit($rows)->asArray()->all();
 
 	foreach ($list as $k => &$v) {
 		$v['cover'] = Attachment::getById($v['thumb'], $thumb);
 	}unset($v);
+
 	return $list;
 }
 

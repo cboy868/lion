@@ -282,6 +282,7 @@ class GoodsController extends BackController
 
         $datas = ArrayHelper::arrCombin($avs);
 
+        $model->loadDefaultValues();
         return $this->render('create', [
                 'cate' => $cate,
                 'model' => $model,

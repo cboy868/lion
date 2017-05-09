@@ -2,6 +2,7 @@
 
 namespace app\modules\memorial\controllers\home;
 
+use app\modules\memorial\models\Memorial;
 
 class DefaultController extends \app\modules\home\controllers\DefaultController
 {
@@ -20,8 +21,18 @@ class DefaultController extends \app\modules\home\controllers\DefaultController
         return $this->render('remote');
     }
 
-    public function actionView()
+    public function actionView($id)
     {
-    	return $this->render('view');
+        $this->layout = "@app/modules/home/views/layouts/memorial.php";
+
+        $model = Memorial::findOne($id);
+
+        if (!$model) {
+            return $this->error('不存在此纪念馆');
+        }
+
+        $data = $model->toArray();
+
+    	return $this->render('view', ['data'=>$data]);
     }
 }
