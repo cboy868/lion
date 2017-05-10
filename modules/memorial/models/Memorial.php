@@ -96,9 +96,7 @@ class Memorial extends \app\core\db\ActiveRecord
      */
     public static function create($user_id, $title, $tomb_id=0)
     {
-
         $memorial = Memorial::find()->where(['user_id'=>$user_id, 'tomb_id'=>$tomb_id])->one();
-
 
         if (!$memorial) {
             $memorial = new self;
@@ -109,5 +107,12 @@ class Memorial extends \app\core\db\ActiveRecord
         $memorial->title = $title;
         $memorial->save();
         return $memorial;
+    }
+
+    public static function getMemorialsByUser($user_id)
+    {
+        return self::find()->where(['status'=>self::STATUS_ACTIVE])
+                            ->andWhere(['user_id'=>$user_id])
+                            ->all();
     }
 }

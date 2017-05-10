@@ -7,6 +7,10 @@
  */
 
 return [
+
+    'blog/create.html' => 'blog/member/default/create',
+    'blog/update/<id:\d+>.html' => 'blog/member/default/update',
+
     'member'=> 'member/default/index',
     'member/default'=> 'member/default/index',
     'member/default/<action:(.+)>'=> 'member/default/<action>',

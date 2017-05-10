@@ -23,7 +23,7 @@ use yii\helpers\ArrayHelper;
 //             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat',
 //             'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
 //             'forecolor', 'backcolor', '|',
-//             'lineheight', '|',
+//             'lineheight', 'simpleupload', '|',
 //             'indent', '|'
 //         ],
 //     ]
@@ -110,7 +110,8 @@ class Ueditor extends InputWidget {
                 ]]
         ];
 
-        $this->jsOptions = ArrayHelper::merge($jsOptions, $this->jsOptions);
+
+        $this->jsOptions = array_merge($jsOptions, $this->jsOptions);
 
         parent::init();
 
@@ -125,7 +126,7 @@ class Ueditor extends InputWidget {
         if ($this->hasModel()) {
             return Html::activeTextarea($this->model, $this->attribute, ['id' => $this->id]);
         } else {
-            return Html::textarea($this->id, $this->value, ['id' => $this->id]);
+            return Html::textarea($this->id, $this->value, ['id' => $this->id, 'style'=>'height:200px;']);
         }
     }
 

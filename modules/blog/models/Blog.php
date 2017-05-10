@@ -3,7 +3,7 @@
 namespace app\modules\blog\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%blog}}".
  *
@@ -31,6 +31,12 @@ use Yii;
  */
 class Blog extends \app\core\db\ActiveRecord
 {
+    const PRIVACY_PRIVATE = 2;
+    const PRIVACY_PUBLIC = 1;
+
+    const TYPE_TEXT = 1;//'博客';
+    const TYPE_VIDEO = 2;// '视频';
+
     /**
      * @inheritdoc
      */
@@ -39,13 +45,36 @@ class Blog extends \app\core\db\ActiveRecord
         return '{{%blog}}';
     }
 
+    public static function privacys($privacy =null)
+    {
+        $p = [
+            self::PRIVACY_PUBLIC => '公开',
+            self::PRIVACY_PRIVATE=> '私密'
+        ];
+
+        if ($privacy === null) {
+            return $p;
+        }
+
+        return $p[$privacy];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['title', 'created_at', 'updated_at'], 'required'],
+            [['title'], 'required'],
             [['summary', 'body'], 'string'],
             [['thumb', 'sort', 'recommend', 'is_customer', 'is_top', 'type', 'memorial_id', 'privacy', 'view_all', 'com_all', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
             [['publish_at'], 'safe'],
@@ -61,26 +90,26 @@ class Blog extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'summary' => 'Summary',
-            'thumb' => 'Thumb',
-            'video' => 'Video',
-            'body' => 'Body',
-            'sort' => 'Sort',
-            'recommend' => 'Recommend',
-            'is_customer' => 'Is Customer',
-            'is_top' => 'Is Top',
-            'type' => 'Type',
-            'memorial_id' => 'Memorial ID',
-            'privacy' => 'Privacy',
-            'view_all' => 'View All',
-            'com_all' => 'Com All',
-            'publish_at' => 'Publish At',
-            'created_by' => 'Created By',
+            'title' => '标题',
+            'summary' => '概要',
+            'thumb' => '缩略图',
+            'video' => '视频地址',
+            'body' => '内容',
+            'sort' => '排序',
+            'recommend' => '推荐',
+            'is_customer' => '是否是客户',
+            'is_top' => '是否置顶',
+            'type' => '类型',
+            'memorial_id' => '纪念馆',
+            'privacy' => '陶然',
+            'view_all' => '查看次数',
+            'com_all' => '评论次数',
+            'publish_at' => '发布时间',
+            'created_by' => '添加人',
             'ip' => 'Ip',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'status' => 'Status',
+            'created_at' => '添加时间',
+            'updated_at' => '更新时间',
+            'status' => '状态',
         ];
     }
 }

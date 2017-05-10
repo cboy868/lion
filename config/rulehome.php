@@ -13,8 +13,9 @@ return [
     'newsv/<id:\d+>.html' => 'news/home/default/view',
 
     //博客
-    'blog.html' => 'blog/home/default/index',
-    'blog/<id:\d+>.html' => 'blog/home/default/view',
+    'blogs.html' => 'blog/home/default/index',
+    'blog.html' => 'blog/member/default/index',
+    'blog/<id:\d+>.html' => 'blog/member/default/view',
 
     //商品列表
     'products.html' => 'shop/home/default/index',

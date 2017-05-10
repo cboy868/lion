@@ -13,7 +13,7 @@ use app\modules\sys\models\Set;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'sname')->textInput(['maxlength' => 20]) ?>
+    <?= $form->field($model, 'sname')->textInput(['maxlength' => 20])->hint('请填写英文字母、下划线，字母开头,用做网站调用的关键司') ?>
 
     <?= $form->field($model, 'smodule')->dropDownList(Set::getModule()) ?>
 
@@ -21,7 +21,7 @@ use app\modules\sys\models\Set;
 
     <?php //echo $form->field($model, 'svalues')->textarea(['rows' => 6])->hint('本值只有在输入类型为select,radio,checkbox时需要输入') ?>
 
-    <?= $form->field($model, 'sintro')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'sintro')->textInput(['maxlength' => 255])->label('配置名') ?>
 
 
     <div class="form-group">

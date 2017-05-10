@@ -16,7 +16,7 @@ use yii\helpers\Url;
     <link rel="stylesheet" href="/theme/m2/static/css/an.css" type="text/css">
     <link rel="stylesheet" href="/theme/m2/static/css/layout.css">
     <link rel="stylesheet" href="/theme/m2/static/css/blog.css">
-<!--    <link rel="stylesheet" href="/theme/m2/static/css/center.css">-->
+    <link rel="stylesheet" href="/theme/m2/static/css/center.css">
     <script type="text/javascript" src="/theme/m2/static/libs/jquery1.7.2/jquery.min.js"></script>
 </head>
 
@@ -95,32 +95,61 @@ use yii\helpers\Url;
     </div>
 </div>
 <div id="container" class="pad12">
-    <div id="app-menu" class="corner12">
+    <div class="index-aside left">
 
-        <div id="user-box">
-            <a href="http://gls.gls024.com/home/profile/1" target="_blank" class="self-avatar">
-                <img src="#" alt="观陵山网络">
-            </a>
-            <span class="user-name">观陵山网络</span>
-            <div class="home-func-box">
-                <!--
-                 <a href="javascript:void(0)" id="hairAnnouncement" class="my-home home-func" style="font-size:14px;">发布公告</a><br />
-                  -->
-                <a href="http://gls.gls024.com/member/setting/index" class="my-home home-func" style="font-size:14px;">个人设置</a><br>
-                <a href="http://gls.gls024.com/member/setting/password" class="my-home home-func" style="font-size:14px;">修改密码</a><br>
-                <a href="/user/mobile_bind.html" target="_blank" class="my-home
-                     home-func" style="font-size:14px;">绑定微信</a>
-            </div>
+        <dl id="staff-profile-wrap">
+            <dt class="corner8">
+                <a target="_blank" href="#"><img width="190px" title="" alt="" src="/upload/staff/m/2014/10/02/ee16585d6d1aba33d45c40708b26c602.png"></a>
+            </dt>
+            <dd>
+                <a href="javascript:void(0)" class="friend-add" id="addfriend">加为好友</a>    </dd>
+        </dl>
+
+        <div class="blog-list corner12 list-bgcolor profile-memorial-list">
+                <h4>纪念馆</h4>
+                还没有纪念馆
+
         </div>
-        <ul id="my-menu">
-            <li class="my-blog"><a target="_blank" href="http://gls.gls024.com/blog/index">我的日志</a><a class="publish" href="http://gls.gls024.com/member/blog/add">发表</a></li>
-            <li class="my-album"><a target="_blank" href="http://gls.gls024.com/album/index">我的相册</a><a class="publish" href="http://gls.gls024.com/member/album/addPhoto">上传</a></li>
-            <li class="my-video"><a target="_blank" href="http://gls.gls024.com/video/index">我的视频</a><a class="publish" href="http://gls.gls024.com/member/video/add">发表</a></li>
-            <li class="my-relative"><a target="_blank" href="http://gls.gls024.com/member/memorial">我的纪念馆</a></li>
-            <li class="my-order"><a target="_blank" href="http://gls.gls024.com/member/order">我的订单</a></li>
-            <li class="my-task"><a target="_blank" href="http://gls.gls024.com/member/inscription/index">碑文确认</a></li>
-            <li class="my-collect"><a target="_blank" href="http://gls.gls024.com/member/fav/index?type=0">我的收藏</a></li>
-        </ul>
+
+        <div class="blog-list corner12 list-bgcolor">
+            <h4>日志</h4>
+            <a target="_blank" class="more" href="/blog/index/uid/58">更多</a>
+            <ol>
+                <li>
+                    <a target="_blank" title="三十六景之“十八铺炕”：石头的水墨丹青" href="/blog/detail/id/68">三十六景之“十八铺...</a>
+                </li><li>
+                    <a target="_blank" title="蒲水观陵：好景看不足" href="/blog/detail/id/67">蒲水观陵：好景看不...</a>
+                </li><li>
+                    <a target="_blank" title="三十六景之蒲河源：溯水之趣" href="/blog/detail/id/66">三十六景之蒲河源：...</a>
+                </li><li>
+                    <a target="_blank" title="想儿山牌坊：对传说的别样出版" href="/blog/detail/id/65">想儿山牌坊：对传说...</a>
+                </li><li>
+                    <a target="_blank" title="三十六景之想儿山：是自然更是人文" href="/blog/detail/id/64">三十六景之想儿山：...</a>
+                </li>  </ol>
+        </div>
+
+        <div class="video-list blog-list corner12 list-bgcolor">
+            <h4>视频</h4><a target="_blank" class="more" href="/video/index/uid/58">更多</a>
+            <ol>
+                <li>
+                    <a target="_blank" title="中华抗战五十年纪念园（一期工程） 落成仪式" href="/video/detail/id/3">中华抗战五十年纪念园</a>
+                </li><li>
+                    <a target="_blank" title="免费公益环保葬" href="/video/detail/id/2">免费公益环保葬</a>
+                </li>  </ol>
+        </div>
+
+        <div class="album-list corner12 list-bgcolor">
+            <h4>相册</h4>
+            <a target="_blank" class="more" href="/album/index/uid/58">更多</a>
+            <ul>
+                还没有上传图片  </ul>
+        </div>
+        <div class="rate-list corner12 list-bgcolor">
+            <h4>服务评价</h4>
+            <a target="_blank" class="more" href="#">更多</a>
+            暂无服务评价记录
+        </div>
+
     </div>
     <?=$content?>
     <div class="clear"></div>

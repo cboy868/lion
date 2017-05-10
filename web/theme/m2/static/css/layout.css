@@ -56,7 +56,8 @@ body { font-size:14px; font-family:"宋体"; padding-bottom:20px; background:#EB
 #searchbox #zoombar { width:23px; height:21px; border:0 none; position:absolute; right:3px; top:3px; cursor:pointer; background:url(../images/icons/zoom_bar.gif) no-repeat; padding:0; }
 
 #container {
-    background: #fff9e3 !important;
+    /*background: #fff9e3 !important;*/
+    background: #ffffff !important;
     height: auto;
     margin: 0 auto;
     position: relative;
@@ -64,7 +65,10 @@ body { font-size:14px; font-family:"宋体"; padding-bottom:20px; background:#EB
 }
 
 /***app-menu**/
-#app-menu { width:130px; padding:18px 8px 50px 10px; border:1px solid #DAD6C9; background:#F8EFD5; float:left; display:inline; }
+#app-menu { width:130px; padding:18px 8px 50px 10px;
+	border:1px solid #DAD6C9;
+	/*background:#F8EFD5; */
+	float:left; display:inline; }
 #user-box {  width:108px; padding:0 11px 15px; text-align:center; color:#5a5a5a; border-bottom:1px solid #ccccac; margin-bottom:10px; }
 #user-box img { width:108px; height:108px; display:block; }
 #user-box .user-name { font-weight:bold; display:block; margin:10px 0 6px;  }

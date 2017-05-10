@@ -69,7 +69,7 @@ class DefaultController extends \app\core\web\MemberController
         $this->view->theme->pathMap = [
             '@app/modules/member/views/default' => '@app/web/theme/'.$model->svalue.'/member/default',
             '@app/modules/member/views/layouts' => '@app/web/theme/' . $model->svalue . '/member/layouts',
-
+            '@app/modules/blog/views/member/default' => '@app/web/theme/' . $model->svalue . '/member/blog',
         ];
     }
 

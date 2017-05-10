@@ -154,5 +154,10 @@ class User extends \app\core\models\User
                     )->execute();
     }
 
+    public function isStaff()
+    {
+        return $this->is_staff ? true : false;
+    }
+
     
 }
