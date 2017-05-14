@@ -50,7 +50,7 @@ class DefaultController extends \app\modules\member\controllers\DefaultControlle
             $model->created_by = Yii::$app->user->id;
 
             if ($model->save()) {
-                return $this->redirect(['/blog/home/default/view', 'id'=>$model->id]);
+                return $this->redirect(['/blog/member/default/view', 'id'=>$model->id]);
             }
         }
 
@@ -76,7 +76,7 @@ class DefaultController extends \app\modules\member\controllers\DefaultControlle
 //            $model->created_by = Yii::$app->user->id;
 
             if ($model->save()) {
-                return $this->redirect(['/blog/home/default/view', 'id'=>$model->id]);
+                return $this->redirect(['/blog/member/default/view', 'id'=>$model->id]);
             }
         }
 

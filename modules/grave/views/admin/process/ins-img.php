@@ -47,22 +47,20 @@ PluploadAssets::register($this);
         	$tomb = Tomb::findOne(Yii::$app->request->get('tomb_id'));
          ?>
         <?php if ($tomb->hasIns()): ?>
-        	<div class="col-xs-12">
-	        	<div class="panel panel-default">
-				  <div class="panel-body">
-				    <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
 
-				    <div style="display:inline-block;float:left;margin-left:20px;">
-				    	碑名: <?=$goods->name?> <br>
-				    	碑属性: 
+                <div style="display:inline-block;float:left;margin-left:20px;">
+                    碑名: <?=$goods->name?> <br>
+                    碑属性:
 
-				    	<?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
-				    		<?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
-				    	<?php endforeach ?>
-				    </div>
-				  </div>
-				</div>
-	        </div>
+                    <?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
+                        <?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
+                    <?php endforeach ?>
+                </div>
+              </div>
+            </div>
         <!-- Nav tabs -->
 
 
@@ -78,7 +76,7 @@ PluploadAssets::register($this);
 
 		<!-- Tab panes -->
 			<div class="row" role="">
-				<?php $form = ActiveForm::begin(['id'=>'img-ins-form', 'options'=>['class'=> 'tab-content form-horizontal']]); ?>
+				<?php $form = ActiveForm::begin(['id'=>'img-ins-form', 'options'=>['class'=> 'form-horizontal']]); ?>
 
 					<div id="img-ins-boxs" class=" tab-pane <?php if ($model->type == 0): ?>active <?php endif ?>" role="tabpanel">
 						<div class="col-xs-12">

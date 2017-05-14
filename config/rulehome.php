@@ -41,8 +41,8 @@ return [
 
 
     # home group
-    'home/<controller:(.+)>/<action:(.+)>.html'=> 'home/<controller>/<action>',
-    'home/<controller:(.+)>.html'=> 'home/<controller>/index',
+//    'home/<controller:(.+)>/<action:(.+)>.html'=> 'home/<controller>/<action>',
+//    'home/<controller:(.+)>.html'=> 'home/<controller>/index',
     'home.html'=> 'home/default/index',
 
     'home/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/home/<controller>/<action>',

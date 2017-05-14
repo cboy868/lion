@@ -49,7 +49,6 @@ PluploadAssets::register($this);
         	$front = $ins_info['front'];
          ?>
         <?php if ($tomb->hasIns()): ?>
-        	<div class="col-xs-12">
 	        	<div class="panel panel-default">
 				  <div class="panel-body">
 				    <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
@@ -64,23 +63,21 @@ PluploadAssets::register($this);
 				    </div>
 				  </div>
 				</div>
-	        </div>
         <!-- Nav tabs -->
 
 
 		<ul class="nav nav-tabs col-xs-6">
-			<li role="" class="sel-type" rel="3">
+			<li class="sel-type" rel="3">
 			  	<a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
 			</li>
-		  <li role="" class="active sel-type" rel="1">
+		  <li class="active sel-type" rel="1">
 		  	<a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
 		  </li>
-		  
 		</ul>
 
 		<!-- Tab panes -->
 			<div class="row" role="">
-				<?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'tab-content form-horizontal']]); ?>
+				<?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'form-horizontal']]); ?>
 				<!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
 					<div class="col-xs-12">
 						<div id="select-ins" class="collapse">
@@ -538,7 +535,7 @@ PluploadAssets::register($this);
 <link href="/static/assets/js/colorbox/colorbox.css" rel="stylesheet" type="text/css">
 <script src="/static/assets/js/colorbox/jquery.colorbox-min.js"></script> -->
 
-<?php $this->beginBlock('up') ?>  
+<?php $this->beginBlock('up') ?>
 var fee = eval('(' + '<?=json_encode($fee)?>'+ ')');
 $(function(){
 	var changed = "<?=$model->changed?>";
@@ -602,7 +599,7 @@ $(function(){
     });
 
 
-	
+
 	selIns.click(function(e){
 	    e.preventDefault();
 	    var driect = $(this).attr('rel');
@@ -614,7 +611,7 @@ $(function(){
 	    //选择标识
 	    $(this).closest('.' + driect + '_images').find('img').removeClass(cla);
 	    $(this).addClass(cla);
-	    
+
 	    searchCaseId();
 	    getImage(cla);
         getPrice();
@@ -665,7 +662,7 @@ $(function(){
     	getImage('back_selected');
         getPrice();
     });
-	
+
 	// 简繁体切换
 	$('#is_tc', insContainer).change(function() {
 		getImage('front_selected');
@@ -698,14 +695,14 @@ $(function(){
     	calFee();
     });
 })
-	
+
 
 function getImage(cla){
 	var case_id = $('.'+cla).attr('case_id');
     var driect = $('.'+cla).attr('rel');
     var tomb_id = $('input[name=tomb_id]').val();
     var data = $('#auto-ins-form').serialize();
-    var url = "<?=Url::toRoute(['/grave/default/process/sel', 'tomb_id'=>$get['tomb_id']])?>";
+    var url = "<?=Url::toRoute(['/grave/home/process/sel', 'tomb_id'=>$get['tomb_id']])?>";
 
     if (url.indexOf('?') >= 0) {
     	url += '&case_id=' + case_id;
@@ -722,7 +719,7 @@ function getImage(cla){
                     				.find('input[name='+driect+'_img]')
                     				.val(xhr.data + '?time=' + time);
         } else {
-            
+
         }
     },'json');
 }
@@ -732,11 +729,11 @@ function getPrice($type){
 
 	var front_case = $('.front_selected').attr('case_id');
 	var back_case = $('.back_selected').attr('case_id');
-    
-    var url = "<?=Url::toRoute(['/grave/default/process/price', 'tomb_id'=>$get['tomb_id']])?>";
+
+    var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
     var data = $('#auto-ins-form').serialize();
     var date = +new Date();
-	
+
 
 	var cache = $('.cache');
 
@@ -765,7 +762,7 @@ function getPrice($type){
 				$('#small_new').val(data.total.small);
 				$('#tc_price').val(data.tc_fee);
             }
-            
+
         },'json');
 }
 
@@ -783,7 +780,7 @@ function calFee()
 		$('#letter_price').val(letter);
 		$('#paint_price').val(paint);
 	}
-	
+
 }
 
 
@@ -810,7 +807,7 @@ function urgent(){
 }
 
 function auto(changed){
-		
+
 		searchCaseId();
 
 		if (changed == 1) {
@@ -837,8 +834,8 @@ function auto(changed){
 
 
 
-<?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['up'], \yii\web\View::POS_END); ?> 
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['up'], \yii\web\View::POS_END); ?>
 
 
 
