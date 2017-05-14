@@ -47,16 +47,16 @@ $this->params['breadcrumbs'][] = $this->title;
         // 'filterModel' => $searchModel,
         'columns' => [
             'title',
-            [
-                'headerOptions' => ["data-type"=>"html"],
-                'label' => '商品名',
-                'value' => function($model){
-                    return '<a href="'.Url::toRoute(['/default/product/view', 'id'=>$model->goods_id]).'" target="_blank">'.$model->goods->name.'</a>';
-                },
-                'format' => 'raw'
-            ],
-            'term',
-            'company',
+//            [
+//                'headerOptions' => ["data-type"=>"html"],
+//                'label' => '商品名',
+//                'value' => function($model){
+//                    return '<a href="'.Url::toRoute(['/default/product/view', 'id'=>$model->goods_id]).'" target="_blank">'.$model->goods->name.'</a>';
+//                },
+//                'format' => 'raw'
+//            ],
+//            'term',
+//            'company',
             'username',
             'mobile',
             [

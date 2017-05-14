@@ -68,108 +68,6 @@ use yii\helpers\Url;
 <?php $this->beginBody() ?>
     <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
     <div class="page-wrapper">
-<!--    <div class="header-top">-->
-<!--                <div class="container">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-xs-2 col-sm-6">-->
-<!---->
-                            <!-- header-top-first start -->
-                            <!-- ================ -->
-<!--                            <div class="header-top-first clearfix">-->
-<!--                                <ul class="social-links clearfix hidden-xs">-->
-<!--                                    <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>-->
-<!--                                    <li class="skype"><a target="_blank" href="#"><i class="fa fa-skype"></i></a></li>-->
-<!--                                    <li class="linkedin"><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>-->
-<!--                                    <li class="googleplus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>-->
-<!--                                    <li class="youtube"><a target="_blank" href="#"><i class="fa fa-youtube-play"></i></a></li>-->
-<!--                                    <li class="flickr"><a target="_blank" href="#"><i class="fa fa-flickr"></i></a></li>-->
-<!--                                    <li class="facebook"><a target="_blank" href="#"><i class="fa fa-facebook"></i></a></li>-->
-<!--                                    <li class="pinterest"><a target="_blank" href="#"><i class="fa fa-pinterest"></i></a></li>-->
-<!--                                </ul>-->
-<!--                                <div class="social-links hidden-lg hidden-md hidden-sm">-->
-<!--                                    <div class="btn-group dropdown">-->
-<!--                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></button>-->
-<!--                                        <ul class="dropdown-menu dropdown-animation">-->
-<!--                                            <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>-->
-<!--                                            <li class="skype"><a target="_blank" href="#"><i class="fa fa-skype"></i></a></li>-->
-<!--                                            <li class="linkedin"><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>-->
-<!--                                            <li class="googleplus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>-->
-<!--                                            <li class="youtube"><a target="_blank" href="#"><i class="fa fa-youtube-play"></i></a></li>-->
-<!--                                            <li class="flickr"><a target="_blank" href="#"><i class="fa fa-flickr"></i></a></li>-->
-<!--                                            <li class="facebook"><a target="_blank" href="#"><i class="fa fa-facebook"></i></a></li>-->
-<!--                                            <li class="pinterest"><a target="_blank" href="#"><i class="fa fa-pinterest"></i></a></li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-                            <!-- header-top-first end -->
-<!---->
-<!--                        </div>-->
-<!--                        <div class="col-xs-10 col-sm-6">-->
-<!---->
-                            <!-- header-top-second start -->
-                            <!-- ================ -->
-<!--                            <div id="header-top-second"  class="clearfix">-->
-<!---->
-                                <!-- header top dropdowns start -->
-                                <!-- ================ -->
-<!--                                <div class="header-top-dropdown">-->
-<!--                                    <div class="btn-group dropdown">-->
-<!--                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i> 搜索</button>-->
-<!--                                        <ul class="dropdown-menu dropdown-menu-right dropdown-animation">-->
-<!--                                            <li>-->
-<!--                                                <form role="search" class="search-box">-->
-<!--                                                    <div class="form-group has-feedback">-->
-<!--                                                        <input type="text" class="form-control" placeholder="Search">-->
-<!--                                                        <i class="fa fa-search form-control-feedback"></i>-->
-<!--                                                    </div>-->
-<!--                                                </form>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                    <div class="btn-group dropdown">-->
-<!--                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 登录</button>-->
-<!--                                        <ul class="dropdown-menu dropdown-menu-right dropdown-animation">-->
-<!--                                            <li>-->
-<!--                                                <form class="login-form">-->
-<!--                                                    <div class="form-group has-feedback">-->
-<!--                                                        <label class="control-label">用户名</label>-->
-<!--                                                        <input type="text" class="form-control" placeholder="">-->
-<!--                                                        <i class="fa fa-user form-control-feedback"></i>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-group has-feedback">-->
-<!--                                                        <label class="control-label">密码</label>-->
-<!--                                                        <input type="password" class="form-control" placeholder="">-->
-<!--                                                        <i class="fa fa-lock form-control-feedback"></i>-->
-<!--                                                    </div>-->
-<!--                                                    <button type="submit" class="btn btn-group btn-dark btn-sm">登录</button>-->
-<!--                                                    <span>or</span>-->
-<!--                                                    <button type="submit" class="btn btn-group btn-default btn-sm">注册</button>-->
-<!--                                                    <ul>-->
-<!--                                                        <li><a href="#">忘记密码?</a></li>-->
-<!--                                                    </ul>-->
-<!--                                                    <div class="divider"></div>-->
-<!--                                                    <span class="text-center">第三方账号登录</span>-->
-<!--                                                    <ul class="social-links clearfix">-->
-<!--                                                        <li class="facebook"><a target="_blank" href="#"><i class="fa fa-facebook"></i></a></li>-->
-<!--                                                        <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>-->
-<!--                                                        <li class="googleplus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>-->
-<!--                                                    </ul>-->
-<!--                                                </form>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!---->
-<!--                                </div>-->
-                                <!--  header top dropdowns end -->
-<!---->
-<!--                            </div>-->
-                            <!-- header-top-second end -->
-<!---->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
             <header class="header fixed clearfix">
                 <div class="container">
                     <div class="row">
@@ -281,11 +179,12 @@ use yii\helpers\Url;
                                 </div>   
                                 <div class="collapse navbar-collapse" id="navbar-collapse-2">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="<?=Url::toRoute('/')?>">Home</a></li>
-                                        <li><a href="<?=Url::toRoute('/home/default/about')?>">About</a></li>
+                                        <li><a href="<?=Url::toRoute('/')?>">首页</a></li>
+                                        <li><a href="<?=Url::toRoute('/home/default/about')?>">关于我们</a></li>
+                                        <li><a href="<?=Url::toRoute('/shop/home/default/index')?>">产品</a></li>
 <!--                                        <li><a href="--><?//=Url::toRoute('/home/default/about')?><!--">Blog</a></li>-->
 <!--                                        <li><a href="--><?//=Url::toRoute('/home/default/about')?><!--">Portfolio</a></li>-->
-                                        <li><a href="<?=Url::toRoute('/home/default/contact')?>">Contact</a></li>
+                                        <li><a href="<?=Url::toRoute('/home/default/contact')?>">联系我们</a></li>
                                     </ul>
                                 </div>
                             </nav>

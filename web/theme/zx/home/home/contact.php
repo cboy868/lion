@@ -1,3 +1,8 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\captcha\Captcha;
+?>
 <div class="page-intro">
     <div class="container">
         <div class="row">
@@ -14,6 +19,7 @@
 <section class="main-container">
 
     <div class="container">
+        <?=\app\core\widgets\Alert::widget();?>
         <div class="row">
 
             <!-- main start -->
@@ -32,34 +38,66 @@
                     <strong>Error!</strong> There was an error sending your message.
                 </div>
                 <div class="contact-form">
-                    <form id="contact-form" role="form">
-                        <div class="form-group has-feedback">
-                            <label for="name">姓名*</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="">
-                            <i class="fa fa-user form-control-feedback"></i>
+                    <?php
+                        $form = ActiveForm::begin();
+                        $form->fieldConfig['options']['class'] = 'form-group has-feedback';
+                    ?>
+                    <?php
+                    $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-user form-control-feedback\"></i>{hint}{error}";
+                    ?>
+                    <?= $form->field($model, 'username')->textInput()->label('姓名 <font color="red">*</font>') ?>
+                    <?php
+                    $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-mobile form-control-feedback\"></i>{hint}{error}";
+                    ?>
+                    <?= $form->field($model, 'mobile')->textInput()->label('手机号 <font color="red">*</font>') ?>
+
+                    <?php
+                    $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-qq form-control-feedback\"></i>{hint}{error}";
+                    ?>
+                    <?= $form->field($model, 'qq')->textInput()->label('QQ号 <font color="red">*</font>') ?>
+
+                    <?php
+                    $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-envelope form-control-feedback\"></i>{hint}{error}";
+                    ?>
+                    <?= $form->field($model, 'email')->textInput()->label('邮箱 <font color="red">*</font>') ?>
+                    <?php
+                    $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-navicon form-control-feedback\"></i>{hint}{error}";
+                    ?>
+                    <?= $form->field($model, 'title')->textInput()->label('主题 <font color="red">*</font>') ?>
+                    <?php
+                    $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-pencil form-control-feedback\"></i>{hint}{error}";
+                    ?>
+                    <?= $form->field($model, 'intro')->textarea(['rows'=>6])->label('内容 ') ?>
+                    <?php
+                    $form->fieldConfig['template'] = '{label}{input}{hint}{error}';
+                    $form->fieldConfig['options']['style'] = ['width'=>'50%','float'=>'left'];
+                    ?>
+
+                    <div>
+                        <?= $form->field($model, 'verifyCode')->textInput()->label('验证码 <font color="red">*</font>') ?>
+
+                        <div style="width: 100px;float: left">
+                            <?php
+                            echo Captcha::widget(['name'=>'captchaimg',
+                                'captchaAction'=>'/home/default/captcha',
+                                'imageOptions'=>[
+                                    'id'=>'captchaimg',
+                                    'title'=>'换一个', 'alt'=>'换一个',
+                                    'style'=>'cursor:pointer;margin-left:25px;margin-top:30px'],
+                                'template'=>'{image}']);
+                            ?>
                         </div>
-                        <div class="form-group has-feedback">
-                            <label for="email">电话*</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="">
-                            <i class="fa fa-envelope form-control-feedback"></i>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label for="email">邮箱*</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="">
-                            <i class="fa fa-envelope form-control-feedback"></i>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label for="subject">主题*</label>
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="">
-                            <i class="fa fa-navicon form-control-feedback"></i>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label for="message">内容*</label>
-                            <textarea class="form-control" rows="6" id="message" name="message" placeholder=""></textarea>
-                            <i class="fa fa-pencil form-control-feedback"></i>
-                        </div>
-                        <input type="submit" value="Submit" class="btn btn-default">
-                    </form>
+                        <div style="clear: both"></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" value="提 交" class="btn btn-default">
+                    </div>
+
+                    <?php
+                    ActiveForm::end();
+                    ?>
                 </div>
             </div>
             <!-- main end -->
@@ -74,12 +112,10 @@
                             <li><i class="fa fa-mobile pr-10 pl-5"></i><abbr title="Phone">Mobile:</abbr> 15910470214</li>
                             <li><i class="fa fa-envelope pr-10"></i><a href="mailto:info@zhuo-xun.com">info@zhuo-xun.com</a></li>
                         </ul>
-
                     </div>
                 </div>
             </aside>
             <!-- sidebar end -->
-
         </div>
     </div>
 </section>

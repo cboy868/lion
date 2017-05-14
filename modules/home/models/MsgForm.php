@@ -33,9 +33,9 @@ class MsgForm extends Model
 	public function rules()
     {
         return [
-            [['username', 'email', 'title', 'goods_id'], 'required'],
+            [['username', 'email', 'title', 'mobile'], 'required'],
             ['email', 'email'],
-            ['verifyCode', 'captcha', 'captchaAction'=>'/member/default/captcha', 'message'=>'Error! Please try again '],
+            ['verifyCode', 'captcha', 'captchaAction'=>'/home/default/captcha', 'message'=>'验证码错误，请重试'],
             [['intro'], 'string'],
             [['title', 'company', 'username'], 'string', 'max' => 255],
             [['mobile', 'email'], 'string', 'max' => 50],
@@ -46,6 +46,19 @@ class MsgForm extends Model
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
+            'goods_id' => '产品id',
+            'title' => '留言主题',
+            'term' => '回复截止',
+            'company' => '公司名',
+            'username' => '姓名',
+            'mobile' => '电话',
+            'email' => '邮箱',
+            'qq' => 'QQ',
+            'skype' => 'Skype',
+            'intro' => '主要内容',
+            'status' => '状态',
+            'op_id' => '处理人',
             'verifyCode' => '验证码',
         ];
     }

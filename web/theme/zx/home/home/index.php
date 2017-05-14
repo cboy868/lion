@@ -370,7 +370,7 @@
                         data-speed="600"
                         data-start="2400"
                         data-end="9400"
-                        data-endspeed="600"><i>utomb</i>不容错过!
+                        data-endspeed="600"><i>卓迅</i>不容错过!
                     </div>
 
                     <!-- LAYER NR. 11 -->
@@ -384,8 +384,8 @@
                         data-autoplayonlyfirsttime="false"
                         data-nextslideatend="true">
                         <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src='#' width='640' height='360' style='width:640px;height:360px;'></iframe>
-                        </div>
+<!--                        <iframe class="embed-responsive-item" src='#' width='640' height='360' style='width:640px;height:360px;'></iframe>-->
+<!--                        </div>-->
                     </div>
 
                     </li>
@@ -582,7 +582,7 @@
                         </div>
                     </div>
                     <!-- or -->
-                    <a href="page-contact-2.html" class="btn btn-default contact">联系我们 <i class="pl-10 fa fa-phone"></i></a>
+                    <a href="<?=\yii\helpers\Url::toRoute('/home/default/contact')?>" class="btn btn-default contact">联系我们 <i class="pl-10 fa fa-phone"></i></a>
                 </div>
             </div>
         </div>
@@ -609,7 +609,7 @@
                                 <i class="fa fa-coffee"></i>
                                 <h2>多终端支撑</h2>
                                 <p>支持PC、手机、Pad等终端，支持微信公众平台、客户使用微信公众平台后，办业务免登录</p>
-                                <a href="page-services.html" class="btn-default btn">Read More</a>
+<!--                                <a href="page-services.html" class="btn-default btn">Read More</a>-->
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -617,7 +617,7 @@
                                 <i class="fa fa-line-chart"></i>
                                 <h2>简明图表数据分析</h2>
                                 <p>营业额、接待量、员工工作量、同比、环比，您想要的，我们都有。</p>
-                                <a href="page-services.html" class="btn-default btn">Read More</a>
+<!--                                <a href="page-services.html" class="btn-default btn">Read More</a>-->
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -625,7 +625,7 @@
                                 <i class="fa fa-cloud"></i>
                                 <h2>云解决方案</h2>
                                 <p>整系统依托云服务器，稳定安全。定时备份+手工备份，数据安全无忧</p>
-                                <a href="page-services.html" class="btn-default btn">Read More</a>
+<!--                                <a href="page-services.html" class="btn-default btn">Read More</a>-->
                             </div>
                         </div>
                     </div>
