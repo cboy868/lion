@@ -24,7 +24,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
     <link rel="stylesheet" type="text/css" href="/theme/m2/static/gls/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/theme/m2/static/gls/css/global.css">
 
-    <script type="text/javascript" src="/theme/m2/static/libs/jquery1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/theme/m2/static/libs/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/theme/m2/static/gls/js/global.js"></script>
 </head>
 

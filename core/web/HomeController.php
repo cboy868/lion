@@ -26,7 +26,7 @@ class HomeController extends \app\core\web\Controller
     }
 
     public function error($msg= '',$sec = 3){
-    	\Yii::$app->getSession()->setFlash('error', '错误');
+//    	\Yii::$app->getSession()->setFlash('error', '错误');
         return $this->renderPartial('@app/core/views/single/msg',['errorMessage'=>$msg,'sec'=>$sec]);
     }
 }

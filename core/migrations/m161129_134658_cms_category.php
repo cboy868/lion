@@ -30,6 +30,27 @@ class m161129_134658_cms_category extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
             // 'uid' => Schema::TYPE_STRING . "(11) NOT NULL DEFAULT '0' COMMENT '用户id' ", 给表加注释是这样加
         ], $tableOptions);
+
+
+        $this->createTable('{{%message}}', [
+            'id' => $this->primaryKey(),
+            'res_id' => $this->integer(),
+            'res_name'=> $this->string(100),
+            'op_id' => $this->integer()->defaultValue(0),//处理人
+            'title' => $this->string(255),
+            'term' => $this->date(),
+            'product' => $this->string(255),
+            'username' => $this->string(255)->notNull(),
+            'mobile' => $this->string(50)->notNull(),
+            'email' => $this->string(50),
+            'qq' => $this->string(20),
+            'skype' => $this->string(20),
+            'intro' => $this->text(),
+            'company' => $this->string(200),
+            'status' => $this->smallInteger()->defaultValue(1),
+            'created_at'=> $this->integer()
+        ], $tableOptions);
+
     }
 
     public function down()

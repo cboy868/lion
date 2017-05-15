@@ -1,22 +1,16 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-use app\modules\shop\models\Message;
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\Message */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use app\modules\cms\models\Message;
 
 
 use app\assets\FootableAsset;
 FootableAsset::register($this);
 
-
 $this->title = '留言咨询';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 

@@ -12,6 +12,7 @@
                         <a href="/">首页</a><span>&gt;</span>
                         <a href="<?=\yii\helpers\Url::toRoute(['/grave/home/default/index'])?>">墓区列表</a>
                         <span>&gt;</span> <?=$data['name']?></p>
+                    <?=\app\core\widgets\Alert::widget();?>
 
 
                             <div class="environment shadow">
@@ -29,7 +30,10 @@
                             </div>
 
                             <div class="buy_btnbox">
-                                <input type="button" class="buy1" style="float:right;" />
+                                <a href="<?=\yii\helpers\Url::toRoute(['/cms/home/message/index', 'id'=>$data['id']])?>"
+                                   class="buy1"
+                                   style="    float: right;height: 30px;font-size: 0;"
+                                >网上预约</a>
                             </div>
                         <p class="product_tabtit">
                             <a class="active">产品介绍</a>

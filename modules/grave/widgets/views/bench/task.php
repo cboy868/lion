@@ -8,7 +8,6 @@ use app\core\helpers\Url;
     }
 </style>
 
-
 <div class="widget-box transparent ui-sortable-handle task" style="opacity: 1;">
     <div class="widget-header">
         <h4 class="widget-title lighter"><i class="fa fa-tasks"></i> 工作任务</h4>

@@ -7,6 +7,10 @@
  */
 //pc端
 return [
+    //预定
+
+
+    'pre/<id:\d+>.html' => 'cms/home/message/index',
     //资讯
     'news.html' => 'news/home/default/index',
     'news/<id:\d+>.html' => 'news/home/default/index',
