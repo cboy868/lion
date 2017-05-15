@@ -15,6 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ul, ol, li{
         list-style: none;
     }
+    .graveimg img{
+        width:100px;
+        height:100px;
+    }
 </style>
 <div class="page-content">
     <!-- /section:settings.box -->
@@ -126,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
                           <div class="panel-body no-padding" style="min-height:110px">
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 graveimg">
 
                               <?php if ($grave->is_leaf): ?>
                                 <a href="<?=Url::toRoute(['admin/tomb/index', 'grave_id'=>$grave->id])?>">

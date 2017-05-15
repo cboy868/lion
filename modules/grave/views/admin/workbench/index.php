@@ -23,15 +23,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="page-content-area">
         <div class="row">
-            
-            <?=\app\modules\grave\widgets\Bench::widget(['name'=>'buttons'])?>
+            <div class="col-md-6">
+                <?=\app\modules\grave\widgets\Bench::widget(['name'=>'buttons'])?>
 
+                <?=\app\modules\grave\widgets\Analysis::widget(['name'=>'tomb'])?>
 
-            <?=\app\modules\grave\widgets\Bench::widget(['name'=>'task'])?>
+            </div>
+            <div class="col-md-6">
+                <?=\app\modules\grave\widgets\Bench::widget(['name'=>'task'])?>
 
-            <?=\app\modules\grave\widgets\Bench::widget(['name'=>'client'])?>
+                <?=\app\modules\grave\widgets\Bench::widget(['name'=>'client'])?>
 
-            <?=\app\modules\grave\widgets\Bench::widget(['name'=>'post', 'mod'=>5, 'limit'=>20])?>
+                <?=\app\modules\grave\widgets\Bench::widget(['name'=>'post', 'mod'=>5, 'limit'=>20])?>
+            </div>
+
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>

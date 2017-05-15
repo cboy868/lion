@@ -46,6 +46,9 @@ class GraveSearch extends Grave
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' =>[
+                'pageSize' => 50
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

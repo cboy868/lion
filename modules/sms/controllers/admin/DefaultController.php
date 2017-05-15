@@ -37,10 +37,41 @@ class DefaultController extends BackController
         $searchModel = new SendSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $model = new Send();
+
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            if (!$model->time) {
+                $model->time = date('Y-m-d H:i:s');//马上
+            }
+
+            $users = self::parseUsers($model);
+
+
+            foreach ($users as $k => $v) {
+                if (!$v) {
+                    continue;
+                }
+                $m = new Send();
+                $m->mobile = $v;
+                $m->time = $model->time;
+                $m->msg = $model->msg;
+                $m->save();
+            }
+
+
+            return $this->redirect(['index']);
+
+        }
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
+
     }
 
     /**
@@ -60,40 +91,40 @@ class DefaultController extends BackController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Send();
-
-        if ($model->load(Yii::$app->request->post())) {
-
-        	if (!$model->time) {
-        		$model->time = date('Y-m-d H:i:s');//马上
-        	}
-
-        	$users = self::parseUsers($model);
-
-
-        	foreach ($users as $k => $v) {
-        		if (!$v) {
-        			continue;
-        		}
-        		$m = new Send();
-        		$m->mobile = $v;
-        		$m->time = $model->time;
-        		$m->msg = $model->msg;
-        		$m->save();
-        	}
-
-
-        	return $this->redirect(['index']);
-            
-        } else {
-
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $model = new Send();
+//
+//        if ($model->load(Yii::$app->request->post())) {
+//
+//        	if (!$model->time) {
+//        		$model->time = date('Y-m-d H:i:s');//马上
+//        	}
+//
+//        	$users = self::parseUsers($model);
+//
+//
+//        	foreach ($users as $k => $v) {
+//        		if (!$v) {
+//        			continue;
+//        		}
+//        		$m = new Send();
+//        		$m->mobile = $v;
+//        		$m->time = $model->time;
+//        		$m->msg = $model->msg;
+//        		$m->save();
+//        	}
+//
+//
+//        	return $this->redirect(['index']);
+//
+//        } else {
+//
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     public function parseUsers($model)
     {

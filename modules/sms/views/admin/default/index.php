@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use app\core\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\sms\models\SendSearch */
@@ -12,6 +13,7 @@ use app\core\widgets\GridView;
 $this->title = '短信管理';
 $this->params['breadcrumbs'][] = $this->title;
 
+\app\assets\ExtAsset::register($this);
 
 ?>
 
@@ -20,16 +22,61 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
+                <?=Html::encode($this->title) ?>
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 发送短信', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
 
+
         <div class="row">
+            <div class="col-xs-12 send-create">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="border: 2px solid #ccc;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    发送新短信
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+
+
+                                <div class="send-form">
+
+                                    <?php $form = ActiveForm::begin(); ?>
+
+
+                                    <?php
+                                    $form->fieldConfig['labelOptions']['class'] = 'control-label col-sm-1';
+                                    ?>
+
+                                    <?= $form->field($model, 'type')->radioList(['staff'=>'全体员工', 'customer'=>'所有客户', 'other'=>'自定义']) ?>
+
+                                    <?= $form->field($model, 'mobile')->textArea(['rows' => 6])->hint('多个电话请用逗号(,)分隔') ?>
+
+                                    <?= $form->field($model, 'msg')->textarea(['rows' => 6]) ?>
+
+
+                                    <?= $form->field($model, 'time')->textInput(['dt'=>'true', 'style'=>'width:50%'])->hint('不填写则马上发送') ?>
+
+                                    <div class="form-group">
+                                        <div class=" col-sm-3">
+                                            <?=  Html::submitButton('发 送', ['class' => 'btn btn-primary btn-block']) ?>
+                                        </div>
+                                    </div>
+
+                                    <?php ActiveForm::end(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="col-xs-12">
                 <div class="search-box search-outline">
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
