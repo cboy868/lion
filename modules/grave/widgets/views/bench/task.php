@@ -39,7 +39,10 @@ use app\core\helpers\Url;
                         <div class="scroll-content">
 
                             <ul class="media-list" style="border-right: 1px solid #ccc;">
-                                <?php foreach ($models as $k => $model): ?>
+                                <?php
+                                if (isset($models['tomorrow'])):
+                                ?>
+                                <?php foreach ($models['today'] as $k => $model): ?>
                                     <li class="media">
                                         <div class="media-body">
                                             <h5 class="media-heading"><?=$model->id . '、' . $model->title?>
@@ -53,6 +56,7 @@ use app\core\helpers\Url;
                                         </div>
                                     </li>
                                 <?php endforeach ?>
+                                <?php endif;?>
                             </ul>
                         </div>
                     </div>
@@ -61,29 +65,26 @@ use app\core\helpers\Url;
                 <div id="profile2" class="tab-pane">
                     <div class="scrollable ace-scroll">
                         <div class="scroll-content">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead class="thin-border-bottom">
-                                <tr>
-                                    <th>
-                                        任务
-                                    </th>
-
-                                    <th width="50">
-
-                                    </th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                <tr>
-                                    <td class="">清扫颐安二十一4排12号</td>
-                                    <td>
-                                        <a href="#"><i class="fa fa-check"></i> </a>
-                                        <a href="#"><i class="fa fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <ul class="media-list" style="border-right: 1px solid #ccc;">
+                                <?php
+                                if (isset($models['tomorrow'])):
+                                ?>
+                                <?php foreach ($models['tomorrow'] as $k => $model): ?>
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <h5 class="media-heading"><?=$model->id . '、' . $model->title?>
+<!--                                                <small class="btns pull-right">-->
+<!--                                                    <a href="--><?php //=Url::toRoute(['/task/admin/default/finish', 'id'=>$model->id])?><!--" class="btn btn-xs btn-info btn-ok">完成</a>-->
+<!--                                                </small>-->
+                                            </h5>
+                                            <p>
+                                                <?=$model->content;?>
+                                            </p>
+                                        </div>
+                                    </li>
+                                <?php endforeach ?>
+                                <?php endif;?>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -91,29 +92,28 @@ use app\core\helpers\Url;
                 <div id="info2" class="tab-pane">
                     <div class="scrollable ace-scroll" >
                         <div class="scroll-content">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead class="thin-border-bottom">
-                                <tr>
-                                    <th>
-                                        任务
-                                    </th>
-
-                                    <th width="50">
-
-                                    </th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                <tr>
-                                    <td class="">清扫颐安二十一4排13号</td>
-                                    <td>
-                                        <a href="#"><i class="fa fa-check"></i> </a>
-                                        <a href="#"><i class="fa fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <ul class="media-list" style="border-right: 1px solid #ccc;">
+                                <?php
+                                if (isset($models['yestoday'])):
+                                ?>
+                                <?php foreach ($models['yestoday'] as $k => $model): ?>
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <h5 class="media-heading"><?=$model->id . '、' . $model->title?>
+                                                <small class="btns pull-right">
+                                                    <a href="<?=Url::toRoute(['/task/admin/default/finish', 'id'=>$model->id])?>" class="btn btn-xs btn-info btn-ok">完成</a>
+                                                </small>
+                                            </h5>
+                                            <p>
+                                                <?=$model->content;?>
+                                            </p>
+                                        </div>
+                                    </li>
+                                <?php endforeach ?>
+                                <?php
+                                endif;
+                                ?>
+                            </ul>
                         </div>
                     </div>
                 </div>

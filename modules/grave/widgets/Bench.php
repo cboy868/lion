@@ -36,13 +36,35 @@ class Bench extends \yii\base\Widget
     private function task()
     {
 
-    $tasks = Task::find()->where(['op_id'=>$this->uid, 'status'=>Task::STATUS_NORMAL])
-                         ->andWhere(['like', 'pre_finish', date('Y-m-d')])
-                         ->orderBy('pre_finish asc')
-                         ->limit($this->limit)
-                         ->all();
+//    $tasks = Task::find()->where(['op_id'=>$this->uid, 'status'=>Task::STATUS_NORMAL])
+//                         ->andWhere(['like', 'pre_finish', date('Y-m-d')])
+//                         ->orderBy('pre_finish asc')
+//                         ->limit($this->limit)
+//                         ->all();
 
-      return $this->render('bench/task', ['models'=>$tasks]);
+
+        $tasks = Task::find()->where(['op_id'=>$this->uid, 'status'=>Task::STATUS_NORMAL])
+            ->andWhere(['>=', 'pre_finish', date('Y-m-d', strtotime('-1 day'))])
+            ->andWhere(['<=', 'pre_finish', date('Y-m-d', strtotime('+1 day'))])
+            ->orderBy('pre_finish asc')
+            ->limit($this->limit)
+            ->all();
+
+        $result = [];
+        foreach ($tasks as $v) {
+            $date = date('Y-m-d', strtotime($v['pre_finish']));
+
+            switch ($v['pre_finish']) {
+                case date('Y-m-d') == $date :$result['today'][] = $v;
+                    break;
+                case date('Y-m-d', strtotime('-1 day')) == $date :$result['yestoday'][] = $v;
+                    break;
+                case date('Y-m-d', strtotime('+1 day')) == $date :$result['tomorrow'][] = $v;
+                    break;
+            }
+        }
+
+        return $this->render('bench/task', ['models'=>$result]);
     }
 
     private function client()
