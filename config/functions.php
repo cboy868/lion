@@ -19,7 +19,7 @@ use app\core\models\TagRel;
 //  按格式打印数组
 function p($arr)
 {
-    // header("Content-type:text/html;charset=utf-8");
+     header("Content-type:text/html;charset=utf-8");
     echo '<pre>'.print_r($arr,true).'</pre>';
 }
 

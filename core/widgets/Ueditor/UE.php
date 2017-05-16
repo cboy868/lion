@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 // 例
 
 // $form->field($dataModel,'body')->widget('app\core\widgets\Ueditor\Ueditor',[
-// 'option' =>['res_name'=>'post'.$mod, 'use'=>'ue'], 
+// 'option' =>['res_name'=>'post'.$mod, 'use'=>'ue'],
 // 'value'=>$dataModel->body,
 // 'jsOptions' => [
 //     'toolbars' => [
@@ -35,15 +35,20 @@ use yii\helpers\ArrayHelper;
  * Ueditor Widget
  *
  */
-class Ueditor extends InputWidget {
+class UE extends InputWidget {
 
     /**
-     * @var string 
+     * @var string
+     */
+    public $id;
+
+    /**
+     * @var string
      */
     public $value;
 
     /**
-     * @var string 
+     * @var string
      */
     public $name;
 
@@ -72,11 +77,15 @@ class Ueditor extends InputWidget {
      */
     public function init() {
 
+
         if (isset($this->options['id'])) {
             $this->id = $this->options['id'];
         } else {
-            $this->id = $this->hasModel() ? Html::getInputId($this->model,$this->attribute) : $this->getId();
+            $this->id = $this->hasModel() ? Html::getInputId($this->model,
+                $this->attribute) : $this->getId();
         }
+
+
 
         $option = $this->option;
         $res_name = isset($option['res_name']) ? $option['res_name'] : '';
@@ -90,24 +99,26 @@ class Ueditor extends InputWidget {
             'lang' => (strtolower(\Yii::$app->language) == 'en-us') ? 'en' : 'zh-cn',
             'autoFloatEnabled' => false,
             'toolbars' => [[
-                    'fullscreen', 'source', '|', 'undo', 'redo', '|',
-                    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch',
-                    'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
-                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-                    'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-                    'indent', '|',
-                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-                    'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                    'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'insertcode', 'pagebreak', 'background', '|',//'template',
-                    'horizontal', 'spechars', '|',
-                    'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-                    'print'
-                ]]
+                'fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch',
+                'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'insertcode', 'pagebreak', 'background', '|',//'template',
+                'horizontal', 'spechars', '|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                'print'
+            ]]
         ];
+
 
         $this->jsOptions = array_merge($jsOptions, $this->jsOptions);
 
         parent::init();
+
     }
 
     /**
@@ -116,18 +127,23 @@ class Ueditor extends InputWidget {
     public function run() {
         $this->registerScripts();
 
+
         if ($this->hasModel()) {
             return Html::activeTextarea($this->model, $this->attribute, ['id' => $this->id]);
         } else {
             return Html::textarea($this->id, $this->value, ['id' => $this->id]);
         }
+
     }
 
-    
+
     public function registerScripts() {
+
+
+
         UAsset::register($this->view);
         $jsonOptions = Json::encode($this->jsOptions);
-        $script = "editor_".$this->id." = UE.getEditor('{$this->id}', " . $jsonOptions . ")";
+        $script = "UE.getEditor('{$this->id}', " . $jsonOptions . ")";
         $this->view->registerJs($script, View::POS_READY);
     }
 

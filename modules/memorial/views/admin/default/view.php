@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index
             'user_id',
             'tomb_id',
             'title',
-            'cover',
+            'thumb',
             'intro:ntext',
             'privacy',
             'view_all',

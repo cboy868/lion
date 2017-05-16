@@ -2,6 +2,7 @@
 
 namespace app\core\models;
 
+use app\core\base\Pagination;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
@@ -26,7 +27,7 @@ class Comment extends \app\core\db\ActiveRecord
     const STATUS_DELETE = -1;//删除
     const STATUS_PUBLISH = 2;//发布
 
-    const PRIVACY_PUBLIC = 0;//公开
+    const PRIVACY_PUBLIC = 1;//公开
     const PRIVACY_PRIVATE = 2;//私有,悄悄话
 
     /**
@@ -86,13 +87,34 @@ class Comment extends \app\core\db\ActiveRecord
         return $this->hasOne(User::className(), ['id'=>'from']);
     }
 
-    public static function getByRes($res_name, $res_id, $limit=null)
+    public static function getByRes($res_name, $res_id, $limit=20)
     {
+        $query = self::find()->where(['status'=>self::STATUS_NORMAL])
+                            ->andWhere(['res_name'=>$res_name, 'res_id'=>$res_id]);
+
+        $cnt = $query->count();
+        $pagination = new Pagination(['totalCount'=>$cnt, 'pageSize'=>$limit]);
+        $list = $query->orderBy('id desc')
+                    ->offset($pagination->offset)
+                    ->limit($pagination->limit)
+                    ->all();
+
+        return ['list'=>$list, 'pagination'=>$pagination];
+
 
     }
 
-    public function create($res_name, $res_id, $content, $privacy)
+    public static function create($res_name, $res_id, $content, $pid=0, $privacy, $to)
     {
+        $comment = new self();
+        $comment->res_name = $res_name;
+        $comment->res_id = $res_id;
+        $comment->content = $content;
+        $comment->pid =$pid;
+        $comment->privacy = $privacy;
+        $comment->from = Yii::$app->user->id;
+        $comment->to = $to;
+        return $comment->save();
 
     }
 
@@ -108,8 +130,6 @@ class Comment extends \app\core\db\ActiveRecord
         return false;
         
     }
-
-
 
 
 }

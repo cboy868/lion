@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="/theme/m2/static/modules/memorial/css/<?=$data['tpl']?>.css" type="text/css">
+<?php
+\app\assets\VueAsset::register($this);
+?>
+<link rel="stylesheet" href="/theme/m2/static/modules/memorial/css/<?=$model->tpl?>.css" type="text/css">
 <div id="ink-hook"></div>
 <div id="memorial-header">
     <a href="http://gls.gls024.com/home/profile/6003" target="_blank">
@@ -21,88 +24,69 @@
                     </tbody>
                 </table>
                 </dt>
-<!--                <dd>-->
-<!--                    <div class="memorial-mana-ope">-->
-<!--                        <span title="您可以申请管理该纪念馆" class="cursor memorial-apply" id="apply_management">申请管理</span>-->
-<!--                        <span title="关注该纪念馆" data-status="1" class="cursor memorial-follow" id="memorial_follow">关注该馆</span>-->
-<!--                    </div>-->
-<!--                </dd>-->
             </dl>
             <dl class="memorial-info right">
                 <dt class="png">
                     <img src="/theme/m2/static/modules/memorial/images/ink/jng_title.png" alt="永安大家庭纪念馆">
                 </dt>
                 <dd>
+                    <?php foreach ($model->deads as $v):?>
 
                     <div class="pass-list">
-                        <pre>          </pre>
                         <p class="pass-name">
-                            <b>
-                                母亲：
-                            </b>
-                            <span class="fyh20">马桂芹</span>
+                            <span class="fyh20"><?=$v->dead_name?></span>
                         </p>
-                        <p><b>籍贯：</b>辽宁省 沈阳市</p>
-                        <p><b>生于：</b>1937年 9月 1日</p>
-                        <p><b>卒于：</b>2015年 4月 4日</p>
-                        <p><b>享年：</b>78岁</p>
-                        <p><b>生平：</b>
-                            暂无                        </p>
+                        <p><b>生于：</b><?=$v->birth?></p>
+                        <p><b>卒于：</b><?=$v->fete?></p>
+                        <p><b>享年：</b><?=$v->age?>岁</p>
+                        <p><b>生平：</b><?=$v->desc?></p>
                     </div>
+                    <?php endforeach;?>
                 </dd>
             </dl>
             <div class="memorial_time">
                 <div class="det clearfix">
-                    <div class="count right">
-
-                        <table cellpadding="0" cellspacing="0" border="0">
-                            <tbody><tr>
-
-                                <td class="txt">距离<span class="size">马桂芹</span>生日还有</td>
-                                <td class="count_det">1</td>
-                                <td class="count_det">1</td>
-                                <td class="count_det">6</td>
-                                <td class="day">天</td>
-                                <td class="count_det">0</td>
-                                <td class="count_det">9</td>
-                                <td class="hours">小时</td>                  </tr>                  <tr>
-                                <td class="txt">距离<span class="size">马桂芹</span>福日还有</td>
-                                <td class="count_det">3</td>
-                                <td class="count_det">3</td>
-                                <td class="count_det">1</td>
-                                <td class="day">天</td>
-                                <td class="count_det">0</td>
-                                <td class="count_det">9</td>
-                                <td class="hours">小时</td>
-                            </tr>
-
-                            </tbody></table>
-
-                    </div>          <p class="first">所属墓位：静心园一期A区5排23列</p>
-                    <p>访问次数：311</p>
+<!--                    <div class="count right">-->
+<!---->
+<!--                        <table cellpadding="0" cellspacing="0" border="0">-->
+<!--                            <tbody><tr>-->
+<!---->
+<!--                                <td class="txt">距离<span class="size">马桂芹</span>生日还有</td>-->
+<!--                                <td class="count_det">1</td>-->
+<!--                                <td class="count_det">1</td>-->
+<!--                                <td class="count_det">6</td>-->
+<!--                                <td class="day">天</td>-->
+<!--                                <td class="count_det">0</td>-->
+<!--                                <td class="count_det">9</td>-->
+<!--                                <td class="hours">小时</td>                  </tr>                  <tr>-->
+<!--                                <td class="txt">距离<span class="size">马桂芹</span>福日还有</td>-->
+<!--                                <td class="count_det">3</td>-->
+<!--                                <td class="count_det">3</td>-->
+<!--                                <td class="count_det">1</td>-->
+<!--                                <td class="day">天</td>-->
+<!--                                <td class="count_det">0</td>-->
+<!--                                <td class="count_det">9</td>-->
+<!--                                <td class="hours">小时</td>-->
+<!--                            </tr>-->
+<!---->
+<!--                            </tbody></table>-->
+<!---->
+<!--                    </div>          -->
+                    <p class="first">位置：<?=$model->tomb->tomb_no?></p>
+                    <p>访问次数：<?=$model->view_all?></p>
                 </div>
                 <table class="give_count" cellpadding="0" cellspacing="0" border="0">
-                    <tbody><tr>
-                        <th><img src="/theme/m2/static/modules/memorial/images/ink/c1.png"></th>
-                        <th><img src="/theme/m2/static/modules/memorial/images/ink/c2.png"></th>
-                        <th><img src="/theme/m2/static/modules/memorial/images/ink/c3.png"></th>
-                        <th><img src="/theme/m2/static/modules/memorial/images/ink/c4.png"></th>
-                        <th><img src="/theme/m2/static/modules/memorial/images/ink/c5.png"></th>
-                        <th><img src="/theme/m2/static/modules/memorial/images/ink/c6.png"></th>
-                        <th><img src="/theme/m2/static/modules/memorial/images/ink/c7.png"></th>
-                        <th class="bgnone"><img src="/theme/m2/static/modules/memorial/images/ink/c8.png"></th>
-                    </tr>
+                    <tbody>
                     <tr>
-                        <td class="type0"><span id="pray-type-0">0</span></td>
-                        <td class="type1"><span id="pray-type-1">0</span></td>
-                        <td class="type2"><span id="pray-type-2">1</span></td>
-                        <td class="type3"><span id="pray-type-3">1</span></td>
-                        <td class="type4"><span id="pray-type-4">1</span></td>
-                        <td class="type5"><span id="pray-type-5">1</span></td>
-                        <td class="type6"><span id="pray-type-6">1</span></td>
-                        <td class="type7"><span id="pray-type-7">1</span></td>
+                        <th style="text-align: center; font-size: 15px; font-weight: 900;"
+                            v-for="(item, index) in jisi"
+                            :class="{'bgnone':index==jisi.length-1}">
+                            <img :src="'/theme/m2/static/modules/memorial/images/ink/c'+item.type+'.png'" style="display: block;">
+                            <span v-text="item.num"></span>
+                        </th>
                     </tr>
-                    </tbody></table>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -113,7 +97,7 @@
                 <div class="bgbox clearfix" style="padding: 0px 16px;">
                     <div class="pray-b send-flowers left marb50">
                         <h4>
-                            <a data-type="0" class="pray" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=0" title="我要送花">
+                            <a data-type="0" class="pray" href="" @click.prevent="song('flower')" title="我要送花">
                                 <img src="/theme/m2/static/modules/memorial/images/ink/send_flower.png" alt="我要送花">
                             </a>
                         </h4>
@@ -125,7 +109,7 @@
                     </div>
                     <div class="pray-b send-candles right marb50">
                         <h4>
-                            <a data-type="1" class="pray" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=1" title="我要点蜡">
+                            <a data-type="1" class="pray" href="#" title="我要点蜡" @click.prevent="song('candle')">
                                 <img src="/theme/m2/static/modules/memorial/images/ink/send_candle.png" alt="我要点蜡">
                             </a>
                         </h4>
@@ -139,7 +123,7 @@
                 <div class="bgbox clearfix odd" style="padding: 0px 16px;">
                     <div class="pray-b send-flowers left marb50">
                         <h4>
-                            <a data-type="2" title="我送早餐" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=2" class="pray">
+                            <a data-type="2" title="我送早餐" href="javascript:;" class="pray" @click.prevent="song('breakfast')">
                                 <img alt="我送早餐" src="/theme/m2/static/modules/memorial/images/ink/give_btn1.png">
                             </a>
                         </h4>
@@ -151,7 +135,7 @@
                     </div>
                     <div class="pray-b send-candles right marb50">
                         <h4>
-                            <a data-type="3" title="我送午餐" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=3" class="pray">
+                            <a data-type="3" title="我送午餐" href="#" class="pray" @click.prevent="song('lunch')">
                                 <img alt="我送午餐" src="/theme/m2/static/modules/memorial/images/ink/give_btn3.png">
                             </a>
                         </h4>
@@ -165,7 +149,7 @@
                 <div class="bgbox clearfix" style="padding: 0px 16px;">
                     <div class="pray-b send-flowers left marb50">
                         <h4>
-                            <a data-type="4" title="我送晚餐" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=4" class="pray">
+                            <a data-type="4" title="我送晚餐" href="#" class="pray" @click.prevent="song('dinner')">
                                 <img alt="我送晚餐" src="/theme/m2/static/modules/memorial/images/ink/give_btn2.png">
                             </a>
                         </h4>
@@ -177,7 +161,7 @@
                     </div>
                     <div class="pray-b send-candles right marb50">
                         <h4>
-                            <a data-type="5" title="我送棉被" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=5" class="pray">
+                            <a data-type="5" title="我送棉被" href="#" class="pray" @click.prevent="song('bei')">
                                 <img alt="我送棉被" src="/theme/m2/static/modules/memorial/images/ink/give_btn4.png">
                             </a>
                         </h4>
@@ -191,7 +175,7 @@
                 <div class="bgbox clearfix odd" style="padding: 0px 16px;">
                     <div class="pray-b send-flowers left marb50">
                         <h4>
-                            <a data-type="6" title="我送水果" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=6" class="pray">
+                            <a data-type="6" title="我送水果" href="#" class="pray" @click.prevent="song('fruits')">
                                 <img alt="我送水果" src="/theme/m2/static/modules/memorial/images/ink/give_btn5.png">
                             </a>
                         </h4>
@@ -203,7 +187,7 @@
                     </div>
                     <div class="pray-b send-candles right marb50">
                         <h4>
-                            <a data-type="7" title="我送衣服" href="http://gls.gls024.com/home/memorial/prayit?id=2931&amp;type=7" class="pray">
+                            <a data-type="7" title="我送衣服" href="#" class="pray" @click.prevent="song('clothes')">
                                 <img alt="我送衣服" src="/theme/m2/static/modules/memorial/images/ink/give_btn6.png">
                             </a>
                         </h4>
@@ -234,33 +218,54 @@
                 <h3>
                     <img src="/theme/m2/static/modules/memorial/images/ink/wish_msg.png" alt="祝福留言">
                 </h3>
-                <div id="wish-msgbox" class="module-memorial">
-                    <form action="http://gls.gls024.com/comment/save" method="post" id="main-comment-form">
+                <div id="wish-msgbox" class="module-memorial" style="padding-left:10px;">
+                    <form action="#" method="post">
                         <p>
-                            <label for="contact">发表人：<input type="text" name="contact" id="contact" value="观陵山网络"></label>
+                            <label for="contact">发表人：
+                                <input type="text" name="contact" id="contact" value="<?=Yii::$app->user->identity->username?>">
+                            </label>
                         </p>
-                        <p>
-                            <textarea name="content" id="comContent" class="sInput wide"></textarea>
-                        </p>
-                        <p class="submit-box" style="text-align:left;">
-                            <input id="submit-comment" type="image" src="/theme/m2/static/modules/memorial/images/ink/publish_msg.png" alt="发表留言">
+                        <?=\app\core\widgets\Ueditor\Ueditor::widget([
+                            'name'=>'comment',
+                            'id' => 'comment',
+                            'jsOptions'=>[
+                                'toolbars' => [[
+                                    'source', '|', 'undo', 'redo', '|',
+                                    'bold', 'italic', 'underline','strikethrough',
+                                    'forecolor', 'backcolor',
+                                     'insertorderedlist', 'insertunorderedlist', '|',
+                                    'fontfamily', 'fontsize', '|',
+                                    'indent', '|',
+                                    'simpleupload', 'insertimage', 'emotion',
+
+                                ]],
+                                'initialFrameHeight' => '200',
+                            ],
+                            ])?>
+                        <p class="submit-box" style="text-align:left;margin-top:10px;">
+                            <input id="submit-comment" type="image"
+                                   src="/theme/m2/static/modules/memorial/images/ink/publish_msg.png"
+                                   alt="发表留言"
+                                   @click.prevent="comment"
+                            >
                         </p>
                     </form>
                 </div>
                 <div id="commentList">
                     <ol class="leave-msglist comList" id="comment-box">
+                        <?php foreach ($comments['list'] as $v):?>
                         <li class="clearfix aComment new" style="display:list-item" data-id="">
-                            <a rel="avatar-a" href="/profile/808.html" target="_blank" class="left avatar">
-                                <img rel="avatar" alt="头像" src="http://www.yagm.com.cn/upload/2010/11/20/small_20101120145658000000_1_11661_2.jpg">
+                            <a rel="avatar-a" href="#" target="_blank" class="left avatar">
+                                <img rel="avatar" alt="<?=$v->fromUser->username?>" src="<?=$v->fromUser->getAvatar('45x45')?>">
                             </a>
-                            <div class="leave-msgbody" data-user_id="808" data-id="861376">
+                            <div class="leave-msgbody">
                                 <h6>
                                     <span class="ip right">
-                                        <span rel="time" class="time">2012-09-26 15:52:35</span>
+                                        <span rel="time" class="time"><?=date('Y-m-d H:i', $v->created_at)?></span>
                                     </span>
                                     <!-- -- user ---->
                                     <span>
-                                      <a class="green" rel="username" href="/profile/808.html" target="_blank">呼军凤</a>
+                                      <a class="green" rel="username" href="#" target="_blank"><?=$v->fromUser->username?></a>
                                     </span>说：
                                     <!-- user -->
                                 </h6>
@@ -269,34 +274,14 @@
                                     <span style="color:#413c29;">
                                         <span style="font-size:14px;">
                                             <span style="font-family:宋体;">
-                                                中秋国庆两节，祝您天天快乐，心想事成，身体健康，节日快乐！
+                                                <?=$v->content?>
                                             </span>
                                         </span>
                                     </span>
                                 </div>
                             </div>
                         </li>
-                        <li class="clearfix aComment new" style="display:list-item" data-id="">
-                            <a rel="avatar-a" href="/profile/673.html" target="_blank" class="left avatar">
-                                <img rel="avatar" alt="头像" src="http://www.yagm.com.cn/upload/2010/11/20/small_20101120120246000000_1_5710_69.jpg">
-                            </a>
-                            <div class="leave-msgbody" data-user_id="673" data-id="382556">
-                                <h6>
-                                    <span class="ip right">
-                                        <span rel="time" class="time">2011-01-18 15:01:55</span>
-                                    </span>
-                                                        <!-- -- user ---->
-                                    <span>
-                                        <a class="green" rel="username" href="/profile/673.html" target="_blank">陆长青</a>
-                                    </span>说：
-                                    <!-- user -->
-                                </h6>
-
-                                <div rel="content" class="leave-msgcontent main-comment-content">
-                                    愿爷爷在永安永远快乐！
-                                </div>
-                            </div>
-                        </li>
+                        <?php endforeach;?>
                     </ol>
                 </div>
                 <div style="clear:both;margin-bottom:10px"></div>
@@ -337,23 +322,25 @@
         </div>
 
         <!-- 足迹 -->
-        <div id="visitor-log" class="corner12">
-            <a class="add-btns delTrack memor-more" href="http://gls.gls024.com/home/track/memorial?id=2931" target="_blank">更多</a>
-<!--            <a class="add-btns delTrack memor-more" id="delTrackId" style="right:50px" href="http://gls.gls024.com/home/track/del?type=memorial&amp;user_id=1&amp;id=2931">清除脚印</a>-->
-            <h4 class="cornert12">祭祀记录</h4>
-            <ol class="clearfix" id="track-box">
-                <li id="track_1149">
-                    <a class="avatar" href="http://gls.gls024.com/home/profile/1" target="_blank">
-                        <img src="#" alt="观陵山网络">
-                    </a>
-                    <div>
-                        <p>观陵山</p>
-                        <p>15:06</p>
-                    </div>
-                </li>
-            </ol>
-        </div>
-        </div>
+        <!--
+
+<div id="visitor-log" class="corner12">
+    <a class="add-btns delTrack memor-more" href="http://gls.gls024.com/home/track/memorial?id=2931" target="_blank">更多</a>
+    <h4 class="cornert12">祭祀记录</h4>
+    <ol class="clearfix" id="track-box">
+        <li id="track_1149">
+            <a class="avatar" href="http://gls.gls024.com/home/profile/1" target="_blank">
+                <img src="1" alt="观陵山网络">
+            </a>
+            <div>
+                <p>观陵山</p>
+                <p>15:06</p>
+            </div>
+        </li>
+    </ol>
+</div>
+-->
+    </div>
 
     <style type="text/css">
         div.pray-b p.time{text-align:left;}
@@ -364,6 +351,40 @@
 
 
 
+<?php $this->beginBlock('memorial') ?>
+
+$(function(){
+    var app = new Vue({
+        el:'#memorial-content',
+        data:{
+            jisi:<?=$prays?>,
+            jisiUrl:"<?=\yii\helpers\Url::toRoute(['/memorial/home/default/jisi', 'id'=>$model->id])?>",
+            commentUrl:"<?=\yii\helpers\Url::toRoute(['/memorial/home/default/comment', 'id'=>$model->id])?>",
+            csrf : "<?=Yii::$app->request->getCsrfToken()?>",
+        },
+        methods:{
+            song(type){
+                this.$http.post(this.jisiUrl, {type:type,_csrf:this.csrf},{emulateJSON:true}).then(function(response){
+                    this.$set(this, 'jisi',response.data.data);
+                }, function(response){
+
+                });
+            },
+            comment(){
+                var content = editor_comment.getContent();
+                this.$http.post(this.commentUrl, {content:content,_csrf:this.csrf},{emulateJSON:true}).then(function(response){
+                    //this.$set(this, 'jisi',response.data.data);
+                    console.dir(response.data);
+                }, function(response){
+
+                });
+            }
+        }
+    });
+})
+
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['memorial'], \yii\web\View::POS_END); ?>
 
 
 

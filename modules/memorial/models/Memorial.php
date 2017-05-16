@@ -2,6 +2,9 @@
 
 namespace app\modules\memorial\models;
 
+use app\core\models\Attachment;
+use app\modules\grave\models\Dead;
+use app\modules\grave\models\Tomb;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -47,9 +50,10 @@ class Memorial extends \app\core\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['user_id', 'tomb_id', 'privacy', 'view_all', 'com_all', 'tpl', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['intro'], 'string'],
-            [['title', 'cover'], 'string', 'max' => 255],
+            [['user_id', 'tomb_id', 'privacy', 'view_all', 'com_all', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['intro', 'tpl'], 'string'],
+            [['title'], 'string', 'max' => 255],
+            [['thumb'], 'safe']
         ];
     }
 
@@ -71,7 +75,7 @@ class Memorial extends \app\core\db\ActiveRecord
             'user_id' => '用户id',
             'tomb_id' => '墓位id',
             'title' => '馆名',
-            'cover' => '封面',
+            'thumb' => '封面',
             'intro' => '生平介绍',
             'privacy' => '隐私',
             'view_all' => '查看次数',
@@ -114,5 +118,31 @@ class Memorial extends \app\core\db\ActiveRecord
         return self::find()->where(['status'=>self::STATUS_ACTIVE])
                             ->andWhere(['user_id'=>$user_id])
                             ->all();
+    }
+
+    /**
+     * @param null $size
+     * @return string
+     * @name 取缩略图
+     */
+    public function getCover($size=null)
+    {
+        return Attachment::getById($this->thumb, $size);
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(),['id'=>'tomb_id']);
+    }
+
+    public function getDeads()
+    {
+        return $this->hasMany(Dead::className(), ['memorial_id'=>'id'])->andWhere(['status'=>Dead::STATUS_NORMAL]);
+    }
+
+    public function incrementView()
+    {
+        $this->view_all++;
+        return $this->save();
     }
 }

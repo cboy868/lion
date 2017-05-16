@@ -14,7 +14,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cover')->fileInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'thumb')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'intro')->textarea(['rows' => 6]) ?>
 

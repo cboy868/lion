@@ -22,6 +22,7 @@ body { font-size:12px; color:#413c29; background:#c1e2d1 url(../images/cartoon/c
 .memorial-avatarbox dt { width:138px; height:154px; overflow:hidden; padding:47px 57px; margin-bottom:12px; background:url(../images/cartoon/photo_border.png) no-repeat top; }
 .memorial-avatarbox dt { display:block; }
 .memorial-avatarbox dd { width:204px; font-size:14px; line-height:1.5; padding-left:45px; }
+.memorial-avatarbox img{margin-top:-15px; margin-left:-20px;}
 .memorial-info { width:384px; height:auto; color:#413c29; }
 .memorial-info dt { margin-bottom:16px; }
 .memorial-info dd { height:245px; line-height:1.5; overflow:auto; }

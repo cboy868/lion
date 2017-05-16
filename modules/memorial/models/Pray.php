@@ -2,6 +2,7 @@
 
 namespace app\modules\memorial\models;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -31,7 +32,7 @@ class Pray extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'memorial_id'], 'required'],
+            [['user_id', 'memorial_id', 'type'], 'required'],
             [['user_id', 'memorial_id', 'order_id', 'created_at'], 'integer'],
             [['msg'], 'string'],
             [['type'], 'string', 'max' => 200],
@@ -52,5 +53,16 @@ class Pray extends \app\core\db\ActiveRecord
             'order_id' => '订单',
             'created_at' => '添加时间',
         ];
+    }
+
+    public static function prayCount($memorial_id)
+    {
+        $list = self::find()->where(['memorial_id'=>$memorial_id])
+                            ->groupBy('type')
+                            ->select(['COUNT(*) AS num', 'type'])
+                            ->asArray()
+                            ->all();
+
+        return $list;
     }
 }

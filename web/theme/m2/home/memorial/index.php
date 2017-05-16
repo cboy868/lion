@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Url;
+?>
 <link rel="stylesheet" type="text/css" href="/theme/m2/static/gls/css/memorial.css">
 <div class="memorial common">
 	<div class="container bgcolor1">
@@ -236,80 +239,16 @@
 					<span class="txtb">祭祀购买记录</span>
 				</h2>
 				<div class="det">
-					<div class="record_tit">
-                    	<h3>用户</h3>
-                        <h3>纪念馆</h3>
-                        <h3>购买商品</h3>
-                        <h3>购买时间</h3>
-                    </div>
                     <div class="record_con">
-                    	<div class="record_li">
+                        <div class="record_li" style="height: auto;">
+                            <?php foreach ($list as $v): ?>
                         	<div class="items items_user">
-                            	<a class="userimg" href="#"><img src="/theme/m2/static/gls/img/memorial/a_03.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">何倩</a></p>
+                            	<a class="userimg" href="<?=Url::toRoute(['/memorial/home/default/view', 'id'=>$v->id])?>">
+                                    <img src="<?=$v->getCover('58x58')?>" alt="" />
+                                </a>
+                                <p class="txtcen"><a href="#"><?=$v->title?></a></p>
                             </div>
-                            <div class="items items_memorial">
-                            	<a class="memorialimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">某纪念馆</a></p>
-                            </div>
-                            <div class="items items_goods">
-                            	<a class="goodsimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">鲜花</a></p>
-                            </div>
-                            <div class="items items_date">
-                            	<p class="txtcen">2013-11-19</p>
-                            </div>
-                        </div>
-                        <div class="record_li">
-                        	<div class="items items_user">
-                            	<a class="userimg" href="#"><img src="/theme/m2/static/gls/img/memorial/a_03.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">何倩</a></p>
-                            </div>
-                            <div class="items items_memorial">
-                            	<a class="memorialimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">某纪念馆</a></p>
-                            </div>
-                            <div class="items items_goods">
-                            	<a class="goodsimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">鲜花</a></p>
-                            </div>
-                            <div class="items items_date">
-                            	<p class="txtcen">2013-11-19</p>
-                            </div>
-                        </div>
-                        <div class="record_li">
-                        	<div class="items items_user">
-                            	<a class="userimg" href="#"><img src="/theme/m2/static/gls/img/memorial/a_03.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">何倩</a></p>
-                            </div>
-                            <div class="items items_memorial">
-                            	<a class="memorialimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">某纪念馆</a></p>
-                            </div>
-                            <div class="items items_goods">
-                            	<a class="goodsimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">鲜花</a></p>
-                            </div>
-                            <div class="items items_date">
-                            	<p class="txtcen">2013-11-19</p>
-                            </div>
-                        </div>
-                        <div class="record_li">
-                        	<div class="items items_user">
-                            	<a class="userimg" href="#"><img src="/theme/m2/static/gls/img/memorial/a_03.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">何倩</a></p>
-                            </div>
-                            <div class="items items_memorial">
-                            	<a class="memorialimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">某纪念馆</a></p>
-                            </div>
-                            <div class="items items_goods">
-                            	<a class="goodsimg" href="#"><img src="/theme/m2/static/gls/img/memorial/ava_small.gif" alt="" /></a>
-                                <p class="txtcen"><a href="#">鲜花</a></p>
-                            </div>
-                            <div class="items items_date">
-                            	<p class="txtcen">2013-11-19</p>
-                            </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
 				</div>

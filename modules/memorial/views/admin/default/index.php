@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             'title',
-            'cover:image',
+            'thumb',
             // 'intro:ntext',
             'privacy',
             // 'view_all',

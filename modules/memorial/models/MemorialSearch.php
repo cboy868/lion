@@ -19,7 +19,7 @@ class MemorialSearch extends Memorial
     {
         return [
             [['id', 'user_id', 'tomb_id', 'privacy', 'view_all', 'com_all', 'tpl', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['title', 'cover', 'intro'], 'safe'],
+            [['title', 'thumb', 'intro'], 'safe'],
         ];
     }
 
