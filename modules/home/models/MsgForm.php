@@ -4,7 +4,7 @@ namespace app\modules\home\models;
 
 use Yii;
 use yii\base\Model;
-use app\modules\shop\models\Message;
+use app\modules\cms\models\Message;
 use app\modules\client\models\Client;
 
 /**
@@ -25,7 +25,8 @@ class MsgForm extends Model
 	public $qq;
 	public $email;
 	public $skype;
-	public $goods_id;
+	public $res_id;
+	public $res_name;
 
 	public $verifyCode;
 
@@ -47,7 +48,7 @@ class MsgForm extends Model
     {
         return [
             'id' => 'ID',
-            'goods_id' => '产品id',
+            'res_id' => '产品id',
             'title' => '留言主题',
             'term' => '回复截止',
             'company' => '公司名',
@@ -77,7 +78,7 @@ class MsgForm extends Model
                 $msg->qq = $this->qq;
                 $msg->skype = $this->skype;
                 $msg->intro = $this->intro;
-                $msg->goods_id = $this->goods_id;
+                $msg->res_id = $this->res_id;
                 $msg->save();
 
                 $client = new Client();

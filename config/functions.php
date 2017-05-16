@@ -297,7 +297,7 @@ function g($name)
 //		return $nav[$name];
 //	}
 
-	return Yii::$app->params[$name];
+	return isset(Yii::$app->params[$name]) ? Yii::$app->params[$name] : '';
 }
 
 function utf8_strlen($string = null) {
