@@ -23,8 +23,8 @@ class HomeController extends \app\core\web\HomeController
         $this->view->theme->pathMap = [
 
             '@app/modules/home/views/default' => '@app/web/theme/'.$model->svalue.'/home/home',
-//            '@app/modules/cms/views/home/album' => '@app/web/theme/'. $model->svalue .'/home/album',
-//            '@app/modules/cms/views/home/post' => '@app/web/theme/' . $model->svalue . '/home/post',
+            '@app/modules/cms/views/home/album' => '@app/web/theme/'. $model->svalue .'/home/images',
+            '@app/modules/cms/views/home/post' => '@app/web/theme/' . $model->svalue . '/home/post',
             '@app/modules/cms/views/home/message' => '@app/web/theme/' . $model->svalue . '/home/message',
             '@app/modules/news/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/news',
             '@app/modules/shop/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/shop',
