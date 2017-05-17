@@ -14,6 +14,6 @@ return [
     ],   
     'messageConfig'=>[  
        'charset'=>'UTF-8',  
-       'from'=>['cboy868@163.com'=>'公司名']  
+       'from'=>['cboy868@163.com'=>'公司网站']
     ],  
 ];

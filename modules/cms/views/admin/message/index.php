@@ -45,7 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
 //                'headerOptions' => ["data-type"=>"html"],
 //                'label' => '商品名',
 //                'value' => function($model){
-//                    return '<a href="'.Url::toRoute(['/default/product/view', 'id'=>$model->goods_id]).'" target="_blank">'.$model->goods->name.'</a>';
+//                        $goods_name = isset($model->goods) ? $model->goods->name : '';
+//                        return '<a href="'.Url::toRoute(['/home/product/view', 'id'=>$model->goods_id]).'" target="_blank">'.$goods_name.'</a>';
 //                },
 //                'format' => 'raw'
 //            ],
