@@ -127,6 +127,7 @@ class Ueditor extends InputWidget {
     public function registerScripts() {
         UAsset::register($this->view);
         $jsonOptions = Json::encode($this->jsOptions);
+        $this->id = str_replace('-', '_', $this->id);
         $script = "editor_".$this->id." = UE.getEditor('{$this->id}', " . $jsonOptions . ")";
         $this->view->registerJs($script, View::POS_READY);
     }

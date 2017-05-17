@@ -44,7 +44,6 @@ function getFullAction()
 function news($category_id=null, $limit=10, $thumb=null, $type=null)
 {
 
-
     $query = News::find()->where(['status'=>News::STATUS_NORMAL]);
     if ($category_id !== null) {
         $query->andWhere(['category_id'=>$category_id]);
@@ -234,45 +233,45 @@ function productList($category_id=null,$rows=10, $thumb='')
 /**
  * @name 取文章列表 
  */
-function postList($mod, $category_id=null, $rows=null)
-{
-	Code::createObj('post', $mod);
-	$class = '\app\modules\cms\models\mods\Post' . $mod;
+//function postList($mod, $category_id=null, $rows=null)
+//{
+//	Code::createObj('post', $mod);
+//	$class = '\app\modules\cms\models\mods\Post' . $mod;
+//
+//	if ($category_id !== null) {
+//		$list = $class::find()->where(['category_id'=>$category_id])->limit($rows)->asArray()->all();
+//	} else {
+//		$list = $class::find()->limit($rows)->asArray()->all();
+//	}
+//
+//	$post_ids = ArrayHelper::getColumn($list, 'id');
+//
+//	$dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
+//	$datas = $dataClass::find()->where(['post_id'=>$post_ids])->indexBy('post_id')->asArray()->all();
+//
+//	foreach ($list as &$v) {
+//		$v['body'] = $datas[$v['id']]['body'];
+//		$v['thumb'] = Attachment::getById($v['thumb'],'200x200');
+//		$v['url'] = Url::toRoute(['about-view', 'mod'=>$mod, 'id'=>$v['id']]);
+//	}unset($v);
+//
+//	return $list;
+//}
 
-	if ($category_id !== null) {
-		$list = $class::find()->where(['category_id'=>$category_id])->limit($rows)->asArray()->all();
-	} else {
-		$list = $class::find()->limit($rows)->asArray()->all();
-	}
-	
-	$post_ids = ArrayHelper::getColumn($list, 'id');
-
-	$dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
-	$datas = $dataClass::find()->where(['post_id'=>$post_ids])->indexBy('post_id')->asArray()->all();
-
-	foreach ($list as &$v) {
-		$v['body'] = $datas[$v['id']]['body'];
-		$v['thumb'] = Attachment::getById($v['thumb'],'200x200');
-		$v['url'] = Url::toRoute(['about-view', 'mod'=>$mod, 'id'=>$v['id']]);
-	}unset($v);
-
-	return $list;
-}
-
-function postDetail($mod, $id)
-{
-	Code::createObj('post', $mod);
-	$class = '\app\modules\cms\models\mods\Post' . $mod;
-	$dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
-
-	$model = $class::findOne($id);
-	$model->view_all += 1;
-	$model->save();
-	$post = $model->toArray();
-	$data = $dataClass::findOne($id)->toArray();
-
-	return array_merge($post, $data);
-}
+//function postDetail($mod, $id)
+//{
+//	Code::createObj('post', $mod);
+//	$class = '\app\modules\cms\models\mods\Post' . $mod;
+//	$dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
+//
+//	$model = $class::findOne($id);
+//	$model->view_all += 1;
+//	$model->save();
+//	$post = $model->toArray();
+//	$data = $dataClass::findOne($id)->toArray();
+//
+//	return array_merge($post, $data);
+//}
 
 function links($rows)
 {

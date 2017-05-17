@@ -39,7 +39,7 @@ class Module extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['module', 'name'], 'required'],
+            [['module', 'name', 'mid'], 'required'],
             [['order', 'show', 'created_at'], 'integer'],
             [['intro'], 'string'],
             [['module', 'name', 'dir', 'link', 'logo'], 'string', 'max' => 255],
@@ -85,6 +85,7 @@ class Module extends \yii\db\ActiveRecord
             'logo' => 'Logo',
             'created_at' => '添加时间',
             'intro' => '简述',
+
         ];
     }
 
@@ -114,22 +115,23 @@ class Module extends \yii\db\ActiveRecord
 
     public static function deleteMod($model)
     {
-        $tables = Yii::$app->controller->module->params['table'][$model->module];
+        $tables = Yii::$app->getModule('mod')->params['table'][$model->module];
 
         foreach ($tables as $k => $mod) {
-            self::deleteTable($k, $model->id);
+            self::deleteTable($k, $model->mid);
         }
 
-        self::delData($model->module, $model->id);
+        self::delData($model->module, $model->mid);
     }
 
 
     public static function createModels($module)
     {
-        $tables = Yii::$app->controller->module->params['table'][$module->module];
+
+        $tables = Yii::$app->getModule('mod')->params['table'][$module->module];
 
         foreach ($tables as $k => $model) {
-            self::createTable($k, $module->id);
+            self::createTable($k, $module->mid);
         }
     }
 }

@@ -15,13 +15,17 @@ use app\modules\cms\models\Category;
 
     <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('模块名') ?>
 
     <?= $form->field($model, 'covert')->fileInput() ?>
 
     <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'res_name')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'seo_title')->textInput() ?>
+
+    <?= $form->field($model, 'seo_keywords')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'seo_description')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

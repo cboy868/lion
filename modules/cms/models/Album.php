@@ -85,7 +85,7 @@ class Album extends \app\core\db\ActiveRecord
 
     public function getImg($size='')
     {
-        return Attachment::getById($this->thumb, $size);
+        return AlbumImage::getById($this->thumb, $size);
     }
 
 
@@ -150,7 +150,14 @@ class Album extends \app\core\db\ActiveRecord
      */
     public function updateNum()
     {
-        $count = AlbumImage::find()->where(['album_id'=>$this->id, 'status'=>self::STATUS_NORMAL])->count();
+        $table = static::tableName();
+        $table = str_replace(['{{', '}}'], '', $table);
+        $mod = substr($table, strpos($table, '_')+1);
+        $count = AlbumImage::find()->where([
+            'album_id'=>$this->id,
+            'status'=>self::STATUS_NORMAL,
+            'mod' => $mod
+            ])->count();
         $this->photo_num = $count;
         return $this->save();
     }

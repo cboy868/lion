@@ -140,7 +140,6 @@ class PostController extends BackController
 
         $modInfo = Module::findOne($mod);
 
-        $attach = [];
         $command = (new \yii\db\Query())
             // ->select(['id', 'email'])
             ->from('module_field')

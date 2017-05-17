@@ -172,7 +172,7 @@ class DefaultController extends BackController
         $id = Yii::$app->request->get('id');
         $modInfo = Module::findOne($id);
 
-        $queryParams['FieldSearch']['table'] = $modInfo->module .'_'. $id;
+        $queryParams['FieldSearch']['table'] = $modInfo->module .'_'. $modInfo->mid;
 
         $dataProvider = $searchModel->search($queryParams);
 
@@ -205,8 +205,9 @@ class DefaultController extends BackController
 
             $outerTransaction = Yii::$app->db->beginTransaction();
             try {
+                $mod = Module::findOne($id);
 
-                $model->table = $model->table .'_'. $id;
+                $model->table = $model->table .'_'. $mod->mid;
                 $model->save();
 
                 $type = $fieldType[$model->html];

@@ -13,15 +13,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'pid') ?>
-
-    <?= $form->field($model, 'level') ?>
-
-    <?= $form->field($model, 'code') ?>
-
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'name')->label('模块名') ?>
 
     <?php // echo $form->field($model, 'cover') ?>
 

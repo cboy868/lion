@@ -8,7 +8,7 @@ use app\assets\AdminAsset;
 use yii\helpers\Url;
 use app\modules\sys\models\Menu;
 
-use app\modules\mod\models\Module;
+//use app\modules\mod\models\Module;
 /* @var $this \yii\web\View */
 /* @var $content string */
 $menu = Menu::getList();
@@ -466,33 +466,6 @@ AdminAsset::register($this);
                         </li>
                     <?php endforeach;?>
 
-
-                    <?php 
-                        $list = Module::find()->asArray()->all();
-                     ?>
-
-                    <li class="p-menu">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-list"></i>
-                            <span class="menu-text">模块管理</span>
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-                        <b class="arrow"></b>
-                        <ul class="submenu nav-show" style="display: block;">
-                        <?php foreach ($list as $k => $v): ?>
-                            <li class="<?php if ($v['id'] == \Yii::$app->request->get('mod')) { echo 'active'; } ?>" rel="">
-                            <?php if (Yii::$app->urlManager->enablePrettyUrl): ?>
-                                <a href="<?=Url::toRoute(['/admin/cms/' . $v['module'], 'mod'=>$v['id']]);?>"><i class="menu-icon fa "></i><?=$v['name']?></a>
-                            <?php else: ?>
-                                <a href="<?=Url::toRoute(['/cms/admin/' . $v['module'], 'mod'=>$v['id']]);?>"><i class="menu-icon fa "></i><?=$v['name']?></a>
-                            <?php endif ?>
-                                <b class="arrow"></b>
-                            </li>
-                        <?php endforeach ?>
-
-                        </ul>
-                    </li>
-                
                 </ul><!-- /.nav-list -->
 
                 

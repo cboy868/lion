@@ -22,7 +22,7 @@ class Areaup extends Widget {
      */
     public function run() {
 
-        $this->options['server'] = \yii\helpers\Url::toRoute(['web-upload']);
+        $this->options['server'] = isset($this->options['server'])? $this->options['server']:\yii\helpers\Url::toRoute(['web-upload']);
         $this->options['id'] = isset($this->options['id']) ? $this->options['id'] : '';
 
         AreaAsset::register($this->view);

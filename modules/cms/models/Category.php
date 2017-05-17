@@ -39,11 +39,11 @@ class Category extends \app\core\models\Category
     public function rules()
     {
         return [
-            [['pid', 'level', 'cover', 'sort', 'is_leaf', 'created_at', 'status'], 'integer'],
+            [['pid', 'level', 'thumb', 'sort', 'is_leaf', 'created_at', 'status'], 'integer'],
             [['body', 'seo_description'], 'string'],
             [['name'], 'required'],
-            [['res_name', 'code', 'name', 'seo_title', 'seo_keywords'], 'string', 'max' => 255],
-            [['covert'], 'safe']
+            [['name', 'seo_title', 'seo_keywords'], 'string', 'max' => 255],
+            [['covert', 'res_name', 'code'], 'safe']
         ];
     }
 
@@ -68,6 +68,11 @@ class Category extends \app\core\models\Category
             'res_name' => '资源类型',
             'covert' => '封面'
         ];
+    }
+
+    public function getMod()
+    {
+        return $this->res_name;
     }
 
 

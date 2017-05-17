@@ -272,7 +272,6 @@ class AlbumController extends BackController
                           ->execute();
 
         return $this->json();
-        
     }
 
     /**

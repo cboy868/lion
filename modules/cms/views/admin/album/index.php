@@ -91,7 +91,10 @@ $category_id = Yii::$app->getRequest()->get('category_id');
  ?>
             <div class="col-sm-12 col-md-2">
                  <ul class="nav nav-list">
-                     <?=  Html::a('<i class="fa fa-plus"></i> 添加顶级分类', ['/cms/admin/category/create','res_name'=>'album'.$mod], ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+                     <?=  Html::a('<i class="fa fa-plus"></i> 添加顶级分类',
+                         ['/cms/admin/category/create','res_name'=>'album'.$mod],
+                         ['class' => 'btn btn-primary btn-sm modalAddButton', 'style'=>'width:100%',
+                             "data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
                      <li>
                          
                          <a href="<?=Url::toRoute(['index', 'mod'=>$mod, 'category_id'=>0])?>" class="dropdown-toggle">

@@ -2,7 +2,6 @@
 
 namespace app\modules\cms\controllers\admin;
 
-use app\modules\mod\models\Module;
 use Yii;
 use app\modules\cms\models\Category;
 use app\modules\cms\models\CategorySearch;
@@ -34,17 +33,11 @@ class CategoryController extends BackController
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
 
-        $params = Yii::$app->request->queryParams;
-        $params['CategorySearch']['pid'] = 0;
-        $dataProvider = $searchModel->search($params);
-
+        $tree = Category::sortTree();
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'cate' => $tree,
         ]);
-
     }
 
     /**
@@ -54,19 +47,8 @@ class CategoryController extends BackController
      */
     public function actionView($id)
     {
-        $mod = $this->findModel($id);
-        $searchModel = new CategorySearch();
-        $params = Yii::$app->request->queryParams;
-        $params['CategorySearch']['pid'] = $id;
-        $dataProvider = $searchModel->search($params);
-
-        $current = $this->findModel($id);
-
         return $this->render('view', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'mod' => $mod,
-            'current' => $current
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -85,54 +67,21 @@ class CategoryController extends BackController
             $model->pid = $request->get('pid');
         }
 
-        $transaction = Yii::$app->db->beginTransaction();
-
         if (Yii::$app->request->isPost) {
+            $model->load($request->post());
+            $upload = Upload::getInstance($model, 'covert', 'cms_category');
 
-            try {
-                $model->load($request->post());
-                $upload = Upload::getInstance($model, 'covert', 'cms_category');
+            if ($upload) {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $upload->save();
 
-                if ($upload) {
-                    $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
-                    $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-                    $upload->save();
+                $info = $upload->getInfo();
 
-                    $info = $upload->getInfo();
-
-                    $model->thumb = $info['mid'];
-                }
-
-                if ($model->pid != 0) {
-                    $model->res_name = $model->parent->res_name;
-                }
-
-                $model->save();
-
-                if ($model->pid == 0) {
-                    $model->res_name = $model->id;
-                    $model->save();
-
-                    $mod = new Module();
-                    $mod->mid = $model->id;
-                    $mod->module = 'post';
-                    $mod->name = $model->name;
-                    $mod->save();
-                    Module::createModels($mod);
-
-                    $mod = new Module();
-                    $mod->mid = $model->id;
-                    $mod->module = 'album';
-                    $mod->name = $model->name;
-                    $mod->save();
-                    Module::createModels($mod);
-                }
-
-                $transaction->commit();
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                throw $e;
+                $model->thumb = $info['mid'];
             }
+
+            $model->save();
 
             $uri = $_SERVER["HTTP_REFERER"];
 
@@ -188,24 +137,7 @@ class CategoryController extends BackController
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        $mid = $model->res_name;
-        $model->delete();
-
-        if ($model->pid == 0) {
-            $mods = Module::find()->where(['mid'=>$mid])->all();
-
-            foreach ($mods as $m) {
-                Module::deleteMod($m);
-                $m->delete();
-            }
-
-            Yii::$app->db->createCommand()
-                ->delete(Category::tableName(),[
-                    'res_name' => $mid,
-                ])->execute();
-        }
-
+        $this->findModel($id)->delete();
         return $this->redirect($_SERVER["HTTP_REFERER"]);
     }
 
