@@ -18,8 +18,7 @@ return [
 
     //博客
     'blogs.html' => 'blog/home/default/index',
-    'blog.html' => 'blog/member/default/index',
-    'blog/<id:\d+>.html' => 'blog/member/default/view',
+
 
     //商品列表
     'products.html' => 'shop/home/default/index',

@@ -274,6 +274,7 @@ table.xheLayout { table-layout:fixed; }
 input.ya-input{padding:2px;border:1px solid #c8c8ba}
 
 /*分页*/
-.pagination.yw-page li{ float: left; margin-right: 2px;}
-.pagination.yw-page li a{ border: 1px solid #5E594C; border-radius: 4px; display: block; height: 28px; line-height: 27px; padding: 0 9px;}
-.pagination.yw-page li.active a{ background: #dfd3b1; box-shadow: 0 2px 3px rgba(0,0,0,.3) inset;}
+.pagination li{ float: left; margin-right: 2px;}
+.pagination li a{ border: 1px solid #5E594C; border-radius: 4px; display: block; height: 28px; line-height: 27px; padding: 0 9px;}
+.pagination li.active a{ background: #dfd3b1; box-shadow: 0 2px 3px rgba(0,0,0,.3) inset;}
+.pagination li span{ border: 1px solid #5E594C; border-radius: 4px; display: block; height: 28px; line-height: 27px; padding: 0 9px;}

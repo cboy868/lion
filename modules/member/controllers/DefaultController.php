@@ -62,7 +62,6 @@ class DefaultController extends \app\core\web\MemberController
         return $this->render('index');
     }
 
-
     protected function _theme() {
         $model = \app\modules\sys\models\Set::findOne('theme');
 
@@ -70,6 +69,8 @@ class DefaultController extends \app\core\web\MemberController
             '@app/modules/member/views/default' => '@app/web/theme/'.$model->svalue.'/member/default',
             '@app/modules/member/views/layouts' => '@app/web/theme/' . $model->svalue . '/member/layouts',
             '@app/modules/blog/views/member/default' => '@app/web/theme/' . $model->svalue . '/member/blog',
+            '@app/modules/blog/views/member/album' => '@app/web/theme/' . $model->svalue . '/member/album',
+            '@app/modules/blog/views/member/video' => '@app/web/theme/' . $model->svalue . '/member/video',
         ];
     }
 

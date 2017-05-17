@@ -53,9 +53,9 @@ class DefaultController extends \app\modules\home\controllers\HomeController
         $prays = Pray::prayCount($id);
 
         //取评论
-        $comments = Comment::getByRes('memorial', $id);
-
+        $comments = Comment::getByRes('memorial', $id, 15);
         $model->incrementView();
+
 
     	return $this->render('view', [
     	    'model'=>$model,
@@ -90,9 +90,14 @@ class DefaultController extends \app\modules\home\controllers\HomeController
         $post = Yii::$app->request->post();
         $content = $post['content'];
 
-        $result = Comment::create('memorial', $id, $content, 0, Comment::PRIVACY_PUBLIC, 0);
+        if (!$content) {
+            return $this->json(null,null,0);
+        }
 
-        return $this->json($result, null, 1);
+        Comment::create('memorial', $id, $content, 0, Comment::PRIVACY_PUBLIC, 0);
+        $result = Comment::getByRes('memorial', $id, 1);
+
+        return $this->json($result['list'], null, 1);
     }
 
 }

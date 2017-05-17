@@ -1,4 +1,5 @@
 <?php
+use yii\widgets\LinkPager;
 \app\assets\VueAsset::register($this);
 ?>
 <link rel="stylesheet" href="/theme/m2/static/modules/memorial/css/<?=$model->tpl?>.css" type="text/css">
@@ -253,19 +254,19 @@
                 </div>
                 <div id="commentList">
                     <ol class="leave-msglist comList" id="comment-box">
-                        <?php foreach ($comments['list'] as $v):?>
-                        <li class="clearfix aComment new" style="display:list-item" data-id="">
+
+                        <li class="clearfix aComment new" style="display:list-item" data-id="" v-for="cm in comments">
                             <a rel="avatar-a" href="#" target="_blank" class="left avatar">
-                                <img rel="avatar" alt="<?=$v->fromUser->username?>" src="<?=$v->fromUser->getAvatar('45x45')?>">
+                                <img rel="avatar" alt="#" :src="cm.avatar">
                             </a>
                             <div class="leave-msgbody">
                                 <h6>
                                     <span class="ip right">
-                                        <span rel="time" class="time"><?=date('Y-m-d H:i', $v->created_at)?></span>
+                                        <span rel="time" class="time">{{cm.date}}</span>
                                     </span>
                                     <!-- -- user ---->
                                     <span>
-                                      <a class="green" rel="username" href="#" target="_blank"><?=$v->fromUser->username?></a>
+                                      <a class="green" rel="username" href="#" target="_blank" v-model="cm.username"></a>
                                     </span>说：
                                     <!-- user -->
                                 </h6>
@@ -273,17 +274,31 @@
                                 <div rel="content" class="leave-msgcontent main-comment-content">
                                     <span style="color:#413c29;">
                                         <span style="font-size:14px;">
-                                            <span style="font-family:宋体;">
-                                                <?=$v->content?>
+                                            <span style="font-family:宋体;" v-html="cm.content">
                                             </span>
                                         </span>
                                     </span>
                                 </div>
                             </div>
                         </li>
-                        <?php endforeach;?>
+
                     </ol>
+
+                    <div class="commPager" style="float:right;">
+                        <?php
+                        echo LinkPager::widget([
+                            'pagination' => $comments['pagination'],
+                            'nextPageLabel' => '下一页',
+                            'prevPageLabel' => '上一页',
+                            'firstPageLabel' => '首页',
+                            'lastPageLabel' => '尾页',
+                        ]);
+                        ?>
+                    </div>
                 </div>
+
+
+
                 <div style="clear:both;margin-bottom:10px"></div>
             </div>
         </div>
@@ -303,21 +318,25 @@
 
         <div id="wish-video" class="cornner12">
             <h4 class="cornert12">思念视频</h4>
-            <a class="add-btns" href="http://gls.gls024.com/member/video/addvideo?mid=2931" target="_blank">添加视频</a>              <div class="friendly-tip cornerb12">暂时没有思念视频，点击<a class="gray" href="http://gls.gls024.com/home/memorial/detail/id/2931" target="_blank">此处</a>添加</div>
+            <a class="add-btns" href="#" target="_blank">添加视频</a>
+            <div class="friendly-tip cornerb12">暂时没有思念视频，点击
+                <a class="gray" href="#" target="_blank">此处</a>添加</div>
 
         </div>
 
         <!-- 思念文章 -->
         <div id="wish-article" class="corner12">
-            <a class="add-btns" href="http://gls.gls024.com/member/blog/add?mid=2931" target="_blank">添加文章</a>
+            <a class="add-btns" href="#" target="_blank">添加文章</a>
             <h4 class="cornert12">思念文章</h4>
-            <div class="friendly-tip cornerb12">暂时没有思念文章，点击<a class="gray" href="http://gls.gls024.com/home/memorial/detail/id/2931" target="_blank">此处</a>添加</div>
+            <div class="friendly-tip cornerb12">暂时没有思念文章，点击
+                <a class="gray" href="#" target="_blank">此处</a>添加</div>
         </div>
 
         <div id="memorial-album" class="corner12">
-            <a class="add-btns" href="http://gls.gls024.com/member/album/addphoto?mid=2931" target="_blank">添加相册</a>
+            <a class="add-btns" href="#" target="_blank">添加相册</a>
             <h4 class="cornert12">纪念相册</h4>
-            <div class="friendly-tip cornerb12">暂时没有思念相册，点击<a href="http://gls.gls024.com/home/memorial/detail/id/2931" class="gray" target="_blank">此处</a>添加</div>
+            <div class="friendly-tip cornerb12">暂时没有思念相册，点击
+                <a href="#" class="gray" target="_blank">此处</a>添加</div>
 
         </div>
 
@@ -349,8 +368,6 @@
 </div>
 
 
-
-
 <?php $this->beginBlock('memorial') ?>
 
 $(function(){
@@ -361,6 +378,7 @@ $(function(){
             jisiUrl:"<?=\yii\helpers\Url::toRoute(['/memorial/home/default/jisi', 'id'=>$model->id])?>",
             commentUrl:"<?=\yii\helpers\Url::toRoute(['/memorial/home/default/comment', 'id'=>$model->id])?>",
             csrf : "<?=Yii::$app->request->getCsrfToken()?>",
+            comments:<?=json_encode($comments['list'])?>
         },
         methods:{
             song(type){
@@ -372,12 +390,15 @@ $(function(){
             },
             comment(){
                 var content = editor_comment.getContent();
+                if (!content) {return;}
                 this.$http.post(this.commentUrl, {content:content,_csrf:this.csrf},{emulateJSON:true}).then(function(response){
-                    //this.$set(this, 'jisi',response.data.data);
-                    console.dir(response.data);
+                    if (response.data.status) {
+                        this.$set(this, 'comments', response.data.data.concat(this.comments));
+                    }
                 }, function(response){
 
                 });
+                editor_comment.setContent('');
             }
         }
     });

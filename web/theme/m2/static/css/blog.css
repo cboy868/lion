@@ -5,7 +5,7 @@
 #main-content { width:796px; float:right; }
 #myblog {
 	/*width:708px; */
-	border:1px solid #dddcc0; padding:20px 18px; overflow:hidden;
+	border-left:1px solid #dddcc0; padding:20px 18px; overflow:hidden;
 	/*background:#FEF7DE;*/
 	background:#ffffff;
 }
@@ -131,7 +131,10 @@ span.sorts-add { font-size:12px; color:#773000; }
 .marginright30 { margin-right:30px !important; }
 .greens { color:#4D4949; }
 .float-texts { height:20px; line-height:20px; margin-left:10px; }
-.my-album-list { overflow:hidden; padding:15px 25px 30px; border:1px solid #dddcc0; background:#FEF7DE; }
+.my-album-list { overflow:hidden; padding:15px 25px 30px;
+	border-left:1px solid #dddcc0;
+	/*background:#FEF7DE; */
+}
 .my-album-list h4.my-album-title,.my-album-list h2 { height:0px; background:url(../images/center/my_aldum_03.png) no-repeat; margin:0 0 17px -5px; overflow:hidden; padding-top:25px; }
 .album-route { padding-left:20px; color:#000; }
 .album-list2 .intro { padding:0 16px 20px; line-height:1.6; color:#555; text-indent:2em; }

@@ -87,7 +87,7 @@ class Comment extends \app\core\db\ActiveRecord
         return $this->hasOne(User::className(), ['id'=>'from']);
     }
 
-    public static function getByRes($res_name, $res_id, $limit=20)
+    public static function getByRes($res_name, $res_id, $limit=20, $thumb='45x45')
     {
         $query = self::find()->where(['status'=>self::STATUS_NORMAL])
                             ->andWhere(['res_name'=>$res_name, 'res_id'=>$res_id]);
@@ -97,9 +97,20 @@ class Comment extends \app\core\db\ActiveRecord
         $list = $query->orderBy('id desc')
                     ->offset($pagination->offset)
                     ->limit($pagination->limit)
+//                    ->asArray()
                     ->all();
 
-        return ['list'=>$list, 'pagination'=>$pagination];
+
+        $result = [];
+        foreach ($list as $k => $v) {
+            $tmp = $v->toArray();
+            $tmp['avatar'] = $v->fromUser->getAvatar($thumb);
+            $tmp['date'] = date('Y-m-d H:i', $v->created_at);
+            $tmp['username'] = $v->fromUser->username;
+            $result[] = $tmp;
+        }
+
+        return ['list'=>$result, 'pagination'=>$pagination];
 
 
     }
