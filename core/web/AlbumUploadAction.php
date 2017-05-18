@@ -49,6 +49,10 @@ class AlbumUploadAction extends Action
             if ($this->type == 'news') {
                 $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\modules\news\models\NewsPhoto', 'db']);
             }
+
+            if ($this->type == 'blog_album') {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\modules\blog\models\AlbumPhoto', 'db']);
+            }
             
             $upload->save();
 

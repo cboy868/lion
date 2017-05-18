@@ -323,7 +323,8 @@ $(function() {
                     $prgress.css('display', 'block');
                 } else if ( cur === 'complete' ) {
                     $li.append( '<span class="success"></span>' );
-                    location.reload();
+                    var reload = $('#uploader .reload').val();
+                    if (reload)  location.reload();
                 }
 
                 $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
@@ -581,10 +582,9 @@ $(function() {
         });
 
         uploader.on( 'uploadSuccess', function( file, response ) {
-
             // $('#'+file.id).find('.addition .imgurl').val(response.data.web_url);
 
-            $('#'+file.id).find('.addition .mid').val(response.data.mid);
+            $('#'+file.id).find('.mid').val(response.data.mid);
 
         });
 

@@ -1,5 +1,5 @@
 <div id="wrapper">
-    <div id="container">
+    <div id="webcontainer">
         <!--头部，相册选择和格式选择-->
 
         <div id="uploader">

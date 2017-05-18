@@ -3,7 +3,7 @@
 namespace app\modules\blog\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%blog_album}}".
  *
@@ -37,13 +37,20 @@ class Album extends \app\core\db\ActiveRecord
         return '{{%blog_album}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['title', 'created_at', 'updated_at'], 'required'],
+            [['title'], 'required'],
             [['summary', 'body'], 'string'],
             [['thumb', 'sort', 'recommend', 'is_customer', 'is_top', 'memorial_id', 'privacy', 'view_all', 'com_all', 'num', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
             [['title'], 'string', 'max' => 255],

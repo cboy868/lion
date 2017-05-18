@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+$user = Yii::$app->user->identity;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -60,7 +62,7 @@ use yii\helpers\Url;
     <div id="site-navleft">
         <ul>
             <li class="site-user">
-                <a href="/member/index" target="_blank">观陵山网络</a>，您好！
+                <a href="/member/index" target="_blank"><?=$user->username?></a>，您好！
 
                 <a href="<?=Url::toRoute(['/admin'])?>" target="_blank">管理中心</a>
                 <a href="#" id="signOut">退出</a>
@@ -81,7 +83,7 @@ use yii\helpers\Url;
 <div id="nav">
     <div class="container">
         <div class="right">
-            <a href="#">观陵山网络</a>
+            <a href="#"><?=$user->username?></a>
             <a href="#" id="signOut">退出</a>
         </div>
         <ul class="clearfix">
@@ -97,13 +99,13 @@ use yii\helpers\Url;
     </div>
 </div>
 <div id="container" class="pad12">
-    <div id="app-menu" class="corner12">
+    <div id="app-menu" class="">
 
         <div id="user-box">
             <a href="#" target="_blank" class="self-avatar">
-                <img src="#" alt="观陵山网络">
+                <img src="<?=$user->getAvatar('100x100')?>" alt="<?=$user->username?>">
             </a>
-            <span class="user-name">观陵山网络</span>
+            <span class="user-name"><?=$user->username?></span>
             <div class="home-func-box">
                 <!--
                  <a href="javascript:void(0)" id="hairAnnouncement" class="my-home home-func" style="font-size:14px;">发布公告</a><br />
@@ -114,13 +116,15 @@ use yii\helpers\Url;
             </div>
         </div>
         <ul id="my-menu">
-            <li class="my-blog"><a target="_blank" href="<?=Url::toRoute(['/blog/member/default/index'])?>">我的日志</a><a class="publish" href="http://gls.gls024.com/member/blog/add">发表</a></li>
-            <li class="my-album"><a target="_blank" href="<?=Url::toRoute(['/blog/member/album/index'])?>">我的相册</a><a class="publish" href="http://gls.gls024.com/member/album/addPhoto">上传</a></li>
-            <li class="my-video"><a target="_blank" href="<?=Url::toRoute(['/blog/member/video/index'])?>">我的视频</a><a class="publish" href="http://gls.gls024.com/member/video/add">发表</a></li>
-            <li class="my-relative"><a target="_blank" href="http://gls.gls024.com/member/memorial">我的纪念馆</a></li>
-            <li class="my-order"><a target="_blank" href="http://gls.gls024.com/member/order">我的订单</a></li>
-            <li class="my-task"><a target="_blank" href="http://gls.gls024.com/member/inscription/index">碑文确认</a></li>
-            <li class="my-collect"><a target="_blank" href="http://gls.gls024.com/member/fav/index?type=0">我的收藏</a></li>
+            <li class="my-blog"><a target="_blank" href="<?=Url::toRoute(['/blog/member/default/index'])?>">我的日志</a>
+                <a class="publish" href="<?=Url::toRoute(['/blog/member/default/create'])?>">发表</a></li>
+            <li class="my-album"><a target="_blank" href="<?=Url::toRoute(['/blog/member/album/index'])?>">我的相册</a>
+                <a class="publish" href="<?=Url::toRoute(['/blog/member/album/create'])?>">添加</a></li>
+            <li class="my-video"><a target="_blank" href="<?=Url::toRoute(['/blog/member/video/index'])?>">我的视频</a>
+                <a class="publish" href="<?=Url::toRoute(['/blog/member/video/create'])?>">发表</a></li>
+            <li class="my-relative"><a target="_blank" href="<?=Url::toRoute(['/memorial/member/default/index'])?>">我的纪念馆</a></li>
+            <li class="my-order"><a target="_blank" href="<?=Url::toRoute(['/order/member/default/index'])?>">我的订单</a></li>
+            <li class="my-task"><a target="_blank" href="<?=Url::toRoute(['/grave/member/ins/index'])?>">碑文确认</a></li>
         </ul>
     </div>
     <?=$content?>

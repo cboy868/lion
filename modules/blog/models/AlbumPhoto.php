@@ -3,7 +3,7 @@
 namespace app\modules\blog\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%blog_album_photo}}".
  *
@@ -33,6 +33,29 @@ class AlbumPhoto extends \app\core\db\ActiveRecord
     {
         return '{{%blog_album_photo}}';
     }
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
+    public static function db($event)
+    {
+        $post = Yii::$app->request->post();
+
+        $model = new self;
+        $model->path = $event->path;
+        $model->name = $event->fileName;
+        $model->ext = $event->ext;
+        $model->album_id = is_numeric($post['album_id']) ? $post['album_id'] : 0;
+        // $model->title = $event->title;
+        $model->title = substr($event->title, 0, strrpos($event->title, '.'));
+        $model->created_by = Yii::$app->user->id;
+        $model->save();
+
+        return $event->sender->mid = $model->id;
+    }
 
     /**
      * @inheritdoc
@@ -42,7 +65,7 @@ class AlbumPhoto extends \app\core\db\ActiveRecord
         return [
             [['album_id', 'sort', 'view_all', 'com_all', 'privacy', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
             [['body'], 'string'],
-            [['created_at', 'updated_at'], 'required'],
+            [['title', 'name', 'path'], 'required'],
             [['title', 'path', 'name', 'ip'], 'string', 'max' => 200],
             [['ext'], 'string', 'max' => 100],
         ];

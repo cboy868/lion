@@ -84,7 +84,8 @@ $mod = Yii::$app->getRequest()->get('mod');
                     'res_name'=>'album',
                     'album_id'=>$album->id,
                     'server' => Url::toRoute('album-upload'),
-                    'mod'=>Yii::$app->getRequest()->get('mod')]]);?>
+                    'mod'=>Yii::$app->getRequest()->get('mod')]]);
+            ?>
         </div>
 
 
