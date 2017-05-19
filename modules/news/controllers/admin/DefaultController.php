@@ -2,6 +2,7 @@
 
 namespace app\modules\news\controllers\admin;
 
+use app\core\models\TagRel;
 use Yii;
 use app\modules\news\models\News;
 use app\modules\news\models\NewsData;
@@ -84,6 +85,13 @@ class DefaultController extends BackController
         ]);
     }
 
+    private function tagCreate($str, $id)
+    {
+        $str = str_replace('，', ',', $str);
+        $tags = explode(',', $str);
+        TagRel::addTagRel($tags, 'news', $id);
+    }
+
     /**
      * Creates a new News model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -100,14 +108,19 @@ class DefaultController extends BackController
         $model = new $class();
 
         if ($model->load(Yii::$app->request->post()) ) {
+
             $news=$model->save();
             if ($news) {
+                if ($model->tags) {
+                    $this->tagCreate($model->tags, $news->id);
+                }
                 return $this->redirect(['index', 'type' => $news->type]);
             }
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'type' => $type
+                'type' => $type,
+                'tags' => ''
             ]);
         }
     }
@@ -135,12 +148,15 @@ class DefaultController extends BackController
 
         $method = 'update' . ucfirst($type);
 
-        return $this->$method($model);
+        $tags = TagRel::getTagsByRes('news', $id);
+        $tags = implode(',', ArrayHelper::getColumn($tags, 'tag_name')) ;
+
+        return $this->$method($model, $tags);
 
     }
 
 
-    public function updateText($model)
+    public function updateText($model, $tags)
     {
         $class = '\app\modules\news\models\NewsTextForm';
         $formModel = new $class();
@@ -154,7 +170,9 @@ class DefaultController extends BackController
         $req = Yii::$app->request;
 
         if ($model->load($req->post(), 'NewsTextForm') && $ndata->load($req->post(), 'NewsTextForm')) {
+
             if ($model->save() && $ndata->save()) {
+                $this->tagCreate($model->tags, $model->id);
                 return $this->redirect(['index', 'type' => $model->type]);
             }
         }
@@ -166,12 +184,13 @@ class DefaultController extends BackController
 
         return $this->render('update', [
             'model' => $formModel,
-            'type' => 'text'
+            'type' => 'text',
+            'tags' => $tags
         ]);
 
     }
 
-    public function updateImage($model)
+    public function updateImage($model, $tags)
     {
         $class = '\app\modules\news\models\NewsImageForm';
         $formModel = new $class();
@@ -203,6 +222,8 @@ class DefaultController extends BackController
                 }
             }
 
+            $this->tagCreate($model->tags, $model->id);
+
             return $this->redirect(['index', 'type' => $model->type]);
         }
 
@@ -217,11 +238,12 @@ class DefaultController extends BackController
         return $this->render('update', [
             'model' => $formModel,
             'type' => 'image',
-            'imgs' => $imgs
+            'imgs' => $imgs,
+            'tags' => $tags
         ]);
     }
 
-    public function updateVideo($model)
+    public function updateVideo($model, $tags)
     {
         $class = '\app\modules\news\models\NewsVideoForm';
         $formModel = new $class();
@@ -229,6 +251,7 @@ class DefaultController extends BackController
         $req = Yii::$app->request;
 
         if ($model->load($req->post(), 'NewsVideoForm') && $model->save()) {
+            $this->tagCreate($model->tags, $model->id);
             return $this->redirect(['index', 'type' => $model->type]);
         }
 
@@ -238,7 +261,8 @@ class DefaultController extends BackController
 
         return $this->render('update', [
             'model' => $formModel,
-            'type' => 'video'
+            'type' => 'video',
+            'tags' => $tags
         ]);
     }
 

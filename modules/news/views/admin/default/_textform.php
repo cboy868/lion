@@ -7,6 +7,8 @@ use yii\helpers\Url;
 use app\assets\PluploadAssets;
 PluploadAssets::register($this);
 use app\core\models\Attachment;
+
+\app\assets\TagAsset::register($this);
 ?>
 
 <div class="news-form">
@@ -35,6 +37,8 @@ use app\core\models\Attachment;
             <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'source')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'tags')->textInput(['id'=>'inputTagator', 'value'=>$tags])->hint('多关键词，请用半角逗号分隔') ?>
         </div>
         <div class="col-md-6">
             <div class="form-group field-newstextform-thumb">
@@ -70,3 +74,22 @@ use app\core\models\Attachment;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php $this->beginBlock('tag') ?>
+$(function () {
+    tag();
+});
+
+function tag()
+{
+    if ($('#inputTagator').data('tagator') === undefined) {
+        $('#inputTagator').tagator({
+            autocomplete: []
+        });
+        $('#activate_tagator').val('销毁 tagator');
+    } else {
+        $('#inputTagator').tagator('destroy');
+        $('#activate_tagator').val('激活 tagator');
+    }
+}
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['tag'], \yii\web\View::POS_END); ?>

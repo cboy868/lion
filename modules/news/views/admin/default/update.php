@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = '修改';
 				 ?>
 				 <?= $this->render($fm, [
 				        'model' => $model,
-				        'imgs' => isset($imgs) ? $imgs :''
+				        'imgs' => isset($imgs) ? $imgs :'',
+                        'tags' => $tags
 				    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

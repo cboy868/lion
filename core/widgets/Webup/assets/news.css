@@ -60,7 +60,13 @@ table {
     margin: 1em;
     width: auto;
 }
-
+#webcontainer {
+    border: 1px solid #dadada;
+    color: #838383;
+    font-size: 12px;
+    margin-top: 10px;
+    background-color: #FFF;
+}
 #container {
     border: 1px solid #dadada;
     color: #838383;

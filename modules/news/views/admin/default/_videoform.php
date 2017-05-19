@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use app\core\models\Attachment;
 
 \app\assets\PluploadAssets::register($this);
+\app\assets\TagAsset::register($this);
 ?>
 
 <div class="news-form">
@@ -32,11 +33,14 @@ use app\core\models\Attachment;
                 }
             ?>
             <?= $form->field($model, 'category_id')->dropDownList([0=>'默认分类'] + Category::selTree(['status'=>Category::STATUS_NORMAL]),['class'=>'new form-control', 'options' => $options]) ?>
+
             <?= $form->field($model, 'author')->textInput(['maxlength' => true])->hint('不填则默认添加人为作者') ?>
 
             <?= $form->field($model, 'video_author')->textInput(['maxlength' => true])->hint('不填则默认添加人为视频作者') ?>
 
             <?= $form->field($model, 'source')->textInput(['maxlength' => true])->hint('比如：网络、百度、新闻') ?>
+
+             <?= $form->field($model, 'tags')->textInput(['id'=>'inputTagator', 'value'=>$tags])->hint('多关键词，请用半角逗号分隔') ?>
         </div>
         <div class="col-md-6">
              <div class="form-group field-newstextform-thumb">
@@ -72,3 +76,24 @@ use app\core\models\Attachment;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php $this->beginBlock('tag') ?>
+$(function () {
+    tag();
+});
+
+function tag()
+{
+    if ($('#inputTagator').data('tagator') === undefined) {
+        $('#inputTagator').tagator({
+            autocomplete: []
+        });
+        $('#activate_tagator').val('销毁 tagator');
+    } else {
+        $('#inputTagator').tagator('destroy');
+        $('#activate_tagator').val('激活 tagator');
+    }
+}
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['tag'], \yii\web\View::POS_END); ?>
+

@@ -37,6 +37,8 @@ class News extends \app\core\db\ActiveRecord
     const TYPE_IMAGE = 2;
     const TYPE_VIDEO = 3;
 
+    public $tags;
+
     public static $types = [
         'text'  => '文本',//文字
         'image' => '图片',//图片
@@ -86,7 +88,7 @@ class News extends \app\core\db\ActiveRecord
             [['summary'], 'string'],
             [['title', 'subtitle', 'video'], 'string', 'max' => 255],
             [['author', 'pic_author', 'video_author'], 'string', 'max' => 100],
-            [['source'], 'string', 'max' => 200],
+            [['source', 'tags'], 'string', 'max' => 200],
         ];
     }
 
@@ -117,6 +119,7 @@ class News extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '修改时间',
             'status' => '状态',
+            'tags' => '标签/关键词',
         ];
     }
 

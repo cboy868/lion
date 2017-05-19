@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			 ?>
 				<?= $this->render($fm, [
 			        'model' => $model,
+                    'tags' => $tags
 			    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

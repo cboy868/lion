@@ -17,10 +17,10 @@ class NewsTextForm extends Model
     public $author;
     public $source;
     public $thumb;
-    public $tag;
     public $body;
     public $type = 1;//文字 2图片 3video
     public $id=0;
+    public $tags;
 
     /**
      * @return array the validation rules.
@@ -33,7 +33,7 @@ class NewsTextForm extends Model
             [['summary'], 'string'],
             [['title', 'subtitle'], 'string', 'max' => 255],
             [['author'], 'string', 'max' => 100],
-            [['source', 'tag'], 'string', 'max' => 200],
+            [['source', 'tags'], 'string', 'max' => 200],
             [['thumb'], 'safe']
         ];
     }
@@ -51,8 +51,8 @@ class NewsTextForm extends Model
             'author' => '作者',
             'source' => '来源',
             'thumb' => '封面图',
-            'tag' => '标签',
             'body' => '内容',
+            'tags' => '标签/关键词',
         ];
     }
 

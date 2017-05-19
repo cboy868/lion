@@ -17,11 +17,11 @@ class NewsImageForm extends Model
     public $author;
     public $source;
     public $thumb;
-    public $tag;
     public $type = 2;//文字 2图片 3video
     public $pic_author;//图片作者
     public $images;
     public $id=0;
+    public $tags;
 
 
     /**
@@ -35,7 +35,7 @@ class NewsImageForm extends Model
             [['summary'], 'string'],
             [['title', 'subtitle'], 'string', 'max' => 255],
             [['author','pic_author'], 'string', 'max' => 100],
-            [['source', 'tag'], 'string', 'max' => 200],
+            [['source', 'tags'], 'string', 'max' => 200],
             [['thumb', 'images'], 'safe']
         ];
     }
@@ -54,7 +54,7 @@ class NewsImageForm extends Model
             'pic_author' => '图片作者',
             'source' => '来源',
             'thumb' => '封面图',
-            'tag' => '标签',
+            'tags' => '标签/关键词',
         ];
     }
 

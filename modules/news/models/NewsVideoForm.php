@@ -17,10 +17,10 @@ class NewsVideoForm extends Model
     public $author;
     public $source;
     public $thumb;
-    public $tag;
     public $type = 3;//文字 2图片 3video
     public $video_author;//视频作者
     public $video;
+    public $tags;
 
     /**
      * @return array the validation rules.
@@ -33,7 +33,7 @@ class NewsVideoForm extends Model
             [['summary'], 'string'],
             [['title', 'subtitle', 'video'], 'string', 'max' => 255],
             [['author','video_author'], 'string', 'max' => 100],
-            [['source', 'tag'], 'string', 'max' => 200],
+            [['source', 'tags'], 'string', 'max' => 200],
             [['thumb'], 'safe']
         ];
     }
@@ -52,8 +52,8 @@ class NewsVideoForm extends Model
             'video_author' => '视频作者',
             'source' => '来源',
             'thumb' => '封面图',
-            'tag' => '标签',
             'video'=> '视频地址',
+            'tags' => '标签/关键词',
         ];
     }
 

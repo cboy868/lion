@@ -10,6 +10,7 @@ use app\core\models\Attachment;
 use app\assets\PluploadAssets;
 PluploadAssets::register($this);
 \app\assets\ColorBoxAsset::register($this);
+\app\assets\TagAsset::register($this);
 
 
 ?>
@@ -55,6 +56,8 @@ ul.img-box{
     <?= $form->field($model, 'pic_author')->textInput(['maxlength' => true, 'style'=>'width:60%'])->hint('这里如果不填，则默认图片作者为添加人') ?>
 
     <?= $form->field($model, 'source')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'tags')->textInput(['id'=>'inputTagator', 'value'=>$tags])->hint('多关键词，请用半角逗号分隔') ?>
 
 
     <?php if (isset($imgs)): ?>
@@ -153,4 +156,23 @@ $(function(){
 
 })  
 <?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>  
+<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>
+<?php $this->beginBlock('tag') ?>
+$(function () {
+    tag();
+});
+
+function tag()
+{
+    if ($('#inputTagator').data('tagator') === undefined) {
+        $('#inputTagator').tagator({
+            autocomplete: []
+        });
+        $('#activate_tagator').val('销毁 tagator');
+    } else {
+        $('#inputTagator').tagator('destroy');
+        $('#activate_tagator').val('激活 tagator');
+    }
+}
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['tag'], \yii\web\View::POS_END); ?>
