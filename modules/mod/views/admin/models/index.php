@@ -5,7 +5,7 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-$this->title = '模型管理';
+$this->title = $module->title . '模型管理';
 $this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/mod/admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -16,8 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
+                <?= Html::encode($this->title)?>
                 <small>
-                    <?php //echo  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -42,11 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'link',
             'order',
             'showLabel',
-            // 'logo',
+//             'logo',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{delete} {view} {field}',
+                'template' => '{field}',
                 'buttons' => [
                     'field' => function($url, $model, $key) {
                         return Html::a('<span class="fa fa-table"></span>字段管理', $url, ['title' => '权限用户', 'class'=>'btn btn-success btn-xs'] );

@@ -2,6 +2,7 @@
 
 namespace app\modules\mod\controllers\admin;
 
+use app\modules\mod\models\Module;
 use Yii;
 use app\modules\mod\models\Models;
 use app\modules\mod\models\ModelsSearch;
@@ -35,7 +36,7 @@ class ModelsController extends BackController
      * @return mixed
      * @name 模块管理列表
      */
-    public function actionIndex()
+    public function actionIndex($mid)
     {
 
         // $model = $this->findModel(11);
@@ -47,11 +48,14 @@ class ModelsController extends BackController
             $params['ModelsSearch']['mid'] = $params['mid'];
         }
 
+        $module = Module::findOne($mid);
+
         $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'module' => $module
         ]);
     }
 

@@ -42,9 +42,10 @@ $this->params['breadcrumbs'][] = $this->title . '模型 字段管理';
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         'columns' => [
-            'table',
             'name',
             'title',
+            'table',
+
             'pop_note',
             'html',
             'option:ntext',
