@@ -18,8 +18,8 @@ class ModuleSearch extends Module
     public function rules()
     {
         return [
-            [['id', 'order', 'show', 'created_at'], 'integer'],
-            [['module', 'name', 'dir', 'link', 'logo'], 'safe'],
+            [['id', 'status', 'created_at'], 'integer'],
+            [['name', 'title', 'intro', 'logo'], 'safe'],
         ];
     }
 
@@ -53,15 +53,13 @@ class ModuleSearch extends Module
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'order' => $this->order,
-            'show' => $this->show,
+            'status' => $this->status,
             'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'module', $this->module])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'dir', $this->dir])
-            ->andFilterWhere(['like', 'link', $this->link])
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'intro', $this->intro])
             ->andFilterWhere(['like', 'logo', $this->logo]);
 
         return $dataProvider;

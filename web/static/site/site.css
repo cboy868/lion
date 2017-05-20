@@ -99,3 +99,6 @@ div#wrapper{
 select.input-sm{
     line-height: 20px;
 }
+.page-header .nc{
+    margin-right:10px;
+}

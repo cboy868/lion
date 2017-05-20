@@ -17,8 +17,7 @@ $class = '\\'.get_class($model);
     <?php $form = ActiveForm::begin(); ?>
 
     <?php
-    $mod = Yii::$app->request->get('mod');
-    $category = Category::find()->where(['res_name'=>$mod])->asArray()->all();
+    $category = Category::find()->where(['mid'=>$module->id])->asArray()->all();
     $options = [];
     foreach ($category as $k => $v) {
         if (!$v['is_leaf']) {
@@ -28,7 +27,7 @@ $class = '\\'.get_class($model);
     ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(
-        [$mod=>'默认分类'] + Category::selTree('res_name='.$mod . ' and pid>0'),
+        ['默认分类'] + Category::selTree(['mid'=>$module->id]),
             ['class'=>'new form-control', 'options' => $options]) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'class'=>'new form-control']) ?>

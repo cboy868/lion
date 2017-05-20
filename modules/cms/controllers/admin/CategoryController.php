@@ -32,17 +32,22 @@ class CategoryController extends BackController
      * Lists all PostCategory models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($mid)
     {
+
+        $module = Module::findOne($mid);
+
         $searchModel = new CategorySearch();
 
         $params = Yii::$app->request->queryParams;
-        $params['CategorySearch']['pid'] = 0;
+
+        $params['CategorySearch']['mid'] = $mid;
         $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'module' => $module
         ]);
 
     }
@@ -77,20 +82,17 @@ class CategoryController extends BackController
      */
     public function actionCreate()
     {
-        $request = Yii::$app->getRequest();
+        $req = Yii::$app->getRequest();
 
         $model = new Category();
-        $model->res_name = $request->get('res_name');
-        if ($request->get('pid')) {
-            $model->pid = $request->get('pid');
-        }
+
 
         $transaction = Yii::$app->db->beginTransaction();
 
         if (Yii::$app->request->isPost) {
 
             try {
-                $model->load($request->post());
+                $model->load($req->post());
                 $upload = Upload::getInstance($model, 'covert', 'cms_category');
 
                 if ($upload) {
@@ -99,34 +101,10 @@ class CategoryController extends BackController
                     $upload->save();
 
                     $info = $upload->getInfo();
-
                     $model->thumb = $info['mid'];
                 }
-
-                if ($model->pid != 0) {
-                    $model->res_name = $model->parent->res_name;
-                }
-
+                $model->mid = $req->get('mid');
                 $model->save();
-
-                if ($model->pid == 0) {
-                    $model->res_name = $model->id;
-                    $model->save();
-
-                    $mod = new Module();
-                    $mod->mid = $model->id;
-                    $mod->module = 'post';
-                    $mod->name = $model->name;
-                    $mod->save();
-                    Module::createModels($mod);
-
-                    $mod = new Module();
-                    $mod->mid = $model->id;
-                    $mod->module = 'album';
-                    $mod->name = $model->name;
-                    $mod->save();
-                    Module::createModels($mod);
-                }
 
                 $transaction->commit();
             } catch (\Exception $e) {

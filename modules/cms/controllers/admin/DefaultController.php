@@ -53,29 +53,27 @@ class DefaultController extends \app\core\web\BackController
      * @return string
      * @name 内容管理
      */
-    public function actionIndex($id, $type="post")
+    public function actionIndex($mid, $type="post")
     {
-        $cate = Category::findOne($id);
+        $module = Module::findOne($mid);
 
         $method = '_' . $type . 'List';
-        $data = $this->$method($cate->res_name);
-
+        $data = $this->$method($module->id);
 
         return $this->render('index', array_merge([
             'type' => $type,
-            'cate'=>$cate
+            'module'=>$module
         ], $data));
     }
 
-    private function _postList($mod)
+    private function _postList($mid)
     {
-        $tree = $this->getCates($mod);
 
-//        $modInfo = Module::findOne($mod);
+        $module = Module::findOne($mid);
 
-        Code::createObj('post', $mod);
+        Code::createObj('post', $mid);
 
-        $c = 'Post' . $mod . 'Search';
+        $c = 'Post' . $mid . 'Search';
         $class = '\app\modules\cms\models\mods\\' . $c;
 
         $searchModel = new $class;
@@ -88,26 +86,22 @@ class DefaultController extends \app\core\web\BackController
 
         $dataProvider = $searchModel->search($params);
 
-
         $data = [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-//            'modinfo' => $modInfo,
-            'cates'       => $tree,
-            'current_cate' => Yii::$app->getRequest()->get('category_id')
+            'module' => $module,
         ];
 
         return $data;
     }
 
-    private function _albumList($mod)
+    private function _albumList($mid)
     {
-        $tree = $this->getCates($mod);
 
-        Code::createObj('album', $mod);
+        Code::createObj('album', $mid);
 
-        $class = '\app\modules\cms\models\mods\Album' . $mod . 'Search';
-        $c = 'Album' . $mod . 'Search';
+        $class = '\app\modules\cms\models\mods\Album' . $mid . 'Search';
+        $c = 'Album' . $mid . 'Search';
 
         $searchModel = new $class;
 
@@ -115,76 +109,38 @@ class DefaultController extends \app\core\web\BackController
         $params[$c]['category_id'] = Yii::$app->request->get('category_id');
         $dataProvider = $searchModel->search($params);
 
+        $module = Module::findOne($mid);
         return [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'cates'         => $tree,
-            'current_cate' => Yii::$app->getRequest()->get('category_id')
+            'module' => $module,
         ];
-    }
-
-
-
-    /**
-     * @name 获取分类
-     */
-    private function getCates($mod)
-    {
-        $res_name = $mod;
-        $tree = Category::sortTree(['res_name'=>$res_name]);
-
-        foreach ($tree as $k => &$v) {
-            $v['url'] = $v['is_leaf'] ? Url::toRoute(['index', 'category_id'=>$v['id'], 'mod'=>$mod]) : '#';
-        }
-
-        $tree = \yii\helpers\ArrayHelper::index($tree, 'id');
-        $tree = \app\core\helpers\Tree::recursion($tree,0,1);
-
-        return $tree;
-    }
-
-
-    /**
-     * @name 添加分类
-     */
-    public function actionCreateCate()
-    {
-        return $this->render('create-cate');
-    }
-
-    /**
-     * @name 修改分类
-     */
-    public function actionUpdateCate()
-    {
-        return $this->render('update-cate');
     }
 
     /**
      * @name 添加内容
      */
-    public function actionCreate($mod, $type)
+    public function actionCreate($mid, $type)
     {
         $method = '_create' . ucfirst($type);
-        return $this->$method($mod);
+        return $this->$method($mid);
     }
 
-    private function _createPost($mod)
+    private function _createPost($mid)
     {
-        Code::createObj('post', $mod);
+        Code::createObj('post', $mid);
 
-        $class = '\app\modules\cms\models\mods\Post' . $mod;
+        $class = '\app\modules\cms\models\mods\Post' . $mid;
         $model = new $class;
-        $dataClass = '\app\modules\cms\models\mods\PostData' . $mod;
-        $dataModel = new $dataClass;
+//        $dataClass = '\app\modules\cms\models\mods\PostData' . $mid;
+//        $dataModel = new $dataClass;
 
 
-        $modInfo = Category::findOne($mod);
+        $module = Module::findOne($mid);
 
         $command = (new \yii\db\Query())
-            // ->select(['id', 'email'])
             ->from('module_field')
-            ->where(['table' => 'post_' . $mod])
+            ->where(['table' => 'post_' . $mid])
             ->createCommand();
 
         // 返回查询结果的所有行
@@ -197,11 +153,10 @@ class DefaultController extends \app\core\web\BackController
 
 
             if (empty($model->summary)) {
-                $body = Yii::$app->request->post('PostData'.$mod)['body'];
-                $model->summary = Html::cutstr_html($body, 50);
+                $model->summary = Html::cutstr_html($model->body, 50);
             }
 
-            $up = Upload::getInstance($model, 'thumb', 'post'.$mod);
+            $up = Upload::getInstance($model, 'thumb', 'post'.$mid);
             if ($up) {
                 $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $up->save();
@@ -211,42 +166,33 @@ class DefaultController extends \app\core\web\BackController
 
             $model->save();
 
-            $class = '\app\modules\cms\models\mods\PostData' . $mod;
-            $data = new $class;
-            $data->post_id = $model->id;
-            $data->body = Yii::$app->request->post('PostData'.$mod)['body'];
-
-            $data->save();
-
-            return $this->redirect(['index', 'id' => $modInfo->id]);
+            return $this->redirect(['index', 'mid' => $module->id]);
         } else {
 
             return $this->render('create', [
                 'model' => $model,
                 'attach'=> $attach,
-                'modInfo' => $modInfo,
-                'dataModel' => $dataModel
+                'module' => $module,
             ]);
         }
 
     }
 
-    private function _createAlbum($mod)
+    private function _createAlbum($mid)
     {
-//        $modInfo = Module::findOne($mod);
-        $modInfo = Category::findOne($mod);
-        Code::createObj('album', $mod);
+        $module = Module::findOne($mid);
+        Code::createObj('album', $mid);
 
         $command = (new \yii\db\Query())
             // ->select(['id', 'email'])
             ->from('module_field')
-            ->where(['table' => 'album_' . $mod])
+            ->where(['table' => 'album_' . $mid])
             ->createCommand();
 
         // 返回查询结果的所有行
         $attach = $command->queryAll();
 
-        $class = '\app\modules\cms\models\mods\Album' . $mod;;
+        $class = '\app\modules\cms\models\mods\Album' . $mid;;
 
         $model = new $class();
 
@@ -254,12 +200,12 @@ class DefaultController extends \app\core\web\BackController
 
             $model->created_by = Yii::$app->user->identity->id;
             $model->save();
-            return $this->redirect(['album-view', 'mod'=>$mod, 'id'=>$model->id]);
+            return $this->redirect(['album-view', 'mid'=>$mid, 'id'=>$model->id]);
         } else {
             $model->author = Yii::$app->user->identity->username;
             return $this->renderAjax('create', [
                 'model' => $model,
-                'modInfo' => $modInfo,
+                'module' => $module,
                 'attach'=> $attach,
             ]);
         }
@@ -269,38 +215,34 @@ class DefaultController extends \app\core\web\BackController
     /**
      * @name 修改内容
      */
-    public function actionUpdate($type, $mod, $id)
+    public function actionUpdate($type, $mid, $id)
     {
         $method = '_update' . ucfirst($type);
-        return $this->$method($id, $mod);
+        return $this->$method($id, $mid);
     }
 
-    private function _updatePost($id, $mod)
+    private function _updatePost($id, $mid)
     {
-        $model = $this->findPost($id, $mod);
-        $class = '\app\modules\cms\models\mods\PostData' . $mod;
-        $dataModel = $class::find()->where(['post_id'=>$id])->one();
-        $dataModel = $dataModel ? $dataModel : new $class;
+        $model = $this->findPost($id, $mid);
 
-
-//        $modInfo = Module::findOne($mod);
-        $modInfo = Category::findOne($mod);
+        $mInfo = Module::findOne($mid);
 
         $attach = [];
-        if ($mod) {
+        if ($mid) {
             $command = (new \yii\db\Query())
-                // ->select(['id', 'email'])
-                ->from('module_field')
-                ->where(['table' => 'post_' . $mod])
-                ->createCommand();
+                        // ->select(['id', 'email'])
+                        ->from('module_field')
+                        ->where(['table' => 'post_' . $mid])
+                        ->createCommand();
 
             // 返回查询结果的所有行
             $attach = $command->queryAll();
         }
 
-        if ($model->load(Yii::$app->request->post()) && $dataModel->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
 
-            $up = Upload::getInstance($model, 'thumb', 'post'.$mod);
+
+            $up = Upload::getInstance($model, 'thumb', 'post'.$mid);
             if ($up) {
                 $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $up->save();
@@ -312,57 +254,53 @@ class DefaultController extends \app\core\web\BackController
 
 
             if (empty($summary)) {
-                $body = Yii::$app->request->post('PostData'.$mod)['body'];
-                $model->summary = Html::cutstr_html($body, 50);
+                $model->summary = Html::cutstr_html($model->body, 50);
             }
 
             $model->save();
-            $dataModel->save();
 
-            return $this->redirect(['index', 'id'=>$mod]);
+            return $this->redirect(['index', 'mid'=>$mid]);
         } else {
 
             return $this->render('update', [
                 'model' => $model,
                 'attach'=> $attach,
-                'modInfo' => $modInfo,
-                'dataModel' => $dataModel
+                'mInfo' => $mInfo,
             ]);
         }
     }
 
-    private function _updateAlbum($id, $mod)
+    private function _updateAlbum($id, $mid)
     {
-        $model = $this->findAlbum($id, $mod);
+        $model = $this->findAlbum($id, $mid);
 
         $command = (new \yii\db\Query())
-            ->from('module_field')
-            ->where(['table' => 'album_' . $mod])
-            ->createCommand();
+                    ->from('module_field')
+                    ->where(['table' => 'album_' . $mid])
+                    ->createCommand();
 
         // 返回查询结果的所有行
         $attach = $command->queryAll();
 
-//        $modInfo = Module::findOne($mod);
-        $modInfo = Category::findOne($mod);
+        $module = Module::findOne($mid);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id'=>$mod]);
+            return $this->redirect(['index', 'mid'=>$mid, 'type'=>'album']);
         } else {
             return $this->renderAjax('update', [
                 'model' => $model,
-                'modInfo' => $modInfo,
+                'mInfo' => $module,
                 'attach'=> $attach,
             ]);
         }
     }
 
-    public function actionAlbumView($mod, $id)
+    public function actionAlbumView($mid, $id)
     {
-        $cate = Category::findOne($mod);
+        $module = Module::findOne($mid);
         $searchModel = new AlbumImageSearch();
         $params = Yii::$app->request->queryParams;
-        $params['AlbumImageSearch']['mod'] = $mod;
+        $params['AlbumImageSearch']['mid'] = $mid;
         $params['AlbumImageSearch']['album_id'] = $id;
 
         $dataProvider = $searchModel->search($params);
@@ -370,16 +308,16 @@ class DefaultController extends \app\core\web\BackController
         return $this->render('album-view', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'album' => $this->findAlbum($id, $mod),
-            'cate' => $cate,
+            'album' => $this->findAlbum($id, $mid),
+            'module' => $module,
         ]);
     }
 
-    public function actionPostView($id, $mod)
+    public function actionPostView($id, $mid)
     {
         return $this->render('post-view', [
-            'model' => $this->findPost($id, $mod),
-            'modInfo' => Category::findOne($mod)
+            'model' => $this->findPost($id, $mid),
+            'mInfo' => Module::findOne($mid)
         ]);
     }
 
@@ -389,18 +327,18 @@ class DefaultController extends \app\core\web\BackController
      * @return \yii\web\Response
      * @name 删除图集
      */
-    public function actionDeleteAlbum($id, $mod)
+    public function actionDeleteAlbum($id, $mid)
     {
-        $this->findAlbum($id, $mod)->delete();
+        $this->findAlbum($id, $mid)->delete();
 
         Yii::$app->db->createCommand()
             ->update(
                 AlbumImage::tableName(),
                 ['status' => -1],
-                ['album_id'=>$id, 'mod'=>$mod])
+                ['album_id'=>$id, 'mod'=>$mid])
             ->execute();
 
-        return $this->redirect(['index', 'id'=>$mod,'type'=>'album']);
+        return $this->redirect(['index', 'mid'=>$mid,'type'=>'album']);
     }
 
 
@@ -410,11 +348,11 @@ class DefaultController extends \app\core\web\BackController
      * @return \yii\web\Response
      * @name 删除文章
      */
-    public function actionDeletePost($id, $mod)
+    public function actionDeletePost($id, $mid)
     {
-        $this->findPost($id, $mod)->delete();
+        $this->findPost($id, $mid)->delete();
 
-        return $this->redirect(['index', 'id'=>$mod, 'type'=>'post']);
+        return $this->redirect(['index', 'id'=>$mid, 'type'=>'post']);
     }
 
     /**
@@ -446,18 +384,18 @@ class DefaultController extends \app\core\web\BackController
      * @return mixed
      * @name 删除图集中图片
      */
-    public function actionDelImg($id, $mod, $album_id)
+    public function actionDelImg($id, $mid, $album_id)
     {
         $this->findImg($id)->delete();
-        $model = $this->findAlbum($album_id, $mod);
+        $model = $this->findAlbum($album_id, $mid);
         $model->updateNum();
-        return $this->redirect(['album-view', 'mod'=>$mod, 'id'=>$album_id]);
+        return $this->redirect(['album-view', 'mid'=>$mid, 'id'=>$album_id]);
     }
 
     /**
      * @name 排序
      */
-    public function actionSort($mod, $album_id)
+    public function actionSort($album_id)
     {
         $ids = Yii::$app->request->post('ids');
 
@@ -475,9 +413,9 @@ class DefaultController extends \app\core\web\BackController
         return $this->json();
     }
 
-    public function actionCover($mod, $album_id, $id)
+    public function actionCover($mid, $album_id, $id)
     {
-        $model = $this->findAlbum($album_id, $mod);
+        $model = $this->findAlbum($album_id, $mid);
         $model->thumb = $id;
         $model->save();
 
@@ -485,26 +423,25 @@ class DefaultController extends \app\core\web\BackController
     }
 
 
-    protected function findPost($id, $mod)
+    protected function findPost($id, $mid)
     {
 
-        Code::createObj('post', $mod);
+        Code::createObj('post', $mid);
 
-
-        $class = '\app\modules\cms\models\mods\Post' . $mod;
+        $class = '\app\modules\cms\models\mods\Post' . $mid;
         if (($model = $class::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    protected function findAlbum($id, $mod)
+    protected function findAlbum($id, $mid)
     {
 
-        Code::createObj('album', $mod);
+        Code::createObj('album', $mid);
 
 
-        $class = '\app\modules\cms\models\mods\Album' . $mod;
+        $class = '\app\modules\cms\models\mods\Album' . $mid;
         if (($model = $class::findOne($id)) !== null) {
             return $model;
         } else {

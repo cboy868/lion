@@ -2,6 +2,7 @@
 
 namespace app\modules\cms\models;
 
+use app\modules\mod\models\Module;
 use Yii;
 /**
  * This is the model class for table "{{%cms_category}}".
@@ -43,7 +44,7 @@ class Category extends \app\core\models\Category
             [['body', 'seo_description'], 'string'],
             [['name'], 'required'],
             [['name', 'seo_title', 'seo_keywords'], 'string', 'max' => 255],
-            [['covert', 'res_name', 'code'], 'safe']
+            [['covert', 'mid', 'code'], 'safe']
         ];
     }
 
@@ -65,14 +66,14 @@ class Category extends \app\core\models\Category
             'seo_description' => 'Seo 描述',
             'created_at' => '添加时间',
             'status' => '状态',
-            'res_name' => '资源类型',
+            'mid' => '资源类型',
             'covert' => '封面'
         ];
     }
 
-    public function getMod()
+    public function getModule()
     {
-        return $this->res_name;
+        return $this->hasOne(Module::className(),['id'=>'mid']);
     }
 
 

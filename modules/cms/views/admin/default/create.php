@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\cms\models\Post */
 
-$this->title = '添加' . $modInfo->name;
-$this->params['breadcrumbs'][] = ['label' => $modInfo->name, 'url' => ['index','id'=>\Yii::$app->getRequest()->get('mod')]];
+$this->title = '添加' . $module->title . '文章';
+$this->params['breadcrumbs'][] = ['label' => $module->title . '模块', 'url' => ['index','mid'=>$module->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -35,8 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $this->render($view, [
                     'model' => $model,
                     'attach'=> $attach,
-                    'modInfo' => $modInfo,
-                    'dataModel' => isset($dataModel)?$dataModel:''
+                    'module' => $module
                 ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->

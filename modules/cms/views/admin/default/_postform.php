@@ -12,20 +12,15 @@ use app\modules\cms\models\Category;
 ?>
 <div class="post-form">
 
-    <?php
-
-    $mod = \Yii::$app->getRequest()->get('mod');
-    ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <input type="hidden" name="mod" value="<?=$mod?>">
+    <input type="hidden" name="mid" value="<?=$module->id?>">
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $mod = Yii::$app->request->get('mod');
-    $category = Category::find()->where(['res_name'=>$mod])->asArray()->all();
+    $category = Category::find()->where(['mid'=>$module->id])->asArray()->all();
     $options = [];
     foreach ($category as $k => $v) {
         if (!$v['is_leaf']) {
@@ -35,7 +30,7 @@ use app\modules\cms\models\Category;
     ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(
-            [$mod=>'默认分类'] + Category::selTree('res_name='.$mod . ' and pid>0'),
+            ['默认分类'] + Category::selTree(['mid'=>$module->id]),
             ['class'=>'new form-control', 'options' => $options]) ?>
 
     <?= $form->field($model, 'author')->textInput() ?>
@@ -46,9 +41,9 @@ use app\modules\cms\models\Category;
 
     <?= $form->field($model, 'summary')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($dataModel,'body')->widget('app\core\widgets\Ueditor\Ueditor',[
-        'option' =>['res_name'=>'post'.$mod, 'use'=>'ue'],
-        'value'=>$dataModel->body,
+    <?= $form->field($model,'body')->widget('app\core\widgets\Ueditor\Ueditor',[
+        'option' =>['res_name'=>'post'.$module->id, 'use'=>'ue'],
+        'value'=>$model->body,
     ]);?>
 
 

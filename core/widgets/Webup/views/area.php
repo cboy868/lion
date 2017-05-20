@@ -5,7 +5,7 @@
         <div id="uploader">
             <input type="hidden" class="res_name" value="<?=$options['res_name']?>">
             <input type="hidden" class="album_id" value="<?=$options['album_id']?>">
-            <input type="hidden" class="mod" value="<?=$options['mod']?>">
+            <input type="hidden" class="mid" value="<?=$options['mid']?>">
             <input type="hidden" class="reload" value="<?=$options['reload']?>">
             <input type="hidden" class="server" value="<?=$options['server']?>">
             <div class="queueList">

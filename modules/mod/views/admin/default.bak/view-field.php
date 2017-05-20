@@ -5,10 +5,11 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\mod\models\Module */
+/* @var $model app\modules\mod\models\Field */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Modules', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '字段管理', 'url' => ['field', 'id'=>Yii::$app->request->get('id')]];
 ?>
 
 <div class="page-content">
@@ -31,17 +32,21 @@ $this->params['breadcrumbs'][] = ['label' => 'Modules', 'url' => ['index']];
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-10 module-view">
+            <div class="col-xs-10 field-view">
                     
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
+            'table',
             'name',
             'title',
-            'intro:ntext',
-            'logo',
-            'status',
+            'pop_note',
+            'html',
+            'option:ntext',
+            'default:ntext',
+            'is_show',
+            'order',
             'created_at',
         ],
     ]) ?>

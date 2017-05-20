@@ -19,7 +19,7 @@ class CategorySearch extends Category
     {
         return [
             [['id', 'pid', 'level', 'thumb', 'sort', 'is_leaf', 'created_at', 'status'], 'integer'],
-            [['res_name', 'code', 'name', 'body', 'seo_title', 'seo_keywords', 'seo_description'], 'safe'],
+            [['mid', 'code', 'name', 'body', 'seo_title', 'seo_keywords', 'seo_description'], 'safe'],
         ];
     }
 
@@ -43,6 +43,7 @@ class CategorySearch extends Category
     {
         $query = Category::find();
 
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,15 +56,14 @@ class CategorySearch extends Category
             'id' => $this->id,
             'pid' => $this->pid,
             'level' => $this->level,
-            'thumb' => $this->thumb,
+            'mid' => $this->mid,
             'sort' => $this->sort,
             'is_leaf' => $this->is_leaf,
             'created_at' => $this->created_at,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'res_name', $this->res_name])
-            ->andFilterWhere(['like', 'code', $this->code])
+        $query->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'body', $this->body])
             ->andFilterWhere(['like', 'seo_title', $this->seo_title])

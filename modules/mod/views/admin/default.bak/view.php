@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\mod\models\Module */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Modules', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -37,11 +37,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Modules', 'url' => ['index']];
         'model' => $model,
         'attributes' => [
             'id',
+            'module',
             'name',
-            'title',
-            'intro:ntext',
+            'dir',
+            'link',
+            'order',
+            'show',
             'logo',
-            'status',
             'created_at',
         ],
     ]) ?>

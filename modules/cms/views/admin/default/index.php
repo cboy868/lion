@@ -12,8 +12,8 @@ use app\assets\FootableAsset;
 /* @var $searchModel app\modules\cms\models\PostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $cate->name . '内容管理';
-$this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/cms/admin/category/index']];
+$this->title = $module->name . '内容管理';
+$this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/mod/admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 FootableAsset::register($this);
 
@@ -53,31 +53,31 @@ FootableAsset::register($this);
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-                <?=$cate->name?>内容管理
+                <?=$module->title?>内容管理
                 <small>
                     <?php
                     $mod = Yii::$app->request->get('id');
                     ?>
                     <div class="pull-right nc">
-                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/cms/admin/category/index'])?>">
+                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/mod/admin/default/index'])?>">
                             <i class="fa fa-th-large fa-2x"></i>  模块管理</a>
                     </div>
 
                     <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/category/view','id'=>$cate->id])?>">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/category/index','mid'=>$module->id])?>">
                             <i class="fa fa-list-ol fa-2x"></i>  分类管理</a>
                     </div>
 
 
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false"
-                           href="<?=Url::toRoute(['/cms/admin/default/create', 'type'=>'album', 'mod'=>$mod])?>">
+                           href="<?=Url::toRoute(['/cms/admin/default/create', 'type'=>'album', 'mid'=>$module->id])?>">
                             <i class="fa fa-file-text fa-2x"></i>  添加相册</a>
                     </div>
 
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm"
-                           href="<?=Url::toRoute(['/cms/admin/default/create', 'type'=>'post', 'mod'=>$mod])?>">
+                           href="<?=Url::toRoute(['/cms/admin/default/create', 'type'=>'post', 'mid'=>$module->id])?>">
                             <i class="fa fa-file-image-o fa-2x"></i>  添加文章</a>
                     </div>
                 </small>
@@ -113,7 +113,7 @@ FootableAsset::register($this);
                 <?=$this->render($view,[
                         'dataProvider' => $dataProvider,
                         'type' => $type,
-                        'mod' =>$cate->res_name
+                        'mid' =>$module->id
                 ]) ?>
 
                 </div>

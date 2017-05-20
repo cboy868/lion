@@ -3,28 +3,22 @@
 namespace app\modules\mod\models;
 
 use Yii;
+use yii\base\Model;
 use yii\behaviors\TimestampBehavior;
-use app\core\helpers\FileHelper;
 
 /**
  * This is the model class for table "{{%module}}".
  *
  * @property integer $id
- * @property string $module
  * @property string $name
- * @property string $dir
- * @property string $link
- * @property integer $order
- * @property integer $show
+ * @property string $title
+ * @property string $intro
  * @property string $logo
+ * @property integer $status
  * @property integer $created_at
  */
-class Module extends \yii\db\ActiveRecord
+class Module extends \app\core\db\ActiveRecord
 {
-
-    const SHOW_NO = 0;
-    const SHOW_YES = 1;
-
     /**
      * @inheritdoc
      */
@@ -39,10 +33,10 @@ class Module extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['module', 'name', 'mid'], 'required'],
-            [['order', 'show', 'created_at'], 'integer'],
+            [['title'], 'required'],
             [['intro'], 'string'],
-            [['module', 'name', 'dir', 'link', 'logo'], 'string', 'max' => 255],
+            [['status', 'created_at'], 'integer'],
+            [['name', 'title', 'logo'], 'string', 'max' => 200],
         ];
     }
 
@@ -58,16 +52,6 @@ class Module extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getShowLabel()
-    {
-        $label = [
-            self::SHOW_NO => '否',
-            self::SHOW_YES => '是'
-        ];
-
-        return $label[$this->show];
-    }
-
     /**
      * @inheritdoc
      */
@@ -75,63 +59,72 @@ class Module extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'module' => '模型',
-            'name' => '模块名',
-            'dir' => '目录',
-            'link' => '连接地址',
-            'order' => '排序',
-            'show' => '是否显示',
-            'showLabel' => '显示',
+            'name' => '标识',
+            'title' => '模块名',
+            'intro' => '模块介绍',
             'logo' => 'Logo',
+            'status' => '状态',
             'created_at' => '添加时间',
-            'intro' => '简述',
-
         ];
     }
 
-
-    public static function createTable($table, $mod)
+    public function createModels()
     {
-        $sql = "CREATE TABLE %s LIKE %s";
-        Yii::$app->db->createCommand(sprintf($sql, $table . '_' . $mod, $table))->execute();
+        $tables = Yii::$app->getModule('mod')->params['table'];
+
+        foreach ($tables as $key => $models) {
+            foreach ($models as $k=>$model) {
+                self::createTable($k, $this->id);
+            }
+        }
+
+        Models::createModels($this);
     }
 
-    public static function deleteTable($table, $mod)
+    public static function createTable($table, $module_id)
     {
-        $sql = "drop table IF EXISTS " . $table . '_' . $mod;
-
-        Yii::$app->db->createCommand($sql)->execute();
+        $sql = "CREATE TABLE IF NOT EXISTS %s LIKE %s";
+        Yii::$app->db->createCommand(sprintf($sql, $table . '_' . $module_id, $table))->execute();
     }
 
-    public static function delData($table, $mod)
+
+    /**
+     * @name 全是硬删除 注意
+     */
+    public function dropMod()
     {
-        $cate_sql = "DELETE FROM cms_category WHERE res_name = '".$table . $mod . "'";
-        $field_sql = "DELETE FROM module_field WHERE `table` = '".$table .'_'. $mod . "'";
+        self::dropTable($this);
+        self::dropData($this);
+        Models::delModels($this);
+    }
+
+    //表应该不能硬删除，以免丢失数据
+    //数据管理员操作时可以使用此方法,也应该先备份
+    public static function dropTable($module)
+    {
+        $tables = Yii::$app->getModule('mod')->params['table'];
+
+        $db = Yii::$app->db;
+        foreach ($tables as $v) {
+            foreach ($v as $table=>$class) {
+                $sql = "drop table IF EXISTS " . $table . '_' . $module->id;
+                $db->createCommand($sql)->execute();
+            }
+        }
+    }
+
+    /**
+     * @param $table
+     * @param $mod
+     * @name 硬删除 慎用
+     */
+    public static function dropData($module)
+    {
+        $cate_sql = "DELETE FROM cms_category WHERE mid = '". $module->id . "'";
+        $field_sql = "DELETE FROM module_field WHERE `model_id` = '" . $module->id . "'";
 
         Yii::$app->db->createCommand($cate_sql)->execute();
         Yii::$app->db->createCommand($field_sql)->execute();
     }
 
-
-    public static function deleteMod($model)
-    {
-        $tables = Yii::$app->getModule('mod')->params['table'][$model->module];
-
-        foreach ($tables as $k => $mod) {
-            self::deleteTable($k, $model->mid);
-        }
-
-        self::delData($model->module, $model->mid);
-    }
-
-
-    public static function createModels($module)
-    {
-
-        $tables = Yii::$app->getModule('mod')->params['table'][$module->module];
-
-        foreach ($tables as $k => $model) {
-            self::createTable($k, $module->mid);
-        }
-    }
 }

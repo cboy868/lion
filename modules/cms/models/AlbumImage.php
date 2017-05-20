@@ -99,12 +99,12 @@ class AlbumImage extends \app\core\db\ActiveRecord
         $model->title = substr($event->title, 0, strrpos($event->title, '.'));
         $model->author_id = Yii::$app->user->id;
         $model->album_id = $post['album_id'];
-        $model->mod = $post['mod'];
+        $model->mod = $post['mid'];
         $model->save();
 
-        Code::createObj('album', $post['mod']);
+        Code::createObj('album', $post['mid']);
 
-        $class = '\app\modules\cms\models\mods\Album' . $post['mod'];
+        $class = '\app\modules\cms\models\mods\Album' . $post['mid'];
 
         $album = $class::findOne($post['album_id']);
 

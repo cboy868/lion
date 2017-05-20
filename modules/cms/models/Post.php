@@ -29,9 +29,6 @@ use app\core\models\Attachment;
 class Post extends \app\core\db\ActiveRecord
 {
 
-    public $body;
-
-
     public static function tableName()
     {
 
@@ -55,8 +52,8 @@ class Post extends \app\core\db\ActiveRecord
     {
         return [
             [['created_by', 'category_id', 'view_all', 'com_all', 'recommend', 'created_at', 'updated_at', 'status'], 'integer'],
-            [['summary'], 'string'],
-            [['title', 'category_id'], 'required'],
+            [['summary', 'body'], 'string'],
+            [['title', 'category_id', 'body'], 'required'],
             [['title', 'subtitle'], 'string', 'max' => 255],
             [['author'], 'string', 'max' => 100],
             [['ip'], 'string', 'max' => 64],
@@ -90,6 +87,7 @@ class Post extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
             'status' => '状态',
+            'body' => '主内容'
         ];
     }
 
@@ -97,14 +95,14 @@ class Post extends \app\core\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getData()
-    {
-        $className = $this::className();
-        $mod = substr($className, strpos($className, 'Post') + 4);
-
-        $class = '\app\modules\cms\models\mods\PostData' . $mod;
-        \app\modules\mod\models\Code::createObj('post', $mod);
-
-        return $this->hasOne($class::className(), ['post_id' => 'id']);
-    }
+//    public function getData()
+//    {
+//        $className = $this::className();
+//        $mod = substr($className, strpos($className, 'Post') + 4);
+//
+//        $class = '\app\modules\cms\models\mods\PostData' . $mod;
+//        \app\modules\mod\models\Code::createObj('post', $mod);
+//
+//        return $this->hasOne($class::className(), ['post_id' => 'id']);
+//    }
 }

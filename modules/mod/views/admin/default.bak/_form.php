@@ -13,15 +13,20 @@ use app\core\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true])
-            ->label("模块名<font style='color:red'>(*)</font>")
-    ?>
+    <?= $form->field($model, 'module')->dropDownList($mods) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->hint('英文字母组成') ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'intro')->textArea() ?>
 
-    <?= $form->field($model, 'intro')->textarea(['rows' => 6]) ?>
+    <?php //= $form->field($model, 'dir')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'logo')->fileInput(['maxlength' => true]) ?>
+    <?php //= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+
+    <?php //= $form->field($model, 'show')->radioList([0=>'否', 1=> '是']) ?>
+
+    <?php //= $form->field($model, 'logo')->fileInput(['maxlength' => true]) ?>
+
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

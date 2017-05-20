@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\cms\models\Post */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => $modInfo->name, 'url' => ['index','id'=>$modInfo->id]];
+$this->params['breadcrumbs'][] = ['label' => $mInfo->title, 'url' => ['index','mid'=>$mInfo->id]];
 ?>
 
 <div class="page-content">

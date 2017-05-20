@@ -18,11 +18,9 @@ ColorBoxAsset::register($this);
 /* @var $model app\modules\cms\models\Album */
 
 $this->title = $album->title;
-$this->params['breadcrumbs'][] = ['label' => $cate->name,
-    'url' => ['index','id'=>$cate->id, 'type'=>'album']];
+$this->params['breadcrumbs'][] = ['label' => $module->title,'url' => ['index','mid'=>$module->id, 'type'=>'album']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$mod = Yii::$app->getRequest()->get('mod');
 ?>
 <style type="text/css">
     .thumbnail.active{
@@ -63,8 +61,8 @@ $mod = Yii::$app->getRequest()->get('mod');
                                 <textarea rows="3" class="form-group desc" placeholder="图片描述"><?=$model->desc?></textarea>
                             </div>
                             <p>
-                                <a href="<?=Url::toRoute(['del-img', 'id'=>$model->id, 'mod'=>$mod, 'album_id'=>$model->album_id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此图片吗？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a>
-                                <a href="<?=Url::toRoute(['cover', 'album_id'=>$album->id, 'mod'=>$mod, 'id'=>$model->id])?>" class="btn btn-success cover"><i class="fa fa-flag"></i>封面</a>
+                                <a href="<?=Url::toRoute(['del-img', 'id'=>$model->id, 'mid'=>$module->id, 'album_id'=>$model->album_id])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此图片吗？" data-method="post" data-pjax="0" class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a>
+                                <a href="<?=Url::toRoute(['cover', 'album_id'=>$album->id, 'mid'=>$module->id, 'id'=>$model->id])?>" class="btn btn-success cover"><i class="fa fa-flag"></i>封面</a>
                             </p>
                         </div>
                     </div>
@@ -84,7 +82,7 @@ $mod = Yii::$app->getRequest()->get('mod');
                     'res_name'=>'album',
                     'album_id'=>$album->id,
                     'server' => Url::toRoute('album-upload'),
-                    'mod'=>Yii::$app->getRequest()->get('mod')]]);
+                    'mid'=>$module->id]]);
             ?>
         </div>
 
@@ -135,7 +133,7 @@ var id = $(this).attr('rel');
 ids.push(id);
 });
 
-var uri = "<?=Url::toRoute(['sort', 'mod'=>$mod, 'album_id'=>$album->id])?>";
+var uri = "<?=Url::toRoute(['sort', 'album_id'=>$album->id])?>";
 var _csrf = $('meta[name=csrf-token]').attr('content');
 $.post(uri, {ids:ids, _csrf:_csrf},function(xhr){
 if (xhr.status) {

@@ -8,7 +8,8 @@ use yii\bootstrap\Modal;
 /* @var $searchModel app\modules\cms\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '模块列表';
+$this->title = $module->title . ' 模块分类管理';
+$this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/mod/admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -18,13 +19,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-                <!--
                 <?=  Html::a($this->title, ['index']) ?>
-            -->
                 <small>
-                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' title="添加模块"
-                       data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加模块</a>
+                    <a href="<?=Url::to(['create', 'mid'=>$module->id])?>" class='btn btn-primary btn-sm modalAddButton' title="添加分类"
+                       data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加分类</a>
                 </small>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/mod/admin/default/index'])?>">
+                        <i class="fa fa-th-large fa-2x"></i>  模块管理</a>
+                </div>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/default/index', 'mid'=>$module->id])?>">
+                        <i class="fa fa-th fa-2x"></i>  内容管理列表</a>
+                </div>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false"
+                       href="<?=Url::toRoute(['/cms/admin/default/create', 'type'=>'post', 'mid'=>$module->id])?>">
+                        <i class="fa fa-file-text fa-2x"></i>  添加文章</a>
+                </div>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm"
+                       href="<?=Url::toRoute(['/cms/admin/default/create', 'type'=>'album', 'mid'=>$module->id])?>">
+                        <i class="fa fa-file-image-o fa-2x"></i> 添加相册</a>
+                </div>
             </h1>
         </div><!-- /.page-header -->
 
@@ -69,18 +90,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         'id',
                          [
-                             'label' => '模块名',
+                             'label' => '分类名',
                              'value' => function($model){
                                 return '<img src="'.$model->getThumbImg('36x36').'"> ' . $model->name;
                              },
                              'format' => 'raw'
                          ],
-//                        [
-//                            'label' => '模型id',
-//                            'value' => function($model){
-//                                return $model->res_name;
-//                            }
-//                        ],
                          'body:ntext',
                         // 'sort',
                         // 'seo_title',
@@ -90,18 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'header'=>'操作',
-                            'template' => '{update} {delete} {view} {info}',
+                            'template' => '{update} {delete}',
                             'buttons' => [
                                 'update' => function($url, $model, $key) {
                                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
-                                },
-                                'view' => function($url, $model, $key) {
-                                    return Html::a('分类管理', $url, ['title' => '编辑'] );
-                                },
-                                'info' => function($url, $model, $key) {
-                                    $url = Url::toRoute(['/cms/admin/default/index', 'id'=>$model->id]);
-                                    return Html::a('内容管理', $url, [
-                                        'title' => '内容管理']);
                                 }
                             ],
                             'headerOptions' => ['width' => '240',"data-type"=>"html"]

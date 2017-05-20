@@ -5,12 +5,12 @@ namespace app\modules\mod\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\mod\models\Field;
+use app\modules\mod\models\Models;
 
 /**
- * FieldSearch represents the model behind the search form about `app\modules\mod\models\Field`.
+ * ModuleSearch represents the model behind the search form about `app\modules\mod\models\Module`.
  */
-class FieldSearch extends Field
+class ModelsSearch extends Models
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class FieldSearch extends Field
     public function rules()
     {
         return [
-            [['id', 'is_show', 'order', 'created_at'], 'integer'],
-            [['table', 'name', 'title', 'pop_note', 'html', 'option', 'default'], 'safe'],
+            [['id', 'order', 'show', 'created_at','mid'], 'integer'],
+            [['module', 'name', 'dir', 'link', 'logo'], 'safe'],
         ];
     }
 
@@ -41,13 +41,11 @@ class FieldSearch extends Field
      */
     public function search($params)
     {
-        $query = Field::find();
+        $query = Models::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -55,18 +53,17 @@ class FieldSearch extends Field
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_show' => $this->is_show,
+            'mid' => $this->mid,
             'order' => $this->order,
+            'show' => $this->show,
             'created_at' => $this->created_at,
-            'table' => $this->table,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'pop_note', $this->pop_note])
-            ->andFilterWhere(['like', 'html', $this->html])
-            ->andFilterWhere(['like', 'option', $this->option])
-            ->andFilterWhere(['like', 'default', $this->default]);
+        $query->andFilterWhere(['like', 'module', $this->module])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'dir', $this->dir])
+            ->andFilterWhere(['like', 'link', $this->link])
+            ->andFilterWhere(['like', 'logo', $this->logo]);
 
         return $dataProvider;
     }

@@ -47,16 +47,16 @@ use yii\helpers\Html;
             'header'=>'操作',
             'template' => '{update} {delete} {view}',
             'buttons' => [
-                'update' => function($url, $model, $key) use ($mod) {
-                    $url = Url::toRoute(['update', 'id'=>$model->id, 'mod'=>$mod, 'type'=>'post']);
+                'update' => function($url, $model, $key) use ($mid) {
+                    $url = Url::toRoute(['update', 'id'=>$model->id, 'mid'=>$mid, 'type'=>'post']);
                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑'] );
                 },
-                'view' => function($url, $model, $key) use ($mod) {
-                    $url = Url::toRoute(['post-view', 'id'=>$model->id, 'mod'=>$mod]);
+                'view' => function($url, $model, $key) use ($mid) {
+                    $url = Url::toRoute(['post-view', 'id'=>$model->id, 'mid'=>$mid]);
                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看'] );
                 },
-                'delete' => function($url, $model, $key) {
-                    $url = Url::toRoute(['delete', 'id'=>$model->id, 'mod'=>\Yii::$app->getRequest()->get('mod')]);
+                'delete' => function($url, $model, $key) use ($mid) {
+                    $url = Url::toRoute(['delete', 'id'=>$model->id, 'mid'=>$mid]);
                     return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
                 },
 

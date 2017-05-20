@@ -38,7 +38,7 @@ class Field extends \yii\db\ActiveRecord
         return [
             [['table', 'name'], 'required'],
             [['option', 'default'], 'string'],
-            [['is_show', 'order', 'created_at'], 'integer'],
+            [['is_show', 'order', 'created_at', 'model_id'], 'integer'],
             [['table'], 'string', 'max' => 45],
             [['name', 'title', 'pop_note'], 'string', 'max' => 255],
             [['html'], 'string', 'max' => 100],
@@ -74,6 +74,12 @@ class Field extends \yii\db\ActiveRecord
             'is_show' => '是否显示',
             'order' => '排序',
             'created_at' => '添加时间',
+            'model_id' => '模型id'
         ];
+    }
+
+    public function getModel()
+    {
+        return $this->hasOne(Models::className(),['module'=>'table']);
     }
 }

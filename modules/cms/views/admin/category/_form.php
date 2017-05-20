@@ -15,7 +15,7 @@ use app\modules\cms\models\Category;
 
     <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('模块名') ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'covert')->fileInput() ?>
 
