@@ -9,7 +9,13 @@
 	/*background:#FEF7DE;*/
 	background:#ffffff;
 }
-#myblog h2 { margin-bottom:12px; }
+/*#myblog h2 { margin-bottom:12px; }*/
+#myblog h2{    margin-bottom: 12px;
+	font-size: 25px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	color: #87543C;
+	font-weight: 500;}
 #blog-add { height:17px; line-height:17px; position:absolute; right:0px; top:7px; padding-left:20px; background:url(../images/blog/wirte_icon.png) no-repeat left center; color:#5d874a; }
 /*.myblog-content { width:543px;}*/
 myblog-content {margin-right:30px;}

@@ -29,6 +29,6 @@ class Html extends \yii\helpers\BaseHtml
 		$string = str_replace($qian,$hou,$string);
 
 		$string = mb_substr($string, 0, $sublen, 'utf-8');
-		return $string;
+		return $string. '...';
 	}  
 }

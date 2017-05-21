@@ -93,4 +93,13 @@ return array (
       '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2',
     ),
   ),
+  'izyue/yii2-alipay' => 
+  array (
+    'name' => 'izyue/yii2-alipay',
+    'version' => '0.0.1.0',
+    'alias' => 
+    array (
+      '@izyue/alipay' => $vendorDir . '/izyue/yii2-alipay',
+    ),
+  ),
 );

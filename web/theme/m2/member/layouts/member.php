@@ -118,11 +118,12 @@ $user = Yii::$app->user->identity;
         <ul id="my-menu">
             <li class="my-blog"><a target="_blank" href="<?=Url::toRoute(['/blog/member/default/index'])?>">我的日志</a>
                 <a class="publish" href="<?=Url::toRoute(['/blog/member/default/create'])?>">发表</a></li>
-            <li class="my-album"><a target="_blank" href="<?=Url::toRoute(['/blog/member/album/index'])?>">我的相册</a>
-                <a class="publish" href="<?=Url::toRoute(['/blog/member/album/create'])?>">添加</a></li>
-            <li class="my-video"><a target="_blank" href="<?=Url::toRoute(['/blog/member/video/index'])?>">我的视频</a>
-                <a class="publish" href="<?=Url::toRoute(['/blog/member/video/create'])?>">发表</a></li>
-            <li class="my-relative"><a target="_blank" href="<?=Url::toRoute(['/memorial/member/default/index'])?>">我的纪念馆</a></li>
+<!--            <li class="my-album"><a target="_blank" href="--><?//=Url::toRoute(['/blog/member/album/index'])?><!--">我的相册</a>-->
+<!--                <a class="publish" href="--><?//=Url::toRoute(['/blog/member/album/create'])?><!--">添加</a></li>-->
+<!--            <li class="my-video"><a target="_blank" href="--><?//=Url::toRoute(['/blog/member/video/index'])?><!--">我的视频</a>-->
+<!--                <a class="publish" href="--><?//=Url::toRoute(['/blog/member/video/create'])?><!--">发表</a>-->
+<!--            </li>-->
+            <li class="my-relative"><a target="_blank" href="<?=Url::toRoute(['/memorial/member/default/index'])?>">纪念馆</a></li>
             <li class="my-order"><a target="_blank" href="<?=Url::toRoute(['/order/member/default/index'])?>">我的订单</a></li>
             <li class="my-task"><a target="_blank" href="<?=Url::toRoute(['/grave/member/ins/index'])?>">碑文确认</a></li>
         </ul>

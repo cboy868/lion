@@ -74,7 +74,7 @@ class Blog extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['title', 'body'], 'required'],
             [['summary', 'body'], 'string'],
             [['thumb', 'sort', 'recommend', 'is_customer', 'is_top', 'type', 'memorial_id', 'privacy', 'view_all', 'com_all', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
             [['publish_at'], 'safe'],
@@ -111,5 +111,10 @@ class Blog extends \app\core\db\ActiveRecord
             'updated_at' => '更新时间',
             'status' => '状态',
         ];
+    }
+
+    public function isOwn()
+    {
+        return ($this->created_by == Yii::$app->user->id);
     }
 }

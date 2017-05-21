@@ -16,6 +16,8 @@ use app\modules\shop\models\Goods;
 use app\modules\news\models\News;
 use app\modules\news\models\Category as NewsCategory;
 use app\core\models\TagRel;
+use app\modules\memorial\models\Memorial;
+use app\modules\blog\models\Blog;
 //  按格式打印数组
 function p($arr)
 {
@@ -286,16 +288,6 @@ function url($params)
 
 function g($name)
 {
-
-//	$path = Yii::$app->request->pathInfo;
-//	$path = substr($path, 0, strpos($path, '.'));
-//
-//	$nav = \app\modules\cms\models\Nav::find()->where(['like', 'url', $path])->one();
-//
-//	if (!empty($nav[$name])) {
-//		return $nav[$name];
-//	}
-
 	return isset(Yii::$app->params[$name]) ? Yii::$app->params[$name] : '';
 }
 
@@ -316,6 +308,24 @@ function truncate($string, $length, $suffix = '...', $encoding = null, $asHtml =
 function defaultImg()
 {
 	return '/static/images/default.png';
+}
+
+function getMemorialByUser($user_id, $rows=5)
+{
+    $memorials = Memorial::find()->where(['status'=>Memorial::STATUS_NORMAL])
+                                ->andWhere(['user_id'=>$user_id])
+                                ->limit($rows)
+                                ->all();
+    return $memorials;
+}
+
+function getBlogsByUser($user_id, $rows=10)
+{
+    $blogs = Blog::find()->where(['status'=>Memorial::STATUS_NORMAL])
+            ->andWhere(['created_by'=>$user_id])
+            ->limit($rows)
+            ->all();
+    return $blogs;
 }
 
 function  filelog($word, $file='log', $other='')

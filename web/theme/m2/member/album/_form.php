@@ -96,7 +96,7 @@ ExtAsset::register($this);
                     'album_id'=>0,
                     'reload'=>false,
                     'server' => Url::toRoute(['album-upload', 'reload'=>false]),
-                    'mod'=>false
+                    'mid'=>false
                 ]
             ]);
             ?>

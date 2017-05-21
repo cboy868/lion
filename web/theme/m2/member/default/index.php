@@ -2,14 +2,14 @@
     <div id="content">
         <div id="content-hook">
             <div class="tab-container clearboth">
-                <div class="tab-header">
-                    <ul class="tabs clearfix" id="feedListSelecter">
-
-                        <li class="curr"><a href="javascript:;" type="me" class="feedChange" data="photoList">我的相册</a></li>
-                        <li><a href="javascript:;" type="frd" class="feedChange" data="blogList">我的博客</a></li>
-                        <li><a href="javascript:;" type="frd" class="feedChange" data="videoList">我的视频</a></li>
-                    </ul>
-                </div>
+<!--                <div class="tab-header">-->
+<!--                    <ul class="tabs clearfix" id="feedListSelecter">-->
+<!---->
+<!--                        <li class="curr"><a href="javascript:;" type="me" class="feedChange" data="photoList">我的相册</a></li>-->
+<!--                        <li><a href="javascript:;" type="frd" class="feedChange" data="blogList">我的博客</a></li>-->
+<!--                        <li><a href="javascript:;" type="frd" class="feedChange" data="videoList">我的视频</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
                 <div class="moreList  aa" id="photoList">
                     <div class="album-list2">
 
