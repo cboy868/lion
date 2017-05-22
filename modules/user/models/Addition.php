@@ -28,7 +28,6 @@ class Addition extends \app\core\db\ActiveRecord
     public function init()
     {
 
-        $mod = \Yii::$app->getRequest()->get('mod');
         $fields = UserField::find()->asArray()->all();
 
         $this->fields = ArrayHelper::map($fields, 'name', 'title');

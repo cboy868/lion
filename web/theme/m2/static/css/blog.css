@@ -371,8 +371,24 @@ span.sorts-add { font-size:12px; color:#773000; }
 .w130 { width:130px; }
 .w215 { width:215px; }
 .w280 { width:280px; }
-.setting { overflow:hidden; padding:15px 25px 30px; border:1px solid #dddcc0; color:#785149; background:#FEF7DE; }
-.setting h2 { width:87px; height:0px; padding-top:29px; margin:0 0 15px -2px; overflow:hidden; background:url(../images/center/set_up.png) no-repeat; }
+.setting {
+	overflow:hidden;
+	padding:15px 25px 30px;
+	border-left:1px solid #dddcc0;
+	color:#785149;
+}
+.setting h2 {
+
+	margin-bottom: 12px;
+	font-size: 25px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	color: #87543C;
+	font-weight: 500;
+
+	/*width:87px; height:0px; padding-top:29px; margin:0 0 15px -2px; overflow:hidden; */
+	/*background:url(../images/center/set_up.png) no-repeat; */
+}
 .setting-boxs .setting-subnav { padding-left:10px; margin-bottom:20px; }
 .setting-boxs .setting-subnav .setting-subnav-a { display:inline-block; width:59px; text-align:center; color:#94926b; padding-left:6px; font-size:12px; border-left:1px dotted #94926b; }
 .setting-boxs .setting-subnav .setting-subnav-a.curr { color:#785149; }
@@ -479,7 +495,7 @@ dl.recharge-tips dt { color:#8c8a43; }
 	font-weight:bold;
 }
 .gt_con{
-	padding:10px 20px;
+	/*padding:10px 20px;*/
 	overflow:hidden;
 	margin-bottom:20px;
 }

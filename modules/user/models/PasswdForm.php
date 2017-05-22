@@ -21,12 +21,12 @@ class PasswdForm extends Model
     {
         return [
 
-            [['password', 'repassword'], 'required', 'on' => ['update', 'forget']],
-            [['oldpassword'], 'required','on' => ['update']],
+            [['password', 'repassword'], 'required', 'on' => ['update', 'forget', 'passwd']],
+            [['oldpassword'], 'required','on' => ['update', 'passwd']],
 
             ['password', 'string', 'min' => 6],
 
-            ['repassword', 'compare', 'compareAttribute'=>'password']
+            ['repassword', 'compare', 'compareAttribute'=>'password', 'message'=>'两次输入密码不一致']
 
         ];
     }
@@ -34,10 +34,16 @@ class PasswdForm extends Model
 
     public function scenarios()
     {
-        return [
-            'update' => ['oldpassword', 'password', 'repassword'],
-            'forget' => ['password', 'repassword'],
-        ];
+        $scenarios = parent::scenarios();
+        $scenarios['update'] = ['oldpassword', 'password', 'repassword'];
+        $scenarios['forget'] = ['password', 'repassword'];
+        $scenarios['passwd'] = ['password', 'repassword', 'oldpassword'];
+//        return [
+//            'update' => ['oldpassword', 'password', 'repassword'],
+//            'forget' => ['password', 'repassword'],
+//        ];
+
+        return $scenarios;
     }
 
     public function attributeLabels()
@@ -45,7 +51,7 @@ class PasswdForm extends Model
       return array(
         'oldpassword' => '原始密码',
         'password' => '新密码',
-        'repassword' => '再次输入新密码',
+        'repassword' => '新密码确认',
       );
     }
 
@@ -67,6 +73,9 @@ class PasswdForm extends Model
             if ($user->save()) {
                 return $user;
             }
+
+        } else {
+            $this->addError('oldpassword', '原始密码输入错误');
         }
 
         return null;

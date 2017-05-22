@@ -1,5 +1,5 @@
 /*我的亲人*/
-#my-relative { width:768px; overflow:hidden; position:relative; padding:16px 13px 500px;
+#my-relative { width:768px; overflow:hidden; position:relative; padding:16px 13px 10px;
     border-left:1px solid #dddcc0;
     /*background:#FEF7DE; */
 }
@@ -23,7 +23,7 @@
 #my-relative table.memorial_table_hook td.memorial_hook { border:1px solid #dddcc0; border-width:0 0 1px 1px; padding:8px 0; }
 #my-relative table.memorial_table_hook td.memorial_hook a { color:#7b7955; text-decoration:underline; }
 
-#ins { width:768px; overflow:hidden; position:relative; padding:16px 13px 500px;
+#ins { width:768px; overflow:hidden; position:relative; padding:16px 13px 10px;
     border-left:1px solid #dddcc0; }
 #ins h2 {
     margin-bottom: 12px;

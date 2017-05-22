@@ -1,0 +1,141 @@
+<?php
+use app\core\helpers\Url;
+use app\core\helpers\Html;
+use app\core\widgets\ActiveForm;
+?>
+<style>
+    input, select,textarea{
+        font-size: 25px;
+        padding: 5px;
+    }
+    label{
+        font-size: 20px;
+    }
+    .field{
+        margin-bottom:10px;
+    }
+</style>
+<div id="main-content">
+    <div class="setting corner12">
+        <h2>个人设置</h2>
+        <!-- 个人设置导航 start -->
+        <div class="tab-header">
+            <ul class="tabs clearfix">
+                <li class="curr">
+                    <a href="<?=Url::toRoute(['/user/member/profile/index'])?>">个人资料</a>
+                </li>
+                <li>
+                    <a href="<?=Url::toRoute(['/user/member/profile/avatar'])?>">修改头像</a>
+                </li>
+                <li>
+                    <a href="<?=Url::toRoute(['/user/member/profile/passwd'])?>">修改密码</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="setting-info">
+
+
+<?php $form = ActiveForm::memberBegin(); ?>
+
+    <div class="xb6 xl12">
+        <?= $form->field($addition, 'real_name')->textInput(['maxlength' => true])->label('真实姓名') ?>
+        <?= $form->field($addition, 'gender')->radioList(['1'=> '男', '2'=>'女'])->label('性别') ?>
+        <?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label('手机号') ?>
+        <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('邮箱') ?>
+        <?= $form->field($addition, 'qq')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($addition, 'address')->textArea(['style'=>'width:500px;height:100px;']) ?>
+    </div>
+
+
+
+    <?php foreach ($attach as $k => $v): ?>
+        <div class="xb6 xl12">
+        <?php if ($v['html'] == 'input'): ?>
+            <?= $form->field($addition, $v['name'])->textInput(['value'=>isset($addition)?$addition->$v['name']:'']) ?>
+        <?php elseif($v['html'] == 'textarea'): ?>
+            <?= $form->field($addition, $v['name'])->textarea(['rows' => 6, 'value'=>isset($addition)?$addition->$v['name']:'']) ?>
+        <?php elseif($v['html'] == 'fulltext'): ?>
+            <?= $form->field($addition,$v['name'])->widget('app\core\widgets\Ueditor\Ueditor',['option' =>['res_name'=>'post', 'use'=>'ue'], 'value'=>isset($addition)?$addition->$v['name']:''])->label($v['title']); ?>
+        <?php endif ?>
+        </div>
+    <?php endforeach ?>
+
+
+    <div class="xb12 xl12">
+        <div class="form-group">
+            <div class="x4">
+                <?=  Html::submitButton('保 存', ['class' => 'button button-block bg-sub']) ?>
+            </div>
+        </div>
+    </div>
+
+
+<?php ActiveForm::end(); ?>
+            <form id="setForm" action="/member/setting/index" method="post" enctype="multipart/form-data">
+                <table class="basic-info">
+                    <tbody>
+                    <tr>
+                        <td class="txtright">账号：</td>
+                        <td class="pb13"><??></td>
+                    </tr>
+                    <tr>
+                        <td class="txtright">真实姓名：</td>
+                        <td class="pb13">
+                            <input type="text" name="realname" id="attr_value_10" value="永安网络" class="mid w130"></td>
+                    </tr>
+                    <tr>
+                        <td class="txtright">昵称：</td>
+                        <td class="pb13">
+                            <input type="text" name="nikename" id="attr_value_11" value="" class="mid w130"></td>
+                    </tr>
+                    <tr>
+                        <td class="txtright">工作时间：</td>
+                        <td class="pb13">
+                            <input dt="true" class="form-control mid w130 hasDatepicker" readonly="" type="text" value="" id="date_control_52" name="attr_value_52"><img class="ui-datepicker-trigger" src="/static/images/product/calendar.png" alt="..." title="...">          </td>
+                    </tr><tr>
+                        <td class="txtright">性别：</td>
+                        <td class="pb13">
+                            <select class="form-control" name="attr_value_12" id="attr_value_12"><option value="0">请选择</option><option value="男">男</option><option value="女">女</option></select>          </td>
+                    </tr><tr>
+                        <td class="txtright">出生年月日：</td>
+                        <td class="pb13">
+                            <input dt="true" class="form-control mid w130 hasDatepicker" readonly="" type="text" value="" id="date_control_13" name="attr_value_13"><img class="ui-datepicker-trigger" src="/static/images/product/calendar.png" alt="..." title="...">          </td>
+                    </tr><tr>
+                        <td class="txtright">籍贯：</td>
+                        <td class="pb13">
+                            <input class="form-control mid w130" type="text" name="attr_value_14" id="attr_value_14" value="">          </td>
+                    </tr><tr>
+                        <td class="txtright">现居住地：</td>
+                        <td class="pb13">
+                            <input class="form-control mid w130" type="text" name="attr_value_15" id="attr_value_15" value="">          </td>
+                    </tr><tr>
+                        <td class="txtright">婚姻：</td>
+                        <td class="pb13">
+                            <select class="form-control" name="attr_value_16" id="attr_value_16"><option value="0">请选择</option><option value="单身">单身</option><option value="恋爱中">恋爱中</option><option value="订婚">订婚</option><option value="已婚">已婚</option><option value="离异">离异</option></select>          </td>
+                    </tr><tr>
+                        <td class="txtright">身高：</td>
+                        <td class="pb13">
+                            <input class="form-control mid w130" type="text" name="attr_value_17" id="attr_value_17" value="">          </td>
+                    </tr><tr>
+                        <td class="txtright">孩子姓名：</td>
+                        <td class="pb13">
+                            <input class="form-control mid w130" type="text" name="attr_value_58" id="attr_value_58" value="">          </td>
+                    </tr><tr>
+                        <td class="txtright">孩子生日：</td>
+                        <td class="pb13">
+                            <input dt="true" class="form-control mid w130 hasDatepicker" readonly="" type="text" value="" id="date_control_18" name="attr_value_18"><img class="ui-datepicker-trigger" src="/static/images/product/calendar.png" alt="..." title="...">          </td>
+                    </tr>        <tr>
+                        <td class=""></td>
+                        <td>
+                            <input type="hidden" name="action" value="contact">
+                            <input class="setup-submit" value="" type="submit">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+    </div>
+</div>

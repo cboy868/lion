@@ -40,10 +40,6 @@ $home_user = isset($getuid) ? $getuid :$user->id;
                 <a href="<?=Url::toRoute(['/admin'])?>" target="_blank">管理中心</a>
                 <a href="<?=Url::toRoute(['/member/default/logout'])?>" id="signOut">退出</a>
             </li>
-            &nbsp;&nbsp;
-<!--            <li class="site-help">-->
-<!--                <a id="view_opinion1" href="http://gls.gls024.com/notice/addnotice" target="_blank">客户建议收集</a>-->
-<!--            </li>-->
         </ul>
     </div>
 </div>
@@ -63,7 +59,7 @@ $home_user = isset($getuid) ? $getuid :$user->id;
             <li class="first"><a href="<?=Url::toRoute(['/'])?>">首页</a></li>
             <li><a href="<?=Url::toRoute(['/news/home/default/index'])?>">资讯</a></li>
             <li><a href="<?=Url::toRoute(['/blog/home/default/index'])?>">服务日志</a></li>
-            <li><a href="<?=Url::toRoute(['/memorial/home/default/index'])?>">观陵山大家庭</a></li>
+            <li><a href="<?=Url::toRoute(['/memorial/home/default/index'])?>">纪念馆</a></li>
         </ul>
     </div>
 </div>

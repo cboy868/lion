@@ -99,6 +99,7 @@ class MemberController extends \app\core\web\Controller
             '@app/modules/grave/views/member/ins' => '@app/web/theme/' . $model->svalue . '/member/ins',
             '@app/modules/memorial/views/member/default' => '@app/web/theme/' . $model->svalue . '/member/memorial',
             '@app/core/views/single' => '@app/web/theme/' . $model->svalue . '/member/msg',
+            '@app/modules/user/views/member/profile' => '@app/web/theme/' . $model->svalue . '/member/profile',
         ];
     }
 

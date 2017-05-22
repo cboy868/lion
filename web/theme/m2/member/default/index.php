@@ -1,248 +1,387 @@
-<div id="main-content">
-    <div id="content">
-        <div id="content-hook">
-            <div class="tab-container clearboth">
-<!--                <div class="tab-header">-->
-<!--                    <ul class="tabs clearfix" id="feedListSelecter">-->
-<!---->
-<!--                        <li class="curr"><a href="javascript:;" type="me" class="feedChange" data="photoList">我的相册</a></li>-->
-<!--                        <li><a href="javascript:;" type="frd" class="feedChange" data="blogList">我的博客</a></li>-->
-<!--                        <li><a href="javascript:;" type="frd" class="feedChange" data="videoList">我的视频</a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-                <div class="moreList  aa" id="photoList">
-                    <div class="album-list2">
+<link rel="stylesheet" href="/theme/m2/static/css/order.css">
+<link rel="stylesheet" href="/theme/m2/static/css/tomb.css">
+<div id="main-content" class="plus-width-hook"><!-- main-content start -->
+    <div id="ins" class=" right">
+        <h2>碑文</h2>
+        <div class="gt_con">
+            <table class="memorial_table_hook tdbor">
+                <tbody>
+                <tr>
+                    <th>墓位号</th>
+                    <td>天寿一5排22列</td>
+                    <th>确认人</th>
+                    <td>
+                        碑文未确认
+                    </td>
+                    <th>确认时间</th>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <th>碑文图片</th>
+                    <td colspan="5">
+                        <div class="gt_con">
+                            <p class="left" style="margin-right:20px;">
+                                <a href="/upload/inscription/original/00/115/274/115274front.png" class="artimg">
+                                    <img class="image" title="前碑文" width="180" src="/upload/inscription/original/00/115/274/115274front.png">                    </a>
+                            </p>
 
-                        <ul class="clearfix" id="albumList">
-                            <li class="left viewOrder" id="album_39274">
-                                <div class="avatar avatar-photo">
-                                    <a href="/album/photo/id/39274.html">
-                                        <div class="loadingImg" style="position: absolute; width: 140px; height: 140px; display: none;"></div><img class="img" src="http://www.yagm.com.cn/upload/2015/11/26/middle_20151126145919000000_1_309897_37.jpg" style="max-width: 138px; max-height: 138px; display: inline; background: rgb(255, 255, 255); padding: 0.5px; border: 1px solid rgb(204, 204, 204);">
-                                    </a>
-                                </div>
-                                <div class="avatar-info">
-                                    <h6>
-                                        <a title="塘沽遇难消防员[来自客户]" alt="塘沽遇难消防员[来自客户]" href="/album/photo/id/39274.html">
-                                            塘沽遇难消防员[...                    </a>
-                                    </h6>
-                                    <p>
-                                        <!--
-                      <a href="#" id="edit_39274" class="editAlbum">编辑</a>                  -->
-                                        11张照片
-                                    </p>
-                                </div>
-                            </li><li class="left viewOrder" id="album_39273">
-                                <div class="avatar avatar-photo">
-                                    <a href="/album/photo/id/39273.html">
-                                        <div class="loadingImg" style="position: absolute; width: 140px; height: 140px; display: none;"></div><img class="img" src="http://www.yagm.com.cn/upload/2016/02/16/middle_20160216155828000000_1_1545343_23.jpg" style="max-width: 138px; max-height: 138px; display: inline; background: rgb(255, 255, 255); padding: 0.5px 17.5px; border: 1px solid rgb(204, 204, 204);">
-                                    </a>
-                                </div>
-                                <div class="avatar-info">
-                                    <h6>
-                                        <a title="东方之星[来自客户]" alt="东方之星[来自客户]" href="/album/photo/id/39273.html">
-                                            东方之星[来自客...                    </a>
-                                    </h6>
-                                    <p>
-                                        <!--
-                      <a href="#" id="edit_39273" class="editAlbum">编辑</a>                  -->
-                                        17张照片
-                                    </p>
-                                </div>
-                            </li><li class="left viewOrder" id="album_39204">
-                                <div class="avatar avatar-photo">
-                                    <a href="/album/photo/id/39204.html">
-                                        <div class="loadingImg" style="position: absolute; width: 140px; height: 140px; display: none;"></div><img class="img" src="http://www.yagm.com.cn/upload/2015/08/16/middle_20150816112854000000_1_22096_27.jpg" style="max-width: 138px; max-height: 138px; display: inline; background: rgb(255, 255, 255); padding: 28.5px 0.5px; border: 1px solid rgb(204, 204, 204);">
-                                    </a>
-                                </div>
-                                <div class="avatar-info">
-                                    <h6>
-                                        <a title="致最伟大的逆行" alt="致最伟大的逆行" href="/album/photo/id/39204.html">
-                                            致最伟大的逆行                    </a>
-                                    </h6>
-                                    <p>
-                                        <!--
-                      <a href="#" id="edit_39204" class="editAlbum">编辑</a>                  -->
-                                        4张照片
-                                    </p>
-                                </div>
-                            </li>            </ul>
-                    </div>
-                </div>
-                <div class="aa hidden" id="blogList">
-                    <div id="myblog-container">
-                        <div class="myblog-content left">
-                            <ol>
-                                <li id="box3095766">
-                                    <div class="myblog-hdskin">
-                                        <h6>
-                                            <a href="/blog/detail/id/3095766.html">
-                                                这样的公墓---没有          </a>
-                                        </h6>
-                                        <div class="blog-t-tool">
-                                            <div class="blog-msg">
-                                                <span class="time">2016-12-11 15:32:10 发表</span>
-                                                <span>分类：
-                        <a href="/blog/index/category_id/0/uid/681.html">默认分类</a>              </span>
-                                                <!--
-                                                <span>权限：
-                                                                                        <a href="#">好友可访问</a>	                            </span>
-                                                 -->
-                                            </div>
-                                            <div class="toolbar">
-   <span class="cursor edit-blog">
-   <a href="/member/blog/edit/id/3095766.html">编辑</a></span>
-                                                <span><img src="/theme/m2/static/images/blog/v_dotted.png" alt=""></span>
-                                                <span class="cursor del-myblog"><a id="delete-3095766" class="delete-btn" href="/blog/del/id/3095766.html">删除</a></span>     </div>                  </div>
-                                    </div>
-                                    <div class="myblog-body">
-                                        今天的天气真不正常啊,现在是大雪节都过去了,一点也不冷,就别提雪了,要下早着呢~现在这天就是开春时似的,还好这样的天气我们干活儿是一种幸福啊~呵呵我们的业务是一点也不见少,我们的迎灵每天都要用四辆车才能保证业务的顺利的完成,我今年就是三趟迎灵,还都是北仓的,,第一趟我们到时家属就已经到了,提前在等我们,我们见了面后一起...      </div>
-                                    <div class="myblog-foot">
-                                        <a href="#">阅读(1609)</a>
-                                        <span>|</span>
-                                        <a href="#">评论(3)</a>
-                                    </div>
-                                </li>
-                            </ol>
+                            <p class="left">
+                                <a href="/upload/inscription/original/00/115/274/115274back.png" class="artimg">
+                                    <img class="image" title="后碑文" width="180" src="/upload/inscription/original/00/115/274/115274back.png" alt="...">                   </a>
+                            </p>
                         </div>
-                        <div class="clear"></div>
-                        <div style="float:right;"><ul class="pagination yw-page"><li><a href="/blog/index/uid/681.html?p=1"><i class="fa fa-home"></i> 首页</a></li><li><a href="/blog/index/uid/681.html?p=1"><i class="fa fa-arrow-left">&lt;&lt;</i></a></li><li class="active"><a href="/blog/index/uid/681.html?p=1">1</a></li><li><a href="/blog/index/uid/681.html?p=2">2</a></li><li><a href="/blog/index/uid/681.html?p=3">3</a></li><li><a href="/blog/index/uid/681.html?p=4">4</a></li><li><a href="/blog/index/uid/681.html?p=5">5</a></li><li><a href="/blog/index/uid/681.html?p=6">6</a></li><li><a href="/blog/index/uid/681.html?p=7">7</a></li><li><a href="/blog/index/uid/681.html?p=8">8</a></li><li><a href="/blog/index/uid/681.html?p=9">9</a></li><li><a href="/blog/index/uid/681.html?p=10">10</a></li><li><a href="/blog/index/uid/681.html?p=2"><i class="fa fa-arrow-right">&gt;&gt;</i></a></li><li><a href="/blog/index/uid/681.html?p=56">尾页</a></li></ul></div>
-                    </div>
-                </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td colspan="4">
+                        碑文确认时间还有&nbsp;<b>
+                            3     	</b>&nbsp;天。
+                    </td>
+                    <td>
+                        <p>
+                            <a href="/member/process/index?tomb_id=115274" target="_blank" title="点此处可以去修改碑文" class="modify_inscription" style="color:green;">(更改)</a>      <a href="#" id="" insid="52261" class="confirm_inscription right" style="color:green;">(确认)</a>
+                        </p>    </td>
+                </tr>
+                </tbody>
+            </table>       	</div>
 
-                <div class="aa hidden" id="videoList">
-                    <div id="myblog-container">
-                        <div class="myblog-content">
-                            <ol>
-                                <li id="box473341">
-                                    <div class="myblog-hdskin">
-                                        <h6>
-                                            <a href="/video/detail/id/473341.html">
-                                                视频: 永安与失独父母共庆月亮节          </a>
-
-                                        </h6>
-                                        <div class="blog-t-tool">
-                                            <div class="blog-msg">
-                                                <span class="time">2016-01-23 10:36:57 发表</span>
-                                                <span>分类：
-          <a href="/video/index/self_id/0"></a>
-
-          </span>
-                                                <span>权限：所有人可见              </span>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="myblog-foot">
-                                        <a href="javascript:void(0);">阅读(9362)</a>
-                                        <span>|</span>
-                                        <a href="javascript:void(0);">评论(0)</a>
-                                    </div>
-                                </li><li id="box472902">
-                                    <div class="myblog-hdskin">
-                                        <h6>
-                                            <a href="/video/detail/id/472902.html">
-                                                永安毕业生院庆演出节目          </a>
-
-                                        </h6>
-                                        <div class="blog-t-tool">
-                                            <div class="blog-msg">
-                                                <span class="time">2015-11-07 15:30:03 发表</span>
-                                                <span>分类：
-          <a href="/video/index/self_id/0"></a>
-
-          </span>
-                                                <span>权限：所有人可见              </span>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="myblog-foot">
-                                        <a href="javascript:void(0);">阅读(8775)</a>
-                                        <span>|</span>
-                                        <a href="javascript:void(0);">评论(0)</a>
-                                    </div>
-                                </li><li id="box470215">
-                                    <div class="myblog-hdskin">
-                                        <h6>
-                                            <a href="/video/detail/id/470215.html">
-                                                英雄妈妈 有我们不孤单          </a>
-
-                                        </h6>
-                                        <div class="blog-t-tool">
-                                            <div class="blog-msg">
-                                                <span class="time">2014-10-07 14:51:13 发表</span>
-                                                <span>分类：
-          <a href="/video/index/self_id/0"></a>
-
-          </span>
-                                                <span>权限：所有人可见              </span>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="myblog-foot">
-                                        <a href="javascript:void(0);">阅读(10107)</a>
-                                        <span>|</span>
-                                        <a href="javascript:void(0);">评论(1)</a>
-                                    </div>
-                                </li><li id="box470156">
-                                    <div class="myblog-hdskin">
-                                        <h6>
-                                            <a href="/video/detail/id/470156.html">
-                                                歌唱祖国 缅怀人民音乐家王莘          </a>
-
-                                        </h6>
-                                        <div class="blog-t-tool">
-                                            <div class="blog-msg">
-                                                <span class="time">2014-10-01 22:44:05 发表</span>
-                                                <span>分类：
-          <a href="/video/index/self_id/0"></a>
-
-          </span>
-                                                <span>权限：所有人可见              </span>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="myblog-foot">
-                                        <a href="javascript:void(0);">阅读(9398)</a>
-                                        <span>|</span>
-                                        <a href="javascript:void(0);">评论(2)</a>
-                                    </div>
-                                </li>
-                            </ol>
-                        </div>
-                        <div class="clear"></div>
-
-                        <div class="mb15 txtright"><ul class="pagination yw-page"><li>
-                                    <a href="/video/index/uid/291.html?p=1"><i class="fa fa-home"></i> 首页</a></li>
-                                <li><a href="/video/index/uid/291.html?p=1"><i class="fa fa-arrow-left">&lt;&lt;</i></a></li>
-                                <li class="active"><a href="/video/index/uid/291.html?p=1">1</a></li><li><a href="/video/index/uid/291.html?p=2">2</a></li>
-                                <li><a href="/video/index/uid/291.html?p=3">3</a></li><li><a href="/video/index/uid/291.html?p=4">4</a></li>
-                                <li><a href="/video/index/uid/291.html?p=5">5</a></li><li><a href="/video/index/uid/291.html?p=6">6</a></li>
-                                <li><a href="/video/index/uid/291.html?p=2"><i class="fa fa-arrow-right">&gt;&gt;</i></a></li>
-                                <li><a href="/video/index/uid/291.html?p=6">尾页</a></li></ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="blog-cornerb"></div>
     </div>
+    <div id="my-relative" class="right">
+        <h2>纪念馆</h2>
+        <table class="memorial_table_hook">
+            <thead>
+            <tr>
+                <th>纪念馆</th>
+                <th>关联墓位</th>
+                <th width="285">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="memorial_hook">
+                    <a href="/home/memorial/detail?id=26323">塘沽遇难消防员</a>
+                </td>
+                <td class="memorial_hook"><a href="#"></a></td>
+                <td class="memorial_hook">
+                    <a href="/member/process?tomb_id=0">办理业务</a>
+                    <a href="/member/memorial/edit?id=26323">完善亲人信息</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="memorial_hook">
+                    <a href="/home/memorial/detail?id=25590">东方之星</a>
+                </td>
+                <td class="memorial_hook"><a href="#"></a></td>
+                <td class="memorial_hook">
+                    <a href="/member/process?tomb_id=0">办理业务</a>
+                    <a href="/member/memorial/edit?id=25590">完善亲人信息</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    <div id="confirm-delivery" class=" right">
+        <h2>
+            我的订单
+        </h2>
+        <div class="table-wrap">
+            <table class="pos-hook">
+                <tbody>
+                <tr>
+                    <td colspan="6" class="delivery-title" style="position:relative;">
+                        <span>订单编号：40094</span>
+                        <span>成交时间：2016-03-23 12:08:10</span>
+                    </td>
+                </tr>
+                <tr id="10683">
+                    <td class="txtleft">
+                        <div class="td-wid-hook">
+                            <!-- <a href="grave/237.html"> -->
+                            <img width="50" height="50" src="http://www.yagm.com.cn/upload/2014/10/06/small_20141006113025000000_1_157512_11.jpg" alt="颐安十八10排16列">
+                            <!--   </a> -->
+                            <!-- <a class="order-goods-name" href="grave/237.html"> -->黄玉大元宝<!-- </a> -->
+                        </div>
+                    </td>
+                    <td>116.00</td>
+                    <td>1</td>
+                    <td rowspan="1">116.00<br>已支付0.00元
+                        <br>还需支付116元				    <br><span style="color:green;"></span>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-success">
+                            未支付                    </div>
+                        <a href="/member/order/40631" target="_blank">服务详情</a>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-confirm">
+                            <a href="/order/confirm/order_id/40631">支付余额</a><br><a href="/member/orderinfo/confirm/order_id/40631">修改订单</a><br>				    </div>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="6" class="delivery-title" style="position:relative;">
+                        <span>订单编号：38053</span>
+                        <span>成交时间：2016-03-08 14:39:54</span>
+                    </td>
+                </tr>
+                <tr id="10683">
+                    <td class="txtleft">
+                        <div class="td-wid-hook">
+                            <!-- <a href="grave/237.html"> -->
+                            <img width="50" height="50" src="" alt="颐安十八10排16列">
+                            <!--   </a> -->
+                            <!-- <a class="order-goods-name" href="grave/237.html"> -->续维护费<!-- </a> -->
+                        </div>
+                    </td>
+                    <td>600.00</td>
+                    <td>1</td>
+                    <td rowspan="1">600.00<br>已支付600.00元
+                        <br><span style="color:green;"></span>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-success">
+                            待确认...                    </div>
+                        <a href="/member/order/40094" target="_blank">服务详情</a>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-confirm">
+                        </div>
+                    </td>				</tr>
+
+
+                <tr>
+                    <td colspan="6" class="delivery-title" style="position:relative;">
+                        <span>订单编号：34982</span>
+                        <span>成交时间：2015-12-21 10:05:10</span>
+                    </td>
+                </tr>
+                <tr id="10683">
+                    <td class="txtleft">
+                        <div class="td-wid-hook">
+                            <!-- <a href="grave/237.html"> -->
+                            <img width="50" height="50" src="http://www.yagm.com.cn/upload/2015/05/08/small_20150508143653000000_1_109050_77.jpg" alt="颐安十八10排16列">
+                            <!--   </a> -->
+                            <!-- <a class="order-goods-name" href="grave/237.html"> -->感恩<!-- </a> -->
+                        </div>
+                    </td>
+                    <td>55.00</td>
+                    <td>1</td>
+                    <td rowspan="2">136.00<br>已支付0.00元
+                        <br>还需支付136元				    <br><span style="color:green;"></span>
+                    </td>
+                    <td rowspan="2">
+                        <div class="status-success">
+                            未支付                    </div>
+                        <a href="/member/order/38053" target="_blank">服务详情</a>
+                    </td>
+                    <td rowspan="2">
+                        <div class="status-confirm">
+                            <a href="/order/confirm/order_id/38053">支付余额</a><br><a href="/member/orderinfo/confirm/order_id/38053">修改订单</a><br>				    </div>
+                    </td>				</tr><tr id="10683">
+                    <td class="txtleft">
+                        <div class="td-wid-hook">
+                            <!-- <a href="grave/237.html"> -->
+                            <img width="50" height="50" src="http://www.yagm.com.cn/upload/2014/10/06/small_20141006105948000000_1_173982_0.jpg" alt="颐安十八10排16列">
+                            <!--   </a> -->
+                            <!-- <a class="order-goods-name" href="grave/237.html"> -->招财进宝<!-- </a> -->
+                        </div>
+                    </td>
+                    <td>81.00</td>
+                    <td>1</td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="6" class="delivery-title" style="position:relative;">
+                        <span>订单编号：34431</span>
+                        <span>成交时间：2015-12-04 10:15:37</span>
+                    </td>
+                </tr>
+                <tr id="10683">
+                    <td class="txtleft">
+                        <div class="td-wid-hook">
+                            <!-- <a href="grave/237.html"> -->
+                            <img width="50" height="50" src="http://www.yagm.com.cn/upload/2012/01/02/small_20120102211215000000_1_94778_100.jpg" alt="颐安十八10排16列">
+                            <!--   </a> -->
+                            <!-- <a class="order-goods-name" href="grave/237.html"> -->不倒翁<!-- </a> -->
+                        </div>
+                    </td>
+                    <td>10.00</td>
+                    <td>1</td>
+                    <td rowspan="1">10.00<br>已支付0.00元
+                        <br>还需支付10元				    <br><span style="color:green;"></span>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-success">
+                            未支付                    </div>
+                        <a href="/member/order/34982" target="_blank">服务详情</a>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-confirm">
+                            <a href="/order/confirm/order_id/34982">支付余额</a><br><a href="/member/orderinfo/confirm/order_id/34982">修改订单</a><br>				    </div>
+                    </td>				</tr>
+
+
+                <tr>
+                    <td colspan="6" class="delivery-title" style="position:relative;">
+                        <span>订单编号：34427</span>
+                        <span>成交时间：2015-12-04 10:03:09</span>
+                    </td>
+                </tr>
+                <tr id="10683">
+                    <td class="txtleft">
+                        <div class="td-wid-hook">
+                            <!-- <a href="grave/237.html"> -->
+                            <img width="50" height="50" src="" alt="颐安十八10排16列">
+                            <!--   </a> -->
+                            <!-- <a class="order-goods-name" href="grave/237.html"> -->账户充值<!-- </a> -->
+                        </div>
+                    </td>
+                    <td>0.01</td>
+                    <td>1</td>
+                    <td rowspan="1">0.01<br>已支付0.01元
+                        <br><span style="color:green;"></span>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-success">
+                            待确认...                    </div>
+                        <a href="/member/order/34431" target="_blank">服务详情</a>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-confirm">
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr id="10683">
+                    <td class="txtleft">
+                        <div class="td-wid-hook">
+                            <!-- <a href="grave/237.html"> -->
+                            <img width="50" height="50" src="" alt="颐安十八10排16列">
+                            <!--   </a> -->
+                            <!-- <a class="order-goods-name" href="grave/237.html"> -->账户充值<!-- </a> -->
+                        </div>
+                    </td>
+                    <td>0.01</td>
+                    <td>1</td>
+                    <td rowspan="1">0.01<br>已支付0.01元
+                        <br><span style="color:green;"></span>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-success">
+                            待确认...                    </div>
+                        <a href="/member/order/34427" target="_blank">服务详情</a>
+                    </td>
+                    <td rowspan="1">
+                        <div class="status-confirm">
+                        </div>
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="myblog" class="">
+        <h2>
+            日志
+        </h2>
+        <div id="myblog-container">
+            <div class="myblog-content left">
+                <ol>
+                    <li>
+                        <div class="myblog-hdskin">
+                            <h6>
+                                <a href="/blog/member/default/view?id=2">
+                                    第二个博客</a>
+                            </h6>
+                            <div class="blog-t-tool">
+                                <div class="blog-msg">
+                                    <span class="time">2017-05-10 09:58 发表</span>
+                                </div>
+                                <div class="toolbar">
+                                            <span class="cursor edit-blog">
+                                                <a href="/blog/member/default/update?id=2">编辑</a>
+                                            </span>
+                                    <span><img src="/theme/m2/static/images/blog/v_dotted.png" alt=""></span>
+                                    <span class="cursor del-myblog">
+                                                <a id="delete-68" class="delete-btn" href="/blog/member/default/del?id=2">删除</a>
+                                            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="myblog-body">
+                            日志部分...                            </div>
+                        <div class="myblog-foot">
+                            <a href="#">阅读(0)</a>
+                            <span>|</span>
+                            <a href="#">评论(0)</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="myblog-hdskin">
+                            <h6>
+                                <a href="/blog/member/default/view?id=5">
+                                    这里新加的blog</a>
+                            </h6>
+                            <div class="blog-t-tool">
+                                <div class="blog-msg">
+                                    <span class="time">2017-05-21 15:47 发表</span>
+                                </div>
+                                <div class="toolbar">
+                                            <span class="cursor edit-blog">
+                                                <a href="/blog/member/default/update?id=5">编辑</a>
+                                            </span>
+                                    <span><img src="/theme/m2/static/images/blog/v_dotted.png" alt=""></span>
+                                    <span class="cursor del-myblog">
+                                                <a id="delete-68" class="delete-btn" href="/blog/member/default/del?id=5">删除</a>
+                                            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="myblog-body">
+                            123...                            </div>
+                        <div class="myblog-foot">
+                            <a href="#">阅读(0)</a>
+                            <span>|</span>
+                            <a href="#">评论(0)</a>
+                        </div>
+                    </li>
+                </ol>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+    <div class="clear"></div>
 </div>
-<script type="text/javascript">
-    $(function(){
 
-        $(".feedChange").click(function(){
-            var id = $(this).attr("data");
-            $(".aa").hide();
-            $("#"+id).show();
-            $(this).parent().addClass("curr").siblings().removeClass("curr");
-        });
 
-    })
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
