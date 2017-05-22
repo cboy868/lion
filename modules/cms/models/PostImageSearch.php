@@ -5,12 +5,11 @@ namespace app\modules\cms\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\cms\models\Post;
 
 /**
- * PostSearch represents the model behind the search form about `app\modules\cms\models\Post`.
+ * AlbumImageSearch represents the model behind the search form about `app\modules\cms\models\AlbumImage`.
  */
-class PostSearch extends Post
+class PostImageSearch extends PostImage
 {
     /**
      * @inheritdoc
@@ -18,8 +17,8 @@ class PostSearch extends Post
     public function rules()
     {
         return [
-            [['id', 'type', 'created_by', 'category_id', 'thumb', 'view_all', 'com_all', 'recommend', 'created_at', 'updated_at', 'status'], 'integer'],
-            [['title', 'subtitle', 'summary', 'ip', 'author'], 'safe'],
+            [['id', 'post_id', 'mod', 'author_id', 'sort', 'view_all', 'com_all', 'created_at', 'status'], 'integer'],
+            [['title', 'path', 'name', 'desc', 'ext'], 'safe'],
         ];
     }
 
@@ -41,10 +40,13 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-        $query = Post::find();
+        $query = PostImage::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->orderBy('sort asc'),
+            'pagination' => [
+                'pageSize' => 18,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -53,24 +55,21 @@ class PostSearch extends Post
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'author' => $this->author,
-            'category_id' => $this->category_id,
-            'created_by' => $this->created_by,
-            'thumb' => $this->thumb,
+            'post_id' => $this->post_id,
+            'mod' => $this->mod,
+            'author_id' => $this->author_id,
+            'sort' => $this->sort,
             'view_all' => $this->view_all,
             'com_all' => $this->com_all,
-            'recommend' => $this->recommend,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             'status' => $this->status,
-            'type' => $this->type
         ]);
 
-
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'subtitle', $this->subtitle])
-            ->andFilterWhere(['like', 'summary', $this->summary])
-            ->andFilterWhere(['like', 'ip', $this->ip]);
+            ->andFilterWhere(['like', 'path', $this->path])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'ext', $this->ext]);
 
         return $dataProvider;
     }
