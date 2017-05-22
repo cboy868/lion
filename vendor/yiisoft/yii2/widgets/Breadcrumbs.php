@@ -64,14 +64,14 @@ class Breadcrumbs extends Widget
      */
     public $options = ['class' => 'breadcrumb'];
     /**
-     * @var boolean whether to HTML-encode the link labels.
+     * @var bool whether to HTML-encode the link labels.
      */
     public $encodeLabels = true;
     /**
-     * @var array the first hyperlink in the breadcrumbs (called default link).
+     * @var array the first hyperlink in the breadcrumbs (called home link).
      * Please refer to [[links]] on the format of the link.
      * If this property is not set, it will default to a link pointing to [[\yii\web\Application::homeUrl]]
-     * with the label 'Home'. If this property is false, the default link will not be rendered.
+     * with the label 'Home'. If this property is false, the home link will not be rendered.
      */
     public $homeLink;
     /**

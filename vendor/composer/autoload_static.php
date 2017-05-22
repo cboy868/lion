@@ -13,8 +13,8 @@ class ComposerStaticInit61a2c5af651dc55175b4befcd6e22993
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        '9e090711773bfc38738f5dbaee5a7f14' => __DIR__ . '/..' . '/overtrue/wechat/src/Payment/helpers.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
+        '9e090711773bfc38738f5dbaee5a7f14' => __DIR__ . '/..' . '/overtrue/wechat/src/Payment/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -26,7 +26,6 @@ class ComposerStaticInit61a2c5af651dc55175b4befcd6e22993
             'yii\\faker\\' => 10,
             'yii\\debug\\' => 10,
             'yii\\composer\\' => 13,
-            'yii\\codeception\\' => 16,
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
@@ -133,10 +132,6 @@ class ComposerStaticInit61a2c5af651dc55175b4befcd6e22993
         'yii\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-composer',
-        ),
-        'yii\\codeception\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-codeception',
         ),
         'yii\\bootstrap\\' => 
         array (

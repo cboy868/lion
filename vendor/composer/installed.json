@@ -1,207 +1,5 @@
 [
     {
-        "name": "yiisoft/yii2-composer",
-        "version": "2.0.4",
-        "version_normalized": "2.0.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/yiisoft/yii2-composer.git",
-            "reference": "7452fd908a5023b8bb5ea1b123a174ca080de464"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/7452fd908a5023b8bb5ea1b123a174ca080de464",
-            "reference": "7452fd908a5023b8bb5ea1b123a174ca080de464",
-            "shasum": ""
-        },
-        "require": {
-            "composer-plugin-api": "^1.0"
-        },
-        "time": "2016-02-06T00:49:24+00:00",
-        "type": "composer-plugin",
-        "extra": {
-            "class": "yii\\composer\\Plugin",
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "yii\\composer\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Qiang Xue",
-                "email": "qiang.xue@gmail.com"
-            }
-        ],
-        "description": "The composer plugin for Yii extension installer",
-        "keywords": [
-            "composer",
-            "extension installer",
-            "yii2"
-        ]
-    },
-    {
-        "name": "swiftmailer/swiftmailer",
-        "version": "v5.4.3",
-        "version_normalized": "5.4.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/swiftmailer/swiftmailer.git",
-            "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
-            "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9.1"
-        },
-        "time": "2016-07-08T11:51:25+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/swift_required.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Chris Corbyn"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Swiftmailer, free feature-rich PHP mailer",
-        "homepage": "http://swiftmailer.org",
-        "keywords": [
-            "email",
-            "mail",
-            "mailer"
-        ]
-    },
-    {
-        "name": "ezyang/htmlpurifier",
-        "version": "v4.8.0",
-        "version_normalized": "4.8.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/ezyang/htmlpurifier.git",
-            "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
-            "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2"
-        },
-        "time": "2016-07-16T12:58:58+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "HTMLPurifier": "library/"
-            },
-            "files": [
-                "library/HTMLPurifier.composer.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL"
-        ],
-        "authors": [
-            {
-                "name": "Edward Z. Yang",
-                "email": "admin@htmlpurifier.org",
-                "homepage": "http://ezyang.com"
-            }
-        ],
-        "description": "Standards compliant HTML filter written in PHP",
-        "homepage": "http://htmlpurifier.org/",
-        "keywords": [
-            "html"
-        ]
-    },
-    {
-        "name": "yiisoft/yii2-swiftmailer",
-        "version": "2.0.6",
-        "version_normalized": "2.0.6.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/yiisoft/yii2-swiftmailer.git",
-            "reference": "26b900767f1031ff3a4668dfa36c10595875f0a5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/26b900767f1031ff3a4668dfa36c10595875f0a5",
-            "reference": "26b900767f1031ff3a4668dfa36c10595875f0a5",
-            "shasum": ""
-        },
-        "require": {
-            "swiftmailer/swiftmailer": "~5.0",
-            "yiisoft/yii2": "~2.0.4"
-        },
-        "time": "2016-09-09T11:48:11+00:00",
-        "type": "yii2-extension",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "yii\\swiftmailer\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Paul Klimov",
-                "email": "klimov.paul@gmail.com"
-            }
-        ],
-        "description": "The SwiftMailer integration for the Yii framework",
-        "keywords": [
-            "email",
-            "mail",
-            "mailer",
-            "swift",
-            "swiftmailer",
-            "yii2"
-        ]
-    },
-    {
         "name": "yiisoft/yii2-bootstrap",
         "version": "2.0.6",
         "version_normalized": "2.0.6.0",
@@ -250,55 +48,6 @@
         "description": "The Twitter Bootstrap extension for the Yii framework",
         "keywords": [
             "bootstrap",
-            "yii2"
-        ]
-    },
-    {
-        "name": "yiisoft/yii2-debug",
-        "version": "2.0.6",
-        "version_normalized": "2.0.6.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/yiisoft/yii2-debug.git",
-            "reference": "55ed2e853ed8050a34415f63a4da84f88a56f895"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/55ed2e853ed8050a34415f63a4da84f88a56f895",
-            "reference": "55ed2e853ed8050a34415f63a4da84f88a56f895",
-            "shasum": ""
-        },
-        "require": {
-            "yiisoft/yii2": ">=2.0.4",
-            "yiisoft/yii2-bootstrap": "*"
-        },
-        "time": "2016-03-17T03:50:19+00:00",
-        "type": "yii2-extension",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "yii\\debug\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Qiang Xue",
-                "email": "qiang.xue@gmail.com"
-            }
-        ],
-        "description": "The debugger extension for the Yii framework",
-        "keywords": [
-            "debug",
-            "debugger",
             "yii2"
         ]
     },
@@ -603,183 +352,6 @@
         ]
     },
     {
-        "name": "guzzlehttp/promises",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/guzzle/promises.git",
-            "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/promises/zipball/c10d860e2a9595f8883527fa0021c7da9e65f579",
-            "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2016-05-18T16:56:05+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "GuzzleHttp\\Promise\\": "src/"
-            },
-            "files": [
-                "src/functions_include.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "Guzzle promises library",
-        "keywords": [
-            "promise"
-        ]
-    },
-    {
-        "name": "guzzlehttp/psr7",
-        "version": "1.3.1",
-        "version_normalized": "1.3.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/guzzle/psr7.git",
-            "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/psr7/zipball/5c6447c9df362e8f8093bda8f5d8873fe5c7f65b",
-            "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0",
-            "psr/http-message": "~1.0"
-        },
-        "provide": {
-            "psr/http-message-implementation": "1.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2016-06-24T23:00:38+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "GuzzleHttp\\Psr7\\": "src/"
-            },
-            "files": [
-                "src/functions_include.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "PSR-7 message implementation",
-        "keywords": [
-            "http",
-            "message",
-            "stream",
-            "uri"
-        ]
-    },
-    {
-        "name": "guzzlehttp/guzzle",
-        "version": "6.2.2",
-        "version_normalized": "6.2.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
-            "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
-            "shasum": ""
-        },
-        "require": {
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.3.1",
-            "php": ">=5.5"
-        },
-        "require-dev": {
-            "ext-curl": "*",
-            "phpunit/phpunit": "^4.0",
-            "psr/log": "^1.0"
-        },
-        "time": "2016-10-08T15:01:37+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "6.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "src/functions_include.php"
-            ],
-            "psr-4": {
-                "GuzzleHttp\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "Guzzle is a PHP HTTP client library",
-        "homepage": "http://guzzlephp.org/",
-        "keywords": [
-            "client",
-            "curl",
-            "framework",
-            "http",
-            "http client",
-            "rest",
-            "web service"
-        ]
-    },
-    {
         "name": "psr/log",
         "version": "1.0.2",
         "version_normalized": "1.0.2.0",
@@ -829,86 +401,6 @@
         ]
     },
     {
-        "name": "monolog/monolog",
-        "version": "1.21.0",
-        "version_normalized": "1.21.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
-            "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0",
-            "psr/log": "~1.0"
-        },
-        "provide": {
-            "psr/log-implementation": "1.0.0"
-        },
-        "require-dev": {
-            "aws/aws-sdk-php": "^2.4.9",
-            "doctrine/couchdb": "~1.0@dev",
-            "graylog2/gelf-php": "~1.0",
-            "jakub-onderka/php-parallel-lint": "0.9",
-            "php-amqplib/php-amqplib": "~2.4",
-            "php-console/php-console": "^3.1.3",
-            "phpunit/phpunit": "~4.5",
-            "phpunit/phpunit-mock-objects": "2.3.0",
-            "ruflin/elastica": ">=0.90 <3.0",
-            "sentry/sentry": "^0.13",
-            "swiftmailer/swiftmailer": "~5.3"
-        },
-        "suggest": {
-            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
-            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-            "ext-mongo": "Allow sending log messages to a MongoDB server",
-            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-            "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
-            "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-            "php-console/php-console": "Allow sending log messages to Google Chrome",
-            "rollbar/rollbar": "Allow sending log messages to Rollbar",
-            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-            "sentry/sentry": "Allow sending log messages to a Sentry server"
-        },
-        "time": "2016-07-29T03:23:52+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Monolog\\": "src/Monolog"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jordi Boggiano",
-                "email": "j.boggiano@seld.be",
-                "homepage": "http://seld.be"
-            }
-        ],
-        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
-        "homepage": "http://github.com/Seldaek/monolog",
-        "keywords": [
-            "log",
-            "logging",
-            "psr-3"
-        ]
-    },
-    {
         "name": "pimple/pimple",
         "version": "v3.0.2",
         "version_normalized": "3.0.2.0",
@@ -954,102 +446,6 @@
         "keywords": [
             "container",
             "dependency injection"
-        ]
-    },
-    {
-        "name": "yiisoft/yii2",
-        "version": "2.0.10",
-        "version_normalized": "2.0.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/yiisoft/yii2-framework.git",
-            "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
-            "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
-            "shasum": ""
-        },
-        "require": {
-            "bower-asset/jquery": "2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
-            "bower-asset/jquery.inputmask": "~3.2.2",
-            "bower-asset/punycode": "1.3.*",
-            "bower-asset/yii2-pjax": "~2.0.1",
-            "cebe/markdown": "~1.0.0 | ~1.1.0",
-            "ext-ctype": "*",
-            "ext-mbstring": "*",
-            "ezyang/htmlpurifier": "~4.6",
-            "lib-pcre": "*",
-            "php": ">=5.4.0",
-            "yiisoft/yii2-composer": "~2.0.4"
-        },
-        "time": "2016-10-20T12:02:50+00:00",
-        "bin": [
-            "yii"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "yii\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Qiang Xue",
-                "email": "qiang.xue@gmail.com",
-                "homepage": "http://www.yiiframework.com/",
-                "role": "Founder and project lead"
-            },
-            {
-                "name": "Alexander Makarov",
-                "email": "sam@rmcreative.ru",
-                "homepage": "http://rmcreative.ru/",
-                "role": "Core framework development"
-            },
-            {
-                "name": "Maurizio Domba",
-                "homepage": "http://mdomba.info/",
-                "role": "Core framework development"
-            },
-            {
-                "name": "Carsten Brandt",
-                "email": "mail@cebe.cc",
-                "homepage": "http://cebe.cc/",
-                "role": "Core framework development"
-            },
-            {
-                "name": "Timur Ruziev",
-                "email": "resurtm@gmail.com",
-                "homepage": "http://resurtm.com/",
-                "role": "Core framework development"
-            },
-            {
-                "name": "Paul Klimov",
-                "email": "klimov.paul@gmail.com",
-                "role": "Core framework development"
-            },
-            {
-                "name": "Dmitry Naumenko",
-                "email": "d.naumenko.a@gmail.com",
-                "role": "Core framework development"
-            }
-        ],
-        "description": "Yii PHP Framework Version 2",
-        "homepage": "http://www.yiiframework.com/",
-        "keywords": [
-            "framework",
-            "yii2"
         ]
     },
     {
@@ -1112,61 +508,6 @@
             "portable",
             "shim"
         ]
-    },
-    {
-        "name": "symfony/http-foundation",
-        "version": "v3.1.6",
-        "version_normalized": "3.1.6.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/http-foundation.git",
-            "reference": "f21e5a8b88274b7720779aa88f9c02c6d6ec08d7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/http-foundation/zipball/f21e5a8b88274b7720779aa88f9c02c6d6ec08d7",
-            "reference": "f21e5a8b88274b7720779aa88f9c02c6d6ec08d7",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9",
-            "symfony/polyfill-mbstring": "~1.1"
-        },
-        "require-dev": {
-            "symfony/expression-language": "~2.8|~3.0"
-        },
-        "time": "2016-10-24T15:52:44+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\HttpFoundation\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony HttpFoundation Component",
-        "homepage": "https://symfony.com"
     },
     {
         "name": "symfony/psr-http-message-bridge",
@@ -1300,118 +641,6 @@
         "keywords": [
             "cache",
             "caching"
-        ]
-    },
-    {
-        "name": "overtrue/socialite",
-        "version": "1.0.18",
-        "version_normalized": "1.0.18.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/overtrue/socialite.git",
-            "reference": "f45a64720c5de067146ebd8645beecb72b18487c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/overtrue/socialite/zipball/f45a64720c5de067146ebd8645beecb72b18487c",
-            "reference": "f45a64720c5de067146ebd8645beecb72b18487c",
-            "shasum": ""
-        },
-        "require": {
-            "guzzlehttp/guzzle": "~5.0|~6.0",
-            "php": ">=5.4.0",
-            "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9",
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2016-10-12T10:23:13+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Overtrue\\Socialite\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "overtrue",
-                "email": "anzhengchao@gmail.com"
-            }
-        ],
-        "description": "A collection of OAuth 2 packages that extracts from laravel/socialite.",
-        "keywords": [
-            "login",
-            "oauth",
-            "qq",
-            "social",
-            "wechat",
-            "weibo"
-        ]
-    },
-    {
-        "name": "overtrue/wechat",
-        "version": "3.1.7",
-        "version_normalized": "3.1.7.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/overtrue/wechat.git",
-            "reference": "ad8efe2e1b87e3798a5f9e4317334edb24a6fbc3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/overtrue/wechat/zipball/ad8efe2e1b87e3798a5f9e4317334edb24a6fbc3",
-            "reference": "ad8efe2e1b87e3798a5f9e4317334edb24a6fbc3",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/cache": "~1.4",
-            "ext-openssl": "*",
-            "guzzlehttp/guzzle": "~6.2.1",
-            "monolog/monolog": "^1.17",
-            "overtrue/socialite": ">=1.0.7",
-            "php": ">=5.5.0",
-            "pimple/pimple": "~3.0",
-            "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0",
-            "symfony/psr-http-message-bridge": "~0.3|^1.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "^1.0@dev",
-            "overtrue/phplint": "dev-master",
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2016-10-26T06:02:41+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "EasyWeChat\\": "src/"
-            },
-            "files": [
-                "src/Payment/helpers.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "overtrue",
-                "email": "anzhengchao@gmail.com"
-            }
-        ],
-        "description": "微信SDK",
-        "keywords": [
-            "sdk",
-            "wechat",
-            "weixin",
-            "weixin-sdk"
         ]
     },
     {
@@ -1624,61 +853,6 @@
         ]
     },
     {
-        "name": "kartik-v/yii2-widget-select2",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-            "reference": "9d2f24a3beba5364bc53996f9d7259a13e29e797"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/9d2f24a3beba5364bc53996f9d7259a13e29e797",
-            "reference": "9d2f24a3beba5364bc53996f9d7259a13e29e797",
-            "shasum": ""
-        },
-        "require": {
-            "kartik-v/yii2-krajee-base": "~1.7"
-        },
-        "time": "2017-03-07T10:03:08+00:00",
-        "type": "yii2-extension",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "kartik\\select2\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Kartik Visweswaran",
-                "email": "kartikv2@gmail.com",
-                "homepage": "http://www.krajee.com/"
-            }
-        ],
-        "description": "Enhanced Yii2 wrapper for the Select2 jQuery plugin (sub repo split from yii2-widgets).",
-        "homepage": "https://github.com/kartik-v/yii2-widget-select2",
-        "keywords": [
-            "dropdown",
-            "extension",
-            "form",
-            "jquery",
-            "plugin",
-            "select2",
-            "widget",
-            "yii2"
-        ]
-    },
-    {
         "name": "bower-asset/jquery",
         "version": "2.2.4",
         "version_normalized": "2.2.4.0",
@@ -1760,54 +934,6 @@
             "mobile-first",
             "responsive",
             "web"
-        ]
-    },
-    {
-        "name": "bower-asset/jquery.inputmask",
-        "version": "3.2.7",
-        "version_normalized": "3.2.7.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/RobinHerbots/Inputmask.git",
-            "reference": "5a72c563b502b8e05958a524cdfffafe9987be38"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5a72c563b502b8e05958a524cdfffafe9987be38",
-            "reference": "5a72c563b502b8e05958a524cdfffafe9987be38",
-            "shasum": ""
-        },
-        "require": {
-            "bower-asset/jquery": ">=1.7"
-        },
-        "type": "bower-asset-library",
-        "extra": {
-            "bower-asset-main": [
-                "./dist/inputmask/inputmask.js"
-            ],
-            "bower-asset-ignore": [
-                "**/*",
-                "!dist/*",
-                "!dist/inputmask/*",
-                "!dist/min/*",
-                "!dist/min/inputmask/*",
-                "!extra/bindings/*",
-                "!extra/dependencyLibs/*",
-                "!extra/phone-codes/*"
-            ]
-        },
-        "installation-source": "dist",
-        "license": [
-            "http://opensource.org/licenses/mit-license.php"
-        ],
-        "description": "jquery.inputmask is a jquery plugin which create an input mask.",
-        "keywords": [
-            "form",
-            "input",
-            "inputmask",
-            "jquery",
-            "mask",
-            "plugins"
         ]
     },
     {
@@ -1904,54 +1030,6 @@
             "bower-asset-main": "dist/typeahead.bundle.js"
         },
         "installation-source": "dist"
-    },
-    {
-        "name": "yiisoft/yii2-codeception",
-        "version": "2.0.5",
-        "version_normalized": "2.0.5.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/yiisoft/yii2-codeception.git",
-            "reference": "c916a36d09fc128b05a374e7922bc56854334d56"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-codeception/zipball/c916a36d09fc128b05a374e7922bc56854334d56",
-            "reference": "c916a36d09fc128b05a374e7922bc56854334d56",
-            "shasum": ""
-        },
-        "require": {
-            "yiisoft/yii2": ">=2.0.4"
-        },
-        "time": "2016-03-17T03:41:26+00:00",
-        "type": "yii2-extension",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "yii\\codeception\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Mark Jebri",
-                "email": "mark.github@yandex.ru"
-            }
-        ],
-        "description": "The Codeception integration for the Yii framework",
-        "keywords": [
-            "codeception",
-            "yii2"
-        ],
-        "abandoned": "codeception/codeception"
     },
     {
         "name": "symfony/debug",
@@ -2123,60 +1201,6 @@
             }
         ],
         "description": "Automatic BASH completion for Symfony Console Component based applications."
-    },
-    {
-        "name": "sebastian/diff",
-        "version": "1.4.2",
-        "version_normalized": "1.4.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sebastianbergmann/diff.git",
-            "reference": "3c7d21999e815cdfac70c6c7d79d3a9cb1bc7bc2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/3c7d21999e815cdfac70c6c7d79d3a9cb1bc7bc2",
-            "reference": "3c7d21999e815cdfac70c6c7d79d3a9cb1bc7bc2",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.3.3 || ^7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
-        },
-        "time": "2017-05-18T13:44:30+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Kore Nordmann",
-                "email": "mail@kore-nordmann.de"
-            },
-            {
-                "name": "Sebastian Bergmann",
-                "email": "sebastian@phpunit.de"
-            }
-        ],
-        "description": "Diff implementation",
-        "homepage": "https://github.com/sebastianbergmann/diff",
-        "keywords": [
-            "diff"
-        ]
     },
     {
         "name": "sebastian/recursion-context",
@@ -3801,6 +2825,967 @@
             "alipay",
             "yii2",
             "支付宝"
+        ]
+    },
+    {
+        "name": "yiisoft/yii2-composer",
+        "version": "2.0.5",
+        "version_normalized": "2.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yiisoft/yii2-composer.git",
+            "reference": "3f4923c2bde6caf3f5b88cc22fdd5770f52f8df2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/3f4923c2bde6caf3f5b88cc22fdd5770f52f8df2",
+            "reference": "3f4923c2bde6caf3f5b88cc22fdd5770f52f8df2",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0"
+        },
+        "require-dev": {
+            "composer/composer": "^1.0"
+        },
+        "time": "2016-12-20T13:26:02+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "yii\\composer\\Plugin",
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii\\composer\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Qiang Xue",
+                "email": "qiang.xue@gmail.com"
+            }
+        ],
+        "description": "The composer plugin for Yii extension installer",
+        "keywords": [
+            "composer",
+            "extension installer",
+            "yii2"
+        ]
+    },
+    {
+        "name": "swiftmailer/swiftmailer",
+        "version": "v5.4.8",
+        "version_normalized": "5.4.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/swiftmailer/swiftmailer.git",
+            "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9a06dc570a0367850280eefd3f1dc2da45aef517",
+            "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.1",
+            "symfony/phpunit-bridge": "~3.2"
+        },
+        "time": "2017-05-01T15:54:03+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/swift_required.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Chris Corbyn"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Swiftmailer, free feature-rich PHP mailer",
+        "homepage": "http://swiftmailer.org",
+        "keywords": [
+            "email",
+            "mail",
+            "mailer"
+        ]
+    },
+    {
+        "name": "ezyang/htmlpurifier",
+        "version": "v4.9.2",
+        "version_normalized": "4.9.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ezyang/htmlpurifier.git",
+            "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4",
+            "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "require-dev": {
+            "simpletest/simpletest": "^1.1"
+        },
+        "time": "2017-03-13T06:30:53+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "HTMLPurifier": "library/"
+            },
+            "files": [
+                "library/HTMLPurifier.composer.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL"
+        ],
+        "authors": [
+            {
+                "name": "Edward Z. Yang",
+                "email": "admin@htmlpurifier.org",
+                "homepage": "http://ezyang.com"
+            }
+        ],
+        "description": "Standards compliant HTML filter written in PHP",
+        "homepage": "http://htmlpurifier.org/",
+        "keywords": [
+            "html"
+        ]
+    },
+    {
+        "name": "bower-asset/jquery.inputmask",
+        "version": "3.3.6",
+        "version_normalized": "3.3.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/RobinHerbots/Inputmask.git",
+            "reference": "e42852f4afa01a80815394a5b2f9ce504c1a8d0b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/e42852f4afa01a80815394a5b2f9ce504c1a8d0b",
+            "reference": "e42852f4afa01a80815394a5b2f9ce504c1a8d0b",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/jquery": ">=1.7"
+        },
+        "type": "bower-asset-library",
+        "extra": {
+            "bower-asset-main": [
+                "./dist/inputmask/inputmask.js",
+                "./dist/inputmask/inputmask.extensions.js",
+                "./dist/inputmask/inputmask.date.extensions.js",
+                "./dist/inputmask/inputmask.numeric.extensions.js",
+                "./dist/inputmask/inputmask.phone.extensions.js",
+                "./dist/inputmask/jquery.inputmask.js",
+                "./dist/inputmask/global/document.js",
+                "./dist/inputmask/global/window.js",
+                "./dist/inputmask/phone-codes/phone.js",
+                "./dist/inputmask/phone-codes/phone-be.js",
+                "./dist/inputmask/phone-codes/phone-nl.js",
+                "./dist/inputmask/phone-codes/phone-ru.js",
+                "./dist/inputmask/phone-codes/phone-uk.js",
+                "./dist/inputmask/dependencyLibs/inputmask.dependencyLib.jqlite.js",
+                "./dist/inputmask/dependencyLibs/inputmask.dependencyLib.jquery.js",
+                "./dist/inputmask/dependencyLibs/inputmask.dependencyLib.js",
+                "./dist/inputmask/bindings/inputmask.binding.js"
+            ],
+            "bower-asset-ignore": [
+                "**/*",
+                "!dist/*",
+                "!dist/inputmask/*",
+                "!dist/min/*",
+                "!dist/min/inputmask/*"
+            ]
+        },
+        "installation-source": "dist",
+        "license": [
+            "http://opensource.org/licenses/mit-license.php"
+        ],
+        "description": "Inputmask is a javascript library which creates an input mask.  Inputmask can run against vanilla javascript, jQuery and jqlite.",
+        "keywords": [
+            "form",
+            "input",
+            "inputmask",
+            "jquery",
+            "mask",
+            "plugins"
+        ]
+    },
+    {
+        "name": "yiisoft/yii2",
+        "version": "2.0.11.2",
+        "version_normalized": "2.0.11.2",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yiisoft/yii2-framework.git",
+            "reference": "ee996adec1dfd7babb67bd0c604f5bd6425fe5ab"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ee996adec1dfd7babb67bd0c604f5bd6425fe5ab",
+            "reference": "ee996adec1dfd7babb67bd0c604f5bd6425fe5ab",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/jquery": "2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
+            "bower-asset/jquery.inputmask": "~3.2.2 | ~3.3.3",
+            "bower-asset/punycode": "1.3.*",
+            "bower-asset/yii2-pjax": "~2.0.1",
+            "cebe/markdown": "~1.0.0 | ~1.1.0",
+            "ext-ctype": "*",
+            "ext-mbstring": "*",
+            "ezyang/htmlpurifier": "~4.6",
+            "lib-pcre": "*",
+            "php": ">=5.4.0",
+            "yiisoft/yii2-composer": "~2.0.4"
+        },
+        "time": "2017-02-08T09:04:32+00:00",
+        "bin": [
+            "yii"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Qiang Xue",
+                "email": "qiang.xue@gmail.com",
+                "homepage": "http://www.yiiframework.com/",
+                "role": "Founder and project lead"
+            },
+            {
+                "name": "Alexander Makarov",
+                "email": "sam@rmcreative.ru",
+                "homepage": "http://rmcreative.ru/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Maurizio Domba",
+                "homepage": "http://mdomba.info/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Carsten Brandt",
+                "email": "mail@cebe.cc",
+                "homepage": "http://cebe.cc/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Timur Ruziev",
+                "email": "resurtm@gmail.com",
+                "homepage": "http://resurtm.com/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Paul Klimov",
+                "email": "klimov.paul@gmail.com",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Dmitry Naumenko",
+                "email": "d.naumenko.a@gmail.com",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Boudewijn Vahrmeijer",
+                "email": "info@dynasource.eu",
+                "homepage": "http://dynasource.eu",
+                "role": "Core framework development"
+            }
+        ],
+        "description": "Yii PHP Framework Version 2",
+        "homepage": "http://www.yiiframework.com/",
+        "keywords": [
+            "framework",
+            "yii2"
+        ]
+    },
+    {
+        "name": "yiisoft/yii2-swiftmailer",
+        "version": "2.0.7",
+        "version_normalized": "2.0.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yiisoft/yii2-swiftmailer.git",
+            "reference": "8a03a62cbcb82e7697d3002eb43a8d2637f566ec"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/8a03a62cbcb82e7697d3002eb43a8d2637f566ec",
+            "reference": "8a03a62cbcb82e7697d3002eb43a8d2637f566ec",
+            "shasum": ""
+        },
+        "require": {
+            "swiftmailer/swiftmailer": "~5.0",
+            "yiisoft/yii2": "~2.0.4"
+        },
+        "time": "2017-05-01T08:29:00+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii\\swiftmailer\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Paul Klimov",
+                "email": "klimov.paul@gmail.com"
+            }
+        ],
+        "description": "The SwiftMailer integration for the Yii framework",
+        "keywords": [
+            "email",
+            "mail",
+            "mailer",
+            "swift",
+            "swiftmailer",
+            "yii2"
+        ]
+    },
+    {
+        "name": "symfony/http-foundation",
+        "version": "v3.2.8",
+        "version_normalized": "3.2.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/http-foundation.git",
+            "reference": "9de6add7f731e5af7f5b2e9c0da365e43383ebef"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/http-foundation/zipball/9de6add7f731e5af7f5b2e9c0da365e43383ebef",
+            "reference": "9de6add7f731e5af7f5b2e9c0da365e43383ebef",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9",
+            "symfony/polyfill-mbstring": "~1.1"
+        },
+        "require-dev": {
+            "symfony/expression-language": "~2.8|~3.0"
+        },
+        "time": "2017-05-01T14:55:58+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\HttpFoundation\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony HttpFoundation Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "guzzlehttp/psr7",
+        "version": "1.4.2",
+        "version_normalized": "1.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/psr7.git",
+            "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+            "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "psr/http-message": "~1.0"
+        },
+        "provide": {
+            "psr/http-message-implementation": "1.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2017-03-20T17:10:46+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Psr7\\": "src/"
+            },
+            "files": [
+                "src/functions_include.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            },
+            {
+                "name": "Tobias Schultze",
+                "homepage": "https://github.com/Tobion"
+            }
+        ],
+        "description": "PSR-7 message implementation that also provides common utility methods",
+        "keywords": [
+            "http",
+            "message",
+            "request",
+            "response",
+            "stream",
+            "uri",
+            "url"
+        ]
+    },
+    {
+        "name": "guzzlehttp/promises",
+        "version": "v1.3.1",
+        "version_normalized": "1.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/promises.git",
+            "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/promises/zipball/a59da6cf61d80060647ff4d3eb2c03a2bc694646",
+            "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.0"
+        },
+        "time": "2016-12-20T10:07:11+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Promise\\": "src/"
+            },
+            "files": [
+                "src/functions_include.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Guzzle promises library",
+        "keywords": [
+            "promise"
+        ]
+    },
+    {
+        "name": "guzzlehttp/guzzle",
+        "version": "6.2.3",
+        "version_normalized": "6.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle.git",
+            "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+            "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/promises": "^1.0",
+            "guzzlehttp/psr7": "^1.4",
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "phpunit/phpunit": "^4.0",
+            "psr/log": "^1.0"
+        },
+        "time": "2017-02-28T22:50:30+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "6.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/functions_include.php"
+            ],
+            "psr-4": {
+                "GuzzleHttp\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Guzzle is a PHP HTTP client library",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ]
+    },
+    {
+        "name": "overtrue/socialite",
+        "version": "1.0.25",
+        "version_normalized": "1.0.25.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/overtrue/socialite.git",
+            "reference": "234b3051e7864bc94744c7cfa2a9fb1999a9ca2c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/overtrue/socialite/zipball/234b3051e7864bc94744c7cfa2a9fb1999a9ca2c",
+            "reference": "234b3051e7864bc94744c7cfa2a9fb1999a9ca2c",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "~5.0|~6.0",
+            "php": ">=5.4.0",
+            "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2017-05-16T15:34:16+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Overtrue\\Socialite\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "overtrue",
+                "email": "anzhengchao@gmail.com"
+            }
+        ],
+        "description": "A collection of OAuth 2 packages that extracts from laravel/socialite.",
+        "keywords": [
+            "login",
+            "oauth",
+            "qq",
+            "social",
+            "wechat",
+            "weibo"
+        ]
+    },
+    {
+        "name": "monolog/monolog",
+        "version": "1.22.1",
+        "version_normalized": "1.22.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Seldaek/monolog.git",
+            "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1e044bc4b34e91743943479f1be7a1d5eb93add0",
+            "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/log": "~1.0"
+        },
+        "provide": {
+            "psr/log-implementation": "1.0.0"
+        },
+        "require-dev": {
+            "aws/aws-sdk-php": "^2.4.9 || ^3.0",
+            "doctrine/couchdb": "~1.0@dev",
+            "graylog2/gelf-php": "~1.0",
+            "jakub-onderka/php-parallel-lint": "0.9",
+            "php-amqplib/php-amqplib": "~2.4",
+            "php-console/php-console": "^3.1.3",
+            "phpunit/phpunit": "~4.5",
+            "phpunit/phpunit-mock-objects": "2.3.0",
+            "ruflin/elastica": ">=0.90 <3.0",
+            "sentry/sentry": "^0.13",
+            "swiftmailer/swiftmailer": "~5.3"
+        },
+        "suggest": {
+            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+            "ext-mongo": "Allow sending log messages to a MongoDB server",
+            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+            "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+            "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+            "php-console/php-console": "Allow sending log messages to Google Chrome",
+            "rollbar/rollbar": "Allow sending log messages to Rollbar",
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+            "sentry/sentry": "Allow sending log messages to a Sentry server"
+        },
+        "time": "2017-03-13T07:08:03+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Monolog\\": "src/Monolog"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be"
+            }
+        ],
+        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "homepage": "http://github.com/Seldaek/monolog",
+        "keywords": [
+            "log",
+            "logging",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "overtrue/wechat",
+        "version": "3.3.2",
+        "version_normalized": "3.3.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/overtrue/wechat.git",
+            "reference": "18f22de7a1d88d81a8e38ce03f23fa020369e8ed"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/overtrue/wechat/zipball/18f22de7a1d88d81a8e38ce03f23fa020369e8ed",
+            "reference": "18f22de7a1d88d81a8e38ce03f23fa020369e8ed",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/cache": "~1.4",
+            "ext-openssl": "*",
+            "guzzlehttp/guzzle": "~6.2.1",
+            "monolog/monolog": "^1.17",
+            "overtrue/socialite": ">=1.0.24",
+            "php": ">=5.5.0",
+            "pimple/pimple": "~3.0",
+            "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0",
+            "symfony/psr-http-message-bridge": "~0.3|^1.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "^0.9.9",
+            "overtrue/phplint": "dev-master",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2017-04-27T04:10:13+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "EasyWeChat\\": "src/"
+            },
+            "files": [
+                "src/Payment/helpers.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "overtrue",
+                "email": "anzhengchao@gmail.com"
+            }
+        ],
+        "description": "微信SDK",
+        "keywords": [
+            "sdk",
+            "wechat",
+            "weixin",
+            "weixin-sdk"
+        ]
+    },
+    {
+        "name": "yiisoft/yii2-debug",
+        "version": "2.0.9",
+        "version_normalized": "2.0.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yiisoft/yii2-debug.git",
+            "reference": "647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9",
+            "reference": "647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "~2.0.11",
+            "yiisoft/yii2-bootstrap": "~2.0.0"
+        },
+        "time": "2017-02-21T10:30:50+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii\\debug\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Qiang Xue",
+                "email": "qiang.xue@gmail.com"
+            }
+        ],
+        "description": "The debugger extension for the Yii framework",
+        "keywords": [
+            "debug",
+            "debugger",
+            "yii2"
+        ]
+    },
+    {
+        "name": "sebastian/diff",
+        "version": "1.4.3",
+        "version_normalized": "1.4.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/diff.git",
+            "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/7f066a26a962dbe58ddea9f72a4e82874a3975a4",
+            "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.3.3 || ^7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
+        },
+        "time": "2017-05-22T07:24:03+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kore Nordmann",
+                "email": "mail@kore-nordmann.de"
+            },
+            {
+                "name": "Sebastian Bergmann",
+                "email": "sebastian@phpunit.de"
+            }
+        ],
+        "description": "Diff implementation",
+        "homepage": "https://github.com/sebastianbergmann/diff",
+        "keywords": [
+            "diff"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-widget-select2",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-widget-select2.git",
+            "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/03f202e9e2415f4c84e93a64074d85677fd0cc51",
+            "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-krajee-base": "~1.7"
+        },
+        "time": "2017-04-12T09:00:24+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\select2\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Enhanced Yii2 wrapper for the Select2 jQuery plugin (sub repo split from yii2-widgets).",
+        "homepage": "https://github.com/kartik-v/yii2-widget-select2",
+        "keywords": [
+            "dropdown",
+            "extension",
+            "form",
+            "jquery",
+            "plugin",
+            "select2",
+            "widget",
+            "yii2"
         ]
     }
 ]

@@ -11,7 +11,6 @@
 
 namespace Overtrue\Socialite\Providers;
 
-use Overtrue\Socialite\AccessToken;
 use Overtrue\Socialite\AccessTokenInterface;
 use Overtrue\Socialite\ProviderInterface;
 use Overtrue\Socialite\User;
@@ -126,7 +125,7 @@ class QQProvider extends AbstractProvider implements ProviderInterface
     {
         parse_str($body, $token);
 
-        return new AccessToken($token);
+        return parent::parseAccessToken($token);
     }
 
     /**
@@ -158,8 +157,8 @@ class QQProvider extends AbstractProvider implements ProviderInterface
         $this->unionId = isset($me['unionid']) ? $me['unionid'] : '';
 
         $queries = [
-            'access_token'       => $token->getToken(),
-            'openid'             => $this->openId,
+            'access_token' => $token->getToken(),
+            'openid' => $this->openId,
             'oauth_consumer_key' => $this->clientId,
         ];
 
@@ -178,12 +177,12 @@ class QQProvider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return new User([
-            'id'       => $this->openId,
-            'unionid'  => $this->unionId,
+            'id' => $this->openId,
+            'unionid' => $this->unionId,
             'nickname' => $this->arrayItem($user, 'nickname'),
-            'name'     => $this->arrayItem($user, 'nickname'),
-            'email'    => $this->arrayItem($user, 'email'),
-            'avatar'   => $this->arrayItem($user, 'figureurl_qq_2'),
+            'name' => $this->arrayItem($user, 'nickname'),
+            'email' => $this->arrayItem($user, 'email'),
+            'avatar' => $this->arrayItem($user, 'figureurl_qq_2'),
         ]);
     }
 

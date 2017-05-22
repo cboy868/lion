@@ -15,6 +15,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Overtrue\Socialite\AccessToken;
 use Overtrue\Socialite\AccessTokenInterface;
+use Overtrue\Socialite\AuthorizeFailedException;
 use Overtrue\Socialite\InvalidStateException;
 use Overtrue\Socialite\ProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -77,7 +78,7 @@ abstract class AbstractProvider implements ProviderInterface
     /**
      * The type of the encoding in the query.
      *
-     * @var int Can be either PHP_QUERY_RFC3986 or PHP_QUERY_RFC1738.
+     * @var int Can be either PHP_QUERY_RFC3986 or PHP_QUERY_RFC1738
      */
     protected $encodingType = PHP_QUERY_RFC1738;
 
@@ -154,8 +155,7 @@ abstract class AbstractProvider implements ProviderInterface
         }
 
         if ($this->usesState()) {
-            $state = sha1(uniqid(mt_rand(1, 1000000), true));
-            $this->request->getSession()->set('state', $state);
+            $state = $this->makeState();
         }
 
         return new RedirectResponse($this->getAuthUrl($state));
@@ -230,7 +230,7 @@ abstract class AbstractProvider implements ProviderInterface
 
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
             'headers' => ['Accept' => 'application/json'],
-            $postKey  => $this->getTokenFields($code),
+            $postKey => $this->getTokenFields($code),
         ]);
 
         return $this->parseAccessToken($response->getBody());
@@ -323,9 +323,9 @@ abstract class AbstractProvider implements ProviderInterface
     protected function getCodeFields($state = null)
     {
         $fields = array_merge([
-            'client_id'     => $this->clientId,
-            'redirect_uri'  => $this->redirectUrl,
-            'scope'         => $this->formatScopes($this->scopes, $this->scopeSeparator),
+            'client_id' => $this->clientId,
+            'redirect_uri' => $this->redirectUrl,
+            'scope' => $this->formatScopes($this->scopes, $this->scopeSeparator),
             'response_type' => 'code',
         ], $this->parameters);
 
@@ -375,23 +375,31 @@ abstract class AbstractProvider implements ProviderInterface
     protected function getTokenFields($code)
     {
         return [
-            'client_id'     => $this->clientId,
+            'client_id' => $this->clientId,
             'client_secret' => $this->clientSecret,
-            'code'          => $code,
-            'redirect_uri'  => $this->redirectUrl,
+            'code' => $code,
+            'redirect_uri' => $this->redirectUrl,
         ];
     }
 
     /**
      * Get the access token from the token response body.
      *
-     * @param \Psr\Http\Message\StreamInterface $body
+     * @param \Psr\Http\Message\StreamInterface|array $body
      *
      * @return \Overtrue\Socialite\AccessToken
      */
     protected function parseAccessToken($body)
     {
-        return new AccessToken((array) json_decode($body, true));
+        if (!is_array($body)) {
+            $body = json_decode($body, true);
+        }
+
+        if (empty($body['access_token'])) {
+            throw new AuthorizeFailedException('Authorize Failed: '.json_encode($body, JSON_UNESCAPED_UNICODE), $body);
+        }
+
+        return new AccessToken($body);
     }
 
     /**
@@ -462,5 +470,26 @@ abstract class AbstractProvider implements ProviderInterface
         }
 
         return $array;
+    }
+
+    /**
+     * Put state to session storage and return it.
+     *
+     * @return string|bool
+     */
+    protected function makeState()
+    {
+        $state = sha1(uniqid(mt_rand(1, 1000000), true));
+        $session = $this->request->getSession();
+
+        if (is_callable([$session, 'put'])) {
+            $session->put('state', $state);
+        } elseif (is_callable([$session, 'set'])) {
+            $session->set('state', $state);
+        } else {
+            return false;
+        }
+
+        return $state;
     }
 }

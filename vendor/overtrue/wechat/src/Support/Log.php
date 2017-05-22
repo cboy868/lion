@@ -19,6 +19,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace EasyWeChat\Support;
 
 use Monolog\Handler\ErrorLogHandler;
@@ -28,6 +29,15 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Class Log.
+ *
+ * @method static debug($message, $context = null)
+ * @method static info($message, $context = null)
+ * @method static notice($message, $context = null)
+ * @method static warning($message, $context = null)
+ * @method static error($message, $context = null)
+ * @method static critical($message, $context = null)
+ * @method static alert($message, $context = null)
+ * @method static emergency($message, $context = null)
  */
 class Log
 {
