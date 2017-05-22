@@ -182,18 +182,16 @@ use yii\helpers\Url;
 				</h2>
 				<div class="det">
 					<ul class="news_list">
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
-						<li><span class="right"><a class="name" href="#">用户名</a>02-21</span><a class="txt" href="#">可爱的微信3</a></li>
+                        <?php $blogs = memorialBlogs(null, 12)?>
+                        <?php foreach ($blogs as $blog):?>
+						<li>
+                            <span class="right">
+                                <a target="_blank" class="name" href="<?=Url::toRoute(['/blog/member/default/view', 'id'=>$blog->id])?>"><?=$blog->user->username;?></a>
+                                <?=date("Y-m-d H:i", $blog->created_at)?>
+                            </span>
+                            <a target="_blank" class="txt" href="<?=Url::toRoute(['/blog/member/default/view', 'id'=>$blog->id])?>"><?=$blog->title?></a>
+                        </li>
+                        <?php endforeach;?>
 					</ul>
 				</div>
 			</div>

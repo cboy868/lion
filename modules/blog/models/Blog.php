@@ -4,6 +4,7 @@ namespace app\modules\blog\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\modules\user\models\User;
 /**
  * This is the model class for table "{{%blog}}".
  *
@@ -116,5 +117,10 @@ class Blog extends \app\core\db\ActiveRecord
     public function isOwn()
     {
         return ($this->created_by == Yii::$app->user->id);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id'=>'created_by']);
     }
 }

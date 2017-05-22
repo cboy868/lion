@@ -316,14 +316,6 @@ use yii\widgets\LinkPager;
             </div>
         </div>
 
-        <div id="wish-video" class="cornner12">
-            <h4 class="cornert12">思念视频</h4>
-            <a class="add-btns" href="#" target="_blank">添加视频</a>
-            <div class="friendly-tip cornerb12">暂时没有思念视频，点击
-                <a class="gray" href="#" target="_blank">此处</a>添加</div>
-
-        </div>
-
         <!-- 思念文章 -->
         <div id="wish-article" class="corner12">
             <a class="add-btns" href="#" target="_blank">添加文章</a>
@@ -332,33 +324,6 @@ use yii\widgets\LinkPager;
                 <a class="gray" href="#" target="_blank">此处</a>添加</div>
         </div>
 
-        <div id="memorial-album" class="corner12">
-            <a class="add-btns" href="#" target="_blank">添加相册</a>
-            <h4 class="cornert12">纪念相册</h4>
-            <div class="friendly-tip cornerb12">暂时没有思念相册，点击
-                <a href="#" class="gray" target="_blank">此处</a>添加</div>
-
-        </div>
-
-        <!-- 足迹 -->
-        <!--
-
-<div id="visitor-log" class="corner12">
-    <a class="add-btns delTrack memor-more" href="http://gls.gls024.com/home/track/memorial?id=2931" target="_blank">更多</a>
-    <h4 class="cornert12">祭祀记录</h4>
-    <ol class="clearfix" id="track-box">
-        <li id="track_1149">
-            <a class="avatar" href="http://gls.gls024.com/home/profile/1" target="_blank">
-                <img src="1" alt="观陵山网络">
-            </a>
-            <div>
-                <p>观陵山</p>
-                <p>15:06</p>
-            </div>
-        </li>
-    </ol>
-</div>
--->
     </div>
 
     <style type="text/css">

@@ -65,35 +65,33 @@
 						<li><a class="txt" href="#">可爱的微信3</a></li>
 						<li><a class="txt" href="#">可爱的微信3</a></li>
 						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
 					</ul>
 				</div>
 			</div>
-			<div class="borbox">
-				<h2 class="tit2">
-					<span class="txtf">每日推荐</span>
-				</h2>
-				<div class="det">
-					<ul class="news_list">
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-						<li><a class="txt" href="#">可爱的微信3</a></li>
-					</ul>
-				</div>
-			</div>
+<!--			<div class="borbox">-->
+<!--				<h2 class="tit2">-->
+<!--					<span class="txtf">每日推荐</span>-->
+<!--				</h2>-->
+<!--				<div class="det">-->
+<!--					<ul class="news_list">-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--						<li><a class="txt" href="#">可爱的微信3</a></li>-->
+<!--					</ul>-->
+<!--				</div>-->
+<!--			</div>-->
 		</div>
 		<div class="main">
 			<div class="borbox year">
@@ -178,132 +176,66 @@
 					</div>
 				</div>
 			</div>
-			<div class="borbox new_vid">
-				<h2 class="tit2">
-					<a class="more" href="#" title="最新视频--查看更多"><img src="/theme/m2/static/gls//img/global/more.gif" alt="最新视频--查看更多"></a>
-					<span class="txtc">最新视频</span>
-				</h2>
-				<div class="det clearfix">
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a><a href="#" class="player"><img class="png" src="/theme/m2/static/gls//img/global/player.png" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a><a href="#" class="player"><img class="png" src="/theme/m2/static/gls//img/global/player.png" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a><a href="#" class="player"><img class="png" src="/theme/m2/static/gls//img/global/player.png" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a><a href="#" class="player"><img class="png" src="/theme/m2/static/gls//img/global/player.png" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a><a href="#" class="player"><img class="png" src="/theme/m2/static/gls//img/global/player.png" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-				</div>
-			</div>
-			<div class="borbox new_pic">
-				<h2 class="tit2">
-					<a class="more" href="#" title="最新相册--查看更多"><img src="/theme/m2/static/gls//img/global/more.gif" alt="最新相册--查看更多"></a>
-					<span class="txtd">最新相册</span>
-				</h2>
-				<div class="det clearfix">
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-					<dl class="brownbor_items">
-						<dt><a href="#"><img src="/theme/m2/static/skin/img/sacrifice/mtest.jpg" /></a></dt>
-						<dd>2013年终总结大会</dd>
-						<dd>01月05日 <span>12</span>张照片</dd>
-					</dl>
-				</div>
-			</div>
 		</div>
-		<div class="borbox blog_last marb15">
-			<h2 class="tit2">
-				<span class="txtg">博客列表</span>
-			</h2>
-			<div class="det blog-list clearfix">
-				<dl>
-					<dt>客户服务 </dt>
-					<dd>胡书景</a></dd>
-					<dd>岳&#12288;丽</a></dd>
-					<dd>于&#12288;丹</a></dd>
-					<dd>张芯珠</a></dd>
-					<dd>黄&#12288;丹</a></dd>
-					<dd>袁菲菲</a></dd>
-					<dd>潘小萌</a></dd>
-					<dd>李&#12288;千</a></dd>
-					<dd>郭丽婷</a></dd>
-					<dd>任&#12288;静</a></dd>
-				</dl>
-				<dl>
-					<dt>售后服务 </dt>
-					<dd>胡书景</a></dd>
-					<dd>岳&#12288;丽</a></dd>
-					<dd>于&#12288;丹</a></dd>
-					<dd>张芯珠</a></dd>
-					<dd>黄&#12288;丹</a></dd>
-					<dd>袁菲菲</a></dd>
-					<dd>潘小萌</a></dd>
-					<dd>李&#12288;千</a></dd>
-					<dd>郭丽婷</a></dd>
-					<dd>任&#12288;静</a></dd>
-				</dl>
-				<dl>
-					<dt>后勤服务 </dt>
-					<dd>胡书景</a></dd>
-					<dd>岳&#12288;丽</a></dd>
-					<dd>于&#12288;丹</a></dd>
-					<dd>张芯珠</a></dd>
-					<dd>黄&#12288;丹</a></dd>
-					<dd>袁菲菲</a></dd>
-					<dd>潘小萌</a></dd>
-					<dd>李&#12288;千</a></dd>
-					<dd>郭丽婷</a></dd>
-					<dd>任&#12288;静</a></dd>
-				</dl>
-				<dl>
-					<dt>网络服务 </dt>
-					<dd>胡书景</a></dd>
-					<dd>岳&#12288;丽</a></dd>
-					<dd>于&#12288;丹</a></dd>
-					<dd>张芯珠</a></dd>
-					<dd>黄&#12288;丹</a></dd>
-					<dd>袁菲菲</a></dd>
-					<dd>潘小萌</a></dd>
-					<dd>李&#12288;千</a></dd>
-					<dd>郭丽婷</a></dd>
-					<dd>任&#12288;静</a></dd>
-				</dl>
-			</div>
-		</div>
+<!--		<div class="borbox blog_last marb15">-->
+<!--			<h2 class="tit2">-->
+<!--				<span class="txtg">客户服务</span>-->
+<!--			</h2>-->
+<!--			<div class="det blog-list clearfix">-->
+<!--				<dl>-->
+<!--					<dt>客户服务 </dt>-->
+<!--					<dd>胡书景</a></dd>-->
+<!--					<dd>岳&#12288;丽</a></dd>-->
+<!--					<dd>于&#12288;丹</a></dd>-->
+<!--					<dd>张芯珠</a></dd>-->
+<!--					<dd>黄&#12288;丹</a></dd>-->
+<!--					<dd>袁菲菲</a></dd>-->
+<!--					<dd>潘小萌</a></dd>-->
+<!--					<dd>李&#12288;千</a></dd>-->
+<!--					<dd>郭丽婷</a></dd>-->
+<!--					<dd>任&#12288;静</a></dd>-->
+<!--				</dl>-->
+<!--				<dl>-->
+<!--					<dt>售后服务 </dt>-->
+<!--					<dd>胡书景</a></dd>-->
+<!--					<dd>岳&#12288;丽</a></dd>-->
+<!--					<dd>于&#12288;丹</a></dd>-->
+<!--					<dd>张芯珠</a></dd>-->
+<!--					<dd>黄&#12288;丹</a></dd>-->
+<!--					<dd>袁菲菲</a></dd>-->
+<!--					<dd>潘小萌</a></dd>-->
+<!--					<dd>李&#12288;千</a></dd>-->
+<!--					<dd>郭丽婷</a></dd>-->
+<!--					<dd>任&#12288;静</a></dd>-->
+<!--				</dl>-->
+<!--				<dl>-->
+<!--					<dt>后勤服务 </dt>-->
+<!--					<dd>胡书景</a></dd>-->
+<!--					<dd>岳&#12288;丽</a></dd>-->
+<!--					<dd>于&#12288;丹</a></dd>-->
+<!--					<dd>张芯珠</a></dd>-->
+<!--					<dd>黄&#12288;丹</a></dd>-->
+<!--					<dd>袁菲菲</a></dd>-->
+<!--					<dd>潘小萌</a></dd>-->
+<!--					<dd>李&#12288;千</a></dd>-->
+<!--					<dd>郭丽婷</a></dd>-->
+<!--					<dd>任&#12288;静</a></dd>-->
+<!--				</dl>-->
+<!--				<dl>-->
+<!--					<dt>网络服务 </dt>-->
+<!--					<dd>胡书景</a></dd>-->
+<!--					<dd>岳&#12288;丽</a></dd>-->
+<!--					<dd>于&#12288;丹</a></dd>-->
+<!--					<dd>张芯珠</a></dd>-->
+<!--					<dd>黄&#12288;丹</a></dd>-->
+<!--					<dd>袁菲菲</a></dd>-->
+<!--					<dd>潘小萌</a></dd>-->
+<!--					<dd>李&#12288;千</a></dd>-->
+<!--					<dd>郭丽婷</a></dd>-->
+<!--					<dd>任&#12288;静</a></dd>-->
+<!--				</dl>-->
+<!--			</div>-->
+<!--		</div>-->
 	</div>
 </div>
 <script type="text/javascript" src="/theme/m2/static/libs/cSwitch/cSwitch.min.js"></script>

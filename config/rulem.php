@@ -16,6 +16,7 @@ return [
     'm/product/<id:\d+>.html'=> 'shop/m/default/view',
     'm/product/cart'=> 'shop/m/default/cart',
     'm/user'=> 'user/m/default/index',
+
     'm/order'=> 'order/m/default/index',
     'm/order/<id:\d+>'=> 'order/m/default/view',
     'm/order/<id:\d+>.html'=> 'order/m/default/view',

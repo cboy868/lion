@@ -19,9 +19,9 @@ use app\core\helpers\Url;
         <?php $this->head() ?>
         <!-- 引入 WeUI -->
         <link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/theme/site/static/css/style.css">
-        <link rel="stylesheet" type="text/css" href="/theme/site/static/fonts/iconfont.css">
-        <link rel="stylesheet" type="text/css" href="/theme/site/static/css/jquery-weui.min.css">
+        <link rel="stylesheet" type="text/css" href="/theme/m2/static/mobile/style.css">
+        <link rel="stylesheet" type="text/css" href="/theme/m2/static/mobile/fonts/iconfont.css">
+        <link rel="stylesheet" type="text/css" href="/theme/m2/static/mobile/jquery-weui.min.css">
     </head>
     <body>
     <?php $this->beginBody() ?>

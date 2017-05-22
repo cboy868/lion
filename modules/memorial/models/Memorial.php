@@ -145,4 +145,5 @@ class Memorial extends \app\core\db\ActiveRecord
         $this->view_all++;
         return $this->save();
     }
+
 }

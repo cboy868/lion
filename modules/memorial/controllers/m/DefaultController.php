@@ -9,4 +9,9 @@ class DefaultController extends \app\core\web\MController
     {
         return $this->render('index');
     }
+
+    public function actionView()
+    {
+        return $this->render('view');
+    }
 }

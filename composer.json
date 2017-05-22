@@ -19,7 +19,7 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-imagine": "~2.0.0",
-        "overtrue/wechat": "~3.0",
+        "overtrue/wechat": "~3.1",
         "spanjeta/yii2-backup": "*",
         "kartik-v/yii2-widget-select2": "@dev",
         "izyue/yii2-alipay": "*",

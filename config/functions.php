@@ -319,6 +319,21 @@ function getMemorialByUser($user_id, $rows=5)
     return $memorials;
 }
 
+function memorialBlogs($memorial_id=null, $rows)
+{
+    $query = Blog::find()->where(['status'=>Blog::STATUS_NORMAL]);
+    if ($memorial_id) {
+        $query->andWhere(['memorial_id'=>$memorial_id]);
+    } else {
+        $query->andWhere(['>', 'memorial_id', 0]);
+    }
+
+    $list = $query->orderBy('id desc')->limit($rows)->all();
+
+
+    return $list;
+}
+
 function getBlogsByUser($user_id, $rows=10)
 {
     $blogs = Blog::find()->where(['status'=>Memorial::STATUS_NORMAL])
