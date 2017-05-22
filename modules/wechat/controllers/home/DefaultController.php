@@ -26,18 +26,69 @@ class DefaultController extends \app\core\web\HomeController
             // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
             // 当 $message->MsgType 为 event 时为事件
 
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//            switch ($message->MsgType) {
+//                case 'event':
+//                    $event = $message->Event;
+//                    return $this->$event($message);
+//                    break;
+//                case 'text':
+//                    return $this->responseMsg($message);
+//                    break;
+//                default:
+//                    # code...
+//                    break;
+//            }
+
+
+
             switch ($message->MsgType) {
                 case 'event':
-                    $event = $message->Event;
-                    return $this->$event($message);
+                    return '收到事件消息';
                     break;
                 case 'text':
-                    return $this->responseMsg($message);
+                    return '收到文字消息';
                     break;
+                case 'image':
+                    return '收到图片消息';
+                    break;
+                case 'voice':
+                    return '收到语音消息';
+                    break;
+                case 'video':
+                    return '收到视频消息';
+                    break;
+                case 'location':
+                    return '收到坐标消息';
+                    break;
+                case 'link':
+                    return '收到链接消息';
+                    break;
+                // ... 其它消息
                 default:
-                    # code...
+                    return '收到其它消息';
                     break;
             }
+
+
+
+
+
+
 
             // if ($message->MsgType == 'event') {
 
@@ -52,10 +103,6 @@ class DefaultController extends \app\core\web\HomeController
 
         echo $server->serve()->send();
     }
-
-
-
-
 
 
     private function setOptions($id)
