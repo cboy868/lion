@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = ['label' => $mInfo->title, 'url' => ['index','m
                         'title',
                         'subtitle',
                         'summary:ntext',
+                        'body:raw',
                         'thumb',
                         'ip',
                         'view_all',

@@ -60,7 +60,7 @@ class UploadAction extends Action
             case 'uploadvideo':
                 /* 上传文件 */
             case 'uploadfile':
-                $result = $this->actionUpload();
+                $result = $this->upload();
                 //处理返回的URL
                 if (substr($result['url'], 0, 1) != '/') {
                     $result['url'] = '/' . $result['url'];
@@ -90,7 +90,7 @@ class UploadAction extends Action
      * 上传
      * @return array
      */
-    protected function actionUpload()
+    protected function upload()
     {
         $base64 = "upload";
         switch (htmlspecialchars($_GET['action'])) {
@@ -142,7 +142,7 @@ class UploadAction extends Action
         $up = Upload::getInstanceByName($fieldName, $res_name);
         $up->use = $use;
 
-        $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+//        $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
         
         $up->save();
 

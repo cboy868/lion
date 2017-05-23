@@ -90,19 +90,6 @@ class Post extends \app\core\db\ActiveRecord
         ];
     }
 
-//    public function scenarios()
-//    {
-//        $scenarios = parent::scenarios();
-//        $scenarios['text'] = ['body', 'title' ,'category_id'];
-//        $scenarios['image'] = ['title', 'category_id'];
-//        return $scenarios;
-//    }
-
-    public function getThumb($type = '')
-    {
-        return Attachment::getById($this->thumb, $type);
-    }
-
     /**
      * @inheritdoc
      */
@@ -128,9 +115,9 @@ class Post extends \app\core\db\ActiveRecord
         ];
     }
 
-    public function getImg($size='')
+    public function getCover($size='')
     {
-        return AlbumImage::getById($this->thumb, $size);
+        return PostImage::getById($this->thumb, $size);
     }
 
     public function getCreatedBy()
@@ -157,19 +144,4 @@ class Post extends \app\core\db\ActiveRecord
         return $this->save();
     }
 
-
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-//    public function getData()
-//    {
-//        $className = $this::className();
-//        $mod = substr($className, strpos($className, 'Post') + 4);
-//
-//        $class = '\app\modules\cms\models\mods\PostData' . $mod;
-//        \app\modules\mod\models\Code::createObj('post', $mod);
-//
-//        return $this->hasOne($class::className(), ['post_id' => 'id']);
-//    }
 }

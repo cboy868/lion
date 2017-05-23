@@ -39,9 +39,9 @@ class PostController extends \app\core\web\BackController
     public function actions()
     {
         return [
-            'web-upload' => [
-                'class' => 'app\core\web\WebuploadAction',
-            ],
+//            'web-upload' => [
+//                'class' => 'app\core\web\WebuploadAction',
+//            ],
             'ue-upload' => [
                 'class' => 'app\core\widgets\Ueditor\UploadAction',
             ],
@@ -157,17 +157,24 @@ class PostController extends \app\core\web\BackController
                 $model->summary = Html::cutstr_html($model->body, 50);
             }
 
-            $up = Upload::getInstance($model, 'thumb', 'post'.$module->id);
-            if ($up) {
-                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-                $up->save();
-                $info = $up->getInfo();
-                $model->thumb = $info['mid'];
-            }
-
             $model->type = Post::TYPE_TEXT;
 
             $model->save();
+
+            $up = Upload::getInstance($model, 'thumb', 'post'.$module->id);
+
+            if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD,
+                    ['app\modules\cms\models\PostImage', 'db'],
+                    ['album_id'=>$model->id, 'mid'=>$module->id]
+                );
+
+                $up->save();
+                $info = $up->getInfo();
+
+                $model->thumb = $info['mid'];
+                $model->save();
+            }
 
             return $this->redirect(['index', 'mid' => $module->id]);
         } else {
@@ -236,7 +243,10 @@ class PostController extends \app\core\web\BackController
 
             $up = Upload::getInstance($model, 'thumb', 'post'.$module->id);
             if ($up) {
-                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $up->on(Upload::EVENT_AFTER_UPLOAD,
+                        ['app\modules\cms\models\PostImage', 'db'],
+                        ['album_id'=>$model->id, 'mid'=>$module->id]
+                );
                 $up->save();
                 $info = $up->getInfo();
                 $model->thumb = $info['mid'];

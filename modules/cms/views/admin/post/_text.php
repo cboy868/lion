@@ -13,7 +13,7 @@ use app\modules\cms\models\Post;
         [
             'label' => '标题',
             'value' => function($model){
-                return "<img src='".$model->getThumb('36x36')."'> " . $model->title;
+                return "<img src='".$model->getCover('36x36')."'> " . $model->title;
             },
             'format' => 'raw'
         ],

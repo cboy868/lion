@@ -21,9 +21,8 @@ use app\core\models\Attachment;
  * @property integer $created_at
  * @property integer $status
  *
- * @property AttachmentRel[] $attachmentRels
  */
-class PostImage extends \app\core\db\ActiveRecord
+class PostImage extends \app\core\models\Attachment
 {
 
     public $url;
@@ -87,10 +86,11 @@ class PostImage extends \app\core\db\ActiveRecord
      */
     public static function db($event)
     {
-
         $post = Yii::$app->request->post();
 
-        
+        $album_id = isset($event->data['album_id']) ? $event->data['album_id'] : $post['album_id'];
+        $mid = isset($event->data['mid']) ? $event->data['mid'] : $post['mid'];
+
         $model = new self;
         $model->path = $event->path;
         $model->name = $event->fileName;
@@ -98,15 +98,15 @@ class PostImage extends \app\core\db\ActiveRecord
         // $model->title = $event->title;
         $model->title = substr($event->title, 0, strrpos($event->title, '.'));
         $model->author_id = Yii::$app->user->id;
-        $model->post_id = $post['album_id'];
-        $model->mod = $post['mid'];
+        $model->post_id = $album_id;
+        $model->mod = $mid;
         $model->save();
 
-        Code::createObj('post', $post['mid']);
+        Code::createObj('post', $mid);
 
-        $class = '\app\modules\cms\models\mods\Post' . $post['mid'];
+        $class = '\app\modules\cms\models\mods\Post' . $mid;
 
-        $album = $class::findOne($post['album_id']);
+        $album = $class::findOne($album_id);
 
         if (!$album->thumb) {
             $album->thumb = $model->id;
@@ -116,70 +116,9 @@ class PostImage extends \app\core\db\ActiveRecord
         return $event->sender->mid = $model->id;
     }
 
-//    public function getAlbum()
-//    {
-//        return $this->hasOne(Category::className(),['id'=>'category_id']);
-//    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRels()
+    public function getPost()
     {
-        return $this->hasMany(AttachmentRel::className(), ['attach_id' => 'id']);
+        return $this->hasOne(Post::className(), ['id'=>'post_id']);
     }
 
-    public static function getImgByUserId($user_id, $offset=0, $limit=20)
-    {
-
-        $option = ['author_id'=>$user_id, 'status'=>1];
-        $count = self::find()->where($option)->count();
-
-        $list = self::find()->where($option)
-                            ->limit($limit)
-                            ->orderBy(['id'=>SORT_DESC])
-                            ->offset($offset)
-                            ->asArray()
-                            ->all();
-                            
-        return ['count'=>$count, 'list'=>$list];
-    }
-
-    public function getImg($type='')
-    {
-
-        if ($type) {
-            $file = $this->path . '/' . $type . '@' . $this->name;
-            if (is_file(Yii::getAlias('@app/web'.$file))) {
-                return $file;
-            }
-        }
-        return $this->path . '/' . $this->name;
-    }
-
-
-    public function getImgBySrc($size='')
-    {
-        $src = $this->path . '/' . $this->name;
-        return Attachment::getBySrc($src, $size);
-    }
-
-    public static function getById($id, $size='', $default='')
-    {
-        $model = self::findOne($id);
-
-        if (!$model) {
-            return $default;
-        }
-
-        if ($size) {
-            $file = $model->path . '/' . $size . '@' . $model->name;
-
-            if (is_file(Yii::getAlias('@app/web'.$file))) {
-                return $file;
-            }
-        }
-
-        return $model->path . '/' . $model->name;
-    }
 }
