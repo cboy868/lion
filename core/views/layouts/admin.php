@@ -85,7 +85,7 @@ AdminAsset::register($this);
                     <ul class="nav ace-nav">
 
                         <li class="blue">
-                            <a href="<?=Url::toRoute(['/default'])?>" target="_blank">
+                            <a href="<?=Url::toRoute(['/'])?>" target="_blank">
                                 网站前台
                             </a>
                         </li> 

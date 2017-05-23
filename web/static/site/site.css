@@ -102,3 +102,12 @@ select.input-sm{
 .page-header .nc{
     margin-right:10px;
 }
+
+.table-bordered>tfoot>tr>td{
+    display: none;
+    border:none;
+}
+.table-bordered>tfoot>tr>td.deltd{
+    display: block;
+    border:none;
+}

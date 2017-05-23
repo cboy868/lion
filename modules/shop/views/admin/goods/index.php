@@ -107,6 +107,9 @@ FootableAsset::register($this);
 
         <div class="row">
             <div class="col-xs-12">
+                <?=\app\core\widgets\Alert::widget()?>
+            </div>
+            <div class="col-xs-12">
                 <div class="search-box search-outline">
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
@@ -208,8 +211,17 @@ $category_id = Yii::$app->getRequest()->get('category_id');
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
+        'id' => 'grid',
+        'showFooter' => true,  //设置显示最下面的footer
         'columns' => [
             // 'id',
+            [
+                'class'=>yii\grid\CheckboxColumn::className(),
+                'name'=>'id',  //设置每行数据的复选框属性
+                'headerOptions' => ['width'=>'30', "data-type"=>"html"],
+                'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+                'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+            ],
             [
                 // 'headerOptions' => ["data-breakpoints"=>"all"],
                 'label' => 'thumb',
@@ -255,7 +267,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'template' => '{update} {delete} {view} {default}',
                 'buttons' => [
                     'default' => function($url, $model, $key) {
-                        return Html::a('前台查看', Url::toRoute(['/home/default/product-view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
+                        return Html::a('前台查看', Url::toRoute(['/shop/home/default/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
                     },
                     'update' => function($url, $model, $key) {
                         return Html::a('修改', Url::toRoute(['/shop/admin/goods/update-cate', 'id'=>$model->id]), ['title' => '修改', 'class'=>'modalEditButton'] );
@@ -278,6 +290,28 @@ $category_id = Yii::$app->getRequest()->get('category_id');
         //var category_id = $('select[name=category_id]').val();
        // location.href="<?=Url::toRoute(['create'])?>category_id=" + category_id;
    // });
+
+
+$('.btn-delete').click(function(){
+    var ids = $('#grid').yiiGridView('getSelectedRows');
+
+    if (ids.length<1) {
+        alert('请先选择要删除的商品');
+        return;
+    }
+    if (!confirm("您确定要删除这些商品吗?,删除后不可恢复")){return false;}
+
+    var url = "<?=Url::toRoute(['batch-del'])?>";
+
+    $.post(url, {ids:ids},function(xhr){
+        if (xhr.status){
+            location.reload();
+        } else {
+            alert(xhr.info);
+        }
+    },'json');
+
+});
 
   })
 <?php $this->endBlock() ?>  

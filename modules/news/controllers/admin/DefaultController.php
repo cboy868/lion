@@ -9,6 +9,7 @@ use app\modules\news\models\NewsData;
 use app\modules\news\models\NewsPhoto;
 use app\modules\news\models\NewsSearch;
 use app\core\web\BackController;
+use yii\db\Exception;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\core\helpers\ArrayHelper;
@@ -152,6 +153,46 @@ class DefaultController extends BackController
         $tags = implode(',', ArrayHelper::getColumn($tags, 'tag_name')) ;
 
         return $this->$method($model, $tags);
+
+    }
+
+    public function actionBatchDel()
+    {
+        $post = Yii::$app->request->post();
+
+        $ses = Yii::$app->getSession();
+
+        if (empty($post['ids'])) {
+            return $this->json(null, '请选择要删除的数据 ', 0);
+        }
+
+        $outerTransaction = Yii::$app->db->beginTransaction();
+
+        try{
+            Yii::$app->db->createCommand()
+                ->delete(News::tableName(),[
+                    'id' => $post['ids']
+                ])->execute();
+
+            Yii::$app->db->createCommand()
+                ->delete(NewsPhoto::tableName(),[
+                    'news_id' => $post['ids']
+                ])->execute();
+
+            Yii::$app->db->createCommand()
+                ->delete(NewsData::tableName(),[
+                    'news_id' => $post['ids']
+                ])->execute();
+
+            $outerTransaction->commit();
+
+        } catch (Exception $e){
+            $outerTransaction->rollBack();
+            return $this->json(null, '删除失败', 0);
+        }
+
+        $ses->setFlash('success','数据批量删除成功');
+        return $this->json();
 
     }
 

@@ -115,6 +115,37 @@ class MessageController extends BackController
         return $this->redirect(['index']);
     }
 
+    public function actionBatchDel()
+    {
+        $post = Yii::$app->request->post();
+
+        $ses = Yii::$app->getSession();
+
+        if (empty($post['ids'])) {
+            return $this->json(null, '请选择要删除的数据 ', 0);
+        }
+
+        $outerTransaction = Yii::$app->db->beginTransaction();
+
+        try{
+            //删除商品
+            Yii::$app->db->createCommand()
+                ->delete(Message::tableName(),[
+                    'id' => $post['ids']
+                ])->execute();
+
+            $outerTransaction->commit();
+
+        } catch (\Exception $e){
+            $outerTransaction->rollBack();
+            return $this->json(null, '删除失败', 0);
+        }
+
+        $ses->setFlash('success','数据批量删除成功');
+        return $this->json();
+
+    }
+
     /**
      * Finds the Message model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

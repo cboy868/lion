@@ -86,6 +86,9 @@ FootableAsset::register($this);
 
         <div class="row">
             <div class="col-xs-12">
+            <?=\app\core\widgets\Alert::widget()?>
+            </div>
+            <div class="col-xs-12">
                 <div class="search-box search-outline">
                     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>

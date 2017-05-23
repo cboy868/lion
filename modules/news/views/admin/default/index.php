@@ -47,6 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.page-header -->
 
         <div class="row">
+
+            <div class="col-xs-12">
+                <?=\app\core\widgets\Alert::widget()?>
+            </div>
+
             <div class="col-xs-12">
                 <div class="search-box search-outline">
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -79,7 +84,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
+        'id' => 'grid',
+        'showFooter' => true,  //设置显示最下面的footer
         'columns' => [
+            [
+                'class'=>yii\grid\CheckboxColumn::className(),
+                'name'=>'id',  //设置每行数据的复选框属性
+                'headerOptions' => ['width'=>'30'],
+                'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+                'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+            ],
             [
                 'label' => '封面',
                 'value' => function($model) {
@@ -182,6 +196,21 @@ $(function(){
                 location.reload();
             }
         },'json');
+    });
+
+    $('.btn-delete').click(function(){
+        if (!confirm("您确定要删除这些文章吗?,删除后不可恢复")){return false;}
+        var ids = $('#grid').yiiGridView('getSelectedRows');
+        var url = "<?=Url::toRoute(['batch-del'])?>";
+
+        $.post(url, {ids:ids},function(xhr){
+            if (xhr.status){
+                location.reload();
+            } else {
+                alert(xhr.info);
+            }
+        },'json');
+
     });
 
 })  

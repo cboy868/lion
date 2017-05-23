@@ -1,6 +1,8 @@
 <?php
 
 use app\core\helpers\Html;
+
+use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use app\modules\cms\models\Message;
@@ -27,6 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
             <div class="col-xs-12">
+                <?=\app\core\widgets\Alert::widget()?>
+            </div>
+            <div class="col-xs-12">
                 <div class="search-box search-outline">
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
@@ -39,7 +44,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
+        'id' => 'grid',
+        'showFooter' => true,
         'columns' => [
+            [
+                'class'=>yii\grid\CheckboxColumn::className(),
+                'name'=>'id',  //设置每行数据的复选框属性
+                'headerOptions' => ['width'=>'30', "data-type"=>"html"],
+                'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+                'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+            ],
             'title',
 //            [
 //                'headerOptions' => ["data-type"=>"html"],
@@ -133,6 +147,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 $(that).remove();
             } 
         },'json');
+    });
+
+    $('.btn-delete').click(function(){
+        var ids = $('#grid').yiiGridView('getSelectedRows');
+
+        if (ids.length<1) {
+            alert('请先选择要删除的商品');
+            return;
+        }
+        if (!confirm("您确定要删除这些商品吗?,删除后不可恢复")){return false;}
+
+        var url = "<?=Url::toRoute(['batch-del'])?>";
+
+        $.post(url, {ids:ids},function(xhr){
+            if (xhr.status){
+                location.reload();
+            } else {
+                alert(xhr.info);
+            }
+        },'json');
+
     });
   })
 <?php $this->endBlock() ?>  

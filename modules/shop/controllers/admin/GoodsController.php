@@ -20,6 +20,7 @@ use app\modules\shop\models\AttrVal;
 use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Sku;
 use app\core\helpers\Pinyin;
+use app\modules\shop\models\BagRel;
 /**
  * GoodsController implements the CRUD actions for Goods model.
  */
@@ -300,6 +301,59 @@ class GoodsController extends BackController
         $tags = explode(',', $str);
         
         TagRel::addTagRel($tags, 'goods', $id);
+    }
+
+    /**
+     * @return array
+     * @name 批量删除商品
+     */
+    public function actionBatchDel()
+    {
+        $post = Yii::$app->request->post();
+
+        $ses = Yii::$app->getSession();
+
+        if (empty($post['ids'])) {
+            return $this->json(null, '请选择要删除的数据 ', 0);
+        }
+
+        $bag_rels = BagRel::find()->where(['goods_id'=>$post['ids']])->one();
+
+        if ($bag_rels) {
+            return $this->json(null, '存在打包品与此商品关联，请先删除对应打包品',0);
+        }
+
+        $outerTransaction = Yii::$app->db->beginTransaction();
+
+        try{
+            //删除商品
+            Yii::$app->db->createCommand()
+                ->delete(Goods::tableName(),[
+                    'id' => $post['ids']
+                ])->execute();
+
+            //avrel
+            Yii::$app->db->createCommand()
+                ->delete(AvRel::tableName(),[
+                    'goods_id' => $post['ids']
+                ])->execute();
+
+            //sku
+            Yii::$app->db->createCommand()
+                ->delete(Sku::tableName(),[
+                    'goods_id' => $post['ids']
+                ])->execute();
+
+            $outerTransaction->commit();
+
+        } catch (\Exception $e){
+            $outerTransaction->rollBack();
+            return $this->json(null, '删除失败', 0);
+        }
+
+        $ses->setFlash('success','数据批量删除成功');
+        return $this->json();
+
     }
 
 

@@ -305,6 +305,37 @@ class PostController extends \app\core\web\BackController
         return $this->redirect(['index', 'mid'=>$mid,'type'=>'album']);
     }
 
+    /**
+     * @name 批量删除
+     */
+    public function actionBatchDel()
+    {
+        $post = Yii::$app->request->post();
+
+        $ses = Yii::$app->getSession();
+
+        if (empty($post['mid']) || empty($post['ids'])) {
+            return $this->json(null, '请选择要删除的数据 ', 0);
+        }
+
+        Code::createObj('post', $post['mid']);
+
+        $class = '\app\modules\cms\models\mods\Post' . $post['mid'];
+
+        $flag = Yii::$app->db->createCommand()
+                    ->delete($class::tableName(),[
+                        'id' => $post['ids']
+                    ])->execute();
+
+        if ($flag) {
+            $ses->setFlash('success','数据批量删除成功');
+            return $this->json();
+        }
+
+        return $this->json(null, '删除失败', 0);
+
+    }
+
 
     /**
      * @param $id

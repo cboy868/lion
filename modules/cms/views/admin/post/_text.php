@@ -8,7 +8,16 @@ use app\modules\cms\models\Post;
     'dataProvider' => $dataProvider,
     'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
     // 'filterModel' => $searchModel,
+    'id' => 'grid',
+    'showFooter' => true,  //设置显示最下面的footer
     'columns' => [
+        [
+            'class'=>yii\grid\CheckboxColumn::className(),
+            'name'=>'id',  //设置每行数据的复选框属性
+            'headerOptions' => ['width'=>'30'],
+            'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+            'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+        ],
         //['class' => 'yii\grid\CheckboxColumn'],
         [
             'label' => '标题',
@@ -66,3 +75,30 @@ use app\modules\cms\models\Post;
         ]
     ],
 ]); ?>
+
+
+
+<?php $this->beginBlock('img') ?>
+$(function(){
+$('.btn-delete').click(function(){
+
+    if (!confirm("您确定要删除这些文章吗?,删除后不可恢复")){return false;}
+
+    var ids = $('#grid').yiiGridView('getSelectedRows');
+    var url = "<?=Url::toRoute(['batch-del'])?>";
+    var mid = "<?=$mid?>";
+
+    $.post(url, {mid:mid,ids:ids},function(xhr){
+        if (xhr.status){
+            location.reload();
+        } else {
+            alert(xhr.info);
+        }
+    },'json');
+
+});
+
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['img'], \yii\web\View::POS_END); ?>
+
