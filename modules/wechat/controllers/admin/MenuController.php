@@ -36,14 +36,23 @@ class MenuController extends Controller
     public function actionIndex()
     {
 
+        $wid = Yii::$app->session->get('wechat.id');
+        $wechat = Wechat::findOne($wid);
+
         $list = Menu::getWechatMenus();
 
         return $this->render('index', [
+            'wechat' => $wechat,
             'menus'=>$list,
             'type' => Menu::typeMap()
         ]);
 
     }
+
+//    public function actionInfo()
+//    {
+//        return $this->render('info');
+//    }
 
     /**
      * Creates a new Menu model.
@@ -65,7 +74,7 @@ class MenuController extends Controller
 
         } else {
             $model->loadDefaultValues();
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -87,7 +96,7 @@ class MenuController extends Controller
             return $this->redirect(['index']);
         } else {
 
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
 

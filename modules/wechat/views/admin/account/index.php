@@ -58,7 +58,19 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'status',
             // 'created_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update} {delete} {view} {switch}',
+                'buttons' => [
+                    'switch' => function($url, $model, $key) {
+                        return Html::a('进入公众号', $url, ['title' => '进入公众号'] );
+                    }
+
+                ],
+                'headerOptions' => ['width' => '240',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

@@ -16,7 +16,7 @@ use app\core\helpers\StringHelper;
  * @property integer $level
  * @property string $name
  * @property string $original
- * @property string $appkey
+ * @property string $appid
  * @property string $appsecret
  * @property integer $status
  * @property integer $created_at
@@ -78,7 +78,7 @@ class Wechat extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['token', 'level', 'name', 'original', 'appkey', 'appsecret'], 'required'],
+            [['token', 'level', 'name', 'original', 'appid', 'appsecret'], 'required'],
             [['level', 'status', 'created_at'], 'integer'],
             [['token', 'access_token', 'encodingaeskey'], 'string', 'max' => 255],
             [['name', 'original'], 'string', 'max' => 200],

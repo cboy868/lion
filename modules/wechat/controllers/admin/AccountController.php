@@ -5,14 +5,13 @@ namespace app\modules\wechat\controllers\admin;
 use Yii;
 use app\modules\wechat\models\Wechat;
 use app\modules\wechat\models\WechatSearch;
-use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AccountController implements the CRUD actions for Wechat model.
  */
-class AccountController extends BackController
+class AccountController extends Controller
 {
     public function behaviors()
     {
@@ -39,6 +38,26 @@ class AccountController extends BackController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+     * @name 选择操作的公众号
+     */
+    public function actionSwitch($id)
+    {
+        $model = $this->findModel($id);
+        if (!$model) {
+            return $this->error('不存在此公众号,请重新选择');
+        }
+        $session = \Yii::$app->session;
+
+        $session['wechat.id'] = $model->id;
+        $session['wechat.name'] = $model->name;
+        $session['wechat.appid'] = $model->appid;
+        $session['wechat.appsecret'] = $model->appsecret;
+        $session['wechat.token'] = $model->token;
+
+        return $this->redirect(['/wechat/admin/default/index']);
     }
 
     /**

@@ -12,6 +12,8 @@ class Controller extends \app\core\web\BackController
 {
 	protected $wechat;
 
+	protected $current_wechat;
+
 	public function init()
 	{
 		$params = Yii::$app->params['wechat']['wx'];

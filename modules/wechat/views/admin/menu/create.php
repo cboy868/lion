@@ -1,33 +1,8 @@
-<?php
-
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\Breadcrumbs;
-
-/* @var $this yii\web\View */
-/* @var $model modules\wechat\models\Menu */
-
-$this->title = '添加新菜单';
-$this->params['breadcrumbs'][] = ['label' => '微信菜单', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-
 <div class="page-content">
 	<!-- /section:settings.box -->
 	<div class="page-content-area">
-		<div class="page-header">
-			<h1>
-                <?= Html::encode($this->title) ?>
-                <!--
-				<small>
-					<i class="ace-icon fa fa-angle-double-right"></i>
-				</small>
-				-->
-			</h1>
-		</div><!-- /.page-header -->
-
 		<div class="row">
-			<div class="col-xs-8 menu-create">
+			<div class="col-xs-12 menu-create">
 				<?= $this->render('_form', [
 			        'model' => $model,
 			    ]) ?>
