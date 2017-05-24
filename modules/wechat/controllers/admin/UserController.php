@@ -58,7 +58,7 @@ class UserController extends Controller
     public function actionPull()
     {
         $userService = $this->app->user;
-        $lists = $userService->lists();
+        $lists = $userService->lists('oGQOas-g9ffRgR0SarLqFxuBgnNw');
         p($lists);die;
     }
 
