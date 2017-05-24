@@ -284,8 +284,6 @@ class UserController extends Controller
 
                     $users = $tag->usersOfTag($v->tag_id, $next);
 
-                    p($users);die;
-
                     $count = $users->count;
 
                     if ($count) {
@@ -305,7 +303,7 @@ class UserController extends Controller
                     }
 
                     $openIds = ArrayHelper::getColumn($rels, 'openid');
-                    $tag->batchTagUsers($openIds, $v->tag_id);
+                    $a = $tag->batchTagUsers($openIds, $v->tag_id);
 
                 } while($count != 0);
 
