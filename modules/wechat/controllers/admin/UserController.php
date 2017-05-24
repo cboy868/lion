@@ -282,7 +282,7 @@ class UserController extends Controller
                                     ->indexBy('openid')
                                     ->all();
 
-                    $users = $tag->usersOfTag($v->tag_id, $next);
+                    $users = $tag->usersOfTag($v->tag_id);
                     p($v->tag_id);
                     p($users);
 
