@@ -110,32 +110,33 @@ class UserController extends Controller
         $open_ids = ArrayHelper::getColumn($list, 'openid');
 
         $users_info = $this->app->user->batchGet($open_ids);
-
-        foreach ($users_info['user_info_list'] as $u) {
-            $result = [
-                'openid' => $u->openid,
-                'subscribe' => $u->subscribe,
-                'nickname' => $u->nickname,
-                'sex' => $u->sex,
-                'language' => $u->language,
-                'city' => $u->city,
-                'province' => $u->province,
-                'country' => $u->country,
-                'headimgurl' => $u->headimgurl,
-                'subscribe_at' => $u->subscribe_time,
-                'remark' => $u->remark,
-                'gid' => $u->groupid,
-//                'tagid_list' => $u->tagid_list
-            ];
-
-            $model = User::find()->where(['openid'=>$u->openid])->one();
-            $model->load($result, '');
-            $model->save();
-        }
-
-        if ($pagination->getPage() < $pagination->getPageCount()) {
-            return $this->redirect($next);
-        }
+p($users_info);
+//        if ($users_info)
+//        foreach ($users_info['user_info_list'] as $u) {
+//            $result = [
+//                'openid' => $u->openid,
+//                'subscribe' => $u->subscribe,
+//                'nickname' => $u->nickname,
+//                'sex' => $u->sex,
+//                'language' => $u->language,
+//                'city' => $u->city,
+//                'province' => $u->province,
+//                'country' => $u->country,
+//                'headimgurl' => $u->headimgurl,
+//                'subscribe_at' => $u->subscribe_time,
+//                'remark' => $u->remark,
+//                'gid' => $u->groupid,
+////                'tagid_list' => $u->tagid_list
+//            ];
+//
+//            $model = User::find()->where(['openid'=>$u->openid])->one();
+//            $model->load($result, '');
+//            $model->save();
+//        }
+//
+//        if ($pagination->getPage() < $pagination->getPageCount()) {
+//            return $this->redirect($next);
+//        }
     }
 
     /**
