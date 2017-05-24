@@ -70,7 +70,7 @@ class UserController extends Controller
             p($users);
             p($list);
 
-        } while($count != 0);
+        } while($count != 0 && $total>$count);
 
 
         die;
