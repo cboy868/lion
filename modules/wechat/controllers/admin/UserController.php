@@ -59,11 +59,16 @@ class UserController extends Controller
     {
         $userService = $this->app->user;
 
-        $lists = $userService->lists();
+        $users  = $userService->lists();
+        $list = $users->data['openid'];
 
 
-        
-        p($lists);die;
+
+        p($users );
+
+        p($list);
+
+        die;
     }
 
     /**
