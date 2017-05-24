@@ -2,6 +2,8 @@
 
 namespace app\modules\wechat\controllers\admin;
 
+use app\core\base\Pagination;
+use app\core\helpers\ArrayHelper;
 use Yii;
 use app\modules\wechat\models\User;
 use app\modules\wechat\models\UserSearch;
@@ -57,9 +59,11 @@ class UserController extends Controller
 
     public function actionPull()
     {
+        //最开始 应该先清空表
         $userService = $this->app->user;
 
         $next=null;
+        $time = time();
         do {
             $users = $userService->lists($next);
             $count = $users->count;
@@ -67,10 +71,75 @@ class UserController extends Controller
             $total = $users->total;
             $list = $users->data['openid'];
 
-            Yii::$app->db->createCommand()->batchInsert(User::className(), ['openid'], $list)->execute();
+            $result = [];
+
+            foreach ($list as $v){
+                $result[] = [$v, $time];
+            }
+
+            Yii::$app->db->createCommand()
+                        ->batchInsert(User::className(), ['openid', 'created_at'], $result)
+                        ->execute();
 
         } while($count != 0 && $total>$count);
 
+        Yii::$app->session->setFlash('success', '拉取成功');
+
+        return $this->redirect(['sync']);
+
+    }
+
+
+    /**
+     * @name 同步用户数据
+     */
+    public function actionSync()
+    {
+        $query = User::find();
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>1]);
+        $links = $pagination->getLinks();
+        $next = $links[Pagination::LINK_NEXT];
+
+        $list = $query->offset($pagination->offset)
+                        ->limit($pagination->limit)
+                        ->asArray()
+                        ->all();
+
+
+        $open_ids = ArrayHelper::getColumn($list, 'openid');
+
+        $users_info = $this->app->user->batchGet($open_ids);
+        $result = [];
+        foreach ($users_info as $u) {
+            $result[] = [
+                'openid' => $u->openid,
+                'subscribe' => $u->subscribe,
+                'nickname' => $u->nickname,
+                'sex' => $u->sex,
+                'language' => $u->language,
+                'city' => $u->city,
+                'province' => $u->province,
+                'country' => $u->country,
+                'headimgurl' => $u->headimgurl,
+                'subscribe_at' => $u->subscribe_time,
+                'remark' => $u->remark,
+                'gid' => $u->groupid,
+//                'tagid_list' => $u->tagid_list
+            ];
+        }
+
+        $attribute = ['openid','subscribe','nickname',
+            'sex','language','city','province', 'country',
+            'headimgurl','subscribe_at','remark', 'gid'];
+
+        Yii::$app->db->createCommand()
+                    ->batchInsert(User::className(), $attribute, $result)
+                    ->execute();
+
+        if ($pagination->getPage() < $pagination->getPageCount()) {
+            return $this->redirect($next);
+        }
     }
 
     /**
