@@ -78,7 +78,7 @@ class UserController extends Controller
             }
 
             Yii::$app->db->createCommand()
-                        ->batchInsert(User::className(), ['openid', 'created_at'], $result)
+                        ->batchInsert(User::tableName(), ['openid', 'created_at'], $result)
                         ->execute();
 
         } while($count != 0 && $total>$count);
@@ -110,9 +110,9 @@ class UserController extends Controller
         $open_ids = ArrayHelper::getColumn($list, 'openid');
 
         $users_info = $this->app->user->batchGet($open_ids);
-        $result = [];
+        
         foreach ($users_info as $u) {
-            $result[] = [
+            $result = [
                 'openid' => $u->openid,
                 'subscribe' => $u->subscribe,
                 'nickname' => $u->nickname,
@@ -127,15 +127,11 @@ class UserController extends Controller
                 'gid' => $u->groupid,
 //                'tagid_list' => $u->tagid_list
             ];
+
+            $model = User::find()->where(['openid'=>$u->openid])->one();
+            $model->load($result, '');
+            $model->save();
         }
-
-        $attribute = ['openid','subscribe','nickname',
-            'sex','language','city','province', 'country',
-            'headimgurl','subscribe_at','remark', 'gid'];
-
-        Yii::$app->db->createCommand()
-                    ->batchInsert(User::className(), $attribute, $result)
-                    ->execute();
 
         if ($pagination->getPage() < $pagination->getPageCount()) {
             return $this->redirect($next);
