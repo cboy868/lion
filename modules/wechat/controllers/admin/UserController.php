@@ -218,13 +218,10 @@ class UserController extends Controller
             $tag = $this->app->user_tag;
             $tag_info = $tag->create($model->name);
             $model->wid = $this->wid;
-            $model->tag_id = $tag_info['id'];
-            p($tag_info);die;
+            $model->tag_id = $tag_info['tag']['id'];
             $model->save();
 
 
-            p($tag_info['id']);
-            die;
 
 
             return $this->redirect(['index', 'tag' => $model->id]);
