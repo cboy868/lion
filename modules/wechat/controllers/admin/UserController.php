@@ -130,7 +130,7 @@ class UserController extends Controller
 ////                'tagid_list' => $u->tagid_list
 //                ];
 
-                $model = User::find()->where(['openid'=>$u->openid])->one();
+                $model = User::find()->where(['openid'=>$u['openid']])->one();
                 $model->load($u, '');
                 $model->gid = $u['groupid'];
                 p($model);die;
