@@ -349,6 +349,12 @@ class UserController extends Controller
         $localTags = Tag::find()->where(['wid'=>$this->wid])
                                 ->all();
         $tag = $this->app->user_tag;
+
+        $userTags = $tag->userTags('oziua0zmwYFotxHtW2J-Gr05hCJs');
+
+
+p($userTags);die;
+
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
             foreach ($localTags as $v) {
