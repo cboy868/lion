@@ -27,7 +27,7 @@ class Tag extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['count', 'tag_id'], 'integer'],
+            [['count', 'tag_id','wid'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
