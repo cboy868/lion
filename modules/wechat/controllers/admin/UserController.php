@@ -67,9 +67,10 @@ class UserController extends Controller
             $total = $users->total;
             $list = $users->data['openid'];
 
+            p($users);
             p($list);
 
-        } while($count !=0);
+        } while($count != 0);
 
 
         die;
