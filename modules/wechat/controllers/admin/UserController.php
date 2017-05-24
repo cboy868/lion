@@ -62,7 +62,7 @@ class UserController extends Controller
         //最开始 应该先清空表
         $userService = $this->app->user;
 
-        Yii::app()->db->createCommand()->truncateTable(User::tableName());
+        Yii::$app->db->createCommand()->truncateTable(User::tableName());
 
         $next=null;
         $time = time();
