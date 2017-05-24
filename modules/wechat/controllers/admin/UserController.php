@@ -114,30 +114,12 @@ class UserController extends Controller
 
         if ($ulist) {
             foreach ($users_info['user_info_list'] as $u) {
-//                $result = [
-//                    'openid' => $u->openid,
-//                    'subscribe' => $u->subscribe,
-//                    'nickname' => $u->nickname,
-//                    'sex' => $u->sex,
-//                    'language' => $u->language,
-//                    'city' => $u->city,
-//                    'province' => $u->province,
-//                    'country' => $u->country,
-//                    'headimgurl' => $u->headimgurl,
-//                    'subscribe_at' => $u->subscribe_time,
-//                    'remark' => $u->remark,
-//                    'gid' => $u->groupid,
-////                'tagid_list' => $u->tagid_list
-//                ];
-
                 $model = User::find()->where(['openid'=>$u['openid']])->one();
                 $model->load($u, '');
                 $model->gid = $u['groupid'];
-                p($model);die;
                 $model->save();
             }
         }
-
 
         if ($pagination->getPage() < $pagination->getPageCount()) {
             return $this->redirect($next);
