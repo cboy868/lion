@@ -62,7 +62,7 @@ class UserController extends Controller
 
         $next=null;
         do {
-            $users = $userService->lists($next);
+            $users = $userService->lists();
             $count = $users->count;
             $next = $users->next_openid;
             $total = $users->total;
