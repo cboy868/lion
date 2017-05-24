@@ -5,6 +5,8 @@ namespace app\modules\wechat\controllers\admin;
 use Yii;
 use app\modules\wechat\models\Menu;
 use app\modules\wechat\models\Wechat;
+use app\modules\wechat\models\MenuMain;
+use app\modules\wechat\models\MenuMainSearch;
 use app\modules\wechat\models\MenuSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,12 +30,29 @@ class MenuController extends Controller
         ];
     }
 
+
+
     /**
      * Lists all Menu models.
      * @return mixed
      * @name 微信菜单
      */
-    public function actionIndex()
+    public function actionIndex($type=1)
+    {
+        $searchModel = new MenuMainSearch();
+
+        $params = Yii::$app->request->queryParams;
+        $params['MenuMainSearch']['type'] = $type;
+
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'type' => $type
+        ]);
+    }
+    public function actionIndex1()
     {
 
         $wid = Yii::$app->session->get('wechat.id');
@@ -63,21 +82,35 @@ class MenuController extends Controller
      */
     public function actionCreate()
     {
+        $wid = Yii::$app->session->get('wechat.id');
+        $wechat = Wechat::findOne($wid);
 
-        $model = new Menu();
+        $list = Menu::getWechatMenus();
 
-        if ($model->load(Yii::$app->request->post())) {
 
-            if ($model->save()) {
-                return $this->redirect(['index']);
-            }
+        $model = new MenuMain();
 
-        } else {
-            $model->loadDefaultValues();
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('create', [
+            'wechat' => $wechat,
+            'menus'=>$list,
+            'type' => Menu::typeMap(),
+            'model' => $model
+        ]);
+
+//        $model = new Menu();
+//
+//        if ($model->load(Yii::$app->request->post())) {
+//
+//            if ($model->save()) {
+//                return $this->redirect(['index']);
+//            }
+//
+//        } else {
+//            $model->loadDefaultValues();
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
     }
 
     /**
@@ -96,7 +129,7 @@ class MenuController extends Controller
             return $this->redirect(['index']);
         } else {
 
-            return $this->renderAjax('update', [
+            return $this->render('update', [
                 'model' => $model,
             ]);
 

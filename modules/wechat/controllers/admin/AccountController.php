@@ -7,11 +7,13 @@ use app\modules\wechat\models\Wechat;
 use app\modules\wechat\models\WechatSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\core\web\BackController;
+
 
 /**
  * AccountController implements the CRUD actions for Wechat model.
  */
-class AccountController extends Controller
+class AccountController extends BackController
 {
     public function behaviors()
     {

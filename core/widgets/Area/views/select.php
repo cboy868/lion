@@ -16,10 +16,13 @@ AreaAsset::register($this);
     <option value="0">请选择</option>
   </select>
 
+    <?php if ($zone_show):?>
 <label for="zone-<?=$flag?>">
   区-
   </label>
   <select id="zone-<?=$flag?>" rel="zone_id" name="<?=$zone_name?>" style="width:10em;" class="area_zone">
     <option value="0">请选择</option>
   </select>
+    <?php endif;?>
 </div>
+

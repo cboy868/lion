@@ -3,16 +3,16 @@
 namespace app\modules\wechat\controllers\admin;
 
 use Yii;
-use app\modules\wechat\models\User;
-use app\modules\wechat\models\UserSearch;
-
+use app\modules\wechat\models\MenuMain;
+use app\modules\wechat\models\MenuMainSearch;
+use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use EasyWeChat\Foundation\Application;
+
 /**
- * UserController implements the CRUD actions for User model.
+ * MainController implements the CRUD actions for MenuMain model.
  */
-class UserController extends Controller
+class MainController extends BackController
 {
     public function behaviors()
     {
@@ -27,13 +27,12 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all MenuMain models.
      * @return mixed
-     * @name 微信用户列表
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new MenuMainSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,10 +42,9 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single MenuMain model.
      * @param integer $id
      * @return mixed
-     * @name 微信用户详情
      */
     public function actionView($id)
     {
@@ -55,22 +53,14 @@ class UserController extends Controller
         ]);
     }
 
-    public function actionPull()
-    {
-        $userService = $this->app->user;
-        $lists = $userService->lists();
-        p($lists);die;
-    }
-
     /**
-     * Creates a new User model.
+     * Creates a new MenuMain model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
-     * @name 添加
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new MenuMain();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -82,11 +72,10 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing MenuMain model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -102,11 +91,10 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing MenuMain model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     * @name 删除
      */
     public function actionDelete($id)
     {
@@ -116,15 +104,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the MenuMain model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return MenuMain the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = MenuMain::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -26,6 +26,8 @@ class Select extends Widget {
 
     public $zone_name;
 
+    public $zone_show = true;
+
     static $flag = 0;
     /**
      * Renders the widget.
@@ -45,6 +47,7 @@ class Select extends Widget {
             'pro_name' => $this->pro_name ? $this->pro_name : 'province_id',
             'city_name' => $this->city_name ? $this->city_name : 'city_id',
             'zone_name' => $this->zone_name ? $this->zone_name : 'zone_id',
+            'zone_show' => $this->zone_show
           ]);
     }
 }

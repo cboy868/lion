@@ -6,10 +6,10 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\wechat\models\UserSearch */
+/* @var $searchModel app\modules\wechat\models\MenuMainSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '粉丝管理';
+$this->title = 'Menu Mains';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
-                    <?=  Html::a('下拉粉丝数据', ['pull'], ['class' => 'btn btn-primary btn-sm']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <div class="col-xs-12 user-index">
+            <div class="col-xs-12 menu-main-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -46,21 +46,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'headimgurl:image',
-            'nickname',
-            // 'remark',
-            // 'sex',
+            'id',
+            'name',
+            'type',
+            'is_active',
+            'gender',
+            // 'tag',
+            // 'client_platform_type',
             // 'language',
-            // 'city',
-            // 'province',
             // 'country',
-            // 'subscribe',
-             'subscribe_at:datetime',
-//             'created_at:datetime',
-            // 'realname',
-            // 'mobile',
-            // 'birth',
-            // 'addr:ntext',
+            // 'province',
+            // 'city',
+            // 'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
