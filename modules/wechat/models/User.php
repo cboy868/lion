@@ -92,4 +92,9 @@ class User extends \app\core\db\ActiveRecord
             'addr' => '地址',
         ];
     }
+//
+//    public function createOpendId()
+//    {
+//
+//    }
 }

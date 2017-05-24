@@ -67,14 +67,9 @@ class UserController extends Controller
             $total = $users->total;
             $list = $users->data['openid'];
 
-            p($users);
-            p($list);
+            Yii::$app->db->createCommand()->batchInsert(User::className(), ['openid'], $list)->execute();
 
         } while($count != 0 && $total>$count);
-
-
-        die;
-
 
     }
 
