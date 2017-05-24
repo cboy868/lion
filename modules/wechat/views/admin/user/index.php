@@ -47,17 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             [
                 'label' => '头像',
                 'value'=> function($model){
                     $img = "<img src='%s' width='36' height='36'>";
-                    return sprintf($img, $model->headimgurl);
+                    return sprintf($img, $model->headimgurl) . ' ' . $model->nickname;
                 },
                 'format' =>'raw'
             ],
-            'nickname',
             // 'remark',
             // 'sex',
             // 'language',
