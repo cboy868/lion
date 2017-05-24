@@ -273,9 +273,7 @@ class UserController extends Controller
         $tag = $this->app->user_tag;
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
-
             foreach ($localTags as $v) {
-
                 $next = null;
                 do {
                     //取本地此标签下的粉丝
@@ -305,9 +303,7 @@ class UserController extends Controller
                     }
 
                     $openIds = ArrayHelper::getColumn($rels, 'openid');
-                    $a  = $tag->batchTagUsers($openIds, $v->tag_id);
-                    p($a);die;
-
+                    $tag->batchTagUsers($openIds, $v->tag_id);
 
                 } while($count != 0);
 
