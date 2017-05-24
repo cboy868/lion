@@ -284,6 +284,8 @@ class UserController extends Controller
 
                     $users = $tag->usersOfTag($v->tag_id, $next);
 
+                    p($users);die;
+
                     $count = $users->count;
 
                     if ($count) {
