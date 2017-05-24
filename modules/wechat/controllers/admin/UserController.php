@@ -285,6 +285,7 @@ class UserController extends Controller
                                     ->all();
 
                     $users = $tag->usersOfTag($v->tag_id, $next);
+                    p($users);
                     $count = $users->count;
                     if (!$count) break;
 
