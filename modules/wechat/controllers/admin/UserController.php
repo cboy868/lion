@@ -274,7 +274,7 @@ class UserController extends Controller
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
             foreach ($localTags as $v) {
-                $next = null;
+                $next = '';
                 do {
                     //取本地此标签下的粉丝
                     $rels = TagRel::find()->where(['wid'=>$this->wid])
