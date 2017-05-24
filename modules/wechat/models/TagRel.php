@@ -26,8 +26,9 @@ class TagRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tag_id', 'user_id'], 'required'],
-            [['tag_id', 'user_id'], 'integer'],
+            [['tag_id', 'openid', 'wid'], 'required'],
+            [['tag_id'], 'integer'],
+            [['openid'], 'string'],
         ];
     }
 
