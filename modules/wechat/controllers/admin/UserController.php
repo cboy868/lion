@@ -350,10 +350,10 @@ class UserController extends Controller
                                 ->all();
         $tag = $this->app->user_tag;
 
-//        $userTags = $tag->userTags('oziua0zmwYFotxHtW2J-Gr05hCJs');
+        $userTags = $tag->userTags('oziua0zmwYFotxHtW2J-Gr05hCJs');
 
 
-//p($userTags);die;
+p($userTags);die;
 
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
