@@ -216,7 +216,7 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $tag = $this->app->user_tag;
-            $tag_info = $tag->create(urlencode($model->name));
+            $tag_info = $tag->create($model->name);
 
 
             p($tag_info);die;
