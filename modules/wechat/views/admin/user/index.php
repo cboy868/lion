@@ -49,7 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'headimgurl:image',
+            [
+                'label' => '头像',
+                'value'=> function($model){
+                    $img = "<img src='%s' width='36' height='36'>";
+                    return sprintf($img, $model->headimgurl);
+                },
+                'format' =>'raw'
+            ],
             'nickname',
             // 'remark',
             // 'sex',
