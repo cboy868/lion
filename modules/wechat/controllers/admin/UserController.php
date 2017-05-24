@@ -4,6 +4,7 @@ namespace app\modules\wechat\controllers\admin;
 
 use app\core\base\Pagination;
 use app\core\helpers\ArrayHelper;
+use app\modules\wechat\models\TagRel;
 use Yii;
 use app\modules\wechat\models\User;
 use app\modules\wechat\models\Tag;
@@ -251,9 +252,6 @@ class UserController extends Controller
                 }
 
             }
-
-
-
             $outerTransaction->commit();
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('success', '同步标签信息失败');
@@ -264,6 +262,66 @@ class UserController extends Controller
         Yii::$app->session->setFlash('success', '同步标签信息成功');
         return $this->redirect(['index']);
     }
+
+    /**
+     * @name 同步粉丝标签
+     */
+    public function actionSyncTagUser()
+    {
+        $localTags = Tag::find()->where(['wid'=>$this->wid])
+                                ->all();
+        $tag = $this->app->user_tag;
+        $outerTransaction = Yii::$app->db->beginTransaction();
+        try {
+
+            foreach ($localTags as $v) {
+
+                $next = null;
+                do {
+                    //取本地此标签下的粉丝
+                    $rels = TagRel::find()->where(['wid'=>$this->wid])
+                                    ->andWhere(['tag_id'=>$v->tag_id])
+                                    ->indexBy('openid')
+                                    ->all();
+
+                    $users = $tag->usersOfTag($v->tag_id, $next);
+                    $count = $users->count;
+                    if (!$count) break;
+
+                    $next = $users->next_openid;
+                    $list = $users->data['openid'];
+
+                    foreach ($list as $val){
+                        if (!array_key_exists($val, $rels)) {
+                            $model = new TagRel();
+                            $model->wid = $this->wid;
+                            $model->tag_id = $v->tag_id;
+                            $model->openid = $val;
+                            $model->save();
+                            unset($rels[$val]);
+                        }
+                    }
+
+                    $openIds = ArrayHelper::getColumn($rels, 'openid');
+                    $tag->batchTagUsers($openIds, $v->tag_id);
+
+
+                } while($count != 0);
+
+            }
+            $outerTransaction->commit();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('success', '同步标签信息失败');
+            return $this->error($e->getMessage());
+            $outerTransaction->rollBack();
+        }
+
+        Yii::$app->session->setFlash('success', '同步标签信息成功');
+
+        return $this->redirect(['index']);
+
+    }
+
 
     /**
      * @name 清空tag

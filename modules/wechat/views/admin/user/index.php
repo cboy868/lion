@@ -74,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endif;?>
                         <a href="#" class="btn btn-info">打标签</a>
                         <a href="<?=Url::toRoute(['sync-tag'])?>" class="btn btn-info">同步标签</a>
+                        <a href="<?=Url::toRoute(['sync-tag-user'])?>" class="btn btn-info">同步粉丝标签</a>
                     </div>
                     <div class="panel-body">
 
