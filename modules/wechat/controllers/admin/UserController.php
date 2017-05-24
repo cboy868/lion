@@ -214,6 +214,17 @@ class UserController extends Controller
      */
     public function actionSyncTag()
     {
+        $tag = $this->app->user_tag;
+        $tags = $tag->lists();
+
+        p($tags);die;
+    }
+
+    /**
+     * @name 清空tag
+     */
+    public function actionEmptyTag()
+    {
 
     }
 
