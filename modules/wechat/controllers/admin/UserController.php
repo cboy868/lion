@@ -263,10 +263,88 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
+
+
+    private function _pullTagUser()
+    {
+        $tags = Tag::find()->where(['wid'=>$this->wid])->all();
+        $tag = $this->app->user_tag;
+        $outerTransaction = Yii::$app->db->beginTransaction();
+
+        try {
+            foreach ($tags as $v) {
+                $next = null;
+                do {
+                    //取本地此标签下的粉丝
+                    $rels = TagRel::find()->where(['wid'=>$this->wid])
+                                ->andWhere(['tag_id'=>$v->tag_id])
+                                ->indexBy('openid')
+                                ->all();
+
+                    $users = $tag->usersOfTag($v->tag_id, $next);
+                    $count = $users->count;
+
+                    if ($count) {
+                        $next = $users->next_openid;
+                        $list = $users->data['openid'];
+
+                        foreach ($list as $val){
+                            if (!array_key_exists($val, $rels)) {
+                                $model = new TagRel();
+                                $model->wid = $this->wid;
+                                $model->tag_id = $v->tag_id;
+                                $model->openid = $val;
+                                $model->save();
+                            }
+                        }
+                    }
+
+                } while($count != 0);
+            }
+            $outerTransaction->commit();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('success', '同步标签信息失败');
+            return $this->error($e->getMessage());
+            $outerTransaction->rollBack();
+        }
+    }
+
+    private function _pushTagUser()
+    {
+        $tags = Tag::find()->where(['wid'=>$this->wid])->all();
+        $tag = $this->app->user_tag;
+        $outerTransaction = Yii::$app->db->beginTransaction();
+        try {
+            foreach ($tags as $v) {
+                $rels = TagRel::find()->where(['wid'=>$this->wid])
+                                ->andWhere(['tag_id'=>$v->tag_id])
+                                ->indexBy('openid')
+                                ->all();
+
+                $openIds = ArrayHelper::getColumn($rels, 'openid');
+
+                $a = $tag->batchTagUsers($openIds, $v->tag_id);
+            }
+            $outerTransaction->commit();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('success', '同步标签信息失败');
+            return $this->error($e->getMessage());
+            $outerTransaction->rollBack();
+        }
+    }
+
+    public function actionSyncTagUser()
+    {
+        $this->_pullTagUser();
+        $this->_pushTagUser();
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * @name 同步粉丝标签
      */
-    public function actionSyncTagUser()
+    public function actionSyncTagUser1()
     {
         $localTags = Tag::find()->where(['wid'=>$this->wid])
                                 ->all();
@@ -274,7 +352,7 @@ class UserController extends Controller
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
             foreach ($localTags as $v) {
-                $next = '';
+                $next = null;
                 do {
                     //取本地此标签下的粉丝
                     $rels = TagRel::find()->where(['wid'=>$this->wid])
@@ -282,7 +360,7 @@ class UserController extends Controller
                                     ->indexBy('openid')
                                     ->all();
 
-                    $users = $tag->usersOfTag($v->tag_id);
+                    $users = $tag->usersOfTag($v->tag_id, $next);
                     p($v->tag_id);
                     p($users);
 
