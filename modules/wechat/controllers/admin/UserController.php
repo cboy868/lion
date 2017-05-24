@@ -221,6 +221,11 @@ class UserController extends Controller
             $model->tag_id = $tag_info['id'];
             $model->save();
 
+            p($tag_info);
+            p($tag_info['id']);
+            die;
+
+
             return $this->redirect(['index', 'tag' => $model->id]);
         } else {
             return $this->renderAjax('create-tag', [
