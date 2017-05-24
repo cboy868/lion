@@ -215,9 +215,54 @@ class UserController extends Controller
     public function actionSyncTag()
     {
         $tag = $this->app->user_tag;
-        $tags = $tag->lists();
+        $list = $tag->lists();
 
-        p($tags);die;
+        //找出本库里所有tag
+        $localTags = Tag::find()->where(['wid'=>$this->wid])
+                                ->indexBy('tag_id')
+                                ->all();
+
+
+        $outerTransaction = Yii::$app->db->beginTransaction();
+        try {
+            //远程到本地
+            foreach ($list['tags'] as $v) {
+                $model = Tag::find()->where(['tag_id'=>$v['id']])
+                                    ->andWhere(['wid'=>$this->wid])
+                                    ->one();
+                if (!$model) {
+                    $model = new Tag();
+                    $model->wid = $this->wid;
+                    $model->tag_id = $v['id'];
+                }
+                $model->name = $v['name'];
+                $model->save();
+                unset($localTags[$v['id']]);
+            }
+            //本地到远程
+            foreach ($localTags as $v) {
+                $tag_info = $tag->create($v->name);
+                if (isset($tag_info['tag']['id'])) {
+                    $v->tag_id = $tag_info['tag']['id'];
+                    $v->save();
+                } else {
+                    $v->name = $v->name . '_wrong';
+                    $v->save();
+                }
+
+            }
+
+
+
+            $outerTransaction->commit();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('success', '同步标签信息失败');
+            return $this->error($e->getMessage());
+            $outerTransaction->rollBack();
+        }
+
+        Yii::$app->session->setFlash('success', '同步标签信息成功');
+        return $this->redirect(['index']);
     }
 
     /**

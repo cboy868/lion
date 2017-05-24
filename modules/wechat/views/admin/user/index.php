@@ -73,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="#" class="btn btn-info">删除</a>
                         <?php endif;?>
                         <a href="#" class="btn btn-info">打标签</a>
+                        <a href="<?=Url::toRoute(['sync-tag'])?>" class="btn btn-info">同步标签</a>
                     </div>
                     <div class="panel-body">
 
@@ -165,7 +166,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $this->beginBlock('foo') ?>
 $(function(){
 
-$('#test').popover({content:'abcde'})
 $('.btn-delete').click(function(){
 var ids = $('#grid').yiiGridView('getSelectedRows');
 
