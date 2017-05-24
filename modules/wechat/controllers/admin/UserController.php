@@ -62,6 +62,8 @@ class UserController extends Controller
         //最开始 应该先清空表
         $userService = $this->app->user;
 
+        Yii::app()->db->createCommand()->truncateTable(User::tableName());
+
         $next=null;
         $time = time();
         do {
@@ -92,6 +94,8 @@ class UserController extends Controller
      */
     public function actionSync()
     {
+        ob_flush();
+        flush();
         $query = User::find();
         $count = $query->count();
         $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>1]);
@@ -120,6 +124,7 @@ class UserController extends Controller
 
         if ($pagination->getPage() < $pagination->getPageCount() && isset($links[Pagination::LINK_NEXT])) {
             return $this->redirect($links[Pagination::LINK_NEXT]);
+
         }
 
         Yii::$app->session->setFlash('success', '拉取成功');
