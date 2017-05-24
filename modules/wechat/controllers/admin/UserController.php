@@ -59,30 +59,23 @@ class UserController extends Controller
     {
         $userService = $this->app->user;
 
-        $users  = $userService->lists();
-        $list = $users->data['openid'];
 
+        $next=null;
+        do {
+            $users = $userService->lists($next);
+            $count = $users->count;
+            $next = $users->next_openid;
+            $total = $users->total;
+            $list = $users->data['openid'];
 
+            p($list);
 
-        $count = $users->count;
-        $total = $users->total;
-        $next = $users->next_openid;
-
-
-        p($list);
-
-        while ($count != 0) {
-            $list = $userService->lists($next);
-        }
-
-
-
-
-p($list);
-
+        } while($count !=0);
 
 
         die;
+
+
     }
 
     /**
