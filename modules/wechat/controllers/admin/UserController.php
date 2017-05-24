@@ -284,28 +284,29 @@ class UserController extends Controller
                                     ->indexBy('openid')
                                     ->all();
 
-                    p($rels);die;
-
                     $users = $tag->usersOfTag($v->tag_id, $next);
+
                     $count = $users->count;
-                    if (!$count) break;
 
-                    $next = $users->next_openid;
-                    $list = $users->data['openid'];
+                    if ($count) {
+                        $next = $users->next_openid;
+                        $list = $users->data['openid'];
 
-                    foreach ($list as $val){
-                        if (!array_key_exists($val, $rels)) {
-                            $model = new TagRel();
-                            $model->wid = $this->wid;
-                            $model->tag_id = $v->tag_id;
-                            $model->openid = $val;
-                            $model->save();
-                            unset($rels[$val]);
+                        foreach ($list as $val){
+                            if (!array_key_exists($val, $rels)) {
+                                $model = new TagRel();
+                                $model->wid = $this->wid;
+                                $model->tag_id = $v->tag_id;
+                                $model->openid = $val;
+                                $model->save();
+                                unset($rels[$val]);
+                            }
                         }
                     }
 
                     $openIds = ArrayHelper::getColumn($rels, 'openid');
-                    $tag->batchTagUsers($openIds, $v->tag_id);
+                    $a  = $tag->batchTagUsers($openIds, $v->tag_id);
+                    p($a);die;
 
 
                 } while($count != 0);
