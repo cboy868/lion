@@ -22,7 +22,8 @@
         "overtrue/wechat": "~3.1",
         "spanjeta/yii2-backup": "*",
         "kartik-v/yii2-widget-select2": "@dev",
-        "izyue/yii2-alipay": "*"
+        "izyue/yii2-alipay": "*",
+        "kartik-v/yii2-popover-x": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

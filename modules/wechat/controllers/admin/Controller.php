@@ -14,6 +14,8 @@ class Controller extends \app\core\web\BackController
 
     public $app = null;
 
+    public $wid;
+
     public function init()
     {
         $session = Yii::$app->getSession();
@@ -22,6 +24,7 @@ class Controller extends \app\core\web\BackController
             return $this->redirect(['/wechat/admin/account/index']);
         }
         $wid = $session->get('wechat.id');
+        $this->wid = $wid;
         $this->setOptions($wid);
         $this->app = new Application($this->options);
     }

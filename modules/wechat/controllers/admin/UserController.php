@@ -6,6 +6,7 @@ use app\core\base\Pagination;
 use app\core\helpers\ArrayHelper;
 use Yii;
 use app\modules\wechat\models\User;
+use app\modules\wechat\models\Tag;
 use app\modules\wechat\models\UserSearch;
 
 use yii\web\NotFoundHttpException;
@@ -33,14 +34,21 @@ class UserController extends Controller
      * @return mixed
      * @name 微信用户列表
      */
-    public function actionIndex()
+    public function actionIndex($tagid=null)
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+
+
+        $tags = Tag::find()->all();
+        $tag = Tag::findOne($tagid);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tags' => $tags,
+            'tagid' =>$tagid,
+            'tag' => $tag
         ]);
     }
 
@@ -199,5 +207,28 @@ class UserController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionCreateTag()
+    {
+        $model = new Tag();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $tag = $this->app->user_tag;
+            $tag = $tag->create($model->name);
+            $model->wid = $this->wid;
+            $model->tag_id = $tag['id'];
+            $model->save();
+
+            p($tag);die;
+
+            return $this->redirect(['index', 'tag' => $model->id]);
+        } else {
+            return $this->renderAjax('create-tag', [
+                'model' => $model,
+            ]);
+        }
+
     }
 }
