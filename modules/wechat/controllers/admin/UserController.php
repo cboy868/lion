@@ -83,10 +83,7 @@ class UserController extends Controller
 
         } while($count != 0 && $total>$count);
 
-        Yii::$app->session->setFlash('success', '拉取成功');
-
         return $this->redirect(['sync']);
-
     }
 
 
@@ -99,7 +96,6 @@ class UserController extends Controller
         $count = $query->count();
         $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>1]);
         $links = $pagination->getLinks();
-        $next = $links[Pagination::LINK_NEXT];
 
         $list = $query->offset($pagination->offset)
                         ->limit($pagination->limit)
@@ -121,9 +117,13 @@ class UserController extends Controller
             }
         }
 
-        if ($pagination->getPage() < $pagination->getPageCount()) {
-            return $this->redirect($next);
+        if ($pagination->getPage() < $pagination->getPageCount() && isset($links[Pagination::LINK_NEXT])) {
+            return $this->redirect($links[Pagination::LINK_NEXT]);
         }
+
+        Yii::$app->session->setFlash('success', '拉取成功');
+
+        return $this->redirect(['index']);
     }
 
     /**
