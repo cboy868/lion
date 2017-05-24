@@ -270,7 +270,6 @@ class UserController extends Controller
     {
         $localTags = Tag::find()->where(['wid'=>$this->wid])
                                 ->all();
-        p($localTags);die;
         $tag = $this->app->user_tag;
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
@@ -284,6 +283,8 @@ class UserController extends Controller
                                     ->andWhere(['tag_id'=>$v->tag_id])
                                     ->indexBy('openid')
                                     ->all();
+
+                    p($rels);die;
 
                     $users = $tag->usersOfTag($v->tag_id, $next);
                     $count = $users->count;
