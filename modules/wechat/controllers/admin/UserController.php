@@ -333,7 +333,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionSyncTagUser()
+    public function actionSyncTagUser1()
     {
         $this->_pullTagUser();
         $this->_pushTagUser();
@@ -344,7 +344,7 @@ class UserController extends Controller
     /**
      * @name 同步粉丝标签
      */
-    public function actionSyncTagUser1()
+    public function actionSyncTagUser()
     {
         $localTags = Tag::find()->where(['wid'=>$this->wid])
                                 ->all();
