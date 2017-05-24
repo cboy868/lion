@@ -219,9 +219,10 @@ class UserController extends Controller
             $tag_info = $tag->create($model->name);
             $model->wid = $this->wid;
             $model->tag_id = $tag_info['id'];
+            p($tag_info);die;
             $model->save();
 
-            p($tag_info);
+
             p($tag_info['id']);
             die;
 
