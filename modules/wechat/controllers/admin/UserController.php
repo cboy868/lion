@@ -270,6 +270,7 @@ class UserController extends Controller
     {
         $localTags = Tag::find()->where(['wid'=>$this->wid])
                                 ->all();
+        p($localTags);die;
         $tag = $this->app->user_tag;
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
@@ -285,7 +286,6 @@ class UserController extends Controller
                                     ->all();
 
                     $users = $tag->usersOfTag($v->tag_id, $next);
-                    p($users);die;
                     $count = $users->count;
                     if (!$count) break;
 
@@ -320,7 +320,6 @@ class UserController extends Controller
         Yii::$app->session->setFlash('success', '同步标签信息成功');
 
         return $this->redirect(['index']);
-
     }
 
 
