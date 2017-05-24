@@ -108,12 +108,10 @@ class UserController extends Controller
 
 
         $open_ids = ArrayHelper::getColumn($list, 'openid');
-        p($open_ids);
 
         $users_info = $this->app->user->batchGet($open_ids);
-        p($users_info);die;
 
-        foreach ($users_info as $u) {
+        foreach ($users_info['user_info_list'] as $u) {
             $result = [
                 'openid' => $u->openid,
                 'subscribe' => $u->subscribe,
