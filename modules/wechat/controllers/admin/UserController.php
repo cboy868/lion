@@ -350,11 +350,6 @@ class UserController extends Controller
                                 ->all();
         $tag = $this->app->user_tag;
 
-        $userTags = $tag->userTags('oziua0zmwYFotxHtW2J-Gr05hCJs');
-
-
-p($userTags);die;
-
         $outerTransaction = Yii::$app->db->beginTransaction();
         try {
             foreach ($localTags as $v) {
@@ -387,10 +382,7 @@ p($userTags);die;
                     }
 
                     $openIds = array_keys($rels);
-                    p($openIds);
-                    p($v->tag_id);
-                    $a = $tag->batchTagUsers($openIds, $v->tag_id);
-                    p($a);die;
+                    $tag->batchTagUsers($openIds, $v->tag_id);
 
                 } while($count != 0);
 
