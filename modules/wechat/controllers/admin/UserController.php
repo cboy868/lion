@@ -113,6 +113,7 @@ class UserController extends Controller
                 $model = User::find()->where(['openid'=>$u['openid']])->one();
                 $model->load($u, '');
                 $model->gid = $u['groupid'];
+                $model->subscribe_at = $u['subscribe_time'];
                 $model->save();
             }
         }
