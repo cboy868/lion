@@ -40,6 +40,8 @@ class ComposerStaticInit61a2c5af651dc55175b4befcd6e22993
         'k' => 
         array (
             'kartik\\select2\\' => 15,
+            'kartik\\popover\\' => 15,
+            'kartik\\plugins\\popover\\' => 23,
             'kartik\\base\\' => 12,
         ),
         'i' => 
@@ -154,6 +156,14 @@ class ComposerStaticInit61a2c5af651dc55175b4befcd6e22993
         'kartik\\select2\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
+        ),
+        'kartik\\popover\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-popover-x',
+        ),
+        'kartik\\plugins\\popover\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/bootstrap-popover-x',
         ),
         'kartik\\base\\' => 
         array (

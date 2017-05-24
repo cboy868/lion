@@ -209,20 +209,31 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @name 同步标签信息
+     */
+    public function actionSyncTag()
+    {
+
+    }
+
     public function actionCreateTag()
     {
         $model = new Tag();
 
         if ($model->load(Yii::$app->request->post())) {
-
-            $tag = $this->app->user_tag;
-            $tag_info = $tag->create($model->name);
-            $model->wid = $this->wid;
-            $model->tag_id = $tag_info['tag']['id'];
-            $model->save();
-
-
-
+            $outerTransaction = Yii::$app->db->beginTransaction();
+            try {
+                $tag = $this->app->user_tag;
+                $tag_info = $tag->create($model->name);
+                $model->wid = $this->wid;
+                $model->tag_id = $tag_info['tag']['id'];
+                $model->save();
+                $outerTransaction->commit();
+            } catch (\Exception $e) {
+                return $this->error($e->getMessage());
+                $outerTransaction->rollBack();
+            }
 
             return $this->redirect(['index', 'tag' => $model->id]);
         } else {

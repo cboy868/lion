@@ -246,7 +246,7 @@ class GoodsController extends BackController
 
                 $outerTransaction->commit();
 
-             } catch (Exception $e) {
+             } catch (\Exception $e) {
                 echo $e->getMessage();
                 $outerTransaction->rollBack();
                  
