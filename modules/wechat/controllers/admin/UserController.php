@@ -386,7 +386,7 @@ class UserController extends Controller
                         }
                     }
 
-                    $openIds = ArrayHelper::getColumn($rels, 'openid');
+                    $openIds = array_keys($rels);
                     p($openIds);
                     p($v->tag_id);
                     $a = $tag->batchTagUsers($openIds, $v->tag_id);
