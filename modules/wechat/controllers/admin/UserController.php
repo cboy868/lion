@@ -63,10 +63,19 @@ class UserController extends Controller
         $list = $users->data['openid'];
 
 
-
-        p($users );
-
         p($list);
+
+        $count = $users->count;
+        $total = $users->total;
+        $next = $users->next_openid;
+        if ($total > $count && $count!=0) {
+            $list = $userService->lists($next);
+            p($list);
+        }
+
+
+
+
 
         die;
     }
