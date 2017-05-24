@@ -59,7 +59,9 @@ class UserController extends Controller
     {
         $userService = $this->app->user;
 
+        $users = $userService->lists();
 
+        p($users);die;
         $next=null;
         do {
             $users = $userService->lists();
