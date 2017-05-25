@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\wechat\models\User;
+use app\modules\wechat\models\TagRel;
 
 /**
  * UserSearch represents the model behind the search form about `app\modules\wechat\models\User`.
@@ -63,21 +64,21 @@ class UserSearch extends User
             'subscribe_at' => $this->subscribe_at,
             'created_at' => $this->created_at,
             'birth' => $this->birth,
+            TagRel::tableName() . '.tag_id'=>$this->tagid
 
         ]);
 
         $query->andFilterWhere(['like', 'openid', $this->openid])
             ->andFilterWhere(['like', 'nickname', $this->nickname])
-            ->andFilterWhere(['like', 'remark', $this->remark])
-            ->andFilterWhere(['like', 'language', $this->language])
-            ->andFilterWhere(['like', 'city', $this->city])
-            ->andFilterWhere(['like', 'province', $this->province])
-            ->andFilterWhere(['like', 'country', $this->country])
-            ->andFilterWhere(['like', 'headimgurl', $this->headimgurl])
+//            ->andFilterWhere(['like', 'remark', $this->remark])
+//            ->andFilterWhere(['like', 'language', $this->language])
+//            ->andFilterWhere(['like', 'city', $this->city])
+//            ->andFilterWhere(['like', 'province', $this->province])
+//            ->andFilterWhere(['like', 'country', $this->country])
+//            ->andFilterWhere(['like', 'headimgurl', $this->headimgurl])
             ->andFilterWhere(['like', 'realname', $this->realname])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
-            ->andFilterWhere(['like', 'addr', $this->addr])
-            ->andFilterWhere([TagRel::tableName() . '.openid'=>$this->openid]);
+            ->andFilterWhere(['like', 'addr', $this->addr]);
 
         return $dataProvider;
     }
