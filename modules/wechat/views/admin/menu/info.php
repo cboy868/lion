@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
         <div class="row">
-            <?php \app\core\widgets\Alert::widget(); ?>
+            <?=\app\core\widgets\Alert::widget(); ?>
             <div class="col-xs-8 search-box">
                 <div class="alert alert-info" style="padding:5px;">
                     一级菜单名称名字不多于4个汉字或8个字母, 最多3个<br>
