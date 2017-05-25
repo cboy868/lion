@@ -87,16 +87,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             'footer' => Html::button('确定', ['class'=>'btn btn-primary btn-submit-taguser']),
                             'size' => PopoverX::SIZE_LARGE,
                             'toggleButton' => ['class'=>'btn btn-primary btn-info', 'label'=>'打标签'],
-//                            'footer' => Html::button('确定', [
-//                                    'class' => 'btn btn-sm btn-primary',
-//                                    'onclick' => '$("#kv-login-form").trigger("submit")'
-//                                ])
                         ]);
                         ?>
                         <div class="taguser">
                             <?php foreach ($tags as $v):?>
                         <label>
-                            <input type="checkbox" value="<?=$v->id?>" name="usertag[]">
+                            <input type="checkbox" value="<?=$v->tag_id?>" name="usertag[]">
                             <?=$v->name?>
                         </label>
                             <?php endforeach;?>
@@ -105,16 +101,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         PopoverX::end();
                         endif;
                         ?>
-
-
-
-
-
-
-
-
-
-
 
                         <a href="<?=Url::toRoute(['sync-tag'])?>" class="btn btn-info">同步标签</a>
                         <a href="<?=Url::toRoute(['sync-tag-user'])?>" class="btn btn-info">同步粉丝标签</a>
