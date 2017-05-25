@@ -245,12 +245,12 @@ class MenuController extends Controller
         $buttons = $this->parseMenus($menus);
 
         if ($menu->add($buttons)) {
-
             Yii::$app->getSession()->setFlash('success', '同步微信菜单成功');
-            return $this->json();
         } else {
-            return $this->json(null, '同步菜单失败', 0);
+            Yii::$app->getSession()->setFlash('error', '同步微信菜单失败，请重试或检查菜单是否符合规则');
         }
+
+        return $this->redirect(['info', 'id'=>$id]);
     }
 
     private function parseMenus($menus)
