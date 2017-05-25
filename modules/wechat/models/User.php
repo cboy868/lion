@@ -92,9 +92,16 @@ class User extends \app\core\db\ActiveRecord
             'addr' => '地址',
         ];
     }
+
+    public function getTagRel()
+    {
+        return $this->hasMany(TagRel::className(), ['openid'=>'openid']);
+    }
 //
 //    public function createOpendId()
 //    {
 //
 //    }
+
+
 }

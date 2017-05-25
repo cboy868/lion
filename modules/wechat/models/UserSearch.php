@@ -42,6 +42,7 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
+        $query->joinWith(['tagRel']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
