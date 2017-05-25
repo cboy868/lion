@@ -80,6 +80,8 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'addr', $this->addr]);
 
+        echo $query->createCommand()->getRawSql();
+die;
         return $dataProvider;
     }
 }
