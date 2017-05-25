@@ -5,6 +5,9 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
+use kartik\popover\PopoverX;
+
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\wechat\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -14,7 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
+<style>
+    .taguser label{
+        margin-right:20px;
+    }
 
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -72,7 +80,42 @@ $this->params['breadcrumbs'][] = $this->title;
                         </label>
                         <a href="#" class="btn btn-info">删除</a>
                         <?php endif;?>
-                        <a href="#" class="btn btn-info">打标签</a>
+                        <?php if ($tags):
+                        PopoverX::begin([
+                            'header' => '打标签',
+                            'placement' => PopoverX::ALIGN_BOTTOM,
+                            'footer' => Html::button('确定', ['class'=>'btn btn-primary btn-submit-taguser']),
+                            'size' => PopoverX::SIZE_LARGE,
+                            'toggleButton' => ['class'=>'btn btn-primary btn-info', 'label'=>'打标签'],
+//                            'footer' => Html::button('确定', [
+//                                    'class' => 'btn btn-sm btn-primary',
+//                                    'onclick' => '$("#kv-login-form").trigger("submit")'
+//                                ])
+                        ]);
+                        ?>
+                        <div class="taguser">
+                            <?php foreach ($tags as $v):?>
+                        <label>
+                            <input type="checkbox" value="<?=$v->id?>" name="usertag[]">
+                            <?=$v->name?>
+                        </label>
+                            <?php endforeach;?>
+                        </div>
+                        <?php
+                        PopoverX::end();
+                        endif;
+                        ?>
+
+
+
+
+
+
+
+
+
+
+
                         <a href="<?=Url::toRoute(['sync-tag'])?>" class="btn btn-info">同步标签</a>
                         <a href="<?=Url::toRoute(['sync-tag-user'])?>" class="btn btn-info">同步粉丝标签</a>
                     </div>
@@ -151,6 +194,12 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 
+
+
+
+
+
+
 </div>
 
 <style>
@@ -166,6 +215,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $this->beginBlock('foo') ?>
 $(function(){
+
+$('.btn-submit-taguser').click(function(){
+    var ids = $('#grid').yiiGridView('getSelectedRows');
+    var tags = [];
+
+    $('input[name="usertag[]"]:checked').each(function(){
+        tags.push($(this).val());
+    });
+
+    if (ids.length<1) {
+        alert('请选择要加标签的粉丝');
+        return;
+    }
+    if (tags.length<1) {
+        alert('请选择标签');
+        return;
+    }
+
+    var csrf = "<?=Yii::$app->request->getCsrfToken()?>";
+    var data = {users:ids,tags:tags,_csrf:csrf};
+
+
+    $.post('<?=Url::toRoute(['user-tag'])?>',data,function(xhr){
+        if (xhr.status) {
+            location.reload();
+        } else {
+            alert(xhr.info);
+        }
+    },'json');
+
+});
 
 $('.btn-delete').click(function(){
 var ids = $('#grid').yiiGridView('getSelectedRows');

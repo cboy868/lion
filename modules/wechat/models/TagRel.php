@@ -43,6 +43,19 @@ class TagRel extends \app\core\db\ActiveRecord
         ];
     }
 
+    public static function addTagUser($wid, $tag_id, $openids)
+    {
+        foreach ($openids as $oid)
+        {
+            $tgr = new self();
+            $tgr->wid = $wid;
+            $tgr->tag_id = $tag_id;
+            $tgr->openid = $oid;
+            $tgr->save();
+        }
+
+    }
+
     public function getTagUser($id)
     {
 

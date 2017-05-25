@@ -41,7 +41,6 @@ class UserController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-
         $tags = Tag::find()->all();
         $tag = Tag::findOne($tagid);
         return $this->render('index', [
@@ -139,6 +138,38 @@ class UserController extends Controller
         Yii::$app->session->setFlash('success', '拉取成功');
 
         return $this->redirect(['index']);
+    }
+
+    public function actionUserTag()
+    {
+        $tag = $this->app->user_tag;
+
+        $post = Yii::$app->request->post();
+        $tags = $post['tags'];
+        $users = $post['users'];
+
+        if (!count($tags) || !count($users)) {
+            return $this->json(null, '数据不完整', 0);
+        }
+
+        $users_info = User::find()->where(['id'=>$users])->asArray()->all();
+        $openids = ArrayHelper::getColumn($users_info, 'openid');
+
+
+        $outerTransaction = Yii::$app->db->beginTransaction();
+        try {
+            foreach ($tags as $v) {
+                $tag->batchTagUsers($openids, $v);
+                TagRel::addTagUser($this->wid, $v, $openids);
+            }
+            $outerTransaction->commit();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('success', '同步标签信息失败');
+            return $this->error($e->getMessage());
+            $outerTransaction->rollBack();
+        }
+
+        return $this->json();
     }
 
     /**
