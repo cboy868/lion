@@ -132,8 +132,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '标签',
                 'value' => function($model) {
-                    $html = '<button class="btn btn-info btn-xs">%s</button>';
-                    return sprintf($html, 'abc');
+                    $html = '<button class="btn btn-info btn-xs">%s</button> ';
+
+                    $tags = $model->tags;
+                    $str = '';
+                    if ($tags) {
+                        foreach ($tags as $v) {
+                            $str .= sprintf($html, $v->name);
+                        }
+                    }
+
+                    return $str;
 
                 },
                 'format' => 'raw'

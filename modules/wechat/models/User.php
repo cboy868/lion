@@ -97,6 +97,12 @@ class User extends \app\core\db\ActiveRecord
     {
         return $this->hasMany(TagRel::className(), ['openid'=>'openid']);
     }
+
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['tag_id' => 'tag_id'])
+            ->viaTable(TagRel::tableName(), ['openid' => 'openid']);
+    }
 //
 //    public function createOpendId()
 //    {
