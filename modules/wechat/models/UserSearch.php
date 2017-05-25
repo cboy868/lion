@@ -77,7 +77,7 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'realname', $this->realname])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'addr', $this->addr])
-            ->andFilterWhere(['{{%wechat_tag_rel}}.tag_id'=>$this->tagid]);
+            ->andFilterWhere([TagRel::tableName() . '.openid'=>$this->openid]);
 
         return $dataProvider;
     }

@@ -189,7 +189,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <style>
-    .wechat-tag-list{width:100%;float:left;border-left:1px solid #e7e7eb;border-bottom:1px solid #e7e7eb;margin-bottom:-9999px;padding-bottom:9999px}
+    .wechat-tag-list{width:100%;float:left;border-left:1px solid #e7e7eb;border-bottom:1px solid #e7e7eb;}
     .wechat-tag-list dt{font-weight:400}
     .wechat-tag-list dt a{padding-left:10px;float:left;color: #252424;}
     .wechat-tag-list dd a{padding-left:40px}
