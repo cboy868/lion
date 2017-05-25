@@ -169,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <?php foreach ($tags as $tag):?>
                         <dd class="fans-group-item <?php if($tagid == $tag->id):?>active<?php endif;?>">
-                            <a href="<?=Url::toRoute(['index', 'tagid'=>$tag->id])?>">
+                            <a href="<?=Url::toRoute(['index', 'tagid'=>$tag->tag_id])?>">
                                 <?=$tag->name?> (<?=$tag->count?>)
                             </a>
                         </dd>
