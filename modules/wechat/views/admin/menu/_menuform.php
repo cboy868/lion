@@ -19,6 +19,7 @@ use app\modules\wechat\models\Menu;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->radioList(Menu::typeMap(), ['value'=>1]) ?>
+    <?= $form->field($model, 'url') ?>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
