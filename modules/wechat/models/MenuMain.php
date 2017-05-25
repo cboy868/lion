@@ -3,7 +3,7 @@
 namespace app\modules\wechat\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%wechat_menu_main}}".
  *
@@ -36,14 +36,26 @@ class MenuMain extends \app\core\db\ActiveRecord
         return '{{%wechat_menu_main}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['name', 'created_at'], 'required'],
-            [['type', 'is_active', 'gender', 'tag', 'client_platform_type', 'language', 'created_at'], 'integer'],
+            [['name','wid'], 'required'],
+            [['type', 'is_active', 'gender', 'tag', 'client_platform_type', 'language', 'created_at','wid'], 'integer'],
             [['name', 'country', 'province', 'city'], 'string', 'max' => 100],
         ];
     }

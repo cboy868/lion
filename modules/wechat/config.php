@@ -25,6 +25,7 @@ return [
 
         'menu' => [
             'language' => [
+                0=>'不限',
                 1=>'简体中文',
                 2=>'繁体中文TW',
                 3=>'繁体中文HK',
@@ -48,6 +49,7 @@ return [
                 21=>'法语'
             ],
             'platform' => [
+                0=>'不限',
                 1=>'IOS',
                 2=>'Android',
                 3=>'Others'

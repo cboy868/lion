@@ -48,8 +48,8 @@ class Menu extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'level', 'created_at', 'updated_at'], 'integer'],
-            [['pid', 'name'], 'required'],
+            [['pid', 'level', 'created_at', 'updated_at', 'wid'], 'integer'],
+            [['pid', 'name','wid'], 'required'],
             [['code', 'name', 'url'], 'string', 'max' => 255],
             [['key'], 'string', 'max' => 128],
             [['type'], 'default', 'value'=>self::TYPE_URL]
@@ -88,9 +88,11 @@ class Menu extends \app\core\db\ActiveRecord
         return $map[$type];
     }
 
-    static public function getWechatMenus()
+    static public function getWechatMenus($wid, $main_id)
     {
         $menus = self::find()
+                    ->where(['wid'=>$wid])
+                    ->andWhere(['main_id'=>$main_id])
                     ->orderBy('id asc')
                     ->asArray()
                     ->all();
@@ -100,9 +102,11 @@ class Menu extends \app\core\db\ActiveRecord
         return $menus;
     }
 
-    static public function menusMap($type = 1)
+    public static function menusMap($wid,$main_id, $type = 1)
     {
         $menus = self::find()
+                    ->where(['wid'=>$wid])
+                    ->andWhere(['main_id'=>$main_id])
                     ->orderBy('id asc')
                     ->asArray()
                     ->all();

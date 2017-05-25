@@ -4,14 +4,10 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\GridView;
 use app\modules\wechat\models\MenuMain;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\wechat\models\MenuMainSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
+use kartik\popover\PopoverX;
+use app\core\widgets\ActiveForm;
 $this->title = '微信菜单管理';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -21,6 +17,74 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <?=Html::encode($this->title)?>
+                <small>
+                    请先创建普通菜单，再创建个性菜单
+                </small>
+
+                <div class="pull-right nc">
+                    <?php
+                        PopoverX::begin([
+                            'header' => '添加菜单组',
+                            'placement' => PopoverX::ALIGN_BOTTOM_RIGHT,
+                            'footer' => Html::button('确定', [
+                                    'class'=>'btn btn-primary',
+                                    'onclick'=>'$("#normal").trigger("submit")'
+                                ]),
+                            'size' => PopoverX::SIZE_LARGE,
+                            'toggleButton' => ['class'=>'btn btn-sm btn-info',
+                                'label'=>'<i class="fa fa-list-ol fa-2x"></i> 添加普通菜单组'],
+                        ]);
+                        ?>
+                        <?php $form = ActiveForm::begin(); ?>
+                        <?php $form->options['id'] = 'normal' ?>
+                        <?php $form->fieldConfig['template'] = '{label}<div class="col-sm-10">{input}{hint}{error}</div>'?>
+                            <?= $form->field($model, 'type')->hiddenInput(['value'=>MenuMain::TYPE_NORMAL])->label(false); ?>
+                            <?= $form->field($model, 'name')->textInput(); ?>
+                        <?php ActiveForm::end(); ?>
+                        <?php
+                        PopoverX::end();
+                    ?>
+                </div>
+
+                <div class="pull-right nc">
+                    <?php
+                    PopoverX::begin([
+                        'header' => '添加菜单组',
+                        'placement' => PopoverX::ALIGN_BOTTOM_RIGHT,
+                        'footer' => Html::button('确定', [
+                                'class'=>'btn btn-primary btn-submit-taguser',
+                                'onclick'=>'$("#personal").trigger("submit")'
+                        ]),
+                        'size' => PopoverX::SIZE_LARGE,
+                        'toggleButton' => ['class'=>'btn btn-danger btn-sm',
+                            'label'=>'<i class="fa fa-list-ol fa-2x"></i> 添加个性化菜单组'],
+                    ]);
+                    ?>
+                    <?php $form = ActiveForm::begin(); ?>
+                    <?php $form->options['id'] = 'personal' ?>
+                    <?php $form->fieldConfig['template'] = '{label}<div class="col-sm-10">{input}{hint}{error}</div>'?>
+                    <?= $form->field($model, 'type')->hiddenInput(['value'=>MenuMain::TYPE_PERSONAL])->label(false); ?>
+                    <?= $form->field($model, 'name')->textInput(); ?>
+
+                    <p class="text text-danger" style="text-align: center;">注意:以下限制至少需要选择一项</p>
+                    <div class="form-group field-userform-username required">
+                        <label class="control-label col-sm-2" for="userform-username">地区</label>
+                        <div class="col-sm-10">
+                            <?php echo \app\core\widgets\Area\Select::widget(['zone_show'=>false]);?>
+                        </div>
+                    </div>
+                    <?= $form->field($model, 'language')->dropDownList(MenuMain::languages()) ?>
+
+                    <?= $form->field($model, 'gender')->dropDownList(MenuMain::genders()) ?>
+
+                    <?= $form->field($model, 'client_platform_type')->dropDownList(MenuMain::platform()) ?>
+                    <?php ActiveForm::end(); ?>
+                    <?php
+                    PopoverX::end();
+                    ?>
+                </div>
+
+<!--
 
                 <div class="pull-right nc">
                     <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['create', 'type'=>MenuMain::TYPE_PERSONAL])?>">
@@ -30,6 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>MenuMain::TYPE_NORMAL])?>">
                         <i class="fa fa-list-ol fa-2x"></i>  添加普通菜单</a>
                 </div>
+                -->
 
             </h1>
         </div><!-- /.page-header -->
@@ -75,7 +140,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'city',
                          'created_at:datetime',
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'header'=>'操作',
+                            'template' => '{delete} {info}',
+                            'buttons' => [
+                                'info' => function($url, $model, $key) {
+                                    return Html::a('管理', $url, ['title' => '进入公众号'] );
+                                }
+
+                            ],
+                            'headerOptions' => ['width' => '240',"data-type"=>"html"]
+                        ]
                     ],
                 ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

@@ -18,7 +18,7 @@ class MenuMainSearch extends MenuMain
     public function rules()
     {
         return [
-            [['id', 'type', 'is_active', 'gender', 'tag', 'client_platform_type', 'language', 'created_at'], 'integer'],
+            [['id', 'type', 'is_active', 'gender', 'tag', 'client_platform_type', 'language', 'created_at', 'wid'], 'integer'],
             [['name', 'country', 'province', 'city'], 'safe'],
         ];
     }
@@ -53,6 +53,7 @@ class MenuMainSearch extends MenuMain
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'wid'=> $this->wid,
             'type' => $this->type,
             'is_active' => $this->is_active,
             'gender' => $this->gender,

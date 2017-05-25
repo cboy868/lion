@@ -43,13 +43,23 @@ class MenuController extends Controller
 
         $params = Yii::$app->request->queryParams;
         $params['MenuMainSearch']['type'] = $type;
+        $params['MenuMainSearch']['wid'] = $this->wid;
 
         $dataProvider = $searchModel->search($params);
+
+        $model = new MenuMain();
+        $model->wid = $this->wid;
+
+        if ($model->load(Yii::$app->request->post()) &&$model->wid=$this->wid && $model->save()){
+            return $this->redirect(['info', 'type'=>$model->type, 'id'=>$model->id]);
+        }
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'type' => $type
+            'type' => $type,
+            'model' => $model
         ]);
     }
     public function actionIndex1()
@@ -80,21 +90,23 @@ class MenuController extends Controller
      * @throws NotFoundHttpException
      * @name 添加
      */
-    public function actionCreate()
+    public function actionCreate1($type=MenuMain::TYPE_NORMAL)
     {
         $wid = Yii::$app->session->get('wechat.id');
         $wechat = Wechat::findOne($wid);
 
         $list = Menu::getWechatMenus();
 
+        $menus = Menu::find()->indexBy('id')->all();
 
         $model = new MenuMain();
 
         return $this->render('create', [
             'wechat' => $wechat,
-            'menus'=>$list,
-            'type' => Menu::typeMap(),
-            'model' => $model
+            'menus'=>$menus,
+            'typemap' => Menu::typeMap(),
+            'model' => $model,
+            'type' => $type
         ]);
 
 //        $model = new Menu();
@@ -111,6 +123,92 @@ class MenuController extends Controller
 //                'model' => $model,
 //            ]);
 //        }
+    }
+
+
+    public function actionInfo($id)
+    {
+        $wechat = Wechat::findOne($this->wid);
+
+        $list = Menu::getWechatMenus($this->wid);
+
+        $model = MenuMain::findOne($id);
+
+        return $this->render('info', [
+            'wechat' => $wechat,
+            'menus'=>$list,
+            'typemap' => Menu::typeMap(),
+            'model' => $model,
+            'type' => $model->type,
+        ]);
+
+//        $model = new Menu();
+//
+//        if ($model->load(Yii::$app->request->post())) {
+//
+//            if ($model->save()) {
+//                return $this->redirect(['index']);
+//            }
+//
+//        } else {
+//            $model->loadDefaultValues();
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+    }
+
+    public function actionUpdateMain()
+    {
+        $post = Yii::$app->request->post();
+        $model = MenuMain::findOne($post['id']);
+
+        if (!$model) {
+            return $this->json(null, '不存在此菜单组', 0);
+        }
+
+        $model->name = isset($post['name']) ?$post['name'] : $model->name;
+
+        if ($model->save()) {
+            return $this->json();
+        }
+
+    }
+
+
+
+    public function actionCreateMenu($main_id)
+    {
+        $model = new Menu();
+
+        $model->wid = $this->wid;
+        $model->main_id = $main_id;
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->save()) {
+                return $this->redirect(['info', 'id'=>$main_id]);
+            }
+        } else {
+            $model->loadDefaultValues();
+            return $this->renderAjax('create-menu', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionUpdateMenu($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['info', 'id'=>$model->main_id]);
+        } else {
+
+            return $this->renderAjax('update-menu', [
+                'model' => $model,
+            ]);
+
+        }
     }
 
     /**
@@ -139,13 +237,12 @@ class MenuController extends Controller
     /**
      * @name 同步到微信服务
      */
-    public function actionSync()
+    public function actionSync($id)
     {
-        $menu = $this->wechat->menu;
+        $menu = $this->app->menu;
 
-        $menus = Menu::getWechatMenus();
+        $menus = Menu::getWechatMenus($this->wid, $id);
         $buttons = $this->parseMenus($menus);
-
 
         if ($menu->add($buttons)) {
 
@@ -206,9 +303,10 @@ class MenuController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['info','id'=>$model->main_id]);
     }
 
     /**

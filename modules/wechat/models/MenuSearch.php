@@ -17,7 +17,7 @@ class MenuSearch extends Menu
     public function rules()
     {
         return [
-            [['id', 'pid', 'level', 'type', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'pid', 'level', 'type', 'created_at', 'updated_at','wid'], 'integer'],
             [['w_id', 'code', 'name', 'key', 'url'], 'safe'],
         ];
     }
@@ -52,6 +52,7 @@ class MenuSearch extends Menu
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'wid' => $this->wid,
             'pid' => $this->pid,
             'level' => $this->level,
             'type' => $this->type,
