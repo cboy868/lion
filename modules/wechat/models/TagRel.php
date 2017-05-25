@@ -55,6 +55,10 @@ class TagRel extends \app\core\db\ActiveRecord
         }
 
     }
+    public function getCnt($wid)
+    {
+        return self::find()->where(['wid'=>$wid,'id'=>$this->id])->count();
+    }
 
     public function getTagUser($id)
     {

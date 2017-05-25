@@ -162,6 +162,7 @@ class UserController extends Controller
                 $tag->batchTagUsers($openids, $v);
                 TagRel::addTagUser($this->wid, $v, $openids);
             }
+            Tag::updateCount();
             $outerTransaction->commit();
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('success', '同步标签信息失败');
@@ -418,6 +419,8 @@ class UserController extends Controller
                 } while($count != 0);
 
             }
+
+            Tag::updateCount();
             $outerTransaction->commit();
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('success', '同步标签信息失败');

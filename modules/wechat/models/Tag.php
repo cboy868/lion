@@ -43,4 +43,17 @@ class Tag extends \app\core\db\ActiveRecord
             'count' => '粉丝数',
         ];
     }
+
+    public static function updateCount()
+    {
+        $list = self::find()->all();
+        foreach ($list as $v){
+            $v->count = TagRel::find()->where(['wid'=>$v->wid,'tag_id'=>$v->tag_id])->count();
+            $v->save();
+        }
+    }
+
+
+
+
 }
