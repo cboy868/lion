@@ -179,13 +179,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
-
-
-
-
-
-
-
 </div>
 
 <style>

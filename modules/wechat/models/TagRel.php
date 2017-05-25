@@ -69,4 +69,5 @@ class TagRel extends \app\core\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['openid'=>'openid']);
     }
+
 }

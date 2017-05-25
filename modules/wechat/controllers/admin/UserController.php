@@ -169,7 +169,7 @@ class UserController extends Controller
             $outerTransaction->commit();
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('success', '同步标签信息失败');
-            return $this->error($e->getMessage());
+            return $this->json(null, '标签分配失败，请注意是否重复', 0);
             $outerTransaction->rollBack();
         }
 
