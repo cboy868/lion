@@ -130,7 +130,7 @@ class MenuController extends Controller
     {
         $wechat = Wechat::findOne($this->wid);
 
-        $list = Menu::getWechatMenus($this->wid);
+        $list = Menu::getWechatMenus($this->wid, $id);
 
         $model = MenuMain::findOne($id);
 
