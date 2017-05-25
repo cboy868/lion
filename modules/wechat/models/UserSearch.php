@@ -12,6 +12,7 @@ use app\modules\wechat\models\User;
  */
 class UserSearch extends User
 {
+    public $tagid;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,8 @@ class UserSearch extends User
     {
         return [
             [['id', 'gid', 'user_id', 'sex', 'subscribe', 'subscribe_at', 'created_at'], 'integer'],
-            [['openid', 'nickname', 'remark', 'language', 'city', 'province', 'country', 'headimgurl', 'realname', 'mobile', 'birth', 'addr'], 'safe'],
+            [['openid', 'nickname', 'remark', 'language', 'city', 'province', 'country', 'headimgurl',
+                'realname', 'mobile', 'birth', 'addr', 'tagid'], 'safe'],
         ];
     }
 
@@ -61,6 +63,7 @@ class UserSearch extends User
             'subscribe_at' => $this->subscribe_at,
             'created_at' => $this->created_at,
             'birth' => $this->birth,
+
         ]);
 
         $query->andFilterWhere(['like', 'openid', $this->openid])
@@ -73,7 +76,8 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'headimgurl', $this->headimgurl])
             ->andFilterWhere(['like', 'realname', $this->realname])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
-            ->andFilterWhere(['like', 'addr', $this->addr]);
+            ->andFilterWhere(['like', 'addr', $this->addr])
+            ->andFilterWhere(['tagRel.tag_id'=>$this->tagid]);
 
         return $dataProvider;
     }

@@ -38,7 +38,10 @@ class UserController extends Controller
     public function actionIndex($tagid=null)
     {
         $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $params = Yii::$app->request->queryParams;
+        $params['UserSearch']['tagid'] = $tagid;
+
+        $dataProvider = $searchModel->search($params);
 
 
         $tags = Tag::find()->all();
