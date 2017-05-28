@@ -1,0 +1,4110 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.10
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: 2017-05-28 10:29:48
+-- 服务器版本： 5.6.17
+-- PHP Version: 5.5.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `lion_site`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `album`
+--
+
+CREATE TABLE IF NOT EXISTS `album` (
+  `id` int(11) NOT NULL,
+  `author` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `sort` int(11) DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `photo_num` int(11) DEFAULT '0',
+  `recommend` smallint(6) DEFAULT '0',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `album_2`
+--
+
+CREATE TABLE IF NOT EXISTS `album_2` (
+  `id` int(11) NOT NULL,
+  `author` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `sort` int(11) DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `photo_num` int(11) DEFAULT '0',
+  `recommend` smallint(6) DEFAULT '0',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `album_image`
+--
+
+CREATE TABLE IF NOT EXISTS `album_image` (
+  `id` int(11) NOT NULL,
+  `album_id` int(11) DEFAULT NULL,
+  `mod` int(11) DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `desc` text COLLATE utf8_unicode_ci,
+  `ext` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `area`
+--
+
+CREATE TABLE IF NOT EXISTS `area` (
+  `id` mediumint(8) unsigned NOT NULL,
+  `name` char(255) NOT NULL,
+  `level` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `pid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `list` smallint(6) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='常用地区表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `attachment`
+--
+
+CREATE TABLE IF NOT EXISTS `attachment` (
+  `id` int(11) NOT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `desc` text COLLATE utf8_unicode_ci,
+  `ext` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `attachment_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `attachment_rel` (
+  `res_id` int(11) DEFAULT NULL,
+  `res_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attach_id` int(11) DEFAULT NULL,
+  `use` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `auth_assignment`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_assignment` (
+  `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `auth_item`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_item` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `real_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_menu` smallint(1) DEFAULT '0',
+  `level` int(11) DEFAULT NULL,
+  `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `data` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `auth_item_child`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_item_child` (
+  `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `auth_rule`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_rule` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `data` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `blog`
+--
+
+CREATE TABLE IF NOT EXISTS `blog` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `summary` text COLLATE utf8_unicode_ci,
+  `thumb` int(11) DEFAULT NULL,
+  `video` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `sort` int(11) DEFAULT NULL,
+  `recommend` smallint(6) DEFAULT '0',
+  `is_customer` smallint(6) DEFAULT '0',
+  `is_top` smallint(6) DEFAULT '0',
+  `type` smallint(6) DEFAULT '1',
+  `memorial_id` int(11) DEFAULT '0',
+  `privacy` smallint(6) DEFAULT '1',
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `publish_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `ip` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `blog_album`
+--
+
+CREATE TABLE IF NOT EXISTS `blog_album` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `summary` text COLLATE utf8_unicode_ci,
+  `thumb` int(11) DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `sort` int(11) DEFAULT NULL,
+  `recommend` smallint(6) DEFAULT '0',
+  `is_customer` smallint(6) DEFAULT '0',
+  `is_top` smallint(6) DEFAULT '0',
+  `memorial_id` int(11) DEFAULT '0',
+  `privacy` smallint(6) DEFAULT '1',
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `num` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `ip` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `blog_album_photo`
+--
+
+CREATE TABLE IF NOT EXISTS `blog_album_photo` (
+  `id` int(11) NOT NULL,
+  `album_id` int(11) DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `body` text COLLATE utf8_unicode_ci,
+  `ext` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `privacy` smallint(6) DEFAULT '1',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `client`
+--
+
+CREATE TABLE IF NOT EXISTS `client` (
+  `id` int(11) NOT NULL COMMENT 'ID',
+  `name` varchar(128) NOT NULL COMMENT '客户名称',
+  `gender` tinyint(4) DEFAULT '1',
+  `age` tinyint(4) DEFAULT NULL,
+  `user_id` int(11) DEFAULT '0' COMMENT '账号id',
+  `telephone` varchar(128) DEFAULT NULL COMMENT '家庭电话',
+  `mobile` varchar(128) DEFAULT '' COMMENT '手机号',
+  `email` varchar(200) DEFAULT NULL,
+  `qq` varchar(128) DEFAULT '',
+  `wechat` varchar(128) CHARACTER SET utf8 COLLATE utf8_persian_ci DEFAULT '',
+  `province_id` int(11) DEFAULT '0',
+  `city_id` int(11) DEFAULT '0',
+  `zone_id` int(11) DEFAULT '0',
+  `address` text COMMENT '详细地址',
+  `note` text COMMENT '备注',
+  `guide_id` int(11) DEFAULT '0' COMMENT '导购员ID',
+  `come_from` tinyint(4) DEFAULT NULL COMMENT '客户来源',
+  `agent_id` int(11) DEFAULT '0' COMMENT '最终业值ID',
+  `status` tinyint(4) DEFAULT '1' COMMENT '1 正常 0 删除',
+  `created_by` int(11) DEFAULT '0',
+  `created_at` int(11) NOT NULL COMMENT '添加时间',
+  `updated_at` int(11) NOT NULL COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='预约表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `client_deal`
+--
+
+CREATE TABLE IF NOT EXISTS `client_deal` (
+  `id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL DEFAULT '0',
+  `guide_id` int(11) NOT NULL DEFAULT '0',
+  `agent_id` int(11) NOT NULL DEFAULT '0',
+  `recep_id` int(11) NOT NULL DEFAULT '0',
+  `res_name` varchar(200) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `res_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(200) DEFAULT '',
+  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '成交时间',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态 1-正常成交, 2感兴趣 -1-删除 '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `client_reception`
+--
+
+CREATE TABLE IF NOT EXISTS `client_reception` (
+  `id` int(11) NOT NULL COMMENT 'id',
+  `client_id` int(11) NOT NULL DEFAULT '0' COMMENT '客户信息ID',
+  `guide_id` int(11) DEFAULT '0' COMMENT '导购员id',
+  `agent_id` int(11) DEFAULT '0',
+  `car_number` varchar(128) DEFAULT NULL,
+  `person_num` int(11) DEFAULT '1',
+  `start` datetime DEFAULT NULL COMMENT '开始时间',
+  `end` datetime DEFAULT NULL COMMENT '结束时间',
+  `un_reason` tinyint(4) DEFAULT '113',
+  `is_success` tinyint(4) DEFAULT '0',
+  `note` text COMMENT '备注',
+  `type` tinyint(4) NOT NULL COMMENT '联系类型',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0 删除',
+  `created_at` int(11) DEFAULT NULL COMMENT '录入时间',
+  `updated_at` int(11) DEFAULT NULL COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='接待记录表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cms_category`
+--
+
+CREATE TABLE IF NOT EXISTS `cms_category` (
+  `id` int(11) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `mid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `level` smallint(6) NOT NULL DEFAULT '1',
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  `is_leaf` smallint(1) DEFAULT '1',
+  `seo_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cms_nav`
+--
+
+CREATE TABLE IF NOT EXISTS `cms_nav` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `show` smallint(6) DEFAULT '1',
+  `sort` smallint(6) DEFAULT '0',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `comment`
+--
+
+CREATE TABLE IF NOT EXISTS `comment` (
+  `id` int(11) NOT NULL,
+  `from` int(11) DEFAULT NULL,
+  `to` int(11) DEFAULT NULL,
+  `res_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `pid` int(11) DEFAULT '0',
+  `content` text COLLATE utf8_unicode_ci,
+  `privacy` smallint(1) DEFAULT '0',
+  `status` smallint(1) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `contact`
+--
+
+CREATE TABLE IF NOT EXISTS `contact` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `ip` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `email_receive`
+--
+
+CREATE TABLE IF NOT EXISTS `email_receive` (
+  `id` int(11) NOT NULL,
+  `email` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msg` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `email_send`
+--
+
+CREATE TABLE IF NOT EXISTS `email_send` (
+  `id` int(11) NOT NULL,
+  `from_user` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `from_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msg` text COLLATE utf8_unicode_ci,
+  `time` datetime DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `favor`
+--
+
+CREATE TABLE IF NOT EXISTS `favor` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `res_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `focus`
+--
+
+CREATE TABLE IF NOT EXISTS `focus` (
+  `id` int(10) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `intro` text,
+  `image` varchar(512) NOT NULL DEFAULT '',
+  `category_id` int(10) NOT NULL,
+  `sort` int(11) DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `focus_category`
+--
+
+CREATE TABLE IF NOT EXISTS `focus_category` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL COMMENT '标题',
+  `thumb` varchar(255) DEFAULT NULL,
+  `intro` text NOT NULL COMMENT '描述'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave`
+--
+
+CREATE TABLE IF NOT EXISTS `grave` (
+  `id` int(11) NOT NULL,
+  `pid` int(11) DEFAULT '0',
+  `level` smallint(6) NOT NULL DEFAULT '1',
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `area_totle` float DEFAULT NULL,
+  `area_use` float DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '2',
+  `user_id` int(11) DEFAULT NULL,
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  `is_leaf` smallint(6) NOT NULL DEFAULT '1',
+  `is_show` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否在门户和手机显示',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_address`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_address` (
+  `id` int(11) NOT NULL,
+  `res_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `province_id` int(11) DEFAULT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `zone_id` int(11) DEFAULT NULL,
+  `address` text COLLATE utf8_unicode_ci,
+  `postcode` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `status` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_bury`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_bury` (
+  `id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `dead_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dead_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dead_num` smallint(6) NOT NULL,
+  `bury_type` smallint(6) DEFAULT NULL,
+  `pre_bury_date` datetime DEFAULT NULL,
+  `bury_date` datetime DEFAULT NULL,
+  `bury_time` time DEFAULT NULL,
+  `bury_user` int(11) DEFAULT NULL,
+  `bury_order` smallint(6) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_car`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_car` (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` smallint(1) DEFAULT '1',
+  `keeper` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `status` smallint(1) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_card`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_card` (
+  `id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL COMMENT '墓位id',
+  `start` date DEFAULT NULL COMMENT '开始时间',
+  `end` date DEFAULT NULL COMMENT '结束日期',
+  `total` int(11) DEFAULT NULL COMMENT '续费总年数',
+  `created_by` int(11) DEFAULT '0' COMMENT '添加人',
+  `created_at` int(11) DEFAULT NULL COMMENT '添加时间',
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_card_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_card_rel` (
+  `id` int(11) NOT NULL,
+  `card_id` int(11) NOT NULL COMMENT '主表id',
+  `tomb_id` int(11) NOT NULL COMMENT '墓位id',
+  `start` date DEFAULT NULL COMMENT '开始日期',
+  `end` date DEFAULT NULL COMMENT '结束日期',
+  `order_id` int(11) DEFAULT '0' COMMENT '订单id',
+  `price` decimal(10,2) DEFAULT '0.00' COMMENT '续费钱数',
+  `total` int(11) DEFAULT NULL COMMENT '续费年数',
+  `num` int(11) DEFAULT '0' COMMENT '周期数',
+  `customer_name` varchar(50) DEFAULT '',
+  `mobile` varchar(20) DEFAULT '',
+  `created_by` int(11) DEFAULT '0' COMMENT '添加人',
+  `created_at` int(11) DEFAULT NULL COMMENT '添加时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_car_addr`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_car_addr` (
+  `id` int(11) NOT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` smallint(1) DEFAULT '1',
+  `time` int(11) DEFAULT '0',
+  `status` smallint(1) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_car_record`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_car_record` (
+  `id` int(11) NOT NULL,
+  `bury_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `grave_id` int(11) DEFAULT NULL,
+  `dead_id` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dead_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `car_id` int(11) DEFAULT NULL,
+  `driver_id` int(11) DEFAULT NULL,
+  `use_date` date DEFAULT NULL,
+  `use_time` time DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `contact_user` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact_mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_num` int(11) DEFAULT NULL,
+  `addr_id` int(11) DEFAULT NULL,
+  `addr` text COLLATE utf8_unicode_ci,
+  `status` smallint(1) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `order_id` int(11) DEFAULT NULL,
+  `order_rel_id` int(11) DEFAULT NULL,
+  `is_cremation` smallint(6) DEFAULT '0',
+  `is_back` smallint(6) DEFAULT '0',
+  `car_type` smallint(6) DEFAULT NULL,
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_clean`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_clean` (
+  `id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `bury_id` int(11) DEFAULT '0',
+  `order_id` int(11) NOT NULL DEFAULT '0',
+  `order_detail_id` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `content` text,
+  `op_user` int(11) NOT NULL DEFAULT '0',
+  `clean_user` int(11) NOT NULL DEFAULT '0',
+  `goods_id` int(11) NOT NULL DEFAULT '0',
+  `sku_id` int(11) NOT NULL DEFAULT '0',
+  `use_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `end_use_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `daynum` tinyint(4) NOT NULL DEFAULT '3',
+  `is_over` tinyint(4) NOT NULL DEFAULT '0',
+  `clean_cate` tinyint(4) DEFAULT '0',
+  `clean_type` tinyint(4) DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_customer`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_customer` (
+  `id` int(11) NOT NULL,
+  `client_id` int(11) DEFAULT '0',
+  `tomb_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT '0',
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_ct` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `units` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `province` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `zone` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `addr` text COLLATE utf8_unicode_ci,
+  `relation` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_vip` smallint(1) DEFAULT '0',
+  `vip_desc` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_dead`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_dead` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `memorial_id` int(11) DEFAULT NULL,
+  `dead_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `second_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dead_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `serial` int(11) DEFAULT NULL,
+  `gender` smallint(1) DEFAULT '1',
+  `birth_place` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `birth` date DEFAULT NULL,
+  `fete` date DEFAULT NULL,
+  `is_alive` smallint(1) DEFAULT '1',
+  `is_adult` smallint(1) DEFAULT NULL,
+  `age` smallint(6) DEFAULT NULL,
+  `follow_id` int(11) DEFAULT NULL,
+  `desc` text COLLATE utf8_unicode_ci,
+  `is_ins` smallint(1) DEFAULT '0',
+  `bone_type` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bone_box` smallint(6) DEFAULT NULL,
+  `pre_bury` datetime DEFAULT NULL,
+  `bury` datetime DEFAULT NULL,
+  `sort` smallint(6) DEFAULT '0',
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_dead_dates`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_dead_dates` (
+  `id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `dead_id` int(11) DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dead_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `solar_dt` date DEFAULT NULL,
+  `lunar_dt` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `status` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_images_inscfg`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_images_inscfg` (
+  `id` int(10) NOT NULL COMMENT '自增ID',
+  `title` varchar(255) DEFAULT NULL COMMENT '图片标题',
+  `desc` text COMMENT '图片描述',
+  `path` varchar(255) NOT NULL COMMENT '保存路径,类型以后的路径',
+  `name` varchar(64) NOT NULL COMMENT '保存名称',
+  `owner_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `img_use` varchar(100) NOT NULL COMMENT '图片的用户',
+  `sort` mediumint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `md5` char(32) NOT NULL COMMENT '图片的md5',
+  `ext` varchar(10) NOT NULL COMMENT '图片的类型',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否被删除'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_ins`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_ins` (
+  `id` int(11) NOT NULL,
+  `guide_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `order_rel_id` int(11) DEFAULT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `type` smallint(1) DEFAULT '0',
+  `tpl_cfg` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `position` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shape` varchar(1) COLLATE utf8_unicode_ci DEFAULT 'v',
+  `content` text COLLATE utf8_unicode_ci,
+  `img` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `font` smallint(1) DEFAULT '1',
+  `big_num` smallint(6) DEFAULT NULL,
+  `small_num` smallint(6) NOT NULL DEFAULT '0' COMMENT '小字个数',
+  `new_small_num` smallint(6) NOT NULL DEFAULT '0' COMMENT '新增小字数',
+  `new_big_num` smallint(6) DEFAULT NULL,
+  `is_tc` smallint(1) DEFAULT '0',
+  `final_tc` smallint(1) DEFAULT '0',
+  `is_confirm` smallint(1) DEFAULT '0',
+  `confirm_date` date DEFAULT NULL,
+  `confirm_by` int(11) DEFAULT NULL,
+  `pre_finish` date DEFAULT NULL,
+  `finish_at` date DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `version` int(11) DEFAULT '0',
+  `paint` smallint(6) DEFAULT NULL,
+  `is_stand` smallint(1) DEFAULT '0',
+  `paint_price` decimal(10,2) DEFAULT NULL,
+  `letter_price` decimal(10,2) DEFAULT NULL,
+  `tc_price` decimal(10,2) DEFAULT NULL,
+  `changed` smallint(1) DEFAULT '0',
+  `status` smallint(1) DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_ins_cfg`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_ins_cfg` (
+  `id` int(11) NOT NULL COMMENT '配置id',
+  `name` varchar(100) NOT NULL COMMENT '配置名',
+  `shape` char(1) NOT NULL DEFAULT 'v' COMMENT 'v竖，h横',
+  `is_god` tinyint(1) NOT NULL COMMENT '1天主 0非天主',
+  `is_front` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1前模板，0后模板',
+  `note` text NOT NULL COMMENT '备注',
+  `sort` int(11) NOT NULL DEFAULT '1' COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_ins_cfg_case`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_ins_cfg_case` (
+  `id` int(11) NOT NULL COMMENT '自增id',
+  `cfg_id` int(11) NOT NULL COMMENT '配置id',
+  `num` int(11) NOT NULL COMMENT '人数',
+  `width` int(11) NOT NULL COMMENT '图片宽',
+  `height` int(11) NOT NULL COMMENT '图片高',
+  `img` varchar(200) DEFAULT NULL COMMENT '示例图片',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态，0删除　',
+  `sort` int(11) NOT NULL DEFAULT '1' COMMENT '排序',
+  `add_time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='碑文配置名称表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_ins_cfg_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_ins_cfg_rel` (
+  `grave_id` int(11) NOT NULL COMMENT '墓区id',
+  `cfg_id` int(11) NOT NULL COMMENT '配置id'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='墓区与配置关联表，多对多';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_ins_cfg_value`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_ins_cfg_value` (
+  `id` int(11) NOT NULL COMMENT '自增加id',
+  `case_id` int(11) NOT NULL COMMENT '配置名id',
+  `mark` char(20) NOT NULL COMMENT '标识，如title、name等',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '序号，比如逝者有两个时,排个序',
+  `is_big` tinyint(1) NOT NULL DEFAULT '1',
+  `size` int(11) NOT NULL COMMENT '字体尺寸',
+  `x` int(11) NOT NULL COMMENT 'x轴距离',
+  `y` int(11) NOT NULL COMMENT 'y方向距离',
+  `color` varchar(10) NOT NULL COMMENT '颜色,存16进制好一些',
+  `direction` tinyint(4) NOT NULL COMMENT '字超向,0:正向，1:反向',
+  `text` varchar(100) NOT NULL COMMENT '测试值',
+  `add_time` datetime NOT NULL COMMENT '添加时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='碑文配置表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_ins_log`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_ins_log` (
+  `id` int(11) NOT NULL,
+  `ins_id` int(11) NOT NULL,
+  `op_id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `action` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `img` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `status` smallint(1) DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_portrait`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_portrait` (
+  `id` int(11) NOT NULL,
+  `guide_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sku_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `order_rel_id` int(11) DEFAULT NULL,
+  `dead_ids` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `photo_original` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `photo_processed` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `confirm_by` int(11) DEFAULT NULL,
+  `confirm_at` datetime DEFAULT NULL,
+  `photo_confirm` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `use_at` datetime DEFAULT NULL,
+  `up_at` datetime DEFAULT NULL,
+  `notice_id` int(11) DEFAULT NULL,
+  `type` smallint(6) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `sort` int(11) DEFAULT '0',
+  `status` smallint(1) DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_portrait_log`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_portrait_log` (
+  `id` int(11) NOT NULL,
+  `portrait_id` int(11) NOT NULL,
+  `op_id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `action` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `img` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `status` smallint(1) DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_return`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_return` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_tomb`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_tomb` (
+  `id` int(11) NOT NULL,
+  `grave_id` int(11) DEFAULT NULL,
+  `row` int(11) DEFAULT NULL,
+  `col` int(11) DEFAULT NULL,
+  `special` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tomb_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hole` smallint(6) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `cost` decimal(10,2) DEFAULT NULL,
+  `area_total` float DEFAULT NULL,
+  `area_use` float DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `agent_id` int(11) DEFAULT NULL,
+  `agency_id` int(11) DEFAULT NULL,
+  `guide_id` int(11) DEFAULT NULL,
+  `sale_time` datetime DEFAULT NULL,
+  `mnt_by` varchar(200) COLLATE utf8_unicode_ci DEFAULT '',
+  `note` text COLLATE utf8_unicode_ci,
+  `thumb` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grave_withdraw`
+--
+
+CREATE TABLE IF NOT EXISTS `grave_withdraw` (
+  `id` int(11) NOT NULL,
+  `guide_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tomb_id` int(11) NOT NULL,
+  `current_tomb_id` int(11) NOT NULL,
+  `refund_id` int(11) DEFAULT NULL,
+  `ct_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_card` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_relation` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reson` text COLLATE utf8_unicode_ci,
+  `price` decimal(10,2) DEFAULT NULL,
+  `in_tomb_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `status` smallint(1) DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `image_config`
+--
+
+CREATE TABLE IF NOT EXISTS `image_config` (
+  `id` int(11) NOT NULL,
+  `res_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_thumb` smallint(1) DEFAULT '1',
+  `thumb_mode` smallint(1) DEFAULT '1',
+  `thumb_config` text COLLATE utf8_unicode_ci,
+  `water_mod` smallint(1) DEFAULT '1',
+  `water_image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `water_text` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `water_opacity` int(4) DEFAULT '100',
+  `water_pos` smallint(6) DEFAULT NULL,
+  `min_width` int(11) DEFAULT NULL,
+  `min_height` int(11) DEFAULT NULL,
+  `created_at` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `inventory`
+--
+
+CREATE TABLE IF NOT EXISTS `inventory` (
+  `id` int(11) NOT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `sku_id` int(11) DEFAULT NULL,
+  `record` float DEFAULT NULL,
+  `actual` float DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `op_date` datetime DEFAULT NULL,
+  `diff_num` float DEFAULT NULL,
+  `diff_amount` decimal(10,2) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `inventory_purchase`
+--
+
+CREATE TABLE IF NOT EXISTS `inventory_purchase` (
+  `id` int(11) NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `op_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_mobile` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `checker_id` int(11) DEFAULT NULL,
+  `checker_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `supply_at` date NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `inventory_purchase_finance`
+--
+
+CREATE TABLE IF NOT EXISTS `inventory_purchase_finance` (
+  `id` int(11) NOT NULL,
+  `purchase_id` int(11) DEFAULT NULL,
+  `refund_id` int(11) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `op_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_mobile` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '2'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `inventory_purchase_refund`
+--
+
+CREATE TABLE IF NOT EXISTS `inventory_purchase_refund` (
+  `id` int(11) NOT NULL,
+  `purchase_rel_id` int(11) DEFAULT NULL,
+  `num` float DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `op_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_mobile` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '2'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `inventory_purchase_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `inventory_purchase_rel` (
+  `id` int(11) NOT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `record_id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
+  `sku_id` int(11) NOT NULL,
+  `unit_price` decimal(10,2) DEFAULT NULL,
+  `num` float DEFAULT NULL,
+  `unit` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT NULL,
+  `retail` decimal(10,2) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `op_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `inventory_storage`
+--
+
+CREATE TABLE IF NOT EXISTS `inventory_storage` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `pos` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `op_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `inventory_supplier`
+--
+
+CREATE TABLE IF NOT EXISTS `inventory_supplier` (
+  `id` int(11) NOT NULL,
+  `cp_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cp_phone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `addr` text COLLATE utf8_unicode_ci NOT NULL,
+  `ct_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_mobile` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ct_sex` smallint(6) DEFAULT NULL,
+  `qq` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `wechat` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_by` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `links`
+--
+
+CREATE TABLE IF NOT EXISTS `links` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `status` smallint(1) DEFAULT '1',
+  `created_at` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `memorial`
+--
+
+CREATE TABLE IF NOT EXISTS `memorial` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tomb_id` int(11) DEFAULT '0',
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `privacy` smallint(1) DEFAULT '0',
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `tpl` varchar(200) COLLATE utf8_unicode_ci DEFAULT 'ink',
+  `status` smallint(1) DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `memorial_day`
+--
+
+CREATE TABLE IF NOT EXISTS `memorial_day` (
+  `id` int(11) NOT NULL,
+  `memorial_id` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `date_type` smallint(1) DEFAULT '1',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `memorial_pray`
+--
+
+CREATE TABLE IF NOT EXISTS `memorial_pray` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `memorial_id` int(11) NOT NULL,
+  `type` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msg` text COLLATE utf8_unicode_ci,
+  `order_id` int(11) DEFAULT '0',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `memorial_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `memorial_rel` (
+  `id` int(11) NOT NULL,
+  `memorial_id` int(11) NOT NULL,
+  `res_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `res_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_user` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_cover` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `memorial_user`
+--
+
+CREATE TABLE IF NOT EXISTS `memorial_user` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `memorial_id` int(11) NOT NULL,
+  `relation` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `message`
+--
+
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` int(11) NOT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `res_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'goods',
+  `op_id` int(11) DEFAULT '0',
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `term` date DEFAULT NULL,
+  `product` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `mobile` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qq` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `skype` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `company` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `migration`
+--
+
+CREATE TABLE IF NOT EXISTS `migration` (
+  `version` varchar(180) NOT NULL,
+  `apply_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `module`
+--
+
+CREATE TABLE IF NOT EXISTS `module` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `title` varchar(200) NOT NULL,
+  `intro` text,
+  `logo` varchar(200) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `module_code`
+--
+
+CREATE TABLE IF NOT EXISTS `module_code` (
+  `id` int(11) NOT NULL,
+  `module` varchar(50) NOT NULL,
+  `type` varchar(50) NOT NULL DEFAULT 'model',
+  `code` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='模块代码';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `module_field`
+--
+
+CREATE TABLE IF NOT EXISTS `module_field` (
+  `id` int(11) NOT NULL,
+  `model_id` int(11) NOT NULL,
+  `table` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pop_note` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `html` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `option` text COLLATE utf8_unicode_ci,
+  `default` text COLLATE utf8_unicode_ci,
+  `is_show` smallint(1) DEFAULT '1',
+  `order` smallint(1) DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `module_model`
+--
+
+CREATE TABLE IF NOT EXISTS `module_model` (
+  `id` int(11) NOT NULL,
+  `mid` int(11) NOT NULL COMMENT '代替原来用id的mod',
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dir` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci NOT NULL,
+  `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order` smallint(4) DEFAULT NULL,
+  `show` smallint(1) DEFAULT '1',
+  `logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT '0',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `subtitle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `summary` text COLLATE utf8_unicode_ci,
+  `author` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pic_author` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `video_author` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `source` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `video` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `recommend` smallint(6) DEFAULT '0',
+  `is_top` smallint(6) DEFAULT '0',
+  `type` smallint(6) DEFAULT '1',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `news_category`
+--
+
+CREATE TABLE IF NOT EXISTS `news_category` (
+  `id` int(11) NOT NULL,
+  `pid` int(11) DEFAULT '0',
+  `level` smallint(6) NOT NULL DEFAULT '1',
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  `is_leaf` smallint(1) DEFAULT '1',
+  `seo_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `news_data`
+--
+
+CREATE TABLE IF NOT EXISTS `news_data` (
+  `news_id` int(11) NOT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `news_photo`
+--
+
+CREATE TABLE IF NOT EXISTS `news_photo` (
+  `id` int(11) NOT NULL,
+  `news_id` int(11) DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `body` text COLLATE utf8_unicode_ci,
+  `ext` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `note`
+--
+
+CREATE TABLE IF NOT EXISTS `note` (
+  `id` int(11) NOT NULL,
+  `res_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `user_id` int(11) DEFAULT NULL,
+  `start` date DEFAULT NULL,
+  `end` date DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `order`
+--
+
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` int(11) NOT NULL,
+  `tid` int(11) DEFAULT NULL,
+  `wechat_uid` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `origin_price` decimal(10,2) DEFAULT NULL,
+  `type` smallint(6) DEFAULT '1',
+  `progress` smallint(6) DEFAULT '0',
+  `note` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `order_delay`
+--
+
+CREATE TABLE IF NOT EXISTS `order_delay` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `pre_dt` date DEFAULT NULL,
+  `pay_dt` datetime DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_by` int(11) DEFAULT NULL,
+  `is_verified` smallint(1) DEFAULT '0',
+  `verified_by` int(11) DEFAULT NULL,
+  `verified_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `order_log`
+--
+
+CREATE TABLE IF NOT EXISTS `order_log` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `op_id` int(11) NOT NULL,
+  `old` text NOT NULL,
+  `diff` text,
+  `intro` text,
+  `type` tinyint(4) NOT NULL DEFAULT '4',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COMMENT='订单日志';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `order_pay`
+--
+
+CREATE TABLE IF NOT EXISTS `order_pay` (
+  `id` int(11) NOT NULL,
+  `wechat_uid` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `order_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `trade_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total_fee` decimal(10,2) DEFAULT NULL,
+  `total_pay` decimal(10,2) DEFAULT NULL,
+  `pay_method` smallint(6) DEFAULT NULL,
+  `pay_result` smallint(6) DEFAULT NULL,
+  `paid_at` datetime DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `checkout_at` datetime DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `order_refund`
+--
+
+CREATE TABLE IF NOT EXISTS `order_refund` (
+  `id` int(11) NOT NULL,
+  `tid` int(11) NOT NULL DEFAULT '0',
+  `order_id` int(11) DEFAULT NULL,
+  `wechat_uid` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `fee` decimal(10,2) DEFAULT NULL,
+  `progress` smallint(6) DEFAULT '1',
+  `price` decimal(10,2) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `note` text COLLATE utf8_unicode_ci,
+  `checkout_at` datetime DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `order_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `order_rel` (
+  `id` int(11) NOT NULL,
+  `tid` int(11) DEFAULT '0',
+  `wechat_uid` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` smallint(6) DEFAULT '1',
+  `category_id` smallint(6) DEFAULT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `sku_id` int(11) DEFAULT NULL,
+  `sku_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `original_price` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `price_unit` decimal(10,2) DEFAULT NULL,
+  `num` int(11) DEFAULT NULL,
+  `use_time` datetime DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `is_refund` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `post`
+--
+
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` int(11) NOT NULL,
+  `author` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_id` int(11) DEFAULT '0',
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `subtitle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `summary` text COLLATE utf8_unicode_ci,
+  `body` text COLLATE utf8_unicode_ci NOT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `ip` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `photo_num` int(11) NOT NULL DEFAULT '0',
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `recommend` smallint(6) DEFAULT '0',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1text 2 image 3video',
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `post_2`
+--
+
+CREATE TABLE IF NOT EXISTS `post_2` (
+  `id` int(11) NOT NULL,
+  `author` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_id` int(11) DEFAULT '0',
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `subtitle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `summary` text COLLATE utf8_unicode_ci,
+  `body` text COLLATE utf8_unicode_ci NOT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `ip` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `recommend` smallint(6) DEFAULT '0',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `photo_num` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) NOT NULL DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1',
+  `author2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `post_attach`
+--
+
+CREATE TABLE IF NOT EXISTS `post_attach` (
+  `id` int(11) NOT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `desc` text COLLATE utf8_unicode_ci,
+  `ext` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `post_category`
+--
+
+CREATE TABLE IF NOT EXISTS `post_category` (
+  `id` int(11) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `level` smallint(6) NOT NULL DEFAULT '1',
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cover` int(11) DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  `is_leaf` smallint(1) DEFAULT '1',
+  `seo_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `post_data`
+--
+
+CREATE TABLE IF NOT EXISTS `post_data` (
+  `post_id` int(11) NOT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `post_data_2`
+--
+
+CREATE TABLE IF NOT EXISTS `post_data_2` (
+  `post_id` int(11) NOT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `post_image`
+--
+
+CREATE TABLE IF NOT EXISTS `post_image` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `mod` int(11) DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `view_all` int(11) DEFAULT '0',
+  `com_all` int(11) DEFAULT '0',
+  `desc` text COLLATE utf8_unicode_ci,
+  `ext` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `settlement`
+--
+
+CREATE TABLE IF NOT EXISTS `settlement` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `op_id` int(11) NOT NULL,
+  `guide_id` int(11) DEFAULT NULL,
+  `agent_id` int(11) DEFAULT NULL,
+  `type` smallint(6) NOT NULL,
+  `pay_type` smallint(6) NOT NULL,
+  `ori_price` decimal(10,2) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `year` smallint(6) DEFAULT NULL,
+  `quarter` tinyint(4) NOT NULL COMMENT '季度',
+  `month` smallint(2) DEFAULT NULL,
+  `week` smallint(2) DEFAULT NULL,
+  `day` smallint(2) DEFAULT NULL,
+  `settle_time` datetime NOT NULL,
+  `pay_time` datetime DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `settlement_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `settlement_rel` (
+  `id` int(11) NOT NULL,
+  `settlement_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `op_id` int(11) NOT NULL,
+  `guide_id` int(11) DEFAULT NULL,
+  `agent_id` int(11) DEFAULT NULL,
+  `res_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
+  `sku_id` int(11) NOT NULL,
+  `type` smallint(6) DEFAULT NULL,
+  `num` int(11) DEFAULT '1',
+  `ori_price` decimal(10,2) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `year` smallint(6) DEFAULT NULL,
+  `month` smallint(2) DEFAULT NULL,
+  `week` smallint(2) DEFAULT NULL,
+  `day` smallint(2) DEFAULT NULL,
+  `settle_time` datetime NOT NULL,
+  `pay_time` datetime DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `settlement_tomb`
+--
+
+CREATE TABLE IF NOT EXISTS `settlement_tomb` (
+  `id` int(11) NOT NULL,
+  `num` int(11) DEFAULT NULL,
+  `amount` decimal(20,2) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_attach`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_attach` (
+  `id` int(11) NOT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `desc` text COLLATE utf8_unicode_ci,
+  `ext` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_attr`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_attr` (
+  `id` int(11) NOT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_multi` smallint(6) DEFAULT '0',
+  `is_spec` smallint(6) DEFAULT '0',
+  `body` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_av`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_av` (
+  `id` int(11) NOT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `attr_id` int(11) DEFAULT NULL,
+  `val` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_av_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_av_rel` (
+  `id` int(11) NOT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `attr_id` int(11) DEFAULT NULL,
+  `av_id` int(11) DEFAULT NULL,
+  `value` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_bag`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_bag` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT '0',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `original_price` decimal(10,2) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `rate` decimal(10,2) NOT NULL COMMENT '折扣率',
+  `thumb` int(11) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `type` smallint(6) DEFAULT '1',
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_bag_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_bag_rel` (
+  `id` int(11) NOT NULL,
+  `bag_id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
+  `sku_id` int(11) NOT NULL,
+  `num` int(11) NOT NULL DEFAULT '1',
+  `unit_price` decimal(10,2) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_cart`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `type` smallint(6) DEFAULT '1',
+  `goods_id` int(11) DEFAULT NULL,
+  `sku_id` int(11) DEFAULT NULL,
+  `num` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_category`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_category` (
+  `id` int(11) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `level` smallint(6) NOT NULL DEFAULT '1',
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  `is_leaf` smallint(6) NOT NULL DEFAULT '1',
+  `is_show` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否前台显示 ',
+  `seo_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_goods`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_goods` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `pinyin` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `serial` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `skill` text COLLATE utf8_unicode_ci,
+  `unit` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `original_price` decimal(10,2) DEFAULT '0.00' COMMENT '原价',
+  `num` int(11) DEFAULT NULL,
+  `is_recommend` smallint(6) DEFAULT '0',
+  `is_show` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否前台显示',
+  `status` smallint(6) NOT NULL DEFAULT '1',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_history`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_history` (
+  `id` int(11) NOT NULL,
+  `wechat_uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `sku_id` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_mix`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_mix` (
+  `id` int(11) NOT NULL,
+  `mix_cate` int(11) DEFAULT '0',
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_mix_cate`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_mix_cate` (
+  `id` int(11) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `level` smallint(6) NOT NULL DEFAULT '1',
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` int(11) DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  `is_leaf` smallint(6) NOT NULL DEFAULT '1',
+  `seo_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_mix_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_mix_rel` (
+  `category_id` int(11) DEFAULT NULL,
+  `mix_cate` int(11) DEFAULT '0',
+  `goods_id` int(11) DEFAULT NULL,
+  `mix_id` int(11) DEFAULT NULL,
+  `measure` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` smallint(1) DEFAULT '0',
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_process`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_process` (
+  `id` int(11) NOT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `step` smallint(6) DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` smallint(6) DEFAULT '1',
+  `sort` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_sku`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_sku` (
+  `id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
+  `serial` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `num` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `original_price` decimal(10,2) DEFAULT '0.00',
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `av` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_type`
+--
+
+CREATE TABLE IF NOT EXISTS `shop_type` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sms_receive`
+--
+
+CREATE TABLE IF NOT EXISTS `sms_receive` (
+  `id` int(11) NOT NULL,
+  `mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msg` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sms_send`
+--
+
+CREATE TABLE IF NOT EXISTS `sms_send` (
+  `id` int(11) NOT NULL,
+  `mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msg` text COLLATE utf8_unicode_ci,
+  `time` datetime DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `subject`
+--
+
+CREATE TABLE IF NOT EXISTS `subject` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci NOT NULL,
+  `link` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cover` int(11) DEFAULT NULL,
+  `path` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cate` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '分类',
+  `status` smallint(6) DEFAULT '1',
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sys_menu`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_menu` (
+  `id` int(11) NOT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `auth_name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `icon` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` smallint(6) NOT NULL DEFAULT '1',
+  `status` smallint(6) NOT NULL DEFAULT '1',
+  `description` text COLLATE utf8_unicode_ci,
+  `panel` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sys_note`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_note` (
+  `id` int(11) NOT NULL,
+  `res_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sys_note_log`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_note_log` (
+  `id` int(11) NOT NULL,
+  `note_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sys_settings`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_settings` (
+  `sname` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `svalue` text COLLATE utf8_unicode_ci,
+  `svalues` text COLLATE utf8_unicode_ci,
+  `sintro` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `stype` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sort` int(11) NOT NULL DEFAULT '0',
+  `smodule` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tag`
+--
+
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id` int(11) NOT NULL,
+  `tag_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `num` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tag_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `tag_rel` (
+  `tag_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `res_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `task`
+--
+
+CREATE TABLE IF NOT EXISTS `task` (
+  `id` int(11) NOT NULL,
+  `cate_id` int(11) DEFAULT NULL,
+  `res_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `order_rel_id` int(11) DEFAULT NULL,
+  `op_id` int(11) DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `pre_finish` datetime DEFAULT NULL,
+  `finish` datetime DEFAULT NULL,
+  `status` smallint(2) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `task_goods`
+--
+
+CREATE TABLE IF NOT EXISTS `task_goods` (
+  `id` int(11) NOT NULL,
+  `info_id` int(11) DEFAULT NULL,
+  `res_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `res_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `task_info`
+--
+
+CREATE TABLE IF NOT EXISTS `task_info` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intro` text COLLATE utf8_unicode_ci,
+  `msg` text COLLATE utf8_unicode_ci,
+  `msg_time` text COLLATE utf8_unicode_ci,
+  `trigger` int(11) DEFAULT '1',
+  `msg_type` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` smallint(6) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `task_log`
+--
+
+CREATE TABLE IF NOT EXISTS `task_log` (
+  `id` int(11) NOT NULL,
+  `task_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `action` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `conent` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `task_order`
+--
+
+CREATE TABLE IF NOT EXISTS `task_order` (
+  `id` int(11) NOT NULL,
+  `task_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `order_rel_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `task_self`
+--
+
+CREATE TABLE IF NOT EXISTS `task_self` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `pre_finish` datetime DEFAULT NULL,
+  `finish` datetime DEFAULT NULL,
+  `status` smallint(2) DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `task_user`
+--
+
+CREATE TABLE IF NOT EXISTS `task_user` (
+  `id` int(11) NOT NULL,
+  `info_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `default` smallint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avatar` int(11) DEFAULT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '10',
+  `is_staff` smallint(1) NOT NULL,
+  `allowance` int(11) DEFAULT NULL,
+  `allowance_updated_at` int(11) DEFAULT NULL,
+  `api_token` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_addition`
+--
+
+CREATE TABLE IF NOT EXISTS `user_addition` (
+  `user_id` int(11) NOT NULL,
+  `real_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `logins` int(11) DEFAULT NULL,
+  `gender` smallint(1) DEFAULT '1',
+  `birth` date DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  `weight` float DEFAULT NULL,
+  `qq` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8_unicode_ci,
+  `hobby` text COLLATE utf8_unicode_ci,
+  `native_place` text COLLATE utf8_unicode_ci,
+  `intro` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_field`
+--
+
+CREATE TABLE IF NOT EXISTS `user_field` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pop_note` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `html` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `option` text COLLATE utf8_unicode_ci,
+  `default` text COLLATE utf8_unicode_ci,
+  `is_show` smallint(1) DEFAULT '1',
+  `order` smallint(1) DEFAULT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_log`
+--
+
+CREATE TABLE IF NOT EXISTS `user_log` (
+  `user_id` int(11) DEFAULT NULL,
+  `login_date` datetime DEFAULT NULL,
+  `login_ip` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_token`
+--
+
+CREATE TABLE IF NOT EXISTS `user_token` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `code` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `type` smallint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat` (
+  `id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `access_token` varchar(255) DEFAULT NULL,
+  `encodingaeskey` varchar(255) DEFAULT NULL,
+  `level` tinyint(2) NOT NULL COMMENT '类型：订阅号 认证主阅 服务号 服务订阅',
+  `name` varchar(200) NOT NULL,
+  `original` varchar(200) NOT NULL,
+  `appid` varchar(100) NOT NULL,
+  `appsecret` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat_group`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat_group` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `count` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat_menu`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat_menu` (
+  `id` int(11) NOT NULL,
+  `wid` int(11) NOT NULL,
+  `main_id` int(11) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `level` smallint(6) NOT NULL DEFAULT '1',
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` smallint(6) NOT NULL DEFAULT '1',
+  `key` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat_menu_main`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat_menu_main` (
+  `id` int(11) NOT NULL,
+  `wid` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1普通 菜单 2个性菜单',
+  `is_active` tinyint(4) NOT NULL DEFAULT '1',
+  `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0不限 1男 2女',
+  `tag` int(11) NOT NULL DEFAULT '0' COMMENT '0不限',
+  `client_platform_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0不限',
+  `language` smallint(6) NOT NULL DEFAULT '0' COMMENT '0不限',
+  `country` varchar(100) DEFAULT NULL COMMENT '空则不限',
+  `province` varchar(100) DEFAULT NULL COMMENT '空则不限',
+  `city` varchar(100) DEFAULT NULL COMMENT '空则不限',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat_tag`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat_tag` (
+  `id` int(11) NOT NULL,
+  `wid` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL COMMENT '微信返回',
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `count` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat_tag_rel`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat_tag_rel` (
+  `wid` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  `openid` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat_token`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat_token` (
+  `wechat_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `access_token` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `expire_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wechat_user`
+--
+
+CREATE TABLE IF NOT EXISTS `wechat_user` (
+  `id` int(11) NOT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `openid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `nickname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sex` smallint(6) DEFAULT NULL,
+  `language` varchar(120) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `province` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `headimgurl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `subscribe` smallint(6) DEFAULT NULL,
+  `subscribe_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `realname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `birth` date DEFAULT NULL,
+  `addr` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `album`
+--
+ALTER TABLE `album`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `album_2`
+--
+ALTER TABLE `album_2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `album_image`
+--
+ALTER TABLE `album_image`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `area`
+--
+ALTER TABLE `area`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `upid` (`pid`,`list`);
+
+--
+-- Indexes for table `attachment`
+--
+ALTER TABLE `attachment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `attachment_rel`
+--
+ALTER TABLE `attachment_rel`
+  ADD KEY `attach_id` (`attach_id`);
+
+--
+-- Indexes for table `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`);
+
+--
+-- Indexes for table `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Indexes for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Indexes for table `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `blog`
+--
+ALTER TABLE `blog`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blog_album`
+--
+ALTER TABLE `blog_album`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blog_album_photo`
+--
+ALTER TABLE `blog_album_photo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `client_deal`
+--
+ALTER TABLE `client_deal`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `client_reception`
+--
+ALTER TABLE `client_reception`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_gid` (`guide_id`);
+
+--
+-- Indexes for table `cms_category`
+--
+ALTER TABLE `cms_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_nav`
+--
+ALTER TABLE `cms_nav`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `email_receive`
+--
+ALTER TABLE `email_receive`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `email_send`
+--
+ALTER TABLE `email_send`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `favor`
+--
+ALTER TABLE `favor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `focus`
+--
+ALTER TABLE `focus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `focus_category`
+--
+ALTER TABLE `focus_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave`
+--
+ALTER TABLE `grave`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_address`
+--
+ALTER TABLE `grave_address`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_bury`
+--
+ALTER TABLE `grave_bury`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_car`
+--
+ALTER TABLE `grave_car`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_card`
+--
+ALTER TABLE `grave_card`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_card_rel`
+--
+ALTER TABLE `grave_card_rel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_car_addr`
+--
+ALTER TABLE `grave_car_addr`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_car_record`
+--
+ALTER TABLE `grave_car_record`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_customer`
+--
+ALTER TABLE `grave_customer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_dead`
+--
+ALTER TABLE `grave_dead`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_dead_dates`
+--
+ALTER TABLE `grave_dead_dates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_images_inscfg`
+--
+ALTER TABLE `grave_images_inscfg`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `grave_ins`
+--
+ALTER TABLE `grave_ins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_ins_cfg`
+--
+ALTER TABLE `grave_ins_cfg`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_ins_cfg_case`
+--
+ALTER TABLE `grave_ins_cfg_case`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_ins_cfg_value`
+--
+ALTER TABLE `grave_ins_cfg_value`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_ins_log`
+--
+ALTER TABLE `grave_ins_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_portrait`
+--
+ALTER TABLE `grave_portrait`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_portrait_log`
+--
+ALTER TABLE `grave_portrait_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_return`
+--
+ALTER TABLE `grave_return`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_tomb`
+--
+ALTER TABLE `grave_tomb`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `grave_withdraw`
+--
+ALTER TABLE `grave_withdraw`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `image_config`
+--
+ALTER TABLE `image_config`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory_purchase`
+--
+ALTER TABLE `inventory_purchase`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory_purchase_finance`
+--
+ALTER TABLE `inventory_purchase_finance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory_purchase_refund`
+--
+ALTER TABLE `inventory_purchase_refund`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory_purchase_rel`
+--
+ALTER TABLE `inventory_purchase_rel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory_storage`
+--
+ALTER TABLE `inventory_storage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory_supplier`
+--
+ALTER TABLE `inventory_supplier`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `links`
+--
+ALTER TABLE `links`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `memorial`
+--
+ALTER TABLE `memorial`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `memorial_day`
+--
+ALTER TABLE `memorial_day`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `memorial_pray`
+--
+ALTER TABLE `memorial_pray`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `memorial_rel`
+--
+ALTER TABLE `memorial_rel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `memorial_user`
+--
+ALTER TABLE `memorial_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `module`
+--
+ALTER TABLE `module`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `module_code`
+--
+ALTER TABLE `module_code`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `module_field`
+--
+ALTER TABLE `module_field`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `module_model`
+--
+ALTER TABLE `module_model`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `news_category`
+--
+ALTER TABLE `news_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `news_data`
+--
+ALTER TABLE `news_data`
+  ADD PRIMARY KEY (`news_id`);
+
+--
+-- Indexes for table `news_photo`
+--
+ALTER TABLE `news_photo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `note`
+--
+ALTER TABLE `note`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_delay`
+--
+ALTER TABLE `order_delay`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_log`
+--
+ALTER TABLE `order_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_pay`
+--
+ALTER TABLE `order_pay`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_refund`
+--
+ALTER TABLE `order_refund`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_rel`
+--
+ALTER TABLE `order_rel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_2`
+--
+ALTER TABLE `post_2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_attach`
+--
+ALTER TABLE `post_attach`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_category`
+--
+ALTER TABLE `post_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_data`
+--
+ALTER TABLE `post_data`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `post_data_2`
+--
+ALTER TABLE `post_data_2`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `post_image`
+--
+ALTER TABLE `post_image`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `settlement`
+--
+ALTER TABLE `settlement`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `settlement_rel`
+--
+ALTER TABLE `settlement_rel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `settlement_tomb`
+--
+ALTER TABLE `settlement_tomb`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_attach`
+--
+ALTER TABLE `shop_attach`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_attr`
+--
+ALTER TABLE `shop_attr`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_av`
+--
+ALTER TABLE `shop_av`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_av_rel`
+--
+ALTER TABLE `shop_av_rel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_bag`
+--
+ALTER TABLE `shop_bag`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_bag_rel`
+--
+ALTER TABLE `shop_bag_rel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_cart`
+--
+ALTER TABLE `shop_cart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_category`
+--
+ALTER TABLE `shop_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_goods`
+--
+ALTER TABLE `shop_goods`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_history`
+--
+ALTER TABLE `shop_history`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_mix`
+--
+ALTER TABLE `shop_mix`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_mix_cate`
+--
+ALTER TABLE `shop_mix_cate`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_process`
+--
+ALTER TABLE `shop_process`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_sku`
+--
+ALTER TABLE `shop_sku`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_type`
+--
+ALTER TABLE `shop_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sms_receive`
+--
+ALTER TABLE `sms_receive`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sms_send`
+--
+ALTER TABLE `sms_send`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subject`
+--
+ALTER TABLE `subject`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sys_menu`
+--
+ALTER TABLE `sys_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sys_note`
+--
+ALTER TABLE `sys_note`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sys_note_log`
+--
+ALTER TABLE `sys_note_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sys_settings`
+--
+ALTER TABLE `sys_settings`
+  ADD PRIMARY KEY (`sname`);
+
+--
+-- Indexes for table `tag`
+--
+ALTER TABLE `tag`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `task`
+--
+ALTER TABLE `task`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `task_goods`
+--
+ALTER TABLE `task_goods`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `task_info`
+--
+ALTER TABLE `task_info`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `task_log`
+--
+ALTER TABLE `task_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `task_order`
+--
+ALTER TABLE `task_order`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `task_self`
+--
+ALTER TABLE `task_self`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `task_user`
+--
+ALTER TABLE `task_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `user_addition`
+--
+ALTER TABLE `user_addition`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `user_field`
+--
+ALTER TABLE `user_field`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_token`
+--
+ALTER TABLE `user_token`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wechat`
+--
+ALTER TABLE `wechat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wechat_group`
+--
+ALTER TABLE `wechat_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wechat_menu`
+--
+ALTER TABLE `wechat_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wechat_menu_main`
+--
+ALTER TABLE `wechat_menu_main`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wechat_tag`
+--
+ALTER TABLE `wechat_tag`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wechat_tag_rel`
+--
+ALTER TABLE `wechat_tag_rel`
+  ADD UNIQUE KEY `wid` (`wid`,`tag_id`,`openid`);
+
+--
+-- Indexes for table `wechat_user`
+--
+ALTER TABLE `wechat_user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `openid` (`openid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `album`
+--
+ALTER TABLE `album`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `album_2`
+--
+ALTER TABLE `album_2`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `album_image`
+--
+ALTER TABLE `album_image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `area`
+--
+ALTER TABLE `area`
+  MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `attachment`
+--
+ALTER TABLE `attachment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog_album`
+--
+ALTER TABLE `blog_album`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog_album_photo`
+--
+ALTER TABLE `blog_album_photo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID';
+--
+-- AUTO_INCREMENT for table `client_reception`
+--
+ALTER TABLE `client_reception`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id';
+--
+-- AUTO_INCREMENT for table `cms_category`
+--
+ALTER TABLE `cms_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_nav`
+--
+ALTER TABLE `cms_nav`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `email_receive`
+--
+ALTER TABLE `email_receive`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `email_send`
+--
+ALTER TABLE `email_send`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `favor`
+--
+ALTER TABLE `favor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `focus`
+--
+ALTER TABLE `focus`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `focus_category`
+--
+ALTER TABLE `focus_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave`
+--
+ALTER TABLE `grave`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_address`
+--
+ALTER TABLE `grave_address`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_bury`
+--
+ALTER TABLE `grave_bury`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_car`
+--
+ALTER TABLE `grave_car`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_card`
+--
+ALTER TABLE `grave_card`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_card_rel`
+--
+ALTER TABLE `grave_card_rel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_car_addr`
+--
+ALTER TABLE `grave_car_addr`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_car_record`
+--
+ALTER TABLE `grave_car_record`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_customer`
+--
+ALTER TABLE `grave_customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_dead`
+--
+ALTER TABLE `grave_dead`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_dead_dates`
+--
+ALTER TABLE `grave_dead_dates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_images_inscfg`
+--
+ALTER TABLE `grave_images_inscfg`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID';
+--
+-- AUTO_INCREMENT for table `grave_ins`
+--
+ALTER TABLE `grave_ins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_ins_cfg`
+--
+ALTER TABLE `grave_ins_cfg`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '配置id';
+--
+-- AUTO_INCREMENT for table `grave_ins_cfg_case`
+--
+ALTER TABLE `grave_ins_cfg_case`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id';
+--
+-- AUTO_INCREMENT for table `grave_ins_cfg_value`
+--
+ALTER TABLE `grave_ins_cfg_value`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增加id';
+--
+-- AUTO_INCREMENT for table `grave_ins_log`
+--
+ALTER TABLE `grave_ins_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_portrait`
+--
+ALTER TABLE `grave_portrait`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_portrait_log`
+--
+ALTER TABLE `grave_portrait_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_return`
+--
+ALTER TABLE `grave_return`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_tomb`
+--
+ALTER TABLE `grave_tomb`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `grave_withdraw`
+--
+ALTER TABLE `grave_withdraw`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `image_config`
+--
+ALTER TABLE `image_config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `inventory_purchase`
+--
+ALTER TABLE `inventory_purchase`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `inventory_purchase_finance`
+--
+ALTER TABLE `inventory_purchase_finance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `inventory_purchase_refund`
+--
+ALTER TABLE `inventory_purchase_refund`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `inventory_purchase_rel`
+--
+ALTER TABLE `inventory_purchase_rel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `inventory_storage`
+--
+ALTER TABLE `inventory_storage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `inventory_supplier`
+--
+ALTER TABLE `inventory_supplier`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `links`
+--
+ALTER TABLE `links`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `memorial`
+--
+ALTER TABLE `memorial`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `memorial_day`
+--
+ALTER TABLE `memorial_day`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `memorial_pray`
+--
+ALTER TABLE `memorial_pray`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `memorial_rel`
+--
+ALTER TABLE `memorial_rel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `memorial_user`
+--
+ALTER TABLE `memorial_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `module`
+--
+ALTER TABLE `module`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `module_code`
+--
+ALTER TABLE `module_code`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `module_field`
+--
+ALTER TABLE `module_field`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `module_model`
+--
+ALTER TABLE `module_model`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `news_category`
+--
+ALTER TABLE `news_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `news_data`
+--
+ALTER TABLE `news_data`
+  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `news_photo`
+--
+ALTER TABLE `news_photo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `note`
+--
+ALTER TABLE `note`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order_delay`
+--
+ALTER TABLE `order_delay`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order_log`
+--
+ALTER TABLE `order_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order_pay`
+--
+ALTER TABLE `order_pay`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order_refund`
+--
+ALTER TABLE `order_refund`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order_rel`
+--
+ALTER TABLE `order_rel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_2`
+--
+ALTER TABLE `post_2`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_attach`
+--
+ALTER TABLE `post_attach`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_category`
+--
+ALTER TABLE `post_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_data`
+--
+ALTER TABLE `post_data`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_data_2`
+--
+ALTER TABLE `post_data_2`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_image`
+--
+ALTER TABLE `post_image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `settlement`
+--
+ALTER TABLE `settlement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `settlement_rel`
+--
+ALTER TABLE `settlement_rel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `settlement_tomb`
+--
+ALTER TABLE `settlement_tomb`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_attach`
+--
+ALTER TABLE `shop_attach`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_attr`
+--
+ALTER TABLE `shop_attr`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_av`
+--
+ALTER TABLE `shop_av`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_av_rel`
+--
+ALTER TABLE `shop_av_rel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_bag`
+--
+ALTER TABLE `shop_bag`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_bag_rel`
+--
+ALTER TABLE `shop_bag_rel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_cart`
+--
+ALTER TABLE `shop_cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_category`
+--
+ALTER TABLE `shop_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_goods`
+--
+ALTER TABLE `shop_goods`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_history`
+--
+ALTER TABLE `shop_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_mix`
+--
+ALTER TABLE `shop_mix`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_mix_cate`
+--
+ALTER TABLE `shop_mix_cate`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_process`
+--
+ALTER TABLE `shop_process`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_sku`
+--
+ALTER TABLE `shop_sku`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `shop_type`
+--
+ALTER TABLE `shop_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sms_receive`
+--
+ALTER TABLE `sms_receive`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sms_send`
+--
+ALTER TABLE `sms_send`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `subject`
+--
+ALTER TABLE `subject`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sys_menu`
+--
+ALTER TABLE `sys_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sys_note`
+--
+ALTER TABLE `sys_note`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sys_note_log`
+--
+ALTER TABLE `sys_note_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tag`
+--
+ALTER TABLE `tag`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task`
+--
+ALTER TABLE `task`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task_goods`
+--
+ALTER TABLE `task_goods`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task_info`
+--
+ALTER TABLE `task_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task_log`
+--
+ALTER TABLE `task_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task_order`
+--
+ALTER TABLE `task_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task_self`
+--
+ALTER TABLE `task_self`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task_user`
+--
+ALTER TABLE `task_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user_addition`
+--
+ALTER TABLE `user_addition`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user_field`
+--
+ALTER TABLE `user_field`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user_token`
+--
+ALTER TABLE `user_token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `wechat`
+--
+ALTER TABLE `wechat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `wechat_group`
+--
+ALTER TABLE `wechat_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `wechat_menu`
+--
+ALTER TABLE `wechat_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `wechat_menu_main`
+--
+ALTER TABLE `wechat_menu_main`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `wechat_tag`
+--
+ALTER TABLE `wechat_tag`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `wechat_user`
+--
+ALTER TABLE `wechat_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 限制导出的表
+--
+
+--
+-- 限制表 `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- 限制表 `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
