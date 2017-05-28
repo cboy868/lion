@@ -145,7 +145,7 @@ class Attachment extends \yii\db\ActiveRecord
     /**
      * todo 如果缩略图不存在，则生成
      */
-    public static function getById($id, $size='', $default='/static/images/default.png')
+    public static function getById($id, $size='', $default='/static/images/default.png', $res=null)
     {
         $model = Static::findOne($id);
 
@@ -164,7 +164,7 @@ class Attachment extends \yii\db\ActiveRecord
             if (!is_file($thumb_path)) {
                 if (is_file($srcFile)) {
                     $size = explode('x', str_replace('X', 'x', $size));
-                    Image::autoThumb($srcFile, $thumb_path, $size);
+                    Image::autoThumb($srcFile, $thumb_path, $size, $res);
                 } else {
                     return self::thumbDefault($size, $default);;
                 }

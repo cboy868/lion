@@ -60,7 +60,7 @@ class ImageConfig extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_thumb', 'thumb_mode', 'water_mod', 'water_opacity', 'water_pos', 'created_at'], 'integer'],
+            [['is_thumb', 'thumb_mode', 'water_mod', 'water_opacity', 'water_pos', 'created_at', 'min_width', 'min_height'], 'integer'],
             [['thumb_config'], 'string'],
             [['res_name'], 'required'],
             [['res_name'], 'string', 'max' => 100],

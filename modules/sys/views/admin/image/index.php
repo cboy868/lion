@@ -54,6 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <?= $form->field($model, 'is_thumb')->radioList(['0'=>'否', '1'=>'是']) ?>
 
+
+
                             <?php // $form->field($model, 'thumb_mode')->radioList(['1'=>'补白', '2'=>'居中']) ?>
 
                             <?= $form->field($model, 'thumb_config')->textarea(['class'=>'inputTagator form-control'])->hint('格式为 100x100;如需要多个缩略图，请用半角逗号","分隔') ?>
@@ -90,6 +92,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="help-block"></div>
                                 </div>
                             </div>
+
+                            <?= $form->field($model, 'min_width')->textInput()->label('最小水印宽度') ?>
+
+                            <?= $form->field($model, 'min_height')->textInput()->label('最小水印高度') ?>
 
                             <?= $form->field($model, 'water_image')->fileInput() ?>
 

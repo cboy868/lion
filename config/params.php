@@ -26,6 +26,8 @@ $params = [
     		'imageMaxSize'  => '8048000',
     		'imageAllowFiles' => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
     		'imagePathFormat' => "/upload/image/{yyyy}{mm}/{time}{rand:3}",
+            'min_width' => 100,
+            'min_height' => 100
     	],
 
         'imgconfig' => [
