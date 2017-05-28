@@ -19,7 +19,7 @@ class HomeController extends \app\core\web\Controller
         }
     }
 
-    public function success($url = [] ,$sec = 3){  
+    public function success($url = [] ,$sec = 3){
         $url= empty($url)? ['/admin']: $url;
         $url= \yii\helpers\Url::toRoute($url);
         return $this->renderPartial('@app/core/views/single/msg',['gotoUrl'=>$url,'sec'=>$sec]);
