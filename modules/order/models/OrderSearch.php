@@ -44,7 +44,7 @@ class OrderSearch extends Order
      */
     public function search($params)
     {
-        $query = Order::find();
+        $query = Order::find()->orderBy('id desc');
         $query->joinWith(['user']);
 
         $dataProvider = new ActiveDataProvider([

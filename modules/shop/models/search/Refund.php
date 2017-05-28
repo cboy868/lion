@@ -42,7 +42,7 @@ class Refund extends RefundModel
      */
     public function search($params)
     {
-        $query = RefundModel::find();
+        $query = RefundModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

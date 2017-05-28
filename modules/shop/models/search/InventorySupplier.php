@@ -41,7 +41,7 @@ class InventorySupplier extends InventorySupplierModel
      */
     public function search($params)
     {
-        $query = InventorySupplierModel::find();
+        $query = InventorySupplierModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

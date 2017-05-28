@@ -41,7 +41,7 @@ class ClientSearch extends Client
      */
     public function search($params)
     {
-        $query = Client::find();
+        $query = Client::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

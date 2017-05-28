@@ -51,7 +51,7 @@ class DelaySearch extends Delay
      */
     public function search($params)
     {
-        $query = Delay::find();
+        $query = Delay::find()->orderBy('id desc');
         $query->joinWith(['user']);
 
         $dataProvider = new ActiveDataProvider([

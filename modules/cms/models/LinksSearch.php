@@ -41,7 +41,7 @@ class LinksSearch extends Links
      */
     public function search($params)
     {
-        $query = Links::find();
+        $query = Links::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

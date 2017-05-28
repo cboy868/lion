@@ -6,7 +6,9 @@ use app\core\widgets\DetailView;
 use app\core\models\TagRel;
 use app\core\helpers\ArrayHelper;
 use app\core\models\Attachment;
-
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+use app\modules\shop\models\Category;
 /* @var $this yii\web\View */
 /* @var $model app\modules\shop\models\Goods */
 
@@ -21,6 +23,51 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
             <h1><?= Html::encode($this->title) ?>
                 <small>
                     详细信息查看
+
+
+
+                    <a href="<?=Url::toRoute(['create', 'category_id'=>$model->category_id])?>" class="btn btn-info btn-sm">
+                        <i class="fa fa-plus"></i> 继续添加本类商品
+                    </a>
+
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+                        <i class="fa fa-plus"></i> 继续添加商品
+                    </button>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">选择分类</h4>
+                                </div>
+
+
+                                <form id="w0" action="<?=Url::toRoute(['create'])?>" method="get">
+
+                                    <?php
+                                    $category = Category::find()->asArray()->all();
+                                    $options = [];
+                                    foreach ($category as $k => $v) {
+                                        if (!$v['is_leaf']) {
+                                            $options[$v['id']]['disabled'] = true;
+                                        }
+                                    }
+                                    ?>
+
+                                    <div class="modal-body">
+                                        <?=Html::dropDownList('category_id', null, Category::selTree(), ['class'=>'form-control', 'options' => $options])?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                                        <button type="submit" class="btn btn-primary redcreate">OK</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
                     <?= Html::a('Delete', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger  btn-xs',
@@ -29,6 +76,23 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
                             'method' => 'post',
                         ],
                     ]) ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </small>
             </h1>
         </div><!-- /.page-header -->

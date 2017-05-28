@@ -40,7 +40,7 @@ class PostImageSearch extends PostImage
      */
     public function search($params)
     {
-        $query = PostImage::find();
+        $query = PostImage::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy('sort asc'),

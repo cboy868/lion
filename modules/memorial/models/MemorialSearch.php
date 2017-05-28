@@ -41,7 +41,7 @@ class MemorialSearch extends Memorial
      */
     public function search($params)
     {
-        $query = Memorial::find();
+        $query = Memorial::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -41,7 +41,7 @@ class SendSearch extends Send
      */
     public function search($params)
     {
-        $query = Send::find();
+        $query = Send::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -43,7 +43,7 @@ class InventoryPurchaseRel extends InventoryPurchaseRelModel
      */
     public function search($params)
     {
-        $query = InventoryPurchaseRelModel::find();
+        $query = InventoryPurchaseRelModel::find()->orderBy('id desc');
         $query->joinWith(['goods']);
 
         $dataProvider = new ActiveDataProvider([

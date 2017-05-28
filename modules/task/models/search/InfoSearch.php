@@ -41,7 +41,7 @@ class InfoSearch extends Info
      */
     public function search($params)
     {
-        $query = Info::find();
+        $query = Info::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

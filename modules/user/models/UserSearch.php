@@ -41,7 +41,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = User::find()->orderBy('id desc');
 
         $query->andFilterWhere(['status' => User::STATUS_ACTIVE]);
 

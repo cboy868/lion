@@ -41,7 +41,7 @@ class LogSearch extends Log
      */
     public function search($params)
     {
-        $query = Log::find();
+        $query = Log::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

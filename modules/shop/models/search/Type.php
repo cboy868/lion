@@ -41,7 +41,7 @@ class Type extends TypeModel
      */
     public function search($params)
     {
-        $query = TypeModel::find();
+        $query = TypeModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

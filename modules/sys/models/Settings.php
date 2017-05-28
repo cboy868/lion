@@ -34,7 +34,8 @@ class Settings extends \yii\db\ActiveRecord
             [['sname'], 'required'],
             [['svalues'], 'string'],
             [['sort'], 'integer'],
-            [['sname', 'svalue', 'sintro', 'stype', 'smodule'], 'string', 'max' => 128]
+            [['sname', 'sintro', 'stype', 'smodule'], 'string', 'max' => 128],
+            [['svalue'], 'string']
         ];
     }
 

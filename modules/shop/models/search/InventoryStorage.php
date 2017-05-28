@@ -41,7 +41,7 @@ class InventoryStorage extends InventoryStorageModel
      */
     public function search($params)
     {
-        $query = InventoryStorageModel::find();
+        $query = InventoryStorageModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

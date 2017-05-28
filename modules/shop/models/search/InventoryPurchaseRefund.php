@@ -42,7 +42,7 @@ class InventoryPurchaseRefund extends InventoryPurchaseRefundModel
      */
     public function search($params)
     {
-        $query = InventoryPurchaseRefundModel::find();
+        $query = InventoryPurchaseRefundModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

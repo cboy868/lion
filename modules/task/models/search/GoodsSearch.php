@@ -41,7 +41,7 @@ class GoodsSearch extends Goods
      */
     public function search($params)
     {
-        $query = Goods::find();
+        $query = Goods::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

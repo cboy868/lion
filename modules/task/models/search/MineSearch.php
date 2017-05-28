@@ -41,7 +41,7 @@ class MineSearch extends Mine
      */
     public function search($params)
     {
-        $query = Mine::find();
+        $query = Mine::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

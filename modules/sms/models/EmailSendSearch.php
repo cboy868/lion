@@ -41,7 +41,7 @@ class EmailSendSearch extends EmailSend
      */
     public function search($params)
     {
-        $query = EmailSend::find();
+        $query = EmailSend::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

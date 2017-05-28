@@ -42,7 +42,7 @@ class BagSearch extends Bag
      */
     public function search($params)
     {
-        $query = Bag::find();
+        $query = Bag::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

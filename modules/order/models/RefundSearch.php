@@ -42,7 +42,7 @@ class RefundSearch extends Refund
      */
     public function search($params)
     {
-        $query = Refund::find();
+        $query = Refund::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -42,7 +42,7 @@ class InventoryPurchase extends InventoryPurchaseModel
      */
     public function search($params)
     {
-        $query = InventoryPurchaseModel::find();
+        $query = InventoryPurchaseModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

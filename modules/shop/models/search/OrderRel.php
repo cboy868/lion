@@ -42,7 +42,7 @@ class OrderRel extends OrderRelModel
      */
     public function search($params)
     {
-        $query = OrderRelModel::find();
+        $query = OrderRelModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

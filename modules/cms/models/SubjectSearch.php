@@ -41,7 +41,7 @@ class SubjectSearch extends Subject
      */
     public function search($params)
     {
-        $query = Subject::find();
+        $query = Subject::find()->orderBy('id desc');
         $query->andWhere(['status'=>Subject::STATUS_NORMAL]);
 
         $dataProvider = new ActiveDataProvider([

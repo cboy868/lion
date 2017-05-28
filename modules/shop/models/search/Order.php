@@ -42,7 +42,7 @@ class Order extends OrderModel
      */
     public function search($params)
     {
-        $query = OrderModel::find();
+        $query = OrderModel::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -41,7 +41,7 @@ class PraySearch extends Pray
      */
     public function search($params)
     {
-        $query = Pray::find();
+        $query = Pray::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
