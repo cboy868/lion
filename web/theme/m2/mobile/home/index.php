@@ -31,9 +31,9 @@ use app\core\helpers\Url;
             <div class="weui-grid__icon">
                 <img src="/theme/site/static/images/shouji.png" alt="手机吉凶测算">
             </div>
-            <p class="weui-grid__label">绑定账号</p>
+            <p class="weui-grid__label">祭祀</p>
         </a>
-        <a href="#" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/m/default/route'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/site/static/images/name.png" alt="姓名测算">
             </div>

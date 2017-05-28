@@ -3,7 +3,7 @@
 namespace app\modules\shop\controllers\m;
 
 
-class DefaultController extends \app\modules\m\controllers\DefaultController
+class DefaultController extends \app\core\web\MController
 {
 	/**
 	 * @name 商品首页

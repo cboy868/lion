@@ -19,7 +19,8 @@ return [
 
     'm/order'=> 'order/m/default/index',
     'm/order/<id:\d+>'=> 'order/m/default/view',
-    'm/order/<id:\d+>.html'=> 'order/m/default/view',
+
+//    'm/route'=> 'm/default/route',
 
     # m group
     'm/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/m/<controller>/<action>',

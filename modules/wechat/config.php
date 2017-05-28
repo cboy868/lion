@@ -1,5 +1,5 @@
 <?php
-
+use app\core\helpers\Url;
 return [
     'params' =>[
         'debug'  => true,
@@ -54,6 +54,13 @@ return [
                 2=>'Android',
                 3=>'Others'
             ]
+        ],
+        'urls'=>[//微信菜单地址时，可使用的url;
+            Url::toRoute('/m/default/index') => '首页',
+            Url::toRoute('/m/default/route') => '一键导航',
+            Url::toRoute('/shop/m/default/index') => '商品购买',
+
+
         ]
     ]
 ];
