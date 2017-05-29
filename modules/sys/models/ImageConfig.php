@@ -113,6 +113,8 @@ class ImageConfig extends \app\core\db\ActiveRecord
                 'water_image' => $v['water_image'],
                 'water_text'  => $v['water_text'],
                 'water_pos'   => $v['water_pos'],
+                'min_width'   => $v['min_width'],
+                'min_height'  => $v['min_height'],
                 // 'thumb' => explode(',', $v['thumb_config'])
             ];
 
