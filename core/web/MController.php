@@ -93,6 +93,7 @@ class MController extends \app\core\web\Controller
         $this->options['token']  = $account->token;
 
         $this->options['oauth'] = $params['oauth'];
+        $this->options['oauth']['callback'] = Url::toRoute(['/wechat/m/default/callback', 'wid'=>$wid]);
 
     }
 }
