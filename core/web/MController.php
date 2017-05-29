@@ -2,6 +2,7 @@
 
 namespace app\core\web;
 use yii;
+use app\core\helpers\Url;
 use EasyWeChat\Foundation\Application;
 use app\modules\wechat\models\Wechat;
 use yii\web\NotFoundHttpException;
@@ -44,11 +45,15 @@ class MController extends \app\core\web\Controller
         $this->wid = $wid;
         $this->setOptions($wid);
         $this->app = new Application($this->options);
+        $oauth = $this->app->oauth;
+        $session = Yii::$app->getSession();
+        if (!$session->has('wechat.user')) {
+            $session['target_url'] = Url::toRoute(['/m']);
+            return $oauth->redirect();
+        }
 
-        $response = $this->app->oauth->scopes(['snsapi_userinfo'])->redirect();
-        $response->send();
-        $user = $this->app->oauth->user();
-        echo $user->getId();die;
+        $user = $session->get('wechat.user');
+        p($user);die;
     }
 
     protected function _theme() {

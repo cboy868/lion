@@ -10,7 +10,7 @@ return [
         ],
         'oauth' => [
             'scopes'   => ['snsapi_userinfo'],
-            'callback' => '/examples/oauth_callback.php',
+            'callback' => Url::toRoute(['/wechat/m/default/callback']),
         ],
         'payment' => [
             'merchant_id'        => 'your-mch-id',
