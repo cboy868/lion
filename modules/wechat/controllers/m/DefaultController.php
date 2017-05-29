@@ -22,6 +22,8 @@ class DefaultController extends \app\core\web\MController
 
         $this->loginByOpenId($openid);
 
+        p(Yii::$app->user->identity);die;
+
         $session = Yii::$app->getSession();
         $session['wechat.user'] = $user;
 
