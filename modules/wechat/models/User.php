@@ -29,6 +29,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends \app\core\db\ActiveRecord
 {
+    private $_sysuser;
     /**
      * @inheritdoc
      */
@@ -103,6 +104,38 @@ class User extends \app\core\db\ActiveRecord
         return $this->hasMany(Tag::className(), ['tag_id' => 'tag_id'])
             ->viaTable(TagRel::tableName(), ['openid' => 'openid']);
     }
+
+    public function getSysUser()
+    {
+        if ($this->_sysuser === null) {
+            $this->_sysuser = \app\modules\user\models\User::findIdentity($this->user_id);
+        }
+
+        return $this->_user;
+    }
+
+    public function login()
+    {
+        return Yii::$app->user->login($this->getSysUser(), 3600*24*30);
+    }
+
+    /**
+     * Finds user by [[username]]
+     *
+     * @return User|null
+     */
+    public function getUser()
+    {
+        if ($this->_user === null) {
+            $this->_user = User::findByUsername($this->username);
+        }
+
+        return $this->_user;
+    }
+
+
+
+
 //
 //    public function createOpendId()
 //    {

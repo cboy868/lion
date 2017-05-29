@@ -106,7 +106,7 @@ use yii\helpers\Url;
         <?php endforeach;?>
         <?php endif;?>
     </div>
-    
+
     <?php if (!isset($ins[1]) && !isset($portrait['other'])): ?>
         <div class="weui-loadmore weui-loadmore_line">
             <span class="weui-loadmore__tips">暂无数据</span>
