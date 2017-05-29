@@ -33,8 +33,7 @@ PluploadAssets::register($this);
                         <div class="dHandler panel-heading">瓷像信息
                             <small class="pull-right">
                                 <?php 
-
-                                    $portrait = $this->context->module->params['goods']['cate']['portrait'];
+                                    $portrait = Yii::$app->params['goods']['cate']['portrait'];
                                  ?>
                                 <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                                     购买瓷像
@@ -103,10 +102,6 @@ PluploadAssets::register($this);
                         <?php else: ?>
 
                         <div class="col-md-12">
-                             <?php 
-                             $goods = $this->context->module->params['goods'];
-                             $portrait = $goods['cate']['portrait'];
-                             ?>
                             <div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
                             请
                             <small>

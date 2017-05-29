@@ -84,6 +84,14 @@ class Ins extends \app\core\db\ActiveRecord
         return $fonts[$this->font];
     }
 
+    public function confirm($uid)
+    {
+        $this->confirm_by = $uid;
+        $this->confirm_date = date('Y-m-d H:i:s');
+        $this->is_confirm = self::CONFIRM_YES;
+        return $this->save();
+    }
+
 
     public static function paint($paint = null)
     {

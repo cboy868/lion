@@ -230,4 +230,24 @@ class Portrait extends \app\core\db\ActiveRecord
         }
         return $this->save();
     }
+
+    public function getOrder()
+    {
+        return $this->hasOne(\app\modules\order\models\Order::className(),['id'=>'order_id']);
+    }
+
+    public function confirm()
+    {
+        $this->confirm_by = Yii::$app->user->id;
+        $this->confirm_at = date('Y-m-d H:i:s');
+        $this->photo_confirm = $this->photo_processed;
+        $this->status = self::STATUS_MAKE;
+
+        if ($this->save()){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

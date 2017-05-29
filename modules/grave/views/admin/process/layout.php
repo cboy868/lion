@@ -91,7 +91,7 @@ AdminAsset::register($this);
 
                 <?php 
 
-                    $goods = $this->context->module->params['goods'];
+                    $goods = Yii::$app->params['goods'];
                     $portrait = $goods['cate']['portrait'];
                     $ins = $goods['cate']['ins'];
                     $tomb_id = Yii::$app->request->get('tomb_id');

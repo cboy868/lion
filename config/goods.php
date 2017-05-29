@@ -4,7 +4,7 @@ return  [
 	'goods'=>[
 	    'cate' => [
 	        'ins' => 2,
-	        'portrait' => 19,
+	        'portrait' => 3,
 	        'liyi' => 7//礼仪
 	    ],
 

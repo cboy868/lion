@@ -38,7 +38,7 @@ class CarRecord extends \app\core\db\ActiveRecord
     const CAR_FENG = 2;
     const CAR_SELF = 3; 
     
-    public function carType($type = null)
+    public static function carType($type = null)
     {
         $types = [
             self::CAR_LING => '迎灵车',
