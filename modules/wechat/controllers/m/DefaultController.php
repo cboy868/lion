@@ -2,7 +2,9 @@
 
 namespace app\modules\wechat\controllers\m;
 
+use app\modules\wechat\models\User;
 use yii;
+use yii\web\NotFoundHttpException;
 
 class DefaultController extends \app\core\web\MController
 {
@@ -13,15 +15,30 @@ class DefaultController extends \app\core\web\MController
 
     public function actionCallback()
     {
-
         $oauth = $this->app->oauth;
 
         $user = $oauth->user();
+        $openid = $user->getId();
+
+        $this->loginByOpenId($openid);
+
         $session = Yii::$app->getSession();
         $session['wechat.user'] = $user;
 
         $targetUrl = empty($session['target_url']) ? '/' : $session['target_url'];
         header('location:'. $targetUrl); // 跳转到 user/profile
+    }
+
+    private function loginByOpenId($openid)
+    {
+        $model = User::find()->where(['openid'=>$openid])->one();
+
+        if (!$model) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        $model->login();
+
     }
 
 }
