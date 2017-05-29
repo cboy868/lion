@@ -18,9 +18,7 @@ class DefaultController extends \app\core\web\MController
     public function actionIndex()
     {
         //碑文
-        $ins = Ins::find()->where(['is_confirm'=>0])
-                ->andWhere(['user_id'=>$this->uid])
-                ->all();
+        $ins = Ins::find()->andWhere(['user_id'=>$this->uid])->all();
 
         $result = [];
         if ($ins) {
@@ -28,13 +26,12 @@ class DefaultController extends \app\core\web\MController
                 $order_rel = OrderRel::findOne($v->order_rel_id);
                 $order = $order_rel->order;
                 if ($order && $order->progress>=Order::PRO_PAY) {
-                    array_push($result, $v);
+                    $result[$v->is_confirm][$v['id']] = $v;
                 }
             }
         }
 
-        $portrait = Portrait::find()->where(['status'=>Portrait::STATUS_CONFIRM])
-                                    ->andWhere(['user_id'=>$this->uid])
+        $portrait = Portrait::find()->andWhere(['user_id'=>$this->uid])
                                     ->all();
 
         $portraits = [];
@@ -42,7 +39,12 @@ class DefaultController extends \app\core\web\MController
             foreach ($portrait as $v) {
                 $order = $v->order;
                 if ($order && $order->progress >= Order::PRO_PAY) {
-                    $portraits[$v->tomb_id][] = $v;
+                    if ($v->status == Portrait::STATUS_CONFIRM) {
+                        $portraits[$v->status][$v->tomb_id][] = $v;
+                    } else {
+                        $portraits['other'][$v->tomb_id][] = $v;
+                    }
+
                 }
             }
         }
