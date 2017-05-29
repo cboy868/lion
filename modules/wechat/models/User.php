@@ -111,7 +111,7 @@ class User extends \app\core\db\ActiveRecord
             $this->_sysuser = \app\modules\user\models\User::findIdentity($this->user_id);
         }
 
-        return $this->_user;
+        return $this->_sysuser;
     }
 
     public function login()
