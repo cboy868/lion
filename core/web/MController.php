@@ -1,6 +1,10 @@
 <?php
 
 namespace app\core\web;
+use yii;
+use EasyWeChat\Foundation\Application;
+use app\modules\wechat\models\Wechat;
+use yii\web\NotFoundHttpException;
 /**
  * Default controller for the `wechat` module
  */
@@ -8,6 +12,13 @@ class MController extends \app\core\web\Controller
 {
 //	public $layout = "@app/core/views/layouts/m.php";
     public $layout = "@app/modules/m/views/layouts/m.php";
+
+    public $options = [];
+
+    public $app = null;
+
+    public $wid;
+
 
 	public function beforeAction($action)
     {
@@ -19,8 +30,25 @@ class MController extends \app\core\web\Controller
     public function init()
     {
         parent::init();
-        \Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
+        Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
         $this->_theme();
+
+        $wid = Yii::$app->request->get('wid');
+//
+//        $session = Yii::$app->getSession();
+//
+//        if (!$session->has('wechat.id')) {
+//            return $this->redirect(['/wechat/admin/account/index']);
+//        }
+//        $wid = $session->get('wechat.id');
+        $this->wid = $wid;
+        $this->setOptions($wid);
+        $this->app = new Application($this->options);
+
+        $response = $this->app->oauth->scopes(['snsapi_userinfo'])->redirect();
+        $response->send();
+        $user = $this->app->oauth->user();
+        echo $user->getId();die;
     }
 
     protected function _theme() {
@@ -39,5 +67,24 @@ class MController extends \app\core\web\Controller
             '@app/modules/grave/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/grave',
             '@app/modules/memorial/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/memorial'
         ];
+    }
+
+    protected function setOptions($wid)
+    {
+        $account = Wechat::findOne($wid);
+        if (!$account) {
+            throw new NotFoundHttpException('The requested wechat does not exist.');
+        }
+
+        $params  = Yii::$app->getModule('wechat')->params;
+
+        $this->options = [
+            'debug'  => $params['debug'],
+            'log' => $params['log']
+        ];
+
+        $this->options['app_id'] = $account->appid;
+        $this->options['secret'] = $account->appsecret;
+        $this->options['token']  = $account->token;
     }
 }

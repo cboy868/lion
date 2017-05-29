@@ -18,6 +18,7 @@ class Controller extends \app\core\web\BackController
 
     public function init()
     {
+        parent::init();
         $session = Yii::$app->getSession();
 
         if (!$session->has('wechat.id')) {
