@@ -1,316 +1,103 @@
+<?php
+\app\assets\VueAsset::register($this);
+?>
+<style>
+    html body{
+        padding-top:10px;
+    }
+</style>
 <link rel="stylesheet" href="/theme/m2/static/mobile/global.css">
-<div class="content">
+<div class="content" id="memorial-content">
     <div class="gradient">
         <!--  <a href="" class="avatar"><img src="/static/images/default/general.gif" alt=""></a> -->
-        <a href="" class="avatar"><span><img src="/upload/dynamic/300x300/default/none.jpg" alt=""></span></a>
+        <a href="" class="avatar">
+            <span>
+                <img src="<?=$model->getCover('160x160')?>" alt="<?=$model->title?>">
+            </span>
+        </a>
         <div class="opc_black">
             <div class="btn_group">
                 <ul class="clearfix">
                     <li>
-                        <a href="#" data-mid="25590" data-flyimgsrc="http://newsite.ylwkj.com/static/yamobile/img/ink_flower.png" data-type="type_0" class="tap_state">献花</a>
-                        <p><i>2</i>次</p>
+                        <a @click.prevent="song('candle')" href="#" data-mid="25590" data-flyimgsrc="/theme/m2/static/modules/memorial/images/ink/ink_candle.png" data-type="type_1" class="tap_state">点烛</a>
+                        <p><i v-text="jisi[0].num"></i>次</p>
                     </li>
                     <li>
-                        <a href="#" data-mid="25590" data-flyimgsrc="http://newsite.ylwkj.com/static/yamobile/img/ink_candle.png" data-type="type_1" class="tap_state">点蜡</a>
-                        <p><i>1295</i>次</p>
+                        <a @click.prevent="song('flower')" href="#" data-mid="25590" data-flyimgsrc="/theme/m2/static/modules/memorial/images/ink/ink_flower.png" data-type="type_0" class="tap_state">献花</a>
+                        <p><i v-text="jisi[1].num"></i>次</p>
                     </li>
+
                 </ul>
             </div>
-
-            <div class="blockbtn_box">
-                <a class="yellow_btn" href="/m/Memorial/album/id/25590">进入相册</a>
-            </div>
-
         </div>
-    </div>            <hr>
+    </div>
+    <hr>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="这里填写您的祝福留言" rows="3" id="comment"></textarea>
+<!--                <div class="weui-textarea-counter"><span>0</span>/200</div>-->
+            </div>
+            <div class="weui-btn-area">
+                <a class="weui-btn weui-btn_primary" href="javascript:" @click.prevent="comment">发送</a>
+            </div>
+        </div>
+    </div>
+
     <div class="mess">
         <ul class="comment-list">
-            <li class="clearfix">
+            <li class="clearfix" v-for="cm in comments">
                 <div class="left">
-                    <img src="/public/default/avatar.gif">
+                    <img :src="cm.avatar">
                 </div>
                 <div>
-                    <p class="right">2016-01-01 09:06:24</p>
-                    <h3><a href="/profile/1.html">永安网络</a>说：</h3>
-                    <p class="txt"><img src="http://www.yagm.com.cn/upload/2016/01/01/middle_20160101090619000000_1_563517_22.jpg" alt=""></p>
+                    <p class="right">{{cm.date}}</p>
+                    <h3><a href="#" v-model="cm.username"></a>说：</h3>
+                    <p class="txt" v-html="cm.content">
+
+                    </p>
                 </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-13 13:38:20</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">一路走好</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-04 22:15:21</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">愿逝者安息！</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-04 15:28:49</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-04 14:17:52</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">愿生者平安。</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-04 10:15:25</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">安息</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-04 07:15:52</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 23:12:39</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 22:54:03</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 22:48:49</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">祈愿平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 22:20:32</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">一起守候，祈福平安！</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 21:53:10</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">我为同胞们和天津同乡们祈福，愿一切安好。</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 21:12:48</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">求平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 20:35:47</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">盼望回家</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 20:16:08</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">愿您们平平安安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 19:48:06</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">众心感动上苍，愿奇迹出现，平安你我他。</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 19:20:03</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">祈福平安！</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 19:11:25</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">祝福</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 18:50:19</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">愿他们在天堂幸福，安康！</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 18:29:05</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">祈福平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 18:27:59</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">为456人祈福愿他们平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 18:21:02</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">衷心的祝愿，祈祷你们平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 18:12:09</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">希望生还的人数越来越多。</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 18:10:31</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">愿奇迹发生</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 17:45:52</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">平安!</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 15:55:16</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">为船上所有人祈福'愿平安回来！</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 14:21:37</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">祝福</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 14:09:10</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">为东方之星祈福 祈祷所有游客平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 14:06:12</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">愿平安</p>
-                </div>
-            </li><li class="clearfix">
-                <div class="left">
-                    <img src="/public/default/avatar.gif">
-                </div>
-                <div>
-                    <p class="right">2015-06-03 14:05:05</p>
-                    <h3><a href="/profile/1.html">匿名用户</a>说：</h3>
-                    <p class="txt">祝愿平安</p>
-                </div>
-            </li>       </ul>
-    </div>
-    <div id="_tpl">
-        <div class="items" style="display:none">
-            <ul class="comment-list">
-                <li class="clearfix">
-                    <div class="left">
-                        <img src="/public/default/avatar.gif">
-                    </div>
-                    <div>
-                        <p class="right">2015-06-03 14:05:05</p>
-                        <h3><a href="#" class=".username">匿名用户</a>说：</h3>
-                        <p class="txt">祝愿平安</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
+            </li>
+        </ul>
     </div>
 </div>
+
+<?php $this->beginBlock('memorial') ?>
+
+$(function(){
+var app = new Vue({
+    el:'#memorial-content',
+    data:{
+        jisi:<?=$prays?>,
+        jisiUrl:"<?=\yii\helpers\Url::toRoute(['/memorial/m/default/jisi', 'id'=>$model->id])?>",
+        commentUrl:"<?=\yii\helpers\Url::toRoute(['/memorial/home/default/comment', 'id'=>$model->id])?>",
+        csrf : "<?=Yii::$app->request->getCsrfToken()?>",
+        comments:<?=json_encode($comments['list'])?>
+    },
+    methods:{
+        song(type){
+            this.$http.post(this.jisiUrl, {type:type,_csrf:this.csrf},{emulateJSON:true}).then(function(response){
+                this.$set(this, 'jisi',response.data.data);
+            }, function(response){
+
+            });
+        },
+        comment(){
+            var content = $('#comment').val();
+            if (!content) {return;}
+            this.$http.post(this.commentUrl, {content:content,_csrf:this.csrf},{emulateJSON:true}).then(function(response){
+                if (response.data.status) {
+                    this.$set(this, 'comments', response.data.data.concat(this.comments));
+                }
+            }, function(response){
+
+            });
+            }
+        }
+    });
+})
+
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['memorial'], \yii\web\View::POS_END); ?>
+
+

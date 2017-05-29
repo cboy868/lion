@@ -21,12 +21,12 @@ use app\core\helpers\Url;
             </div>
             <p class="weui-grid__label">业务办理</p>
         </a>
-        <a href="<?=Url::toRoute(['/memorial/m/default/view'])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/memorial.png" alt="纪念馆">
-            </div>
-            <p class="weui-grid__label">纪念馆</p>
-        </a>
+<!--        <a href="--><?//=Url::toRoute(['/memorial/m/default/view'])?><!--" class="weui-grid js_grid" data-id="button">-->
+<!--            <div class="weui-grid__icon">-->
+<!--                <img src="/theme/m2/static/mobile/images/icons/memorial.png" alt="纪念馆">-->
+<!--            </div>-->
+<!--            <p class="weui-grid__label">纪念馆</p>-->
+<!--        </a>-->
         <a href="<?=Url::toRoute(['/shop/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/flower.png" alt="祭祀">
@@ -52,20 +52,42 @@ use app\core\helpers\Url;
 <!--            </div>-->
 <!--            <p class="weui-grid__label">投诉建议</p>-->
 <!--        </a>-->
-        <a href="<?=Url::toRoute(['/order/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="在线起名">
-            </div>
-            <p class="weui-grid__label">订单记录</p>
-        </a>
-        <a href="<?=Url::toRoute(['/user/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">
-            </div>
-            <p class="weui-grid__label">个人资料</p>
-        </a>
+<!--        <a href="--><?//=Url::toRoute(['/order/m/default/index'])?><!--" class="weui-grid js_grid" data-id="button">-->
+<!--            <div class="weui-grid__icon">-->
+<!--                <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="在线起名">-->
+<!--            </div>-->
+<!--            <p class="weui-grid__label">订单记录</p>-->
+<!--        </a>-->
+<!--        <a href="--><?//=Url::toRoute(['/user/m/default/index'])?><!--" class="weui-grid js_grid" data-id="button">-->
+<!--            <div class="weui-grid__icon">-->
+<!--                <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">-->
+<!--            </div>-->
+<!--            <p class="weui-grid__label">个人资料</p>-->
+<!--        </a>-->
     </div>
     <!--banner 结束-->
+    <div class="page__bd">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__hd">纪念馆</div>
+            <?php foreach ($memorial as $v):?>
+            <div class="weui-panel__bd">
+                <a href="<?=Url::toRoute(['/memorial/m/default/view', 'id'=>$v->id])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="<?=$v->getCover('120x120')?>">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title"><?=$v->title?></h4>
+                        <p class="weui-media-box__desc"><?=$v->intro?></p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        进入
+                    </div>
+                </a>
+            </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+
     <div class="page__bd">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">新闻资讯</div>

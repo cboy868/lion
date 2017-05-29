@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use app\modules\memorial\models\Memorial;
 
 class DefaultController extends \app\core\web\MController
 {
@@ -18,7 +19,12 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        //查找登录人的纪念馆
+        $user_id = Yii::$app->user->id;
+        $mems = Memorial::find()->where(['user_id'=>$user_id])->andWhere(['status'=>Memorial::STATUS_NORMAL])
+                                ->all();
+
+        return $this->render('index', ['memorial'=>$mems]);
     }
 
 

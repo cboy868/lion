@@ -55,9 +55,10 @@ class Pray extends \app\core\db\ActiveRecord
         ];
     }
 
-    public static function prayCount($memorial_id)
+    public static function prayCount($memorial_id, $types=[])
     {
         $list = self::find()->where(['memorial_id'=>$memorial_id])
+                            ->andFilterWhere(['type'=>$types])
                             ->groupBy('type')
                             ->select(['COUNT(*) AS num', 'type'])
                             ->asArray()
