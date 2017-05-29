@@ -64,11 +64,11 @@ var demo = new Vue({
     el: '#cart-box',
     data: {
         items: [],
-        apiUrl: 'http://api.lion.cn/v1/goods/cart-list',
-        cartUrl: 'http://api.lion.cn/v1/goods/update-cart',
-        carCountUrl:'http://api.lion.cn/v1/goods/cart-count',
-        delCartUrl:'http://api.lion.cn/v1/goods/del-cart',
-        buyUrl:'http://api.lion.cn/v1/order/buy',
+        apiUrl: 'http://api.ibagou.com/v1/goods/cart-list',
+        cartUrl: 'http://api.ibagou.com/v1/goods/update-cart',
+        carCountUrl:'http://api.ibagou.com/v1/goods/cart-count',
+        delCartUrl:'http://api.ibagou.com/v1/goods/del-cart',
+        buyUrl:'http://api.ibagou.com/v1/order/buy',
         user:1,
         sels:[],
         result:[]

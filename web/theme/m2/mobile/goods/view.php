@@ -102,9 +102,9 @@ var demo = new Vue({
     el: '#news-box',
     data: {
         item: [],
-        apiUrl: 'http://api.lion.cn/v1/goods/<?=$get['id']?>',
-        cartUrl: 'http://api.lion.cn/v1/goods/cart',
-        carCountUrl: 'http://api.lion.cn/v1/goods/cart-count',
+        apiUrl: 'http://api.ibagou.com/v1/goods/<?=$get['id']?>',
+        cartUrl: 'http://api.ibagou.com/v1/goods/cart',
+        carCountUrl: 'http://api.ibagou.com/v1/goods/cart-count',
         specs:[],
         currentSku:{id:0, price:1, num:1,attr:'',total_num:1},
         skus:[],

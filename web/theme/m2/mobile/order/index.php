@@ -48,8 +48,8 @@ var demo = new Vue({
     data: {
         orders: [],
         sendData:{relThumbSize:'60x60',user:1,page:1,pageSize:3 },
-        apiUrl: 'http://api.lion.cn/v1/order/list',
-        apiDel: 'http://api.lion.cn/v1/order/del',
+        apiUrl: 'http://api.ibagou.com/v1/order/list',
+        apiDel: 'http://api.ibagou.com/v1/order/del',
         pageCount:1,
         loading:0
     },
