@@ -22,13 +22,13 @@ class DefaultController extends \app\core\web\MController
 
         $this->loginByOpenId($openid);
 
-        p(Yii::$app->user->identity);die;
 
         $session = Yii::$app->getSession();
-        $session['wechat.user'] = $user;
+        $session['wuser'] = $user;
+        $session['vu'] = Yii::$app->user->identity;
 
         $targetUrl = empty($session['target_url']) ? '/' : $session['target_url'];
-        header('location:'. $targetUrl); 
+        header('location:'. $targetUrl);
     }
 
     private function loginByOpenId($openid)
