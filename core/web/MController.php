@@ -49,7 +49,7 @@ class MController extends \app\core\web\Controller
         $session = Yii::$app->getSession();
         if (!$session->has('wechat.user')) {
             $session['target_url'] = Url::toRoute(['/m']);
-            return $oauth->redirect();
+            $oauth->redirect()->send();
         }
 
         $user = $session->get('wechat.user');
