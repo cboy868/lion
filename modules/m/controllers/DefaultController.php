@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use app\core\helpers\Url;
 use app\modules\memorial\models\Memorial;
 
 class DefaultController extends \app\core\web\MController
