@@ -35,9 +35,9 @@ class DefaultController extends \app\core\web\MController
     {
         $model = User::find()->where(['openid'=>$openid])->one();
 
-        if (!$model) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+//        if (!$model) {
+//            throw new NotFoundHttpException('The requested wechat user does not exist.');
+//        }
 
         $model->login();
 
