@@ -28,7 +28,7 @@ class DefaultController extends \app\core\web\MController
         $session['wechat.user'] = $user;
 
         $targetUrl = empty($session['target_url']) ? '/' : $session['target_url'];
-        header('location:'. $targetUrl); // 跳转到 user/profile
+        header('location:'. $targetUrl); 
     }
 
     private function loginByOpenId($openid)
