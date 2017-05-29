@@ -22,7 +22,7 @@ class DefaultController extends \app\core\web\MController
     {
         $oauth = $this->app->oauth;
         $session = Yii::$app->getSession();
-        if (!$session->has('wechat.user')) {
+        if (!$session->has('wechat.user1')) {
             $session['target_url'] = Url::toRoute(['/m']);
             $oauth->redirect()->send();
         }
