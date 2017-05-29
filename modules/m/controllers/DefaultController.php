@@ -19,6 +19,18 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionIndex()
     {
+        $oauth = $this->app->oauth;
+        $session = Yii::$app->getSession();
+        if (!$session->has('wechat.user')) {
+            $session['target_url'] = Url::toRoute(['/m']);
+            $oauth->redirect()->send();
+        }
+
+        $user = $session->get('wechat.user');
+        p($user);die;
+
+
+
         //查找登录人的纪念馆
         $user_id = Yii::$app->user->id;
         $mems = Memorial::find()->where(['user_id'=>$user_id])->andWhere(['status'=>Memorial::STATUS_NORMAL])
