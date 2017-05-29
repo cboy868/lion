@@ -97,8 +97,8 @@ use app\core\helpers\Url;
                         <img class="weui-media-box__thumb" v-bind:src="item.cover" v-bind:alt="item.title">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">{{item.title}}</h4>
-                        <p class="weui-media-box__desc">{{item.summary}}</p>
+                        <h4 class="weui-media-box__title" v-text="item.title"></h4>
+                        <p class="weui-media-box__desc" v-text="item.summary"></p>
                     </div>
                 </a>
             </div>
