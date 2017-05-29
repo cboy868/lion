@@ -38,7 +38,7 @@
                 <textarea class="weui-textarea" placeholder="这里填写您的祝福留言" rows="3" id="comment"></textarea>
 <!--                <div class="weui-textarea-counter"><span>0</span>/200</div>-->
             </div>
-            <div class="weui-btn-area">
+            <div class="weui-btn-area" style="margin:0">
                 <a class="weui-btn weui-btn_primary" href="javascript:" @click.prevent="comment">发送</a>
             </div>
         </div>
