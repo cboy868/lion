@@ -23,11 +23,11 @@ class DefaultController extends \app\core\web\MController
         $this->loginByOpenId($openid);
 
 
-//        $session = Yii::$app->getSession();
+        $session = Yii::$app->getSession();
 //        $session['wuser'] = $user;
 //        $session['vu'] = Yii::$app->user->identity;
 
-        $targetUrl = empty($session['target_url']) ? '/' : $session['target_url'];
+        $targetUrl = empty($session['target_url']) ? '/m' : $session['target_url'];
         header('location:'. $targetUrl);
     }
 
