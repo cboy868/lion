@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <div class="pull-right nc">
-                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/default/index', 'mid'=>$module->id])?>">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/post/index', 'mid'=>$module->id])?>">
                         <i class="fa fa-th fa-2x"></i>  内容管理列表</a>
                 </div>
 

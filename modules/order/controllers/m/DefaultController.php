@@ -4,7 +4,7 @@ namespace app\modules\order\controllers\m;
 
 use yii;
 
-class DefaultController extends \app\modules\m\controllers\DefaultController
+class DefaultController extends \app\core\web\MController
 {
     public function actionIndex()
     {

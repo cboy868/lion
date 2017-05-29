@@ -9,8 +9,6 @@ use yii\web\Response;
 use app\modules\install\Helper;
 use app\modules\install\models\Db;
 
-set_time_limit(0);
-
 class DefaultController extends \app\core\web\HomeController
 {
 	public $layout = "@app/modules/install/views/default/layout.php";
@@ -22,14 +20,14 @@ class DefaultController extends \app\core\web\HomeController
         Yii::$app->getResponse()->on(Response::EVENT_AFTER_SEND, [$this, 'afterResponse']);
     }
 
-    public function beforeAction($action)
+    public function beforeAction()
     {
         if (($this->action->id != 'finish') && !Db::checkInstall()) {
             Yii::$app->getSession()->setFlash('notice', '如想重新安装，请选删除 install.lock 文件');
             $this->redirect(['finish']);
         }
 
-        return parent::beforeAction($action);
+        return parent::beforeAction();
     }
 
     public function actionIndex()

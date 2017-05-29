@@ -7,7 +7,7 @@ use app\modules\memorial\models\Memorial;
 use app\modules\memorial\models\Pray;
 use yii;
 
-class DefaultController extends \app\modules\home\controllers\HomeController
+class DefaultController extends \app\core\web\HomeController
 {
     public function actions()
     {

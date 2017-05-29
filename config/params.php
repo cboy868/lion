@@ -5,6 +5,7 @@ $thumb = require(__DIR__ . '/thumb.php');
 $goods = require(__DIR__ . '/goods.php');
 
 $params = [
+    'version' =>'0.1',
     'adminEmail' => 'cboy868@163.com',
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,

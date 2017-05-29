@@ -13,7 +13,7 @@ use yii;
 use app\modules\cms\models\MsgForm;
 use app\modules\grave\models\Grave;
 
-class MessageController extends \app\modules\home\controllers\HomeController
+class MessageController extends \app\core\web\HomeController
 {
     public function actionIndex($id)
     {

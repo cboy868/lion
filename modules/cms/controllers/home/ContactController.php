@@ -4,14 +4,11 @@ namespace app\modules\cms\controllers\home;
 
 use Yii;
 
-use app\modules\cms\models\ContactSearch;
-use app\core\web\HomeController;
-use yii\filters\VerbFilter;
 
 /**
  * ContactController implements the CRUD actions for Contact model.
  */
-class ContactController extends HomeController
+class ContactController extends \app\core\web\HomeController
 {
    
 

@@ -4,7 +4,7 @@ namespace app\modules\home\controllers;
 use app\modules\home\models\MsgForm;
 use Yii;
 
-class DefaultController extends HomeController
+class DefaultController extends \app\core\web\HomeController
 {
 
 

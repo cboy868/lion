@@ -58,6 +58,8 @@ class Db extends Model
       );
     }
 
+
+
     public function install()
     {
 
@@ -67,16 +69,18 @@ class Db extends Model
                 return ;
             }
 
+
             if ($this->_writeConfig() === false) {
                 return ;
             }
+
             $db = Yii::$app->db;
+
 
             $transaction = $db->beginTransaction();
             try
             {
                 self::showMsg('创建数据库表。。。');
-
                 if(self::execSql('install')!==true)
                 {
                     $transaction->rollBack();
@@ -122,11 +126,10 @@ class Db extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->is_staff = 1;
-        $user->status = 10;
         $user->save();
 
     }
+
 
     private function _getDbError($message)
     {
@@ -154,6 +157,59 @@ class Db extends Model
         }
         return $message;
     }
+
+    /**
+     * Signs user up.
+     *
+     * @return User|null the saved model or null if saving fails
+     */
+//     public function create()
+//     {
+//         if ($this->validate()) {
+
+//             $this->checkConfig();
+
+//             //数组形式，看上去更巧一点
+//             // $dbConfig = [
+//             //     'class' => 'yii\db\Connection',
+//             //     'dsn' => "mysql:host={$this->host};dbname={$this->dbname}",
+//             //     'username' => "{$this->dbuser}",
+//             //     'password' => "{$this->dbpwd}",
+//             //     'charset' => 'utf8'
+//             // ];
+
+
+//             // $dbConfig = var_export($dbConfig, true);
+//             // $dbConfig = '<?php return ' . $dbConfig . ' ;';
+
+//             $dbconfig = <<<'CONF'
+// <?php
+// return [
+//     'class' => 'yii\db\Connection',
+//     'dsn' => 'mysql:host=%s;dbname=%s',
+//     'username' => '%s',
+//     'password' => '%s',
+//     'charset' => 'utf8'
+// ];
+// CONF;
+//             $dbconfig = sprintf($dbconfig, $this->host, $this->dbname, $this->dbuser, $this->dbpwd);
+
+//             $path = Yii::getAlias('@app/config/dba.php');
+
+
+//             try {
+//                 file_put_contents($path, $dbconfig);
+
+//                 return $this;
+
+//             } catch (\Exception $e) {
+//                 return false;
+//             }
+
+//         }
+
+//         return null;
+//     }
 
     private function _writeConfig()
     {
@@ -200,6 +256,7 @@ CONF;
         $content = @file_get_contents($file);
         $sqls = self::parseSql($content);
 
+
         if (is_array($sqls))
         {
             foreach ($sqls as $sql)
@@ -207,20 +264,18 @@ CONF;
                 if (trim($sql) != '')
                 {
                     if(substr($sql, 0, 12) == 'CREATE TABLE') {
-                        //$name = preg_replace("/CREATE TABLE IF NOT EXISTS ([a-z0-9_`]+) .*/is", "\\1", $sql);
-                        $name = preg_replace("/CREATE TABLE\s?(IF NOT EXISTS)?\s?([a-z0-9_`]+) .*/is", "\\2", $sql);
+                        $name = preg_replace("/CREATE TABLE IF NOT EXISTS ([a-z0-9_`]+) .*/is", "\\1", $sql);
+
                         self::showjsmessage('create_table '.$name.' ... succeed');
-                        Yii::info($sql);
                     }
 
                     $db->createCommand(str_replace('#@__', $tbPre, $sql))->execute();
-                    Yii::info($sql);
                 }
             }
         }
         else
         {
-            $db->createCommand(str_replace('#@__', $tbPre, $sqls))->execute();
+            $db->createCommand(str_replace('#@__', $tbPre, $sql))->execute();
         }
         return true;
     }
@@ -265,32 +320,49 @@ CONF;
         return !file_exists($file);
     }
 
+
+
     private function _checkConfig()
     {
         self::showMsg('检查数据库连接...');
 
+       
         if (empty($this->host) || empty($this->dbname) || empty($this->dbuser)) {
             $msg = '数据库信息必须填写完整';
             self::showMsg($msg, true);
             return false;
         }
-
+      
         $config = [
             'dsn' => "mysql:host={$this->host};dbname={$this->dbname}", 
             'username' => $this->dbuser, 
             'password' => $this->dbpwd
         ];
         
+        $result = false;
+        $msg = '';
         $db = new Connection($config);
-
+        
         try
         {
             $db->open();
-            $result = true;
-            self::showMsg('数据库连接成功');
+            if (!$db->isActive)
+            {
+                $msg = '连接失败，请检查数据库配置';
+                $result = false;
+            }
+            else 
+            {
+                $msg = '数据库连接成功';
+                $result = true;
+            }
+
+            self::showMsg($msg);
+
         } catch (\Exception $e) {
-            self::showMsg('数据库连接失败',true);
             $db->close();
+            $msg = $this->_getDbError($e->getMessage());
+            self::showMsg($msg,true);
             $result = false;
         }
 
@@ -304,7 +376,7 @@ CONF;
             $msg .= "<br> <a href='" . Url::to(['db']) . "' class='red'>返回检查</a>";
         }
         $msg = json_encode($msg);
-        echo '<script>var msg = '.$msg.'; $("#msg").html(msg + "<br />");</script>';
+        echo '<script>var msg = '.$msg.'; $("#msg").append(msg + "<br />");</script>';
         ob_flush();
         flush();
         // sleep(1);

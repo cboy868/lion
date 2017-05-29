@@ -8,7 +8,7 @@ use yii\data\Pagination;
 use app\core\models\Attachment;
 use app\core\models\AttachmentRel;
 
-class DefaultController extends \app\modules\home\controllers\DefaultController
+class DefaultController extends \app\core\web\HomeController
 {
 	/**
 	 * @name 商品聚合页面

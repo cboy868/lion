@@ -15,39 +15,39 @@ use app\core\helpers\Url;
     </div>
 
     <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
-        <a href="#" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/grave/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
-                <img src="/theme/site/static/images/s1.png" alt="生辰八字">
+                <img src="/static/images/icons/realition.png" alt="业务办理">
             </div>
             <p class="weui-grid__label">业务办理</p>
         </a>
-        <a href="#" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/memorial/m/default/view'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
-                <img src="/theme/site/static/images/s2.png" alt="周公解梦">
+                <img src="/theme/m2/static/mobile/images/icons/memorial.png" alt="纪念馆">
             </div>
             <p class="weui-grid__label">纪念馆</p>
         </a>
-        <a href="#" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/shop/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
-                <img src="/theme/site/static/images/shouji.png" alt="手机吉凶测算">
+                <img src="/theme/m2/static/mobile/images/icons/flower.png" alt="祭祀">
             </div>
             <p class="weui-grid__label">祭祀</p>
         </a>
         <a href="<?=Url::toRoute(['/m/default/route'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
-                <img src="/theme/site/static/images/name.png" alt="姓名测算">
+                <img src="/theme/m2/static/mobile/images/icons/nav.png" alt="一键导航">
             </div>
             <p class="weui-grid__label">一键导航</p>
         </a>
         <a href="#" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
-                <img src="/theme/site/static/images/m9.png" alt="今日黄历">
+                <img src="/theme/m2/static/mobile/images/icons/article.png" alt="投诉建议">
             </div>
             <p class="weui-grid__label">投诉建议</p>
         </a>
-        <a href="#" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/order/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
-                <img src="/theme/site/static/images/m8.png" alt="在线起名">
+                <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="在线起名">
             </div>
             <p class="weui-grid__label">订单记录</p>
         </a>
@@ -55,7 +55,7 @@ use app\core\helpers\Url;
     <!--banner 结束-->
     <div class="page__bd">
         <div class="weui-panel weui-panel_access">
-            <div class="weui-panel__hd">公司新闻</div>
+            <div class="weui-panel__hd">新闻资讯</div>
             <div class="weui-panel__bd" id="news-box">
                 <a v-bind:href="'/m/news/' + item.id +'.html'" class="weui-media-box weui-media-box_appmsg" v-for="item in nitems">
                     <div class="weui-media-box__hd">

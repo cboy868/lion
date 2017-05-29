@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]);
                     },
                     'info' => function($url, $model, $key) {
-                        $url = Url::toRoute(['/cms/admin/default/index', 'mid'=>$model->id]);
+                        $url = Url::toRoute(['/cms/admin/post/index', 'mid'=>$model->id]);
                         return Html::a('内容管理',
                             $url,
                             [

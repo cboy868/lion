@@ -8,7 +8,7 @@ use app\core\models\AttachmentRel;
 use app\modules\grave\models\Grave;
 use app\modules\grave\models\Tomb;
 
-class DefaultController extends \app\modules\home\controllers\DefaultController
+class DefaultController extends \app\core\web\HomeController
 {
     public function actionIndex()
     {

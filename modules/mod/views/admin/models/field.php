@@ -19,7 +19,7 @@ use app\core\widgets\GridView;
 $this->title = ' ' . ' ' . $mInfo->module;
 
 $this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/mod/admin/default/index']];
-$this->params['breadcrumbs'][] = ['label' => $mInfo->name . ' 模型管理', 'url' => ['index', 'id'=>$mInfo->mid]];
+$this->params['breadcrumbs'][] = ['label' => $mInfo->name . ' 模型管理', 'url' => ['index', 'mid'=>$mInfo->mid]];
 $this->params['breadcrumbs'][] = $this->title . '模型 字段管理';
 
 ?>
