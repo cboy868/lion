@@ -20,6 +20,8 @@ return [
     'm/order'=> 'order/m/default/index',
     'm/order/<id:\d+>'=> 'order/m/default/view',
 
+    'm/callack' => 'wechat/m/default/callback',
+
 //    'm/route'=> 'm/default/route',
 
     # m group
