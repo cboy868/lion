@@ -120,7 +120,7 @@ var demo = new Vue({
         gridColumns: ['title', 'author', 'id'],
         nitems: [],
         sendData:{limit:5, thumbSize:'120x120'},
-        apiUrl: 'http://api.lion.cn/v1/news/list'
+        apiUrl: 'http://api.ibagou.com/v1/news/list'
     },
     beforeMount: function() {
         this.getNews();
