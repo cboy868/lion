@@ -46,6 +46,7 @@ class MController extends \app\core\web\Controller
         $this->setOptions($wid);
         $this->app = new Application($this->options);
         $oauth = $this->app->oauth;
+        p( $this->app);die;
         $session = Yii::$app->getSession();
         if (!$session->has('wechat.user')) {
             $session['target_url'] = Url::toRoute(['/m']);
@@ -91,5 +92,8 @@ class MController extends \app\core\web\Controller
         $this->options['app_id'] = $account->appid;
         $this->options['secret'] = $account->appsecret;
         $this->options['token']  = $account->token;
+
+        $this->options['oauth'] = $params['oauth'];
+
     }
 }
