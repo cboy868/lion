@@ -13,7 +13,7 @@ class DefaultController extends \app\core\web\MController
         return $this->render('index');
     }
 
-    public function actionCallback()
+    public function actionCallback1()
     {
         $oauth = $this->app->oauth;
 
