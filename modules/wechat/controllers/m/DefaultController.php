@@ -2,6 +2,7 @@
 
 namespace app\modules\wechat\controllers\m;
 
+use yii;
 
 class DefaultController extends \app\core\web\MController
 {
