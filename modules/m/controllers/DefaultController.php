@@ -23,7 +23,7 @@ class DefaultController extends \app\core\web\MController
         $oauth = $this->app->oauth;
         $session = Yii::$app->getSession();
         if (!$session->has('ws')) {
-            $session['target_url'] = Url::toRoute(['/m']);
+            $session['target_url'] = Url::current();
             $oauth->redirect()->send();
         }
 
