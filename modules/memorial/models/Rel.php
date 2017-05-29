@@ -3,7 +3,7 @@
 namespace app\modules\memorial\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%memorial_rel}}".
  *
@@ -36,6 +36,18 @@ class Rel extends \app\core\db\ActiveRecord
             [['memorial_id', 'res_id', 'created_at'], 'integer'],
             [['res_name', 'res_user', 'res_cover'], 'string', 'max' => 200],
             [['res_title'], 'string', 'max' => 255],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
         ];
     }
 

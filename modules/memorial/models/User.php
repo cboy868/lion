@@ -3,7 +3,7 @@
 namespace app\modules\memorial\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%memorial_user}}".
  *
@@ -35,6 +35,18 @@ class User extends \app\core\db\ActiveRecord
             [['user_id', 'memorial_id', 'status', 'created_at'], 'integer'],
             [['note'], 'string'],
             [['relation'], 'string', 'max' => 100],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
         ];
     }
 

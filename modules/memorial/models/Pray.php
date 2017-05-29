@@ -4,7 +4,7 @@ namespace app\modules\memorial\models;
 
 use app\core\helpers\ArrayHelper;
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%memorial_pray}}".
  *
@@ -36,6 +36,18 @@ class Pray extends \app\core\db\ActiveRecord
             [['user_id', 'memorial_id', 'order_id', 'created_at'], 'integer'],
             [['msg'], 'string'],
             [['type'], 'string', 'max' => 200],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
         ];
     }
 
