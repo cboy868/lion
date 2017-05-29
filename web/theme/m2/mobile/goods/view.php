@@ -68,63 +68,30 @@
     </div>
 
 <div id="cart1" class="cart-concern-btm-fixed five-column four-column" style="display: table;">
-        <div class="concern-cart"> <a class="dong-dong-icn J_ping" id="imBottom" href="#"> <em class="btm-act-icn"></em> <span class="focus-info"> 客服 </span> </a>
-            <a class="love-heart-icn J_ping" id="payAttention" onclick="doFav(1)">
-                <div class="focus-container" id="focusOn">
-                    <div class="focus-icon">
-                        <i class="bottom-focus-icon  focus-out" id="attentionFocus"></i>
-                    </div>
-                    <span class="focus-info"> 关注 </span>
-                </div>
-            </a>
+        <div class="concern-cart">
+<!--            <a class="dong-dong-icn J_ping" id="imBottom" href="#"> -->
+<!--                <em class="btm-act-icn"></em> -->
+<!--                <span class="focus-info"> 客服 </span> -->
+<!--            </a>-->
+<!--            <a class="love-heart-icn J_ping" id="payAttention" onclick="doFav(1)">-->
+<!--                <div class="focus-container" id="focusOn">-->
+<!--                    <div class="focus-icon">-->
+<!--                        <i class="bottom-focus-icon  focus-out" id="attentionFocus"></i>-->
+<!--                    </div>-->
+<!--                    <span class="focus-info"> 关注 </span>-->
+<!--                </div>-->
+<!--            </a>-->
             <a class="cart-car-icn" id="toCart" href="/m/product/cart">
                  <em class="btm-act-icn" id="shoppingCart"> <i class="order-numbers" v-text="nums.type_num"></i> </em> <span class="focus-info">购物车</span>
             </a>
         </div>
-        <script>
-            function doFav(info_id) {
-                var MID = "0";
-                if (MID != 0) {
-                    var url ="/shop/index/dofav.html"
-                    $.post(url, {'id': info_id}, function (msg) {
-                        var btn = $('#store_btn_fav_' + info_id);
-                        if (msg.status == 1) {
-                            $.toast('收藏成功。');
 
-                            btn.removeClass('c_fav_likebf');
-                            btn.addClass('c_fav_liked');
-                            btn.attr('title', '取消收藏');
-                            btn.text('取消收藏')
-
-                        }
-                        else if (msg.status == 2) {
-                            $.toast('取消收藏成功。');
-                            btn.attr('title', '收藏');
-                            btn.addClass('c_fav_likebf');
-                            btn.removeClass('c_fav_liked');
-                            btn.text('加入收藏')
-                        }
-                        else if (msg.status == 3) {
-                            $.toast('不能收藏自己发布的内容。');
-                        }
-                        else {
-                            $.toast('未知情况，处理失败。');
-                        }
-                    }, 'json');
-                }
-                else {
-                    $.toast('请登陆后收藏。');
-                }
-            }
-        </script>
         <div class="action-list">
-
-
             <a href="javascript:;" class="yellow-color" :class="{'weui-btn_disabled':currentSku.id==0}"  @click="toCart">加入购物车</a>
             <a href="javascript:;" class="red-color">立即购买</a>
 
-            <a class="yellow-color J_ping" id="looksimilar" href="#" style="display: none;">查看相似</a>
-            <a class="red-color J_ping" id="arrivalInform" style="display: none;">到货通知</a>
+<!--            <a class="yellow-color J_ping" id="looksimilar" href="#" style="display: none;">查看相似</a>-->
+<!--            <a class="red-color J_ping" id="arrivalInform" style="display: none;">到货通知</a>-->
         </div>
     </div>
 

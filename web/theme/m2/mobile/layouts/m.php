@@ -46,10 +46,12 @@ use app\core\helpers\Url;
                 <p class="weui-tabbar__label">祭祀</p>
             </a>
 
+            <!--
             <a href="<?=Url::toRoute('/m/user')?>" class="weui-tabbar__item weui-bar__item--on">
                 <div class="weui-tabbar__icon"> <i class="sstfont sst-geren"></i> </div>
                 <p class="weui-tabbar__label">个人中心</p>
             </a>
+            -->
         </div>
 
         <script type="text/javascript" src="/theme/site/static/js/jquery-2.1.4.js"></script>
