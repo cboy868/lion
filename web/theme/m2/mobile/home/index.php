@@ -39,17 +39,30 @@ use app\core\helpers\Url;
             </div>
             <p class="weui-grid__label">一键导航</p>
         </a>
-        <a href="#" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/article.png" alt="投诉建议">
-            </div>
-            <p class="weui-grid__label">投诉建议</p>
-        </a>
+
+<!--        <a href="#" class="weui-grid js_grid" data-id="button">-->
+<!--            <div class="weui-grid__icon">-->
+<!--                <img src="/theme/m2/static/mobile/images/icons/album.png" alt="相册">-->
+<!--            </div>-->
+<!--            <p class="weui-grid__label">相册</p>-->
+<!--        </a>-->
+<!--        <a href="#" class="weui-grid js_grid" data-id="button">-->
+<!--            <div class="weui-grid__icon">-->
+<!--                <img src="/theme/m2/static/mobile/images/icons/article.png" alt="投诉建议">-->
+<!--            </div>-->
+<!--            <p class="weui-grid__label">投诉建议</p>-->
+<!--        </a>-->
         <a href="<?=Url::toRoute(['/order/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="在线起名">
             </div>
             <p class="weui-grid__label">订单记录</p>
+        </a>
+        <a href="<?=Url::toRoute(['/user/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
+            <div class="weui-grid__icon">
+                <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">
+            </div>
+            <p class="weui-grid__label">个人资料</p>
         </a>
     </div>
     <!--banner 结束-->

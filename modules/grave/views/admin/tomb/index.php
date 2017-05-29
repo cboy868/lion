@@ -68,7 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <?=  isset($grave) ? Html::encode($grave->name) : '' ?> 墓位管理
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?php $grave_id = isset($grave->id) ? $grave->id : '' ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create', 'grave_id'=>$grave_id], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->

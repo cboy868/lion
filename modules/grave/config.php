@@ -79,7 +79,7 @@ return [
             1=>'自带骨质盒', 2=>'公墓购买骨质盒', 3=>'公墓买红布包', 4=>'自带骨灰盒',5=>'自带红布包'
         ],
         'role' => [
-            'guide' => ['daogou_58d292ee94a5c','chaojiguanliyuan_585a784f9cd1a'],//导购
+            'guide' => ['daogouyuan_592b905ad5e04','chaojiguanliyuan_585a784f9cd1a'],//导购
         ],
 
         'goods' => [

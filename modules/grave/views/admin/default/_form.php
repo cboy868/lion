@@ -17,14 +17,14 @@ use yii\helpers\Url;
     <?php 
     $graves = Grave::selTree(); 
     ?>
-    <?= $form->field($model, 'pid')->dropDownList($graves, ['prompt'=> '顶级']) ?>
+    <?= $form->field($model, 'pid')->dropDownList($graves, ['prompt'=> '顶级'])->label('所属大区') ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?php echo $form->field($model,'intro')->widget('app\core\widgets\Ueditor\Ueditor',
         ['option' =>['res_name'=>'grave', 'use'=>'ue'] ]);?>
 
-    <?= $form->field($model, 'area_totle')->textInput() ?>
+    <?= $form->field($model, 'area_totle')->textInput()->label('总面积(平米)') ?>
 
     <?= $form->field($model, 'area_use')->textInput() ?>
 

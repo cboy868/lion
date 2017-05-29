@@ -220,7 +220,6 @@ class Tomb extends \app\core\db\ActiveRecord
 
             $this->status = self::STATUS_PRE;
 
-
             try {
                 $outerTransaction = Yii::$app->db->beginTransaction();
                 if ($client_id) {

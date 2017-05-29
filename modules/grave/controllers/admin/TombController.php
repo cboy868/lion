@@ -209,7 +209,7 @@ class TombController extends BackController
     {
         $tomb = Tomb::findOne($id);
         if ($tomb->pre(true, $client_id)) {
-            Yii::$app->session->setFlash('success', '墓位预定成功, 请办理购墓手续');
+//            Yii::$app->session->setFlash('success', '墓位预定成功, 请办理购墓手续');
             return $this->json();
         }
         return $this->json(null, '预定失败,请查看墓位状态或联系管理员', 0);
@@ -283,6 +283,8 @@ class TombController extends BackController
 
             if ($grave_id) {
                 $model->grave_id = $grave_id;
+                $grave = Grave::findOne($grave_id);
+                $model->price = $grave->price;
             }
 
             return $this->render('create', [

@@ -117,6 +117,18 @@ class Ins extends \app\core\db\ActiveRecord
         return self::shapes($this->shape);
     }
 
+    public function getFront($size=null)
+    {
+        $img = (array)json_decode($this->img);
+        return Attachment::getById($img['front'], $size);
+    }
+
+    public function getBack($size=null)
+    {
+        $img = (array)json_decode($this->img);
+        return Attachment::getById($img['back'], $size);
+    }
+
     public function getImg($position = 'front', $default='#')
     {
 

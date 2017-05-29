@@ -6,23 +6,25 @@ use yii\helpers\Url;
         <h3>待处理</h3>
     </article>
     <div class="weui-panel weui-panel_access zixun_list">
+        <?php foreach ($ins as $v):?>
         <div class="weui-panel__bd" id="listbox">
-            <a href="<?=Url::toRoute(['/grave/m/default/ins'])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
+            <a href="<?=Url::toRoute(['/grave/m/default/ins', 'id'=>$v->id])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
                 <div class="weui-media-box__hd">
-                    <img class="weui-media-box__thumb" src="/static/images/default.bak.png">
+                    <img class="weui-media-box__thumb" src="<?=$v->front?>">
                 </div>
                 <div class="weui-media-box__hd">
-                    <img class="weui-media-box__thumb" src="/static/images/default.bak.png">
+                    <img class="weui-media-box__thumb" src="<?=$v->back?>">
                 </div>
                 <div class="weui-media-box__bd">
-                    <h4 class="weui-media-box__title">某区某排1号碑文</h4>
-                    <p class="weui-media-box__desc">2015/08/01</p>
+                    <h4 class="weui-media-box__title"><?=$v->tomb->tomb_no?></h4>
+<!--                    <p class="weui-media-box__desc">2015/08/01</p>-->
                 </div>
                 <div class="weui-cell__ft">
                     详细
                 </div>
             </a>
         </div>
+        <?php endforeach;?>
 
         <div class="weui-panel__bd" id="listbox">
             <a href="<?=Url::toRoute(['/grave/m/default/portrait'])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
