@@ -27,10 +27,7 @@ class DefaultController extends \app\core\web\MController
             $oauth->redirect()->send();
         }
 
-        $user = $session->get('vu');
-        p($user);die;
-
-
+        p(Yii::$app->user->identity);die;
 
         //查找登录人的纪念馆
         $user_id = Yii::$app->user->id;
