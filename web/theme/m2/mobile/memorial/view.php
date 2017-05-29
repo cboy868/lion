@@ -92,6 +92,8 @@ var app = new Vue({
             }, function(response){
 
             });
+
+            $('#comment').val('');
             }
         }
     });
