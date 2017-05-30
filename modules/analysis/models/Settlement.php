@@ -101,7 +101,6 @@ class Settlement extends \app\core\db\ActiveRecord
 
     public static function create($event)
     {
-
         $pay = $event->sender;
 
         $order = $pay->order;

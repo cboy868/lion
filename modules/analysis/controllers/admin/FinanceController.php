@@ -127,7 +127,9 @@ class FinanceController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Settlement::STATUS_DELETE;
+        $model->save();
 
         return $this->redirect(['index']);
     }
