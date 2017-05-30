@@ -10,6 +10,10 @@ use app\modules\grave\models\search\TombSearch;
  */
 class WorkbenchController extends \app\core\web\BackController
 {
+    /**
+     * @return string
+     * @name 工作台
+     */
     public function actionIndex()
     {
 
@@ -21,9 +25,12 @@ class WorkbenchController extends \app\core\web\BackController
             ]);
     }
 
+    /**
+     * @return string
+     * @name 查找墓位
+     */
     public function actionTomb()
     {
-
         $searchModel = new TombSearch();
 
         return $this->renderAjax('tomb', [
@@ -31,6 +38,10 @@ class WorkbenchController extends \app\core\web\BackController
         ]);
     }
 
+    /**
+     * @return string
+     * @name 墓位列表
+     */
     public function actionList()
     {
         $searchModel = new TombSearch();

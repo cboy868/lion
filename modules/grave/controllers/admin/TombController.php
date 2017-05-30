@@ -50,6 +50,10 @@ class TombController extends BackController
         return $tomb->saveAttach($info);
     }
 
+    /**
+     * @return string
+     * @name 墓位列表
+     */
     public function actionIx()
     {
         $searchModel = new TombSearch();
@@ -77,6 +81,10 @@ class TombController extends BackController
         ]);
     }
 
+    /**
+     * @return string
+     * @name ajax提取数据
+     */
     public function actionIxlist(){
         $searchModel = new TombSearch();
 
@@ -97,6 +105,7 @@ class TombController extends BackController
     /**
      * Lists all Tomb models.
      * @return mixed
+     * @name 列表
      */
     public function actionIndex()
     {
@@ -125,6 +134,10 @@ class TombController extends BackController
         ]);
     }
 
+    /**
+     * @return string
+     * @name ajax提取数据
+     */
     public function actionList(){
         $searchModel = new TombSearch();
 
@@ -142,6 +155,11 @@ class TombController extends BackController
         ]);
     }
 
+    /**
+     * @param null $client_id
+     * @return string
+     * @name 查找
+     */
     public function actionSearch($client_id = null)
     {
 
@@ -162,6 +180,10 @@ class TombController extends BackController
         return $this->renderAjax('search', ['model'=>$searchModel, 'tombs'=>$tombs]);
     }
 
+    /**
+     * @return string
+     * @name 墓位查找
+     */
     public function actionSearchList()
     {
         $searchModel = new TombSearch();
@@ -175,6 +197,11 @@ class TombController extends BackController
         ]);
     }
 
+    /**
+     * @param $grave_id
+     * @return array
+     * @name 取墓区数据
+     */
     public function actionSelGrave($grave_id)
     {
         $graves = Grave::find()->where(['pid'=>$grave_id])
@@ -228,6 +255,11 @@ class TombController extends BackController
         return $this->json(null, '保留失败,请查看墓位状态或联系管理员', 0);
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @name 取消预定
+     */
     public function actionUnPre($id)
     {
         $tomb = Tomb::findOne($id);
@@ -267,6 +299,7 @@ class TombController extends BackController
      * Creates a new Tomb model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加墓位
      */
     public function actionCreate()
     {
@@ -298,6 +331,7 @@ class TombController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改墓位信息
      */
     public function actionUpdate($id)
     {
@@ -317,6 +351,7 @@ class TombController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
@@ -325,6 +360,11 @@ class TombController extends BackController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @name 墓位操作列表
+     */
     public function actionOption($id)
     {
         $tomb= Tomb::findOne($id);

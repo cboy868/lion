@@ -29,6 +29,7 @@ class RefundController extends BackController
     /**
      * Lists all Refund models.
      * @return mixed
+     * @name 退款列表
      */
     public function actionIndex()
     {
@@ -47,6 +48,7 @@ class RefundController extends BackController
      * Displays a single Refund model.
      * @param integer $id
      * @return mixed
+     * @name 退款详细
      */
     public function actionView($id)
     {
@@ -59,6 +61,7 @@ class RefundController extends BackController
      * Creates a new Refund model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 退款申请
      */
     public function actionCreate()
     {
@@ -78,6 +81,7 @@ class RefundController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {

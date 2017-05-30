@@ -41,7 +41,9 @@ class ClientSearch extends Client
      */
     public function search($params)
     {
-        $query = Client::find()->orderBy('id desc');
+        $query = Client::find()
+            ->orderBy('id desc')
+            ->where(['status'=>Client::STATUS_NORMAL]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,13 +66,12 @@ class ClientSearch extends Client
             'status' => $this->status,
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'telephone', $this->telephone])
-            ->andFilterWhere(['like', 'mobile', $this->mobile])
-            ->andFilterWhere(['like', 'qq', $this->qq]);
+                ->andFilterWhere(['like', 'telephone', $this->telephone])
+                ->andFilterWhere(['like', 'mobile', $this->mobile])
+                ->andFilterWhere(['like', 'qq', $this->qq]);
 
         return $dataProvider;
     }

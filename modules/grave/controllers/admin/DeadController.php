@@ -29,6 +29,7 @@ class DeadController extends BackController
     /**
      * Lists all Dead models.
      * @return mixed
+     * @name 使用人记录
      */
     public function actionIndex()
     {
@@ -45,6 +46,7 @@ class DeadController extends BackController
      * Displays a single Dead model.
      * @param integer $id
      * @return mixed
+     * @name 使用人明细
      */
     public function actionView($id)
     {
@@ -57,6 +59,7 @@ class DeadController extends BackController
      * Creates a new Dead model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加
      */
     public function actionCreate()
     {
@@ -76,6 +79,7 @@ class DeadController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -95,10 +99,13 @@ class DeadController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Dead::STATUS_NORMAL;
+        $model->save();
 
         return $this->redirect(['index']);
     }

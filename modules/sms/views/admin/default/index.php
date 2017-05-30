@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{view} {delete}',
+                'template' => '{delete}',
                 'buttons' => [
                     'delete' => function($url, $model, $key) {
                         if ($model->status == $model::STATUS_OK) {

@@ -41,7 +41,7 @@ class BurySearch extends Bury
      */
     public function search($params)
     {
-        $query = Bury::find();
+        $query = Bury::find()->where(['status'=>Bury::STATUS_NORMAL])->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

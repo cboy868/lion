@@ -29,6 +29,7 @@ class DefaultController extends BackController
     /**
      * Lists all Memorial models.
      * @return mixed
+     * @name 纪念馆列表
      */
     public function actionIndex()
     {
@@ -45,6 +46,7 @@ class DefaultController extends BackController
      * Displays a single Memorial model.
      * @param integer $id
      * @return mixed
+     * @name 详细
      */
     public function actionView($id)
     {
@@ -57,6 +59,7 @@ class DefaultController extends BackController
      * Creates a new Memorial model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加纪念馆
      */
     public function actionCreate()
     {
@@ -81,6 +84,7 @@ class DefaultController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -100,6 +104,7 @@ class DefaultController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

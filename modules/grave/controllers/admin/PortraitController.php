@@ -37,6 +37,11 @@ class PortraitController extends BackController
     }
 
 
+    /**
+     * @param $info
+     * @return bool|null
+     * @name 保存图片
+     */
     public function saveAttach($info)
     {
 
@@ -52,6 +57,7 @@ class PortraitController extends BackController
     /**
      * Lists all Portrait models.
      * @return mixed
+     * @name 瓷像列表
      */
     public function actionIndex()
     {
@@ -68,6 +74,7 @@ class PortraitController extends BackController
      * Displays a single Portrait model.
      * @param integer $id
      * @return mixed
+     * @name 瓷像详情
      */
     public function actionView($id)
     {
@@ -80,6 +87,7 @@ class PortraitController extends BackController
      * Creates a new Portrait model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加
      */
     public function actionCreate()
     {
@@ -99,6 +107,7 @@ class PortraitController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -118,6 +127,7 @@ class PortraitController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
@@ -126,6 +136,11 @@ class PortraitController extends BackController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @name 修改状态为完成
+     */
     public function actionComplete($id)
     {
         $model = $this->findModel($id);

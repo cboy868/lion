@@ -30,6 +30,7 @@ class CategoryController extends BackController
     /**
      * Lists all PostCategory models.
      * @return mixed
+     * @name 资讯分类列表
      */
     public function actionIndex()
     {
@@ -45,17 +46,18 @@ class CategoryController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new PostCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加分类
      */
     public function actionCreate()
     {
@@ -97,6 +99,7 @@ class CategoryController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改分类
      */
     public function actionUpdate($id)
     {
@@ -133,6 +136,7 @@ class CategoryController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

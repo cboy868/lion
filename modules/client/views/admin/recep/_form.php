@@ -77,7 +77,7 @@ $agents =\app\modules\user\models\User::agents();
         <?php $form->fieldConfig['labelOptions']['class']='control-label col-sm-1';
               $form->fieldConfig['template']='{label}<div class="col-sm-10">{input}{hint}{error}</div>';
          ?>
-            <td colspan="2"><?= $form->field($model, 'note')->textarea(['rows' => 6]) ?></td>
+            <td colspan="2"><?= $form->field($model, 'note')->textarea(['rows' => 6])->label('接待内容及备注') ?></td>
         </tr>
 
     </table>

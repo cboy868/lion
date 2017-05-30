@@ -33,6 +33,7 @@ class InsCfgController extends BackController
     /**
      * Lists all InsCfg models.
      * @return mixed
+     * @name 碑文配置管理
      */
     public function actionIndex()
     {
@@ -83,6 +84,10 @@ class InsCfgController extends BackController
             ]);
     }
 
+    /**
+     * @return array
+     * @name 墓区碑文模板配置
+     */
     public function actionCfgGrave()
     {
 
@@ -171,22 +176,23 @@ class InsCfgController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-
-        $condition = array('cfg_id' => $id,'status' => 1);
-        $all = InsCfgCase::find()->where(['cfg_id'=>$id, 'status'=>1])->asArray()->all();
-
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-            'all' => $all,
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//
+//        $condition = array('cfg_id' => $id,'status' => 1);
+//        $all = InsCfgCase::find()->where(['cfg_id'=>$id, 'status'=>1])->asArray()->all();
+//
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//            'all' => $all,
+//        ]);
+//    }
 
     /**
      * Creates a new InsCfg model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加
      */
     public function actionCreate()
     {
@@ -206,6 +212,7 @@ class InsCfgController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -225,6 +232,7 @@ class InsCfgController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

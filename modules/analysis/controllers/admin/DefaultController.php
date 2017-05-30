@@ -6,19 +6,23 @@ use app\modules\analysis\models\SettlementTomb;
 
 class DefaultController extends \app\core\web\BackController
 {
+    /**
+     * @return string
+     * @name 数据统计首页
+     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
 
-    public function actionTestJson()
-    {
-    	$data['cate'] = ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"];
-    	$data['data'] = [5, 20, 36, 10, 10, 20];
-
-    	return $this->json($data);
-    }
+//    public function actionTestJson()
+//    {
+//    	$data['cate'] = ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"];
+//    	$data['data'] = [5, 20, 36, 10, 10, 20];
+//
+//    	return $this->json($data);
+//    }
 
     /**
      * @name 墓位统计

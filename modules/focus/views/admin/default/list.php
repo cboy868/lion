@@ -12,7 +12,7 @@ use yii\widgets\LinkPager;
 
 \app\assets\ColorBoxAsset::register($this);
 
-$this->title = '焦点图管理【' . $category->title .'】';
+$this->title = '焦点图图片管理【' . $category->title .'】';
 $this->params['breadcrumbs'][] = ['label' => '列表', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title . '拖拽排列显示顺序';
 ?>

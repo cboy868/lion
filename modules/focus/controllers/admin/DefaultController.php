@@ -122,6 +122,11 @@ class DefaultController extends BackController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @name 排序
+     */
     public function actionSort($id)
     {
         $ids = Yii::$app->request->post('ids');
@@ -140,6 +145,12 @@ class DefaultController extends BackController
         return $this->json();
     }
 
+    /**
+     * @param $category_id
+     * @param $focus_id
+     * @return array
+     * @name 切换封面
+     */
     public function actionCover($category_id, $focus_id)
     {
         $model = $this->findModel($focus_id);
@@ -184,6 +195,10 @@ class DefaultController extends BackController
 
     //------------------------------ category -------------------------
 
+    /**
+     * @return string|\yii\web\Response
+     * @name 添加分类
+     */
      public function actionCreateCate()
     {
 
@@ -224,7 +239,7 @@ class DefaultController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     * @name 删除
+     * @name 删除分类
      */
     public function actionDeleteCate($id)
     {

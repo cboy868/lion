@@ -29,6 +29,7 @@ class CardRelController extends BackController
     /**
      * Lists all CardRel models.
      * @return mixed
+     * @name 派车关联
      */
     public function actionIndex()
     {
@@ -46,36 +47,38 @@ class CardRelController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new CardRel model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加
      */
-    public function actionCreate()
-    {
-        $model = new CardRel();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $model = new CardRel();
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Updates an existing CardRel model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -95,6 +98,7 @@ class CardRelController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

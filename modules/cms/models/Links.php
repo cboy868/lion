@@ -48,7 +48,8 @@ class Links extends \app\core\db\ActiveRecord
             [['status', 'created_at'], 'integer'],
             [['name'], 'required'],
             [['name'], 'string', 'max' => 200],
-            [['link', 'logo', 'logot'], 'string', 'max' => 255],
+            [['link', 'logot'], 'string', 'max' => 255],
+            [['logo', 'logot'],'safe']
         ];
     }
 
@@ -67,4 +68,14 @@ class Links extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
         ];
     }
+
+    public function getCover($size, $default="/static/images/up.png")
+    {
+        if (isset($this->logo) && !empty($this->logo)) {
+            return \app\core\models\Attachment::getById($this->logo, $size, $default);
+        }
+
+        return '';
+    }
+
 }

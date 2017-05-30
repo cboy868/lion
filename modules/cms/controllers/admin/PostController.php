@@ -94,7 +94,12 @@ class PostController extends \app\core\web\BackController
 
     }
 
-
+    /**
+     * @param $mid
+     * @param $id
+     * @return mixed
+     * @name 详细内容
+     */
     public function actionView($mid, $id)
     {
         $module = Module::findOne($mid);
@@ -128,6 +133,12 @@ class PostController extends \app\core\web\BackController
         ]);
     }
 
+    /**
+     * @param $mid
+     * @param $type
+     * @return mixed
+     * @name 添加内容
+     */
     public function actionCreate($mid, $type)
     {
         Code::createObj('post', $mid);
@@ -409,6 +420,13 @@ class PostController extends \app\core\web\BackController
         return $this->json();
     }
 
+    /**
+     * @param $mid
+     * @param $post_id
+     * @param $id
+     * @return array
+     * @name 修改图集封面
+     */
     public function actionCover($mid, $post_id, $id)
     {
         $model = $this->findModel($mid, $post_id);

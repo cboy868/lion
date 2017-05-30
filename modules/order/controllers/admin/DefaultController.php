@@ -51,6 +51,7 @@ class DefaultController extends BackController
      * Displays a single Order model.
      * @param integer $id
      * @return mixed
+     * @name 订单详情
      */
     public function actionView($id)
     {
@@ -98,6 +99,11 @@ class DefaultController extends BackController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @name 退款
+     */
     public function actionRefund($id)
     {
         $refund = new Refund();
@@ -213,18 +219,18 @@ class DefaultController extends BackController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Order();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $model = new Order();
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Updates an existing Order model.
@@ -232,19 +238,24 @@ class DefaultController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @name 修改价格
+     */
     public function actionMPrice($id)
     {
         $model = OrderRel::findOne($id);
@@ -262,10 +273,13 @@ class DefaultController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Order::STATUS_DELETE;
+        $model->save();
 
         return $this->redirect(['index']);
     }

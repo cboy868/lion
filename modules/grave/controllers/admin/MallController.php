@@ -18,6 +18,10 @@ use yii\data\Pagination;
 class MallController extends BackController
 {
 
+    /**
+     * @return array|string
+     * @name 小商城
+     */
     public function actionIndex()
     {
         $req = Yii::$app->request;
@@ -76,6 +80,12 @@ class MallController extends BackController
     }
 
 
+    /**
+     * @param int $category_id
+     * @param string $name
+     * @return string
+     * @name 商品列表
+     */
     public function actionGoods($category_id=0, $name='')
     {
 
@@ -101,6 +111,10 @@ class MallController extends BackController
     }
 
 
+    /**
+     * @return array
+     * @name 下订单
+     */
     public function order()
     {
         $post = Yii::$app->request->post();

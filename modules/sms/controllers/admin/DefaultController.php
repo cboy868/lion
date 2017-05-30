@@ -31,6 +31,7 @@ class DefaultController extends BackController
     /**
      * Lists all Send models.
      * @return mixed
+     * @name 短信列表
      */
     public function actionIndex()
     {
@@ -79,12 +80,12 @@ class DefaultController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Send model.
@@ -126,7 +127,8 @@ class DefaultController extends BackController
 //        }
 //    }
 
-    public function parseUsers($model)
+
+    protected function parseUsers($model)
     {
 
     	if ($model->type == 'other') {
@@ -145,25 +147,27 @@ class DefaultController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     *
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['index']);
+//        } else {
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Deletes an existing Send model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

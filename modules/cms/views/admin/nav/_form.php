@@ -24,7 +24,8 @@ use app\core\helpers\ArrayHelper;
 
      ?>
 
-    <?= $form->field($model, 'url')->dropDownList($mods) ?>
+    <?php // $form->field($model, 'url')->dropDownList($mods) ?>
+    <?= $form->field($model, 'url')->textInput() ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true])->hint('请输入本页面标题,会影响到搜索引擎排名') ?>
 

@@ -19,10 +19,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="page-header">
-            <h1 style="text-align:right">
+            <h1 >
+                <?=$this->title?>
                 <small style="">
-                    <?=Html::a('安葬记录', ['index'], ['class'=>'btn btn-info']); ?>
                 </small>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['index'])?>">
+                        <i class="fa fa-th fa-2x"></i>  安葬记录</a>
+                </div>
             </h1>
         </div><!-- /.page-header -->
 
@@ -58,8 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at:datetime',
             // 'updated_at',
             // 'status',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'header' => '操作',
+                'headerOptions' => ["data-type"=>"html",'width'=>'150'],
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

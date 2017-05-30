@@ -30,6 +30,7 @@ class LinksController extends BackController
     /**
      * Lists all Links models.
      * @return mixed
+     * @name 链接管理
      */
     public function actionIndex()
     {
@@ -47,12 +48,12 @@ class LinksController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Links model.
@@ -68,9 +69,10 @@ class LinksController extends BackController
             $up = Upload::getInstance($model, 'logot', 'links');
 
             if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $up->save();
                 $info = $up->getInfo();
-                $model->logo = $info['path'] . '/' . $info['fileName'];
+                $model->logo = $info['mid'];
             }
 
             $model->save();
@@ -88,6 +90,7 @@ class LinksController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -97,9 +100,10 @@ class LinksController extends BackController
 
             $up = Upload::getInstance($model, 'logot', 'links');
             if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $up->save();
                 $info = $up->getInfo();
-                $model->logo = $info['path'] . '/' . $info['fileName'];
+                $model->logo = $info['mid'];
             }
 
             $model->save();
@@ -116,6 +120,7 @@ class LinksController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

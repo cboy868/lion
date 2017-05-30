@@ -46,6 +46,7 @@ class BagController extends BackController
     /**
      * Lists all Bag models.
      * @return mixed
+     * @name 打包品列表
      */
     public function actionIndex()
     {
@@ -62,6 +63,7 @@ class BagController extends BackController
      * Displays a single Bag model.
      * @param integer $id
      * @return mixed
+     * @name 打包品明细
      */
     public function actionView($id)
     {
@@ -74,6 +76,7 @@ class BagController extends BackController
      * Creates a new Bag model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 创建打包品
      */
     public function actionCreate()
     {
@@ -107,6 +110,11 @@ class BagController extends BackController
         }
     }
 
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @name 打包品关联商品
+     */
     public function actionRel($id)
     {
         $model = $this->findModel($id);
@@ -158,6 +166,10 @@ class BagController extends BackController
 
     }
 
+    /**
+     * @return string
+     * @name ajax 调取商品
+     */
     public function actionSearchGoods()
     {
         $params = Yii::$app->request->queryParams;
@@ -187,6 +199,7 @@ class BagController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -207,6 +220,7 @@ class BagController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

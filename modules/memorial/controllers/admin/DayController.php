@@ -29,6 +29,7 @@ class DayController extends BackController
     /**
      * Lists all Day models.
      * @return mixed
+     * @name 纪念日列表
      */
     public function actionIndex()
     {
@@ -57,6 +58,7 @@ class DayController extends BackController
      * Creates a new Day model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加
      */
     public function actionCreate()
     {
@@ -76,6 +78,7 @@ class DayController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -95,6 +98,7 @@ class DayController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

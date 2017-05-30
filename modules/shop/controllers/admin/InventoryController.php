@@ -29,6 +29,7 @@ class InventoryController extends BackController
     /**
      * Lists all Inventory models.
      * @return mixed
+     * @name 库存管理
      */
     public function actionIndex()
     {

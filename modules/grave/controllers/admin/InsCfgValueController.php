@@ -47,9 +47,13 @@ class InsCfgValueController extends BackController
     // }
 
 
+    /**
+     * @param $case_id
+     * @return string
+     * @name 配置详细参数管理
+     */
     public function actionIndex($case_id)
     {
-
         $Image = new Images('inscfg');
 
         if (Yii::$app->request->isPost) {
@@ -87,6 +91,10 @@ class InsCfgValueController extends BackController
 
     }
 
+    /**
+     * @return bool
+     * @name 保存参数
+     */
     public function saveData()
     {
 
@@ -112,8 +120,8 @@ class InsCfgValueController extends BackController
                         'text' => $val['value'],
                         'color'=> isset($val['color']) ? $val['color'] : '#000000',
                         'direction'=> isset($val['direction']) ? $val['direction'] : 0,
-                        'is_big' => isset($val['is_big'])? $val['is_big'] : 0
-                        // 'add_time' => time()
+                        'is_big' => isset($val['is_big'])? $val['is_big'] : 0,
+                         'add_time' => time()
                 );
 
                 // if ($savedata['is_big'] == 0) {
@@ -136,7 +144,7 @@ class InsCfgValueController extends BackController
 
                 // if ($model->is_big == 0) {
                 //     p($model);
-                //     p($model->getErrors());die;
+//                     p($model->getErrors());die;
                 // }
 
             }
@@ -152,17 +160,19 @@ class InsCfgValueController extends BackController
 
         $url = $Image->getUrl();
 
-
         $model = InsCfgCase::findOne($com['case_id']);
 
         $model->load(['img'=>$url] + $com, '');
 
         $model->save();
 
-
         return true;
     }
 
+    /**
+     * @return array
+     * @name 处理图片
+     */
     public function actionPic(){
         
         $font = './static/font/ins/STXINWEI.TTF';
@@ -188,6 +198,17 @@ class InsCfgValueController extends BackController
         return $this->json('/'.$tmp_path, null, 1);
     }
 
+    /**
+     * @param $text
+     * @param int $startX
+     * @param int $startY
+     * @param $fontsize
+     * @param string $color
+     * @param float $step
+     * @param string $shape
+     * @return array
+     * @name 竖向文
+     */
     public function verText($text, $startX=0, $startY=0, $fontsize, $color='#222222', $step=1.25, $shape="v"){
         preg_match_all( '/./u',$text,$tmp);
 
@@ -223,7 +244,7 @@ class InsCfgValueController extends BackController
      * 处理数据
      * 处理结果:把多维数组变为二维数组，传给绘图接口用
      */
-    public function handelData($data){
+    private function handelData($data){
         $newdata = array();
         foreach ($data as $k=>$v) {
             foreach ($v as $key=>$val) {
@@ -258,7 +279,7 @@ class InsCfgValueController extends BackController
     }
 
 
-    public function formShow(){
+    protected function formShow(){
         //这个应该是个全局的配置，所有的地方都应该是这一配置
         $data = array(
             'fields' => array('honorific'=>'尊称','tail'=>'之墓','inscribe'=>'落款',
@@ -273,6 +294,10 @@ class InsCfgValueController extends BackController
         return $data;
     }
 
+    /**
+     * @return array
+     * @name 删除参数项
+     */
     public function actionRemove()
     {
         $get = Yii::$app->request->get();
@@ -282,8 +307,6 @@ class InsCfgValueController extends BackController
             'mark'   => $get['key'],
             'sort'   => $get['sort'],
         );
-
-
 
         $model = InsCfgValue::find()->where($filter)->one();
 
@@ -300,30 +323,31 @@ class InsCfgValueController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new InsCfgValue model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加配置项
      */
-    public function actionCreate()
-    {
-        $model = new InsCfgValue();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $model = new InsCfgValue();
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Updates an existing InsCfgValue model.
@@ -331,24 +355,25 @@ class InsCfgValueController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Deletes an existing InsCfgValue model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

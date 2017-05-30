@@ -71,16 +71,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             'name',
-            'link',
+            'link:url',
             [
                 'label' => 'Logo',
                 'value' => function($data){
-                    $dir = dirname($data->logo);
-                    $file = basename($data->logo);
-
-                    return '<img src="'.$dir . '/100x36@' . $file . '" />';
+                    return $data->getCover('100x36');
                 },
-                'format' =>'raw'
+                'format' =>'image'
             ],
             // 'intro:ntext',
             // 'status',
@@ -89,12 +86,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete} {view}',
+                'template' => '{update} {delete}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     }
-
                 ],
                'headerOptions' => ['width' => '240',"data-type"=>"html"]
             ]

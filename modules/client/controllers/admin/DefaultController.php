@@ -29,6 +29,7 @@ class DefaultController extends BackController
     /**
      * Lists all Client models.
      * @return mixed
+     * @name 客户列表
      */
     public function actionIndex()
     {
@@ -47,17 +48,18 @@ class DefaultController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Client model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加新客户
      */
     public function actionCreate()
     {
@@ -89,6 +91,7 @@ class DefaultController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改客户信息
      */
     public function actionUpdate($id)
     {
@@ -110,10 +113,14 @@ class DefaultController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除客户
+     * @des 假删
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Client::STATUS_DELETE;
+        $model->save();
 
         return $this->redirect(['index']);
     }

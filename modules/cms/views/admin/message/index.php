@@ -114,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '操作',
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete} {view} {deal}',
+                'template' => '{delete} {deal}',
                 'buttons' => [
                     'deal' => function($url, $model, $key) {
                         if ($model->status == Message::STATUS_NORMAL) {

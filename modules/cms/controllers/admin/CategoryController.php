@@ -31,12 +31,11 @@ class CategoryController extends BackController
     /**
      * Lists all PostCategory models.
      * @return mixed
+     * @name 分类管理
      */
     public function actionIndex($mid)
     {
-
         $module = Module::findOne($mid);
-
         $searchModel = new CategorySearch();
 
         $params = Yii::$app->request->queryParams;
@@ -57,35 +56,35 @@ class CategoryController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        $mod = $this->findModel($id);
-        $searchModel = new CategorySearch();
-        $params = Yii::$app->request->queryParams;
-        $params['CategorySearch']['pid'] = $id;
-        $dataProvider = $searchModel->search($params);
-
-        $current = $this->findModel($id);
-
-        return $this->render('view', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'mod' => $mod,
-            'current' => $current
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        $mod = $this->findModel($id);
+//        $searchModel = new CategorySearch();
+//        $params = Yii::$app->request->queryParams;
+//        $params['CategorySearch']['pid'] = $id;
+//        $dataProvider = $searchModel->search($params);
+//
+//        $current = $this->findModel($id);
+//
+//        return $this->render('view', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//            'mod' => $mod,
+//            'current' => $current
+//        ]);
+//    }
 
     /**
      * Creates a new PostCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加分类
      */
     public function actionCreate()
     {
         $req = Yii::$app->getRequest();
 
         $model = new Category();
-
 
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -127,6 +126,7 @@ class CategoryController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改分类
      */
     public function actionUpdate($id)
     {
@@ -163,6 +163,7 @@ class CategoryController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除分类
      */
     public function actionDelete($id)
     {

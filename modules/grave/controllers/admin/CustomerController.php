@@ -29,6 +29,7 @@ class CustomerController extends BackController
     /**
      * Lists all Customer models.
      * @return mixed
+     * @name 客户列表
      */
     public function actionIndex()
     {
@@ -45,6 +46,7 @@ class CustomerController extends BackController
      * Displays a single Customer model.
      * @param integer $id
      * @return mixed
+     * @name 客户详细信息
      */
     public function actionView($id)
     {
@@ -59,6 +61,7 @@ class CustomerController extends BackController
      * Creates a new Customer model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加
      */
     public function actionCreate()
     {
@@ -78,6 +81,7 @@ class CustomerController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -97,10 +101,13 @@ class CustomerController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Customer::STATUS_NORMAL;
+        $model->save();
 
         return $this->redirect(['index']);
     }

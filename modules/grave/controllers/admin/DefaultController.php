@@ -46,6 +46,7 @@ class DefaultController extends BackController
     /**
      * Lists all Grave models.
      * @return mixed
+     * @name 墓区列表
      */
     public function actionIndex()
     {
@@ -69,7 +70,9 @@ class DefaultController extends BackController
         ]);
     }
 
-
+    /**
+     * @return array
+     */
     private function getGraves()
     {
         $tree = Grave::sortTree(['level'=>1]);
@@ -89,17 +92,18 @@ class DefaultController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Grave model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加新墓区
      */
     public function actionCreate()
     {
@@ -130,6 +134,7 @@ class DefaultController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改墓区信息
      */
     public function actionUpdate($id)
     {
@@ -165,6 +170,7 @@ class DefaultController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除墓区
      */
     public function actionDelete($id)
     {
@@ -187,6 +193,10 @@ class DefaultController extends BackController
         return $this->redirect(['index', 'pid'=>$model->pid]);
     }
 
+    /**
+     * @return array
+     * @name 修改封面
+     */
     public function actionCover()
     {
         $post = Yii::$app->getRequest()->post();
@@ -201,6 +211,10 @@ class DefaultController extends BackController
 
     }
 
+    /**
+     * @return array
+     * @name 删除墓区图片
+     */
     public function actionDelImg()
     {
         $post = Yii::$app->getRequest()->post();

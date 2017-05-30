@@ -154,6 +154,11 @@ class TypeController extends BackController
 
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @name 属性管理
+     */
     public function actionAttr($id)
     {
 
@@ -219,6 +224,11 @@ class TypeController extends BackController
 
     // }
 
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @name 添加规格值
+     */
     public function actionSpecCreateVal($id)
     {
         $spec = $this->findSpecModel($id);
@@ -336,6 +346,11 @@ class TypeController extends BackController
         ]);
     }
 
+    /**
+     * @param $type_id
+     * @return string|\yii\web\Response
+     * @name 添加属性值
+     */
     public function actionAttrCreate($type_id)
     {
         $model = new Attr();
@@ -384,7 +399,7 @@ class TypeController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed\
-     * @name 删除
+     * @name 删除规格
      */
     public function actionSpecDelete($id)
     {

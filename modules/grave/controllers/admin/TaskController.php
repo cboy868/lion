@@ -12,6 +12,10 @@ use app\modules\task\models\Goods;
  */
 class TaskController extends \app\modules\task\controllers\admin\DefaultController
 {
+    /**
+     * @return string
+     * @name 任务列表
+     */
     public function actionIndex()
     {
         $searchModel = new TaskSearch();

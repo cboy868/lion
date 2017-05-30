@@ -33,6 +33,7 @@ class InsCfgCaseController extends BackController
     /**
      * Lists all InsCfgCase models.
      * @return mixed
+     * @name 碑文配置实例列表
      */
     public function actionIndex()
     {
@@ -53,17 +54,18 @@ class InsCfgCaseController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new InsCfgCase model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加
      */
     public function actionCreate($cfg_id)
     {
@@ -97,6 +99,7 @@ class InsCfgCaseController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -116,6 +119,7 @@ class InsCfgCaseController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

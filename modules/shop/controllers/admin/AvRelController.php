@@ -29,7 +29,7 @@ class AvRelController extends BackController
     /**
      * Lists all AvRel models.
      * @return mixed
-     * @name 商品属性
+     * @name 商品属性关联列表
      */
     public function actionIndex()
     {

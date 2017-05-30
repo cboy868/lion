@@ -65,6 +65,7 @@ class ProcessController extends BackController
     /**
      * Lists all Customer models.
      * @return mixed
+     * @name 业务流程
      */
     public function actionIndex($step, $tomb_id)
     {
@@ -74,7 +75,7 @@ class ProcessController extends BackController
     	return $this->$method();
     }
 
-    public function customer()
+    protected function customer()
     {
         //todo 尚未预定的墓位，要提前预定
 
@@ -160,7 +161,7 @@ class ProcessController extends BackController
             ]);
     }
 
-    public function dead()
+    protected function dead()
     {
 
         $customer = Process::customer();
@@ -254,7 +255,7 @@ class ProcessController extends BackController
 
 
 
-    public function ins()
+    protected function ins()
     {
         $tomb = Process::tomb();
         $model = Process::insProcess();
@@ -339,7 +340,7 @@ class ProcessController extends BackController
         }
     }
 
-    public function ins1()
+    protected function ins1()
     {
         $dead = Process::dead();
 
@@ -427,6 +428,10 @@ class ProcessController extends BackController
     }
 
 
+    /**
+     * @return array
+     * @name 添加使用人
+     */
     public function actionAddDead()
     {
 
@@ -435,6 +440,10 @@ class ProcessController extends BackController
 
     }
 
+    /**
+     * @return array
+     * @name 删除使用人
+     */
     public function actionDelDead()
     {
         $dead_id = Yii::$app->request->get('dead_id');
@@ -448,7 +457,7 @@ class ProcessController extends BackController
         return $this->json();
     }
 
-    private function dealDeadNum($plus=true)
+    protected function dealDeadNum($plus=true)
     {
         $session = Yii::$app->session;
         $key = 'dead.num' . Process::$tomb_id;
@@ -470,7 +479,7 @@ class ProcessController extends BackController
         
     }
 
-    public function portrait()
+    protected function portrait()
     {
         $dead = Process::dead();
         if (count($dead) == 0) {
@@ -522,7 +531,7 @@ class ProcessController extends BackController
             ]);
     }
 
-    public function bury()
+    protected function bury()
     {
 
         $dead = Process::dead();
@@ -647,12 +656,12 @@ class ProcessController extends BackController
 
     }
 
-    public function order()
+    protected function order()
     {
     	return $this->render('order');
     }
 
-    private function next($nstep = null)
+    protected function next($nstep = null)
     {
         $steps = Process::$step;
 
@@ -671,7 +680,7 @@ class ProcessController extends BackController
         return $this->end();
     }
 
-    private function pre($pstep = null)
+    protected function pre($pstep = null)
     {
         $steps = Process::$step;
 
@@ -688,7 +697,7 @@ class ProcessController extends BackController
         }
     }
 
-    private function end()
+    protected function end()
     {
         $order = Process::getOrder();
         return $this->redirect(['/order/admin/default/view', 'id'=>$order->id]);

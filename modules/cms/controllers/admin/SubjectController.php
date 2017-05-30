@@ -30,6 +30,7 @@ class SubjectController extends BackController
     /**
      * Lists all Subject models.
      * @return mixed
+     * @name 专题管理
      */
     public function actionIndex()
     {
@@ -46,18 +47,20 @@ class SubjectController extends BackController
      * Displays a single Subject model.
      * @param integer $id
      * @return mixed
+     * @name 专题详细
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Subject model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加专题
      */
     public function actionCreate()
     {
@@ -97,6 +100,7 @@ class SubjectController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改专题
      */
     public function actionUpdate($id)
     {
@@ -138,6 +142,7 @@ class SubjectController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

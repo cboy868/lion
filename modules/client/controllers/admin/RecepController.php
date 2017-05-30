@@ -32,10 +32,10 @@ class RecepController extends BackController
     /**
      * Lists all Reception models.
      * @return mixed
+     * @name 客户联系记录
      */
     public function actionIndex($id)
     {
-
         $client = Client::findOne($id);
         $recep = new Reception();
         
@@ -65,17 +65,18 @@ class RecepController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Reception model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加新联系记录
      */
     public function actionCreate()
     {
@@ -96,19 +97,23 @@ class RecepController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
+    /**
+     * @return array
+     * @name 本次接待成交
+     */
     public function actionDeal()
     {
         $post = Yii::$app->request->post();
@@ -132,12 +137,12 @@ class RecepController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
+//    public function actionDelete($id)
+//    {
+//        $this->findModel($id)->delete();
+//
+//        return $this->redirect(['index']);
+//    }
 
     /**
      * Finds the Reception model based on its primary key value.

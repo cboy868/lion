@@ -51,6 +51,7 @@ class DefaultController extends BackController
     /**
      * Lists all News models.
      * @return mixed
+     * @name 资讯列表
      */
     public function actionIndex()
     {
@@ -78,6 +79,7 @@ class DefaultController extends BackController
      * Displays a single News model.
      * @param integer $id
      * @return mixed
+     * @name 资讯详情
      */
     public function actionView($id)
     {
@@ -86,6 +88,10 @@ class DefaultController extends BackController
         ]);
     }
 
+    /**
+     * @param $str
+     * @param $id
+     */
     private function tagCreate($str, $id)
     {
         $str = str_replace('，', ',', $str);
@@ -97,6 +103,7 @@ class DefaultController extends BackController
      * Creates a new News model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加新资讯
      */
     public function actionCreate($type="text")
     {
@@ -131,6 +138,7 @@ class DefaultController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改资讯
      */
     public function actionUpdate($id)
     {
@@ -156,6 +164,10 @@ class DefaultController extends BackController
 
     }
 
+    /**
+     * @return array
+     * @name 批量删除
+     */
     public function actionBatchDel()
     {
         $post = Yii::$app->request->post();
@@ -197,7 +209,7 @@ class DefaultController extends BackController
     }
 
 
-    public function updateText($model, $tags)
+    protected function updateText($model, $tags)
     {
         $class = '\app\modules\news\models\NewsTextForm';
         $formModel = new $class();
@@ -231,7 +243,7 @@ class DefaultController extends BackController
 
     }
 
-    public function updateImage($model, $tags)
+    protected function updateImage($model, $tags)
     {
         $class = '\app\modules\news\models\NewsImageForm';
         $formModel = new $class();
@@ -284,7 +296,7 @@ class DefaultController extends BackController
         ]);
     }
 
-    public function updateVideo($model, $tags)
+    protected function updateVideo($model, $tags)
     {
         $class = '\app\modules\news\models\NewsVideoForm';
         $formModel = new $class();
@@ -307,6 +319,11 @@ class DefaultController extends BackController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @name 推荐
+     */
     public function actionRecommend($id)
     {
         $model = $this->findModel($id);
@@ -318,6 +335,11 @@ class DefaultController extends BackController
         return $this->json(null, null, 0);
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @name 置顶
+     */
     public function actionTop($id)
     {
         $model = $this->findModel($id);
@@ -335,6 +357,7 @@ class DefaultController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
@@ -349,6 +372,11 @@ class DefaultController extends BackController
         return $this->redirect($_SERVER['']);
     }
 
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @name 删除图片资讯图片
+     */
     public function actionDelimg($id)
     {
         NewsPhoto::findOne($id)->delete();
@@ -362,6 +390,10 @@ class DefaultController extends BackController
         return $this->redirect($_SERVER['']);
     }
 
+    /**
+     * @return array
+     * @name 修改图片标题及内容
+     */
     public function actionTitDes()
     {
         $post = Yii::$app->request->post();
@@ -380,6 +412,12 @@ class DefaultController extends BackController
         return $this->json(null, null, 0);
     }
 
+    /**
+     * @param $news_id
+     * @param $id
+     * @return array
+     * @name 修改封面
+     */
     public function actionCover($news_id, $id)
     {
         $model = $this->findModel($news_id);

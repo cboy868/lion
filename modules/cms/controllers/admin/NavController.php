@@ -29,6 +29,7 @@ class NavController extends BackController
     /**
      * Lists all Nav models.
      * @return mixed
+     * @name 前台菜单管理
      */
     public function actionIndex()
     {
@@ -45,6 +46,7 @@ class NavController extends BackController
      * Displays a single Nav model.
      * @param integer $id
      * @return mixed
+     * @name 明细
      */
     public function actionView($id)
     {
@@ -57,6 +59,7 @@ class NavController extends BackController
      * Creates a new Nav model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加菜单
      */
     public function actionCreate()
     {
@@ -76,6 +79,7 @@ class NavController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改前台菜单
      */
     public function actionUpdate($id)
     {
@@ -95,6 +99,7 @@ class NavController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除前台菜单
      */
     public function actionDelete($id)
     {

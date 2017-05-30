@@ -41,12 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="widget-box transparent ui-sortable-handle" id="widget-box-13">
                 <div class="widget-header">
-                    <div class="widget-toolbar no-border">
+                    <div class="">
                         <ul class="nav nav-tabs">
-                            <li class="<?php if (!$get['today']): ?>active<?php endif ?>">
-                                <a href="<?=Url::toRoute(['index', 'grave_id'=>$grave_id])?>" aria-expanded="true">全部</a>
+                            <li class="<?php if (!isset($get['today'])): ?>active<?php endif ?>">
+                                <a href="<?=Url::toRoute(['index'])?>" aria-expanded="true">全部</a>
                             </li>
-                            <li class="<?php if ($get['today']): ?>active<?php endif ?>">
+                            <li class="<?php if (isset($get['today'])): ?>active<?php endif ?>">
                                 <a href="<?=Url::toRoute(['index', 'today'=>1])?>" aria-expanded="true">今日结算</a>
                             </li>
                         </ul>

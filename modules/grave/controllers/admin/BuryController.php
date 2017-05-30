@@ -29,6 +29,7 @@ class BuryController extends BackController
     /**
      * Lists all Bury models.
      * @return mixed
+     * @name 安葬记录
      */
     public function actionIndex()
     {
@@ -43,6 +44,10 @@ class BuryController extends BackController
         ]);
     }
 
+    /**
+     * @return string
+     * @name 预葬记录
+     */
     public function actionPre()
     {
         $searchModel = new BurySearch();
@@ -63,31 +68,32 @@ class BuryController extends BackController
      * Displays a single Bury model.
      * @param integer $id
      * @return mixed
+     *
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Bury model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Bury();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $model = new Bury();
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Updates an existing Bury model.
@@ -95,28 +101,31 @@ class BuryController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Deletes an existing Bury model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Bury::STATUS_DELETE;
+        $model->save();
 
         return $this->redirect(['index']);
     }

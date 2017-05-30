@@ -31,11 +31,10 @@ class ImageController extends BackController
     /**
      * Lists all ImageConfig models.
      * @return mixed
+     * @name 图片上传配置
      */
     public function actionIndex()
     {
-
-        
 
         $models = ImageConfig::find()->where(['res_name'=>array_keys(ImageConfig::$resname)])->indexBy('res_name')->all();
 

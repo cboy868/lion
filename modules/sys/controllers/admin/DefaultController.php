@@ -20,6 +20,7 @@ class DefaultController extends \app\core\web\BackController
     /**
      * Lists all Set models.
      * @return mixed
+     * @name 网站配置项管理
      */
     public function actionList()
     {
@@ -37,17 +38,18 @@ class DefaultController extends \app\core\web\BackController
      * @param string $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Set model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加配置项
      */
     public function actionCreate()
     {
@@ -67,6 +69,7 @@ class DefaultController extends \app\core\web\BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
+     * @name 修改配置项
      */
     public function actionUpdate($id)
     {
@@ -86,6 +89,7 @@ class DefaultController extends \app\core\web\BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
+     * @name 删除配置项
      */
     public function actionDelete($id)
     {
@@ -111,7 +115,7 @@ class DefaultController extends \app\core\web\BackController
     }
 
     /**
-     * 设置
+     * @name 配置项设置主页
      */
     public function actionIndex()
     {
@@ -170,7 +174,7 @@ class DefaultController extends \app\core\web\BackController
     }
 
     /**
-     * @title 设置主题
+     * @name 主题列表
      */
     public function actionTheme()
     {
@@ -196,6 +200,11 @@ class DefaultController extends \app\core\web\BackController
         ]);
     }
 
+    /**
+     * @param $theme
+     * @return \yii\web\Response
+     * @name 设置主题
+     */
     public function actionSetTheme($theme)
     {
 

@@ -32,6 +32,7 @@ class DefaultController extends BackController
     /**
      * Lists all Module models.
      * @return mixed
+     * @name 模块管理
      */
     public function actionIndex()
     {
@@ -48,18 +49,20 @@ class DefaultController extends BackController
      * Displays a single Module model.
      * @param integer $id
      * @return mixed
+     * @name
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Module model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加模块
      */
     public function actionCreate()
     {
@@ -95,6 +98,7 @@ class DefaultController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -132,6 +136,7 @@ class DefaultController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {

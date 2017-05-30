@@ -33,6 +33,7 @@ class InventoryPurchaseController extends BackController
     /**
      * Lists all InventoryPurchase models.
      * @return mixed
+     * @name 进货入库
      */
     public function actionIndex()
     {
@@ -91,6 +92,11 @@ class InventoryPurchaseController extends BackController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @name 退货
+     */
     public function actionRefund($id)
     {
         $outerTransaction = Yii::$app->db->beginTransaction();
@@ -113,6 +119,11 @@ class InventoryPurchaseController extends BackController
         return $this->redirect('index');
     }
 
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @name 退货关联
+     */
     public function actionRelRefund($id)
     {
 
@@ -129,6 +140,7 @@ class InventoryPurchaseController extends BackController
      * Displays a single InventoryPurchase model.
      * @param integer $id
      * @return mixed
+     * @name 进货详细信息
      */
     public function actionView($id)
     {
@@ -203,6 +215,7 @@ class InventoryPurchaseController extends BackController
      * Creates a new InventoryPurchase model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 新增进货记录
      */
     public function actionCreate()
     {
@@ -224,6 +237,7 @@ class InventoryPurchaseController extends BackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
@@ -243,6 +257,7 @@ class InventoryPurchaseController extends BackController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
@@ -254,6 +269,13 @@ class InventoryPurchaseController extends BackController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param null $sp
+     * @param null $bm
+     * @param null $name
+     * @return string
+     * @name ajax取进货列表
+     */
     public function actionGlist($sp=null, $bm=null, $name=null)
     {
 

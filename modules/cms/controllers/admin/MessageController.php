@@ -29,6 +29,7 @@ class MessageController extends BackController
     /**
      * Lists all Message models.
      * @return mixed
+     * @name 留言列表
      */
     public function actionIndex()
     {
@@ -41,6 +42,11 @@ class MessageController extends BackController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @name 处理
+     */
     public function actionDeal($id)
     {
         $model = $this->findModel($id);
@@ -57,6 +63,7 @@ class MessageController extends BackController
      * Displays a single Message model.
      * @param integer $id
      * @return mixed
+     * @name 详细
      */
     public function actionView($id)
     {
@@ -70,18 +77,18 @@ class MessageController extends BackController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Message();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $model = new Message();
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Updates an existing Message model.
@@ -89,24 +96,25 @@ class MessageController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     /**
      * Deletes an existing Message model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除留言
      */
     public function actionDelete($id)
     {
@@ -115,6 +123,10 @@ class MessageController extends BackController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @return array
+     * @name 批量删除
+     */
     public function actionBatchDel()
     {
         $post = Yii::$app->request->post();

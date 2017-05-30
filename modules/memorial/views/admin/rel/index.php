@@ -52,8 +52,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'res_user',
             // 'res_cover',
             // 'created_at',
+            [
+                'header' => '操作',
+                'headerOptions' => ["data-type"=>"html",'width'=>'150'],
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+            ]
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

@@ -150,7 +150,7 @@ class Delay extends \app\core\db\ActiveRecord
     /**
      * 取审批结果
      */
-    public function getVerfy($verfy=null)
+    public static function getVerfy($verfy=null)
     {
         $ver = [
             self::VERIFIED_INIT => '待审批',

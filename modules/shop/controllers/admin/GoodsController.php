@@ -563,6 +563,10 @@ class GoodsController extends BackController
     }
 
 
+    /**
+     * @return array
+     * @name 商品封面修改
+     */
     public function actionCover()
     {
         $post = Yii::$app->getRequest()->post();
@@ -591,6 +595,10 @@ class GoodsController extends BackController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @return array
+     * @name 删除商品图片
+     */
     public function actionDelImg()
     {
         $post = Yii::$app->getRequest()->post();
