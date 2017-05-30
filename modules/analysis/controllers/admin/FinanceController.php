@@ -65,7 +65,6 @@ class FinanceController extends BackController
      */
     public function actionCheck()
     {
-
         Settlement::check();
         return $this->redirect(['index']);
     }

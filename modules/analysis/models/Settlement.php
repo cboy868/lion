@@ -178,7 +178,7 @@ class Settlement extends \app\core\db\ActiveRecord
                 $data[] = array_merge([
                     'pay_type' => $pay->pay_method,
                     'price'    => $pay->total_pay,
-                    'type'     => self::TYPE_DINGJIN,
+                    'type'     => self::TYPE_FULL,
                     'pay_time' => $pay->paid_at,
                 ], $cdata);
             } else {//冲定金全款 
