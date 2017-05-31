@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'client'])?>
 
-                <?=\app\modules\grave\widgets\Bench::widget(['name'=>'post', 'mod'=>5, 'limit'=>20])?>
+                <?php //echo \app\modules\grave\widgets\Bench::widget(['name'=>'post', 'mod'=>1, 'limit'=>20])?>
             </div>
 
         </div><!-- /.row -->

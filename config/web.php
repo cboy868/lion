@@ -16,7 +16,8 @@ $config = [
         ],
 
         'cache' => [
-            'class' => 'yii\caching\DummyCache',
+            'class' => 'yii\caching\FileCache',
+            'keyPrefix' => 'lion_app'
         ],
 
         // $cache = Yii::$app->cache;

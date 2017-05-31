@@ -38,6 +38,17 @@ AdminAsset::register($this);
     </head>
 
     <body class="no-skin">
+    <style>
+        .copyright-footer{
+            position: fixed;
+            left: 0;
+            bottom: 50px;
+            width: 100%;
+        }
+    </style>
+
+
+
     <?php $this->beginBody()?>
         <!-- #section:basics/navbar.layout -->
         <div id="navbar" class="navbar navbar-default">
@@ -63,7 +74,7 @@ AdminAsset::register($this);
                     <a href="#" class="navbar-brand">
                         <small>
                             <i class="fa fa-leaf"></i>
-                            <?=Html::encode($this->title)?>
+                            <?=Html::encode($this->title)?> 卓迅网络管理中心
                         </small>
                     </a>
 
@@ -123,7 +134,12 @@ AdminAsset::register($this);
         <!--[if lte IE 8]>
           <script src="static/ace/js/excanvas.min.js"></script>
         <![endif]-->
-
+    <div class="copyright-footer">
+        <hr>
+        <p class="text-center">
+            Copyright © 2017 承德卓迅网络科技有限公司 版权所有
+        </p>
+    </div>
        <?php $this->endBody()?>
     </body>
 </html>

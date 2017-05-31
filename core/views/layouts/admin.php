@@ -88,7 +88,19 @@ AdminAsset::register($this);
                             <a href="<?=Url::toRoute(['/'])?>" target="_blank">
                                 网站前台
                             </a>
-                        </li> 
+                        </li>
+
+                        <li class="green">
+                            <a href="<?=Url::toRoute(['/admin/default/workbench'])?>" target="_blank">
+                                工作台
+                            </a>
+                        </li>
+
+<!--                        <li class="green">-->
+<!--                            <a href="--><?//=Url::toRoute(['/grave/admin/default/workbench'])?><!--" target="_blank">-->
+<!--                                工作台-->
+<!--                            </a>-->
+<!--                        </li>-->
 
                        <!--  <li class="green">
                             <a href="<?=Url::toRoute(['/member'])?>" target="_blank">

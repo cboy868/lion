@@ -116,7 +116,7 @@ class DefaultController extends BackController
         $model = new $class();
 
         if ($model->load(Yii::$app->request->post()) ) {
-
+            $model->author = $model->author ? $model->author : Yii::$app->user->identity->username;
             $news=$model->save();
             if ($news) {
                 if ($model->tags) {

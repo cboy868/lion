@@ -43,7 +43,7 @@ class BackController extends \app\core\web\Controller
 
 
         if (!$this->checkPermission()) {
-            throw new \Exception("对不起，您没有权限进行此操作!", 1);
+//            throw new \Exception("对不起，您没有权限进行此操作!", 1);
         }
         
         return parent::beforeAction($action);
@@ -70,9 +70,8 @@ class BackController extends \app\core\web\Controller
     public function ingorePermission()
     {
         return [
-            'site/logout',
-            'site/error',
-            'site/index',
+            'admin/default/index',
+            'admin/default/logout',
         ];
     }
 

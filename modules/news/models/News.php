@@ -4,7 +4,6 @@ namespace app\modules\news\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use app\core\models\Attachment;
 /**
  * This is the model class for table "{{%news}}".
  *
@@ -140,4 +139,5 @@ class News extends \app\core\db\ActiveRecord
     {
         return NewsPhoto::getById($this->thumb, $size);
     }
+
 }

@@ -2,6 +2,9 @@
 
 namespace app\modules\user\controllers\admin;
 
+use app\core\helpers\ArrayHelper;
+use app\modules\sys\models\Menu;
+use app\modules\user\models\MenuRel;
 use Yii;
 use app\modules\user\models\User;
 use app\modules\user\models\UserForm;
@@ -89,18 +92,17 @@ class DefaultController extends BackController
         $model = new UserForm();
 
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $outerTransaction = Yii::$app->db->beginTransaction();
             try {
-
                 $user = $model->create();
                 $addition = new Addition();
                 $addition->user_id = $user->id;
                 $addition->save();
 
                 $outerTransaction->commit();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 echo $e->getMessage();
                 $outerTransaction->rollBack();
             }
@@ -154,6 +156,55 @@ class DefaultController extends BackController
                 'addition' => $addition,
             ]);
         }
+    }
+
+    /**
+     * @name 快捷按扭选择列表
+     */
+    public function actionButtons($group)
+    {
+        $menus = Menu::authMenu("`panel`='$group' AND `ico` is not null");
+        $sels = MenuRel::find()
+            ->where(['user_id'=>Yii::$app->user->id])
+            ->asArray()
+            ->all();
+
+        $sels = ArrayHelper::getColumn($sels, 'auth_name');
+
+        foreach ($menus as &$v) {
+            if (array_search($v['auth_name'], $sels) !== false) {
+                $v['st'] = true;
+            }
+        }unset($v);
+
+        return $this->renderAjax('buttons', ['buttons'=>$menus, 'sels'=>$sels, 'panel'=>$group]);
+    }
+
+    public function actionSelButton()
+    {
+        $post = Yii::$app->getRequest()->post();
+
+        $action = $post['action'];
+
+        $uid = Yii::$app->user->id;
+
+        $data = [
+            'user_id' => $uid,
+            'auth_name' => $post['auth'],
+            'panel' => $post['panel']
+        ];
+
+        if ($action == 'sel') {
+            $model = new MenuRel();
+            $model->load($data, '');
+            $model->ico = $post['ico'];
+            $model->name = $post['name'];
+            $model->save();
+        } else {
+            MenuRel::find()->where($data)->one()->delete();
+        }
+
+        return $this->json();
     }
 
     /**

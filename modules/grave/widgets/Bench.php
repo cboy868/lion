@@ -1,12 +1,15 @@
 <?php
 namespace app\modules\grave\widgets;
 
+use app\modules\sys\models\Menu;
+use app\modules\user\models\MenuRel;
 use yii;
 use app\core\helpers\ArrayHelper;
 use app\modules\task\models\Task;
 use app\modules\mod\models\Code;
 use app\core\db\ActiveRecord;
 use app\modules\client\models\Client;
+use app\core\helpers\Url;
 
 /**
  * The ZActiveForm widget extend ActiveForm.
@@ -98,7 +101,22 @@ class Bench extends \yii\base\Widget
 
     private function buttons()
     {
-      return $this->render('bench/buttons');
+        $menus = MenuRel::find()->where(['user_id'=>Yii::$app->user->id])->asArray()->all();
+        $panels = Yii::$app->getModule('sys')->params['panels'];
+        $result = [];
+
+        $menus = false;
+        if (!$menus) {
+            $menus = Menu::authMenu(['is not', 'ico', null]);
+        }
+
+        foreach ($menus as $v) {
+                $auth_name = substr_replace($v['auth_name'], '/admin', strpos($v['auth_name'], '/'), 0);
+                $v['url'] = Url::toRoute(['/'.$auth_name]);
+                $result[$v['panel']][] = $v;
+        };
+
+      return $this->render('bench/buttons', ['menus'=>$result, 'panels'=>$panels]);
     }
 
 

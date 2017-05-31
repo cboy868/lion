@@ -62,10 +62,12 @@ class UserForm extends Model
             $user = new User();
             $user->username = $this->username;
             $user->email = $this->email;
+
             $this->password = $this->password ? $this->password : '999999';
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->is_staff = User::STAFF_YES;
+            $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
                 return $user;
             }

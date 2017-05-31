@@ -11,6 +11,7 @@ use Yii;
 use yii\db\Expression;
 use yii\db\Query;
 use app\core\helpers\ArrayHelper;
+use app\modules\sys\rbac\Item;
 
 /**
  * @name rbac主类
@@ -45,6 +46,67 @@ class DbManager extends \yii\rbac\DbManager
             'updatedAt' => $row['updated_at'],
         ]);
     }
+
+    /**
+     * @return array
+     * @name 取所有权限项
+     */
+    public function getPermissions()
+    {
+        $query = (new Query)
+            ->from($this->itemTable)
+            ->where(['type' => Item::TYPE_PERMISSION]);
+
+        $items = [];
+        foreach ($query->all($this->db) as $row) {
+            $items[$row['name']] = $this->populateItem($row);
+        }
+
+        return $items;
+    }
+
+    protected function getItems($type)
+    {
+        $query = (new Query)
+            ->from($this->itemTable)
+            ->where(['type' => $type]);
+
+        $items = [];
+        foreach ($query->all($this->db) as $row) {
+            $items[$row['name']] = $this->populateItem($row);
+        }
+
+        return $items;
+    }
+
+//    public function getPermissionsByUser($userId)
+//    {
+//
+//        if ($userId == 1) {
+//            $query = (new Query)->select('b.*')
+//                    ->from(['a' => $this->assignmentTable, 'b' => $this->itemTable])
+//                    ->where('{{a}}.[[item_name]]={{b}}.[[name]]')
+//                    ->andWhere(['b.type' => Item::TYPE_PERMISSION]);
+//
+//            $permissions = [];
+//            foreach ($query->all() as $row) {
+//                $permissions[$row['name']] = $this->populateItem($row);
+//            }
+//
+//            p($this->assignmentTable);die;
+//
+//            p($permissions);die;
+//            return $permissions;
+//        }
+//        if (empty($userId)) {
+//            return [];
+//        }
+//
+//        $directPermission = $this->getDirectPermissionsByUser($userId);
+//        $inheritedPermission = $this->getInheritedPermissionsByUser($userId);
+//
+//        return array_merge($directPermission, $inheritedPermission);
+//    }
 
     /**
      * @inheritdoc

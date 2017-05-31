@@ -2,6 +2,7 @@
 
 namespace app\modules\sys\models;
 
+use app\modules\sys\rbac\Item;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -19,7 +20,7 @@ use yii\helpers\Url;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Menu extends ActiveRecord
+class Menu extends \app\core\models\Category
 {
 
     const STATUS_ACTIVE = 1;
@@ -54,26 +55,13 @@ class Menu extends ActiveRecord
      */
     public static function getList()
     {
-
-        $auth = Yii::$app->authManager;
-        $items = $auth->getPermissionsByUser(Yii::$app->user->id);
-
-        $menus = self::find()
-                    ->where(['status' => self::STATUS_ACTIVE])
-                    ->orderBy('sort desc')
-                    ->asArray()
-                    ->all();
-
-        $enablePrettyUrl = Yii::$app->urlManager->enablePrettyUrl;
-
-        if ($enablePrettyUrl) {
-            foreach ($menus as $k => &$v) {
-                if (empty($v['auth_name'])) {
-                    continue;
-                }
-                $v['url'] = Url::toRoute(['/admin/' . $v['auth_name']]);
-            }unset($v);
+        $catch = Yii::$app->cache;
+//        $catch->delete('admin_menu');
+        $uid = Yii::$app->user->id;
+        if ($catch->get('admin_menu_' . $uid) !== false) {
+            return $catch->get('admin_menu' . $uid);
         } else {
+            $menus = self::authMenu();
             foreach ($menus as $k => &$v) {
                 if (empty($v['auth_name'])) {
                     continue;
@@ -81,14 +69,48 @@ class Menu extends ActiveRecord
                 $auth_name = substr_replace($v['auth_name'], '/admin', strpos($v['auth_name'], '/'), 0);
                 $v['url'] = Url::toRoute(['/'.$auth_name]);
             }unset($v);
-        }
 
-        $menus = \yii\helpers\ArrayHelper::index($menus, 'id');
-        $menus = \app\core\helpers\Tree::recursion($menus,0,1);
-        // p($menus);
+            $menus = \app\core\helpers\Tree::recursion($menus,0,1);
+            $catch->set('admin_menu' . $uid, $menus, 3600);
+        }
         return $menus;
     }
 
+    public static function authMenu($condition=null)
+    {
+        $query = self::find()->where(['status'=>self::STATUS_ACTIVE]);
+
+        if ($condition != null) {
+            $query->andWhere($condition);
+        }
+
+        $menus = $query->orderBy('sort desc')->asArray()->all();
+
+        if (Yii::$app->user->id != 1) {
+            $permissions = Yii::$app->authManager->getPermissionsByUser(Yii::$app->user->id);
+
+            $result_menu = [];
+            $pids = [];
+            foreach ($menus as $v) {
+                if (isset($permissions[$v['auth_name']])) {
+                    $result_menu[] = $v;
+                    $pids[] = $v['pid'];
+                }
+            }
+
+            $menus = [];
+            if (count($pids) > 0) {
+                $parents = Menu::find()->where(['id'=>$pids])->asArray()->all();
+                $menus = array_merge($result_menu, $parents);
+            }
+        }
+        return $menus;
+    }
+
+    public static function panels()
+    {
+        return Yii::$app->getModule('sys')->params['panels'];
+    }
 
     public function getMenus($type = 1)
     {
@@ -114,7 +136,6 @@ class Menu extends ActiveRecord
     }
 
 
-
     /**
      * @inheritdoc
      */
@@ -125,7 +146,7 @@ class Menu extends ActiveRecord
             [['name'], 'required'],
             [['name', 'auth_name'], 'string', 'max' => 128],
             [['icon'], 'string', 'max' => 32],
-            [['pid'], 'safe']
+            [['pid', 'ico'], 'safe']
         ];
     }
 
@@ -146,6 +167,7 @@ class Menu extends ActiveRecord
             'updated_at' => 'Updated At',
             'mod'=>'模块',
             'ctrl' => '控制器',
+            'ico' => '大图标'
             // 'method' => '方法'
         ];
     }

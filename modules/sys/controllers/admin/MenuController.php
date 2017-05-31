@@ -8,7 +8,7 @@ use app\modules\sys\models\MenuSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\sys\models\AuthPermission;
-
+use app\core\base\Upload;
 /**
  * MenuController implements the CRUD actions for Menu model.
  */
@@ -38,6 +38,20 @@ class MenuController extends \app\core\web\BackController
             'model' => $model,
             'menu'  => $model->getMenus(2)
         ]);
+    }
+
+    public function actionSetPanel()
+    {
+        $post = Yii::$app->getRequest()->post();
+        $menu_id = $post['menu'];
+        $panel = $post['panel'];
+        $menu = $this->findModel($menu_id);
+        $menu->panel = $panel;
+        if ($menu->save()) {
+            return $this->json();
+        } else {
+            return $this->json(null, '编辑出错，请联系管理人员', 0);
+        }
     }
 
     /**
@@ -126,6 +140,31 @@ class MenuController extends \app\core\web\BackController
             'status' => 200,
             'data' => $mu,
         ];
+    }
+
+    /**
+     * @name 上传大图标
+     */
+    public function actionCover()
+    {
+        $upload = Upload::getInstanceByName('ico', 'menu');
+        $upload->save();
+        $info = $upload->getInfo();
+
+        $post = Yii::$app->getRequest()->post();
+        $id = $post['id'];
+        $model = Menu::findOne($id);
+        $model->ico = $info['path'] . '/' . $info['fileName'];
+
+
+        if ($model->save()) {
+            return $this->json([
+                'id'=>$model->id,
+                'url'=> $model->ico
+            ], null, 1);
+        }
+
+        return $this->json(null, '上传图片失败,请重试', 0);
     }
 
     /**

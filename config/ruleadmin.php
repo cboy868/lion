@@ -7,7 +7,8 @@
  */
 
 return [
-    'workbench'=> '/admin/default/workbench',
+    'admin/login.html' => 'admin/default/login',
+    'workbench'=> 'admin/default/workbench',
 # admin group
     'admin/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/admin/<controller>/<action>',
     'admin/<module:(.+)>/<controller:(.+)>/<action:(.+)>'=> '<module>/admin/<controller>/<action>',
