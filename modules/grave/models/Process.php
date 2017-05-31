@@ -14,7 +14,7 @@ use app\modules\user\models\User;
 use app\modules\grave\models\InsProcess;
 use app\modules\grave\models\CarRecord;
 use app\modules\memorial\models\Memorial;
-
+use yii\web\NotFoundHttpException;
 /**
  * This is the model class for table "{{%grave_portrait}}".
  *
@@ -70,7 +70,11 @@ class Process extends \yii\base\Model
 
     public static function tomb()
     {
-        return Tomb::findOne(self::$tomb_id);
+        if (($model = Tomb::findOne(self::$tomb_id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     public static function customer()
@@ -116,18 +120,27 @@ class Process extends \yii\base\Model
         return $deads;
     }
 
+    public static function bury($bury_id)
+    {
+        return Bury::findOne($bury_id);
+    }
+
     public static function burys()
     {
         $bury = Bury::find()->where(['tomb_id'=>self::$tomb_id])
-                         ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                         ->andWhere(['status'=>Bury::STATUS_OK])
                          ->all();
+
+        $pre = Bury::find()->where(['tomb_id'=>self::$tomb_id])
+                            ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                            ->all();
 
         $model = new Bury();
         $tomb = self::tomb();
         $model->tomb_id = self::$tomb_id;
         $model->user_id = $tomb->user_id;
 
-        return ['bury'=>$bury, 'model'=>$model];
+        return ['bury'=>$bury,'pre'=>$pre, 'model'=>$model];
     }
 
     // public static function preBury()

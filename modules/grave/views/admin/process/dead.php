@@ -85,7 +85,7 @@ ExtAsset::register($this);
                                 <td><?= $form->field($model, "[$index]birth")->textInput([
                                     'style'=>'width:70%', 
                                     'dt'=>'true', 
-                                    'default'=>'1960-'.date('m-d'),
+                                    'default'=>'1950-'.date('m-d'),
                                     'dt-year' => 'true',
                                     'dt-month' =>'true'
                                     

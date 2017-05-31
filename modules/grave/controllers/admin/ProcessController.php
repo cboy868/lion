@@ -540,7 +540,6 @@ class ProcessController extends BackController
             return $this->pre(2);
         }
 
-
         $burys = Process::burys();
         $model = $burys['model'];
 
@@ -610,7 +609,8 @@ class ProcessController extends BackController
         $nRecord->loadDefaultValues();
 
     	return $this->render('bury', [
-            'pres' => $burys['bury'],
+            'pres' => $burys['pre'],
+            'bury' => $burys['bury'],
             'model'=>$burys['model'],
             'get' => Yii::$app->request->get(),
             'order' => Process::getOrder(),
@@ -648,13 +648,6 @@ class ProcessController extends BackController
         return $this->json(null, '预葬记录删除失败', 0);
     }
 
-    /**
-     * @name 修改预葬记录
-     */
-    public function actionUpdateBury()
-    {
-
-    }
 
     protected function order()
     {

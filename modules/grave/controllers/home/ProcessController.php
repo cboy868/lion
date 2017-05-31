@@ -35,7 +35,11 @@ class ProcessController extends \app\core\web\HomeController
 
         $model->handleIns();
 
+
         $info = $model->getCfgIns($query['case_id']);
+
+
+
 
         if ($info['is_front']==1) {
             // $god = $this->Ins->getIsGod($this->tomb_id);
@@ -55,6 +59,7 @@ class ProcessController extends \app\core\web\HomeController
         $font = $model->getFont();
 
         $pre_path = 'upload/ins/tmp/'. Process::$tomb_id . $direct. uniqid() . '.png';
+
 
         InsHelper::showImg($info['data'], $info['size'][0], $info['size'][1], $font, $pre_path);
 

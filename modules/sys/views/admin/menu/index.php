@@ -66,7 +66,10 @@ Tabletree::register($this);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $panels = Menu::panels();?>
+                        <?php
+                        $panels = Menu::panels();
+                        $panels = \yii\helpers\ArrayHelper::getColumn($panels, 'name');
+                        ?>
                         <?php foreach ($menu as $k => $v):?>
                         <tr data-tt-id=<?=$v['id']?> data-tt-parent-id=<?=$v['pid']?>>
                             <td><span class="<?=$v['icon']?> fa-lg"></span> <?=$v['name']?></td>

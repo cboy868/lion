@@ -198,6 +198,7 @@ PluploadAssets::register($this);
 					                <?php foreach ($back_word as $v): ?>
 					                	<option value="<?=$v?>"><?=$v?></option>
 					                <?php endforeach ?>
+                                    <option value="">空</option>
 					            </select>
 				            </span>
 				          </div>
@@ -629,6 +630,7 @@ $(function(){
 	});
 
     $('.front-edit-save', insContainer).click(function(){
+        getImage('front_selected');
 	    getPrice();
 	    $('#ins_front').modal('hide');
     });

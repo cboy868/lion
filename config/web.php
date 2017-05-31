@@ -5,6 +5,7 @@ $mailer = require(__DIR__ . '/mailer.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'sourceLanguage' => 'en-US',
     'language' => "zh-CN",
     'bootstrap' => ['log'],
     'defaultRoute' => 'home',

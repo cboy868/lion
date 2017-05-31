@@ -105,9 +105,9 @@ class Bench extends \yii\base\Widget
         $panels = Yii::$app->getModule('sys')->params['panels'];
         $result = [];
 
-        $menus = false;
+//        $menus = false;
         if (!$menus) {
-            $menus = Menu::authMenu(['is not', 'ico', null]);
+            $menus = Menu::authMenu('ico is not null and panel is not null');
         }
 
         foreach ($menus as $v) {

@@ -10,6 +10,8 @@ ExtAsset::register($this);
 use app\assets\DateTimeAsset;
 
 DateTimeAsset::register($this);
+
+$tomb_id = Yii::$app->getRequest()->get('tomb_id');
 ?>
 <style type="text/css">
   .fm.table>tbody>tr>td, .fm.table>tbody>tr>th, .fm.table>tfoot>tr>td, .fm.table>tfoot>tr>th, .fm.table>thead>tr>td, .fm.table>thead>tr>th {
@@ -45,37 +47,35 @@ DateTimeAsset::register($this);
                    $liyi = $this->context->module->params['goods']['cate']['liyi'];
                    ?>
 
-                      <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$liyi, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-warning" data-loading-text="页面加载中, 请稍后..." onclick="return false">购买礼仪</a>
+                      <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$liyi, 'tomb_id'=>$tomb_id])?>" class="modalAddButton btn btn-warning" data-loading-text="页面加载中, 请稍后..." onclick="return false">购买礼仪</a>
                     </small>
                   </div>
                   
                   <!-- <form id="bury-form" method="post" action="/admin/process/bury_save" class="form-horizontal" role="form"> -->
-                      <input type="hidden" name="tomb_id" value="{$tomb_info.id}" />
-                      <input type="hidden" name="user_id" value="{$tomb_info.user_id}" />
-                     
-                            <h4 class="text-warning"><i class="fa fa-star"></i> 待安葬</h4>
-                            <div class="well" style="overflow:hidden">
-                              <div class="row">
-                                  <div class="col-sm-4 text-left">
-                                      <?php 
 
-                                      $unp = [];
+                    <h4 class="text-warning"><i class="fa fa-star"></i> 待安葬</h4>
+                    <div class="well" style="overflow:hidden">
+                      <div class="row">
+                          <div class="col-sm-4 text-left">
+                              <?php
 
-                                      foreach ($unpre as $k => $dead) {
-                                        $unp[$dead->id] = $dead->dead_name;
-                                      }
-                                      ?>
-                                      <?= $form->field($model, "dead_id")->checkBoxList($unp)->label(false) ?>
+                              $unp = [];
 
-                                      <?= $form->field($nRecord, "car_type")->radioList($car_type, ['class'=>'cartype'])->label(false) ?>
-                                  </div>
-                                  <div class="col-sm-4">
-                                      <?= $form->field($model, "pre_bury_date")->textInput(['id'=>'dt']) ?>
-                                      <?= $form->field($nRecord, "addr_id")->dropDownList($car_addr) ?>
-                                    </div>
-                                      
-                                  </div>
-                              </div>
+                              foreach ($unpre as $k => $dead) {
+                                $unp[$dead->id] = $dead->dead_name;
+                              }
+                              ?>
+                              <?= $form->field($model, "dead_id")->checkBoxList($unp)->label(false) ?>
+
+                              <?= $form->field($nRecord, "car_type")->radioList($car_type, ['class'=>'cartype'])->label(false) ?>
+                          </div>
+                          <div class="col-sm-5">
+                              <?= $form->field($model, "pre_bury_date")->textInput(['id'=>'dt'])->label('预安葬日期') ?>
+                              <?= $form->field($nRecord, "addr_id")->dropDownList($car_addr) ?>
+                            </div>
+
+                          </div>
+                      </div>
                     
 
                       <div class="row" id="bury-car-contacts" style="display:none;">
@@ -130,20 +130,14 @@ DateTimeAsset::register($this);
         <?php ActiveForm::end(); ?>
 
       <?php else: ?>
-        <div class="col-md-12">
             <div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
               暂无安葬业务
             </div>
-        </div>
+      <?php endif ?>
 
-         <?php endif ?>
-
-        <div class="row">
-
+        <?php if ($pres):?>
           <?php foreach ($pres as $index => $pre): ?>
-                 
-          <div class="col-sm-12">
-              <div class="panel panel-success">
+              <div class="panel panel-info">
                  <div class="panel-heading"> 
                      预葬记录          </div>
                 <table class="table table-bordered table-condensed">
@@ -152,8 +146,6 @@ DateTimeAsset::register($this);
                      <td width="150" class="text-info"><?=$pre->dead_name?></td>
                      <th width="100">预葬日期：</th>
                      <td class="text-info"><?=$pre->pre_bury_date?></td>
-                     <th width="100">安葬日期：</th>
-                     <td width="150" class="text-info"></td>
                   </tr>
                   <tr>
                       <th width="100">车辆类型：</th>
@@ -165,24 +157,46 @@ DateTimeAsset::register($this);
                       <td width="150" class="text-info"><?=$records[$pre->id]['contact_user']?></td>
                   </tr>
 
-                  
+                  <?php if ($pre->status == 1):?>
                   <tr>
                       <td colspan="6" class="text-center">
-                         <a href="/admin/process/bury_read?bury_id=14219" class="bury-read-btn btn btn-warning btn-xs">修改</a>
-
-                         <a href="<?=Url::toRoute(['/grave/admin/process/del-bury', 'id'=>$pre->id])?>" class="bury-del btn btn-danger btn-xs">删除</a>   
+                         <a href="<?=Url::toRoute(['/grave/admin/process/del-bury', 'id'=>$pre->id])?>" class="bury-del btn btn-danger btn-xs">删除</a>
                       </td>
                   </tr>
-                           </tbody></table>
+                  <?php endif;?>
+                  </tbody>
+                </table>
               </div>
-          </div>
 
           <?php endforeach ?>
+        <?php endif;?>
 
+        <?php if ($bury):?>
+            <?php foreach ($bury as $index => $b): ?>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        安葬记录          </div>
+                    <table class="table table-bordered table-condensed">
+                        <tbody><tr>
+                            <th width="100">逝者姓名：</th>
+                            <td width="150" class="text-info"><?=$b->dead_name?></td>
+                            <th width="100">安葬日期：</th>
+                            <td class="text-info"><?=$b->bury_date?></td>
+                        </tr>
+                        <tr>
+                            <th width="100">车辆类型：</th>
 
-
-
-        </div>
+                            <td width="150" class="text-info"><?=CarRecord::carType($records[$b->id]['car_type'])?></td>
+                            <th width="100">车辆时间：</th>
+                            <td width="150" class="text-info"><?=$records[$b->id]['use_date']?></td>
+                            <th width="100">联系人：</th>
+                            <td width="150" class="text-info"><?=$records[$b->id]['contact_user']?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endforeach ?>
+        <?php endif;?>
         
 
         <?=$this->render('_order', ['order'=>$order]) ?>

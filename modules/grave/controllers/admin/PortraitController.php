@@ -131,10 +131,25 @@ class PortraitController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $model->status = Portrait::STATUS_DELETE;
+        $model->save();
         return $this->redirect(['index']);
     }
+
+    public function actionDel()
+    {
+        $post = Yii::$app->request->post();
+        $model = $this->findModel($post['id']);
+        $model->status = Portrait::STATUS_DELETE;
+        if ($model->save()) {
+            return $this->json();
+        }
+
+        return $this->json(null, '瓷像删除失败,请联系管理员，或在瓷像管理页面删除', 0);
+
+    }
+
 
     /**
      * @param $id

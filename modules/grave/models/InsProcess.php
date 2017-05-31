@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\core\helpers\Url;
 use Yii;
 use app\core\helpers\ArrayHelper;
 use app\modules\grave\models\Customer;
@@ -528,6 +529,9 @@ class InsProcess extends Ins
         switch ($is_front) {
             case 0:
                 $ins_info = $this->getBackContent();
+                if (empty($ins_info['main']['content'][0])) {
+                    return ['data'=>[], 'size'=>[$case->width, $case->height], 'is_front'=>$is_front];
+                }
                 break;
             case 1:
                 $ins_info = $this->getFrontContent();
@@ -599,13 +603,12 @@ class InsProcess extends Ins
             $tmp_ins_info = $ins_info;
             foreach ($cfg_info as $k=>&$v){
                 foreach ($v as $key => &$val){
-                   // $data = array_pop($tmp_ins_info[$k]); 
                     if (!isset($tmp_ins_info[$k])) {
                         continue ;
                     }
                    $data = $shape == 'v' ? array_pop($tmp_ins_info[$k]) : array_shift($tmp_ins_info[$k]); 
                     if (empty($data['content']) && in_array($k, array('die', 'born', 'honorific', 'second_name_label'))) {
-                        $data = $new_cfg_data[$k][0];
+                        $data = isset($new_cfg_data[$k][0]) ?  $new_cfg_data[$k][0] : '';
                     }
                     $new_cfg_data[$k][] = $data;
                 }unset($val);
@@ -824,6 +827,7 @@ class InsProcess extends Ins
         $height = $size[1];
 
 
+
         if ($shape == 'h' || $is_front==2){
             $v_size = $height / (2*$rows+1);
             $h_size = ($width-120)/(1.2*$length);
@@ -923,7 +927,7 @@ class InsProcess extends Ins
 
         $tomb = $this->tomb();
         $person = $tomb->mnt_by;
-        $inscribe = $config[$person] ? $config[$person] : '亲人泣立';//.'敬立';
+        $inscribe = isset($config[$person]) ? $config[$person] : '亲人泣立';//.'敬立';
         return $inscribe;
     }
 
@@ -993,7 +997,8 @@ class InsProcess extends Ins
 
 
         if (!$cfg_ids) {
-            Yii::$app->session->setFlash('success', '请先配置对应墓区的碑型');
+            $link = '<a href="'.Url::toRoute(['/grave/admin/ins-cfg/index']).'" target="_blank">点这里</a>';
+            Yii::$app->session->setFlash('success', '请先配置对应墓区的碑型'.$link);
             return;
         }
         

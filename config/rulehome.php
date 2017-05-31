@@ -8,24 +8,26 @@
 //pc端
 return [
     //预定
-
-
     'pre/<id:\d+>.html' => 'cms/home/message/index',
     //资讯
+    'news/<cid:\d+>.html' => 'news/home/default/index',
     'news.html' => 'news/home/default/index',
-    'news/<id:\d+>.html' => 'news/home/default/index',
-    'newsv/<id:\d+>.html' => 'news/home/default/view',
+    'news-detail/<id:\d+>.html' => 'news/home/default/view',
+
+    //图文
+    'article/<mid:\d+>/<cid:\d+>.html' => 'cms/home/default/index',
+    'article/<mid:\d+>.html' => 'cms/home/default/index',
+    'article-detail/<mid:\d+>/<id:\d+>.html' => 'cms/home/default/view',
 
     //博客
     'blogs.html' => 'blog/home/default/index',
 
 
-    //商品列表
-    'products.html' => 'shop/home/default/index',
-    //商品分类列表
-    'products/<id:\d+>.html' => 'shop/home/default/index',
+    //商品列表 商品分类列表
+    'product/<id:\d+>.html' => 'shop/home/default/index',
+    'product.html' => 'shop/home/default/index',
     //商品详情
-    'product/<id:\d+>.html' => 'shop/home/default/view',
+    'product-detail/<id:\d+>.html' => 'shop/home/default/view',
 
     //墓区墓位
     'grave.html' => 'grave/home/default/index',

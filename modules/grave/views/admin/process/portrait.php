@@ -29,30 +29,29 @@ PluploadAssets::register($this);
         <div class="row">
             
                 <div class="col-xs-12 address-index">
-                    <div class="panel panel-info">
-                        <div class="dHandler panel-heading">瓷像信息
-                            <small class="pull-right">
-                                <?php 
-                                    $portrait = Yii::$app->params['goods']['cate']['portrait'];
-                                 ?>
-                                <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
-                                    购买瓷像
-                                </a>
-                            </small>
-                        </div>
                         <div class="row">
-                        
-
                         <?php if ($models): ?>
-                        
                         <?php foreach ($models as $index => $model): ?>
                             <?php 
                                 $sku = $model->getSkuInfo();
                                 $model->dead_ids = explode(',', $model->dead_ids);
-
                              ?>
-                            <div class=" col-md-6">
-                                <div class="panel panel-default">
+                            <div class="col-md-6 portrait-box">
+                                <div class="panel panel-info">
+                                    <div class="dHandler panel-heading" style="padding: 5px 10px;">瓷像信息
+                                        <small>
+
+                                        </small>
+
+                                        <?php if ($model->status< \app\modules\grave\models\Portrait::STATUS_MAKE): ?>
+                                        <div class="pull-right">
+                                            <a href="<?=Url::toRoute(['/grave/admin/portrait/del'])?>" class=" btn btn-default btn-xs pdel" target="_blank" data-id="<?=$model->id?>">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </div>
+                                        <?php endif;?>
+
+                                    </div>
                                   <div class="panel-body">
                                     
                                     <div class="row" style="height:100px">
@@ -102,11 +101,14 @@ PluploadAssets::register($this);
                         <?php else: ?>
 
                         <div class="col-md-12">
+                            <?php
+                            $portrait = Yii::$app->params['goods']['cate']['portrait'];
+                            ?>
                             <div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
                             请
                             <small>
                                 <a href="<?=Url::toRoute(['/grave/admin/mall/index','category_id'=>$portrait, 'tomb_id'=>Yii::$app->request->get('tomb_id')])?>" class="modalAddButton btn btn-info" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
-                                    选择并订购瓷像
+                                    先订购瓷像
                                 </a>
                              </small>
                             </div>
@@ -117,8 +119,6 @@ PluploadAssets::register($this);
 
                         </div>
 
-                        <div class="hr hr-18 dotted hr-double"></div>
-                    </div>
                     <div class="hr hr-18 dotted hr-double"></div>
                 </div><!-- /.col -->
             
@@ -135,3 +135,35 @@ PluploadAssets::register($this);
         <?=$this->render('_order', ['order'=>$order]) ?>
     </div><!-- /.page-content-area -->
 </div>
+
+
+<?php $this->beginBlock('up') ?>
+
+$(function(){
+
+    var csrf = '<?=Yii::$app->request->getCsrfToken()?>';
+    $('.pdel').click(function(e){
+        e.preventDefault();
+        if (!confirm('确定要删除此瓷像吗？')) return false;
+
+        var id = $(this).data('id');
+        var url = $(this).attr('href');
+        var that = this;
+        $.post(url, {id:id,_csrf:csrf},function(xhr){
+            if (xhr.status) {
+                $(that).closest('.portrait-box').remove();
+            } else {
+                alert(xhr.info);
+            }
+
+        },'json');
+    });
+})
+
+
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['up'], \yii\web\View::POS_END); ?>
+
+
+
+

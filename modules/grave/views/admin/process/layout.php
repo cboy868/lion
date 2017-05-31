@@ -48,6 +48,9 @@ AdminAsset::register($this);
             margin-top: 10px;
             margin-left: 10px;
         }
+        .panel-heading {
+            padding: 10px 10px;
+        }
     </style>
     <body class="no-skin">
     <?php $this->beginBody()?>
