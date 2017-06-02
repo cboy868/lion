@@ -53,7 +53,6 @@ class ProcessController extends BackController
 
     public function saveAttach($info)
     {
-
         $portrait = Portrait::findOne($info['res_id']);
 
         if (!$portrait) {
@@ -218,14 +217,13 @@ class ProcessController extends BackController
                         }
 
                         $model->save();
-                    }
 
-                    if ($post['is_memorial']) {
-                        $memorial = Process::createMemorial();
-                        $model->memorial_id = $memorial->id;
-                        $model->save();
+                       if ($post['is_memorial']) {
+                           $memorial = Process::createMemorial();
+                           $model->memorial_id = $memorial->id;
+                           $model->save();
+                       }
                     }
-
 
                     $outerTransaction->commit();
 

@@ -41,7 +41,7 @@ class PortraitSearch extends Portrait
      */
     public function search($params)
     {
-        $query = Portrait::find();
+        $query = Portrait::find()->where(['<>', 'status', Portrait::STATUS_DELETE])->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

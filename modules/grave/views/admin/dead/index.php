@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '墓位号',
                 'value' => function($model){
-                    return '<a target="_blank" href="'.Url::toRoute("/grave/admin/tomb/view", ['id'=>$model->tomb_id]).'">'.$model->tomb->tomb_no.'</a>';
+                    return '<a target="_blank" href="'.Url::toRoute(["/grave/admin/tomb/view", 'id'=>$model->tomb_id]).'">'.$model->tomb->tomb_no.'</a>';
                 },
                 'format'=>'raw'
             ],
@@ -46,7 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '纪念馆名',
                 'value' => function($model){
-                    return Html::a($model->memorial->title, ['/memorial/home/default/index', 'id'=>$model->memorial_id], ['target'=>'_blank']);
+                    if (!isset($model->memorial)) {return '';}
+                    return Html::a($model->memorial->title, ['/memorial/home/default/view', 'id'=>$model->memorial_id], ['target'=>'_blank']);
                 },
                 'format' => 'raw'
             ],

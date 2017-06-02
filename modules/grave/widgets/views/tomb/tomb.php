@@ -93,11 +93,16 @@ PluploadAssets::register($this);
                     </tr>
                 <?php endif ?>
 
-                <?php if ($tomb->memorial): ?>
+                <?php if (isset($tomb->memorial)): ?>
                     <tr>
                         <th>纪念馆</th>
                         <td>
-                            <a href="#"><?=$tomb->memorial->title?></a> <a href="#" class="btn btn-info btn-xs">编辑</a>
+                            <a target="_blank" href="<?=Url::toRoute(['/memorial/home/default/view', 'id'=>$tomb->memorial->id])?>">
+                                <?=$tomb->memorial->title?>
+                            </a>
+                            <!--
+                            <a href="#" class="btn btn-info btn-xs">编辑</a>
+                            -->
                         </td>
                     </tr>
                     

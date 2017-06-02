@@ -54,7 +54,7 @@ use app\modules\grave\models\CarRecord;
                             <th>订车时间</th>
                             <th colspan="2">备注</th>
                         </tr>
-                        <?php foreach ($records[CarRecord::CAR_LING] as $k => $record): ?>
+                        <?php foreach ($records[CarRecord::CAR_LING] as $k => $r): ?>
                             <tr>
                                 <td><?=isset($r->car->code) ? $r->car->code:''?></td>
                                 <td><?=isset($r->driver->username) ? $r->driver->username:''?></td>

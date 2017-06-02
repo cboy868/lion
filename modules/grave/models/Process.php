@@ -327,7 +327,6 @@ class Process extends \yii\base\Model
 
     public static function createMemorial()
     {
-        $tomb_id = self::$tomb_id;
         $tomb = self::tomb();
         $dead = self::dead();
 
