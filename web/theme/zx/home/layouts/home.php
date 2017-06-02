@@ -31,7 +31,7 @@ use yii\helpers\Url;
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="/theme/zx/static/images/favicon.ico">
+        <link rel="shortcut icon" href="/theme/zx/static/img/favicon.ico">
 
         <!-- Web Fonts -->
         <!-- Bootstrap core CSS -->

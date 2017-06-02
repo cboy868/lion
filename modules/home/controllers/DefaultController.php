@@ -27,6 +27,14 @@ class DefaultController extends \app\core\web\HomeController
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->create()) {
+
+                $email = Yii::$app->params['uemail'];
+                Yii::$app->mailer->compose('@app/core/views/mail/msg', ['content'=>$model->intro])
+                    ->setTo($email)
+                    ->setSubject($model->title)
+                    ->send();
+
+
                 Yii::$app->session->setFlash('success', '留言成功，非常感谢您的关注,我们会尽快联系您');
                 return $this->redirect(['contact']);
             }

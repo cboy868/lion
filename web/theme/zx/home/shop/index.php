@@ -1,11 +1,11 @@
 <div class="banner">
-    <div class="fixed-image section dark-translucent-bg" style="background-image:url('images/page-about-banner-1.jpg');">
+    <div class="fixed-image section dark-translucent-bg" style="background-image:url('/theme/zx/static/img/slider2.png');">
         <div class="container">
             <div class="space-top"></div>
             <h1>欢迎来到卓迅网络</h1>
             <div class="separator-2"></div>
             <p class="lead">卓迅网络竭诚为您服务</p>
-            <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae sit excepturi, <br class="hidden-xs hidden-sm"> hic officiis illo dolore sunt assumenda saepe id commodi sint praesentium <br class="hidden-xs hidden-sm"> natus laborum quas cumque facilis, suscipit aliquam dolorum.</p> -->
+<!--             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae sit excepturi, <br class="hidden-xs hidden-sm"> hic officiis illo dolore sunt assumenda saepe id commodi sint praesentium <br class="hidden-xs hidden-sm"> natus laborum quas cumque facilis, suscipit aliquam dolorum.</p>-->
         </div>
     </div>
 </div>

@@ -152,7 +152,7 @@
                     <li data-transition="random" data-slotamount="7" data-masterspeed="500" data-saveperformance="on" data-title="Powerful Bootstrap Theme">
 
                     <!-- main image -->
-                    <img src="/theme/zx/static/images/slider-1-slide-2.jpg"  alt="slidebg1" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+                    <img src="/theme/zx/static/img/slider1.png"  alt="slidebg1" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
 
                     <!-- LAYER NR. 1 -->
                     <div class="tp-caption white_bg large sfr tp-resizeme"
@@ -271,7 +271,7 @@
                     <li data-transition="random" data-slotamount="7" data-masterspeed="500" data-saveperformance="on" data-title="Powerful Bootstrap Theme">
 
                     <!-- main image -->
-                    <img src="/theme/zx/static/images/slider-1-slide-3.jpg"  alt="kenburns"  data-bgposition="left center" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-bgfit="100" data-bgfitend="115" data-bgpositionend="right center">
+                    <img src="/theme/zx/static/img/slider3.png"  alt="kenburns"  data-bgposition="left center" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-bgfit="100" data-bgfitend="115" data-bgpositionend="right center">
 
                     <!-- LAYER NR. 1 -->
                     <div class="tp-caption white_bg large sfr tp-resizeme"
@@ -645,7 +645,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <h1 class="text-center">选择 <i>iUtree</i> 选择最适合您的公墓管理系统</h1>
+                <h1 class="text-center">选择 <i>卓迅</i> 选择最适合您的公墓管理系统</h1>
                 <div class="separator"></div>
                 <p class="lead text-center">
                 <!-- Lorem ipsum dolor sit amet. Maiores, odio ut deleniti doloremque ad at praesentium<br> laudantium molestias similique. Quisquam incidunt ut laboriosam. --></p>
