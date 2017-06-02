@@ -13,15 +13,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
-
     <?= $form->field($model, 'title') ?>
-
-    <?= $form->field($model, 'type') ?>
-
-    <?= $form->field($model, 'time') ?>
-
-    <?= $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

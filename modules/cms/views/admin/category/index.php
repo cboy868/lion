@@ -4,9 +4,6 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\cms\models\CategorySearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $module->title . ' 模块分类管理';
 $this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/mod/admin/default/index']];

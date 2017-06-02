@@ -7,9 +7,7 @@ use app\core\widgets\Area\Select;
 
 // JqueryuiAsset::register($this);
 
-use app\assets\ExtAsset;
-
-ExtAsset::register($this);
+\app\assets\ExtAsset::register($this);
 
 
 $this->title="购墓流程"

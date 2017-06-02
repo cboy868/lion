@@ -33,7 +33,7 @@ class CarAddr extends \app\core\db\ActiveRecord
     {
         return [
             [['type', 'time', 'status', 'created_at'], 'integer'],
-            [['created_at'], 'required'],
+            [['title', 'time'], 'required'],
             [['title'], 'string', 'max' => 200],
         ];
     }
@@ -45,11 +45,11 @@ class CarAddr extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'type' => 'Type',
-            'time' => 'Time',
-            'status' => 'Status',
-            'created_at' => 'Created At',
+            'title' => '地址',
+            'type' => '类型',
+            'time' => '用时(分钟)',
+            'status' => '状态',
+            'created_at' => '添加时间',
         ];
     }
 
@@ -70,5 +70,23 @@ class CarAddr extends \app\core\db\ActiveRecord
     public function gettp()
     {
         return self::types($this->type);
+    }
+
+    public static function times()
+    {
+        return [
+            '30' => '0.5小时',
+            '60' => '1小时',
+            '90' => '1.5小时',
+            '120' => '2小时',
+            '150' => '3.5小时',
+            '180' => '3小时',
+            '210' => '3.5小时',
+            '240' => '4小时',
+            '270' => '4.5小时',
+            '300' => '5小时',
+            '330' => '5.5小时',
+            '360' => '6小时',
+        ];
     }
 }

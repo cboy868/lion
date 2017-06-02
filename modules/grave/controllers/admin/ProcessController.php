@@ -609,9 +609,6 @@ class ProcessController extends BackController
             $carAddr[$v->id] = $v->title .':用时'. $v->time . '分';
         }
 
-
-        $car_addr = ArrayHelper::map($car_addr, 'id', 'title');
-
         $customer = Process::customer();
 
         $nRecord = $carRecord['model'];
