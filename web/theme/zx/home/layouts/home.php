@@ -84,7 +84,7 @@ use yii\helpers\Url;
 
                                 <!-- name-and-slogan -->
                                 <div class="site-slogan">
-                                    简洁、强大公墓办公系统
+<!--                                    简洁、强大公墓办公系统-->
                                 </div>
 
                             </div>
