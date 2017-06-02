@@ -503,8 +503,9 @@ class ProcessController extends BackController
 
 
             if (Model::loadMultiple($models, $post) && Model::validateMultiple($models)) {
+                $outerTransaction = Yii::$app->db->beginTransaction();
                 try {
-                   $outerTransaction = Yii::$app->db->beginTransaction(); 
+
 
                    foreach ($models as $model) {
                         $model->dead_ids = trim(implode($model->dead_ids, ','), ',');
@@ -674,8 +675,9 @@ class ProcessController extends BackController
             return $this->redirect(['index', 'step'=>$nstep, 'tomb_id'=>$tomb_id]);
         }
 
-        if (isset($steps[$step + 1])) {
-            return $this->redirect(['index', 'step'=>$step+1, 'tomb_id'=>$tomb_id]);
+        $nst = $step+1;
+        if (isset($steps[$nst])) {
+            return $this->redirect(['index', 'step'=>$nst, 'tomb_id'=>$tomb_id]);
         }
 
         return $this->end();
@@ -701,6 +703,7 @@ class ProcessController extends BackController
     protected function end()
     {
         $order = Process::getOrder();
+
         return $this->redirect(['/order/admin/default/view', 'id'=>$order->id]);
     }
   
