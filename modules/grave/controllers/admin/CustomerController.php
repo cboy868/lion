@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\user\models\User;
 use Yii;
 use app\modules\grave\models\Customer;
 use app\modules\grave\models\search\CustomerSearch;
@@ -110,6 +111,30 @@ class CustomerController extends BackController
         $model->save();
 
         return $this->redirect(['index']);
+    }
+    /**
+     * @name 按用户名方式获取 用户及客户信息
+     */
+    public function actionUserInfoByName()
+    {
+        $post = Yii::$app->getRequest()->post();
+        $uname = $post['uname'];
+        $user = User::find()->where(['username'=>$uname])->one();
+
+        if (!$user) {
+            return $this->json(null, '不存在此用户', 0);
+        }
+
+        $customer = Customer::find()->where(['user_id'=>$user->id])->indexBy('id')->asArray()->all();
+
+        $data['user'] = $user->toArray();
+
+        if ($customer) {
+            $data['user']['customers'] = $customer;
+        }
+
+        return $this->json($data, null, 1);
+
     }
 
     /**

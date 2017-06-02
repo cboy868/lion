@@ -180,6 +180,10 @@ class DefaultController extends BackController
         return $this->renderAjax('buttons', ['buttons'=>$menus, 'sels'=>$sels, 'panel'=>$group]);
     }
 
+    /**
+     * @return array
+     * @name 选择自己的快捷菜单
+     */
     public function actionSelButton()
     {
         $post = Yii::$app->getRequest()->post();
@@ -246,10 +250,9 @@ class DefaultController extends BackController
                     'user_id' => $post['ids']
                 ])->execute();
 
-
             $outerTransaction->commit();
 
-        } catch (Exception $e){
+        } catch (\Exception $e){
             $outerTransaction->rollBack();
             return $this->json(null, '删除失败', 0);
         }

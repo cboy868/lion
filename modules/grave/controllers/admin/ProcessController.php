@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\user\models\User;
 use Yii;
 use app\core\web\BackController;
 use app\modules\grave\models\Process;
@@ -82,6 +83,7 @@ class ProcessController extends BackController
         $req = Yii::$app->request;
 
         $customer = Process::customer();
+
         $tomb = Process::tomb();
         $user = Process::user();
 
@@ -92,15 +94,23 @@ class ProcessController extends BackController
         // }
 
         if ($req->isPost) {
-            
+            $outerTransaction = Yii::$app->db->beginTransaction();
             try {
-                $outerTransaction = Yii::$app->db->beginTransaction();
+                $u = $req->post('User');
+                $cu = $req->post('Customer');
+                if ($u['id']) {
+                    $user = User::findOne($u['id']);
+                }
+                if ($cu['id']) {
+                    $customer = Customer::findOne($cu['id']);
+                }
 
                 $user->load($req->post());
                 $customer->load($req->post());
                 $tomb->load($req->post());
 
                 if ($user->validate()) {
+                    $user->mobile = $customer->mobile;
                     $user->createUser();
                 } else {
                     goto show;
@@ -147,7 +157,7 @@ class ProcessController extends BackController
         $agent = \app\modules\user\models\User::agents();
         $agents = ArrayHelper::map($agent, 'id', 'username');
 
-        $tpl = $customer ? 'customer_edit' : 'customer';
+        $tpl = $customer->isNewRecord ? 'customer' : 'customer_edit' ;
 
 
         return $this->render($tpl,[
