@@ -1,5 +1,5 @@
 <?php 
-use app\assets\WeuiAsset;
+
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 

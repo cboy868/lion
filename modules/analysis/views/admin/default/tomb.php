@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				  <!-- Nav tabs -->
 				  <ul class="nav nav-tabs" role="tablist">
 				  	<?php for($i=1; $i<=date('m'); $i++): ?>
-				  		<li role="presentation" class="<?php if ($i==1): ?> active <?php endif ?>"><a href="#t<?=$i?>" aria-controls="home" role="tab" data-toggle="tab"><?=$i?>月</a></li>
+				  		<li role="presentation" class="<?php if ($i==date('m')): ?> active <?php endif ?>"><a href="#t<?=$i?>" aria-controls="home" role="tab" data-toggle="tab"><?=$i?>月</a></li>
 				  	<?php endfor; ?>
 				    
 				  </ul>
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				  <!-- Tab panes -->
 				  <div class="tab-content">
 				  	<?php for($i=1; $i<=date('m'); $i++): ?>
-				    <div role="tabpanel" class="tab-pane active" id="t<?=$i?>">
+				    <div role="tabpanel" class="tab-pane  <?php if($i==date('m')):?> active<?php endif;?>" id="t<?=$i?>">
 				    	<textarea class="form-control" rows="15" name="t[<?=$i?>]" <?php if ($i<date('m')): ?> disabled<?php endif ?>></textarea>
 				    </div>
 				    <?php endfor; ?>

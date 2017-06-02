@@ -1,10 +1,7 @@
 <?php
 
-use app\core\helpers\Html;
+
 use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
-use app\core\widgets\GridView;
-use app\assets\ZtreeAsset;
 use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\shop\models\search\Attr */
