@@ -1,3 +1,12 @@
+<?php
+
+?>
+
+<style>
+    .default_bg{
+        background-color: transparent;
+    }
+</style>
 <div class="banner">
 
                 <!-- slideshow start -->
@@ -136,6 +145,7 @@
                     </div>
 
                     <!-- LAYER NR. 11 -->
+                        <!--
                     <div class="tp-caption sfr tp-resizeme"
                         data-x="right"
                         data-y="center"
@@ -144,6 +154,7 @@
                         data-end="9400"
                         data-endspeed="600"><img src="/theme/zx/static/images/slider-1-layer-1.png" alt="">
                     </div>
+                    -->
 
                     </li>
                     <!-- slide 1 end -->
@@ -255,6 +266,7 @@
                     </div>
 
                     <!-- LAYER NR. 11 -->
+                        <!--
                     <div class="tp-caption sfr tp-resizeme"
                         data-x="right"
                         data-y="center"
@@ -263,6 +275,7 @@
                         data-end="9400"
                         data-endspeed="600"><img src="/theme/zx/static/images/slider-1-layer-2.png" alt="">
                     </div>
+                    -->
 
                     </li>
                     <!-- slide 2 end -->
@@ -655,7 +668,7 @@
                 <div class="vertical hc-tabs">
 
                     <!-- Tabs Top -->
-                    <div class="hc-tabs-top">
+                    <div class="hc-tabs-top" style="display: none;">
                         <img data-tab="#tab1" src="/theme/zx/static/images/section-image-1.png" alt="iDea" data-tab-animation-effect="fadeInRightSmall">
                         <img data-tab="#tab2" src="/theme/zx/static/images/section-image-2.png" alt="iDea" data-tab-animation-effect="fadeInRightSmall">
                         <img data-tab="#tab3" src="/theme/zx/static/images/section-image-3.png" alt="iDea" data-tab-animation-effect="fadeInRightSmall">

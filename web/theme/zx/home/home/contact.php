@@ -45,7 +45,7 @@ use yii\captcha\Captcha;
                     <?php
                     $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-user form-control-feedback\"></i>{hint}{error}";
                     ?>
-                    <?= $form->field($model, 'username')->textInput()->label('姓名 <font color="red">*</font>') ?>
+                    <?= $form->field($model, 'username')->textInput()->label('您的称呼 <font color="red">*</font>') ?>
                     <?php
                     $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-mobile form-control-feedback\"></i>{hint}{error}";
                     ?>
@@ -54,7 +54,7 @@ use yii\captcha\Captcha;
                     <?php
                     $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-qq form-control-feedback\"></i>{hint}{error}";
                     ?>
-                    <?= $form->field($model, 'qq')->textInput()->label('QQ号 <font color="red">*</font>') ?>
+                    <?= $form->field($model, 'qq')->textInput()->label('QQ号') ?>
 
                     <?php
                     $form->fieldConfig['template'] = "{label}{input}<i class=\"fa fa-envelope form-control-feedback\"></i>{hint}{error}";

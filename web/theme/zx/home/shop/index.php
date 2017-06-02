@@ -130,7 +130,7 @@
             </div>
 
 
-            <div class="row">
+            <div class="row" style="display: none;">
 
                 <!-- main start -->
                 <!-- ================ -->

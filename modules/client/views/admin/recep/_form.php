@@ -52,7 +52,7 @@ $agents =\app\modules\user\models\User::agents();
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
-                    ])->label('接待员');
+                    ])->label('业务员');
 
                 ?>
             </td>
