@@ -1,5 +1,6 @@
 <?php return array (
   'url' => 'www.zhuo-xun.com',
+  'i18n' => '["zh-CN","en-US"]',
   'logo' => '/upload/image/201706/1496415320287.png',
   'beian' => '承ICP备888888号',
   'point' => '116.350692,40.038368',

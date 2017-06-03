@@ -37,7 +37,7 @@ class Message extends \app\core\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%message}}';
+        return '{{%web_message}}';
     }
 
     /**

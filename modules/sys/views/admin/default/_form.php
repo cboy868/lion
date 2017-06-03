@@ -19,7 +19,7 @@ use app\modules\sys\models\Set;
 
     <?= $form->field($model, 'stype')->dropDownList(Set::getTypes()) ?>
 
-    <?php //echo $form->field($model, 'svalues')->textarea(['rows' => 6])->hint('本值只有在输入类型为select,radio,checkbox时需要输入') ?>
+    <?php echo $form->field($model, 'svalues')->textarea(['rows' => 6])->hint('本值只有在输入类型为select,radio,checkbox时需要输入') ?>
 
     <?= $form->field($model, 'sintro')->textInput(['maxlength' => 255])->label('配置名') ?>
 

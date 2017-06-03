@@ -46,12 +46,13 @@ class Set extends \yii\db\ActiveRecord
     {
         return [
             [['sname', 'sintro', 'stype'], 'required'],
-            [['svalue', 'svalues', 'stype'], 'string'],
+            [['svalues', 'stype'], 'string'],
             [['sname'], 'string', 'max' => 20],
             [['sintro'], 'string', 'max' => 255],
             [['smodule'], 'string', 'max' => 100],
             [['sname'], 'unique'],
             [['sort'], 'integer'],
+            [['svalue'], 'safe'],
         ];
     }
 
@@ -95,7 +96,7 @@ class Set extends \yii\db\ActiveRecord
         $arr = [
             self::TYPE_INPUT => 'Input',
              self::TYPE_FILE  => 'File',
-            // self::TYPE_CHECKBOX => 'Checkbox',
+             self::TYPE_CHECKBOX => 'Checkbox',
             // self::TYPE_RADIO    => 'Radio',
             self::TYPE_SELECT   => 'Select',
             self::TYPE_TEXTAREA => 'Textarea'

@@ -55,8 +55,25 @@ class DefaultController extends \app\core\web\BackController
     {
         $model = new Set();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sname]);
+        if ($model->load(Yii::$app->request->post()) &&$model->validate()) {
+
+            $sv = trim($model->svalues);
+            $sv_arr = explode("\r\n", $sv);
+            $result = [];
+            if (is_array($sv_arr)) {
+                foreach ($sv_arr as $v) {
+                    $sub = explode('/', $v);
+                    if (!isset($sub[0]) && !isset($sub[1])) continue;
+                    if (isset($sub[0]) && !isset($sub[1])) $result[] = $sub[0];
+                    if (isset($sub[0]) && isset($sub[1])) $result[$sub[0]] = $sub[1];
+                }
+                $model->svalues = json_encode($result);
+            } else {
+                $model->svalues = null;
+            }
+
+            $model->save();
+            return $this->redirect(['list']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,8 +92,26 @@ class DefaultController extends \app\core\web\BackController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sname]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $sv = trim($model->svalues);
+            $sv_arr = explode("\r\n", $sv);
+            $result = [];
+            if (is_array($sv_arr)) {
+                foreach ($sv_arr as $v) {
+                    $sub = explode('/', $v);
+                    if (!isset($sub[0]) && !isset($sub[1])) continue;
+                    if (isset($sub[0]) && !isset($sub[1])) $result[] = $sub[0];
+                    if (isset($sub[0]) && isset($sub[1])) $result[$sub[0]] = $sub[1];
+                }
+                $model->svalues = json_encode($result);
+            } else {
+                $model->svalues = null;
+            }
+
+
+            $model->save();
+            return $this->redirect(['list']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -123,15 +158,11 @@ class DefaultController extends \app\core\web\BackController
 
         if (Model::loadMultiple($settings, \Yii::$app->request->post()) && Model::validateMultiple($settings)) {
 
-            $info = [];
             foreach ($settings as $setting) {
 
                 if ($setting->stype == 'file') {
                     $upload = Upload::getInstance($setting, $setting->sname.'[svalue]', 'sys_set');
-//
                     if ($upload) {
-//                        $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
-//                        $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                         $upload->save();
 
                         $img_info = $upload->getInfo();
@@ -139,6 +170,9 @@ class DefaultController extends \app\core\web\BackController
                         $setting->save(false);
                     }
                 } else {
+                    if (is_array($setting->svalue)) {
+                        $setting->svalue = json_encode($setting->svalue);//implode(',', $setting->svalue);
+                    }
                     $setting->save(false);
                 }
 
@@ -148,7 +182,11 @@ class DefaultController extends \app\core\web\BackController
             
             return $this->redirect(['index']);
         }
-
+        foreach ($settings as &$v) {
+            if (in_array($v->stype, ['checkbox'])) {
+                $v->svalue = json_decode($v->svalue);
+            }
+        }unset($v);
         $settings = ArrayHelper::group($settings, 'smodule');
         return $this->render('index', ['settings' => $settings]);
     }

@@ -39,15 +39,15 @@ use app\modules\sys\models\Set;
                     elseif($model->stype == Set::TYPE_TEXTAREA)
                         echo $form->field($model, "[$model->sname]svalue")->textarea(['rows' => 6])->label($model->sintro)->hint('&lt?=g("'.$model->sname.'")?&gt');
                     elseif($model->stype == Set::TYPE_SELECT)
-                        echo $form->field($model, "[$model->sname]svalue")->dropDownList(unserialize($model->svalues))->label($model->sintro)->hint('&lt?=g("'.$model->sname.'")?&gt');
+                        echo $form->field($model, "[$model->sname]svalue")->dropDownList(json_decode($model->svalues))->label($model->sintro)->hint('&lt?=g("'.$model->sname.'")?&gt');
                     elseif($model->stype == Set::TYPE_CHECKBOX)
                         echo $form->field($model, "[$model->sname]svalue")
-                            ->checkboxList(unserialize($model->svalues))
+                            ->checkboxList(json_decode($model->svalues))
                             ->label($model->sintro)
                             ->hint('&lt?=g("'.$model->sname.'")?&gt');
                     elseif($model->stype == Set::TYPE_RADIO)
                         echo $form->field($model, "[$model->sname]svalue")
-                                    ->radioList(unserialize($model->svalues))
+                                    ->radioList(json_decode($model->svalues))
                                     ->label($model->sintro)
                                     ->hint('&lt?=g("'.$model->sname.'")?&gt');
                     elseif($model->stype == Set::TYPE_FILE) {
