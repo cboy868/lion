@@ -39,8 +39,8 @@ return [
     'remote.html' => 'memorial/home/default/remote',
     'memorial/<id:\d+>.html' => 'memorial/home/default/view',
 
-    'about.html' => 'home/default/about',
-    'contact.html' => 'home/default/contact',
+    'about.html' => 'home/default/about',//需要调整
+    'contact.html' => 'home/default/contact',//需要调整
 
     'login.html' => 'home/default/login',
 
@@ -53,6 +53,4 @@ return [
     'home/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/home/<controller>/<action>',
     'home/<module:(.+)>/<controller:(.+)>.html'=> '<module>/home/<controller>/index',
     'home/<module:(.+)>.html'=> '<module>/home/default/index',
-
-
 ];
