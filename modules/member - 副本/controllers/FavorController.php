@@ -15,7 +15,7 @@ class FavorController extends \app\core\web\MemberController
      */
     public function actionCreate()
     {
-        return $this->json()
+        return $this->json();
     }
 
    

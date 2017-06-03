@@ -7,6 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'sourceLanguage' => 'en-US',
     'language' => "zh-CN",
+
     'bootstrap' => ['log'],
     'defaultRoute' => 'home',
     'modules' => require(__DIR__ . '/modules.php'),
@@ -78,7 +79,7 @@ $config = [
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',   //使用php文件保存信息
                     'basePath' => '@app/core/messages',  //php文件保存位置
-                    //'sourceLanguage' => 'en',
+                    'sourceLanguage' => 'en-US',
                     'fileMap' => [
                         // 'app' => 'app',
                     ],
