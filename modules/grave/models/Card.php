@@ -85,7 +85,7 @@ class Card extends \app\core\db\ActiveRecord
     {
         $card = self::find()->where(['tomb_id'=>$tomb_id])->one();
         if ($card) {
-            return $card;
+           return CardRel::initRel($card, $order_rel_id);
         }
 
         $tomb_params = Yii::$app->getModule('grave')->params['tomb_card'];
@@ -114,7 +114,7 @@ class Card extends \app\core\db\ActiveRecord
             return ;
         }
 
-        CardRel::initRel($card, $order_rel_id);
+        return CardRel::initRel($card, $order_rel_id);
     }
 
     public static function createNew($tomb_id, $min_date)

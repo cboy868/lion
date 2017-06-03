@@ -10,8 +10,6 @@ SelectAsset::register($this);
 
 ?>
 
-
-
 <style type="text/css">
 .form-inline .form-group{
         /*margin-bottom: 10px;*/
@@ -32,19 +30,13 @@ SelectAsset::register($this);
 <?= $form->field($model, 'row')->textInput(['style'=>'width:60px']) ?>
 <?= $form->field($model, 'col')->textInput(['style'=>'width:60px']) ?>
 
-
-
 <?php $this->beginBlock('sel') ?>  
-
 $(function(){
     $('.grave').selectpicker({
         'selectedText': 'cat'
     });
 })
-
-
-
-<?php $this->endBlock() ?>  
+<?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['sel'], \yii\web\View::POS_END); ?> 
 
 

@@ -279,7 +279,7 @@ return [
         ],
         'tomb_card' => [
             'start' => 'sale_time', // or sale_time, 是配置墓证从销售还是安葬开始算起
-            'years' => 20,
+            'years' => 20,//每一期多少年
             'first_free' => true,//第一个20年是否赠送
             'goods_id' =>3,
             'percent' => 0.1

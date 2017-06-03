@@ -1,8 +1,6 @@
-
-
 $(function(){
 
-    // bootstrapButton = $.fn.button.noConflict(); 
+    // bootstrapButton = $.fn.button.noConflict();
     // $.fn.bootstrapBtn = bootstrapButton;
     // $('.datepicker').datepicker({
     //     format: 'yyyy-mm-dd',
@@ -31,7 +29,7 @@ $(function(){
                         btn.button('reset');
                     });
     });
- 
+
 
 
 })

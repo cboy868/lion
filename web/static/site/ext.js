@@ -1,8 +1,8 @@
 LN = {
-    // 后台框架的初始化工作在这里完成 
+    // 后台框架的初始化工作在这里完成
     dtInit : function(){
         // 如果存在datepicker插件
-        if (typeof(jQuery.datepicker) !== 'undefined') { // 
+        if (typeof(jQuery.datepicker) !== 'undefined') { //
            $('input[dt=true]').each(function(){
                var $this = $(this);
 
@@ -10,25 +10,25 @@ LN = {
                   // autoclose: true,
                };
                // 1 是否可清除
-               if ($this.attr('dt-clear') == true 
+               if ($this.attr('dt-clear') == true
                    || $this.attr('dt-clear') == 'true') {
                    setting['showButtonPanel'] = true;
                    setting['closeText'] = '清除';
                    setting['beforeShow'] = function (input, inst) {
-                                               CurrDtInput = input; 
+                                               CurrDtInput = input;
                                            };
                }
                // 2 是否可变换年
-               if ($this.attr('y-change')== true 
+               if ($this.attr('y-change')== true
                    || $this.attr('dt-year') == 'true') {
                   setting['changeYear'] = true;
                }
                // 3 是否可变换月
-               if ($this.attr('m-change')== true 
+               if ($this.attr('m-change')== true
                    || $this.attr('dt-month') == 'true') {
                    setting['changeMonth'] = true;
                }
-               // 4 缺省 
+               // 4 缺省
                if ($this.attr('default')) {
                   setting['defaultDate'] = $this.attr('default');
                }
@@ -38,7 +38,7 @@ LN = {
                }
                // 6 结束时间
                if ($this.attr('max')) {
-                    setting['maxDate'] = $this.attr('max'); 
+                    setting['maxDate'] = $this.attr('max');
                }
                // 7 可选择年的显示范围
                if ($this.attr('year-range')) {
@@ -46,7 +46,7 @@ LN = {
                }
                // 6 时间格式
                if ($this.attr('format')) {
-                    setting['dateFormat'] = $this.attr('format'); 
+                    setting['dateFormat'] = $this.attr('format');
                }
                $this.datepicker(setting);
            });
@@ -59,7 +59,7 @@ LN = {
            var $this = $(this);
            if ( !$this.data('dttimeInit') ) {
                $this.datetimepicker();
-               $this.data('dttimeInit', true); 
+               $this.data('dttimeInit', true);
                $this.blur();
                $this.focus();
            }

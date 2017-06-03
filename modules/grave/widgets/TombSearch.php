@@ -22,12 +22,8 @@ use app\core\helpers\ArrayHelper;
  */
 class TombSearch extends \yii\base\Widget
 {
-
-
     public $form;
     // public $options = [];
-
-
 
     /**
      * Renders the widget.

@@ -4,15 +4,10 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\BurySearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use yii\bootstrap\Modal;
 
 $this->title = '预葬记录';
 $this->params['breadcrumbs'][] = $this->title;
-
-
 ?>
 
 <div class="page-content">
@@ -23,23 +18,44 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=$this->title?>
                 <small style="">
                 </small>
-
                 <div class="pull-right nc">
                     <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['index'])?>">
                         <i class="fa fa-th fa-2x"></i>  安葬记录</a>
                 </div>
             </h1>
         </div><!-- /.page-header -->
+        <?php
+        Modal::begin([
+            'header' => '新增',
+            'id' => 'modalAdd',
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="modalContent"></div>';
+
+        Modal::end();
+        ?>
+
+        <?php
+        Modal::begin([
+            'header' => '确认安葬',
+            'id' => 'modalEdit',
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="editContent"></div>';
+
+        Modal::end();
+        ?>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+                        <?php echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
             </div>
 
             <div class="col-xs-12 bury-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -65,9 +81,19 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'status',
             [
                 'header' => '操作',
-                'headerOptions' => ["data-type"=>"html",'width'=>'150'],
+                'headerOptions' => ['width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete}',
+                'template' => '{delete} {confirm}',
+                'buttons' => [
+                    'confirm' => function($url, $model, $key) {
+                        return Html::a('确认安葬', $url, [
+                                'title' => '确认安葬',
+                                'data-confirm' => '请确定此记录已完成',
+                                'data-method'=>"post",
+                                'data-pjax' => '0'
+                        ] );
+                    }
+                ],
             ]
         ],
     ]); ?>

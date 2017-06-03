@@ -2,6 +2,8 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\grave\models\Card;
+use app\modules\grave\models\OrderRel;
 use Yii;
 use app\modules\grave\models\Bury;
 use app\modules\grave\models\search\BurySearch;
@@ -21,6 +23,7 @@ class BuryController extends BackController
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'confirm' => ['post'],
                 ],
             ],
         ];
@@ -114,6 +117,51 @@ class BuryController extends BackController
 //        }
 //    }
 
+    /**
+     * @name 确认安葬
+     */
+    public function confirmBury()
+    {
+        $post = Yii::$app->request->post();
+
+        $bury = Bury::findOne($post['id']);
+        $bury->status = Bury::STATUS_OK;
+        if ($bury->save()) {
+            return $this->json();
+        }
+
+        return $this->json(null, '确认安葬出错，请联系管理员', 0);
+    }
+
+
+    public function actionConfirm($id)//这个方法不应该是这样，应该是弹出窗口，选择完安葬员及礼仪再ok，暂时先这样吧
+    {
+        $bury = Bury::findOne($id);
+        $bury->status = Bury::STATUS_OK;
+        if ($bury->save()) {
+
+
+            $params = Yii::$app->getModule('grave')->params['tomb_card'];
+
+            if ($params['start'] == 'bury') {
+                $order_rel = OrderRel::find()->where(['status'=>OrderRel::STATUS_NORMAL])
+                    ->andWhere(['tid'=>$bury->tomb_id])
+                    ->andWhere(['goods_id'=>$params['goods_id']])
+                    ->one();
+                $order_rel_id = isset($order_rel->id) ? $order_rel->id : 0;
+
+                Card::initCard($bury->tomb_id, $order_rel_id);
+            }
+
+            Yii::$app->session->setFlash('success', '确认安葬成功');
+//            return $this->json();
+        }
+
+
+        return $this->redirect('pre');
+
+        //return $this->render('confirm');
+    }
     /**
      * Deletes an existing Bury model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

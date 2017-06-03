@@ -86,32 +86,63 @@ class CardRel extends \app\core\db\ActiveRecord
     public static function initRel($card, $order_rel_id)
     {
         $rels = self::find()->where(['card_id'=>$card->id])->all();
-        if ($rels) {
-            return $rels;
+        $order_rel = \app\modules\grave\models\OrderRel::findOne($order_rel_id);
+        if ($order_rel) {
+            $customer = $order_rel->tomb->customer;
         }
 
-        $order_rel = \app\modules\grave\models\OrderRel::findOne($order_rel_id);
-        $customer = $order_rel->tomb->customer;
+
+
+
+        $params = Yii::$app->getModule('grave')->params['tomb_card'];
 
         $rel = new self();
-        $data = [
-            'card_id' => $card->id,
-            'tomb_id' => $card->tomb_id,
-            'start' => $card->start,
-            'end' => $card->end,
-            'num' =>1,
-            'total' => $card->total,
-            'created_by' => $card->created_by,
-            'order_rel_id' =>$order_rel_id,
-            'price' => $order_rel->price,
-            'customer_name' => isset($customer->name)? $customer->name : '',
-            'mobile' => isset($customer->mobile)? $customer->mobile : '',
-        ];
 
-        $rel->load($data, '');
-        if ($rel->save()===false) {
-            Yii::error('墓证明细保存失败', __METHOD__);
-            return false;
+        if ($rels) {
+
+            $years = $order_rel->num * $params['years'];
+//            $end = date('Y-m-d', strtotime('+'.$years.' years', strtotime($card->end)));
+            $end = (substr($card->end, 0, 4) + $years) . substr($card->end, 4);
+            $data = [
+                'card_id' => $card->id,
+                'tomb_id' => $card->tomb_id,
+                'start' => $card->end,
+                'end' => $end,
+                'num' =>isset($order_rel->num) ? $order_rel->num : 0,
+                'total' => $years,
+                'created_by' => Yii::$app->user->id,
+                'order_rel_id' =>$order_rel_id,
+                'price' => isset($order_rel->price) ? $order_rel->price : 0,
+                'customer_name' => isset($customer->name)? $customer->name : '',
+                'mobile' => isset($customer->mobile)? $customer->mobile : '',
+            ];
+
+            $rel->load($data, '');
+            if ($rel->save()===false) {
+                Yii::error('墓证明细保存失败', __METHOD__);
+                return false;
+            }
+
+        } else {
+            $data = [
+                'card_id' => $card->id,
+                'tomb_id' => $card->tomb_id,
+                'start' => $card->start,
+                'end' => $card->end,
+                'num' =>1,
+                'total' => $card->total,
+                'created_by' => $card->created_by,
+                'order_rel_id' =>$order_rel_id,
+                'price' => isset($order_rel->price) ? $order_rel->price :0,
+                'customer_name' => isset($customer->name)? $customer->name : '',
+                'mobile' => isset($customer->mobile)? $customer->mobile : '',
+            ];
+
+            $rel->load($data, '');
+            if ($rel->save()===false) {
+                Yii::error('墓证明细保存失败', __METHOD__);
+                return false;
+            }
         }
 
         return $rel;
@@ -141,31 +172,31 @@ class CardRel extends \app\core\db\ActiveRecord
         return $this->card->save();
     }
 
-    public static function afterPay($order_rel_id)
-    {
-
-        $rel = OrderRel::findOne($order_rel_id);
-        $mcard = Card::find()->where(['tomb_id'=>$rel->tid])->one();
-
-        if (!$mcard) {
-            return ;
-        }
-
-        $card = new self;
-
-        $params = Yii::$app->getModule('grave')->params['tomb_card'];
-
-        $card->card_id = $mcard->id;
-        $card->tomb_id = $rel->tid;
-        $card->price = $rel->price;
-        $card->num = $rel->num;
-        $card->order_rel_id = $rel->id;
-        $card->total =  $params['years']* $rel->num;
-        $card->start = $mcard->end;
-        $card->end = (substr($card->start, 0, 4) + $card->total) . substr($card->start, 4);
-
-        return $card->save();
-    }
+//    public static function afterPay($order_rel_id)
+//    {
+//
+//        $rel = OrderRel::findOne($order_rel_id);
+//        $mcard = Card::find()->where(['tomb_id'=>$rel->tid])->one();
+//
+//        if (!$mcard) {
+//            return ;
+//        }
+//
+//        $card = new self;
+//
+//        $params = Yii::$app->getModule('grave')->params['tomb_card'];
+//
+//        $card->card_id = $mcard->id;
+//        $card->tomb_id = $rel->tid;
+//        $card->price = $rel->price;
+//        $card->num = $rel->num;
+//        $card->order_rel_id = $rel->id;
+//        $card->total =  $params['years']* $rel->num;
+//        $card->start = $mcard->end;
+//        $card->end = (substr($card->start, 0, 4) + $card->total) . substr($card->start, 4);
+//
+//        return $card->save();
+//    }
 
     public function getBy()
     {
