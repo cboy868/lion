@@ -101,21 +101,21 @@ $this->title="购墓流程"
                         <?= $form->field($model, 'id')->hiddenInput(['class'=>'cid form-control'])->label(false)?>
                         <tr>
                             <td><?= $form->field($model, 'name')->textInput(['class'=>'cname form-control'])->label("客户名(<font color='red'>*</font>)") ?></td>
-                            <td><?= $form->field($model, 'mobile')->textInput(['class'=>'cmobile','maxlength' => true])->label("手机号(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($model, 'mobile')->textInput(['class'=>'cmobile form-control','maxlength' => true])->label("手机号(<font color='red'>*</font>)") ?></td>
                         </tr>
 
                         <tr>
                             <td>
-                                <?= $form->field($model, 'email')->textInput(['class'=>'cemail','maxlength' => true]) ?>
+                                <?= $form->field($model, 'email')->textInput(['class'=>'cemail form-control','maxlength' => true]) ?>
                             </td>
                             <td>
-                                <?= $form->field($model, 'phone')->textInput(['class'=>'cphone','maxlength' => true]) ?>
+                                <?= $form->field($model, 'phone')->textInput(['class'=>'cphone form-control','maxlength' => true]) ?>
                             </td>
                         </tr>
 
                         <tr>
-                            <td><?= $form->field($model, 'second_ct')->textInput(['class'=>'csecond_ct','maxlength' => true]) ?></td>
-                            <td><?= $form->field($model, 'second_mobile')->textInput(['class'=>'csecond_mobile','maxlength' => true]) ?></td>
+                            <td><?= $form->field($model, 'second_ct')->textInput(['class'=>'csecond_ct form-control','maxlength' => true]) ?></td>
+                            <td><?= $form->field($model, 'second_mobile')->textInput(['class'=>'csecond_mobile form-control','maxlength' => true]) ?></td>
                         </tr>
 
                         <tr>
@@ -137,7 +137,7 @@ $this->title="购墓流程"
                                 <?php $form->fieldConfig['labelOptions']['class']='control-label col-sm-1';
                                       $form->fieldConfig['template']='{label}<div class="col-sm-10">{input}{hint}{error}</div>';
                                  ?>
-                                <?= $form->field($model, 'addr')->textArea(['class'=>'caddr','maxlength' => true, 'placeholder'=>'详细地址']) ?>
+                                <?= $form->field($model, 'addr')->textArea(['class'=>'caddr form-control','maxlength' => true, 'placeholder'=>'详细地址']) ?>
                             </td>
                         </tr>
                     </table>

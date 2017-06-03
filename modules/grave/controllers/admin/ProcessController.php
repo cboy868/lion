@@ -21,6 +21,7 @@ use app\modules\shop\models\Goods;
 use app\modules\grave\models\InsProcess;
 use app\modules\grave\models\Bury;
 use app\modules\grave\models\CarRecord;
+use yii\web\NotFoundHttpException;
 
 // use app\modules\user\models\User;
 /**
@@ -97,10 +98,11 @@ class ProcessController extends BackController
             try {
                 $u = $req->post('User');
                 $cu = $req->post('Customer');
-                if ($u['id']) {
+
+                if (isset($u['id']) && !empty($u['id'])) {
                     $user = User::findOne($u['id']);
                 }
-                if ($cu['id']) {
+                if (isset($cu['id']) && !empty($cu['id'])) {
                     $customer = Customer::findOne($cu['id']);
                 }
 
@@ -142,9 +144,10 @@ class ProcessController extends BackController
 
                 $outerTransaction->commit();
                 return $this->next();
-                
+                die;
             } catch (\Exception $e) {
                 echo $e->getMessage();
+                Yii::error($e->getMessage(), __METHOD__);
                 $outerTransaction->rollBack();
             }
         }

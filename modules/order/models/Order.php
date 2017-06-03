@@ -79,6 +79,7 @@ class Order extends \app\core\db\ActiveRecord
         if ($this->progress ==  self::PRO_PAY || $this->progress == self::PRO_OK) {
 
             if ($this->tid) {
+                \app\modules\grave\models\Tomb::afterPay($this->tid, $this->id);
                 \app\modules\task\models\Task::create($this->id, 'tomb', $this->tid);
             } else {
                 \app\modules\task\models\Task::create($this->id);
@@ -89,6 +90,10 @@ class Order extends \app\core\db\ActiveRecord
             foreach ($this->rels as $k => $rel) {
                 if ($rel->goods_id == $gconfig['id']['renew']['id']) {
                     \app\modules\grave\models\CardRel::afterPay($rel->id);
+                }
+
+                if ($rel->goods_id == $gconfig['id']['renew']['id']) {
+                    \app\modules\grave\models\Card::initCard($this->tid, $rel->id);
                 }
             }
 

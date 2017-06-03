@@ -35,11 +35,12 @@ class Order extends \app\modules\order\models\Order
 
             $order = self::getValidOrder($user_id, $extra);
 
-            $o = OrderRel::createTombOrder($order, $tomb, $extra);
-
+            OrderRel::createTombOrder($order, $tomb, $extra);
+           $a = OrderRel::createCardOrder($order, $tomb);
             $order->updatePrice();
         } catch (\Exception $e) {
             echo $e->getMessage();
+            Yii::error($e->getMessage(), __METHOD__);
             return false;
         }
         return $order;

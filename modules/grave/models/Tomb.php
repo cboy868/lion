@@ -7,6 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
 use app\core\traits\ThumbTrait;
 use app\core\helpers\Url;
+use app\modules\grave\models\Order;
 
 
 /**
@@ -127,6 +128,30 @@ class Tomb extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'status' => '状态',
         ];
+    }
+
+    /**
+     * @name 支付完成后的一些操作
+     */
+    public static function afterPay($tomb_id, $order_id)
+    {
+        $tomb = self::findOne($tomb_id);
+        $order = Order::findOne($order_id);
+
+        switch ($order->progress) {
+            case Order::PRO_PAY:
+            case Order::PRO_OK:
+                $tomb->status = self::STATUS_PAYOK;
+                break;
+            case Order::PRO_PART:
+                $tomb->status = self::STATUS_DEPOSIT;
+                break;
+        }
+
+        $tomb->sale_time = date('Y-m-d H:i:s');
+
+        $tomb->save();
+
     }
 
     public static function getSta($status = null)
@@ -279,9 +304,6 @@ class Tomb extends \app\core\db\ActiveRecord
      **/
     public function getOptions()
     {
-        
-
-
         $options = [
             'common' => [
                 [

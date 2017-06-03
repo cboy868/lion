@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\modules\shop\models\Goods;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
@@ -42,6 +43,7 @@ class OrderRel extends \app\modules\order\models\OrderRel
         }
 
         $data = [
+            'tid' => $tomb->id,
             'type'          => self::TYPE_TOMB,
             'user_id'       => $order->user_id,
             'op_id'         => Yii::$app->user->id,
@@ -61,6 +63,30 @@ class OrderRel extends \app\modules\order\models\OrderRel
         $model->load($data, '');
         $model->save();
         return $model;
+    }
+
+    public static function createCardOrder($order, $tomb)
+    {
+        $params = Yii::$app->getModule('grave')->params['tomb_card'];
+
+//        if ($params['start'] == 'bury') {//墓证费用应该是在这里生成,但不影响时间
+//            return ;
+//        }
+
+        $goods_id = $params['goods_id'];
+
+        if ($params['first_free']) {
+            $gmodel = Goods::createVirtual($goods_id, '墓位维护费(赠送)');
+            return self::createGoods($order, $gmodel, ['tid'=>$tomb->id]);
+        }
+
+        $gmodel = Goods::createVirtual($goods_id, '墓位维护费', ['price'=>$tomb->price*$params['percent']]);
+        return self::createGoods($order, $gmodel, ['tid'=>$tomb->id]);
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(), ['id'=>'tid']);
     }
 
     // public static function getInsOrderRel($tomb_id)

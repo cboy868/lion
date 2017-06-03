@@ -71,7 +71,7 @@
                         data-speed="600"
                         data-start="1800"
                         data-end="9400"
-                        data-endspeed="600">严谨权限、控制到每一个按扭
+                        data-endspeed="600">严谨权限、可控制到每一个按扭
                     </div>
 
                     <!-- LAYER NR. 6 -->

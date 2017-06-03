@@ -157,4 +157,9 @@ STR;
     {
         \app\modules\task\models\Task::create(20,'tomb', 11);
     }
+
+    public function actionCard()
+    {
+        \app\modules\grave\models\Card::initCard(5, 21);
+    }
 }

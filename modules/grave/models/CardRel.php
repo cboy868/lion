@@ -38,7 +38,7 @@ class CardRel extends \app\core\db\ActiveRecord
     {
         return [
             [['card_id', 'tomb_id', 'start', 'end'], 'required'],
-            [['card_id', 'tomb_id', 'order_id', 'total', 'num', 'created_by', 'created_at'], 'integer'],
+            [['card_id', 'tomb_id', 'order_rel_id', 'total', 'num', 'created_by', 'created_at'], 'integer'],
             [['start', 'end'], 'safe'],
             [['price'], 'number'],
             [['customer_name'], 'string', 'max' => 50],
@@ -69,7 +69,7 @@ class CardRel extends \app\core\db\ActiveRecord
             'tomb_id' => '墓位id',
             'start' => '起始',
             'end' => '截止',
-            'order_id' => '订单id',
+            'order_rel_id' => '订单id',
             'price' => '价格',
             'total' => '总年数',
             'num' => '期数',
@@ -78,6 +78,43 @@ class CardRel extends \app\core\db\ActiveRecord
             'created_by' => '操作人',
             'created_at' => '添加时间',
         ];
+    }
+
+    /**
+     * @name 初始化
+     */
+    public static function initRel($card, $order_rel_id)
+    {
+        $rels = self::find()->where(['card_id'=>$card->id])->all();
+        if ($rels) {
+            return $rels;
+        }
+
+        $order_rel = \app\modules\grave\models\OrderRel::findOne($order_rel_id);
+        $customer = $order_rel->tomb->customer;
+
+        $rel = new self();
+        $data = [
+            'card_id' => $card->id,
+            'tomb_id' => $card->tomb_id,
+            'start' => $card->start,
+            'end' => $card->end,
+            'num' =>1,
+            'total' => $card->total,
+            'created_by' => $card->created_by,
+            'order_rel_id' =>$order_rel_id,
+            'price' => $order_rel->price,
+            'customer_name' => isset($customer->name)? $customer->name : '',
+            'mobile' => isset($customer->mobile)? $customer->mobile : '',
+        ];
+
+        $rel->load($data, '');
+        if ($rel->save()===false) {
+            Yii::error('墓证明细保存失败', __METHOD__);
+            return false;
+        }
+
+        return $rel;
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -116,12 +153,14 @@ class CardRel extends \app\core\db\ActiveRecord
 
         $card = new self;
 
+        $params = Yii::$app->getModule('grave')->params['tomb_card'];
+
         $card->card_id = $mcard->id;
         $card->tomb_id = $rel->tid;
         $card->price = $rel->price;
         $card->num = $rel->num;
-        $card->order_id = $rel->id;
-        $card->total = 20 * $rel->num;
+        $card->order_rel_id = $rel->id;
+        $card->total =  $params['years']* $rel->num;
         $card->start = $mcard->end;
         $card->end = (substr($card->start, 0, 4) + $card->total) . substr($card->start, 4);
 
