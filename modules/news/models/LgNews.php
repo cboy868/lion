@@ -33,7 +33,7 @@ class LgNews extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['news_id', 'language', 'summary', 'body'], 'required'],
+            [['news_id', 'language'], 'required'],
             [['news_id', 'thumb'], 'integer'],
             [['summary', 'body'], 'string'],
             [['language'], 'string', 'max' => 10],
@@ -51,12 +51,12 @@ class LgNews extends \app\core\db\ActiveRecord
             'id' => 'ID',
             'news_id' => 'News ID',
             'language' => 'Language',
-            'title' => 'Title',
-            'subtitle' => 'Subtitle',
-            'summary' => 'Summary',
-            'thumb' => 'Thumb',
-            'video' => 'Video',
-            'body' => 'Body',
+            'title' => Yii::t('app/news', 'title'),
+            'subtitle' => Yii::t('app/news', 'subtitle'),
+            'summary' => Yii::t('app/news', 'summary'),
+            'thumb' => Yii::t('app/news', 'thumb'),
+            'video' => Yii::t('app/news', 'video'),
+            'body' => Yii::t('app/news', 'body'),
         ];
     }
 }

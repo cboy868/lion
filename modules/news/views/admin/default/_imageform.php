@@ -38,7 +38,6 @@ ul.img-box{
 
      <?= $form->field($model, 'subtitle')->textInput(['maxlength' => true])->hint('副标题可以稍长一点') ?>
 
-
     <?php 
         $category = Category::find()->where(['status'=>Category::STATUS_NORMAL])->asArray()->all();
 
@@ -92,7 +91,6 @@ ul.img-box{
     <?php echo Newsup::widget(['options'=>['res_name'=>'news_photo', 'album_id'=>1, 'mod'=>1]]);?>
     
     <?= $form->field($model, 'summary')->textarea(['rows' => 6])->label('图片资讯概要') ?>
-
 
 	<div class="form-group">
         <div class="col-sm-3">

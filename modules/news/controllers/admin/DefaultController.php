@@ -13,6 +13,8 @@ use yii\db\Exception;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\core\helpers\ArrayHelper;
+use app\modules\news\models\LgNews;
+use yii\base\Model;
 
 /**
  * DefaultController implements the CRUD actions for News model.
@@ -72,7 +74,8 @@ class DefaultController extends BackController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'type' => $type,
-            'i18n' => $i18n
+            'i18n' => $i18n,
+            'i18n_flag' => Yii::$app->params['i18n']['flag']
         ];
 
         return $this->render('index', $data);
@@ -172,6 +175,44 @@ class DefaultController extends BackController
     }
 
     /**
+     * @name 多语言编辑
+     */
+    public function actionUpdateLg($id)
+    {
+
+        $model = $this->findModel($id);
+
+        $params = Yii::$app->params['i18n'];
+        $lgs = array_keys($params['languages']);
+        $data['model'] = $model;
+        $lg_models = LgNews::find()->where(['language'=>$lgs])
+                            ->andWhere(['news_id'=>$model->id])
+                            ->indexBy('language')
+                            ->all();
+
+        foreach ($lgs as $v) {
+            if (!array_key_exists($v, $lg_models)) {
+                $lg_models[$v] = new LgNews();
+                $lg_models[$v]->language = $v;
+                $lg_models[$v]->news_id = $id;
+            }
+        }
+
+        if (Model::loadMultiple($lg_models, \Yii::$app->request->post()) && Model::validateMultiple($lg_models)) {
+
+            foreach ($lg_models as $lg_model) {
+                $lg_model->save(false);
+            }
+
+            return $this->redirect(['index', 'type'=>$model->type]);
+        }
+
+        $data['lg_models'] = $lg_models;
+        $data['languages'] = $params['languages'];
+        return $this->render('update_lg', $data);
+    }
+
+    /**
      * @return array
      * @name 批量删除
      */
@@ -216,6 +257,8 @@ class DefaultController extends BackController
     }
 
 
+
+
     protected function updateText($model, $tags, $i18n)
     {
         $class = '\app\modules\news\models\NewsTextForm';
@@ -257,6 +300,9 @@ class DefaultController extends BackController
             $data['languages'] = $params['languages'];
             $data['main_language'] = $params['main'];
         }
+
+
+
 
         return $this->render('update', $data);
 

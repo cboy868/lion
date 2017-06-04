@@ -151,19 +151,17 @@ $this->params['breadcrumbs'][] = $this->title;
   <ul class="dropdown-menu">
     <li><a href="#">{top}</a></li>
     <li><a href="#">{recommend}</a></li>
+    <li><a href="#">{update-lg}</a></li>
     <li role="separator" class="divider"></li>
   </ul>
 </div>',
                 'buttons' => [
                     'top' => function($url, $model, $key){
-
                         if ($model->is_top) {
                             return Html::a('<font color="red"> 取消置顶</font>', $url, ['title' => '置顶', 'class'=>'top'] );
                         } else {
                             return Html::a('<font color="red"> 置顶</font>', $url, ['title' => '置顶', 'class'=>'top'] );
                         }
-
-                        
                     },
                     'recommend' => function($url, $model, $key) {
                         if ($model->recommend) {
@@ -171,7 +169,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         } else {
                             return Html::a(' 推荐', $url, ['title' => '推荐', 'class'=>'recommend'] );
                         }
-                        
+                    },
+                    'update-lg' => function($url, $model, $key) use($i18n_flag) {
+                        if($i18n_flag) {
+                            return Html::a('编辑多语言', $url, ['title' => '编辑多语言'] );
+                        }
                     }
                 ],
                'headerOptions' => ['width' => '140',"data-type"=>"html"]
@@ -184,6 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.page-content-area -->
 </div>
 <!-- Modal -->
+<?php if($i18n):?>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -195,20 +198,26 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="modal-body">
                 <?php $type = $type ? News::types($type) : 'text'; ?>
-                <a href="<?=Url::toRoute(['update', 'id'=>Yii::$app->request->get('id')])?>" class="btn btn-info">编辑其它语言</a>
+                <a href="<?=Url::toRoute(['update-lg', 'id'=>Yii::$app->request->get('id')])?>" class="btn btn-info">编辑其它语言</a>
                 <a href="<?=Url::toRoute(['create', 'type'=>$type])?>" class="btn btn-info">继续添加</a>
                 <a href="<?=Url::toRoute(['index', 'type'=>$type])?>" class="btn btn-info">不做任何操作</a>
             </div>
         </div>
     </div>
 </div>
+    <?php $this->beginBlock('i18n') ?>
+    $(function(){
+        $('#myModal').modal();
+    })
+<?php
+    $this->endBlock();
+    $this->registerJs($this->blocks['i18n'], \yii\web\View::POS_END);
+    endif;
+?>
 
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
-<?php if($i18n):?>
-    $('#myModal').modal();
-<?php endif;?>
     $(".top, .recommend").click(function(e){
         e.preventDefault();
         var url = $(this).attr('href');
