@@ -2,6 +2,7 @@
 
 namespace app\modules\cms\controllers\admin;
 
+use app\modules\cms\models\LgPost;
 use Yii;
 
 use app\modules\cms\models\Post;
@@ -14,7 +15,7 @@ use app\modules\cms\models\PostImage;
 use app\core\base\Upload;
 use app\core\helpers\Html;
 use app\modules\cms\models\PostImageSearch;
-
+use yii\base\Model;
 
 class PostController extends \app\core\web\BackController
 {
@@ -53,7 +54,7 @@ class PostController extends \app\core\web\BackController
      * @return string
      * @name 图文列表
      */
-    public function actionIndex($mid, $type=null, $category_id=null)
+    public function actionIndex($mid, $type=null, $category_id=null, $i18n=false, $id=null)
     {
         $module = Module::findOne($mid);
         Code::createObj('post', $mid);
@@ -81,8 +82,14 @@ class PostController extends \app\core\web\BackController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'module' => $module,
-            'type'  => $type
+            'type'  => $type,
+            'i18n' => $i18n,
+            'i18n_flag' => Yii::$app->params['i18n']['flag']
         ];
+
+        if (!empty($id)) {
+            $data['model'] = $this->findModel($mid, $id);
+        }
 
         return $this->render('index', $data);
 
@@ -181,6 +188,11 @@ class PostController extends \app\core\web\BackController
                 $model->save();
             }
 
+            $i18n = Yii::$app->params['i18n'];
+            if ($i18n['flag']) {
+                return $this->redirect(['index', 'mid' => $module->id, 'i18n'=>true, 'id'=>$model->id]);
+            }
+
             return $this->redirect(['index', 'mid' => $module->id]);
         } else {
 
@@ -201,6 +213,10 @@ class PostController extends \app\core\web\BackController
             $model->type = Post::TYPE_IMAGE;
 
             $model->save();
+            $i18n = Yii::$app->params['i18n'];
+            if ($i18n['flag']) {
+                return $this->redirect(['index', 'mid' => $module->id, 'i18n'=>true, 'id'=>$model->id]);
+            }
             return $this->redirect(['view', 'mid'=>$module->id, 'id'=>$model->id]);
         } else {
             $model->author = Yii::$app->user->identity->username;
@@ -221,6 +237,48 @@ class PostController extends \app\core\web\BackController
                 ->createCommand();
         // 返回查询结果的所有行
         return $command->queryAll();
+    }
+
+    /**
+     * @name 多语言编辑
+     */
+    public function actionUpdateLg($mid, $id)
+    {
+
+        $model = $this->findModel($mid, $id);
+        $module = Module::findOne($mid);
+
+        $params = Yii::$app->params['i18n'];
+        $lgs = array_keys($params['languages']);
+        $data['model'] = $model;
+        $lg_models = LgPost::find()->where(['language'=>$lgs])
+                                    ->andWhere(['post_id'=>$model->id])
+                                    ->indexBy('language')
+                                    ->all();
+
+        foreach ($lgs as $v) {
+            if (!array_key_exists($v, $lg_models)) {
+                $lg_models[$v] = new LgPost();
+                $lg_models[$v]->language = $v;
+                $lg_models[$v]->post_id = $id;
+                $lg_models[$v]->mid = $mid;
+            }
+        }
+
+        if (Model::loadMultiple($lg_models, \Yii::$app->request->post()) && Model::validateMultiple($lg_models)) {
+
+            foreach ($lg_models as $lg_model) {
+                $lg_model->save(false);
+            }
+
+            return $this->redirect(['index', 'mid'=>$mid]);
+        }
+
+        $data['lg_models'] = $lg_models;
+        $data['languages'] = $params['languages'];
+        $data['module'] = $module;
+
+        return $this->render('update_lg', $data);
     }
 
 

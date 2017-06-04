@@ -3,12 +3,8 @@
 use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use app\modules\cms\models\Category;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Post */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="post-form">
 

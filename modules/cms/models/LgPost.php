@@ -49,12 +49,12 @@ class LgPost extends \app\core\db\ActiveRecord
         return [
             'id' => 'ID',
             'post_id' => 'Post ID',
-            'language' => 'Language',
-            'title' => 'Title',
-            'subtitle' => 'Subtitle',
-            'summary' => 'Summary',
-            'body' => 'Body',
-            'thumb' => 'Thumb',
+            'language' => '语言',
+            'title' => '标题',
+            'subtitle' => '副标题',
+            'summary' => '摘要',
+            'body' => '主内容',
+            'thumb' => '封面',
         ];
     }
 }

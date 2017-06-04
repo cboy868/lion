@@ -311,7 +311,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 </div>
                 <div class="modal-body">
                     <?php if (isset($model)): ?>
-                    <a href="<?=Url::toRoute(['update-lg', 'id'=>$model->id])?>" class="btn btn-info">编辑其它语言</a>
+                    <a href="<?=Url::toRoute(['update-lg', 'id'=>$model->id])?>" class="btn btn-info">编辑多语言</a>
                     <a href="<?=Url::toRoute(['create', 'category_id'=>$model->category_id])?>" class="btn btn-info">继续添加</a>
                     <?php endif;?>
                     <a href="<?=Url::toRoute(['index'])?>" class="btn btn-info">不做任何操作</a>

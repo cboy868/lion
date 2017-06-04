@@ -51,7 +51,7 @@ use app\modules\cms\models\Post;
         [
             'class' => 'yii\grid\ActionColumn',
             'header'=>'操作',
-            'template' => '{update} {delete} {view}',
+            'template' => '{update} {delete} {view} {update-lg}',
             'buttons' => [
                 'update' => function($url, $model, $key) use ($mid) {
                     $url = Url::toRoute(['update', 'id'=>$model->id, 'mid'=>$mid, 'type'=>Post::types($model->type)]);
@@ -68,6 +68,10 @@ use app\modules\cms\models\Post;
                 'delete' => function($url, $model, $key) use ($mid) {
                     $url = Url::toRoute(['delete', 'id'=>$model->id, 'mid'=>$mid]);
                     return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
+                },
+                'update-lg' => function($url, $model, $key) use ($mid) {
+                    $url = Url::toRoute(['update-lg', 'id'=>$model->id, 'mid'=>$mid, 'type'=>Post::types($model->type)]);
+                    return Html::a('多语言编辑', $url, ['title' => '多语言'] );
                 },
 
             ],

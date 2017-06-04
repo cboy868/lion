@@ -125,3 +125,34 @@ FootableAsset::register($this);
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+    <!-- Modal -->
+<?php if($i18n):?>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">操作选择</h4>
+                </div>
+                <div class="modal-body">
+                    <?php $type = $type ? \app\modules\cms\models\Post::types($model->type) : 'text'; ?>
+                    <?php if (isset($model)): ?>
+                    <a href="<?=Url::toRoute(['update-lg','mid'=>$module->id, 'id'=>$model->id])?>" class="btn btn-info">编辑多语言</a>
+                    <?php endif;?>
+                    <a href="<?=Url::toRoute(['create', 'mid'=>$module->id, 'type'=>$type])?>" class="btn btn-info">继续添加</a>
+                    <a href="<?=Url::toRoute(['index', 'mid'=>$module->id, 'type'=>$type])?>" class="btn btn-info">不做任何操作</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php $this->beginBlock('i18n') ?>
+    $(function(){
+    $('#myModal').modal();
+    })
+    <?php
+    $this->endBlock();
+    $this->registerJs($this->blocks['i18n'], \yii\web\View::POS_END);
+endif;
+?>
