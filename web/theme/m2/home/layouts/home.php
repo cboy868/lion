@@ -78,7 +78,9 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
             <p>传真:<?=g("chuanzhen")?>  <?=g("beian")?></p>
         </div>
     </div>
+
 <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
+
