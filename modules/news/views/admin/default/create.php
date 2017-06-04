@@ -9,8 +9,6 @@ use app\modules\news\models\News;
 
 
 
-$type = Yii::$app->request->get('type');
-
 $this->title = '添加'.News::$types[$type].'资讯';
 $this->params['breadcrumbs'][] = ['label' => '新闻资讯管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

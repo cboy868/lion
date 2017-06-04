@@ -2,8 +2,6 @@
 
 use app\core\helpers\Html;
 use yii\helpers\Url;
-/* @var $this yii\web\View */
-/* @var $model app\modules\news\models\News */
 
 $this->title = ' ' . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => '新闻资讯管理', 'url' => ['index']];
@@ -33,16 +31,15 @@ $this->params['breadcrumbs'][] = '修改';
                         </div>
                         <div class="no-border">
                             <ul class="nav nav-tabs">
-                                <?php $language = Yii::$app->request->get('language');?>
-                                <li class="<?php if ($language=='zh-CN'): ?>active<?php endif ?>">
-                                    <a href="<?=Url::current(['language'=>'zh-CN'])?>" aria-expanded="true">中文</a>
+                                <?php
+                                $language = Yii::$app->request->get('language');
+                                $language = $language ? $language : $main_language;
+                                ?>
+                                <?php foreach ($languages as $k=>$v):?>
+                                <li class="<?php if ($language==$k): ?>active<?php endif ?>">
+                                    <a href="<?=Url::current(['language'=>$k])?>" aria-expanded="true"><?=$v?></a>
                                 </li>
-                                <li class="<?php if ($language=='en-US'): ?>active<?php endif ?>">
-                                    <a href="<?=Url::current(['language'=>'en-US'])?>" aria-expanded="true">英文</a>
-                                </li>
-                                <li class="<?php if ($language=='ja-JA'): ?>active<?php endif ?>">
-                                    <a href="<?=Url::current(['language'=>'ja-JA'])?>" aria-expanded="true">日文</a>
-                                </li>
+                                <?php endforeach;?>
                             </ul>
                         </div>
                     </div>
@@ -62,3 +59,31 @@ $this->params['breadcrumbs'][] = '修改';
 		</div><!-- /.row -->
 	</div><!-- /.page-content-area -->
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">操作选择</h4>
+            </div>
+            <div class="modal-body">
+                <a href="<?=Url::toRoute(['update', 'id'=>Yii::$app->request->get('id')])?>" class="btn btn-info">编辑其它语言</a>
+                <a href="<?=Url::toRoute(['create'])?>" class="btn btn-info">继续添加</a>
+                <a href="<?=Url::toRoute(['index', 'type'=>$model->type])?>" class="btn btn-info">返回列表页</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php $this->beginBlock('cate') ?>
+$(function(){
+<?php if($i18n):?>
+    $('#myModal').modal();
+<?php endif;?>
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>

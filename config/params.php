@@ -9,6 +9,14 @@ $params = [
     'adminEmail' => 'cboy868@163.com',
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
+    'i18n' => [
+        'flag'=>true,
+        'main' => 'zh-CN',
+        'languages' => [
+            'zh-CN' => '中文',
+            'en-US' => '英文(English)'
+        ]
+    ],
     'wechat' => [
         'wx' => [
             'appid' => 'wxa49d94dde698d291',

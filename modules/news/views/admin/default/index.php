@@ -4,7 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-
+use app\modules\news\models\News;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\news\models\NewsSearch */
@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
 
         <div class="row">
 
@@ -182,15 +183,34 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">操作选择</h4>
+            </div>
+            <div class="modal-body">
+                <a href="<?=Url::toRoute(['update', 'id'=>Yii::$app->request->get('id')])?>" class="btn btn-info">编辑其它语言</a>
+                <a href="<?=Url::toRoute(['create', 'type'=>News::types($type)])?>" class="btn btn-info">继续添加</a>
+                <a href="<?=Url::toRoute(['index', 'type'=>$type])?>" class="btn btn-info">不做任何操作</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
+<?php if($i18n):?>
+    $('#myModal').modal();
+<?php endif;?>
     $(".top, .recommend").click(function(e){
         e.preventDefault();
-
         var url = $(this).attr('href');
-
         $.get(url, function(xhr){
             if (xhr.status) {
                 location.reload();

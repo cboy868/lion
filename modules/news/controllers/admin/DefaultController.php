@@ -53,7 +53,7 @@ class DefaultController extends BackController
      * @return mixed
      * @name 资讯列表
      */
-    public function actionIndex()
+    public function actionIndex($i18n=false)
     {
         $searchModel = new NewsSearch();
 
@@ -68,11 +68,14 @@ class DefaultController extends BackController
 
         $dataProvider = $searchModel->search($params);
 
-        return $this->render('index', [
+        $data = [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'type' => $type
-        ]);
+            'type' => $type,
+            'i18n' => $i18n
+        ];
+
+        return $this->render('index', $data);
     }
 
     /**
@@ -122,6 +125,10 @@ class DefaultController extends BackController
                 if ($model->tags) {
                     $this->tagCreate($model->tags, $news->id);
                 }
+                $i18n = Yii::$app->params['i18n'];
+                if ($i18n['flag']) {
+                    return $this->redirect(['index', 'type' => $news->type, 'i18n'=>true, 'id'=>$news->id]);
+                }
                 return $this->redirect(['index', 'type' => $news->type]);
             }
         } else {
@@ -140,7 +147,7 @@ class DefaultController extends BackController
      * @return mixed
      * @name 修改资讯
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $i18n=false)
     {
         $types = [
             News::TYPE_TEXT => 'text',
@@ -160,7 +167,7 @@ class DefaultController extends BackController
         $tags = TagRel::getTagsByRes('news', $id);
         $tags = implode(',', ArrayHelper::getColumn($tags, 'tag_name')) ;
 
-        return $this->$method($model, $tags);
+        return $this->$method($model, $tags, $i18n);
 
     }
 
@@ -209,7 +216,7 @@ class DefaultController extends BackController
     }
 
 
-    protected function updateText($model, $tags)
+    protected function updateText($model, $tags, $i18n)
     {
         $class = '\app\modules\news\models\NewsTextForm';
         $formModel = new $class();
@@ -221,11 +228,15 @@ class DefaultController extends BackController
         }
 
         $req = Yii::$app->request;
+        $params = Yii::$app->params['i18n'];
 
         if ($model->load($req->post(), 'NewsTextForm') && $ndata->load($req->post(), 'NewsTextForm')) {
 
             if ($model->save() && $ndata->save()) {
                 $this->tagCreate($model->tags, $model->id);
+                if ($params['flag']) {
+                    return $this->redirect(['update', 'id' => $model->id, 'i18n'=>$params['flag']]);
+                }
                 return $this->redirect(['index', 'type' => $model->type]);
             }
         }
@@ -235,21 +246,30 @@ class DefaultController extends BackController
         $formModel->load($data, '');
         $formModel->body = $ndata['body'];
 
-        return $this->render('update', [
+        $data = [
             'model' => $formModel,
             'type' => 'text',
             'tags' => $tags
-        ]);
+        ];
+
+        if ($params['flag']) {
+            $data['i18n'] = $i18n;
+            $data['languages'] = $params['languages'];
+            $data['main_language'] = $params['main'];
+        }
+
+        return $this->render('update', $data);
 
     }
 
-    protected function updateImage($model, $tags)
+    protected function updateImage($model, $tags, $i18n)
     {
         $class = '\app\modules\news\models\NewsImageForm';
         $formModel = new $class();
 
         $req = Yii::$app->request;
 
+        $params = Yii::$app->params['i18n'];
         if ($model->load($req->post(), 'NewsImageForm')) {
             $post = $req->post();
             $model->thumb = isset($post['cover']) ? $post['cover'] : $model->thumb;
@@ -277,6 +297,9 @@ class DefaultController extends BackController
 
             $this->tagCreate($model->tags, $model->id);
 
+            if ($params['flag']) {
+                return $this->redirect(['update', 'id' => $model->id, 'i18n'=>$params['flag']]);
+            }
             return $this->redirect(['index', 'type' => $model->type]);
         }
 
@@ -288,23 +311,36 @@ class DefaultController extends BackController
 
         $imgs = NewsPhoto::find()->where(['news_id'=>$model->id, 'status'=>NewsPhoto::STATUS_NORMAL])->all();
 
-        return $this->render('update', [
+        $data = [
             'model' => $formModel,
             'type' => 'image',
             'imgs' => $imgs,
             'tags' => $tags
-        ]);
+        ];
+
+        if ($params['flag']) {
+            $data['languages'] = $params['languages'];
+            $data['main_language'] = $params['main'];
+            $data['i18n'] = $i18n;
+        }
+
+
+        return $this->render('update', $data);
     }
 
-    protected function updateVideo($model, $tags)
+    protected function updateVideo($model, $tags, $i18n)
     {
         $class = '\app\modules\news\models\NewsVideoForm';
         $formModel = new $class();
 
         $req = Yii::$app->request;
 
+        $params = Yii::$app->params['i18n'];
         if ($model->load($req->post(), 'NewsVideoForm') && $model->save()) {
             $this->tagCreate($model->tags, $model->id);
+            if ($params['flag']) {
+                return $this->redirect(['update', 'id' => $model->id, 'i18n'=>$params['flag']]);
+            }
             return $this->redirect(['index', 'type' => $model->type]);
         }
 
@@ -312,11 +348,19 @@ class DefaultController extends BackController
 
         $formModel->load($data, '');
 
-        return $this->render('update', [
+        $datas = [
             'model' => $formModel,
             'type' => 'video',
             'tags' => $tags
-        ]);
+        ];
+
+        if ($params['flag']) {
+            $datas['i18n'] = $i18n;
+            $datas['languages'] = $params['languages'];
+            $datas['main_language'] = $params['main'];
+        }
+
+        return $this->render('update', $datas);
     }
 
     /**

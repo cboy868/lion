@@ -4,16 +4,14 @@ use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\modules\news\models\Category;
 use yii\helpers\Url;
-use app\assets\PluploadAssets;
-PluploadAssets::register($this);
 use app\core\models\Attachment;
 
+\app\assets\PluploadAssets::register($this);
 \app\assets\TagAsset::register($this);
 ?>
 
 <div class="news-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin()?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -67,13 +65,14 @@ use app\core\models\Attachment;
 
 	<div class="form-group">
         <div class="col-sm-3">
-            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
+            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block btn-ajax']) ?>
         </div>
     </div>
     
     <?php ActiveForm::end(); ?>
 
 </div>
+
 <?php $this->beginBlock('tag') ?>
 $(function () {
     tag();

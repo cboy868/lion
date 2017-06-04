@@ -167,7 +167,6 @@ use yii\helpers\Url;
                             <p>
                                 <span><?=g("beian")?></span> |
                                 <span>Copyright &copy; 2017.<?=g("fullname")?></span>
-
                             </p>
                         </div>
                         <div class="col-md-6">
