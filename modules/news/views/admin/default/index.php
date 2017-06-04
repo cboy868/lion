@@ -194,8 +194,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h4 class="modal-title" id="myModalLabel">操作选择</h4>
             </div>
             <div class="modal-body">
+                <?php $type = $type ? News::types($type) : 'text'; ?>
                 <a href="<?=Url::toRoute(['update', 'id'=>Yii::$app->request->get('id')])?>" class="btn btn-info">编辑其它语言</a>
-                <a href="<?=Url::toRoute(['create', 'type'=>News::types($type)])?>" class="btn btn-info">继续添加</a>
+                <a href="<?=Url::toRoute(['create', 'type'=>$type])?>" class="btn btn-info">继续添加</a>
                 <a href="<?=Url::toRoute(['index', 'type'=>$type])?>" class="btn btn-info">不做任何操作</a>
             </div>
         </div>

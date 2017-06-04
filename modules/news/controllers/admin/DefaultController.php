@@ -63,7 +63,7 @@ class DefaultController extends BackController
         if ($type) {
             $params['NewsSearch']['type'] = $type;
         } else {
-            $type = isset($params['NewsSearch']['type']) ? $params['NewsSearch']['type'] : News::TYPE_TEXT;
+            $type = isset($params['NewsSearch']['type']) ? $params['NewsSearch']['type'] : 0;
         }
 
         $dataProvider = $searchModel->search($params);
