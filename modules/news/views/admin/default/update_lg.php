@@ -47,16 +47,17 @@ $this->params['breadcrumbs'][] = '修改';
                         <div class="news-form">
                             <?php $form = ActiveForm::begin()?>
                             <?php $tpl = '_lg'.News::types($model->type).'_form';?>
-                        <div class="tab-content">
-                                    <?php $i=1; foreach ($lg_models as $k=>$v):?>
-                                    <div role="tabpanel" class="tab-pane <?php if($i==1):?>active<?php endif;?>" id="<?=$k?>">
-                                        <?= $this->render($tpl, [
-                                            'model' => $model,
-                                            'lg_model' => $v,
-                                            'form' =>$form
-                                        ]) ?>
-                                    </div>
-                                    <?php $i++; endforeach;?>
+                            <div class="tab-content">
+                                <?php $i=1; foreach ($lg_models as $k=>$v):?>
+                                <div role="tabpanel" class="tab-pane <?php if($i==1):?>active<?php endif;?>" id="<?=$k?>">
+                                    <?= $this->render($tpl, [
+                                        'model' => $model,
+                                        'lg_model' => $v,
+                                        'body' => $body,
+                                        'form' =>$form
+                                    ]) ?>
+                                </div>
+                                <?php $i++; endforeach;?>
                                 <div class="form-group">
                                     <div class="col-sm-3">
                                         <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block btn-ajax']) ?>

@@ -1,16 +1,9 @@
-<?php
+<?= $form->field($lg_model, "[$lg_model->language]title")
+    ->textInput(['maxlength' => true])->hint('原文: '.$model->title); ?>
 
-use app\core\helpers\Html;
+<?= $form->field($lg_model, "[$lg_model->language]subtitle")
+    ->textInput(['maxlength' => true])->hint('原文: '.$model->subtitle); ?>
 
-use app\modules\news\models\Category;
-use yii\helpers\Url;
-use app\core\models\Attachment;
-
-?>
-
-<?= $form->field($lg_model, "[$lg_model->language]title")->textInput(['maxlength' => true]) ?>
-
-<?= $form->field($lg_model, "[$lg_model->language]subtitle")->textInput(['maxlength' => true]) ?>
-
-<?= $form->field($lg_model, "[$lg_model->language]summary")->textarea(['rows' => 6]) ?>
+<?= $form->field($lg_model, "[$lg_model->language]summary")
+    ->textarea(['rows' => 6])->hint('原文: '.$model->summary); ?>
 

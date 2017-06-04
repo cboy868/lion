@@ -182,6 +182,13 @@ class DefaultController extends BackController
 
         $model = $this->findModel($id);
 
+
+        $body = '';
+        if ($model->type == News::TYPE_TEXT) {
+            $ndata = NewsData::findOne($model->id);
+            $body = $ndata->body;
+        }
+
         $params = Yii::$app->params['i18n'];
         $lgs = array_keys($params['languages']);
         $data['model'] = $model;
@@ -209,6 +216,7 @@ class DefaultController extends BackController
 
         $data['lg_models'] = $lg_models;
         $data['languages'] = $params['languages'];
+        $data['body'] = $body;
         return $this->render('update_lg', $data);
     }
 
