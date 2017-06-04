@@ -49,12 +49,12 @@ class LgGoods extends \app\core\db\ActiveRecord
         return [
             'id' => 'ID',
             'goods_id' => 'Goods ID',
-            'language' => 'Language',
-            'name' => 'Name',
-            'thumb' => 'Thumb',
-            'intro' => 'Intro',
-            'skill' => 'Skill',
-            'unit' => 'Unit',
+            'language' => '语言',
+            'name' => '商品名',
+            'thumb' => '缩略图',
+            'intro' => '商品介绍',
+            'skill' => '其它备注',
+            'unit' => '单位',
         ];
     }
 }

@@ -14,7 +14,8 @@ $params = [
         'main' => 'zh-CN',
         'languages' => [
 //            'zh-CN' => '中文',
-            'en-US' => '英文(English)'
+            'en-US' => '英文(English)',
+            'ru-RU' => 'ru'
         ]
     ],
     'wechat' => [

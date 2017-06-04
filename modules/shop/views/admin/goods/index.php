@@ -263,7 +263,19 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'header' => '操作',
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete} {view} {default}',
+
+                'template' => '
+{update} {delete} {view}
+<div class="btn-group">
+  <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    更多 <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">{default}</a></li>
+    <li><a href="#">{update-lg}</a></li>
+    <li role="separator" class="divider"></li>
+  </ul>
+</div>',
                 'buttons' => [
                     'default' => function($url, $model, $key) {
                         return Html::a('前台查看', Url::toRoute(['/shop/home/default/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
@@ -272,6 +284,11 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                         return Html::a('修改', Url::toRoute(['/shop/admin/goods/update-cate', 'id'=>$model->id]), ['title' => '修改', 'class'=>'modalEditButton'] );
                     },
 
+                    'update-lg' => function($url, $model, $key) use($i18n_flag) {
+                        if($i18n_flag) {
+                            return Html::a('编辑多语言', $url, ['title' => '编辑多语言'] );
+                        }
+                    },
                 ],
             ]
         ],
@@ -281,6 +298,37 @@ $category_id = Yii::$app->getRequest()->get('category_id');
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+
+<?php if($i18n):?>
+    <div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">操作选择</h4>
+                </div>
+                <div class="modal-body">
+                    <?php if (isset($model)): ?>
+                    <a href="<?=Url::toRoute(['update-lg', 'id'=>$model->id])?>" class="btn btn-info">编辑其它语言</a>
+                    <a href="<?=Url::toRoute(['create', 'category_id'=>$model->category_id])?>" class="btn btn-info">继续添加</a>
+                    <?php endif;?>
+                    <a href="<?=Url::toRoute(['index'])?>" class="btn btn-info">不做任何操作</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php $this->beginBlock('i18n') ?>
+    $(function(){
+    $('#msgModal').modal();
+    })
+    <?php
+    $this->endBlock();
+    $this->registerJs($this->blocks['i18n'], \yii\web\View::POS_END);
+endif;
+?>
+
 <?php $this->beginBlock('foo') ?>  
   $(function(){
     $('.table').footable();

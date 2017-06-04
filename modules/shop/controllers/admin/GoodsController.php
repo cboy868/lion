@@ -2,6 +2,7 @@
 
 namespace app\modules\shop\controllers\admin;
 
+use app\modules\shop\models\LgGoods;
 use Yii;
 use app\modules\shop\models\Goods;
 use app\modules\shop\models\search\Goods as GoodsSearch;
@@ -21,6 +22,7 @@ use app\modules\shop\models\AvRel;
 use app\modules\shop\models\Sku;
 use app\core\helpers\Pinyin;
 use app\modules\shop\models\BagRel;
+use yii\base\Model;
 /**
  * GoodsController implements the CRUD actions for Goods model.
  */
@@ -59,7 +61,7 @@ class GoodsController extends BackController
      * @return mixed
      * @name 产品管理
      */
-    public function actionIndex()
+    public function actionIndex($i18n=false, $id=null)
     {
         $searchModel = new GoodsSearch();
 
@@ -70,18 +72,27 @@ class GoodsController extends BackController
         }
 
         $dataProvider = $searchModel->search($params);
-
-        $models = $dataProvider->getModels();
-        $page = $dataProvider->getPagination();
+//
+//        $models = $dataProvider->getModels();
+//        $page = $dataProvider->getPagination();
 
         $cates = $this->getCates();
 
-        return $this->render('index', [
+
+        $data = [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'cates'       => $cates,
+            'i18n' => $i18n,
+            'i18n_flag' => Yii::$app->params['i18n']['flag'],
             'current_cate' => Yii::$app->getRequest()->get('category_id')
-        ]);
+        ];
+
+        if (!empty($id)) {
+            $data['model'] = Goods::findOne($id);
+        }
+
+        return $this->render('index', $data);
     }
 
     private function getCates()
@@ -252,6 +263,11 @@ class GoodsController extends BackController
                  
              }
 
+            $i18n = Yii::$app->params['i18n'];
+            if ($i18n['flag']) {
+                return $this->redirect(['index', 'i18n'=>true, 'id'=>$model->id]);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
 
@@ -293,6 +309,43 @@ class GoodsController extends BackController
                 'tables' => ['data'=>$datas, 'labels'=>array_keys($avs)],
             ]);
         }
+    }
+
+
+    public function actionUpdateLg($id)
+    {
+        $model = $this->findModel($id);
+
+        $params = Yii::$app->params['i18n'];
+
+        $lgs = array_keys($params['languages']);
+        $data['model'] = $model;
+
+        $lg_models = LgGoods::find()->where(['language'=>$lgs])
+                        ->andWhere(['goods_id'=>$model->id])
+                        ->indexBy('language')
+                        ->all();
+
+        foreach ($lgs as $v) {
+            if (!array_key_exists($v, $lg_models)) {
+                $lg_models[$v] = new LgGoods();
+                $lg_models[$v]->language = $v;
+                $lg_models[$v]->goods_id = $id;
+            }
+        }
+
+        if (Model::loadMultiple($lg_models, \Yii::$app->request->post()) && Model::validateMultiple($lg_models)) {
+
+            foreach ($lg_models as $lg_model) {
+                $lg_model->save(false);
+            }
+
+            return $this->redirect(['index']);
+        }
+
+        $data['lg_models'] = $lg_models;
+        $data['languages'] = $params['languages'];
+        return $this->render('update_lg', $data);
     }
 
     private function tagCreate($str, $id)

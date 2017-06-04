@@ -176,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
                 ],
-               'headerOptions' => ['width' => '140',"data-type"=>"html"]
+               'headerOptions' => ['width' => '190',"data-type"=>"html"]
             ]
         ],
     ]); ?>
