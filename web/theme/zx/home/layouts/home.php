@@ -164,7 +164,11 @@ use yii\helpers\Url;
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
-                            <p>Copyright &copy; 2017.卓迅网络</p>
+                            <p>
+                                <span><?=g("beian")?></span> |
+                                <span>Copyright &copy; 2017.<?=g("fullname")?></span>
+
+                            </p>
                         </div>
                         <div class="col-md-6">
                             <nav class="navbar navbar-default" role="navigation">
