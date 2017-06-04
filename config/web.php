@@ -77,12 +77,14 @@ $config = [
         'i18n' => [
             'translations' => [
                 'app*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',   //使用php文件保存信息
-                    'basePath' => '@app/core/messages',  //php文件保存位置
-                    'sourceLanguage' => 'en-US',
-                    'fileMap' => [
-                        // 'app' => 'app',
-                    ],
+                    'class' => 'yii\i18n\DbMessageSource',   //使用数据库保存信息
+                    'sourceMessageTable' => '{{%source_message}}',
+                    'messageTable' => '{{%target_message}}'
+//                    'basePath' => '@app/core/messages',  //php文件保存位置
+//                    'sourceLanguage' => 'en-US',
+//                    'fileMap' => [
+//                        // 'app' => 'app',
+//                    ],
                 ],
             ],
         ],

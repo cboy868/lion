@@ -13,7 +13,7 @@ $params = [
         'flag'=>true,
         'main' => 'zh-CN',
         'languages' => [
-//            'zh-CN' => '中文',
+            'zh-CN' => '中文',
             'en-US' => '英文(English)',
             'ru-RU' => 'ru'
         ]
