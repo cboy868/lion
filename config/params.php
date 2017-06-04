@@ -10,7 +10,7 @@ $params = [
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
     'i18n' => [
-        'flag'=>true,
+        'flag'=>false,
         'main' => 'zh-CN',
         'languages' => [
             'zh-CN' => '中文',
@@ -22,7 +22,6 @@ $params = [
             'appid' => 'wxa49d94dde698d291',
             'appsecret' => 'db9f2d31ee80a622568d7f6eab3649c8',
             'token' => 'lion',
-            
         ]
     ],
     'sms' => [

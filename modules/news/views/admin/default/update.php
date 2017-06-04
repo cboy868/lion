@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = '修改';
 		<div class="row">
 			<div class="col-xs-12 news-update">
                 <div class="widget-box transparent ui-sortable-handle">
+
+                    <?php if(isset($languages)):?>
                     <div class="widget-header" style="border:none;">
                         <div class="widget-toolbar" style="z-index: 2">
                             <button class="btn btn-xs btn-light">
@@ -43,6 +45,9 @@ $this->params['breadcrumbs'][] = '修改';
                             </ul>
                         </div>
                     </div>
+                    <?php endif;?>
+
+
                     <div class="widget-body">
 				<?php 
 					$fm = '_' . $type . 'form';
@@ -81,7 +86,7 @@ $this->params['breadcrumbs'][] = '修改';
 
 <?php $this->beginBlock('cate') ?>
 $(function(){
-<?php if($i18n):?>
+<?php if(isset($i18n) && $i18n):?>
     $('#myModal').modal();
 <?php endif;?>
 })
