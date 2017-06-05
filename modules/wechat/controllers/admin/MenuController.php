@@ -31,7 +31,6 @@ class MenuController extends Controller
     }
 
 
-
     /**
      * Lists all Menu models.
      * @return mixed
@@ -53,7 +52,6 @@ class MenuController extends Controller
         if ($model->load(Yii::$app->request->post()) &&$model->wid=$this->wid && $model->save()){
             return $this->redirect(['info', 'type'=>$model->type, 'id'=>$model->id]);
         }
-
 
         return $this->render('index', [
             'searchModel' => $searchModel,

@@ -1,11 +1,8 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 use app\modules\wechat\models\Wechat;
-/* @var $this yii\web\View */
-/* @var $model app\modules\wechat\models\Wechat */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="wechat-form">
@@ -25,7 +22,6 @@ use app\modules\wechat\models\Wechat;
     <?= $form->field($model, 'appsecret')->textInput(['maxlength' => true])
         ->hint('在微信公众平台获取');
     ?>
-
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

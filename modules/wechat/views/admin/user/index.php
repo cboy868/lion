@@ -23,206 +23,213 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
 </style>
-<div class="page-content">
-    <!-- /section:settings.box -->
-    <div class="page-content-area">
-        <div class="page-header">
-            <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
+
+<link rel="stylesheet" href="/css/wechat.css">
+
+<div class="panel panel-content">
+    <div class="panel-body clearfix main-panel-body">
+
+        <?= $this->render('../default/left');?>
+        <div class="right-content">
+
+            <div class="page-header">
+                <h1>
+                    <!--
+                <?=  Html::a($this->title, ['index']) ?>
             -->
-                <small>
-                    <?=  Html::a('下拉粉丝数据', ['pull'], ['class' => 'btn btn-primary btn-sm']) ?>
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
-        <?php
-        Modal::begin([
-            'header' => '新增',
-            'id' => 'modalAdd',
-            // 'size' => 'modal'
-        ]) ;
+                    <small>
+                        <?=  Html::a('下拉粉丝数据', ['pull'], ['class' => 'btn btn-primary btn-sm']) ?>
+                    </small>
+                </h1>
+            </div><!-- /.page-header -->
+            <?php
+            Modal::begin([
+                'header' => '新增',
+                'id' => 'modalAdd',
+                // 'size' => 'modal'
+            ]) ;
 
-        echo '<div id="modalContent"></div>';
+            echo '<div id="modalContent"></div>';
 
-        Modal::end();
-        ?>
+            Modal::end();
+            ?>
 
-        <?php
-        Modal::begin([
-            'header' => '编辑',
-            'id' => 'modalEdit',
-            // 'size' => 'modal'
-        ]) ;
+            <?php
+            Modal::begin([
+                'header' => '编辑',
+                'id' => 'modalEdit',
+                // 'size' => 'modal'
+            ]) ;
 
-        echo '<div id="editContent"></div>';
+            echo '<div id="editContent"></div>';
 
-        Modal::end();
-        ?>
-
-        <div class="row">
-            <div class="col-xs-12">
-                <?=\app\core\widgets\Alert::widget()?>
-            </div>
-            <div class="col-xs-12">
-                <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+            Modal::end();
+            ?>
+            <div class="row">
+                <div class="col-xs-12">
+                    <?=\app\core\widgets\Alert::widget()?>
                 </div>
-            </div>
-
-            <div class="col-xs-10 user-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                <div class="panel panel-info">
-                    <div class="panel-heading" style="text-align: right;">
-                        <?php if ($tag):?>
-                        <label for="">标签名
-                            <input type="text" name="tagname">
-                        </label>
-                        <a href="#" class="btn btn-info">删除</a>
-                        <?php endif;?>
-                        <?php if ($tags):
-                        PopoverX::begin([
-                            'header' => '打标签',
-                            'placement' => PopoverX::ALIGN_BOTTOM,
-                            'footer' => Html::button('确定', ['class'=>'btn btn-primary btn-submit-taguser']),
-                            'size' => PopoverX::SIZE_LARGE,
-                            'toggleButton' => ['class'=>'btn btn-primary btn-info', 'label'=>'打标签'],
-                        ]);
-                        ?>
-                        <div class="taguser">
-                            <?php foreach ($tags as $v):?>
-                        <label>
-                            <input type="checkbox" value="<?=$v->tag_id?>" name="usertag[]">
-                            <?=$v->name?>
-                        </label>
-                            <?php endforeach;?>
-                        </div>
-                        <?php
-                        PopoverX::end();
-                        endif;
-                        ?>
-
-
-                        <?php if ($tags):
-                            PopoverX::begin([
-                                'header' => '删除标签',
-                                'placement' => PopoverX::ALIGN_BOTTOM,
-                                'footer' => Html::button('确定', ['class'=>'btn btn-primary btn-submit-taguser']),
-                                'size' => PopoverX::SIZE_LARGE,
-                                'toggleButton' => ['class'=>'btn btn-primary btn-info', 'label'=>'删除标签'],
-                            ]);
-                            ?>
-                            <div class="taguser">
-                                <?php foreach ($tags as $v):?>
-                                    <label>
-                                        <input type="checkbox" value="<?=$v->tag_id?>" name="usertag[]">
-                                        <?=$v->name?>
-                                    </label>
-                                <?php endforeach;?>
-                            </div>
-                            <?php
-                            PopoverX::end();
-                        endif;
-                        ?>
-
-
-
-
-
-
-
-
-
-
-
-
-                        <a href="<?=Url::toRoute(['sync-tag'])?>" class="btn btn-info">同步标签</a>
-                        <a href="<?=Url::toRoute(['sync-tag-user'])?>" class="btn btn-info">同步粉丝标签</a>
+                <div class="col-xs-12">
+                    <div class="search-box search-outline">
+                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                     </div>
-                    <div class="panel-body">
+                </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
-        // 'filterModel' => $searchModel,
-        'id' => 'grid',
+                <div class="col-xs-10 user-index">
+                    <div class="panel panel-info">
+                        <div class="panel-heading" style="text-align: right;padding: 5px 10px;">
+                            <?php if ($tag):?>
+                                <label for="">标签名
+                                    <input type="text" name="tagname">
+                                </label>
+                                <a href="#" class="btn btn-info">删除</a>
+                            <?php endif;?>
+                            <?php if ($tags):
+                                PopoverX::begin([
+                                    'header' => '打标签',
+                                    'placement' => PopoverX::ALIGN_BOTTOM,
+                                    'footer' => Html::button('确定', ['class'=>'btn btn-primary btn-submit-taguser']),
+                                    'size' => PopoverX::SIZE_LARGE,
+                                    'toggleButton' => ['class'=>'btn btn-primary btn-info', 'label'=>'打标签'],
+                                ]);
+                                ?>
+                                <div class="taguser">
+                                    <?php foreach ($tags as $v):?>
+                                        <label>
+                                            <input type="checkbox" value="<?=$v->tag_id?>" name="usertag[]">
+                                            <?=$v->name?>
+                                        </label>
+                                    <?php endforeach;?>
+                                </div>
+                                <?php
+                                PopoverX::end();
+                            endif;
+                            ?>
+
+
+                            <?php if ($tags):
+                                PopoverX::begin([
+                                    'header' => '删除标签',
+                                    'placement' => PopoverX::ALIGN_BOTTOM,
+                                    'footer' => Html::button('确定', ['class'=>'btn btn-primary btn-submit-taguser']),
+                                    'size' => PopoverX::SIZE_LARGE,
+                                    'toggleButton' => ['class'=>'btn btn-primary btn-info', 'label'=>'删除标签'],
+                                ]);
+                                ?>
+                                <div class="taguser">
+                                    <?php foreach ($tags as $v):?>
+                                        <label>
+                                            <input type="checkbox" value="<?=$v->tag_id?>" name="usertag[]">
+                                            <?=$v->name?>
+                                        </label>
+                                    <?php endforeach;?>
+                                </div>
+                                <?php
+                                PopoverX::end();
+                            endif;
+                            ?>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a href="<?=Url::toRoute(['sync-tag'])?>" class="btn btn-info">同步标签</a>
+                            <a href="<?=Url::toRoute(['sync-tag-user'])?>" class="btn btn-info">同步粉丝标签</a>
+                        </div>
+                        <div class="panel-body">
+
+                            <?= GridView::widget([
+                                'dataProvider' => $dataProvider,
+                                'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
+                                // 'filterModel' => $searchModel,
+                                'id' => 'grid',
 //        'showFooter' => true,  //设置显示最下面的footer
-        'columns' => [
-            [
-                'class'=>yii\grid\CheckboxColumn::className(),
-                'name'=>'id',  //设置每行数据的复选框属性
-                'headerOptions' => ['width'=>'30', "data-type"=>"html"],
+                                'columns' => [
+                                    [
+                                        'class'=>yii\grid\CheckboxColumn::className(),
+                                        'name'=>'id',  //设置每行数据的复选框属性
+                                        'headerOptions' => ['width'=>'30', "data-type"=>"html"],
 //                'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
 //                'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
-            ],
-            [
-                'label' => '昵称',
-                'value'=> function($model){
-                    $img = "<img src='%s' width='36' height='36'>";
-                    return sprintf($img, $model->headimgurl) . ' ' . $model->nickname;
-                },
-                'format' =>'raw'
-            ],
-            [
-                'label' => '标签',
-                'value' => function($model) {
-                    $html = '<button class="btn btn-info btn-xs">%s</button> ';
+                                    ],
+                                    [
+                                        'label' => '昵称',
+                                        'value'=> function($model){
+                                            $img = "<img src='%s' width='36' height='36'>";
+                                            return sprintf($img, $model->headimgurl) . ' ' . $model->nickname;
+                                        },
+                                        'format' =>'raw'
+                                    ],
+                                    [
+                                        'label' => '标签',
+                                        'value' => function($model) {
+                                            $html = '<button class="btn btn-info btn-xs">%s</button> ';
 
-                    $tags = $model->tags;
-                    $str = '';
-                    if ($tags) {
-                        foreach ($tags as $v) {
-                            $str .= sprintf($html, $v->name);
-                        }
-                    }
+                                            $tags = $model->tags;
+                                            $str = '';
+                                            if ($tags) {
+                                                foreach ($tags as $v) {
+                                                    $str .= sprintf($html, $v->name);
+                                                }
+                                            }
 
-                    return $str;
+                                            return $str;
 
-                },
-                'format' => 'raw'
-            ],
-            // 'remark',
-            // 'sex',
-            // 'language',
-            // 'city',
-            // 'province',
-            // 'country',
-            // 'subscribe',
-             'subscribe_at:datetime',
+                                        },
+                                        'format' => 'raw'
+                                    ],
+                                    // 'remark',
+                                    // 'sex',
+                                    // 'language',
+                                    // 'city',
+                                    // 'province',
+                                    // 'country',
+                                    // 'subscribe',
+                                    'subscribe_at:datetime',
 //             'created_at:datetime',
-            // 'realname',
-            // 'mobile',
-            // 'birth',
-            // 'addr:ntext',
+                                    // 'realname',
+                                    // 'mobile',
+                                    // 'birth',
+                                    // 'addr:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                                    ['class' => 'yii\grid\ActionColumn'],
+                                ],
+                            ]); ?>
+                        </div>
+                    </div>
+                    <div class="hr hr-18 dotted hr-double"></div>
+                </div><!-- /.col -->
+                <div class="col-xs-2">
+                    <div class="wechat-tag-list">
+                        <dl>
+                            <dt class="tag-item">
+                                <a href="<?=Url::toRoute(['index'])?>">全部用户（4）</a>
+                                <a href="<?=Url::toRoute(['create-tag'])?>" class="pull-right btn btn-default modalAddButton"><i class="fa fa-plus"></i></a>
+                            </dt>
+
+                            <?php foreach ($tags as $tag):?>
+                                <dd class="fans-group-item <?php if($tagid == $tag->id):?>active<?php endif;?>">
+                                    <a href="<?=Url::toRoute(['index', 'tagid'=>$tag->tag_id])?>">
+                                        <?=$tag->name?> (<?=$tag->count?>)
+                                    </a>
+                                </dd>
+                            <?php endforeach;?>
+                        </dl>
                     </div>
                 </div>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </div><!-- /.col -->
-            <div class="col-xs-2">
-                <div class="wechat-tag-list">
-                    <dl>
-                        <dt class="tag-item">
-                            <a href="<?=Url::toRoute(['index'])?>">全部用户（4）</a>
-                            <a href="<?=Url::toRoute(['create-tag'])?>" class="pull-right btn btn-default modalAddButton"><i class="fa fa-plus"></i></a>
-                        </dt>
+            </div><!-- /.row -->
 
-                        <?php foreach ($tags as $tag):?>
-                        <dd class="fans-group-item <?php if($tagid == $tag->id):?>active<?php endif;?>">
-                            <a href="<?=Url::toRoute(['index', 'tagid'=>$tag->tag_id])?>">
-                                <?=$tag->name?> (<?=$tag->count?>)
-                            </a>
-                        </dd>
-                        <?php endforeach;?>
-                    </dl>
-                </div>
-            </div>
-        </div><!-- /.row -->
-    </div><!-- /.page-content-area -->
+        </div>
+    </div>
 </div>
+
 
 <style>
     .wechat-tag-list{width:100%;float:left;border-left:1px solid #e7e7eb;border-bottom:1px solid #e7e7eb;}
@@ -270,25 +277,25 @@ $('.btn-submit-taguser').click(function(){
 });
 
 $('.btn-delete').click(function(){
-var ids = $('#grid').yiiGridView('getSelectedRows');
+    var ids = $('#grid').yiiGridView('getSelectedRows');
 
-if (ids.length<1) {
-alert('请先选择要删除的账号');
-return;
-}
-if (!confirm("您确定要删除这些账号吗?,删除后不可恢复")){return false;}
+    if (ids.length<1) {
+        alert('请先选择要删除的账号');
+        return;
+    }
+    if (!confirm("您确定要删除这些账号吗?,删除后不可恢复")){return false;}
 
-var url = "<?=Url::toRoute(['batch-del'])?>";
+        var url = "<?=Url::toRoute(['batch-del'])?>";
 
-$.post(url, {ids:ids},function(xhr){
-if (xhr.status){
-location.reload();
-} else {
-alert(xhr.info);
-}
-},'json');
+        $.post(url, {ids:ids},function(xhr){
+            if (xhr.status){
+                location.reload();
+            } else {
+                alert(xhr.info);
+        }
+        },'json');
 
-});
+    });
 
 })
 <?php $this->endBlock() ?>

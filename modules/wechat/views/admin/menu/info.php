@@ -33,73 +33,83 @@ $this->params['breadcrumbs'][] = $this->title;
         /*margin-bottom:15px;*/
     /*}*/
 </style>
-<div class="page-content">
-    <!-- /section:settings.box -->
-    <div class="page-content-area">
-        <div class="page-header">
-            <h1>
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create-menu','main_id'=>$model->id],
-                        [
-                            'class' => 'btn btn-primary btn-sm modalAddButton',
-                            'data-loading-text'=>"页面加载中, 请稍后...",
-                            'onclick'=>"return false"
-                        ]) ?>
-                    <?= Html::a('激活此菜单', ['sync', 'id'=>$model->id], ['class'=>'btn btn-danger btn-sm btn-sync']);?>
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
-        <?php
-        Modal::begin([
-            'header' => '新增',
-            'id' => 'modalAdd',
-            // 'size' => 'modal'
-        ]) ;
 
-        echo '<div id="modalContent"></div>';
+<link rel="stylesheet" href="/css/wechat.css">
 
-        Modal::end();
-        ?>
+<div class="panel panel-content">
+    <div class="panel-body clearfix main-panel-body">
 
-        <?php
-        Modal::begin([
-            'header' => '编辑',
-            'id' => 'modalEdit',
-            // 'size' => 'modal'
-        ]) ;
+        <?= $this->render('../default/left');?>
+        <div class="right-content">
+            <div class="page-header">
+                <h1>
+                    <small>
+                        <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create-menu','main_id'=>$model->id],
+                            [
+                                'class' => 'btn btn-primary btn-sm modalAddButton',
+                                'data-loading-text'=>"页面加载中, 请稍后...",
+                                'onclick'=>"return false"
+                            ]) ?>
+                        <?= Html::a('激活此菜单', ['sync', 'id'=>$model->id], ['class'=>'btn btn-danger btn-sm btn-sync']);?>
+                    </small>
+                </h1>
+            </div><!-- /.page-header -->
 
-        echo '<div id="editContent"></div>';
 
-        Modal::end();
-        ?>
+            <?php
+            Modal::begin([
+                'header' => '新增',
+                'id' => 'modalAdd',
+                // 'size' => 'modal'
+            ]) ;
 
-        <div class="row">
-            <?=\app\core\widgets\Alert::widget(); ?>
-            <div class="col-xs-8 search-box">
-                <div class="alert alert-info" style="padding:5px;">
-                    一级菜单名称名字不多于4个汉字或8个字母, 最多3个<br>
-                    二级菜单名称名字不多于8个汉字或16个字母,最多7个
+            echo '<div id="modalContent"></div>';
+
+            Modal::end();
+            ?>
+
+            <?php
+            Modal::begin([
+                'header' => '编辑',
+                'id' => 'modalEdit',
+                // 'size' => 'modal'
+            ]) ;
+
+            echo '<div id="editContent"></div>';
+
+            Modal::end();
+            ?>
+
+            <div class="row">
+                <?=\app\core\widgets\Alert::widget(); ?>
+                <div class="col-xs-12 search-box">
+                    <div class="alert alert-info" style="padding:5px;">
+                        一级菜单名称名字不多于4个汉字或8个字母, 最多3个<br>
+                        二级菜单名称名字不多于8个汉字或16个字母,最多7个
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-8">
-            <?php $form = ActiveForm::begin(); ?>
-            <?= $form->field($model, 'name')->textInput(['class'=>'form-control main-name'])->hint('可在此修改菜单组名称') ?>
-            <?php if($type == MenuMain::TYPE_PERSONAL): ?>
-            <?=  $this->render('_ruleform', ['model'=>$model, 'form'=>$form])?>
-            <?php endif;?>
-            </div>
+                <div class="col-xs-12">
+                    <?php $form = ActiveForm::begin(); ?>
+                    <?= $form->field($model, 'name')->textInput(['class'=>'form-control main-name'])->hint('可在此修改菜单组名称') ?>
+                    <?php if($type == MenuMain::TYPE_PERSONAL): ?>
+                        <?=  $this->render('_ruleform', ['model'=>$model, 'form'=>$form])?>
+                    <?php endif;?>
+                </div>
 
-            <div class="col-xs-8 merchant-index">
+                <div class="col-xs-12 merchant-index">
 
-                <?=  $this->render('_form', ['menus'=>$menus,'typemap'=>$typemap])?>
+                    <?=  $this->render('_form', ['menus'=>$menus,'typemap'=>$typemap])?>
 
-                <div class="hr hr-18 dotted hr-double"></div>
-            </div><!-- /.col -->
+                    <div class="hr hr-18 dotted hr-double"></div>
+                </div><!-- /.col -->
 
-            <?php ActiveForm::end(); ?>
-        </div><!-- /.row -->
-    </div><!-- /.page-content-area -->
+                <?php ActiveForm::end(); ?>
+            </div><!-- /.row -->
+
+        </div>
+    </div>
 </div>
+
 
 <?php $this->beginBlock('tree') ?>
 $(function(){
