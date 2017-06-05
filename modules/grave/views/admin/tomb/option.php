@@ -86,15 +86,16 @@ use app\core\helpers\Url;
 $(function(){
     // 操作项 - 墓位预订-------------------------------------------------
     $('body').on('click', 'a.tomb-preorder', function(e){
-        e.preventDefault(); 
+        e.preventDefault();
         var url = $(this).attr('href');
         $.get(url, function(xhr){
             if (xhr.status) {
                 window.location = "<?php echo Url::toRoute(['/grave/admin/process/index', 'step'=>1, 'tomb_id'=>$tomb->id]) ?>"
             } else {
-                alert(xhr.info);
+                //alert(xhr.info);
             }
         }, 'json');
+        return false;
     });
 
     // 操作项 - 取消预订-------------------------------------------------

@@ -129,11 +129,6 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
     <?php endforeach ?>
  </table>
 
-    <div class="hr hr-18 dotted hr-double"></div>
-
-
-
-
 <?php $this->beginBlock('mod') ?>  
 $(function(){
    $('.modalAddButton').click(function(e){
@@ -145,8 +140,13 @@ $(function(){
                         btn.button('reset');
                         $('#modalAdd').modal('show');
                     });
+        return false;
     });
-})  
+    $("#modalAdd").on("hidden.bs.modal", function() {
+        $(this).removeData("bs.modal");
+    });
+
+})
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['mod'], \yii\web\View::POS_END); ?>  
 
