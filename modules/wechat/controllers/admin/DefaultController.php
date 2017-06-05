@@ -39,4 +39,9 @@ class DefaultController extends Controller
     {
         return $this->render('recycle');
     }
+
+    public function actionTest()
+    {
+        return $this->render('test');
+    }
 }
