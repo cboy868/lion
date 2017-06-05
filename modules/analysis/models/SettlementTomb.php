@@ -45,7 +45,7 @@ class SettlementTomb extends \yii\db\ActiveRecord
                                             ], $data[$year])
                                     ->execute();
                         $transaction->commit();
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         $transaction->rollBack();
                     }
                 }

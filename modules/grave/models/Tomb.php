@@ -149,9 +149,7 @@ class Tomb extends \app\core\db\ActiveRecord
         }
 
         $tomb->sale_time = date('Y-m-d H:i:s');
-
         $tomb->save();
-
     }
 
     public static function getSta($status = null)

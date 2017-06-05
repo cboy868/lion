@@ -111,7 +111,7 @@ class ProcessController extends BackController
                 $tomb->load($req->post());
 
                 if ($user->validate()) {
-                    $user->mobile = $customer->mobile;
+//                    $user->mobile = $customer->mobile; 遇到重复手机号  可能会有问题 暂时去掉
                     $user->createUser();
                 } else {
                     goto show;

@@ -74,10 +74,16 @@ class Order extends \app\core\db\ActiveRecord
     {
 
         $this->progress = $event->progress;
+        $this->save();
+
+        if ($event->progress == self::PRO_PART) {//支付一部分的话 对于 墓位是订金
+            if ($this->tid) {
+                \app\modules\grave\models\Tomb::afterPay($this->tid, $this->id);
+            }
+        }
 
         //如果支付完成,发任务
-        if ($this->progress ==  self::PRO_PAY || $this->progress == self::PRO_OK) {
-
+        if ($event->progress ==  self::PRO_PAY || $event->progress == self::PRO_OK) {
             if ($this->tid) {
                 \app\modules\grave\models\Tomb::afterPay($this->tid, $this->id);
                 \app\modules\task\models\Task::create($this->id, 'tomb', $this->tid);
@@ -89,17 +95,11 @@ class Order extends \app\core\db\ActiveRecord
 
             foreach ($this->rels as $k => $rel) {
                 if ($rel->goods_id == $gconfig['id']['renew']['id']) {
-                    \app\modules\grave\models\CardRel::afterPay($rel->id);
-                }
-
-                if ($rel->goods_id == $gconfig['id']['renew']['id']) {
                     \app\modules\grave\models\Card::initCard($this->tid, $rel->id);
                 }
             }
-
         }
 
-        $this->save();
 
         OrderLog::create($this->id);
     }
