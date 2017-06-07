@@ -20,7 +20,9 @@ class InsSearch extends Ins
     public function rules()
     {
         return [
-            [['id', 'guide_id', 'user_id', 'tomb_id', 'op_id', 'shape', 'is_tc', 'font', 'font_num', 'new_font_num', 'is_confirm', 'confirm_by', 'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
+            [['id', 'guide_id', 'user_id', 'tomb_id', 'op_id', 'shape', 'is_tc', 'font', 'big_num',
+                'small_num', 'new_small_num', 'new_big_num', 'is_confirm', 'confirm_by', 'version',
+                'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
             [['position', 'content', 'img', 'confirm_date', 'pre_finish', 'finish_at', 'note', 'guide'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
         ];
@@ -63,8 +65,6 @@ class InsSearch extends Ins
             'shape' => $this->shape,
             'is_tc' => $this->is_tc,
             'font' => $this->font,
-            'font_num' => $this->font_num,
-            'new_font_num' => $this->new_font_num,
             'is_confirm' => $this->is_confirm,
             'confirm_date' => $this->confirm_date,
             'confirm_by' => $this->confirm_by,
@@ -78,7 +78,6 @@ class InsSearch extends Ins
             'tc_price' => $this->tc_price,
             'status' => $this->status,
         ]);
-
 
         $query->andWhere([
             'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),

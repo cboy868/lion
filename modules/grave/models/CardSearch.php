@@ -47,13 +47,16 @@ class CardSearch extends Card
             'query' => $query,
         ]);
 
+        $query->andWhere([
+            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+        ]);
+
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'tomb_id' => $this->tomb_id,
             'start' => $this->start,
             'end' => $this->end,
             'total' => $this->total,

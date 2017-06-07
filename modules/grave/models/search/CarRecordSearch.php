@@ -48,6 +48,10 @@ class CarRecordSearch extends CarRecord
             'query' => $query,
         ]);
 
+        $query->andWhere([
+            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+        ]);
+
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
@@ -55,7 +59,7 @@ class CarRecordSearch extends CarRecord
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'tomb_id' => $this->tomb_id,
+//            'tomb_id' => $this->tomb_id,
             'grave_id' => $this->grave_id,
             'car_id' => $this->car_id,
             'driver_id' => $this->driver_id,

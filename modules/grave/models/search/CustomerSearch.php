@@ -47,6 +47,10 @@ class CustomerSearch extends Customer
             'query' => $query,
         ]);
 
+        $query->andWhere([
+            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+        ]);
+
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }

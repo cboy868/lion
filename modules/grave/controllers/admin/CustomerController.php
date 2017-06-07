@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\grave\models\Tomb;
 use app\modules\user\models\User;
 use Yii;
 use app\modules\grave\models\Customer;

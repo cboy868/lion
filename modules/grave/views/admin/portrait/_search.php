@@ -13,9 +13,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-
-    <?= $form->field($model, 'tomb_id') ?>
-
+    <?=\app\modules\grave\widgets\TombSearch::widget(['form'=>$form])?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

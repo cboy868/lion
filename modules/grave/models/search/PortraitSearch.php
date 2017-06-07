@@ -47,6 +47,10 @@ class PortraitSearch extends Portrait
             'query' => $query,
         ]);
 
+        $query->andWhere([
+            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+        ]);
+
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
@@ -55,7 +59,6 @@ class PortraitSearch extends Portrait
             'id' => $this->id,
             'guide_id' => $this->guide_id,
             'user_id' => $this->user_id,
-            'tomb_id' => $this->tomb_id,
             'goods_id' => $this->goods_id,
             'order_id' => $this->order_id,
             'order_rel_id' => $this->order_rel_id,

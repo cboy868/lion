@@ -38,18 +38,7 @@ class CardController extends BackController
     public function actionIndex()
     {
         $searchModel = new CardSearch();
-
-        $params = Yii::$app->request->queryParams;
-        if (isset($params['TombSearch']['grave_id'])) {
-            $f = $params['TombSearch'];
-            $tomb = Tomb::findByGrave($f['grave_id'], $f['row'], $f['col']);
-
-            if ($tomb) {
-                $params['CardSearch']['tomb_id'] = $tomb->id;
-            }
-        }
-
-        $dataProvider = $searchModel->search($params);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
