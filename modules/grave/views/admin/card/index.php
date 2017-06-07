@@ -12,16 +12,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
+        <!--
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
             </h1>
-        </div><!-- /.page-header -->
+        </div>
+        -->
+        <!-- /.page-header -->
 
         <div class="row">
             <div class="col-xs-12">
@@ -31,19 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-xs-12 card-index">
-
                 <div id="w1" class="grid-view">
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                       <?php foreach ($dataProvider->getModels() as $k => $model): ?>
                       <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
+                        <div class="panel-heading" role="tab" id="headingOne<?=$model->id?>">
                           <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne<?=$model->id?>"
+                               aria-expanded="true" aria-controls="collapseOne<?=$model->id?>">
                                 墓位:<?=$model->tomb->tomb_no?>,开始<?=$model->start?>,截止:<?=$model->end?>,总年数:<?=$model->total?>
                             </a>
                           </h4>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="collapseOne<?=$model->id?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?=$model->id?>">
                             <table class="table table-striped table-hover table-bordered table-condensed t1">
                             <tr>
                                 <th>开始</th>
@@ -60,7 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </tr>
                             <?php endforeach ?>
                             </table>
-                          </div>
                         </div>
                       </div>
                       <?php endforeach ?>

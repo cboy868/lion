@@ -130,6 +130,15 @@ class Tomb extends \app\core\db\ActiveRecord
         ];
     }
 
+    public static function findByGrave($grave_id, $row, $col)
+    {
+        $tomb = self::find()->where(['grave_id'=>$grave_id])
+                            ->andFilterWhere(['row'=>$row])
+                            ->andFilterWhere(['col'=>$col])
+                            ->one();
+        return $tomb;
+    }
+
     /**
      * @name 支付完成后的一些操作
      */

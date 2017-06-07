@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel panel-info">
                           <div class="panel-heading text-center">
                           <?php if ($grave->is_leaf): ?>
-                            <a href="<?=Url::toRoute(['admin/tomb/index', 'grave_id'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
+                            <a href="<?=Url::toRoute(['/grave/admin/tomb/ix', 'grave_id'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
                           <?php else: ?>
                             <a href="<?=Url::toRoute(['index', 'pid'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
                           <?php endif ?>
@@ -133,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="col-sm-6 graveimg">
 
                               <?php if ($grave->is_leaf): ?>
-                                <a href="<?=Url::toRoute(['admin/tomb/index', 'grave_id'=>$grave->id])?>">
+                                <a href="<?=Url::toRoute(['/grave/admin/tomb/ix', 'grave_id'=>$grave->id])?>">
                                     <img src="<?=$grave->getThumb('200x400', '/static/images/default.png')?>" class="img-thumbnail">
                                 </a>
                               <?php else: ?>

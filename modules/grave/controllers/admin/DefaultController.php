@@ -75,7 +75,7 @@ class DefaultController extends BackController
      */
     private function getGraves()
     {
-        $tree = Grave::sortTree(['level'=>1]);
+        $tree = Grave::sortTree(['is_leaf'=>0]);
 
         foreach ($tree as $k => &$v) {
             $v['url'] =Url::toRoute(['index', 'pid'=>$v['id']]);

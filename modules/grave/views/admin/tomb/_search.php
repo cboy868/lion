@@ -31,8 +31,13 @@ ExtAsset::register($this);
     .selg{
         width:200px;
     }
+    /*
+   .selgroup .field-tombsearch-grave_id{
+       min-width: 200px;
+   }
+   */
     .selgroup .form-group{
-        width: 200px;
+        padding:0 5px;
     }
 </style>
 <div class="tomb-search">
@@ -71,8 +76,7 @@ ExtAsset::register($this);
         <?php endif ?>
     <?php else: ?>
 
-
-        <?php 
+        <?php
 echo $form->field($model, 'grave_id')->widget(Select2::classname(), [
     'data' => Grave::selTree(['pid'=>0]),
     'options' => [

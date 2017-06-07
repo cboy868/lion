@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\grave\models\Tomb;
 use Yii;
 use app\modules\grave\models\Card;
 use app\modules\grave\models\CardRel;
@@ -37,13 +38,25 @@ class CardController extends BackController
     public function actionIndex()
     {
         $searchModel = new CardSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $params = Yii::$app->request->queryParams;
+        if (isset($params['TombSearch']['grave_id'])) {
+            $f = $params['TombSearch'];
+            $tomb = Tomb::findByGrave($f['grave_id'], $f['row'], $f['col']);
+
+            if ($tomb) {
+                $params['CardSearch']['tomb_id'] = $tomb->id;
+            }
+        }
+
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
 
     /**
      * Displays a single Card model.
