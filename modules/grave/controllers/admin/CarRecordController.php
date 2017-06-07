@@ -34,7 +34,10 @@ class CarRecordController extends BackController
     public function actionIndex()
     {
         $searchModel = new CarRecordSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $params = Yii::$app->request->queryParams;
+
+        $params['CarRecordSearch']['status'] = [CarRecord::STATUS_NORMAL, CarRecord::STATUS_COMPLETE];
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -93,6 +96,24 @@ class CarRecordController extends BackController
             ]);
         }
     }
+
+    /**
+     * @name 完成操作
+     */
+    public function actionComplete($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = CarRecord::STATUS_COMPLETE;
+        if ($model->save()) {
+            Yii::$app->session->setFlash('success', '完成操作成功');
+            //return $this->json();
+        } else {
+            Yii::$app->session->setFlash('error', '完成操作失败,请联系管理员');
+        }
+        return $this->redirect(['index']);
+
+    }
+
 
     /**
      * Deletes an existing CarRecord model.

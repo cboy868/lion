@@ -36,7 +36,9 @@ class CarRecord extends \app\core\db\ActiveRecord
 {
     const CAR_LING = 1;
     const CAR_FENG = 2;
-    const CAR_SELF = 3; 
+    const CAR_SELF = 3;
+
+    const STATUS_COMPLETE = 2;
     
     public static function carType($type = null)
     {
@@ -127,6 +129,15 @@ class CarRecord extends \app\core\db\ActiveRecord
             ]
         ];
     }
+
+    /**
+     * @name 获取墓位
+     */
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(), ['id'=>'tomb_id']);
+    }
+
 
     public function getDriver()
     {

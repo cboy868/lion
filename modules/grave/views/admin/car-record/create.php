@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\grave\models\CarRecord */
 
-$this->title = 'Create Car Record';
-$this->params['breadcrumbs'][] = ['label' => 'Car Records', 'url' => ['index']];
+$this->title = '添加派车记录';
+$this->params['breadcrumbs'][] = ['label' => '派车记录', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -18,11 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="page-header">
 			<h1>
                 <?= Html::encode($this->title) ?>
-                <!--
-				<small>
-					<i class="ace-icon fa fa-angle-double-right"></i>
-				</small>
-				-->
 			</h1>
 		</div><!-- /.page-header -->
 

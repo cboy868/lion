@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\grave\models\CarRecord */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Car Records', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '派车记录', 'url' => ['index']];
 ?>
 
 <div class="page-content">

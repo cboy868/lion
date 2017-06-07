@@ -16,12 +16,6 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'tomb_id')->textInput() ?>
 
-    <?= $form->field($model, 'grave_id')->textInput() ?>
-
-    <?= $form->field($model, 'dead_id')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'dead_name')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'car_id')->textInput() ?>
 
     <?= $form->field($model, 'driver_id')->textInput() ?>
@@ -29,8 +23,6 @@ use app\core\widgets\ActiveForm;
     <?= $form->field($model, 'use_date')->textInput() ?>
 
     <?= $form->field($model, 'use_time')->textInput() ?>
-
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'contact_user')->textInput(['maxlength' => true]) ?>
 
@@ -42,21 +34,13 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'addr')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
 
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'order_id')->textInput() ?>
-
-    <?= $form->field($model, 'order_rel_id')->textInput() ?>
 
     <?= $form->field($model, 'is_cremation')->textInput() ?>
 
     <?= $form->field($model, 'car_type')->textInput() ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
 
 
 	<div class="form-group">
