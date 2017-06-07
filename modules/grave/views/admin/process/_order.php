@@ -2,7 +2,14 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="panel panel-info dead">
-           <div class="dhandler panel-heading">订单情况</div>
+           <div class="dhandler panel-heading">
+               订单情况
+               <a href="<?=\yii\helpers\Url::toRoute(['/order/admin/default/view', 'id'=>$order->id])?>"
+                  class="pull-right btn btn-success btn-sm" target="_blank">
+                   直接付款
+               </a>
+           </div>
+
            <table class="table table-striped table-hover table-bordered table-condensed" style="text-align:center">
               <tr>
                   <th align="center">名称</th>

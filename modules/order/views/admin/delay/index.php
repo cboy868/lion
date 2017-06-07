@@ -45,8 +45,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
+        'tableOptions'=>['class'=>'table table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $grid){
+            if ($model->is_verified == -1) {
+                return ['class'=>'alert alert-danger'];
+            }
+
+            if ($model->is_verified == 1) {
+                return ['class'=>'alert alert-success'];
+            }
+        },
+
         'columns' => [
             'order_id',
             'user.username',
@@ -65,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '审核人',
                 'value' => function($data){
-                    return $data->verfyUser->username;
+                    return $data->verfyUser? $data->verfyUser->username : '';
                 }
             ],
             'verified_at:date',

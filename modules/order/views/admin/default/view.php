@@ -23,12 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
+                    <?php if ($model->progress <= Order::PRO_PAY):?>
                     <div class="btn-group pull-right" role="group">
                     <?php if ($model->progress != Order::PRO_DELAY): ?>
                         <?= Html::a('申请延期支付', ['delay', 'id' => $model->id], ['class' => 'btn btn-danger btn-lg']) ?>
                     <?php endif ?>
                     <?= Html::a('收 款', ['pay', 'id' => $model->id], ['class' => 'btn btn-info btn-lg']) ?>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div>
