@@ -42,7 +42,7 @@ class CarRecordSearch extends CarRecord
      */
     public function search($params)
     {
-        $query = CarRecord::find();
+        $query = CarRecord::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

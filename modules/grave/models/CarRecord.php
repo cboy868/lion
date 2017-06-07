@@ -78,7 +78,7 @@ class CarRecord extends \app\core\db\ActiveRecord
             [['user_id', 'tomb_id','bury_id', 'car_type'], 'required'],
             [['car_type'], 'required', 'message'=> '请选择车类型'],
             [['user_id','is_back', 'tomb_id','bury_id', 'grave_id', 'car_id', 'driver_id', 'user_num', 'addr_id', 'status', 'order_id', 'order_rel_id', 'is_cremation', 'car_type', 'updated_at', 'created_at'], 'integer'],
-            [['use_date', 'use_time'], 'safe'],
+            [['use_date', 'use_time', 'end_time'], 'safe'],
             [['price'], 'number'],
             [['addr', 'note'], 'string'],
             [['dead_id', 'dead_name', 'contact_user'], 'string', 'max' => 200],
@@ -117,7 +117,8 @@ class CarRecord extends \app\core\db\ActiveRecord
             'car_type' => '车类型',
             'updated_at' => 'Updated At',
             'created_at' => 'Created At',
-            'bury_id' => '安葬记录'
+            'bury_id' => '安葬记录',
+            'end_time' => '结束时间'
         ];
     }
 
@@ -164,6 +165,32 @@ class CarRecord extends \app\core\db\ActiveRecord
         }
 
         return $this->hasOne(CarAddr::className(),['id'=>'addr_id']);
+    }
+
+    /**
+     * @name 是否有闲置的车辆
+     * @param $start 开始时间
+     * @param $时长
+     * @des 两个条件 或者关系
+     * 1、 $use_time < $start  AND $end_time > $start
+     * 2、$use_time < $end AND $end_time >($start+$long)
+     */
+    public static function hasFreeCar($start, $long)
+    {
+        $total = Car::find()->where(['status'=>Car::STATUS_NORMAL])->count();
+
+        $date = date('Y-m-d', strtotime($start));
+        $start_time = date('H:i', strtotime($start));
+        $end_time = date('H:i', strtotime('+'.$long.' minute', strtotime($start)));
+
+        $query = (new \yii\db\Query())->from(CarRecord::tableName())
+                                        ->where(['or',
+                                            ['and', 'use_time<="'.$start_time.'"', 'end_time>"'.$start_time.'"', 'use_date="'.$date.'"'],
+                                            ['and', 'use_time<"'.$end_time.'"', 'end_time>="'.$end_time.'"', 'use_date="'.$date.'"']
+                                        ]);
+        $cnt = $query->count();
+
+        return $total - $cnt > 0;
     }
 
 }

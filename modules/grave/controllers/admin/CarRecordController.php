@@ -33,6 +33,10 @@ class CarRecordController extends BackController
      */
     public function actionIndex()
     {
+
+        CarRecord::hasFreeCar('2017-06-08 18:30:00', '120');
+
+        die;
         $searchModel = new CarRecordSearch();
         $params = Yii::$app->request->queryParams;
 

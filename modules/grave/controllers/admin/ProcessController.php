@@ -188,10 +188,6 @@ class ProcessController extends BackController
             Process::$dead_model_num = $session->get($key);
         }
 
-
-        // p($session->get($key));die;
-
-
         $models = Process::dead();
         $tomb = Process::tomb();
 
@@ -582,13 +578,18 @@ class ProcessController extends BackController
                     $model->bury_time = date('H:i:s', strtotime($model->pre_bury_date));
 
                     $model->save();
-                }
 
-                if ($car_model->load($req->post())) {
-                    $car_model->bury_id = $model->id;
-                    $car_model->save();
-                }
 
+                    if ($car_model->load($req->post())) {
+                        $car_model->bury_id = $model->id;
+                        $start_time = $model->pre_bury_date;
+
+                        $car_model->use_date = substr($start_time, 0,10);
+                        $car_model->use_time = trim(substr($start_time, 10));
+                        $car_model->end_time = date('H:i', strtotime('+'.$car_model->address->time.' minute',strtotime($start_time)));
+                        $car_model->save();
+                    }
+                }
                 $outerTransaction->commit();
                 return $this->next();
             } catch (\Exception $e) {

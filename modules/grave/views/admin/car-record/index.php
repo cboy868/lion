@@ -64,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
              'use_date',
              'use_time',
+             'end_time',
              'contact_user',
              'contact_mobile',
              'user_num',
