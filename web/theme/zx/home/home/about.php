@@ -1,7 +1,7 @@
 <?php
 $this->title = '关于卓迅公墓管理系统';
 ?>
-div class="banner">
+<div class="banner">
     <div class="fixed-image section dark-translucent-bg" style="background-image:url('/theme/zx/static/images/page-about-banner-1.jpg');">
         <div class="container">
             <div class="space-top"></div>
