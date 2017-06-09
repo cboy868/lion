@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\modules\news\models\Category;
 use yii\helpers\Url;
-use app\core\models\Attachment;
-
+use app\modules\news\models\NewsPhoto;
 \app\assets\PluploadAssets::register($this);
 \app\assets\TagAsset::register($this);
 ?>
@@ -47,7 +46,7 @@ use app\core\models\Attachment;
                     data-url="<?=Url::toRoute(["pl-upload"])?>" 
                     data-res_name="news"
                     data-use="original">
-                      <img src="<?=Attachment::getById($model->thumb, '150x150', '/static/images/cover.png')?>"  style="width:150px;height:150px;">
+                      <img src="<?=NewsPhoto::getById($model->thumb, '150x150', '/static/images/cover.png')?>"  style="width:150px;height:150px;">
                       <?= $form->field($model, "thumb")->hiddenInput(['class'=>'news-thumb', 'value'=>$model->thumb])->label(false) ?>
                 </a>
                 <div class="help-block"></div>

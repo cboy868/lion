@@ -140,4 +140,9 @@ class News extends \app\core\db\ActiveRecord
         return NewsPhoto::getById($this->thumb, $size);
     }
 
+    public function getTags()
+    {
+
+    }
+
 }

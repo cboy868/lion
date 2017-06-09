@@ -1,5 +1,5 @@
 <?php
-
+$this->title="卓迅公墓管理系统"
 ?>
 
 <style>
@@ -8,9 +8,6 @@
     }
 </style>
 <div class="banner">
-
-                <!-- slideshow start -->
-                <!-- ================ -->
     <div class="slideshow">
 
         <!-- slider revolution start -->

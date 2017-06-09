@@ -6,6 +6,7 @@ use Yii;
 use yii\db\Query;
 use yii\behaviors\TimestampBehavior;
 use app\core\helpers\ArrayHelper;
+use yii\data\ActiveDataProvider;
 /**
  * This is the model class for table "{{%tag_rel}}".
  *
@@ -80,10 +81,36 @@ class TagRel extends \yii\db\ActiveRecord
 
         $provider = new ActiveDataProvider([
             'query' =>$query,
-            'pagination' => ['pageSize'=>1]
+            'pagination' => ['pageSize'=>10]
         ]);
 
         return $provider;
+    }
+
+
+    public static function getResByTagId($tag_id, $res_name)
+    {
+        $tag_model = Tag::findOne($tag_id);
+
+        if(!$tag_model) return null;
+        $query = self::find();
+        $query->andFilterWhere([
+            'res_name'=>$res_name,
+            'tag_id'=>$tag_model->id
+        ]);
+
+        $provider = new ActiveDataProvider([
+            'query' =>$query,
+            'pagination' => ['pageSize'=>10],
+        ]);
+
+        return [
+            'provider'=> new ActiveDataProvider([
+                'query' =>$query,
+                'pagination' => ['pageSize'=>10],
+            ]),
+            'tag' => $tag_model
+        ];
     }
 
     public static function getTagsByRes($res_name, $res_id)
@@ -149,7 +176,7 @@ class TagRel extends \yii\db\ActiveRecord
             }
            
             $transaction->commit();
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             $transaction->rollBack();
         }
     }
@@ -208,6 +235,7 @@ class TagRel extends \yii\db\ActiveRecord
         $query = (new Query)->select('t.id,t.tag_name')
             ->from(['r' => '{{%tag_rel}}'])
             ->leftJoin(['t'=>'{{%tag}}'], 't.id=r.tag_id')
+            ->distinct('t.id')
             ->where([
                 'r.res_name' => $res_name,
             ])->limit($limit);

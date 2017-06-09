@@ -1,5 +1,8 @@
 <?php
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
+
+$this->title = "公墓管理系统功能模块分析"
 ?>
 <section class="main-container">
     <div class="container">
@@ -11,243 +14,90 @@ use yii\helpers\Url;
 
                 <!-- page-title start -->
                 <!-- ================ -->
-                <h1 class="page-title">Blog</h1>
+                <h1 class="page-title">公墓管理系统功能模块分析</h1>
                 <div class="separator-2"></div>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas nulla suscipit <br class="hidden-sm hidden-xs"> unde rerum mollitia dolorum.</p>
+                <p class="lead">
+                    卓迅公墓管理系统模块开发思路及使用介绍
+                    <br class="hidden-sm hidden-xs">
+                    在这里您可以了解到本系统最新的研发消息与系统使用技巧
+                </p>
                 <!-- page-title end -->
 
+                <?php foreach ($list as $k => $v): ?>
                 <!-- blogpost start -->
-                <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200">
+                <article class="clearfix blogpost object-non-visible"
+                         data-animation-effect="fadeInUpSmall"
+                         data-effect-delay="200">
                     <div class="overlay-container">
-                        <img src="/theme/zx/static/images/blog-1.jpg" alt="">
+                        <img src="<?=$v['cover']?>" alt="<?=$v['title']?>">
                         <div class="overlay">
                             <div class="overlay-links">
-                                <a href="blog-post.html"><i class="fa fa-link"></i></a>
-                                <a href="/theme/zx/static/images/blog-1.jpg" class="popup-img-single" title="image title"><i class="fa fa-search-plus"></i></a>
+                                <a href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                                <a href="<?=$v['cover']?>" class="popup-img-single" title="<?=$v['title']?>">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="blogpost-body">
                         <div class="post-info">
-                            <span class="day">12</span>
-                            <span class="month">Sept 2014</span>
+                            <span class="day"><?=date('d', $v['created_at'])?></span>
+                            <span class="month"><?=date('m月Y', $v['created_at'])?></span>
                         </div>
                         <div class="blogpost-content">
                             <header>
-                                <h2 class="title"><a href="blog-post.html">Blogpost with image</a></h2>
-                                <div class="submitted"><i class="fa fa-user pr-5"></i> by <a href="#">John Doe</a></div>
+                                <h2 class="title">
+                                    <a href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><?=$v['title']?></a>
+                                </h2>
+                                <div class="submitted">
+                                    <i class="fa fa-user pr-5"></i>
+                                    作者 <a href="#"><?=$v['author']?></a>
+                                </div>
                             </header>
-                            <p>Mauris dolor sapien, malesuada at interdum ut, hendrerit eget lorem. Nunc interdum mi neque, et  sollicitudin purus fermentum ut. Suspendisse faucibus nibh odio, a vehicula eros pharetra in. Maecenas  ullamcorper commodo rutrum. In iaculis lectus vel augue eleifend dignissim. Aenean viverra semper sollicitudin.</p>
+                            <p>
+                                <?=$v['summary']?>
+                            </p>
                         </div>
                     </div>
                     <footer class="clearfix">
                         <ul class="links pull-left">
-                            <li><i class="fa fa-comment-o pr-5"></i> <a href="#">22 comments</a> |</li>
-                            <li><i class="fa fa-tags pr-5"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a> </li>
+                            <!--
+                            <li>
+                                <i class="fa fa-comment-o pr-5"></i>
+                                <a href="#">22 comments</a> |
+                            </li>
+                            -->
+                            <li><i class="fa fa-tags pr-5"></i>
+                                <?php foreach ($v['tags'] as $tag):?>
+                                <a target="_blank" href="<?=Url::toRoute(['/news/home/default/tags', 'id'=>$tag['id']])?>">
+                                    <?=$tag['tag_name']?>
+                                </a>,
+                                <?php endforeach;?>
+                            </li>
                         </ul>
-                        <a class="pull-right link" href="blog-post.html"><span>Read more</span></a>
+                        <a class="pull-right link" href="<?=Url::toRoute(['/news/home/default/view', 'id'=>$v['id']])?>"><span>详细</span></a>
                     </footer>
                 </article>
                 <!-- blogpost end -->
-
-                <!-- blogpost start -->
-                <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="//www.cssmoban.com/embed/v1uyQZNg2vE"></iframe>
-                    </div>
-                    <div class="blogpost-body">
-                        <div class="post-info">
-                            <span class="day">11</span>
-                            <span class="month">Sept 2014</span>
-                        </div>
-                        <div class="blogpost-content">
-                            <header>
-                                <h2 class="title"><a href="blog-post.html">Blogpost with embedded youtube video</a></h2>
-                                <div class="submitted"><i class="fa fa-user pr-5"></i> by <a href="#">John Doe</a></div>
-                            </header>
-                            <p>Mauris dolor sapien, malesuada at interdum ut, hendrerit eget lorem. Nunc interdum mi neque, et  sollicitudin purus fermentum ut. Suspendisse faucibus nibh odio, a vehicula eros pharetra in. Maecenas  ullamcorper commodo rutrum. In iaculis lectus vel augue eleifend dignissim. Aenean viverra semper sollicitudin.</p>
-                        </div>
-                    </div>
-                    <footer class="clearfix">
-                        <ul class="links pull-left">
-                            <li><i class="fa fa-comment-o pr-5"></i> <a href="#">22 comments</a> |</li>
-                            <li><i class="fa fa-tags pr-5"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a> </li>
-                        </ul>
-                        <a class="pull-right link" href="blog-post.html"><span>Read more</span></a>
-                    </footer>
-                </article>
-                <!-- blogpost end -->
-
-                <!-- blogpost start -->
-                <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200">
-                    <div class="audio-wrapper">
-                        <iframe height="166" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/106329682&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
-                    </div>
-                    <div class="blogpost-body">
-                        <div class="post-info">
-                            <span class="day">10</span>
-                            <span class="month">Sept 2014</span>
-                        </div>
-                        <div class="blogpost-content">
-                            <header>
-                                <h2 class="title"><a href="blog-post.html">Audio post</a></h2>
-                                <div class="submitted"><i class="fa fa-user pr-5"></i> by <a href="#">John Doe</a></div>
-                            </header>
-                            <p>Mauris dolor sapien, malesuada at interdum ut, hendrerit eget lorem. Nunc interdum mi neque, et  sollicitudin purus fermentum ut. Suspendisse faucibus nibh odio, a vehicula eros pharetra in. Maecenas  ullamcorper commodo rutrum. In iaculis lectus vel augue eleifend dignissim. Aenean viverra semper sollicitudin.</p>
-                        </div>
-                    </div>
-                    <footer class="clearfix">
-                        <ul class="links pull-left">
-                            <li><i class="fa fa-comment-o pr-5"></i> <a href="#">22 comments</a> |</li>
-                            <li><i class="fa fa-tags pr-5"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a> </li>
-                        </ul>
-                        <a class="pull-right link" href="blog-post.html"><span>Read more</span></a>
-                    </footer>
-                </article>
-                <!-- blogpost end -->
-
-                <!-- blogpost start -->
-                <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200">
-                    <div class="blogpost-body">
-                        <div class="post-info">
-                            <span class="day">09</span>
-                            <span class="month">Sept 2014</span>
-                        </div>
-                        <div class="blogpost-content">
-                            <header>
-                                <h2 class="title"><a href="blog-post.html">Text post</a></h2>
-                                <div class="submitted"><i class="fa fa-user pr-5"></i> by <a href="#">John Doe</a></div>
-                            </header>
-                            <p>Mauris dolor sapien, malesuada at interdum ut, hendrerit eget lorem. Nunc interdum mi neque, et  sollicitudin purus fermentum ut. Suspendisse faucibus nibh odio, a vehicula eros pharetra in. Maecenas  ullamcorper commodo rutrum. In iaculis lectus vel augue eleifend dignissim. Aenean viverra semper sollicitudin.</p>
-                        </div>
-                    </div>
-                    <footer class="clearfix">
-                        <ul class="links pull-left">
-                            <li><i class="fa fa-comment-o pr-5"></i> <a href="#">22 comments</a> |</li>
-                            <li><i class="fa fa-tags pr-5"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a> </li>
-                        </ul>
-                        <a class="pull-right link" href="blog-post.html"><span>Read more</span></a>
-                    </footer>
-                </article>
-                <!-- blogpost end -->
-
-                <!-- blogpost start -->
-                <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200">
-                    <div class="overlay-container">
-                        <img src="/theme/zx/static/images/blog-2.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-links">
-                                <a href="blog-post.html"><i class="fa fa-link"></i></a>
-                                <a href="/theme/zx/static/images/blog-2.jpg" class="popup-img-single" title="image title"><i class="fa fa-search-plus"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blogpost-body">
-                        <div class="post-info">
-                            <span class="day">01</span>
-                            <span class="month">Sept 2014</span>
-                        </div>
-                        <div class="blogpost-content">
-                            <header>
-                                <h2 class="title"><a href="blog-post.html">Lorem ipsum dolor sit amet aecenas ullamcorper</a></h2>
-                                <div class="submitted"><i class="fa fa-user pr-5"></i> by <a href="#">John Doe</a></div>
-                            </header>
-                            <p>Mauris dolor sapien, malesuada at interdum ut, hendrerit eget lorem. Nunc interdum mi neque, et sollicitudin purus fermentum ut. Suspendisse faucibus nibh odio, a vehicula eros pharetra in. Maecenas ullamcorper commodo rutrum. In iaculis lectus vel augue eleifend dignissim. Aenean viverra semper sollicitudin.</p>
-                        </div>
-                    </div>
-                    <footer class="clearfix">
-                        <ul class="links pull-left">
-                            <li><i class="fa fa-comment-o pr-5"></i> <a href="#">22 comments</a> |</li>
-                            <li><i class="fa fa-tags pr-5"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a> </li>
-                        </ul>
-                        <a class="pull-right link" href="blog-post.html"><span>Read more</span></a>
-                    </footer>
-                </article>
-                <!-- blogpost end -->
+                <?php endforeach;?>
 
                 <!-- pagination start -->
                 <ul class="pagination">
-                    <li><a href="#"><<</a></li>
-                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">>></a></li>
+                    <?php
+echo LinkPager::widget([
+        'pagination' => $pagination
+]);
+                    ?>
                 </ul>
                 <!-- pagination end -->
-
             </div>
             <!-- main end -->
 
             <!-- sidebar start -->
             <aside class="col-md-3 col-md-offset-1">
-                <div class="sidebar">
-                    <div class="block clearfix">
-                        <h3 class="title">导航</h3>
-                        <div class="separator"></div>
-                        <nav>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="<?=Url::toRoute('/')?>" >首页</a></li>
-                                <li><a href="<?=Url::toRoute('/home/default/about')?>">关于我们</a></li>
-                                <li class="active"><a href="<?=Url::toRoute('/blog/home/default/index')?>">系统博客</a></li>
-                                <li><a href="<?=Url::toRoute('/shop/home/default/index')?>">产品</a></li>
-                                <li><a href="<?=Url::toRoute('/home/default/contact')?>">联系我们</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="block clearfix">
-                        <h3 class="title">推荐博客</h3>
-                        <div class="separator"></div>
-                        <?php $new_news = news(null, 5, null, null, true); ?>
-                        <?php foreach ($new_news as $v):?>
-                        <div class="image-box">
-                            <div class="overlay-container">
-                                <img src="<?=$v['cover']?>" alt="">
-                                <div class="overlay">
-                                    <div class="overlay-links">
-                                        <a href="<?=Url::toRoute(['/blog/home/default/view', 'id'=>$v['id']])?>">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a href="<?=$v['cover']?>" class="popup-img-single" title="<?=$v['title']?>">
-                                            <i class="fa fa-search-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="image-box-body">
-                                <h3 class="title"><a target="_blank" href="<?=Url::toRoute(['/blog/home/default/view', 'id'=>$v['id']])?>">
-                                        <?=$v['title']?></a>
-                                </h3>
-                                <p><?=$v['summary']?></p>
-                                <a target="_blank" href="<?=Url::toRoute(['/blog/home/default/view', 'id'=>$v['id']])?>" class="link">
-                                    <span>详细</span>
-                                </a>
-                            </div>
-                        </div>
-                        <?php endforeach;?>
-                    </div>
-                    <div class="block clearfix">
-                        <h3 class="title">快捷标签</h3>
-                        <div class="separator"></div>
-                        <div class="tags-cloud">
-                            <?php $tags = tags('goods', 10);?>
-                            <?php foreach ($tags as $v):?>
-                            <div class="tag">
-                                <a href="#"><?=$v['tag_name']?></a>
-                            </div>
-                            <?php endforeach;?>
-                        </div>
-                    </div>
-                    <div class="block clearfix">
-                        <form role="search">
-                            <div class="form-group has-feedback">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <i class="fa fa-search form-control-feedback"></i>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <?=$this->render('_right');?>
             </aside>
             <!-- sidebar end -->
         </div>

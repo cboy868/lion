@@ -309,9 +309,6 @@ class DefaultController extends BackController
             $data['main_language'] = $params['main'];
         }
 
-
-
-
         return $this->render('update', $data);
 
     }

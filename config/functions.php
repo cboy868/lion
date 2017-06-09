@@ -84,7 +84,6 @@ function news($category_id=null, $limit=10, $thumb=null, $type=null, $recommend=
         $result[$v['id']] = $v->toArray();
         $result[$v['id']]['cover'] = $v->getCover($thumb);
     }
-
     return $result;
 }
 

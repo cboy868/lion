@@ -20,7 +20,7 @@ use yii\helpers\Url;
 <head>
         <meta charset="<?= Yii::$app->charset ?>">
         <?= Html::csrfMetaTags() ?>
-        <title><?=g("title")?> - <?=g("cp_name")?></title>
+        <title><?=$this->title?> - <?=g("title")?> - <?=g("cp_name")?></title>
         <?php $this->head() ?>
 
         <meta name="keywords" content="<?=g("keywords")?>" />
@@ -132,7 +132,7 @@ use yii\helpers\Url;
                                                     </li>
                                                     <!-- mega-menu end -->
                                                     <li class="<?php if($c_nav == '/news/home/default/index'):?>active<?php endif;?>">
-                                                        <a href="<?=Url::toRoute('/news/home/default/index')?>">博客/日志</a>
+                                                        <a href="<?=Url::toRoute('/news/home/default/index')?>">公墓系统思考/博客</a>
                                                     </li>
                                                     <!--
                                                     <li class="">
@@ -185,7 +185,7 @@ use yii\helpers\Url;
                                         <li><a href="<?=Url::toRoute('/')?>">首页</a></li>
                                         <li><a href="<?=Url::toRoute('/home/default/about')?>">关于我们</a></li>
                                         <li><a href="<?=Url::toRoute('/shop/home/default/index')?>">产品</a></li>
-<!--                                        <li><a href="--><?//=Url::toRoute('/home/default/about')?><!--">Blog</a></li>-->
+                                        <li><a href="<?=Url::toRoute('/news/home/default/index')?>">公墓系统思考/博客</a></li>
 <!--                                        <li><a href="--><?//=Url::toRoute('/home/default/about')?><!--">Portfolio</a></li>-->
                                         <li><a href="<?=Url::toRoute('/home/default/contact')?>">联系我们</a></li>
                                     </ul>

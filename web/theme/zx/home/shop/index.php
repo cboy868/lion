@@ -1,3 +1,6 @@
+<?php
+$this->title = "卓迅陵园管理系统产品介绍";
+?>
 <div class="banner">
     <div class="fixed-image section dark-translucent-bg" style="background-image:url('/theme/zx/static/img/slider2.png');">
         <div class="container">

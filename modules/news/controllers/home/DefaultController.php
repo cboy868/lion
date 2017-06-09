@@ -2,8 +2,11 @@
 
 namespace app\modules\news\controllers\home;
 
+use app\core\helpers\ArrayHelper;
+use app\core\models\TagRel;
 use app\modules\news\models\News;
 use app\modules\news\models\NewsData;
+use app\modules\news\models\NewsPhoto;
 use yii\data\Pagination;
 use app\core\models\Attachment;
 use app\core\models\AttachmentRel;
@@ -34,7 +37,8 @@ class DefaultController extends \app\core\web\HomeController
 					    ->all();
 
 		foreach ($items as $k => &$v) {
-            $v['cover'] = Attachment::getById($v['thumb'], '600x450');
+            $v['cover'] = NewsPhoto::getById($v['thumb'], '880x350');
+            $v['tags'] = TagRel::getTagsByRes('news', $v['id']);
         }unset($v);
 
         return $this->render('index', [
@@ -59,6 +63,30 @@ class DefaultController extends \app\core\web\HomeController
     	return $this->$method($model);
     }
 
+    public function actionTags($id)
+    {
+
+        $data = TagRel::getResByTagId($id, 'news');
+        $res = $data['provider'];
+
+        $models = $res->getModels();
+
+        $news_ids = ArrayHelper::getColumn($models, 'res_id');
+
+        $news = News::find()->where(['id'=>$news_ids])->asArray()->all();
+
+        foreach ($news as $k => &$v) {
+            $v['cover'] = NewsPhoto::getById($v['thumb'], '880x350');
+            $v['tags'] = TagRel::getTagsByRes('news', $v['id']);
+        }unset($v);
+
+        return $this->render('tags', [
+            'list'=>$news,
+            'pagination' => $res->getPagination(),
+            'tag' => $data['tag']
+        ]);
+    }
+
     private function text($model)
     {
         $body = NewsData::findOne($model->id);
@@ -68,10 +96,12 @@ class DefaultController extends \app\core\web\HomeController
         }
         $data = $model->toArray();
 
-        $data['cover'] = Attachment::getById($data['thumb']);
+        $data['cover'] = NewsPhoto::getById($data['thumb']);
         $data['body'] = $body->body;
+        $data['tags'] = TagRel::getTagsByRes('news', $model->id);
         $data = array_merge($data, $this->preAndNext($model));
-        return $this->render('text',$data);
+
+        return $this->render('text',['data'=>$data]);
     }
 
     private function image($model)

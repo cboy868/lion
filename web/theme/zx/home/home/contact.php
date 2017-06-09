@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
+
+$this->title="卓迅网络科技有限公司联系方式"
 ?>
 <div class="page-intro">
     <div class="container">
