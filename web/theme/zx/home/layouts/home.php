@@ -68,6 +68,26 @@ use yii\helpers\Url;
 <?php $this->beginBody() ?>
     <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
     <div class="page-wrapper">
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2  col-sm-6">
+
+                        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+                        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+                    </div>
+                    <div class="col-xs-10 col-sm-6">
+
+                        <!-- header-top-second start -->
+                        <!-- ================ -->
+                        <div id="header-top-second"  class="clearfix">
+                        </div>
+                        <!-- header-top-second end -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
             <header class="header fixed clearfix">
                 <div class="container">
                     <div class="row">
@@ -241,6 +261,7 @@ use yii\helpers\Url;
 
         <!-- Custom Scripts -->
         <script type="text/javascript" src="/theme/zx/static/js/custom.js"></script>
+
 
 <?php $this->endBody() ?>
 </body>
