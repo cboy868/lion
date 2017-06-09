@@ -116,6 +116,25 @@ class CarRecordController extends BackController
 
     }
 
+    /**
+     * @name 分配接收任务
+     */
+    public function actionReceive($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->driver_id = Yii::$app->user->id;
+            $model->status = CarRecord::STATUS_RECEIVE;
+            $model->save();
+            return $this->redirect(['index']);
+        } else {
+            return $this->renderAjax('receive', [
+                'model' => $model,
+            ]);
+        }
+    }
+
 
     /**
      * Deletes an existing CarRecord model.

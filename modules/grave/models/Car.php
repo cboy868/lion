@@ -85,4 +85,6 @@ class Car extends \app\core\db\ActiveRecord
             'carType' => '车辆类型'
         ];
     }
+
+
 }

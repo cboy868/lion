@@ -1,16 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AdminAsset;
 use yii\helpers\Url;
 use app\modules\sys\models\Menu;
 
-//use app\modules\mod\models\Module;
-/* @var $this \yii\web\View */
-/* @var $content string */
 $menu = Menu::getList();
 
 
@@ -24,7 +19,7 @@ AdminAsset::register($this);
 	<head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <?=Html::csrfMetaTags()?>
-        
+
         <title><?=Html::encode($this->title)?> 后台管理</title>
         <?php $this->head()?>
         <meta charset="utf-8" />
@@ -33,7 +28,7 @@ AdminAsset::register($this);
         <!--[if lte IE 9]>
             <link rel="stylesheet" href="/static/ace/css/ace-part2.min.css" />
         <![endif]-->
-        
+
         <!--[if lte IE 9]>
           <link rel="stylesheet" href="/static/ace/css/ace-ie.min.css" />
         <![endif]-->
@@ -451,7 +446,7 @@ AdminAsset::register($this);
                                                 <b class="arrow"></b>
                                             </li>
                                         <?php endif ?>
-                                        
+
                                     <?php else: ?>
                                         <li class="p-menu">
                                             <a href="#" class="dropdown-toggle">
@@ -480,7 +475,7 @@ AdminAsset::register($this);
 
                 </ul><!-- /.nav-list -->
 
-                
+
 
                 <!-- #section:basics/sidebar.layout.minimize -->
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -541,12 +536,12 @@ echo Breadcrumbs::widget([
         <!--[if lte IE 8]>
           <script src="/static/ace/js/excanvas.min.js"></script>
         <![endif]-->
-<?php $this->beginBlock('menu') ?>  
+<?php $this->beginBlock('menu') ?>
 $(function(){
     $('.submenu>.active').parents('.p-menu').addClass('active open');
 })
-<?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>  
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>
 
 
 <div style="clear:both;"></div>
@@ -559,7 +554,7 @@ $(function(){
     margin-right: auto;
     bottom: 10px;">
         <p class="text-center">
-           Copyright © 2017-2020 承德卓迅网络科技有限公司 版权所有 
+           Copyright © 2017-2020 承德卓迅网络科技有限公司 版权所有
         </p>
       </div> -->
 

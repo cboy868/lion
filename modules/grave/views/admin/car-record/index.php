@@ -4,7 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-
+use yii\bootstrap\Modal;
 $this->title = '派车列表';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -23,6 +23,17 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         -->
         <!-- /.page-header -->
+        <?php
+        Modal::begin([
+            'header' => '编辑',
+            'id' => 'modalEdit',
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="editContent"></div>';
+
+        Modal::end();
+        ?>
 
         <?=\app\core\widgets\Alert::widget()?>
 
@@ -59,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '司机',
                 'value' => function($model){
-                    return $model->driver ? $model->driver->name : '';
+                    return $model->driver ? $model->driver->username : '';
                 }
             ],
              'use_date',
@@ -87,10 +98,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '操作',
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete} {complete}',
+                'template' => '{delete} {complete} {receive}',
                 'buttons' => [
                     'complete' => function($url, $model, $key) {
-                        return $model->status == \app\modules\grave\models\CarRecord::STATUS_NORMAL ? Html::a('确认完成', $url, ['title' => '确认完成', 'class'=>'cmp btn btn-default btn-sm'] ) : '';
+                        return $model->status == \app\modules\grave\models\CarRecord::STATUS_RECEIVE ? Html::a('确认完成', $url, ['title' => '确认完成', 'class'=>'cmp btn btn-default btn-sm'] ) : '';
+                    },
+                    'receive' => function($url, $model, $key) {
+                        return $model->status == \app\modules\grave\models\CarRecord::STATUS_NORMAL ?
+                            Html::a('接收任务', $url, ['title' => '接收任务', 'class'=>'btn btn-default btn-sm modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] ) : '';
                     },
                 ],
             ]

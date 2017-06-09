@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -38,7 +39,8 @@ class CarRecord extends \app\core\db\ActiveRecord
     const CAR_FENG = 2;
     const CAR_SELF = 3;
 
-    const STATUS_COMPLETE = 2;
+    const STATUS_RECEIVE = 2;
+    const STATUS_COMPLETE = 3;
     
     public static function carType($type = null)
     {
@@ -146,7 +148,7 @@ class CarRecord extends \app\core\db\ActiveRecord
             return '';
         }
 
-        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'user_id']);
+        return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'driver_id']);
     }
 
     public function getCar()
@@ -182,8 +184,6 @@ class CarRecord extends \app\core\db\ActiveRecord
                             ->andWhere(['type'=>$type])
                             ->count();
 
-
-
         $date = date('Y-m-d', strtotime($start));
         $start_time = date('H:i', strtotime($start));
         $end_time = date('H:i', strtotime('+'.$long.' minute', strtotime($start)));
@@ -196,6 +196,54 @@ class CarRecord extends \app\core\db\ActiveRecord
         $cnt = $query->count();
 
         return $total - $cnt > 0;
+    }
+
+    /**
+     * @name 占用中的车辆
+     */
+    public static function useCars($date, $start_time, $end_time)
+    {
+        $query = (new \yii\db\Query())->from(CarRecord::tableName())
+            ->where(['or',
+                ['and', 'use_time<="'.$start_time.'"', 'end_time>"'.$start_time.'"', 'use_date="'.$date.'"'],
+                ['and', 'use_time<"'.$end_time.'"', 'end_time>="'.$end_time.'"', 'use_date="'.$date.'"']
+            ]);
+    }
+
+    /**
+     * @param $type
+     * @name 选择可用车辆
+     */
+    public function cars()
+    {
+
+        $records = (new \yii\db\Query())->from(CarRecord::tableName())
+                ->where(['or',
+                    ['and', 'use_time<="'.$this->use_time.'"', 'end_time>"'.$this->use_time.'"', 'use_date="'.$this->use_date.'"'],
+                    ['and', 'use_time<"'.$this->end_time.'"', 'end_time>="'.$this->end_time.'"', 'use_date="'.$this->use_date.'"']
+                ])->all();
+
+        $car_ids = [];
+        foreach ($records as $v) {
+            if ($v['id'] == $this->id) continue;
+            $car_ids[] = $v['car_id'];
+        }
+
+
+        $all_cars = Car::find()->where(['type'=>$this->car_type])->all();
+
+        $all_cars = ArrayHelper::map($all_cars, 'id', 'code');
+
+        $result = [];
+
+        foreach ($all_cars as $k=>$v) {
+            if (!in_array($k, $car_ids)) {
+                array_push($result, $v);
+            }
+        }
+
+        return $result;
+
     }
 
 }

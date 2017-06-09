@@ -27,4 +27,9 @@ class JqueryuiAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
     ];
+
+    public $jsOptions = [
+        'position' => \yii\web\View::POS_HEAD,//这里是为了把jqueryui 放在 bootstrap的前面  之后 有好方法再说
+    ];
+
 }
