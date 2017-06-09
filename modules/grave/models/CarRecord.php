@@ -170,14 +170,19 @@ class CarRecord extends \app\core\db\ActiveRecord
     /**
      * @name 是否有闲置的车辆
      * @param $start 开始时间
-     * @param $时长
+     * @param $long 时长
+     * @param $type 车辆类型
      * @des 两个条件 或者关系
      * 1、 $use_time < $start  AND $end_time > $start
      * 2、$use_time < $end AND $end_time >($start+$long)
      */
-    public static function hasFreeCar($start, $long)
+    public static function hasFreeCar($start, $long, $type)
     {
-        $total = Car::find()->where(['status'=>Car::STATUS_NORMAL])->count();
+        $total = Car::find()->where(['status'=>Car::STATUS_NORMAL])
+                            ->andWhere(['type'=>$type])
+                            ->count();
+
+
 
         $date = date('Y-m-d', strtotime($start));
         $start_time = date('H:i', strtotime($start));

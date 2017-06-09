@@ -2,6 +2,8 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\grave\models\Car;
+use app\modules\grave\models\CarAddr;
 use Yii;
 use app\modules\grave\models\CarRecord;
 use app\modules\grave\models\search\CarRecordSearch;
@@ -33,10 +35,6 @@ class CarRecordController extends BackController
      */
     public function actionIndex()
     {
-
-        CarRecord::hasFreeCar('2017-06-08 18:30:00', '120');
-
-        die;
         $searchModel = new CarRecordSearch();
         $params = Yii::$app->request->queryParams;
 
@@ -133,6 +131,33 @@ class CarRecordController extends BackController
         $model->save();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @return array
+     * 车辆检测
+     */
+    public function actionHasFreeCar()
+    {
+        $post = Yii::$app->request->post();
+        $pre_bury_date = $post['pre_bury_date'];
+        $addr = $post['addr'];
+        $type = $post['type'];
+
+        $addr_model = CarAddr::findOne($addr);
+        if (!$addr_model) {
+            return $this->json(null, '不存在此车辆', 0);
+        }
+        $long = $addr_model->time / 2;
+
+        $start = date('Y-m-d H:i', strtotime("-".$long." minute", strtotime($pre_bury_date)));
+
+
+        if (CarRecord::hasFreeCar($start, $addr_model->time, $type)) {
+            return $this->json();
+        }
+
+        return $this->json(null, '本时段无可用车辆，请注意核实', 0);
     }
 
     /**

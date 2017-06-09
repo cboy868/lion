@@ -13,19 +13,9 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
-
     <?= $form->field($model, 'code') ?>
 
     <?= $form->field($model, 'type') ?>
-
-    <?= $form->field($model, 'keeper') ?>
-
-    <?= $form->field($model, 'note') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

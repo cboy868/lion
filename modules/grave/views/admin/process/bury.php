@@ -70,11 +70,11 @@ $tomb_id = Yii::$app->getRequest()->get('tomb_id');
                               <?= $form->field($nRecord, "car_type")->radioList($car_type, ['class'=>'cartype'])->label(false) ?>
                           </div>
                           <div class="col-sm-5">
-                              <?= $form->field($model, "pre_bury_date")->textInput(['id'=>'dt'])->label('预安葬日期') ?>
-                              <?= $form->field($nRecord, "addr_id")->dropDownList($car_addr) ?>
+                              <?= $form->field($model, "pre_bury_date")->textInput(['id'=>'dt', 'class'=>'pre_bury_date form-control'])->label('预安葬日期') ?>
+                              <?= $form->field($nRecord, "addr_id")->dropDownList($car_addr, ['prompt'=>'请选择接盒地址','class'=>'addrs form-control']) ?>
                             </div>
-
                           </div>
+                            <p class="alert alert-danger msg" style="display: none;">重要提示 <span></span></p>
                       </div>
                     
 
@@ -208,6 +208,10 @@ $tomb_id = Yii::$app->getRequest()->get('tomb_id');
 <?php $this->beginBlock('up') ?>  
 
 $(function(){
+    $('.addrs, .pre_bury_date, .cartype input').change(function(){
+hasFreeCar();
+    });
+
     $('input[name="CarRecord[car_type]"]').change(function(){
       var val = $(this).val();
 
@@ -246,7 +250,27 @@ $(function(){
     })
 
 })
+function hasFreeCar(){
+    var car_type = $('.cartype input:checked').val();
+    var pre_bury = $('.pre_bury_date').val();
+    var addr = $('.addrs').val();
 
+    if (!car_type || !pre_bury || !addr || car_type ==3) {
+        return ;
+    }
+
+    var url = "<?=Url::toRoute(['/grave/admin/car-record/has-free-car'])?>";
+    var csrf = "<?=Yii::$app->request->getCsrfToken()?>";
+    var data = {type:car_type,pre_bury_date:pre_bury,addr:addr,_csrf:csrf};
+
+    $.post(url, data, function(xhr){
+        if (!xhr.status){
+            $('.msg span').text(xhr.info).closest('.msg').show();
+        } else {
+            $('.msg span').text(xhr.info).closest('.msg').hide();
+        }
+    }, 'json');
+}
 
 
 <?php $this->endBlock() ?>  

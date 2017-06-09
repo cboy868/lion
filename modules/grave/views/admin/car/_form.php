@@ -2,7 +2,7 @@
 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
-
+use app\modules\grave\models\Car;
 /* @var $this yii\web\View */
 /* @var $model app\modules\grave\models\Car */
 /* @var $form yii\widgets\ActiveForm */
@@ -14,16 +14,11 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'type')->textInput() ?>
+    <?= $form->field($model, 'type')->dropDownList(Car::types(), ['prompt'=>'车辆类型']); ?>
 
-    <?= $form->field($model, 'keeper')->textInput() ?>
+    <?php // $form->field($model, 'keeper')->textInput() ?>
 
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
