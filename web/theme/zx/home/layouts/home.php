@@ -131,9 +131,10 @@ use yii\helpers\Url;
                                                         <a href="<?=Url::toRoute('/shop/home/default/index')?>">产品</a>
                                                     </li>
                                                     <!-- mega-menu end -->
-                                                    <!-- <li class="">
-                                                        <a href="blog-right-sidebar.html">博客/日志</a>
+                                                    <li class="<?php if($c_nav == '/news/home/default/index'):?>active<?php endif;?>">
+                                                        <a href="<?=Url::toRoute('/news/home/default/index')?>">博客/日志</a>
                                                     </li>
+                                                    <!--
                                                     <li class="">
                                                         <a href="shop-listing-sidebar.html">商城案例</a>
                                                     </li> -->
@@ -150,7 +151,6 @@ use yii\helpers\Url;
                                 <!-- main-navigation end -->
                             </div>
                             <!-- header-right end -->
-
                         </div>
                     </div>
                 </div>

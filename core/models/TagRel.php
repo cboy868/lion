@@ -194,6 +194,23 @@ class TagRel extends \yii\db\ActiveRecord
                                ->distinct()
                                ->all();
         return $lists;
+    }
 
+
+    /**
+     * @param $res_name
+     * @param $limit
+     * @return array
+     *
+     */
+    public static function resTags($res_name, $limit)
+    {
+        $query = (new Query)->select('t.id,t.tag_name')
+            ->from(['r' => '{{%tag_rel}}'])
+            ->leftJoin(['t'=>'{{%tag}}'], 't.id=r.tag_id')
+            ->where([
+                'r.res_name' => $res_name,
+            ])->limit($limit);
+        return $query->all();
     }
 }

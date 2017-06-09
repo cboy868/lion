@@ -38,24 +38,45 @@ function getFullAction()
 }
 
 
+function tagnews($id, $rows)
+{
+    $rels = TagRel::getReleted('news', $id, $rows);
+    $news = News::find()->where(['id'=>$rels])
+        ->andWhere(['status'=>News::STATUS_NORMAL])
+        ->asArray()
+        ->all();
+
+    return $news;
+}
+
+function tags($res_name, $limit=10)
+{
+    return TagRel::resTags($res_name, $limit);
+}
+
+
 /**
  * @param null $category_id
  * @param int $limit
  * @param $thumb
  */
-function news($category_id=null, $limit=10, $thumb=null, $type=null)
+function news($category_id=null, $limit=10, $thumb=null, $type=null, $recommend=false)
 {
-
     $query = News::find()->where(['status'=>News::STATUS_NORMAL]);
+
     if ($category_id !== null) {
         $query->andWhere(['category_id'=>$category_id]);
+    }
+
+    if ($recommend) {
+        $query->andWhere(['recommend'=>1]);
     }
 
     if ($type !== null) {
         $t = array_search($type, News::types());
         $query->andWhere(['type'=>$t]);
     }
-    $list = $query->limit($limit)->all();
+    $list = $query->orderBy('id desc')->limit($limit)->all();
 
     $result = [];
 
@@ -68,41 +89,40 @@ function news($category_id=null, $limit=10, $thumb=null, $type=null)
 }
 
 
+
 /**
  * @return array
  */
-function newsCates($cates, $limit=10, $thumb=null, $type=null)
+function newsCates($cates=null, $limit=10, $thumb=null, $type=null)
 {
-    if (!is_array($cates)) {
-        return [];
-    }
 
     $result = NewsCategory::find()->where(['status'=>NewsCategory::STATUS_ACTIVE])
-                                        ->andWhere(['id'=>$cates])
-                                        ->indexBy('id')
-                                        ->asArray()
-                                        ->all();
+        ->andFilterWhere(['id'=>$cates])
+        ->indexBy('id')
+        ->asArray()
+        ->all();
     if ($type !== null) {
         $type = array_search($type, News::types());
     }
 
-    foreach ($cates as $k => $v) {
+    foreach ($result as $k => $v) {
         $tmp = News::find()->where(['status'=>News::STATUS_NORMAL])
-                            ->andWhere(['category_id'=>$v])
-                            ->andFilterWhere(['type'=>$type])
-                            ->limit($limit)
-                            ->all();
+            ->andWhere(['category_id'=>$v['id']])
+            ->andFilterWhere(['type'=>$type])
+            ->limit($limit)
+            ->all();
         $tp = [];
         foreach ($tmp as $val) {
             $tp[$val['id']] = $val->toArray();
             $tp[$val['id']]['cover'] = $val->getCover($thumb);
         }
-        $result[$v]['child'] = $tp;
+        $result[$v['id']]['child'] = $tp;
     }
 
 
     return $result;
 }
+
 /**
  * @name 取焦点图
  */
