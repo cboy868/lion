@@ -71,7 +71,7 @@ class Screen extends \app\core\db\ActiveRecord
 
     public static function msg($wid, $openid, $msg)
     {
-        $user = User::find()->where(['wid'=>$wid, 'openid'=>$openid])->one();
+        $user = User::find()->where(['openid'=>$openid])->one();
 
         $model = new self;
         $model->openid = $openid;
