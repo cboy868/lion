@@ -270,8 +270,6 @@ class MenuController extends Controller
             "language" =>$main_info->language
         ];
 
-        $matchRule = json_encode($matchRule);
-
         if ($menu->add($buttons, $matchRule)) {
             Yii::$app->getSession()->setFlash('success', '同步微信菜单成功');
         } else {
