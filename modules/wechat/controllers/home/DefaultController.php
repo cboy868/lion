@@ -98,25 +98,27 @@ class DefaultController extends \app\core\web\HomeController
     private function text($msg)
     {
 
-        Yii::info($msg);
+//        Yii::info($msg);
         $content = $msg->Content;
         $content = str_replace('＠', '@', $content);
         $rs = preg_match($this->msg_re, $content, $match);
-
-        if ( !$rs ) {
-            // 不匹配@进多客服
-            return $this->muti_person_service();
-        }
-
+//
+//        if ( !$rs ) {
+//            // 不匹配@进多客服
+//            return $this->muti_person_service();
+//        }
+//
         $action = $match[1];
-        if ( !in_array($action, array(6)) ){
-            return;
-        }
-
-        $text = trim($match[2]);
-        if (!$text) return;//没有内容也返回空
-
+//        if ( !in_array($action, array(6)) ){
+//            return;
+//        }
+//
+//        $text = trim($match[2]);
+//        if (!$text) return;//没有内容也返回空
+//
         $action = '_text'.$action;
+
+        return $action;
 
         return $this->$action($text);
 
