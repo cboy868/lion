@@ -122,18 +122,19 @@ class DefaultController extends \app\core\web\HomeController
 
         $action = '_text'.$action;
 
-        return $this->$action($text);
+        return $this->$action($msg, $text);
 
     }
 
     /**
      * @name 大屏留言
      */
-    private function _text6($msg)
+    private function _text6($msg, $text)
     {
-//        if (Screen::msg($this->wid,$msg->FromUserName, $msg->Content)) {
-//            return '您好，祝福留言成功';
-//        }
+        return $this->wid .$msg->FromUserName . $text;
+        if (Screen::msg($this->wid,$msg->FromUserName, $text)) {
+            return '您好，祝福留言成功';
+        }
         return '您好，留言失败，请重试';
 
     }
