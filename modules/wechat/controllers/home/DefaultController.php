@@ -131,6 +131,8 @@ class DefaultController extends \app\core\web\HomeController
      */
     private function _text6($msg, $text)
     {
+
+        return Screen::msg($this->wid,$msg->FromUserName, $text);
         if (Screen::msg($this->wid,$msg->FromUserName, $text)) {
             return '您好，祝福留言成功';
         }

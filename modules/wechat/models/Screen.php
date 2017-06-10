@@ -79,6 +79,8 @@ class Screen extends \app\core\db\ActiveRecord
         $model->realname = $user->realname;
         $model->nickname = $user->nickname;
         $model->content = $msg;
-        return $model->save();
+         $model->save();
+
+         return json_encode($model->getErrors());
     }
 }
