@@ -4,7 +4,7 @@ return [
     'params' =>[
         'debug'  => true,
         'log' => [
-            'level'      => 'debug',
+            'level'      => 'trace',
             'permission' => 0777,
             'file'       => '/tmp/easywechat.log',
         ],
