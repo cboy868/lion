@@ -98,9 +98,10 @@ class DefaultController extends \app\core\web\HomeController
     private function text($msg)
     {
 
-        return 'sss';
-//        Yii::info($msg);
-//        $content = $msg->Content;
+        Yii::info($msg);
+        $content = $msg->Content;
+
+        return $content;
 //        $content = str_replace('＠', '@', $content);
 //        $rs = preg_match($this->msg_re, $content, $match);
 //
