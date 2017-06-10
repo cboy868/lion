@@ -83,6 +83,8 @@ class Screen extends \app\core\db\ActiveRecord
 
         self::push([$model->id]);
 
+
+Yii::error(self::push($model->id));
         return true;
 
 
