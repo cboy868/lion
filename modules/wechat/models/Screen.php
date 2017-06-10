@@ -69,7 +69,7 @@ class Screen extends \app\core\db\ActiveRecord
         ];
     }
 
-    public static function msg($wid, $openid, $msg)
+    public static function msg($openid, $msg)
     {
         $user = User::find()->where(['openid'=>$openid])->one();
 
@@ -80,6 +80,7 @@ class Screen extends \app\core\db\ActiveRecord
         $model->nickname = $user->nickname;
         $model->content = $msg;
          $model->save();
+         throw new \Exception($model->getErrors());
 
          return json_encode($model->getErrors());
     }
