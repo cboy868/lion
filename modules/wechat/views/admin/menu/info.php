@@ -50,7 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-loading-text'=>"页面加载中, 请稍后...",
                                 'onclick'=>"return false"
                             ]) ?>
-                        <?= Html::a('激活此菜单', ['sync', 'id'=>$model->id], ['class'=>'btn btn-danger btn-sm btn-sync']);?>
+
+                        <?php if ($model->type == MenuMain::TYPE_PERSONAL): ?>
+                            <?= Html::a('激活此菜单', ['a-sync', 'id'=>$model->id], ['class'=>'btn btn-danger btn-sm btn-sync']);?>
+                        <?php else:?>
+                            <?= Html::a('激活此菜单', ['sync', 'id'=>$model->id], ['class'=>'btn btn-danger btn-sm btn-sync']);?>
+                        <?php endif;?>
                     </small>
                 </h1>
             </div><!-- /.page-header -->
