@@ -118,7 +118,7 @@ class ScreenController extends BackController
             $this->json(null, '删除失败', 0);
         }
 
-        if ($action == 'open' && !$this->push([$id])) {
+        if ($action == 'open' && !Screen::push([$id])) {
             $this->json(null, '展开失败', 0);
         }
 
@@ -130,7 +130,7 @@ class ScreenController extends BackController
         $screen_url = Yii::$app->getModule('wechat')->params['screen_url'];
 
         $data = json_encode($data);
-        $res = $this->request_by_post($screen_url . '/option', $data);
+        $res = Screen::request_by_post($screen_url . '/option', $data);
 
         if ($res == 'ok') {
             $this->json(null, '操作成功', 1);
@@ -164,7 +164,7 @@ class ScreenController extends BackController
 
         $screen_url = Yii::$app->getModule('wechat')->params['screen_url'];
 
-        $res = $this->request_by_post($screen_url . '/notice', json_encode($push));
+        $res = Screen::request_by_post($screen_url . '/notice', json_encode($push));
 
         if ($res == 'ok') {
             $this->json(null, '通知发送成功', 1);
@@ -179,7 +179,7 @@ class ScreenController extends BackController
         if (!is_array($id)) {
             $id = [$id];
         }
-        $res = $this->push($id);
+        $res = Screen::push($id);
         if ($res) {
             $this->json(null, '信息推送成功', 1);
         }
@@ -188,38 +188,9 @@ class ScreenController extends BackController
     }
 
 
-    /**
-     * 推送消息到大屏幕
-     */
-    protected function push(array $ids)
-    {
 
-        $messages = Screen::find()->where(['id'=>$ids])
-                                ->orderBy('id desc')
-                                ->asArray()
-                                ->all();
-        if ( !$messages ) {
-            $messages = [];
-        }
 
-        $screen_url = Yii::$app->getModule('wechat')->params['screen_url'];
 
-        $messages = json_encode($messages);
-        return $this->request_by_post($screen_url . '/push', $messages);
-    }
-
-    protected function request_by_post($url, $datas)
-    {
-        $ch = curl_init($url) ;
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$datas);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        $result = curl_exec($ch) ;
-        curl_close($ch) ;
-        return $result;
-    }
 
 
 

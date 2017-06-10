@@ -79,6 +79,49 @@ class Screen extends \app\core\db\ActiveRecord
         $model->realname = $user->realname;
         $model->nickname = $user->nickname;
         $model->content = $msg;
-        return $model->save();
+        $model->save();
+
+        $a = self::push([$model->id]);
+
+        throw new \Exception($a);
+
+        Yii::error($a);
+
+    }
+
+
+    /**
+     * 推送消息到大屏幕
+     */
+    public static function push(array $ids)
+    {
+
+        $messages = self::find()->where(['id'=>$ids])
+                        ->orderBy('id desc')
+                        ->asArray()
+                        ->all();
+        if ( !$messages ) {
+            $messages = [];
+        }
+
+        $screen_url = Yii::$app->getModule('wechat')->params['screen_url'];
+
+        $messages = json_encode($messages);
+        return self::request_by_post($screen_url . '/push', $messages);
+    }
+
+
+
+    public static function request_by_post($url, $datas)
+    {
+        $ch = curl_init($url) ;
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$datas);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $result = curl_exec($ch) ;
+        curl_close($ch) ;
+        return $result;
     }
 }
