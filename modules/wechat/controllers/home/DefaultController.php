@@ -122,9 +122,6 @@ class DefaultController extends \app\core\web\HomeController
 
         $action = '_text'.$action;
 
-        return $action;
-
-
         return $this->$action($text);
 
     }
@@ -132,7 +129,7 @@ class DefaultController extends \app\core\web\HomeController
     /**
      * @name 大屏留言
      */
-    private function text6($msg)
+    private function _text6($msg)
     {
         if (Screen::msg($this->wid,$msg->FromUserName, $msg->Content)) {
             return '您好，祝福留言成功';
