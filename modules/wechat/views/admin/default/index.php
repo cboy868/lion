@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = '公众号管理';
         <div class="right-content">
             <div class="welcome-container ng-scope" id="js-home-welcome" ng-controller="WelcomeCtrl">
                 <div class="panel zx-panel account-stat">
-                    <div class="panel-heading">今日关键指标</div>
+                    <div class="panel-heading">关键指标</div>
                     <div class="panel-body zx-padding-vertical">
                         <div class="col-sm-3 text-center">
                             <div class="title">今日新关注</div>

@@ -59,9 +59,7 @@ return [
             Url::toRoute('/m/default/index') => '首页',
             Url::toRoute('/m/default/route') => '一键导航',
             Url::toRoute('/shop/m/default/index') => '商品购买',
-
-
-        ]
+        ],
+        'screen_url'     => 'http://screen.ibagou.com:8080',
     ]
 ];
-

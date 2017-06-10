@@ -254,7 +254,7 @@ class DefaultController extends BackController
 
             $outerTransaction->commit();
 
-        } catch (Exception $e){
+        } catch (\Exception $e){
             $outerTransaction->rollBack();
             return $this->json(null, '删除失败', 0);
         }

@@ -73,12 +73,14 @@ use yii\helpers\Url;
                     粉丝管理
                 </a>
             </li>
+            <!--
             <li class="list-group-item ">
                 <a href="<?=Url::toRoute(['/wechat/admin/user/index'])?>" class="text-over">
                     <i class="fa fa-tags"></i>
                     标签管理
                 </a>
             </li>
+            -->
         </ul>
     </div>
     <div class="panel panel-menu">
