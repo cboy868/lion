@@ -68,4 +68,17 @@ class Screen extends \app\core\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+    public static function msg($wid, $openid, $msg)
+    {
+        $user = User::find()->where(['wid'=>$wid, 'openid'=>$openid])->one();
+
+        $model = new self;
+        $model->openid = $openid;
+        $model->headimgurl = $user->headimgurl;
+        $model->realname = $user->realname;
+        $model->nickname = $user->nickname;
+        $model->content = $msg;
+        return $model->save();
+    }
 }

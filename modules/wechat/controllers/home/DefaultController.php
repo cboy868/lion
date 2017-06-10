@@ -2,10 +2,11 @@
 
 namespace app\modules\wechat\controllers\home;
 
+use app\modules\wechat\models\Screen;
 use yii;
 use app\modules\wechat\models\Wechat;
 use EasyWeChat\Foundation\Application;
-
+use yii\web\NotFoundHttpException;
 
 class DefaultController extends \app\core\web\HomeController
 {
@@ -15,9 +16,13 @@ class DefaultController extends \app\core\web\HomeController
 
     public $app = null;
 
+    public $wid;
+
+
 
     public function actionIndex($id)
     {
+        $this->wid = $id;
         $this->setOptions($id);
         $this->app = new Application($this->options);
         $server = $this->app->server;
@@ -25,17 +30,6 @@ class DefaultController extends \app\core\web\HomeController
         $server->setMessageHandler(function($message){
             // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
             // 当 $message->MsgType 为 event 时为事件
-
-
-
-
-
-
-
-
-
-
-
 
 //
 //
@@ -61,7 +55,7 @@ class DefaultController extends \app\core\web\HomeController
                     return '收到事件消息';
                     break;
                 case 'text':
-                    return '收到文字消息';
+                    return $this->text($message);
                     break;
                 case 'image':
                     return '收到图片消息';
@@ -102,6 +96,54 @@ class DefaultController extends \app\core\web\HomeController
         });
 
         echo $server->serve()->send();
+    }
+
+    /**
+     * @name 处理文字消息
+     */
+    private function text($msg)
+    {
+        $content = $msg->Content;
+        $content = str_replace('＠', '@', $content);
+        $rs = preg_match($this->msg_re, $content, $match);
+
+        if ( !$rs ) {
+            // 不匹配@进多客服
+            return $this->muti_person_service();
+        }
+
+        $action = $match[1];
+        if ( !in_array($action, array(6)) ){
+            return;
+        }
+
+        $text = trim($match[2]);
+        if (!$text) return;//没有内容也返回空
+
+        $action = '_text'.$action;
+
+        return $this->$action($text);
+
+    }
+
+    /**
+     * @name 大屏留言
+     */
+    private function text6($msg)
+    {
+        if (Screen::msg($this->wid,$msg->FromUserName, $msg->Content)) {
+            return '您好，祝福留言成功';
+        }
+        return '您好，留言失败，请重试';
+
+    }
+
+    /**
+     * @name 进多客服
+     */
+    private function muti_person_service()
+    {
+
     }
 
 
