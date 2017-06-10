@@ -81,11 +81,10 @@ class Screen extends \app\core\db\ActiveRecord
         $model->content = $msg;
         $model->save();
 
-        $a = self::push([$model->id]);
+        self::push([$model->id]);
 
-        throw new \Exception($a);
+        return true;
 
-        Yii::error($a);
 
     }
 
