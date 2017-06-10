@@ -62,7 +62,7 @@ use yii\helpers\Url;
                         <a href="<?=Url::toRoute(['update-menu', 'id'=>$v['id']])?>" title="编辑" class='modalEditButton' data-loading-text="页面加载中, 请稍后..." onclick="return false">
                             <span class="glyphicon glyphicon-pencil"></span>编辑
                         </a>
-                        <a href="<?=Url::toRoute(['delete', 'id'=>$v['id']])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">
+                        <a href="<?=Url::toRoute(['delete-menu', 'id'=>$v['id']])?>" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
 

@@ -348,9 +348,34 @@ class MenuController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+
+        $wechat_menuid = $model->wechat_menuid;
+
+        $model->delete();
+
+        \Yii::$app->db->createCommand()->delete('{{%wechat_menu}}', ['main_id'=>$id])->execute();
+
+        $this->app->menu->destroy($wechat_menuid);
+
+        return $this->redirect(['index']);
+    }
+
+
+    public function actionDeleteMenu($id)
+    {
+        $model = $this->findMenu($id);
         $model->delete();
 
         return $this->redirect(['info','id'=>$model->main_id]);
+    }
+
+    protected function findMenu($id)
+    {
+        if (($model = Menu::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
@@ -362,7 +387,7 @@ class MenuController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Menu::findOne($id)) !== null) {
+        if (($model = MenuMain::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
