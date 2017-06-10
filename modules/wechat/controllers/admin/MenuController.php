@@ -251,6 +251,37 @@ class MenuController extends Controller
         return $this->redirect(['info', 'id'=>$id]);
     }
 
+    public function actionASync($id)
+    {
+        $menu = $this->app->menu;
+
+        $menus = Menu::getWechatMenus($this->wid, $id);
+        $buttons = $this->parseMenus($menus);
+
+        $main_info = MenuMain::findOne($id);
+
+        $matchRule = [
+            "tag_id" => $main_info->tag,
+            "sex" => $main_info->gender,
+            "country" => $main_info->country,
+            "province" => $main_info->province,
+            "city" => $main_info->city,
+            "client_platform_type" => $main_info->client_platform_type,
+            "language" =>$main_info->language
+        ];
+
+        $matchRule = json_encode($matchRule);
+
+        if ($menu->add($buttons, $matchRule)) {
+            Yii::$app->getSession()->setFlash('success', '同步微信菜单成功');
+        } else {
+            Yii::$app->getSession()->setFlash('error', '同步微信菜单失败，请重试或检查菜单是否符合规则');
+        }
+
+        return $this->redirect(['info', 'id'=>$id]);
+    }
+
+
     private function parseMenus($menus)
     {
 

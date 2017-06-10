@@ -1,11 +1,17 @@
 <?php
 use app\modules\wechat\models\MenuMain;
+use app\modules\wechat\models\Tag;
 ?>
 
 
     <div class="panel panel-info">
         <div class="panel-heading">菜单显示规则</div>
         <div class="panel-body">
+
+            <?= $form->field($model, 'tag')->dropDownList(Tag::tags($this->context->wid), ['prompt'=>'按标签分组菜单'])
+                                            ->label('所属标签组')
+            ?>
+
             <div class="form-group field-menumain-language">
                 <label class="control-label" for="">地区</label>
                 <div class="">

@@ -6,6 +6,7 @@ use app\core\widgets\GridView;
 use app\modules\wechat\models\MenuMain;
 use kartik\popover\PopoverX;
 use app\core\widgets\ActiveForm;
+use app\modules\wechat\models\Tag;
 $this->title = '微信菜单管理';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -71,6 +72,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $form->field($model, 'name')->textInput(); ?>
 
                         <p class="text text-danger" style="text-align: center;">注意:以下限制至少需要选择一项</p>
+
+                        <?= $form->field($model, 'tag')->dropDownList(Tag::tags($this->context->wid), ['prompt'=>'按标签分组菜单']) ?>
+
                         <div class="form-group field-userform-username required">
                             <label class="control-label col-sm-2" for="userform-username">地区</label>
                             <div class="col-sm-10">

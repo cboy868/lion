@@ -2,6 +2,7 @@
 
 namespace app\modules\wechat\models;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -51,6 +52,18 @@ class Tag extends \app\core\db\ActiveRecord
             $v->count = TagRel::find()->where(['wid'=>$v->wid,'tag_id'=>$v->tag_id])->count();
             $v->save();
         }
+    }
+
+
+    /**
+     * @name 所有有效标签(已在微信端注册的)
+     */
+    public static function tags($wid)
+    {
+
+        $tags = Tag::find()->where(['wid'=>$wid])->all();
+
+        return ArrayHelper::map($tags, 'tag_id', 'name');
     }
 
 

@@ -5,13 +5,9 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\wechat\models\WechatSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Wechats';
+$this->title = '微信账号列表';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
