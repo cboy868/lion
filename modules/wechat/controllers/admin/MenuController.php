@@ -286,7 +286,8 @@ class MenuController extends Controller
         ];
 
         if ($info = $menu->add($buttons, $matchRule)) {
-            p($info['menuid']);die;
+            $main_info->wechat_menuid = $info['menuid'];
+            $main_info->save();
             Yii::$app->getSession()->setFlash('success', '同步微信菜单成功');
         } else {
             Yii::$app->getSession()->setFlash('error', '同步微信菜单失败，请重试或检查菜单是否符合规则');
