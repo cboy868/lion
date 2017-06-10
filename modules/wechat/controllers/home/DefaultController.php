@@ -78,12 +78,6 @@ class DefaultController extends \app\core\web\HomeController
                     break;
             }
 
-
-
-
-
-
-
             // if ($message->MsgType == 'event') {
 
             //     $event = $message->Event;
@@ -103,6 +97,8 @@ class DefaultController extends \app\core\web\HomeController
      */
     private function text($msg)
     {
+
+        Yii::info($msg);
         $content = $msg->Content;
         $content = str_replace('＠', '@', $content);
         $rs = preg_match($this->msg_re, $content, $match);
