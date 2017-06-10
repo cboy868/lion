@@ -76,7 +76,6 @@ class Screen extends \app\core\db\ActiveRecord
         $model = new self;
         $model->openid = $openid;
         $model->headimgurl = $user->headimgurl;
-        $model->realname = $user->realname;
         $model->nickname = $user->nickname;
         $model->content = $msg;
          $model->save();
