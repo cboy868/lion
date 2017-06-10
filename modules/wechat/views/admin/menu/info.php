@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         二级菜单名称名字不多于8个汉字或16个字母,最多7个
                     </div>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-xs-12 w-form">
                     <?php $form = ActiveForm::begin(); ?>
                     <?= $form->field($model, 'name')->textInput(['class'=>'form-control main-name'])->hint('可在此修改菜单组名称') ?>
                     <?php if($type == MenuMain::TYPE_PERSONAL): ?>
@@ -119,36 +119,52 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $this->beginBlock('tree') ?>
 $(function(){
 
-$('.main-name').change(function(){
-    var name = $(this).val();
-    var id = "<?=$model->id?>";
-    var csrf = "<?=Yii::$app->request->getCsrfToken()?>";
-    var data = {id:id, name:name,_csrf:csrf};
-    var that = this;
-    $.post("<?=Url::toRoute(['update-main'])?>",data,function(xhr){
-        if(xhr.status){
-            $(that).siblings('.hint-block').text('菜单组名修改成功').addClass('success').removeClass('wrong');
-        } else {
-            $(that).siblings('.hint-block').text('菜单组名修改失败').addClass('wrong').removeClass('success');
-        }
-
-    },'json');
-
-});
+    $('.main-name').change(function(){
+        var name = $(this).val();
+        var id = "<?=$model->id?>";
+        var csrf = "<?=Yii::$app->request->getCsrfToken()?>";
 
 
+        var data = {id:id, name:name,_csrf:csrf};
+        var that = this;
+        $.post("<?=Url::toRoute(['update-main'])?>",data,function(xhr){
+            if(xhr.status){
+                $(that).siblings('.hint-block').text('菜单组名修改成功').addClass('success').removeClass('wrong');
+            } else {
+                $(that).siblings('.hint-block').text('菜单组名修改失败').addClass('wrong').removeClass('success');
+            }
 
-$('.btn-sync').click(function(e){
-e.preventDefault();
+        },'json');
 
-var url = $(this).attr('href');
+    });
 
-$.get(url, {}, function(xhr){
-if (xhr.status) {
-location.reload();
-}
-},'json');
-});
+    $('.w-form form input, .w-form form select').change(function(){
+        var data = $('.w-form form').serialize();
+
+        var that = this;
+        $.post("<?=Url::toRoute(['update-main', 'id'=>Yii::$app->request->get("id")])?>",data,function(xhr){
+            if(xhr.status){
+                $(that).siblings('.hint-block').text('菜单信息修改成功').addClass('success').removeClass('wrong');
+            } else {
+                $(that).siblings('.hint-block').text('菜单信息修改失败').addClass('wrong').removeClass('success');
+            }
+
+        },'json');
+
+    });
+
+
+    $('.btn-sync').click(function(e){
+        e.preventDefault();
+
+        var url = $(this).attr('href');
+
+        $.get(url, {}, function(xhr){
+            if (xhr.status) {
+                location.reload();
+            }
+        },'json');
+    });
 
 })
 <?php $this->endBlock() ?>

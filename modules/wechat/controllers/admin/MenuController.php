@@ -11,6 +11,7 @@ use app\modules\wechat\models\MenuSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\core\helpers\Url;
+use app\core\models\Area;
 /**
  * MenuController implements the CRUD actions for Menu model.
  */
@@ -49,7 +50,7 @@ class MenuController extends Controller
         $model = new MenuMain();
         $model->wid = $this->wid;
 
-        if ($model->load(Yii::$app->request->post()) &&$model->wid=$this->wid && $model->save()){
+        if ($model->load(Yii::$app->request->post()) && $model->wid=$this->wid && $model->save()){
             return $this->redirect(['info', 'type'=>$model->type, 'id'=>$model->id]);
         }
 
@@ -156,21 +157,21 @@ class MenuController extends Controller
 //        }
     }
 
-    public function actionUpdateMain()
+    public function actionUpdateMain($id)
     {
         $post = Yii::$app->request->post();
-        $model = MenuMain::findOne($post['id']);
+        $model = MenuMain::findOne($id);
 
         if (!$model) {
             return $this->json(null, '不存在此菜单组', 0);
         }
 
-        $model->name = isset($post['name']) ?$post['name'] : $model->name;
+        $model->load($post, 'MenuMain');
 
         if ($model->save()) {
             return $this->json();
         }
-
+        return $this->json(null, "菜单信息修改失败", 0);
     }
 
 
@@ -260,12 +261,26 @@ class MenuController extends Controller
 
         $main_info = MenuMain::findOne($id);
 
+
+        $province = '';
+        if ($main_info->province) {
+            $area = Area::findOne($main_info->province);
+            $province = isset($area->name) ? $area->name : '';
+        }
+
+        $city = '';
+        if ($main_info->province) {
+            $area = Area::findOne($main_info->city);
+            $city = isset($area->name) ? $area->name : '';
+        }
+
+
         $matchRule = [
             "tag_id" => $main_info->tag,
             "sex" => $main_info->gender,
             "country" => $main_info->country,
-            "province" => $main_info->province,
-            "city" => $main_info->city,
+            "province" => $province,
+            "city" => $city,
             "client_platform_type" => $main_info->client_platform_type,
             "language" =>$main_info->language
         ];

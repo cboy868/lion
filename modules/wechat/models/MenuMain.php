@@ -55,8 +55,8 @@ class MenuMain extends \app\core\db\ActiveRecord
     {
         return [
             [['name','wid'], 'required'],
-            [['type', 'is_active', 'gender', 'tag', 'client_platform_type', 'language', 'created_at','wid'], 'integer'],
-            [['name', 'country', 'province', 'city'], 'string', 'max' => 100],
+            [['type', 'is_active', 'gender', 'tag', 'client_platform_type', 'language', 'created_at','wid','country', 'province', 'city'], 'integer'],
+            [['name'], 'string', 'max' => 100],
         ];
     }
 

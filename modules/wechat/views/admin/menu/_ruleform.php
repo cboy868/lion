@@ -15,7 +15,14 @@ use app\modules\wechat\models\Tag;
             <div class="form-group field-menumain-language">
                 <label class="control-label" for="">地区</label>
                 <div class="">
-                    <?php echo \app\core\widgets\Area\Select::widget(['zone_show'=>false]);?>
+                    <?php echo \app\core\widgets\Area\Select::widget([
+                            'zone_show'=>false,
+                            'pro_name' => 'MenuMain[province]',
+                            'city_name'=> 'MenuMain[city]',
+                            'pro' => $model->province,
+                            'city' => $model->city
+
+                    ]);?>
                 </div>
                 <div class="help-block"></div>
             </div>

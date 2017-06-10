@@ -78,7 +78,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="form-group field-userform-username required">
                             <label class="control-label col-sm-2" for="userform-username">地区</label>
                             <div class="col-sm-10">
-                                <?php echo \app\core\widgets\Area\Select::widget(['zone_show'=>false]);?>
+                                <?php echo \app\core\widgets\Area\Select::widget([
+                                        'zone_show'=>false,
+                                        'pro_name' => 'MenuMain[province]',
+                                        'city_name'=> 'MenuMain[city]'
+                                ]);?>
                             </div>
                         </div>
                         <?= $form->field($model, 'language')->dropDownList(MenuMain::languages()) ?>
