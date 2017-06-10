@@ -82,12 +82,7 @@ class Screen extends \app\core\db\ActiveRecord
         $model->save();
 
         self::push([$model->id]);
-
-
-Yii::error(self::push([$model->id]));
         return true;
-
-
     }
 
 
@@ -110,7 +105,6 @@ Yii::error(self::push([$model->id]));
         $messages = json_encode($messages);
         return self::request_by_post($screen_url . '/push', $messages);
     }
-
 
 
     public static function request_by_post($url, $datas)
