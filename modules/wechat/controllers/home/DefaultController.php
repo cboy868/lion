@@ -40,12 +40,6 @@ class DefaultController extends \app\core\web\HomeController
     }
 
 
-
-
-
-
-
-
     public function actionIndex($id)
     {
         $this->wid = $id;
@@ -137,19 +131,13 @@ class DefaultController extends \app\core\web\HomeController
 
         $action = $match[1];
         if ( !in_array($action, array_keys(self::methods())) ){
-            return '方法不存在';
+            return ;
         }
 
         $text = trim($match[2]);
         if (!$text) return;//没有内容也返回空
 
-//        $action = '_text'.$action;
-
         $method = '_text' . ucfirst(self::methods($action));
-
-//        return $action;
-//        return self::methods();
-//        return $method;
 
         return $this->$method($msg, $text);
 

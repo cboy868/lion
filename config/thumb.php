@@ -1,19 +1,25 @@
 <?php return array (
   'image' => 
   array (
-    'focus' => 
+    'common' => 
     array (
-      'water' => 0,
-      'water_mod' => 'text',
-      'water_image' => '/upload/image/201705/1495957537100.png',
-      'water_text' => '这个是长长的文字 ，哈哈 ',
-      'water_pos' => '-1',
-      'thumb' => 
-      array (
-        0 => '500x500',
-        1 => '100x100',
-        2 => '80x80',
-      ),
+      'water' => 1,
+      'water_mod' => 'image',
+      'water_image' => NULL,
+      'water_text' => '',
+      'water_pos' => '0',
+      'min_width' => '100',
+      'min_height' => '100',
+    ),
+    'goods' => 
+    array (
+      'water' => 1,
+      'water_mod' => 'image',
+      'water_image' => NULL,
+      'water_text' => '',
+      'water_pos' => '0',
+      'min_width' => '100',
+      'min_height' => '100',
     ),
   ),
 );

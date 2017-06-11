@@ -39,19 +39,19 @@ $params = [
             'min_height' => 100
     	],
 
-        'imgconfig' => [
-            'water' => false,
-            'water_pos' => '-1',
-            // 'savePath' => 'upload',
-        ],
-
-        'shop_attr' => [
-            'water' => false,
-            'thumb' => [
-                'tiny' => '36x36',
-                'small' => '100x100'
-            ]
-        ],
+//        'imgconfig' => [
+//            'water' => false,
+//            'water_pos' => '-1',
+//            // 'savePath' => 'upload',
+//        ],
+//
+//        'shop_attr' => [
+//            'water' => false,
+//            'thumb' => [
+//                'tiny' => '36x36',
+//                'small' => '100x100'
+//            ]
+//        ],
     ],
 
 ];

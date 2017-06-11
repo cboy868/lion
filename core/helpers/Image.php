@@ -99,9 +99,6 @@ class Image extends \yii\imagine\Image {
     {
         $config = self::getConfig($res);
 
-        //缩略
-        $thumb =array_filter($config['thumb']);
-
         //水印
         $watermark = $config['water_image'];
         $watermark = Yii::getAlias('@app/web' . $watermark);

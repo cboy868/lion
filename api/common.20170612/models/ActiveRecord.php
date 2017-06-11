@@ -13,6 +13,4 @@ class ActiveRecord extends \yii\db\ActiveRecord
 {
 	const STATUS_ACTIVE = 1;
 	const STATUS_DELETE = -1;
-
-	const BASE_URL = 'http://www.lion.cn';
 }
