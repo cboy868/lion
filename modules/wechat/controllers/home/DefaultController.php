@@ -137,7 +137,7 @@ class DefaultController extends \app\core\web\HomeController
 
         $action = $match[1];
         if ( !in_array($action, array_keys(self::methods())) ){
-            return;
+            return '方法不存在';
         }
 
         $text = trim($match[2]);
@@ -146,6 +146,8 @@ class DefaultController extends \app\core\web\HomeController
         $action = '_text'.$action;
 
         $method = '_text' . ucfirst(self::methods($action));
+
+        return $method;
 
         return $this->$method($msg, $text);
 
