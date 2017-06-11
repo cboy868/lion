@@ -21,6 +21,29 @@ class DefaultController extends \app\core\web\HomeController
     protected $msg_re = '/(\d{1})@(.+)/';
 
 
+    const TYPE_SCREEN = 6;
+    const TYPE_TOUSU = 7;
+
+
+    public static function methods($type=null)
+    {
+        $t = [
+            self::TYPE_SCREEN => 'screen',
+            self::TYPE_TOUSU => 'complaint'
+        ];
+
+        if ($type === null) {
+            return $t;
+        }
+
+        return isset($t[$type]) ? $t[$type] : '';
+    }
+
+
+
+
+
+
 
 
     public function actionIndex($id)
@@ -113,7 +136,7 @@ class DefaultController extends \app\core\web\HomeController
         }
 
         $action = $match[1];
-        if ( !in_array($action, array(6)) ){
+        if ( !in_array($action, array_keys(self::methods())) ){
             return;
         }
 
@@ -122,14 +145,16 @@ class DefaultController extends \app\core\web\HomeController
 
         $action = '_text'.$action;
 
-        return $this->$action($msg, $text);
+        $method = '_text' . ucfirst(self::methods($action));
+
+        return $this->$method($msg, $text);
 
     }
 
     /**
      * @name 大屏留言
      */
-    private function _text6($msg, $text)
+    private function _textScreen($msg, $text)
     {
 
         if (Screen::msg($msg->FromUserName, $text)) {
