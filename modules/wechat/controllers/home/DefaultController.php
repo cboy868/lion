@@ -147,7 +147,7 @@ class DefaultController extends \app\core\web\HomeController
 
         $method = '_text' . ucfirst(self::methods($action));
 
-
+        return $action;
         return self::methods();
         return $method;
 
