@@ -16,6 +16,11 @@ class Controller extends ActiveController
 
 	public $imgBaseUrl = 'http://www.lion.cn';
 
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
+
 	public function behaviors() {
 
         $behaviors = parent::behaviors();

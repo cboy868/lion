@@ -21,13 +21,8 @@ class NewsController extends Controller
 
 //    public $serializer = 'yii\rest\Serializer';
 
-    public $serializer = [
-        'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'items',
-    ];
 
     public $prepareDataProvider = '_index';
-
 
     public function actions() {  
         $actions = parent::actions();  

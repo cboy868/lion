@@ -78,9 +78,9 @@ var demo = new Vue({
     data: {
         nitems: [],
         sendData:{fields:['id', 'name']},
-        apiUrl: 'http://api.ibagou.com/v1/goods/cates',
+        apiUrl: 'http://api.lion.cn/v1/goods/cates',
 
-        clistUrl : 'http://api.ibagou.com/v1/goods/clist',
+        clistUrl : 'http://api.lion.cn/v1/goods/clist',
         clistParams : {cid:1, page:1, pageSize:2},
         clist:[],
         pageCount:1,

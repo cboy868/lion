@@ -58,7 +58,7 @@ class IndexAction extends Action
         $modelClass = $this->modelClass;
 
         return new ActiveDataProvider([
-            'query' => $modelClass::find(),
+            'query' => $modelClass::find()->orderBy('id desc'),
         ]);
     }
 }
