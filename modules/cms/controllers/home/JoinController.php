@@ -9,27 +9,9 @@ use app\modules\cms\models\PostImageSearch;
 use yii\web\NotFoundHttpException;
 use app\modules\mod\models\Code;
 
-
-/**
- * ContactController implements the CRUD actions for Contact model.
- */
-class ContactController extends \app\core\web\HomeController
+class JoinController extends \app\core\web\HomeController
 {
-
-    public $mid = 4;
-
-    public function actions()
-    {
-        return [
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'maxLength' => 5, 
-                'minLength' => 4 
-            ]
-        ];
-    }
-
+    public $mid = 2;
 
     public function actionIndex($type=null, $cid=null)
     {
@@ -109,6 +91,4 @@ class ContactController extends \app\core\web\HomeController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-   
 }
