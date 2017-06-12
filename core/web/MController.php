@@ -42,9 +42,12 @@ class MController extends \app\core\web\Controller
 //            return $this->redirect(['/wechat/admin/account/index']);
 //        }
 //        $wid = $session->get('wechat.id');
-        $this->wid = $wid;
-        $this->setOptions($wid);
-        $this->app = new Application($this->options);
+
+
+        //暂时注释掉
+//        $this->wid = $wid;
+//        $this->setOptions($wid);
+//        $this->app = new Application($this->options);
 
     }
 

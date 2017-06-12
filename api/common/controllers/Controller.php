@@ -20,17 +20,23 @@ class Controller extends ActiveController
 
         $behaviors = parent::behaviors();
 
-        // $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_HTML;
-
         $this->callback = Yii::$app->request->get('lcb',null);
-        
+
         if ($this->callback) {
-        	$behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSONP;	
+        	$behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSONP;
+
+            Yii::$app->response->on(yii\web\Response::EVENT_BEFORE_SEND, function($event){
+                $items = Yii::$app->response->data;
+                $data = [
+                    'data' => $items,
+                    'callback' => $this->callback
+                ];
+                Yii::$app->response->data = $data;
+            });
         }
 
         return $behaviors;
     }
-
 
     public function actions()
     {

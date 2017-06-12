@@ -65,6 +65,7 @@ class News extends ActiveRecord
                 return date('Y-m-d H:i:s', $model->created_at);
             },
             // 字段名为"email", 对应的属性名为"email_address"
+            //参数 cover-size=50x50&
             'cover' => function($model){
                 $size = Yii::$app->request->get('cover-size');
                 if ($size) {
@@ -78,7 +79,6 @@ class News extends ActiveRecord
 
         ];
 
-
         $fields = array_merge($fields, $other);
 
         unset($fields['thumb']);
@@ -89,6 +89,10 @@ class News extends ActiveRecord
 
     }
 
+    /**
+     * @return array
+     * 参数 expand=images&image-size=100x100
+     */
     public function extraFields()
     {
         $req = Yii::$app->request;

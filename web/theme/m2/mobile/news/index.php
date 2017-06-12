@@ -81,10 +81,10 @@ var demo = new Vue({
     data: {
         nitems: [],
         sendData:{fields:['id', 'name']},
-        apiUrl: 'http://api.ibagou.com/v1/news/cates',
+        apiUrl: 'http://api.lion.cn/v1/news/cates',
 
         
-        clistUrl : 'http://api.ibagou.com/v1/news/clist',
+        clistUrl : 'http://api.lion.cn/v1/news/clist',
         clistParams : {cid:1, page:1, pageSize:2},
         clist:[],
         pageCount:1,
@@ -97,6 +97,7 @@ var demo = new Vue({
     methods: {
         getCates: function() {
             this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.sendData}).then((response) => {
+console.dir(response);
                 this.$set(this, 'nitems', response.data);
                 this.clistParams.cid = this.nitems[0].id;
                 this.getCList();
