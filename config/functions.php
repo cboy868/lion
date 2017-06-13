@@ -10,14 +10,17 @@ use app\core\helpers\StringHelper;
 use app\modules\focus\models\Focus;
 use app\modules\cms\models\Links;
 use app\modules\cms\models\Subject;
-use app\modules\mod\models\Code;
 use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
 use app\modules\news\models\News;
 use app\modules\news\models\Category as NewsCategory;
+use app\modules\cms\models\Category as cmsCategory;
 use app\core\models\TagRel;
 use app\modules\memorial\models\Memorial;
 use app\modules\blog\models\Blog;
+use app\modules\mod\models\Module;
+use app\modules\mod\models\Code;
+
 //  按格式打印数组
 function p($arr)
 {
@@ -104,19 +107,23 @@ function newsCates($cates=null, $limit=10, $thumb=null, $type=null)
         $type = array_search($type, News::types());
     }
 
-    foreach ($result as $k => $v) {
-        $tmp = News::find()->where(['status'=>News::STATUS_NORMAL])
-            ->andWhere(['category_id'=>$v['id']])
-            ->andFilterWhere(['type'=>$type])
-            ->limit($limit)
-            ->all();
-        $tp = [];
-        foreach ($tmp as $val) {
-            $tp[$val['id']] = $val->toArray();
-            $tp[$val['id']]['cover'] = $val->getCover($thumb);
+    if ($limit) {
+        foreach ($result as $k => $v) {
+            $tmp = News::find()->where(['status'=>News::STATUS_NORMAL])
+                ->andWhere(['category_id'=>$v['id']])
+                ->andFilterWhere(['type'=>$type])
+                ->limit($limit)
+                ->all();
+            $tp = [];
+            foreach ($tmp as $val) {
+                $tp[$val['id']] = $val->toArray();
+                $tp[$val['id']]['cover'] = $val->getCover($thumb);
+            }
+            $result[$v['id']]['child'] = $tp;
         }
-        $result[$v['id']]['child'] = $tp;
     }
+
+
 
 
     return $result;
@@ -255,9 +262,84 @@ function productList($category_id=null,$rows=10, $thumb='')
  * @return null
  * @name 文章
  */
-function cmsPost()
+function cmsArticle($mid, $category_id=null, $limit=10, $thumb=null)
 {
-    return null;
+    $module = Module::findOne($mid);
+    Code::createObj('post', $mid);
+
+
+    $c = 'Post' . $mid;
+    $class = '\app\modules\cms\models\mods\\' . $c;
+
+
+    $query = cmsCategory::find()->where(['mid'=>$mid])
+        ->andFilterWhere(['id'=>$category_id]);
+
+    if (!is_numeric($category_id)) {
+        $cates = $query->asArray()->all();
+        foreach ($cates as &$v) {
+            $article = $class::find()->where(['category_id'=>$v['id']])
+                ->limit($limit)
+                ->asArray()
+                ->all();
+
+            foreach ($article as $key => $val) {
+                $v['child'][$val['id']]= $val;
+                $v['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);
+            }
+        }unset($v);
+    } else {
+        $cates = $query->one()->toArray();
+        $article = $class::find()->where(['category_id'=>$cates['id']])
+            ->limit($limit)
+            ->asArray()
+            ->all();
+
+        foreach ($article as $key => $val) {
+            $cates['child'][$val['id']]= $val;
+            $cates['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);
+        }
+    }
+
+
+    return ['modInfo'=>$module->toArray(),'list'=>$cates];
+}
+function cmsArticleDetail($mid, $id, $thumb)
+{
+    Code::createObj('post', $mid);
+    $c = 'Post' . $mid;
+    $class = '\app\modules\cms\models\mods\\' . $c;
+    $article = $class::findOne($id)->toArray();
+    $article['cover'] = \app\modules\cms\models\PostImage::getById($article['thumb'], $thumb);
+
+    return $article;
+}
+
+function cmsImages($mid, $category_id=null, $limit=10, $thumb=null)
+{
+    $module = Module::findOne($mid);
+    Code::createObj('post', $mid);
+
+    $cate = cmsCategory::find()->where(['mid'=>$mid])
+        ->andFilterWhere(['id'=>$category_id])
+        ->asArray()
+        ->one();
+
+    $c = 'Post' . $mid;
+    $class = '\app\modules\cms\models\mods\\' . $c;
+
+
+    $article = $class::find()->where(['category_id'=>$cate['id']])
+        ->limit($limit)
+//            ->asArray()
+        ->all();
+
+    foreach ($article as $key => $val) {
+        $cate['child'][$val->id]= $val->toArray();
+        $cate['child'][$val->id]['images'] = $val->getImages($thumb);
+    }
+
+    return ['modInfo'=>$module->toArray(),'list'=>$cate];
 }
 
 /**

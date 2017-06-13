@@ -10,6 +10,7 @@ use app\modules\news\models\NewsPhoto;
 use yii\data\Pagination;
 use app\core\models\Attachment;
 use app\core\models\AttachmentRel;
+use app\modules\news\models\Category;
 
 /**
  * Class DefaultController
@@ -22,14 +23,20 @@ class DefaultController extends \app\core\web\HomeController
     {
     	$cid = \Yii::$app->request->get('cid');
     	$query = News::find()->where(['status'=>News::STATUS_NORMAL]);
+
+    	$data = [];
+
     	if ($cid) {
     		$query->andWhere(['category_id'=>$cid]);
+    		$category = Category::findOne($cid)->toArray();
+    		$data['category'] = $category;
     	}
 
     	$count = $query->count();
 
+
 		// 使用总数来创建一个分页对象
-		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>6]);
+		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>1]);
 
     	$items = $query->offset($pagination->offset)
 					    ->limit($pagination->limit)
@@ -37,14 +44,14 @@ class DefaultController extends \app\core\web\HomeController
 					    ->all();
 
 		foreach ($items as $k => &$v) {
-            $v['cover'] = NewsPhoto::getById($v['thumb'], '880x350');
+            $v['cover'] = NewsPhoto::getById($v['thumb'], '450x220');
             $v['tags'] = TagRel::getTagsByRes('news', $v['id']);
         }unset($v);
 
-        return $this->render('index', [
-        		'list' =>$items,
-        		'pagination' => $pagination
-        	]);
+		$data['list'] = $items;
+		$data['pagination'] = $pagination;
+
+        return $this->render('index', $data);
     }
 
     public function actionView($id)

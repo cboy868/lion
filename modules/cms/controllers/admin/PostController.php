@@ -121,7 +121,7 @@ class PostController extends \app\core\web\BackController
     {
         $searchModel = new PostImageSearch();
         $params = Yii::$app->request->queryParams;
-        $params['PostImageSearch']['mid'] = $module->id;
+        $params['PostImageSearch']['mod'] = $module->id;
         $params['PostImageSearch']['post_id'] = $model->id;
 
         $dataProvider = $searchModel->search($params);

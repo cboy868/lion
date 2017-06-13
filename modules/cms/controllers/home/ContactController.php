@@ -81,6 +81,14 @@ class ContactController extends \app\core\web\HomeController
         ]);
     }
 
+    /**
+     * @name 单页面时 使用此方法
+     */
+    public function actionUs()
+    {
+        return $this->render('us');
+    }
+
     private function _imageView($module, $model)
     {
         $searchModel = new PostImageSearch();

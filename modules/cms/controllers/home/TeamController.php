@@ -9,9 +9,9 @@ use app\modules\cms\models\PostImageSearch;
 use yii\web\NotFoundHttpException;
 use app\modules\mod\models\Code;
 
-class JobController extends \app\core\web\HomeController
+class TeamController extends \app\core\web\HomeController
 {
-    public $mid = 3;
+    public $mid = 7;
 
     public function actionIndex($type=null, $cid=null)
     {

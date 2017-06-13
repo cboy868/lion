@@ -80,6 +80,14 @@ class AboutController extends \app\core\web\HomeController
         ]);
     }
 
+    /**
+     * @name 单页面时 使用此方法
+     */
+    public function actionUs()
+    {
+        return $this->render('us');
+    }
+
     protected function findModel($id)
     {
         Code::createObj('post', $this->mid);

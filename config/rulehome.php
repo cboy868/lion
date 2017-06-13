@@ -39,8 +39,26 @@ return [
     'remote.html' => 'memorial/home/default/remote',
     'memorial/<id:\d+>.html' => 'memorial/home/default/view',
 
-    'about.html' => 'home/default/about',//需要调整
-    'contact.html' => 'home/default/contact',//需要调整
+
+    'about.html' => 'cms/home/about/index',
+    'about-us.html' => 'cms/home/about/us',
+    'about/<id:\d+>.html' => 'cms/home/about/view',
+
+    'case.html' => 'cms/home/case/index',
+    'case-us.html' => 'cms/home/case/us',
+    'case/<id:\d+>.html' => 'cms/home/case/view',
+
+    'join.html' => 'cms/home/join/index',
+    'join-us.html' => 'cms/home/join/us',
+    'join/<id:\d+>.html' => 'cms/home/join/view',
+
+    'contact.html' => 'cms/home/contact/index',
+    'contact-us.html' => 'cms/home/contact/us',
+    'contact/<id:\d+>.html' => 'cms/home/contact/view',
+
+
+//    'about.html' => 'home/default/about',//需要调整
+//    'contact.html' => 'home/default/contact',//需要调整
 
     'login.html' => 'home/default/login',
 

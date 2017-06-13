@@ -13,15 +13,10 @@ class DefaultController extends \app\core\web\HomeController
 	    return $this->render('index');
 	}
 
-	public function actionAbout()
-	{
-		return $this->render('about');
-	}
-
 	/**
 	 * @name 联系我们
 	 */
-	public function actionContact()
+	public function actionContactTmp() //这个要废弃
 	{
 	    $model = new MsgForm();
 
@@ -46,6 +41,11 @@ class DefaultController extends \app\core\web\HomeController
 	{
 		return $this->render('login');
 	}
+
+	public function actionSearch()
+    {
+        return $this->render('search');
+    }
 
     public function actions()
     {

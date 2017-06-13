@@ -1,7 +1,7 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 use app\modules\cms\models\Category;
 use app\modules\cms\models\Album;
 use app\core\widgets\Webup\Webup;
@@ -34,7 +34,7 @@ $class = '\\'.get_class($model);
 
     <?= $form->field($model, 'author')->textInput(['maxlength' => true, 'class'=>'new form-control']) ?>
 
-    <?= $form->field($model, 'summary')->textArea(['class'=>'form-control new']) ?>
+    <?= $form->field($model, 'summary')->textArea(['class'=>'form-control new', 'rows'=>10]) ?>
 
 
     <?php foreach ($attach as $k => $v): ?>

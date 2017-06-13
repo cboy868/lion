@@ -2,6 +2,7 @@
 
 namespace app\modules\cms\models;
 
+use app\modules\shop\models\Type;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
@@ -128,6 +129,26 @@ class Post extends \app\core\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id'=>'category_id']);
+    }
+
+    public function getImages($size=null)
+    {
+        if ($this->type != self::TYPE_IMAGE) return ;
+
+        $table = static::tableName();
+        $table = str_replace(['{{', '}}'], '', $table);
+        $mod = substr($table, strpos($table, '_')+1);
+
+        $list = PostImage::find()->where(['mod'=>$mod, 'post_id'=>$this->id])->all();
+
+        $result = [];
+
+        foreach ($list as $v) {
+            $result[$v->id] = $v->toArray();
+            $result[$v->id]['url'] = PostImage::getById($v->id, $size);
+        }
+
+        return $result;
     }
 
     public function updateNum()
