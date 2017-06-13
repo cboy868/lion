@@ -32,6 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         <i class="fa fa-th fa-2x"></i>  内容管理列表</a>
                 </div>
 
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false"
+                       href="<?=Url::toRoute(['/cms/admin/post/create', 'type'=>'image', 'mid'=>$module->id])?>">
+                        <i class="fa fa-file-text fa-2x"></i>  添加图集</a>
+                </div>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm"
+                       href="<?=Url::toRoute(['/cms/admin/post/create', 'type'=>'text', 'mid'=>$module->id])?>">
+                        <i class="fa fa-file-image-o fa-2x"></i>  添加文章</a>
+                </div>
+
             </h1>
         </div><!-- /.page-header -->
 
