@@ -81,7 +81,7 @@ $this->title = '首页';
                 <?php if (isset($product['children'])):?>
                     <?php foreach ($product['children'] as $k => $p): ?>
                     <div class="item"  >
-                        <a href="<?=url(['/shop/home/default/view', 'id'=>$p['id']])?>"
+                        <a href="<?=url(['/shop/home/default/index', 'cid'=>$p['id']])?>"
                            title="<?=$p['name']?>" target="_blank" class="pic">
                             <img originalSrc="<?=$p['cover']?>" alt="<?=$p['name']?>" />
                         </a>
