@@ -35,13 +35,13 @@ class DefaultController extends \app\core\web\HomeController
 
         if ($cid) {
             $cate = Category::findOne($cid)->toArray();
+            $cate['cover'] = Attachment::getById($cate['thumb']);
             return $this->render('list', [//如果有分类预定，则只显示此分类下的商品
                 'list' => $list,
                 'cate' => $cate,
                 'pagination' => $pagination
             ]);
         }
-
         return $this->render('index', [
                 'list' => $list,
                 'pagination' => $pagination

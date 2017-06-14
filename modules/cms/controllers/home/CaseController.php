@@ -61,15 +61,20 @@ class CaseController extends \app\core\web\HomeController
         $module = Module::findOne($this->mid);
         $model = $this->findModel($id);
         $method = '_' . Post::types($model->type) . 'View';
+
         return $this->$method($module, $model);
     }
 
     private function _textView($module, $model)
     {
-        return $this->render('text', [
+        $data = [
             'model' => $model,
             'mInfo' => $module
-        ]);
+        ];
+
+        $data = array_merge($data, $this->preAndNext($module, $model));
+
+        return $this->render('text', $data);
     }
 
     private function _imageView($module, $model)
@@ -95,6 +100,30 @@ class CaseController extends \app\core\web\HomeController
     public function actionUs()
     {
         return $this->render('us');
+    }
+
+    private function preAndNext($model)
+    {
+        $module = Module::findOne($this->mid);
+        Code::createObj('post', $this->mid);
+
+        $c = 'Post' . $this->mid . 'Search';
+        $class = '\app\modules\cms\models\mods\\' . $c;
+
+
+        $pre_id = $class::find()->where(['<', 'id', $model->id])->max('id');
+        $next_id = $class::find()->where(['>', 'id', $model->id])->min('id');
+
+        $data = [];
+        if ($pre_id) {
+            $data['pre'] = $this->findModel($pre_id)->toArray();
+        }
+
+        if ($next_id) {
+            $data['next'] = $this->findModel($next_id)->toArray();
+        }
+
+        return $data;
     }
 
     protected function findModel($id)

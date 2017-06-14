@@ -64,13 +64,16 @@ use yii\helpers\Html;
                     </ul>
                     <li class="one"><a  href="<?=url(['/shop/home/default/index'])?>">产品示</a></li>
                     <li class="one"><a  href="<?=url(['/cms/home/case/index'])?>">成功案例</a></li>
+                    <!--
                     <li class="one"><a  href="<?=url(['/cms/home/join/us'])?>">加盟</a></li>
+                    -->
                     <li class="one"><a  href="<?=url(['/cms/home/contact/us'])?>">联系我们</a></li>
                     <li class="one"><a  href="<?=url(['/cms/home/job/us'])?>">人才招聘</a></li>
                 </ul>
 
             </div>
             <div id="footer">
+                <!--
                 <div class="warp">
                     <ul style=" width:90%;   margin:0 auto;">
                         <li><a href="javascript:void(0);" class="fuwu">&nbsp;微信服务号</a></li>
@@ -85,11 +88,14 @@ use yii\helpers\Html;
                     </ol>
                     <h6 style=" width:86%;border-bottom: 1px solid #999; margin:0 auto;"></h6>
                 </div>
+                                -->
+
                 <div style="margin-top: 1%;width: 100%; text-align:center;">
                     <img src="/theme/juding/static/picture/pel.png" style="width:22px; height:24px;margin-bottom: 4%; ">
                     <span style="color:#aa0001;font-size: 18px;font-weight: 600;"><?=g('hotline')?></span>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -124,6 +130,7 @@ use yii\helpers\Html;
             </h1>
             <!-- <a href="javascript:void(0)" class="nav-close"></a> -->
             <div class="headerr fr">
+                <!--
                 <div class="headerr-top">
                     <a href="javascript:void(0)" class="dingyue">微信订阅号
                     </a>
@@ -145,6 +152,7 @@ use yii\helpers\Html;
                     <span>|</span>
 
                 </div>
+                -->
                 <div class="headerr-down clearfix">
 <!--                    <a href="index.php?m=Search&a=index" class="search fr" target="_blank"><span>|</span></a>-->
                     <ul class="pnav fr clearfix">
@@ -171,9 +179,11 @@ use yii\helpers\Html;
                         <li >
                             <a href="<?=url(['/cms/home/case/index'])?>" class="head">成功案例</a>
                         </li>
+                        <!--
                         <li >
                             <a href="<?=url(['/cms/home/join/us'])?>" class="head"> 加盟</a>
                         </li>
+                        -->
                         <li >
                             <a href="<?=url(['/cms/home/contact/us'])?>" class="head">联系我们</a>
                         </li>
@@ -203,10 +213,12 @@ use yii\helpers\Html;
                 <dl>
                     <dt><a href="<?=url(['/shop/home/default/index'])?>">产品展厅</a></dt>
                 </dl>
+                <!--
                 <dl>
                     <dt><a href="<?=url(['/cms/home/join/us'])?>">加盟 </a></dt>
 
                 </dl>
+                -->
                 <dl>
                     <dt><a href="<?=url(['/cms/home/case/index'])?>">成功案例</a></dt>
                 </dl>

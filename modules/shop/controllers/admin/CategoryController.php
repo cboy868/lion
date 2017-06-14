@@ -39,10 +39,12 @@ class CategoryController extends BackController
 
         // $tree = Category::sortTree();
         $records = Category::find()->asArray()->orderBy('sort desc')->all();
-        $tree = Category::makeTree($records);
-        foreach ($tree as &$v) {
+
+        foreach ($records as &$v) {
             $v['cover'] = Category::getThumb($v['thumb'], '36x36');
         }unset($v);
+
+        $tree = Category::makeTree($records);
 
         return $this->render('index', [
             'cate' => $tree,

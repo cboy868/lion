@@ -1,5 +1,6 @@
 <?php
 use yii\widgets\LinkPager;
+$this->title = '媒体中心';
 ?>
 <div class="inside-focus">
     <img src="http://www.hennissy.com/Uploads/201607/577e2d3c9b848.jpg" alt="">

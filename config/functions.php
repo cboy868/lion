@@ -269,6 +269,26 @@ function productList($category_id=null,$rows=10, $thumb='')
 	return $list;
 }
 
+
+function cmsNewArticle($mid, $limit=10, $thumb=null)
+{
+    $module = Module::findOne($mid);
+    Code::createObj('post', $mid);
+
+    $c = 'Post' . $mid;
+    $class = '\app\modules\cms\models\mods\\' . $c;
+
+    $article = $class::find()->orderBy('id desc')
+        ->limit($limit)
+        ->asArray()
+        ->all();
+
+    foreach ($article as $key => &$v) {
+        $v['cover'] = \app\modules\cms\models\PostImage::getById($v['thumb'], $thumb);
+    }unset($v);
+
+    return $article;
+}
 /**
  * @return null
  * @name 文章
@@ -286,10 +306,11 @@ function cmsArticle($mid, $category_id=null, $limit=10, $thumb=null)
     $query = cmsCategory::find()->where(['mid'=>$mid])
         ->andFilterWhere(['id'=>$category_id]);
 
-    if (is_array($category_id)) {
+    if (!is_numeric($category_id)) {
         $cates = $query->asArray()->all();
         foreach ($cates as &$v) {
             $article = $class::find()->where(['category_id'=>$v['id']])
+                ->orderBy('id desc')
                 ->limit($limit)
                 ->asArray()
                 ->all();
@@ -302,28 +323,30 @@ function cmsArticle($mid, $category_id=null, $limit=10, $thumb=null)
     } else if(is_numeric($category_id)) {
         $cates = $query->one()->toArray();
         $article = $class::find()->where(['category_id'=>$cates['id']])
+            ->orderBy('id desc')
             ->limit($limit)
             ->asArray()
             ->all();
 
-        foreach ($article as $key => $val) {
-            $cates['child'][$val['id']]= $val;
-            $cates['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);
-        }
-    } else if(is_null($category_id)) {
-
-        $article = $class::find()->andFilterWhere(['category_id'=>$category_id])
-            ->limit($limit)
-            ->asArray()
-            ->all();
-
-        $cates = [];
         foreach ($article as $key => $val) {
             $cates['child'][$val['id']]= $val;
             $cates['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);
         }
     }
 
+    if(is_null($category_id)) {
+
+        $article = $class::find()->andFilterWhere(['category_id'=>0])
+            ->orderBy('id desc')
+            ->limit($limit)
+            ->asArray()
+            ->all();
+
+        foreach ($article as $key => $val) {
+            $cates['child'][$val['id']]= $val;
+            $cates['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);
+        }
+    }
 
     return ['modInfo'=>$module->toArray(),'list'=>$cates];
 }

@@ -36,7 +36,7 @@ class DefaultController extends \app\core\web\HomeController
 
 
 		// 使用总数来创建一个分页对象
-		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>1]);
+		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>9]);
 
     	$items = $query->offset($pagination->offset)
 					    ->limit($pagination->limit)
@@ -107,7 +107,6 @@ class DefaultController extends \app\core\web\HomeController
         $data['body'] = $body->body;
         $data['tags'] = TagRel::getTagsByRes('news', $model->id);
         $data = array_merge($data, $this->preAndNext($model));
-
         return $this->render('text',['data'=>$data]);
     }
 

@@ -55,6 +55,7 @@ $this->title = '首页';
 </script>
 
 <?php $products = productCateByType(1, 5)?>
+<?php $cates=productCateTree();?>
 <div class="section section2">
     <!-- <div class="section"> -->
     <div class="index-zhanting" >
@@ -65,20 +66,20 @@ $this->title = '首页';
             <img src="/theme/juding/static/picture/index_title.png" alt="" />
         </div>
         <ul class="index-head zhanting-head">
-            <?php foreach ($products as $k => $p): ?>
-                <li class="<?php if($k==1)echo 'on';?>" >
+            <?php foreach ($cates as $k => $p): ?>
+                <li class="<?php if($k==0)echo 'on';?>" >
                     <a href="javascript:void(0);"><?=$p['name']?></a>
                 </li>
             <?php endforeach;?>
         </ul>
 
         <div class="zhanting-toggle containerBox"  >
-            <?php foreach ($products as $key => $product): ?>
+            <?php foreach ($cates as $key => $product): ?>
             <div class="zhanting-body">
 
                 <div class="loop owl-carousel" >
-                <?php if (isset($product['child'])):?>
-                    <?php foreach ($product['child'] as $k => $p): ?>
+                <?php if (isset($product['children'])):?>
+                    <?php foreach ($product['children'] as $k => $p): ?>
                     <div class="item"  >
                         <a href="<?=url(['/shop/home/default/view', 'id'=>$p['id']])?>"
                            title="<?=$p['name']?>" target="_blank" class="pic">
@@ -94,40 +95,6 @@ $this->title = '首页';
     </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <div class="index-dongtai wrap section3">
     <div class="index-title">

@@ -85,7 +85,8 @@ class JoinController extends \app\core\web\HomeController
      */
     public function actionUs()
     {
-        return $this->render('us');
+        $module = Module::findOne($this->mid);
+        return $this->render('us', ['module'=>$module->toArray()]);
     }
 
     protected function findModel($id)

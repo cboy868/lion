@@ -104,7 +104,7 @@ Tabletree::register($this);
                                 <?php foreach ($v['children'] as $v2): ?>
                                     <tr data-tt-id=<?=$v2['id']?> data-tt-parent-id=<?=$v2['pid']?>>
                                         <td><?=$v2['name']?></td>
-                                        <td><img src="<?=$v2['thumb']?>" width="36" height="36"></td>
+                                        <td><img src="<?=$v2['cover']?>" width="36" height="36"></td>
                                         <td><?=date('Y/m/d',$v2['created_at'])?></td>
                                         <td> 
                                             <?= Html::a('编辑', ['update', 'id' => $v2['id']],
@@ -123,7 +123,7 @@ Tabletree::register($this);
                                         <?php foreach ($v2['children'] as $v3): ?>
                                           <tr data-tt-id=<?=$v3['id']?> data-tt-parent-id=<?=$v3['pid']?>>
                                                 <td><?=$v3['name']?></td>
-                                                <td><img src="<?=$v3['thumb']?>" width="36" height="36"></td>
+                                                <td><img src="<?=$v3['cover']?>" width="36" height="36"></td>
                                                 <td><?=date('Y/m/d',$v3['created_at'])?></td>
                                                 <td> 
                                                     <?= Html::a('编辑', ['update', 'id' => $v3['id']],
