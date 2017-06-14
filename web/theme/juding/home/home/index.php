@@ -54,8 +54,7 @@ $this->title = '首页';
     });
 </script>
 
-<?php $products = productCateByType(1, 5)?>
-<?php $cates=productCateTree();?>
+<?php $cates=productCateTree('853x521');?>
 <div class="section section2">
     <!-- <div class="section"> -->
     <div class="index-zhanting" >
