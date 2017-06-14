@@ -52,6 +52,14 @@ return [
     'join-us.html' => 'cms/home/join/us',
     'join/<id:\d+>.html' => 'cms/home/join/view',
 
+    'job.html' => 'cms/home/job/index',
+    'job-us.html' => 'cms/home/job/us',
+    'job/<id:\d+>.html' => 'cms/home/job/view',
+
+    'team.html' => 'cms/home/team/index',
+    'team-us.html' => 'cms/home/team/us',
+    'team/<id:\d+>.html' => 'cms/home/team/view',
+
     'contact.html' => 'cms/home/contact/index',
     'contact-us.html' => 'cms/home/contact/us',
     'contact/<id:\d+>.html' => 'cms/home/contact/view',
