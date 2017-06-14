@@ -20,14 +20,13 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionIndex()
     {
-        $oauth = $this->app->oauth;
-        $session = Yii::$app->getSession();
-        if (Yii::$app->user->isGuest) {
-            $session['target_url'] = Url::current();
-            $oauth->redirect()->send();
-        }
+//        $oauth = $this->app->oauth;
+//        $session = Yii::$app->getSession();
+//        if (Yii::$app->user->isGuest) {
+//            $session['target_url'] = Url::current();
+//            $oauth->redirect()->send();
+//        }
 
-//        p(Yii::$app->user->identity);die;
 
         //查找登录人的纪念馆
         $user_id = Yii::$app->user->id;
