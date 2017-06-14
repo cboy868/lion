@@ -19,6 +19,8 @@ use app\core\helpers\ArrayHelper;
 
     <?= $form->field($model, 'type_id')->dropDownList(ArrayHelper::map(Type::find()->all(), 'id', 'title')) ?>
 
+    <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'thumb')->fileInput() ?>
@@ -26,6 +28,8 @@ use app\core\helpers\ArrayHelper;
     <?= $form->field($model, 'is_show')->radioList([0=>'不显示', 1=>'显示'])->label('前台显示') ?>
 
     <?= $form->field($model, 'sort')->textInput()->label('排序')->hint('数字越大越靠前') ?>
+
+    <?= $form->field($model, 'body')->textArea(['rows'=>6])->label('描述') ?>
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

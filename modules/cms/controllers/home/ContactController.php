@@ -8,6 +8,7 @@ use app\modules\mod\models\Module;
 use app\modules\cms\models\PostImageSearch;
 use yii\web\NotFoundHttpException;
 use app\modules\mod\models\Code;
+use app\modules\cms\models\MsgForm;
 
 
 /**
@@ -28,6 +29,27 @@ class ContactController extends \app\core\web\HomeController
                 'minLength' => 4 
             ]
         ];
+    }
+
+    public function actionContact() //这个要废弃
+    {
+        $model = new MsgForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->create()) {
+
+                $email = Yii::$app->params['uemail'];
+                Yii::$app->mailer->compose('@app/core/views/mail/msg', ['content'=>$model->intro])
+                    ->setTo($email)
+                    ->setSubject($model->title)
+                    ->send();
+
+
+                Yii::$app->session->setFlash('success', '留言成功，非常感谢您的关注,我们会尽快联系您');
+                return $this->redirect(['contact']);
+            }
+        }
+        return $this->render('contact', ['model'=>$model]);
     }
 
 
@@ -86,7 +108,28 @@ class ContactController extends \app\core\web\HomeController
      */
     public function actionUs()
     {
-        return $this->render('us');
+        $model = new MsgForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->res_name = 'web';
+            $model->res_id = 0;
+            if ($model->create()) {
+
+//                $email = Yii::$app->params['uemail'];
+//                Yii::$app->mailer->compose('@app/core/views/mail/msg', ['content'=>$model->intro])
+//                    ->setTo($email)
+//                    ->setSubject($model->title)
+//                    ->send();
+
+                Yii::$app->session->setFlash('success', '留言成功，非常感谢您的关注,我们会尽快联系您');
+                return $this->redirect(['us']);
+            }
+        }
+
+        $module = Module::findOne($this->mid);
+
+
+        return $this->render('us', ['module'=>$module->toArray(),'model'=>$model]);
     }
 
     private function _imageView($module, $model)

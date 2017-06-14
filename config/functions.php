@@ -164,6 +164,17 @@ function productCateList($rows=5, $thumb='')
 	return $list;
 }
 
+function productCateTree($thumb='')
+{
+    $list = Category::find()->where(['is_show'=>1])->asArray()->all();
+    foreach ($list as &$v) {
+        $v['cover'] = Attachment::getById($v['thumb'], $thumb);
+    }
+
+    return Category::makeTree($list);
+}
+
+
 /**
  * @param $type_id
  * @param int $rows
@@ -275,7 +286,7 @@ function cmsArticle($mid, $category_id=null, $limit=10, $thumb=null)
     $query = cmsCategory::find()->where(['mid'=>$mid])
         ->andFilterWhere(['id'=>$category_id]);
 
-    if (!is_numeric($category_id)) {
+    if (is_array($category_id)) {
         $cates = $query->asArray()->all();
         foreach ($cates as &$v) {
             $article = $class::find()->where(['category_id'=>$v['id']])
@@ -288,13 +299,25 @@ function cmsArticle($mid, $category_id=null, $limit=10, $thumb=null)
                 $v['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);
             }
         }unset($v);
-    } else {
+    } else if(is_numeric($category_id)) {
         $cates = $query->one()->toArray();
         $article = $class::find()->where(['category_id'=>$cates['id']])
             ->limit($limit)
             ->asArray()
             ->all();
 
+        foreach ($article as $key => $val) {
+            $cates['child'][$val['id']]= $val;
+            $cates['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);
+        }
+    } else if(is_null($category_id)) {
+
+        $article = $class::find()->andFilterWhere(['category_id'=>$category_id])
+            ->limit($limit)
+            ->asArray()
+            ->all();
+
+        $cates = [];
         foreach ($article as $key => $val) {
             $cates['child'][$val['id']]= $val;
             $cates['child'][$val['id']]['cover'] = \app\modules\cms\models\PostImage::getById($val['thumb'], $thumb);

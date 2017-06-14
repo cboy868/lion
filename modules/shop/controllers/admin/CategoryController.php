@@ -105,6 +105,7 @@ class CategoryController extends BackController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $thumb = $model->thumb;
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -115,6 +116,8 @@ class CategoryController extends BackController
                 $info = $up->getInfo();
 
                 $model->thumb = $info['mid'];
+            } else {
+                $model->thumb = $thumb;
             }
 
             $model->save();

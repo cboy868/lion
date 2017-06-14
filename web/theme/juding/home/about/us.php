@@ -2,11 +2,8 @@
 $this->title = "关于我们";
 ?>
 <script src="/theme/juding/static/js/swiper.js"></script>
-<?php $banner = focus(2, 1, '1440x580')?>
 <div class="inside-focus">
-    <?php foreach ($banner as $item): ?>
-    <img src="<?=$item['image']?>" alt="">
-    <?php endforeach;?>
+    <img src="<?=$module['logo']?>" alt="">
 </div>
 
 <div class="inside-local wrap">

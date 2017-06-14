@@ -35,12 +35,21 @@ class CaseController extends \app\core\web\HomeController
         }
 
         $dataProvider = $searchModel->search($params);
+        $models = $dataProvider->getModels();
+        $result = [];
+        foreach ($models as $v) {
+            $result[$v->id] = $v->toArray();
+            $result[$v->id]['cover'] = $v->getCover('372x248');
+        }
+
 
         $data = [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'module' => $module,
-            'type'  => $type
+            'module' => $module->toArray(),
+            'type'  => $type,
+            'data' => $result,
+            'pagination' => $dataProvider->getPagination()
         ];
 
         return $this->render('index', $data);

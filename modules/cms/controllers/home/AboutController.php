@@ -11,7 +11,7 @@ use app\modules\mod\models\Code;
 
 class AboutController extends \app\core\web\HomeController
 {
-    public $mid = 1;
+    public $mid = 3;
 
     public function actionIndex($type=null, $cid=null)
     {
@@ -85,7 +85,8 @@ class AboutController extends \app\core\web\HomeController
      */
     public function actionUs()
     {
-        return $this->render('us');
+        $module = Module::findOne($this->mid);
+        return $this->render('us', ['module'=>$module->toArray()]);
     }
 
     protected function findModel($id)
