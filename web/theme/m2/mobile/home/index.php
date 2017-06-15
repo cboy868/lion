@@ -15,18 +15,12 @@ use app\core\helpers\Url;
     </div>
 
     <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
-        <a href="<?=Url::toRoute(['/grave/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/cms/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
-                <img src="/static/images/icons/realition.png" alt="业务办理">
+                <img src="/static/images/icons/help.png" alt="须知">
             </div>
-            <p class="weui-grid__label">业务办理</p>
+            <p class="weui-grid__label">帮助</p>
         </a>
-<!--        <a href="--><?//=Url::toRoute(['/memorial/m/default/view'])?><!--" class="weui-grid js_grid" data-id="button">-->
-<!--            <div class="weui-grid__icon">-->
-<!--                <img src="/theme/m2/static/mobile/images/icons/memorial.png" alt="纪念馆">-->
-<!--            </div>-->
-<!--            <p class="weui-grid__label">纪念馆</p>-->
-<!--        </a>-->
         <a href="<?=Url::toRoute(['/shop/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/flower.png" alt="祭祀">
@@ -39,54 +33,16 @@ use app\core\helpers\Url;
             </div>
             <p class="weui-grid__label">一键导航</p>
         </a>
-
-<!--        <a href="#" class="weui-grid js_grid" data-id="button">-->
-<!--            <div class="weui-grid__icon">-->
-<!--                <img src="/theme/m2/static/mobile/images/icons/album.png" alt="相册">-->
-<!--            </div>-->
-<!--            <p class="weui-grid__label">相册</p>-->
-<!--        </a>-->
-<!--        <a href="#" class="weui-grid js_grid" data-id="button">-->
-<!--            <div class="weui-grid__icon">-->
-<!--                <img src="/theme/m2/static/mobile/images/icons/article.png" alt="投诉建议">-->
-<!--            </div>-->
-<!--            <p class="weui-grid__label">投诉建议</p>-->
-<!--        </a>-->
-<!--        <a href="--><?//=Url::toRoute(['/order/m/default/index'])?><!--" class="weui-grid js_grid" data-id="button">-->
-<!--            <div class="weui-grid__icon">-->
-<!--                <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="在线起名">-->
-<!--            </div>-->
-<!--            <p class="weui-grid__label">订单记录</p>-->
-<!--        </a>-->
-<!--        <a href="--><?//=Url::toRoute(['/user/m/default/index'])?><!--" class="weui-grid js_grid" data-id="button">-->
-<!--            <div class="weui-grid__icon">-->
-<!--                <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">-->
-<!--            </div>-->
-<!--            <p class="weui-grid__label">个人资料</p>-->
-<!--        </a>-->
+        <!--
+        <a href="#" class="weui-grid js_grid" data-id="button">
+            <div class="weui-grid__icon">
+                <img src="/theme/m2/static/mobile/images/icons/nav.png" alt="申请建馆">
+            </div>
+            <p class="weui-grid__label">申请建馆</p>
+        </a>
+        -->
     </div>
     <!--banner 结束-->
-    <div class="page__bd">
-        <div class="weui-panel weui-panel_access">
-            <div class="weui-panel__hd">纪念馆</div>
-            <?php foreach ($memorial as $v):?>
-            <div class="weui-panel__bd">
-                <a href="<?=Url::toRoute(['/memorial/m/default/view', 'id'=>$v->id])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
-                    <div class="weui-media-box__hd">
-                        <img class="weui-media-box__thumb" src="<?=$v->getCover('120x120')?>">
-                    </div>
-                    <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title"><?=$v->title?></h4>
-                        <p class="weui-media-box__desc"><?=$v->intro?></p>
-                    </div>
-                    <div class="weui-cell__ft">
-                        进入
-                    </div>
-                </a>
-            </div>
-            <?php endforeach;?>
-        </div>
-    </div>
 
     <div class="page__bd">
         <div class="weui-panel weui-panel_access">
@@ -120,7 +76,7 @@ var demo = new Vue({
         gridColumns: ['title', 'author', 'id'],
         nitems: [],
         sendData:{limit:5, thumbSize:'120x120'},
-        apiUrl: 'http://api.ibagou.com/v1/news/list'
+        apiUrl: 'http://api.lion.cn/v1/news'
     },
     beforeMount: function() {
         this.getNews();
@@ -137,7 +93,7 @@ var demo = new Vue({
     methods: {
         getNews: function() {
             this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.sendData}).then((response) => {
-                this.$set(this, 'nitems', response.data)
+                this.$set(this, 'nitems', response.data.items)
                 console.dir(this.nitems);
             }).catch(function(response) {
                 console.log(response)

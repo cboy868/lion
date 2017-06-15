@@ -53,10 +53,12 @@
             <div class="weui-cell__ft">￥{{order.price}}</div>
           </div>
           <div class="weui-cell pull-right">
-        <div class="weui-cell__ft">实付款：￥{{order.price}}</div>
+            <div class="weui-cell__ft">实付款：￥{{order.price}}</div>
           </div>
-          
+
+
         </div>
+        <a href="javascript:;" class="weui-btn weui-btn_primary">付款</a>
     </div>
 </div>
 
@@ -68,7 +70,7 @@ var demo = new Vue({
         order: [],
         rels:[],
         sendData:{thumb:'35x24'},
-        apiUrl: 'http://api.ibagou.com/v1/order/view?id=<?=$get['id']?>',
+        apiUrl: 'http://api.lion.cn/v1/order/view?id=<?=$get['id']?>',
     },
     beforeMount: function() {
         this.getOrder();
@@ -76,8 +78,9 @@ var demo = new Vue({
     methods: {
         getOrder: function() {
             this.$http.jsonp(this.apiUrl,{'jsonp':'lcb',params:this.sendData}).then((response) => {
-                this.$set(this, 'order', response.data.order);
-                this.$set(this, 'rels', response.data.rels);
+
+                this.$set(this, 'order', response.data.data.order);
+                this.$set(this, 'rels', response.data.data.rels);
             }).catch(function(response) {
             })
         }

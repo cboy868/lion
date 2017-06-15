@@ -1,8 +1,18 @@
+<style>
+    .concern-cart>div>p{
+        font-size:10px;
+    }
+    .concern-cart>div{
+        float: left;
+        text-align: left;
+        margin-top: 10px;
+    }
+</style>
 <div class="content" id="news-box">
     <div class="swiper-container" style="height: 200px;">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="img in item.imgs">
-            <img :src="img.url" />
+        <div class="swiper-slide" v-for="img in item.image">
+            <img :src="img" />
         </div>
       </div>
       <div class="swiper-pagination"></div>
@@ -11,13 +21,13 @@
     <div class="goods_info_box goods_base">
         <div class="price_div">
             <span class="product-price1">
-                ¥<span class="big-price">{{currentSku.price}}</span>
+                ¥<span class="big-price" v-text="currentSku.price"></span>
                 <span class="small-price">元</span>
             </span>
-            <!-- <span class="product-xiaoliang">已有0人购买</span> -->
         </div>
-        <div class="tit_div">{{item.name}}<span>{{currentSku.name}}</span></div>
-        <!-- <div class="prod-act">每位缘主都应该请一尊本命佛</div> -->
+        <div class="tit_div" v-text="item.name">
+            <span v-text="currentSku.name"></span>
+        </div>
     </div>
    <div class="weui-cells">
         
@@ -32,11 +42,10 @@
                 <div class="yListr">
                     <ul>
                         <li v-for="spec in specs" :sid="spec.attr_id">
-                            <span>{{spec.attr_name}}</span>
-                            <!-- <em class="yListrclickem">深灰色<i></i></em> -->
-                            <em v-for="v in spec.child" :aid="spec.attr_id" 
+                            <span v-text="spec.attr_name"></span>
+                            <em v-for="v in spec.child" :aid="spec.attr_id"
                             :class="{'yListrclickem':currentSku.attr.indexOf(spec.attr_id + ':' + v.id)>=0}"  
-                            :vid="v.id" @click="selSku">{{v.val}}<i></i></em> 
+                            :vid="v.id" @click="selSku" v-text="v.val"><i></i></em>
                         </li>
                     </ul>
                 </div>
@@ -67,31 +76,28 @@
         </div>
     </div>
 
+
 <div id="cart1" class="cart-concern-btm-fixed five-column four-column" style="display: table;">
         <div class="concern-cart">
-<!--            <a class="dong-dong-icn J_ping" id="imBottom" href="#"> -->
-<!--                <em class="btm-act-icn"></em> -->
-<!--                <span class="focus-info"> 客服 </span> -->
-<!--            </a>-->
-<!--            <a class="love-heart-icn J_ping" id="payAttention" onclick="doFav(1)">-->
-<!--                <div class="focus-container" id="focusOn">-->
-<!--                    <div class="focus-icon">-->
-<!--                        <i class="bottom-focus-icon  focus-out" id="attentionFocus"></i>-->
-<!--                    </div>-->
-<!--                    <span class="focus-info"> 关注 </span>-->
-<!--                </div>-->
-<!--            </a>-->
             <a class="cart-car-icn" id="toCart" href="/m/product/cart">
-                 <em class="btm-act-icn" id="shoppingCart"> <i class="order-numbers" v-text="nums.type_num"></i> </em> <span class="focus-info">购物车</span>
+                 <em class="btm-act-icn" id="shoppingCart">
+                     <i class="order-numbers" v-text="nums.goods_num"></i>
+                 </em>
+                <span class="focus-info">购物车</span>
             </a>
+            <div>
+                <p><span v-text="nums.type_num"></span>种<span v-text="nums.goods_num"></span>件商品</p>
+                <p>总价<span v-text="nums.total_price"></span>元</p>
+            </div>
+
         </div>
 
         <div class="action-list">
-            <a href="javascript:;" class="yellow-color" :class="{'weui-btn_disabled':currentSku.id==0}"  @click="toCart">加入购物车</a>
+            <a href="javascript:;" class="yellow-color"
+               :class="{'weui-btn_disabled':currentSku.id==0}"
+               @click="toCart">加入购物车
+            </a>
             <a href="javascript:;" class="red-color">立即购买</a>
-
-<!--            <a class="yellow-color J_ping" id="looksimilar" href="#" style="display: none;">查看相似</a>-->
-<!--            <a class="red-color J_ping" id="arrivalInform" style="display: none;">到货通知</a>-->
         </div>
     </div>
 
@@ -102,9 +108,10 @@ var demo = new Vue({
     el: '#news-box',
     data: {
         item: [],
-        apiUrl: 'http://api.ibagou.com/v1/goods/<?=$get['id']?>',
-        cartUrl: 'http://api.ibagou.com/v1/goods/cart',
-        carCountUrl: 'http://api.ibagou.com/v1/goods/cart-count',
+        sendData:{expand:'spec,image,sku'},
+        apiUrl: 'http://api.lion.cn/v1/goods/<?=$get['id']?>',
+        cartUrl: 'http://api.lion.cn/v1/goods/cart',
+        carCountUrl: 'http://api.lion.cn/v1/goods/cart-count',
         specs:[],
         currentSku:{id:0, price:1, num:1,attr:'',total_num:1},
         skus:[],
@@ -118,24 +125,24 @@ var demo = new Vue({
     },
     mounted:function(){
         var mySwiper = new Swiper('.swiper-container', {
-           //direction: 'horizontal',
            loop: true,
            autoplay: 3000,
            pagination: '.swiper-pagination',
+            observer:true,//修改swiper自己或子元素时，自动初始化swiper
+            observeParents:true,//修改swiper的父元素时，自动初始化swiper
         })
     },
     methods: {
         getGoods: function() {
-            this.$http.jsonp(this.apiUrl,{'jsonp':'lcb'}).then((response) => {
-                this.$set(this, 'item', response.data.item);
-                this.$set(this, 'specs', response.data.specs);
-
-                var speclength = Object.keys(response.data.specs).length;
+            this.$http.jsonp(this.apiUrl,{'jsonp':'lcb',params:this.sendData}).then((response) => {
+                this.$set(this, 'item', response.data);
+                this.$set(this, 'specs', response.data.spec.spec);
+                var speclength = Object.keys(response.data.spec.spec).length;
                 //初始化数据
                 this.currentSku.price = this.item.price;
 
                 if (speclength == 0) {
-                    var sku = response.data.skus['0:0']
+                    var sku = response.data.sku['0:0']
                     var tp = {
                         attr:'0:0',
                         id:sku.id,
@@ -149,7 +156,7 @@ var demo = new Vue({
                 }  else {
                     //sku数据存储
                     var skus = {};
-                    var tmp_skus = response.data.skus;
+                    var tmp_skus = response.data.sku;
                     for (i in tmp_skus) {
                         skus[tmp_skus[i].av] ={
                             'id' : tmp_skus[i].id,
@@ -162,7 +169,7 @@ var demo = new Vue({
                 }
 
             }).catch(function(response) {
-                console.log(response)
+                //console.log(response)
             })
         },
         skuSub: function(){
@@ -173,7 +180,7 @@ var demo = new Vue({
         skuPlus: function(){
             this.currentSku.num++;
             if (this.currentSku.num >= this.currentSku.total_num) {
-                this.$set(this.currentSku, 'num', this.currentSku.total_num);
+                //this.$set(this.currentSku, 'num', this.currentSku.total_num);
             }
         },
         skuChange: function(event){
@@ -230,8 +237,9 @@ var demo = new Vue({
                 //console.dir(parseInt(response.data));
                 this.$set(this.nums, 'goods_num', response.data.goods_num);
                 this.$set(this.nums, 'type_num', response.data.type_num);
+                this.$set(this.nums, 'total_price', response.data.total);
             }).catch(function(response) {
-                console.log(response)
+                //console.log(response)
             })
         }
     }
@@ -240,52 +248,3 @@ var demo = new Vue({
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['news'], \yii\web\View::POS_END); ?>  
        
-
-<script>
-    // function refresh_carNum(num){
-    //     $('#carNum').text(num);
-    // }
-
-    // function add_to_cart( info_id, rightnow ) {
-    //      var addcart_url="/shop/index/cart_add_item.html";
-    //      var directbuy_url="/shop/index/cart.html";
-    //     $.post(addcart_url, {good_id: info_id, count: $('#qty_num').val()}, function (msg) {
-    //             //console.log(msg);return false;
-    //              if (msg.status) {
-    //                      if (rightnow && msg.status==1) {
-    //                          location.replace(directbuy_url);
-    //                      }
-    //                      else {
-    //                          if(msg.status==1){
-    //                              $.toast("加入购物车成功");
-    //                              refresh_carNum( msg.cart_count );
-    //                          }else if(msg.status=='-1'){
-    //                              $.toast("购买商品时输入的数量不合法");
-    //                          }else if(msg.status=='-2'){
-    //                              $.toast("没有登陆,请先登陆");
-    //                              window.location ="/login";
-    //                          }else if(msg.status=='-3'){
-    //                              $.toast("库存不足！");
-    //                          }
-    //                          else{
-    //                              $.toast("添加到购物车失败");
-    //                          }
-    //                      }
-    //              } else {
-    //                  $.toast('添加到购物车失败。');
-    //              }
-    //      }, 'json');
-    // }
-
-    // $(document).ready(function(){
-    //     var addto_cart=$('#add_cart');
-    //     var direc_buy=$('#directorder');
-    //     var good_id=1;
-    //     addto_cart.click(function(){
-    //         add_to_cart(good_id);
-    //     });
-    //     direc_buy.click(function(){
-    //         add_to_cart(good_id,true)
-    //     });
-    // });
-</script>

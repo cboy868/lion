@@ -191,10 +191,10 @@ a{text-decoration:none;color:#000;}
 .txbox{ position:absolute; right:15px; top:40%;}
 
 .xuetang_menu_box{ line-height:43px; width:100%; overflow:hidden; background:#FFF;}
-.xuetang_menu .swiper-slide { text-align:center;color:#000; width:16.6666%;border-bottom:1px solid #e8e8e8;}
+.xuetang_menu .swiper-slide { text-align:center;color:#000; border-bottom:1px solid #e8e8e8;}
 .xuetang_menu .swiper-slide a{ color:#000; display:block;}
-.xuetang_menu .swiper-slide a:hover{ color:#12b7f5;font-size:22px;}
-.xuetang_menu .swiper-slide-on a { color:#12b7f5;font-size:22px;}
+.xuetang_menu .swiper-slide a:hover{ color:#12b7f5;}
+.xuetang_menu .swiper-slide-on a { color:#12b7f5;}
 .xuetang_menu .swiper-slide-on a:after{content:"";border:1px solid #e8e8e8;position:absolute;bottom:-.2rem;left:40%;border-top:0;border-left:1px solid #e8e8e8;border-right:1px solid #fff;border-bottom:1px solid #e8e8e8;width:.32rem;height:.32rem;background:#fff;-webkit-transform:rotate(135deg);-ms-transform:rotate(135deg);transform:rotate(135deg);z-index:233}
 
 .xuetang_menu_sub{ line-height:30px; width:92%; margin:0px auto; overflow:hidden; background:#FFF;}

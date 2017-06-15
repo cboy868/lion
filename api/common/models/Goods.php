@@ -262,6 +262,7 @@ class Goods extends ActiveRecord
                 $img_size = $req->get('image-size');
                 $size = $img_size ? $img_size : null;
                 $photos = $model->getImgs($size);
+
                 $images = [];
                 foreach ($photos as $v) {
                     $images[] = self::BASE_URL . $v['url'];

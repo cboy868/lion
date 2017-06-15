@@ -22,6 +22,17 @@ return [
 
     'm/callack' => 'wechat/m/default/callback',
 
+    'm/memorial'=> 'memorial/m/default/index',
+    'm/memorial/c<id:\d+>.html'=> 'memorial/m/default/index',
+    'm/memorial/<id:\d+>.html'=> 'memorial/m/default/view',
+
+
+    'm/article/<mid:\d+>/<cid:\d+>.html' => 'cms/m/default/index',
+    'm/article/<mid:\d+>.html' => 'cms/m/default/index',
+    'm/article-detail/<mid:\d+>/<id:\d+>.html' => 'cms/m/default/view',
+
+
+
 //    'm/route'=> 'm/default/route',
 
     # m group

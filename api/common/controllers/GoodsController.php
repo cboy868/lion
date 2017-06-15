@@ -36,13 +36,13 @@ class GoodsController extends Controller
         ], parent::behaviors());
     }
 
-    public function actions() {  
-        $actions = parent::actions();  
-        // 禁用""index,delete" 和 "create" 操作  
-        unset($actions['delete'], $actions['create'], $actions['view']);  
-          
-        return $actions;  
-    } 
+    public function actions() {
+        $actions = parent::actions();
+        // 禁用""index,delete" 和 "create" 操作
+//        unset($actions['delete'], $actions['create']);
+
+        return $actions;
+    }
 
 	public function actionList($limit=5, $thumbSize='')
     {
@@ -101,38 +101,6 @@ class GoodsController extends Controller
         return ['items'=>$items, 'pageCount'=>$pagination->getPageCount()];
     }
 
-//    public function actionView($id)
-//    {
-//        $model = $this->modelClass;
-//
-//        $query = $model::findOne($id);
-//        $item = $query->toArray();
-//
-//        //取出图片
-//        $imgs = $query->getImgs('790x620');
-//        if ($imgs) {
-//            $item['imgs'] = $imgs;
-//        }
-//
-//        //取出规格
-//        $specs = $query->avRels;
-//
-//        //取出sku
-//        $skus = GoodsSku::find()->where(['goods_id'=>$id])->indexBy('av')->asArray()->all();
-//
-//        if($this->callback){
-//            return [
-//                'callback' => $this->callback,
-//                'data' => [
-//                    'item' => $item,
-//                    'specs' => $specs['spec'],
-//                    'skus' => $skus
-//                ]
-//            ];
-//        }
-//        return $item;
-//    }
-
     /**
      * @name 购物车
      */
@@ -165,7 +133,6 @@ class GoodsController extends Controller
             $v['goods_name'] = $sku->goods->name;
             $v['sku_name'] = $sku->name;
 
-            // $v['name'] = $sku->goods->name == $sku->name ? $sku->goods->name : $sku->goods->name . $sku->name;
             $v['price'] = $sku->price;
             $v['original_price'] = $sku->original_price;
 
@@ -199,12 +166,6 @@ class GoodsController extends Controller
             'total' => $total,
             'o_total' => $o_total
         ];
-        if($this->callback){
-            return [
-                'callback' => $this->callback,
-                'data' => $data
-            ];
-        }
 
         return $data;
     }

@@ -55,7 +55,8 @@ $config = [
                     'controller' => [
                         'v1/news',
                         'v1/order',
-                        'v1/goods'
+                        'v1/goods',
+                        'v1/post'
                     ]
                 ],
                 [

@@ -65,7 +65,9 @@ class MController extends \app\core\web\Controller
             '@app/modules/order/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/order',
 
             '@app/modules/grave/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/grave',
-            '@app/modules/memorial/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/memorial'
+            '@app/modules/memorial/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/memorial',
+
+            '@app/modules/cms/views/m/default' => '@app/web/theme/' . $model->svalue . '/mobile/article',
         ];
     }
 

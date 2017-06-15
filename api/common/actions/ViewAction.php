@@ -22,14 +22,6 @@ class ViewAction extends Action
         if ($this->checkAccess) {
             call_user_func($this->checkAccess, $this->id, $model);
         }
-
-        if($this->controller->callback){
-            return [
-                'callback' => $this->controller->callback,
-                'data' => $model
-            ];
-        }
-
         return $model;
     }
 }

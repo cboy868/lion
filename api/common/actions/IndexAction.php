@@ -9,9 +9,10 @@ namespace api\common\actions;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 
 /**
- * @author Qiang Xue <qiang.xue@gmail.com>
+ * @author cboy
  * @since 2.0
  */
 class IndexAction extends Action
@@ -54,11 +55,28 @@ class IndexAction extends Action
             return call_user_func($this->prepareDataProvider, $this);
         }
 
-        /* @var $modelClass \yii\db\BaseActiveRecord */
+        $params = Yii::$app->request->queryParams;
+
         $modelClass = $this->modelClass;
 
+        $query = $modelClass::find()->orderBy('id desc');
+
+        if (isset($params['cid'])) {
+            $query->andWhere(['category_id'=>$params['cid']]);
+        }
+
+        if (isset($params['recommend']) && $params['recommend']) {
+            $query->andWhere(['recommend'=>true]);
+        }
+
+        $pageSize = 10;
+        if (isset($params['pageSize'])) {
+            $pageSize = $params['pageSize'];
+        }
+
         return new ActiveDataProvider([
-            'query' => $modelClass::find()->orderBy('id desc'),
+            'query' => $query,
+            'pagination' => new Pagination(['pageSize'=>$pageSize])
         ]);
     }
 }

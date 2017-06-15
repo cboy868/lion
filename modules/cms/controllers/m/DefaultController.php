@@ -10,8 +10,11 @@ class DefaultController extends \app\core\web\MController
         return $this->render('index');
     }
 
-    public function actionView()
+    public function actionView($mid, $id)
     {
-    	echo 'sss';
+        return $this->render('view', [
+            'mid' => $mid,
+            'id' => $id
+        ]);
     }
 }

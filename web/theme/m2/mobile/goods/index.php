@@ -4,58 +4,41 @@ use app\core\helpers\Url;
 ?>
 <div class="content" id="news-box">
     <div class="weui-grids"> </div>
-
-
-
-
-    <div class="xuetang_menu_box">
-        <div class="xuetang_menu">
-          <div class="swiper-wrapper" >
-            <div class="swiper-slide " 
-                v-for="item in nitems" 
-                v-bind:class="{'swiper-slide-on':item.id===clistParams.cid}"
-                v-on:click="getGoods"
-                >
-                <a href="#" :rid="item.id">{{item.name}}</a>
-            </div>
-          </div>
-        </div>
-    </div>
-
-<!--     <div class="sortbox">
+     <div class="sortbox">
         <div class="weui-row">
             <div class="weui-col-25" v-for="cate in nitems">
                 <a href="#" 
                     :rid="cate.id" 
                     v-bind:class="{'on':cate.id==clistParams.cid}"
                     @click="getGoods"
-                    >{{cate.name}}</a>
-
+                    v-text="cate.name"
+                    ></a>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="spbox">
         <ul class="sp_list" id="goodslist">
             <li v-for="goods in clist">
                 <a :href="'/m/product/' + goods.id+'.html'" title="">
                     <div class="pic_div"><img :src="goods.cover" style="height: 188px;"></div>
-                    <div class="tit_div">{{goods.name}}</div>
+                    <div class="tit_div" v-text="goods.name"></div>
                     <div class="price_div">
-                        <span class="product-price pull-left">¥<span class="big-price">{{goods.price}}</span>
-                            <span class="small-price">.00</span>
+                        <span class="product-price pull-left">¥<span class="big-price" v-text="goods.price"></span>
+                            <span class="small-price"></span>
                         </span>
+                        <!--
                         <div style="font-size: 0px;" class="weui-cell__ft pull-right"> 
                             <button class="f-red" style="background: #fff;border: none;">
                                 <span class="sstfont sst-gouwuche"></span>
                             </button> 
                         </div>
+                        -->
                     </div>
                 </a>
             </li>
         </ul>
         <div class="clearfix"></div>
         </div>
-
 
         <div class="button_load" v-show="pageCount>clistParams.page">
           <a href="javascript:;" @click="pullLoad" class="weui-btn weui-btn_default">加载更多</a>
@@ -80,8 +63,8 @@ var demo = new Vue({
         sendData:{fields:['id', 'name']},
         apiUrl: 'http://api.lion.cn/v1/goods/cates',
 
-        clistUrl : 'http://api.lion.cn/v1/goods/clist',
-        clistParams : {cid:1, page:1, pageSize:2},
+        clistUrl : 'http://api.lion.cn/v1/goods',
+        clistParams : {cid:1, page:1, pageSize:10},
         clist:[],
         pageCount:1,
         loading:0
@@ -107,7 +90,8 @@ var demo = new Vue({
               } else {
                 this.$set(this, 'clist', response.data.items);
               }
-              this.$set(this, 'pageCount', response.data.pageCount);
+
+              this.$set(this, 'pageCount', response.data._meta.pageCount);
               this.$set(this, 'loading', 0);
             }).catch(function(response) {
                 //console.log(response)

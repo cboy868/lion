@@ -1,9 +1,8 @@
 <div class="content" id="news-box">
   <article class="weui-article">
-    <h1 class="sst_article">{{item.title}}</h1>
-    <div class="sst_article_meta">{{item.created_at}} </div>
-    <section v-html="item.body">
-    </section>
+    <h1 class="sst_article" v-text="item.title"></h1>
+    <div class="sst_article_meta" v-text="item.created_at"></div>
+    <section v-html="item.body"></section>
   </article>
   <div class="weui-panel weui-panel_access zixun_list">
       <div class="weui-panel__hd">热门推荐</div>
@@ -13,8 +12,8 @@
               <img class="weui-media-box__thumb" :src="it.cover" alt="">
           </div>
           <div class="weui-media-box__bd">
-              <h4 class="weui-media-box__title">{{it.title}}</h4>
-              <p class="weui-media-box__desc">{{it.created_date}}</p>
+              <h4 class="weui-media-box__title" v-text="it.title"></h4>
+              <p class="weui-media-box__desc" v-text="it.created_date"></p>
           </div>
       </a>
       </div>        
@@ -27,8 +26,8 @@ var demo = new Vue({
     data: {
         item: [],
         recommend:[],
-        sendData:{condition:['recommend']},
-        apiUrl: 'http://api.ibagou.com/v1/news/<?=$get['id']?>',
+        sendData:{recommend:true},
+        apiUrl: 'http://api.lion.cn/v1/news/<?=$get['id']?>',
     },
     beforeMount: function() {
         this.getNews();
@@ -37,7 +36,7 @@ var demo = new Vue({
     methods: {
         getNews: function() {
             this.$http.jsonp(this.apiUrl,{'jsonp':'lcb'}).then((response) => {
-              var item = response.data;
+              var item = response.data.data;
               item.created_at = this.goodTime(item.created_at * 1000);
                 this.$set(this, 'item', item);
             }).catch(function(response) {
@@ -45,9 +44,9 @@ var demo = new Vue({
             })
         },
         getRecommend:function(){
-          this.$http.jsonp('http://api.ibagou.com/v1/news/list',{'jsonp':'lcb',params:this.sendData}).then((response) => {
-            this.$set(this, 'recommend', response.data);
-            console.dir(response.data);
+          this.$http.jsonp('http://api.lion.cn/v1/news',{'jsonp':'lcb',params:this.sendData}).then((response) => {
+            this.$set(this, 'recommend', response.data.items);
+            console.dir(response.data.items);
           }).catch(function(response) {
             console.log(response)
           })
