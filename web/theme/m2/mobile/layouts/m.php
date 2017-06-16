@@ -3,7 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 
-
+\app\web\theme\m2\assets\Mobile::register($this);
 \app\assets\VueAsset::register($this);
 ?>
 
@@ -51,18 +51,6 @@ use app\core\helpers\Url;
             </a>
         </div>
 
-        <script type="text/javascript" src="/theme/site/static/js/jquery-2.1.4.js"></script>
-        <script type="text/javascript" src="/theme/site/static/js/swiper.js"></script>
-
-        <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
-        <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js"></script>
-
-        <script type="text/javascript">
-           // $(".swiper-container").swiper({
-           //      loop: true,
-           //      autoplay: 3000
-           //    });
-        </script>
         <?php $this->endBody() ?>
     </body>
 </html>

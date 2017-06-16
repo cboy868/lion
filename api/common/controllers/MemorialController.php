@@ -105,7 +105,6 @@ class MemorialController extends Controller
     public function actionComment()
     {
         $post = Yii::$app->request->post();
-
         if (!$post['id']) {
             return ['errno'=>1, 'error'=>'参数错误'];
         }
@@ -120,16 +119,7 @@ class MemorialController extends Controller
         if (!$content) {
             return ['errno'=>1, 'error'=>'参数错误，内容不全'];
         }
-        return Comment::create('memorial', $post['id'], $content);
+        return Comment::create('memorial', $post['id'], $content, $post['uid']);
     }
-
-    public function actionComments($id, $rows=4)
-    {
-
-        return Comment::getByRes('memorial', $id, $rows);
-    }
-
-
-
 
 }

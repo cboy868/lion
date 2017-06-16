@@ -10,6 +10,15 @@ use yii;
 
 class DefaultController extends \app\core\web\MController
 {
+    public function actions()
+    {
+        return [
+            'ue-upload' => [
+                'class' => 'app\core\widgets\Ueditor\UploadAction',
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         return $this->render('index');

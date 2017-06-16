@@ -15,6 +15,10 @@ class UAsset extends AssetBundle
         'ueditor.config.js',
         'ueditor.all.js',
     ];
+
+    public $depends = [
+        //'app\assets\AppAsset',
+    ];
    
     public function init()
     {

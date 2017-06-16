@@ -1,6 +1,3 @@
-<?php
-\app\assets\VueAsset::register($this);
-?>
 <style>
     html body{
         padding-top:10px;
@@ -31,15 +28,29 @@
             </div>
         </div>
     </div>
-    <hr>
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <textarea class="weui-textarea" placeholder="这里填写您的祝福留言" rows="3" id="comment"></textarea>
-<!--                <div class="weui-textarea-counter"><span>0</span>/200</div>-->
+                <?=\app\core\widgets\Ueditor\Ueditor::widget([
+                    'name'=>'comment',
+                    'option' =>['res_name'=>'memorial'],
+                     'jsOptions' => [
+                         'toolbars' => [
+                             [
+                                 'emotion', '|', 'simpleupload'
+                             ],
+                         ],
+                         'initialFrameHeight'=>'100px',
+                         'maximumWords' => '10'
+                     ]
+                ])?>
             </div>
-            <div class="weui-btn-area" style="margin:0">
-                <a class="weui-btn weui-btn_primary" href="javascript:" @click.prevent="comment">发送</a>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+            </div>
+            <div class="weui-btn-area" style="margin:0;">
+                <a class="weui-btn weui-btn_primary" href="javascript:" @click.prevent="comment">送 上 祝 福</a>
             </div>
         </div>
     </div>
@@ -51,14 +62,22 @@
                     <img :src="cm.avatar">
                 </div>
                 <div>
-                    <p class="right">{{cm.date}}</p>
-                    <h3><a href="#" v-model="cm.username"></a>说：</h3>
-                    <p class="txt" v-html="cm.content">
-
-                    </p>
+                    <p class="right" v-text="cm.add_date">{{cm.date}}</p>
+                    <h3><a href="#" v-text="cm.username"></a>送上祝福：</h3>
+                    <p class="txt" v-html="cm.content"></p>
                 </div>
             </li>
         </ul>
+    </div>
+    <div class="button_load" v-show="pageCount>commentParams.page">
+        <a href="javascript:;" @click="pullLoad" class="weui-btn weui-btn_default">加载更多</a>
+    </div>
+    <div class="weui-loadmore weui-loadmore_line" v-show="pageCount==commentParams.page">
+        <span class="weui-loadmore__tips">暂无数据</span>
+    </div>
+    <div class="weui-loadmore" v-show="loading"> <!--如有需要可增加style="display: none"-->
+        <i class="weui-loading"></i>
+        <span class="weui-loadmore__tips">正在加载...*\(^_^)/*</span>
     </div>
 </div>
 <?php $this->beginBlock('memorial') ?>
@@ -73,8 +92,8 @@ var app = new Vue({
 
 
         commentUrl:'http://api.lion.cn/v1/memorial/comment',
-        commentsUrl:'http://api.lion.cn/v1/memorial/comments',
-        commentParams : {page:1, pageSize:10, id:1},
+        commentsUrl:'http://api.lion.cn/v1/comment',
+        commentParams : {page:1, pageSize:10, res_id:1, res_name:'memorial',avatarSize:'50x50'},
         csrf : "<?=Yii::$app->request->getCsrfToken()?>",
         comments:[],
         pageCount:1,
@@ -114,33 +133,43 @@ var app = new Vue({
 
 
         comment(){
-            var content = $('#comment').val();
+            var content = editor_w0.getContent();
             if (!content) {return;}
-            this.$http.post(this.commentUrl, {content:content,id:1},{emulateJSON:true}).then(function(response){
+
+            if (editor_w0.getContentLength(true)>10) {$.alert('字符串过长，请修改');return;}
+            this.$http.post(this.commentUrl, {content:content,id:1,uid:1},{emulateJSON:true}).then(function(response){
                 if (response.data.errno) {
                     $.alert(response.data.error);
                 } else {
-                    this.getComments(true);
+                    this.getComments(false);
                 }
             }, function(response){
 
             });
-
-            $('#comment').val('');
+            editor_w0.setContent('');
         },
         getComments(append=false){
             this.$http.jsonp(this.commentsUrl,{'jsonp':'lcb', params:this.commentParams}).then(function (response) {
                 if (append) {
-                    this.$set(this, 'comments', this.clist.concat(response.data.list));
+                    this.$set(this, 'comments', this.comments.concat(response.data.items));
                 } else {
-                    this.$set(this, 'comments', response.data.list);
+                    this.$set(this, 'comments', response.data.items);
                 }
-                //this.$set(this, 'pageCount', response.data.pageCount);
-               // this.$set(this, 'loading', 0);
+
+                this.$set(this, 'pageCount', response.data._meta.pageCount);
+                this.$set(this, 'loading', 0);
             }).catch(function () {
                 
             });
         },
+        pullLoad:function(){
+            var p = this.commentParams.page + 1;
+            if (this.pageCount >= p) {
+                this.$set(this.commentParams, 'page', p);
+                this.getComments(true);
+                this.$set(this, 'loading', 1);
+            }
+        }
     }
 
 
