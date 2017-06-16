@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
 use yii\filters\RateLimitInterface;
+use app\core\models\Attachment;
 
 
 class User extends \yii\db\ActiveRecord implements IdentityInterface,RateLimitInterface
@@ -119,6 +120,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface,RateLimitIn
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
+    }
+
+    public function getAvatar($size, $default=null)
+    {
+        return Attachment::getById($this->avatar, $size, $default);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 namespace api\common\controllers;
 
+use api\common\models\Comment;
 use Yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\QueryParamAuth;
@@ -9,15 +10,30 @@ use yii\helpers\Url;
 use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
-
+use api\common\models\memorial\Pray;
 use api\common\models\NewsPhoto;
 use api\common\models\NewsCategory;
+use yii\filters\Cors;
 /**
  * Site controller
  */
 class MemorialController extends Controller
 {
     public $modelClass = 'api\common\models\memorial\Memorial';
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge([
+            [
+                'class' => Cors::className(),
+                'cors' => [
+                    'Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                    'Access-Control-Request-Headers' => ['*'],
+                ]
+            ],
+        ], parent::behaviors());
+    }
 
     public function actions() {
         $actions = parent::actions();
@@ -50,6 +66,67 @@ class MemorialController extends Controller
             'query' => $query,
             'pagination' => new Pagination(['pageSize'=>$pageSize])
         ]);
+    }
+
+    /**
+     * @name 点烛 献花等
+     */
+    public function actionJisi()
+    {
+        $post = Yii::$app->request->post();
+
+        if (!$post['id'] || !$post['type'] || !$post['uid']) {
+            return ["errno"=>1, 'error'=>'参数错误'];
+        }
+
+        $pray = Pray::find()->where(['user_id'=>$post['uid'], 'memorial_id'=>$post['id'],'type'=>$post['type']])
+                    ->andWhere(['like','from_unixtime(`created_at`)', date('Y-m-d')])
+                    ->all();
+        if ($pray) {
+            return ['errno'=>1, 'error'=>'每天每种祝福只能进行一次'];
+        }
+
+        $pray = new Pray();
+        $pray->memorial_id = $post['id'];
+        $pray->type = $post['type'];
+        $pray->user_id = $post['uid'];
+
+        return $pray->save();
+    }
+
+    public function actionJisiNum($id, $type=null)
+    {
+        if ($type !== null) {
+            $type = explode(',', $type);
+        }
+        return Pray::prayCount($id, $type);
+    }
+
+    public function actionComment()
+    {
+        $post = Yii::$app->request->post();
+
+        if (!$post['id']) {
+            return ['errno'=>1, 'error'=>'参数错误'];
+        }
+        $modelClass = $this->modelClass;
+        $model = $modelClass::findOne($post['id']);
+
+        if (!$model) {
+            return ['errno'=>1, 'error'=>'纪念馆未找到'];
+        }
+        $content = $post['content'];
+
+        if (!$content) {
+            return ['errno'=>1, 'error'=>'参数错误，内容不全'];
+        }
+        return Comment::create('memorial', $post['id'], $content);
+    }
+
+    public function actionComments($id, $rows=4)
+    {
+
+        return Comment::getByRes('memorial', $id, $rows);
     }
 
 
