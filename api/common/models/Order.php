@@ -346,7 +346,49 @@ class Order extends ActiveRecord
     {
         // OrderLog::create($this->id);
         // return parent::afterSave($insert, $changedAttributes);
-    } 
+    }
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        $other = [
+            'add_date' => function($model){
+                return date('Y-m-d H:i:s', $model->created_at);
+            },
+        ];
+
+        $fields = array_merge($fields, $other);
+
+        unset($fields['status']);
+
+        return $fields;
+    }
+
+    /**
+     * @return array
+     * /**
+     * @return array
+     * 参数 expand=rels&cover-size=100x100
+     */
+    public function extraFields()
+    {
+        $req = Yii::$app->request;
+        return [
+            'rels' => function($model) use ($req){
+
+                $size = Yii::$app->request->get('relThumbSize');
+                $rels = $model->rels;
+                $r = [];
+                foreach ($rels as $rel) {
+                    $r[$rel['id']] = [
+                        'title' => $rel->title,
+                        'cover' => $rel->goods? $rel->goods->getCover($size) : ''
+                    ];
+                }
+                return $r;
+            },
+        ];
+    }
 
 
 }

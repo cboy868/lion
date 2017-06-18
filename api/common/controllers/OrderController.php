@@ -44,51 +44,51 @@ class OrderController extends Controller
      * @name 取订单列表
      * @des 为用户安全 使用post
      */
-    public function actionList()
-    {
-
-        $post = Yii::$app->request->post();
-
-        $user_id = $post['user'];
-        $page = isset($post['page']) ? $post['page'] : 1;
-        $pageSize = isset($post['pageSize']) ? $post['pageSize'] : 20;
-        $relThumbSize = isset($post['relThumbSize']) ? $post['relThumbSize'] : '100x100';
-
-
-        $model = $this->modelClass;
-
-        $query = $model::find()->where(['status'=>$model::STATUS_ACTIVE, 'user_id'=>$user_id]);
-        $count = $query->count();
-
-        $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>$pageSize]);
-        $items = $query->offset($pagination->offset)
-                        ->limit($pagination->limit)
-                        ->all();
-
-        $order_items = [];
-        foreach ($items as $item) {
-            $t = $item->toArray();
-            $t['created_date'] = date('Y-m-d H:i', $item['created_at']);
-
-            $rels = $item->rels;
-            $r = [];
-            foreach ($rels as $rel) {
-                $r[$rel['id']] = [
-                    'title' => $rel->title,
-                    'cover' => $rel->goods? $rel->goods->getCover($relThumbSize) : ''
-                ];
-            }
-            $t['rels'] = $r;
-
-            $order_items[] = $t;
-        }
-
-        $data = [
-            'items' => $order_items,
-            'pageCount' => $pagination->getPageCount()
-        ];
-        return $data;
-    }
+//    public function actionList()
+//    {
+//
+//        $post = Yii::$app->request->post();
+//
+//        $user_id = $post['user'];
+//        $page = isset($post['page']) ? $post['page'] : 1;
+//        $pageSize = isset($post['pageSize']) ? $post['pageSize'] : 20;
+//        $relThumbSize = isset($post['relThumbSize']) ? $post['relThumbSize'] : '100x100';
+//
+//
+//        $model = $this->modelClass;
+//
+//        $query = $model::find()->where(['status'=>$model::STATUS_ACTIVE, 'user_id'=>$user_id]);
+//        $count = $query->count();
+//
+//        $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>$pageSize]);
+//        $items = $query->offset($pagination->offset)
+//                        ->limit($pagination->limit)
+//                        ->all();
+//
+//        $order_items = [];
+//        foreach ($items as $item) {
+//            $t = $item->toArray();
+//            $t['created_date'] = date('Y-m-d H:i', $item['created_at']);
+//
+//            $rels = $item->rels;
+//            $r = [];
+//            foreach ($rels as $rel) {
+//                $r[$rel['id']] = [
+//                    'title' => $rel->title,
+//                    'cover' => $rel->goods? $rel->goods->getCover($relThumbSize) : ''
+//                ];
+//            }
+//            $t['rels'] = $r;
+//
+//            $order_items[] = $t;
+//        }
+//
+//        $data = [
+//            'items' => $order_items,
+//            'pageCount' => $pagination->getPageCount()
+//        ];
+//        return $data;
+//    }
 
     public function actionDel()
     {

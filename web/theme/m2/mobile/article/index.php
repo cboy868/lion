@@ -1,5 +1,6 @@
 <?php
 $mid = 1;
+$this->title="业务帮助须知";
 ?>
 <style type="text/css">
     .xuetang_menu .swiper-slide{

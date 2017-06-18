@@ -1,77 +1,70 @@
+<?php
+$this->title="个人信息管理";
+?>
 <div class="content">
-            <div class="weui-cells">
-                  <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/avatar">
-                        <div class="weui-cell__bd">
-                          <p>头像</p>
-                        </div>
-                        <div class="weui-cell__ft"><img class="tx" src="./static/images/default_avatar_128_128.jpg" width="20" height="20" style="vertical-align:middle"></div>
-                  </a>
-                <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/config/profile.html">
-                <div class="weui-cell__bd">
-                  <p>我的姓名</p>
-                </div>
-                <div class="weui-cell__ft">cboy</div>
-                </a> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/config/ziliao.html#">
-                <div class="weui-cell__bd">
-                  <p>我的账号</p>
-                </div>
-                <div class="weui-cell__ft"></div>
-                </a> 
+    <div class="weui-cells">
+        <a class="weui-cell weui-cell_access" href="#">
+            <div class="weui-cell__bd">
+                <p>头像</p>
             </div>
+            <div class="weui-cell__ft">
+                <img class="tx" src="/static/images/default.png" width="20" height="20" style="vertical-align:middle">
+            </div>
+        </a>
 
-             <div class="weui-cells"> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/config/profile.html">
-                <div class="weui-cell__bd weui-cell_primary">
-                  <p>我的生日</p>
-                </div>
-                <div class="weui-cell__ft">0000-00-00</div>
-                </a> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/config/profile.html">
-                <div class="weui-cell__bd">
-                  <p>我的性别</p>
-                </div>
-                <div class="weui-cell__ft">男</div>
-                </a> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/config/profile.html">
-                <div class="weui-cell__bd">
-                  <p>工作状况</p>
-                </div>
-                <div class="weui-cell__ft"></div>
-                </a> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/config/profile.html">
-                <div class="weui-cell__bd">
-                  <p>婚姻状况</p>
-                </div>
-                <div class="weui-cell__ft">未婚</div>
-                </a> </div>
+        <a class="weui-cell weui-cell_access" href="#">
+            <div class="weui-cell__bd">
+                <p>登录账号</p>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </a>
 
-                <div class="weui-cells"> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/config/profile.html">
-    <div class="weui-cell__bd">
-      <p>绑定邮箱</p>
-    </div>
-    <div class="weui-cell__ft"></div>
-    </a> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/shop/address/address_list.html">
-    <div class="weui-cell__bd">
-      <p>地址管理</p>
-    </div>
-    <div class="weui-cell__ft"></div>
-    </a> <a class="weui-cell weui-cell_access" href="http://m.shensuantang.com/ucenter/password">
-    <div class="weui-cell__bd">
-      <p>修改密码</p>
-    </div>
-    <div class="weui-cell__ft"></div>
-    </a> </div>
-
-                <div class="weui-btn-area"> <a event-node="logout" class="weui-btn weui-btn_warn" href="javascript:" id="showTooltips">退出登录</a> </div>
-    <script>
-
-            $('[event-node=logout]').click(function () {
-                $.get("/ucenter/system/logout.html", function (msg) {
-                    console.log(msg);return false;
-                    $('body').append(msg.html);
-                    $.toast(msg.message);
-                    setTimeout(function () {
-                        location.href = msg.url;
-                    }, 1500);
-                }, 'json')
-            });
-
-    </script>
-            
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">昵称</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" placeholder="昵称">
+            </div>
         </div>
+
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd">
+                <label for="" class="weui-label">性别</label>
+            </div>
+            <div class="weui-cell__bd">
+                <select class="weui-select" name="select2">
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                    <option value="3">保密</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">手机号</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" pattern="[0-9]*"  placeholder="手机号">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">邮箱</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input"  placeholder="邮箱">
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="住址" rows="3"></textarea>
+                <div class="weui-textarea-counter"><span>0</span>/200</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-btn-area">
+        <a href="javascript:;" class="weui-btn weui-btn_primary">提交保存</a>
+    </div>
+
+</div>

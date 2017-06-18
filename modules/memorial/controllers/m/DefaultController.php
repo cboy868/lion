@@ -62,4 +62,9 @@ class DefaultController extends \app\core\web\MController
 
         return $this->json(Pray::prayCount($id, ['candle','flower']),null, 1);
     }
+
+    public function actionApply()
+    {
+        return $this->render('apply');
+    }
 }

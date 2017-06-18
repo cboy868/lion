@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+$this->title="碑文确认";
 
 ?>
 <div class="content" id="ins-box">

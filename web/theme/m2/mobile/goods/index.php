@@ -1,6 +1,5 @@
 <?php 
-use app\core\helpers\Url;
-
+$this->title="商城";
 ?>
 <div class="content" id="news-box">
     <div class="weui-grids"> </div>

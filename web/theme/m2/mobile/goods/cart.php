@@ -1,3 +1,7 @@
+<?php
+$this->title="购物车";
+
+?>
 <div class="content" id="cart-box">
     <div class="cart_list">
         <div class="weui-panel weui-panel_access oneGood" v-for="item in items">

@@ -1,3 +1,6 @@
+<?php
+$this->title="我的订单列表";
+?>
 <div class="content" id="order-box">
     <div class="page preview js_show">
         <div class="page__bd">
@@ -10,10 +13,10 @@
                 </div>
                 <div class="weui-form-preview__bd">
                     <div class="weui-form-preview__item" style="text-align: left">
-                        <img :src="rel.cover" :alt="rel.title" style="width:45px;height:45px;" v-for="rel in item.rels">
+                        <img :src="rel.cover" :alt="rel.title" style="width:45px;height:45px;padding-right:5px;" v-for="rel in item.rels">
                     </div>
                     <div class="weui-form-preview__item">
-                        <span class="weui-form-preview__value">共{{Object.keys(item.rels).length}}种商品，实付款：￥{{item.price}} {{item.created_date}} </span>
+                        <span class="weui-form-preview__value">共{{Object.keys(item.rels).length}}种商品，实付款：￥{{item.price}} {{item.add_date}} </span>
                     </div>
                 </div>
                 <div class="weui-form-preview__ft">
@@ -42,14 +45,14 @@
 
 
 
-<?php $this->beginBlock('order') ?>  
+<?php $this->beginBlock('order') ?>
 var demo = new Vue({
     el: '#order-box',
     data: {
         orders: [],
-        sendData:{relThumbSize:'60x60',user:1,page:1,pageSize:3 },
-        apiUrl: 'http://api.ibagou.com/v1/order/list',
-        apiDel: 'http://api.ibagou.com/v1/order/del',
+        sendData:{relThumbSize:'60x60',user:1,page:1,pageSize:3,expand:'rels'},
+        apiUrl: 'http://api.lion.cn/v1/order',
+        apiDel: 'http://api.lion.cn/v1/order/del',
         pageCount:1,
         loading:0
     },
@@ -58,16 +61,16 @@ var demo = new Vue({
     },
     methods: {
         getOrders: function(append=false) {
-            this.$http.post(this.apiUrl + '?page=' + this.sendData.page, this.sendData,{emulateJSON:true}).then(function(response){
+            this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.sendData}).then((response) => {
                 if (append) {
                     this.$set(this, 'orders', this.orders.concat(response.data.items));
                 } else {
                     this.$set(this, 'orders', response.data.items);
                 }
-                this.$set(this, 'pageCount', response.data.pageCount);
+                this.$set(this, 'pageCount', response.data._meta.pageCount);
                 this.$set(this, 'loading', 0);
-            }, function(response){
-            });
+            }).catch(function(response) {
+            })
         },
         pullLoad:function(){
           var p = this.sendData.page + 1;

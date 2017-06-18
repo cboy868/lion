@@ -1,3 +1,6 @@
+<?php
+$this->title="商品详情";
+?>
 <style>
     .concern-cart>div>p{
         font-size:10px;

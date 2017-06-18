@@ -59,7 +59,7 @@ class IndexAction extends Action
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->orderBy('id desc');
+        $query = $modelClass::find()->orderBy('id desc')->where(['<>', 'status', $modelClass::STATUS_DEL]);
 
         if (isset($params['cid'])) {
             $query->andWhere(['category_id'=>$params['cid']]);

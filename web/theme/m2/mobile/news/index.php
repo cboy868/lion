@@ -1,3 +1,6 @@
+<?php
+$this->title="新闻资讯";
+?>
 <style type="text/css">
   .xuetang_menu .swiper-slide{
     /*width:30%;*/

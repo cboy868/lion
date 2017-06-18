@@ -1,3 +1,6 @@
+<?php
+$this->title="纪念馆列表";
+?>
 <div class="weui-panel weui-panel_access">
     <div class="weui-panel__hd">纪念馆</div>
     <div class="weui-panel__bd">

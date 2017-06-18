@@ -138,5 +138,90 @@ class DefaultController extends \app\core\web\MController
 
     }
 
+    /**
+     * @param $id
+     * @return string|yii\web\Response
+     * @name 墓位续费
+     */
+    public function actionRenew($id=1)
+    {
+        $model = $this->findTomb($id);
+
+        return $this->render('renew');
+
+//        $config = Yii::$app->params['goods'];
+//        $gid = $config['id']['renew'];
+//        $fee = $config['fee']['renew'];
+//
+//        $ginfo = Goods::createVirtual($gid['id'], $gid['name']);
+//
+//        if (Yii::$app->request->isPost) {
+//            $post = Yii::$app->request->post();
+//
+//            $extra = [
+//                'price' => $post['num'] * $fee * $model->price,
+//                'num'   => $post['num'],
+//                'tid'   => $model->id,
+//                'note'  => $post['des']
+//            ];
+//            $info = $ginfo->order($model->user_id, $extra);
+//            if ($info['order']) {
+//                return $this->redirect(['/order/admin/default/view', 'id'=>$info['order']->id]);
+//            }
+//        }
+//
+//        $ginfo = \app\modules\shop\models\Goods::findOne($gid);
+//        $ginfo->original_price = $ginfo->price = $model->price * $fee;
+//
+//        return $this->render('renew', ['model'=>$model, 'ginfo'=>$ginfo]);
+    }
+
+    /**
+     * @name 碑文修金箔
+     */
+    public function actionRepair($id=1)
+    {
+        $model = $this->findTomb($id);
+        return $this->render('repair');
+
+//        if (!$model->ins) {
+//            return $this->error('此墓位不存在碑文，请先完善或走特殊业务');
+//        }
+//
+//        $config = Yii::$app->params['goods'];
+//
+//
+//        $fee = $this->module->params['ins']['fee']['repair'];
+//        $paint = $this->module->params['ins']['paint'];
+//        $gid = $config['id']['repair'];
+//        $goods = Goods::createVirtual($gid['id'], $gid['name']);
+//
+//        if (Yii::$app->request->isPost) {
+//            $post = Yii::$app->request->post();
+//
+//            $extra = [
+//                'price' => $post['num'] * $fee[$post['paint']],
+//                'num'   => $post['num'],
+//                'tid'   => $model->id,
+//                'note'  => $post['des']
+//            ];
+//            $info = $goods->order($model->user_id, $extra);
+//            if ($info['order']) {
+//                return $this->redirect(['/order/admin/default/view', 'id'=>$info['order']->id]);
+//            }
+//        }
+//
+//        return $this->render('repair',['model'=>$model, 'fee'=>$fee,'paint'=>$paint]);
+    }
+
+    protected function findTomb($id)
+    {
+        if (($model = Tomb::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
 
 }

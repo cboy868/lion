@@ -1,5 +1,5 @@
 <?php
-
+$this->title="业务帮助须知";
 ?>
 <div class="content" id="news-box">
     <article class="weui-article">

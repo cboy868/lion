@@ -1,3 +1,6 @@
+<?php
+$this->title="新闻资讯";
+?>
 <div class="content" id="news-box">
   <article class="weui-article">
     <h1 class="sst_article" v-text="item.title"></h1>

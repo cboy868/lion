@@ -1,3 +1,6 @@
+<?php
+$this->title="订单详情页面";
+?>
 <div class="content" id="order-box">
     <div class="page preview js_show">
         <div class="weui-cells">

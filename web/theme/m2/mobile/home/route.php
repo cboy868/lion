@@ -1,3 +1,7 @@
+<?php
+$this->title="地图导航";
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,16 +21,14 @@ if (!isset($point[0])) {
     var geolocation = new BMap.Geolocation();
     var ya_lat = <?=$point[1]?>;
     var ya_lng = <?=$point[0]?>;
-    var ya_lat = 41.018923;
-    var ya_lng = 118.704211;
 
     geolocation.getCurrentPosition(function(r){
         if(this.getStatus() == BMAP_STATUS_SUCCESS){
 
             var datas = {
                 'origin' : 'latlng:' + r.point.lat + ',' + r.point.lng + '|name:我的位置',
-                'destination' : 'latlng:' + ya_lat + ',' + ya_lng + '|name:承德卓迅网络',
-                'region' : '河北承德',
+                'destination' : 'latlng:' + ya_lat + ',' + ya_lng + '|name:<?=g("cp_name")?>',
+                'region' : '<?=g("address")?>',
                 'mode' : 'driving',
                 'output' : 'html'
             };

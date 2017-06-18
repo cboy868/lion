@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+$this->title="业务办理";
 ?>
 <div class="content" id="news-box">
     <article class="weui-article">

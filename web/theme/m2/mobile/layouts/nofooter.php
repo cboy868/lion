@@ -13,8 +13,7 @@ use app\core\helpers\Url;
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title><?=g("cp_name")?></title>
-        <title><?= Html::encode($this->title) ?></title>
+        <title><?=$this->title ? $this->title.'-':''?><?=g("cp_name")?></title>
         <?= Html::csrfMetaTags() ?>
         <?php $this->head() ?>
         <!-- 引入 WeUI -->

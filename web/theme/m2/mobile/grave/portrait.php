@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+$this->title="瓷像确认";
 ?>
 <div class="content" id="portrait-box">
 
