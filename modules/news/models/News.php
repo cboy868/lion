@@ -145,4 +145,9 @@ class News extends \app\core\db\ActiveRecord
 
     }
 
+    public function getBody()
+    {
+        return $this->hasOne(NewsData::className(), ['news_id'=>'id']);
+    }
+
 }

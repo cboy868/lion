@@ -1,11 +1,12 @@
 <?php
 
-namespace api\common\models;
+namespace app\modules\api\models\common;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-
-
+use app\core\models\Attachment;
+use app\core\models\AttachmentRel;
+use app\core\helpers\ArrayHelper;
 /**
  * This is the model class for table "{{%shop_goods}}".
  *
@@ -21,69 +22,69 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Goods extends \yii\db\ActiveRecord
+class Goods extends \app\modules\shop\models\Goods
 {
-
-    const STATUS_ACTIVE = 1;
-    const STATUS_DEL    = -1;
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
+    public function fields()
     {
-        return '{{%shop_goods}}';
-    }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['category_id', 'thumb', 'num', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['intro', 'skill', 'serial'], 'string'],
-            [['price', 'original_price'], 'number'],
-            // ['name', 'unique',  'message' => '此菜品已存在，请确定'],
-            // [['name', 'price'], 'required'],
-            [['name'], 'required'],
-            [['name','pinyin'], 'string', 'max' => 255],
-            [['unit'], 'string', 'max' => 100]
+        $fields = parent::fields();
+        $other = [
+            'category_name' => function($model){
+                return isset($model->category->name) ? $model->category->name : '';
+            },
+            'add_date' => function($model){
+                return date('Y-m-d H:i:s', $model->created_at);
+            },
+            // 字段名为"email", 对应的属性名为"email_address"
+            //参数 cover-size=50x50&
+            'cover' => function($model){
+                $size = Yii::$app->request->get('cover-size');
+                if ($size) {
+                    return self::BASE_URL . $model->getCover($size);
+                }
+                return self::BASE_URL . $model->cover;
+            }
+
         ];
-    }
 
-    public function behaviors()
-    {
-        return [
-            [
-                'class'=>TimestampBehavior::className(),
-            ]
-        ];
+        $fields = array_merge($fields, $other);
+
+        unset($fields['thumb']);
+        unset($fields['sort']);
+        unset($fields['status']);
+
+        return $fields;
+
     }
 
     /**
-     * @inheritdoc
+     * @return array
+     * 参数 expand=images&image-size=100x100
      */
-    public function attributeLabels()
+    public function extraFields()
     {
+        $req = Yii::$app->request;
         return [
-            'id' => 'ID',
-            'category_id' => '分类',
-            'name' => '商品名称',
-            'thumb' => '商品封面',
-            'intro' => '介绍',
-            'skill' => '烹饪技巧',
-            'unit' => '单位',
-            'price' => '价格',//现价,活动,微信价之类
-            'original_price' => '原价',
-            'num' => '数量',
-            'status' => '状态',
-            'tags' => '标签/关键词',
-            'recommend' => '是否推荐',
-            'created_at' => '添加时间',
-            'updated_at' => '更新时间',
-            'serial' => '序列号',
-            'pinyin' =>'拼音首字母'
+            'image' => function($model) use ($req){
+                $img_size = $req->get('image-size');
+                $size = $img_size ? $img_size : null;
+                $photos = $model->getImgs($size);
+
+                $images = [];
+                foreach ($photos as $v) {
+                    $images[] = self::BASE_URL . $v['url'];
+                }
+                return $images;
+            },
+            'sku' => function($model) {
+                return GoodsSku::find()->where(['goods_id'=>$model->id])
+                                        ->indexBy('av')
+                                        ->asArray()->all();
+            },
+            'spec' => function($model) {
+                return $model->avRels;
+            }
         ];
     }
+
 }

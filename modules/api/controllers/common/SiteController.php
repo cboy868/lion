@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\api\controllers\common;
+namespace api\common\controllers;
 
 use Yii;
 use yii\rest\ActiveController;
@@ -9,5 +9,4 @@ use yii\rest\ActiveController;
  */
 class SiteController extends ActiveController
 {
-	public $modelClass = 'api\common\models\Goods';
 }

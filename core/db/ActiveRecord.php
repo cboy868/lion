@@ -23,6 +23,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
     const DTNULL = '0000-00-00 00:00:00';
     const DNULL  = '0000-00-00';
 
+    const BASE_URL = 'http://www.lion.cn';
+
     public function del()
     {
     	$this->status = self::STATUS_DEL;

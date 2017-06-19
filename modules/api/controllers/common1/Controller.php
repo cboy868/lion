@@ -1,11 +1,12 @@
 <?php
 namespace app\modules\api\controllers\common;
 
-use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\rest\ActiveController;
+use yii\filters\auth\QueryParamAuth;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
-use yii\filters\Cors;
+use yii\data\ActiveDataProvider;
 /**
  * Site controller
  */
@@ -39,16 +40,7 @@ class Controller extends ActiveController
             });
         }
 
-        return ArrayHelper::merge([
-            [
-                'class' => Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ]
-            ],
-        ], $behaviors);
+        return $behaviors;
     }
 
     //	public function behaviors() {
@@ -68,36 +60,37 @@ class Controller extends ActiveController
     {
         return [
             'index' => [
-                'class' => 'app\modules\api\actions\IndexAction',
+                'class' => 'app\modules\api\actions',
                 'modelClass' => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
             ],
             'view' => [
-                'class' => 'app\modules\api\actions\ViewAction',
+                'class' => 'app\modules\api\actions',
                 'modelClass' => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
             ],
             'create' => [
-                'class' => 'app\modules\api\actions\CreateAction',
+                'class' => 'app\modules\api\actions',
                 'modelClass' => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
                 'scenario' => $this->createScenario,
             ],
             'update' => [
-                'class' => 'app\modules\api\actions\UpdateAction',
+                'class' => 'app\modules\api\actions',
                 'modelClass' => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
                 'scenario' => $this->updateScenario,
             ],
             'delete' => [
-                'class' => 'app\modules\api\actions\DeleteAction',
+                'class' => 'app\modules\api\actions',
                 'modelClass' => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
             ],
             'options' => [
-                'class' => 'app\modules\api\actions\OptionsAction',
+                'class' => 'app\modules\api\actions',
             ],
         ];
     }
+
 
 }
