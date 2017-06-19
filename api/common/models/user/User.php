@@ -1,15 +1,16 @@
 <?php
 
-namespace api\common\models;
+namespace api\common\models\user;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
 use yii\filters\RateLimitInterface;
 use app\core\models\Attachment;
+use api\common\models\ActiveRecord;
 
 
-class User extends \yii\db\ActiveRecord implements IdentityInterface,RateLimitInterface
+class User extends ActiveRecord implements IdentityInterface,RateLimitInterface
 {
     const STATUS_DELETED = -1;
     const STATUS_ACTIVE = 10;
@@ -21,6 +22,36 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface,RateLimitIn
     public static function tableName()
     {
         return '{{%user}}';
+    }
+
+    public function fields()
+    {
+
+        $fields = parent::fields();
+        $other = [
+            //参数 cover-size=50x50&
+            'avatar' => function($model){
+                $size = Yii::$app->request->get('avatarSize');
+                if ($size) {
+                    return self::BASE_URL . $model->getAvatar($size);
+                }
+                return self::BASE_URL . $model->avatar;
+            },
+
+        ];
+
+        $fields = array_merge($fields, $other);
+
+        unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);
+        unset($fields['status']);
+
+        return $fields;
+
+    }
+
+    public function getAddition()
+    {
+        return $this->hasOne(Addition::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -122,7 +153,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface,RateLimitIn
         return $this->getAuthKey() === $authKey;
     }
 
-    public function getAvatar($size, $default=null)
+    public function getAvatar($size=null, $default=null)
     {
         return Attachment::getById($this->avatar, $size, $default);
     }

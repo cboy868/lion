@@ -14,7 +14,7 @@ use app\modules\news\models\NewsPhoto;
  */
 class NewsController extends Controller
 {
-	public $modelClass = 'app\api\models\common\News';
+	public $modelClass = 'app\modules\news\models\News';
 
 
     public function actionList($limit=5)

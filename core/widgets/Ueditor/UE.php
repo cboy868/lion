@@ -96,6 +96,7 @@ class UE extends InputWidget {
             'serverUrl' => $serverUrl,
             'initialFrameWidth' => '100%',
             'initialFrameHeight' => '400',
+            'zIndex' => 1,
             'lang' => (strtolower(\Yii::$app->language) == 'en-us') ? 'en' : 'zh-cn',
             'autoFloatEnabled' => false,
             'toolbars' => [[

@@ -9,5 +9,4 @@ use yii\rest\ActiveController;
  */
 class SiteController extends ActiveController
 {
-	public $modelClass = 'apiUser.phpUser.php\common\models\Goods';
 }

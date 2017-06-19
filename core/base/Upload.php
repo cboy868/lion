@@ -80,6 +80,9 @@ class Upload extends Component{
     {
         $up = new self;
         $up->uploader = UploadedFile::getInstanceByName($name);
+        if (!$up->uploader) {
+            return false ;
+        }
         $up->res = $res;
         $up->res_id = $res_id;
         $up->setPathName();

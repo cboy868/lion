@@ -131,7 +131,6 @@ var app = new Vue({
             });
         },
 
-
         comment(){
             var content = editor_w0.getContent();
             if (!content) {return;}
@@ -141,6 +140,7 @@ var app = new Vue({
                 if (response.data.errno) {
                     $.alert(response.data.error);
                 } else {
+                    this.$set(this.commentParams, 'page', 1);
                     this.getComments(false);
                 }
             }, function(response){

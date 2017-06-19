@@ -43,6 +43,19 @@ class Controller extends ActiveController
         return $behaviors;
     }
 
+    //	public function behaviors() {
+
+//        $behaviors = ArrayHelper::merge (parent::behaviors(), [
+//                'authenticator' => [
+//                    'class' => QueryParamAuth::className()
+//                ]
+//        ]);
+//
+//        $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_HTML;
+//
+//        return $behaviors;
+//    }
+
     public function actions()
     {
         return [

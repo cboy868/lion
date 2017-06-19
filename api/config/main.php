@@ -56,17 +56,18 @@ $config = [
                         'v1/news',
                         'v1/order',
                         'v1/goods',
-                        'v1/post'
+                        'v1/post',
+                        'v1/user'
                     ]
                 ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/user'],
-                    'extraPatterns' => [
-                        'POST login' => 'login',
-                        'GET signup-test' => 'signup-test',
-                    ]
-                ],
+//                [
+//                    'class' => 'yii\rest\UrlRule',
+//                    'controller' => ['v1/user'],
+//                    'extraPatterns' => [
+//                        'POST login' => 'login',
+//                        'GET signup-test' => 'signup-test',
+//                    ]
+//                ],
             ],
         ],
 

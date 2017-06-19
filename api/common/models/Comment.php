@@ -5,7 +5,7 @@ namespace api\common\models;
 use app\core\base\Pagination;
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use api\common\models\User;
+use api\common\models\user\User;
 /**
  * This is the model class for table "{{%comment}}".
  *
