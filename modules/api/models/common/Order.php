@@ -12,13 +12,6 @@ use app\modules\user\models\User;
  *
  * @property integer $id
  * @property integer $user_id
- * @property string $price
- * @property string $origin_price
- * @property integer $type
- * @property integer $progress
- * @property string $note
- * @property integer $created_at
- * @property integer $updated_at
  * @property integer $status
  */
 class Order extends \app\modules\order\models\Order

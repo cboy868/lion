@@ -1,7 +1,6 @@
 <?php
 namespace app\modules\api\controllers\common;
 
-use api\common\models\user\User;
 use Yii;
 use app\core\base\Upload;
 use yii\helpers\ArrayHelper;
@@ -9,6 +8,8 @@ use yii\filters\auth\QueryParamAuth;
 use yii\web\Response;
 use yii\filters\Cors;
 use yii\web\NotFoundHttpException;
+
+use app\modules\api\models\common\User;
 /**
  * Site controller
  */
@@ -16,34 +17,25 @@ class UserController extends Controller
 {
 	public $modelClass = 'app\modules\api\models\common\User';
 
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            [
-                'class' => Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ]
-            ],
-        ], parent::behaviors());
+    public function behaviors() {
+
+        return parent::behaviors();
     }
 
     public function actions() {
         $actions = parent::actions();
-        unset($actions['delete'], $actions['create'], $actions['view']);
+        unset($actions['delete'], $actions['create']);
         return $actions;
     }
 
-    public function actionView($id)
-    {
-        $model = $this->findModel($id);
-
-        $addition = $model->addition;
-
-        return  ArrayHelper::merge($model->toArray(), $addition->toArray());
-    }
+//    public function actionView($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        $addition = $model->addition;
+//
+//        return  ArrayHelper::merge($model->toArray(), $addition->toArray());
+//    }
 
 
     public function actionAvatar()
@@ -64,6 +56,7 @@ class UserController extends Controller
                 $info = $upload->getInfo();
                 $user->avatar = $info['mid'];
             }
+            $user->save();
 
             $outerTransaction->commit();
         } catch (\Exception $e) {
@@ -76,6 +69,29 @@ class UserController extends Controller
 
     }
 
+    public function actionUp()
+    {
+        $post = Yii::$app->request->post();
+
+        $id =$post['id'];
+
+
+        $model = $this->findModel($id);
+        $addition = $model->addition;
+
+        $model->mobile = isset($post['mobile']) ? $post['mobile'] : $model->mobile;
+        $model->email = isset($post['email']) ? $post['email'] : $model->email;
+
+        $addition->address = isset($post['addition']['address']) ? $post['addition']['address'] : $addition->address;
+        $addition->gender = isset($post['addition']['gender']) ? $post['addition']['gender'] : $addition->gender;
+        $addition->real_name = isset($post['addition']['real_name']) ? $post['addition']['real_name'] : $addition->real_name;
+
+
+        $model->save();
+        $addition->save();
+
+        return true;
+    }
 
     protected function findModel($id)
     {
