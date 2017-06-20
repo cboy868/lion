@@ -17,7 +17,7 @@ $this->title="业务帮助须知";
         data: {
             item: [],
             sendData:{mid:mid,id:id},
-            apiUrl: 'http://api.lion.cn/v1/post/view',
+            apiUrl: 'http://api.lion.cn/api/v1/post/view',
         },
         beforeMount: function() {
             this.getNews();

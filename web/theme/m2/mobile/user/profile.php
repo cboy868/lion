@@ -88,8 +88,8 @@ $this->title="个人信息管理";
     var demo = new Vue({
         el: '#profile-box',
         data: {
-            apiUrl: 'http://api.lion.cn/v1/user/avatar',
-            apiUserInfo: 'http://api.lion.cn/v1/user/view',
+            apiUrl: 'http://api.lion.cn/api/v1/user/avatar',
+            apiUserInfo: 'http://api.lion.cn/api/v1/user/view',
             uid:1,
             user:{avatar:''}
         },

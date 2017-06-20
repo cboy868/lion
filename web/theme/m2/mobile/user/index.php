@@ -98,8 +98,8 @@ $this->title="个人中心";
             memorials:[],
             sendData:{limit:5, thumbSize:'120x120'},
             memorialData:{uid:1,thumbSize:'120x120'},
-            apiMemorial: 'http://api.lion.cn/v1/memorial',
-            apiUrl: 'http://api.lion.cn/v1/news'
+            apiMemorial: 'http://api.lion.cn/api/v1/memorial',
+            apiUrl: 'http://api.lion.cn/api/v1/news'
         },
         beforeMount: function() {
             this.getNews();

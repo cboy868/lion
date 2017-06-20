@@ -26,6 +26,13 @@ class GoodsController extends Controller
         return $actions;
     }
 
+    public function behaviors() {
+
+        return parent::behaviors();
+
+
+    }
+
 //	public function actionList($limit=5, $thumbSize='')
 //    {
 //    	$limit = $limit > 20 ? 20 : $limit;

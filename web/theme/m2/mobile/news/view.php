@@ -31,7 +31,7 @@ var demo = new Vue({
         item: [],
         recommend:[],
         sendData:{recommend:true},
-        apiUrl: 'http://api.lion.cn/v1/news/' + id,
+        apiUrl: 'http://api.lion.cn/api/v1/news/' + id,
     },
     beforeMount: function() {
         this.getNews();

@@ -51,8 +51,8 @@ var demo = new Vue({
     data: {
         orders: [],
         sendData:{relThumbSize:'60x60',user:1,page:1,pageSize:8,expand:'rels'},
-        apiUrl: 'http://api.lion.cn/v1/order',
-        apiDel: 'http://api.lion.cn/v1/order/del',
+        apiUrl: 'http://api.lion.cn/api/v1/order',
+        apiDel: 'http://api.lion.cn/api/v1/order/del',
         pageCount:1,
         loading:0
     },

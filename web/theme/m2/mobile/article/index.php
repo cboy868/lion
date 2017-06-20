@@ -52,9 +52,9 @@ $this->title="业务帮助须知";
         data: {
             nitems: [],
             sendData:{fields:['id', 'name']},
-            apiUrl: 'http://api.lion.cn/v1/post/cates?mid=1',
+            apiUrl: 'http://api.lion.cn/api/v1/post/cates?mid=1',
 
-            listUrl : 'http://api.lion.cn/v1/post/index?mid=1',
+            listUrl : 'http://api.lion.cn/api/v1/post/index?mid=1',
             clistParams : {cid:1, page:1, pageSize:2},
             clist:[],
             pageCount:1,

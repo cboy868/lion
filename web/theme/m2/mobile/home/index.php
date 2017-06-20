@@ -76,7 +76,7 @@ var demo = new Vue({
         gridColumns: ['title', 'author', 'id'],
         nitems: [],
         sendData:{limit:5, thumbSize:'120x120'},
-        apiUrl: 'http://api.lion.cn/v1/news'
+        apiUrl: 'http://api.lion.cn/api/v1/news'
     },
     beforeMount: function() {
         this.getNews();

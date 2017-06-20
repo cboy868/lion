@@ -49,8 +49,9 @@ $config = [
             // 'enableStrictParsing' =>true,
             'rules' => [
 
-                'v1/<controller:(.+)>/<id:\d+>' => '/api/v1/<controller>/view',
-                'v1/<controller:(.+)>' => '/api/v1/<controller>',
+                //如果加了以下两行 delete等动词就不能用了
+//                'v1/<controller:(.+)>/<id:\d+>' => '/api/v1/<controller>/view',
+//                'v1/<controller:(.+)>' => '/api/v1/<controller>',
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
