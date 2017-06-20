@@ -2,11 +2,7 @@
 
 namespace app\modules\api\models\common;
 
-use app\modules\shop\models\Type;
-use Yii;
-use yii\behaviors\TimestampBehavior;
-use app\core\models\Attachment;
-use app\modules\cms\models\Category;
+use app\modules\cms\models\PostImage;
 
 /**
  * This is the model class for table "{{%post}}".
@@ -14,5 +10,9 @@ use app\modules\cms\models\Category;
  */
 class Post extends \app\modules\cms\models\Post
 {
+    public function getCover($size='')
+    {
+        return PostImage::getById($this->thumb, $size);
+    }
 
 }

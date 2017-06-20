@@ -165,4 +165,36 @@ class Post extends \app\core\db\ActiveRecord
         return $this->save();
     }
 
+    public function fields()
+    {
+
+        $fields = parent::fields();
+        $other = [
+            'category_name' => function($model){
+                return isset($model->category->name) ? $model->category->name : '';
+            },
+            'add_date' => function($model){
+                return date('Y-m-d H:i:s', $model->created_at);
+            },
+            // 字段名为"email", 对应的属性名为"email_address"
+            //参数 cover-size=50x50&
+            'cover' => function($model){
+                $size = Yii::$app->request->get('cover-size');
+                if ($size) {
+                    return self::BASE_URL . $model->getCover($size);
+                }
+                return self::BASE_URL . $model->cover;
+            }
+
+        ];
+
+        $fields = array_merge($fields, $other);
+
+        unset($fields['thumb']);
+        unset($fields['status']);
+
+        return $fields;
+
+    }
+
 }

@@ -145,6 +145,11 @@ class Goods extends \app\core\db\ActiveRecord
         return $thumb->getImg($type);
     }
 
+    public function getCover($size = '')
+    {
+        return Attachment::getById($this->thumb, $size);
+    }
+
     public function getAvs()
     {
         return $this->hasMany(AvRel::className(), ['goods_id'=>'id']);

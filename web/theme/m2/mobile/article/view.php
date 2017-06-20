@@ -10,11 +10,13 @@ $this->title="业务帮助须知";
 </div>
 
 <?php $this->beginBlock('news') ?>
+    var mid = <?=Yii::$app->request->get('mid')?>;
+    var id = <?=Yii::$app->request->get('id')?>;
     var demo = new Vue({
         el: '#news-box',
         data: {
             item: [],
-            sendData:{mid:<?=$mid?>,id:<?=$id?>},
+            sendData:{mid:mid,id:id},
             apiUrl: 'http://api.lion.cn/v1/post/view',
         },
         beforeMount: function() {

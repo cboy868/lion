@@ -23,14 +23,15 @@ $this->title="新闻资讯";
   </div>
 </div>
 
-<?php $this->beginBlock('news') ?>  
+<?php $this->beginBlock('news') ?>
+var id = "<?=Yii::$app->request->get('id');?>";
 var demo = new Vue({
     el: '#news-box',
     data: {
         item: [],
         recommend:[],
         sendData:{recommend:true},
-        apiUrl: 'http://api.lion.cn/v1/news/<?=$get['id']?>',
+        apiUrl: 'http://api.lion.cn/v1/news/' + id,
     },
     beforeMount: function() {
         this.getNews();

@@ -1,9 +1,6 @@
 <?php
 namespace app\modules\api\controllers\common;
 
-use api\common\models\Post;
-use api\common\models\PostCategory;
-use api\common\models\PostImage;
 use Yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\QueryParamAuth;
@@ -12,8 +9,11 @@ use yii\helpers\Url;
 use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
-use api\common\models\Module;
-use api\common\models\Code;
+use app\modules\mod\models\Module;
+use app\modules\mod\models\Code;
+use app\modules\api\models\common\Post;
+use app\modules\cms\models\Category;
+
 
 /**
  * Site controller
@@ -39,6 +39,7 @@ class PostController extends Controller
         return $actions;
     }
 
+
     /**
      * @name index
      * @des 本方法可代替actions 中indexAction中的 prepareDataProvider
@@ -48,43 +49,37 @@ class PostController extends Controller
         $params = Yii::$app->request->queryParams;
 
         if (!$params['mid']) {
-            return ;
+            return ['errno'=>1, 'error'=>'参数错误'];
         }
 
-        $mid = $params['mid'];
+        Code::createObj('post', $params['mid']);
 
-        $query = (new \yii\db\Query())
-            ->from('post_' . $mid)
-            ->where(['status'=>Post::STATUS_ACTIVE]);
+        $c = 'Post' . $params['mid'];
+        $class = '\app\modules\cms\models\mods\\' . $c;
 
-        $count = $query->count();
+        $query = $class::find();
+
+        if (isset($params['cid'])) {
+            $query->andWhere(['category_id'=>$params['cid']]);
+        }
+        if (isset($params['type'])) {
+            $types = Post::types();
+            $type_key = array_search($params['type'], $types);
+
+            $query->andWhere(['type'=>$type_key]);
+
+        }
 
         $pageSize = 10;
-        if (isset($params['per-page'])) {
-            $pageSize = $params['per-page'];
+        if (isset($params['pageSize'])) {
+            $pageSize = $params['pageSize'];
         }
 
-        $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>$pageSize]);
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => new Pagination(['pageSize'=>$pageSize])
+        ]);
 
-        $list = $query->offset($pagination->offset)
-                        ->limit($pagination->limit)
-                        ->all();
-
-        foreach ($list as &$v) {
-            $v['cover'] = PostImage::getById($v['thumb']);
-        }unset($v);
-
-        return [
-            'items' => $list,
-            '_meta' => [
-                'totalCount' => $count,
-                'pageCount' =>$pagination->getPageCount(),
-                'currentPage' => $pagination->getPage(),
-                'perPage' => $pageSize
-
-            ],
-            '_links' => $pagination->getLinks(true)
-        ];
     }
 
     public function actionView($mid, $id)
@@ -104,7 +99,7 @@ class PostController extends Controller
 
     public function actionCates($mid)
     {
-       $list = PostCategory::find()->where(['mid'=>$mid])->all();
+       $list = Category::find()->where(['mid'=>$mid])->all();
 
        return [
            'items' => $list
