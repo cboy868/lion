@@ -5,9 +5,7 @@ namespace app\modules\shop\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
-use app\modules\shop\models\AvRel;
-use app\modules\shop\models\Sku;
-
+use app\core\models\AttachmentRel;
 use app\core\helpers\ArrayHelper;
 use app\modules\order\models\Order;
 
@@ -130,9 +128,14 @@ class Goods extends \app\core\db\ActiveRecord
     // }
 
 
-    public function getImgs($type='tiny')
+//    public function getImgs($type='tiny')
+//    {
+//        $imgs = $this->getAttach();
+//    }
+
+    public function getImgs($thumb=null)
     {
-        $imgs = $this->getAttach();
+        return AttachmentRel::getByRes('goods', $this->id, $thumb);
     }
 
     public function getThumb($type = '')
@@ -203,6 +206,37 @@ class Goods extends \app\core\db\ActiveRecord
     public function order($user_id, $extra)
     {
         return Order::createGoods($user_id, $this, $extra);
+    }
+
+    public function getAvRels()
+    {
+        $attr = [];
+        $spec = [];
+        foreach ($this->avs as $k => $v) {
+
+            $val[$v->attr_id][$v->av_id] = [
+                'val' => $v->val->val,
+                'id'  => $v->av_id
+            ];
+
+            if ($v->attr->is_spec) {
+                $spec[$v->attr_id] = [
+                    'attr_id' => $v->attr_id,
+                    'attr_name' => $v->attr->name,
+                    'child' => $val[$v->attr_id],
+                ];
+            } else {
+                $attr[$v->attr_id] = [
+                    'attr_id' => $v->attr_id,
+                    'attr_name' => $v->attr->name,
+                    'child' => $val[$v->attr_id],
+                ];
+            }
+        }
+
+        $attr = ArrayHelper::index($attr, 'attr_id');
+
+        return ['attr'=>$attr, 'spec'=>$spec];
     }
 
     public static function createVirtual($goods_id, $name, $data=[])

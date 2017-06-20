@@ -106,13 +106,15 @@ $this->title="商品详情";
 
 </div>
 
-<?php $this->beginBlock('news') ?>  
+<?php $this->beginBlock('news') ?>
+
+var id = <?=Yii::$app->request->get('id')?>;
 var demo = new Vue({
     el: '#news-box',
     data: {
         item: [],
         sendData:{expand:'spec,image,sku'},
-        apiUrl: 'http://api.lion.cn/v1/goods/<?=$get['id']?>',
+        apiUrl: 'http://api.lion.cn/v1/goods/' + id,
         cartUrl: 'http://api.lion.cn/v1/goods/cart',
         carCountUrl: 'http://api.lion.cn/v1/goods/cart-count',
         specs:[],

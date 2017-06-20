@@ -100,7 +100,6 @@ class PostController extends Controller
     public function actionCates($mid)
     {
        $list = Category::find()->where(['mid'=>$mid])->all();
-
        return [
            'items' => $list
        ];

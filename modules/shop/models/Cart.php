@@ -20,8 +20,8 @@ use app\modules\user\models\User;
 class Cart extends \app\core\db\ActiveRecord
 {
 
-    const TYPE_FOOD = 1;
-    const TYPE_SEAT = 2;
+    const TYPE_GOOD = 1;
+//    const TYPE_SEAT = 2;
 
     /**
      * @inheritdoc
@@ -70,10 +70,8 @@ class Cart extends \app\core\db\ActiveRecord
         ];
     }
 
-    public static function create($sku_id, $goods_model, array $extra=[], $type=self::TYPE_FOOD)
+    public static function create($user_id, $sku_id, $goods_model, array $extra=[], $type=self::TYPE_GOOD)
     {
-
-        $user_id = Yii::$app->user->id;
         $model = self::find()->where(['user_id'=>$user_id, 'goods_id'=>$goods_model->id, 'sku_id'=>$sku_id])->one();
 
         if (!$model) {
@@ -83,12 +81,33 @@ class Cart extends \app\core\db\ActiveRecord
             $model->goods_id = $goods_model->id;
             $model->sku_id = $sku_id;
         }
-        
+
+
         $model->num = isset($extra['num']) ? $extra['num'] : 1;
         $model->note = isset($extra['note']) ? $extra['note'] : '';
 
         return $model->save();
     }
+
+//    public static function create($sku_id, $goods_model, array $extra=[], $type=self::TYPE_FOOD)
+//    {
+//
+//        $user_id = Yii::$app->user->id;
+//        $model = self::find()->where(['user_id'=>$user_id, 'goods_id'=>$goods_model->id, 'sku_id'=>$sku_id])->one();
+//
+//        if (!$model) {
+//            $model = new self;
+//            $model->user_id = $user_id;
+//            $model->type = $type;
+//            $model->goods_id = $goods_model->id;
+//            $model->sku_id = $sku_id;
+//        }
+//
+//        $model->num = isset($extra['num']) ? $extra['num'] : 1;
+//        $model->note = isset($extra['note']) ? $extra['note'] : '';
+//
+//        return $model->save();
+//    }
 
     /**
      * @name 删除 

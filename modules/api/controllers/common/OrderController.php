@@ -6,10 +6,9 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\data\Pagination;
 
-use api\common\models\Order;
-use api\common\models\OrderRel;
-use api\common\models\GoodsSku;
-use api\common\models\GoodsCart;
+
+use app\modules\api\models\common\Cart;
+use app\modules\api\models\common\Sku;
 use yii\filters\Cors;
 /**
  * Site controller
@@ -148,7 +147,6 @@ class OrderController extends Controller
     public function actionBuy()
     {
         $post = Yii::$app->request->post();
-
         $user = $post['user'];
         $params = $post['params'];
 
@@ -156,8 +154,8 @@ class OrderController extends Controller
             if (!$v['num'] || !$v['sku_id']) {
                 continue;
             }
-            GoodsCart::find()->where(['user_id'=>$user, 'sku_id'=>$v['sku_id']])->one()->delete();
-            $sku = GoodsSku::findOne($v['sku_id']);
+            Cart::find()->where(['user_id'=>$user, 'sku_id'=>$v['sku_id']])->one()->delete();
+            $sku = Sku::findOne($v['sku_id']);
             $order = $sku->order($user, ['num'=>$v['num']]);
         }
 

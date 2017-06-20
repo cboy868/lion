@@ -7,27 +7,20 @@ use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
 use app\core\models\AttachmentRel;
 use app\core\helpers\ArrayHelper;
+use app\modules\shop\models\Sku;
 /**
  * This is the model class for table "{{%shop_goods}}".
  *
- * @property integer $id
- * @property integer $category_id
- * @property string $name
- * @property integer $thumb
- * @property string $intro
- * @property string $unit
- * @property string $price
- * @property integer $num
- * @property integer $status
- * @property integer $created_at
  * @property integer $updated_at
  */
 class Goods extends \app\modules\shop\models\Goods
 {
+    const BASE_URL = 'http://www.lion.cn';
     public function fields()
     {
 
         $fields = parent::fields();
+
         $other = [
             'category_name' => function($model){
                 return isset($model->category->name) ? $model->category->name : '';
@@ -49,9 +42,7 @@ class Goods extends \app\modules\shop\models\Goods
 
         $fields = array_merge($fields, $other);
 
-        unset($fields['thumb']);
-        unset($fields['sort']);
-        unset($fields['status']);
+        unset($fields['thumb'], $fields['status']);
 
         return $fields;
 
@@ -77,9 +68,10 @@ class Goods extends \app\modules\shop\models\Goods
                 return $images;
             },
             'sku' => function($model) {
-                return GoodsSku::find()->where(['goods_id'=>$model->id])
+                $a = Sku::find()->where(['goods_id'=>$model->id])
                                         ->indexBy('av')
                                         ->asArray()->all();
+                return $a;
             },
             'spec' => function($model) {
                 return $model->avRels;
