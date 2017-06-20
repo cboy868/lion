@@ -1,32 +1,71 @@
 <?php
-$this->title="纪念馆列表";
+$this->title="公开的纪念馆列表";
 ?>
-<div class="weui-panel weui-panel_access">
-    <div class="weui-panel__hd">纪念馆</div>
+<div class="weui-panel weui-panel_access" id="memorial-content">
     <div class="weui-panel__bd">
-        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+        <a :href="'/m/memorial/' + m.id + '.html'" class="weui-media-box weui-media-box_appmsg" v-for="m in memorials">
             <div class="weui-media-box__hd">
-                <img class="weui-media-box__thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg==" alt="">
+                <img class="weui-media-box__thumb" :src="m.cover" alt="">
             </div>
             <div class="weui-media-box__bd">
-                <h4 class="weui-media-box__title">大张三</h4>
-                <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-            </div>
-        </a>
-        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-            <div class="weui-media-box__hd">
-                <img class="weui-media-box__thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg==" alt="">
-            </div>
-            <div class="weui-media-box__bd">
-                <h4 class="weui-media-box__title">大张伟</h4>
-                <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                <h4 class="weui-media-box__title" v-text="m.title"></h4>
+                <p class="weui-media-box__desc" v-text="m.intro"></p>
             </div>
         </a>
     </div>
-    <div class="weui-panel__ft">
-        <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-            <div class="weui-cell__bd">查看更多名人馆</div>
-            <span class="weui-cell__ft"></span>
-        </a>
+
+    <div class="button_load" v-show="pageCount>apiParams.page">
+        <a href="javascript:;" @click="pullLoad" class="weui-btn weui-btn_default">加载更多</a>
+    </div>
+    <div class="weui-loadmore" v-show="loading"> <!--如有需要可增加style="display: none"-->
+        <i class="weui-loading"></i>
+        <span class="weui-loadmore__tips">正在加载...*\(^_^)/*</span>
     </div>
 </div>
+
+<?php $this->beginBlock('memorial') ?>
+    $(function(){
+        var app = new Vue({
+            el:'#memorial-content',
+            data:{
+                memorials:[],
+                apiUrl:'http://api.lion.cn/v1/memorial',
+                apiParams : {page:1, pageSize:10,thumbSize:'50x50'},
+                pageCount:1,
+                loading:0
+            },
+            beforeMount: function() {
+                this.getList();
+            },
+            methods:{
+                getList(append=false){
+                    this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.apiParams}).then(function (response) {
+                        if (append) {
+                            this.$set(this, 'memorials', this.memorials.concat(response.data.items));
+                        } else {
+                            this.$set(this, 'memorials', response.data.items);
+                        }
+
+                        this.$set(this, 'pageCount', response.data._meta.pageCount);
+                        this.$set(this, 'loading', 0);
+                    }).catch(function () {
+
+                    });
+                },
+                pullLoad:function(){
+                    var p = this.apiParams.page + 1;
+                    if (this.pageCount >= p) {
+                        this.$set(this.apiParams, 'page', p);
+                        this.getList(true);
+                        this.$set(this, 'loading', 1);
+                    }
+                }
+            }
+
+
+        });
+    })
+
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['memorial'], \yii\web\View::POS_END); ?>
+

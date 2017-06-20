@@ -81,6 +81,12 @@ $this->title="个人中心";
                 </div>
         </div>
     </div>
+    <div class="weui-panel__ft">
+        <a href="/m/memorial" class="weui-cell weui-cell_access weui-cell_link">
+            <div class="weui-cell__bd">查看更多公开纪念馆</div>
+            <span class="weui-cell__ft"></span>
+        </a>
+    </div>
 </div>
 
 

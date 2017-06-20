@@ -1,18 +1,13 @@
 <?php
 namespace app\modules\api\controllers\common;
 
-use api\common\models\Comment;
+use app\modules\api\models\common\Memorial;
 use Yii;
-use yii\rest\ActiveController;
-use yii\filters\auth\QueryParamAuth;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
-use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
-use api\common\models\memorial\Pray;
-use api\common\models\NewsPhoto;
-use api\common\models\NewsCategory;
+use app\modules\api\models\common\Pray;
+use app\modules\api\models\common\Comment;
 use yii\filters\Cors;
 /**
  * Site controller
@@ -20,20 +15,6 @@ use yii\filters\Cors;
 class MemorialController extends Controller
 {
     public $modelClass = 'app\modules\api\models\common\Memorial';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            [
-                'class' => Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ]
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions() {
         $actions = parent::actions();
@@ -51,11 +32,16 @@ class MemorialController extends Controller
 
         $query = $modelClass::find()->orderBy('id desc');
 
-        if (!isset($params['uid'])) {
-            return ['errno'=>1, 'error'=>'不合法的用户id'];
+//        if (!isset($params['uid'])) {
+//            return ['errno'=>1, 'error'=>'不合法的用户id'];
+//        }
+//
+
+        if (isset($params['uid'])) {
+            $query->andWhere(['user_id'=>$params['uid']]);
         }
 
-        $query->andWhere(['user_id'=>$params['uid']]);
+        $query->andWhere(['privacy'=>Memorial::PRIVACY_PUBLIC]);
 
         $pageSize = 10;
         if (isset($params['pageSize'])) {
@@ -119,7 +105,7 @@ class MemorialController extends Controller
         if (!$content) {
             return ['errno'=>1, 'error'=>'参数错误，内容不全'];
         }
-        return Comment::create('memorial', $post['id'], $content, $post['uid']);
+        return Comment::add('memorial', $post['id'], $content, $post['uid']);
     }
 
 }

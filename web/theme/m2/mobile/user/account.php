@@ -34,7 +34,6 @@ $this->title="账号及密码设置";
         </div>
 -->
 
-
         <div class="weui-cell">
             <div class="weui-cell__hd"><label for="" class="weui-label">登录密码</label></div>
             <div class="weui-cell__bd">

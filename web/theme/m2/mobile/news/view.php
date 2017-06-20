@@ -40,19 +40,19 @@ var demo = new Vue({
     methods: {
         getNews: function() {
             this.$http.jsonp(this.apiUrl,{'jsonp':'lcb'}).then((response) => {
-              var item = response.data.data;
+              var item = response.data;
               item.created_at = this.goodTime(item.created_at * 1000);
-                this.$set(this, 'item', item);
+              this.$set(this, 'item', item);
             }).catch(function(response) {
-                console.log(response)
+                //console.log(response)
             })
         },
         getRecommend:function(){
           this.$http.jsonp('http://api.lion.cn/v1/news',{'jsonp':'lcb',params:this.sendData}).then((response) => {
             this.$set(this, 'recommend', response.data.items);
-            console.dir(response.data.items);
+            //console.dir(response.data.items);
           }).catch(function(response) {
-            console.log(response)
+            //console.log(response)
           })
         },
         goodTime: function(str){

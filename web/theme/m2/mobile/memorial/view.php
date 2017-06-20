@@ -72,9 +72,11 @@
     <div class="button_load" v-show="pageCount>commentParams.page">
         <a href="javascript:;" @click="pullLoad" class="weui-btn weui-btn_default">加载更多</a>
     </div>
+    <!--
     <div class="weui-loadmore weui-loadmore_line" v-show="pageCount==commentParams.page">
         <span class="weui-loadmore__tips">暂无数据</span>
     </div>
+    -->
     <div class="weui-loadmore" v-show="loading"> <!--如有需要可增加style="display: none"-->
         <i class="weui-loading"></i>
         <span class="weui-loadmore__tips">正在加载...*\(^_^)/*</span>
@@ -82,19 +84,19 @@
 </div>
 <?php $this->beginBlock('memorial') ?>
 $(function(){
+var id = "<?=Yii::$app->request->get('id');?>";
 var app = new Vue({
     el:'#memorial-content',
     data:{
         jisiNum:{candle:1,flower:2},
-        jisiData:{uid:1,id:1},
+        jisiData:{uid:1,id:id},
         jisiUrl: 'http://api.lion.cn/v1/memorial/jisi',
         jisiNumUrl: 'http://api.lion.cn/v1/memorial/jisi-num',
 
 
         commentUrl:'http://api.lion.cn/v1/memorial/comment',
         commentsUrl:'http://api.lion.cn/v1/comment',
-        commentParams : {page:1, pageSize:10, res_id:1, res_name:'memorial',avatarSize:'50x50'},
-        csrf : "<?=Yii::$app->request->getCsrfToken()?>",
+        commentParams : {page:1, pageSize:10, res_id:id, res_name:'memorial',avatarSize:'50x50'},
         comments:[],
         pageCount:1,
         loading:0
@@ -105,7 +107,7 @@ var app = new Vue({
     },
     methods:{
         song(type){
-            var data = {type:type,id:1,uid:1};
+            var data = {type:type,id:1,uid:id};
             this.$http.post(this.jisiUrl, data,{emulateJSON:true}).then(function(response){
                 if (response.data.errno) {
                     $.alert(response.data.error);
@@ -136,7 +138,7 @@ var app = new Vue({
             if (!content) {return;}
 
             if (editor_w0.getContentLength(true)>10) {$.alert('字符串过长，请修改');return;}
-            this.$http.post(this.commentUrl, {content:content,id:1,uid:1},{emulateJSON:true}).then(function(response){
+            this.$http.post(this.commentUrl, {content:content,id:id,uid:1},{emulateJSON:true}).then(function(response){
                 if (response.data.errno) {
                     $.alert(response.data.error);
                 } else {
@@ -171,7 +173,6 @@ var app = new Vue({
             }
         }
     }
-
 
     });
 })

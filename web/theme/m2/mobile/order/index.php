@@ -50,7 +50,7 @@ var demo = new Vue({
     el: '#order-box',
     data: {
         orders: [],
-        sendData:{relThumbSize:'60x60',user:1,page:1,pageSize:3,expand:'rels'},
+        sendData:{relThumbSize:'60x60',user:1,page:1,pageSize:8,expand:'rels'},
         apiUrl: 'http://api.lion.cn/v1/order',
         apiDel: 'http://api.lion.cn/v1/order/del',
         pageCount:1,

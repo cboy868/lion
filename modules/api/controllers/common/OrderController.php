@@ -9,6 +9,7 @@ use yii\data\Pagination;
 
 use app\modules\api\models\common\Cart;
 use app\modules\api\models\common\Sku;
+use app\modules\api\models\common\Order;
 use yii\filters\Cors;
 /**
  * Site controller

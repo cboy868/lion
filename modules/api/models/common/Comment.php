@@ -10,16 +10,6 @@ use api\common\models\user\User;
 /**
  * This is the model class for table "{{%comment}}".
  *
- * @property integer $id
- * @property integer $from
- * @property integer $to
- * @property string $res_name
- * @property integer $res_id
- * @property integer $pid
- * @property string $content
- * @property integer $privacy
- * @property integer $status
- * @property integer $created_at
  */
 class Comment extends \app\core\models\Comment
 {
@@ -51,6 +41,19 @@ class Comment extends \app\core\models\Comment
 
         return $fields;
 
+    }
+
+    public static function add($res_name, $res_id, $content, $uid, $pid=0, $privacy=self::PRIVACY_PUBLIC, $to=0)
+    {
+        $comment = new self();
+        $comment->res_name = $res_name;
+        $comment->res_id = $res_id;
+        $comment->content = $content;
+        $comment->pid =$pid;
+        $comment->privacy = $privacy;
+        $comment->from = $uid;
+        $comment->to = $to;
+        return $comment->save();
     }
 
 }

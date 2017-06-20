@@ -83,12 +83,10 @@ var demo = new Vue({
     },
     mounted:function(){
         var mySwiper = new Swiper('.swiper-container', {
-           //direction: 'horizontal',
            loop: true,
            autoplay: 3000,
            pagination: '.swiper-pagination',
         })
-        console.log(mySwiper)
     },
     methods: {
         getNews: function() {
