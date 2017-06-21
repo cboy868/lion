@@ -44,19 +44,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            [
+                'headerOptions' => ['width' => '80'],
+                'label' => '封面',
+                'value' => function($model){
+                    return $model->getCover('50x50');
+                },
+                'format'=>'image'
+            ],
             'title',
-            'thumb',
             // 'intro:ntext',
-            'privacy',
-            // 'view_all',
-            // 'com_all',
+//            'privacy',
+             'view_all',
+//             'com_all',
             'tpl',
+            'statusText',
             // 'status',
             // 'updated_at',
             'created_at:datetime',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
 
-            ['class' => 'yii\grid\ActionColumn'],
+                'template' => '{update} {delete} {apply}',
+                'buttons' => [
+                    'apply' => function($url, $model, $key){
+                        if ($model->status == \app\modules\memorial\models\Memorial::STATUS_APPLY) {
+                            return Html::a('<font color="green"> 审核通过</font>', $url, ['title' => '审核通过', 'class'=>'top'] );
+                        }
+                    },
+                ],
+                'headerOptions' => ['width' => '190',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

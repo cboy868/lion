@@ -44,6 +44,25 @@ class Memorial extends \app\core\db\ActiveRecord
         return '{{%memorial}}';
     }
 
+    public static function statusLabel($status=null)
+    {
+        $s = [
+            self::STATUS_APPLY =>'待审核',
+            self::STATUS_ACTIVE => '正常'
+        ];
+
+        if ($status === null) {
+            return $s;
+        }
+
+        return $s[$status];
+    }
+
+    public function getStatusText()
+    {
+        return self::statusLabel($this->status);
+    }
+
     /**
      * @inheritdoc
      */

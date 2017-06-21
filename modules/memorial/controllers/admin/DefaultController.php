@@ -113,6 +113,15 @@ class DefaultController extends BackController
         return $this->redirect(['index']);
     }
 
+    public function actionApply($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = Memorial::STATUS_ACTIVE;
+        $model->save();
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Memorial model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
