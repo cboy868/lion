@@ -34,6 +34,7 @@ class Memorial extends \app\core\db\ActiveRecord
 
     const STATUS_ACTIVE = 1;
     const STATUS_DELETE = -1;
+    const STATUS_APPLY = 0;
 
     /**
      * @inheritdoc

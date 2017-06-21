@@ -81,6 +81,28 @@ $this->title="个人中心";
                 </div>
         </div>
     </div>
+
+    <div class="page__bd">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__hd">待审批的纪念馆</div>
+
+            <div class="weui-panel__bd" >
+                <a href="#" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access"
+                   v-for="apply in applys">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" :src="apply.cover">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title" v-text="apply.title"></h4>
+                        <p class="weui-media-box__desc" v-text="apply.intro"></p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        进入
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
     <div class="weui-panel__ft">
         <a href="/m/memorial" class="weui-cell weui-cell_access weui-cell_link">
             <div class="weui-cell__bd">查看更多公开纪念馆</div>
@@ -96,14 +118,17 @@ $this->title="个人中心";
         data: {
             nitems: [],
             memorials:[],
+            applys:[],
             sendData:{limit:5, thumbSize:'120x120'},
-            memorialData:{uid:1,thumbSize:'120x120'},
+            memorialData:{uid:1,thumbSize:'120x120', status:1},
+            applyData:{uid:1,thumbSize:'120x120', status:0},
             apiMemorial: 'http://api.lion.cn/api/v1/memorial',
             apiUrl: 'http://api.lion.cn/api/v1/news'
         },
         beforeMount: function() {
             this.getNews();
             this.memorial();
+            this.apys();
         },
         mounted:function(){
             var mySwiper = new Swiper('.swiper-container', {
@@ -123,6 +148,14 @@ $this->title="个人中心";
             memorial: function () {
                 this.$http.jsonp(this.apiMemorial,{'jsonp':'lcb', params:this.memorialData}).then((response) => {
                     this.$set(this, 'memorials', response.data.items)
+                }).catch(function(response) {
+                    console.log(response)
+                })
+            },
+            apys: function () {
+                this.$http.jsonp(this.apiMemorial,{'jsonp':'lcb', params:this.applyData}).then((response) => {
+console.dir(response.data.items);
+                    this.$set(this, 'applys', response.data.items)
                 }).catch(function(response) {
                     console.log(response)
                 })

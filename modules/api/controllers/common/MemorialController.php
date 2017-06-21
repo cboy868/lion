@@ -37,6 +37,12 @@ class MemorialController extends Controller
 //        }
 //
 
+        if (isset($params['status'])) {
+            $query->where(['status'=>$params['status']]);
+        } else {
+            $query->where(['<>', 'status', $modelClass::STATUS_DELETE]);
+        }
+
         if (isset($params['uid'])) {
             $query->andWhere(['user_id'=>$params['uid']]);
         }
@@ -86,6 +92,45 @@ class MemorialController extends Controller
             $type = explode(',', $type);
         }
         return Pray::prayCount($id, $type);
+    }
+
+    /**
+     * @name 申请建馆
+     */
+    public function actionApply()
+    {
+        $post = Yii::$app->request->post();
+
+        if (!$post['title'] || !$post['uid'] || !$post['intro']) {
+            return ['errno'=>1, 'error'=>'参数错误'];
+        }
+
+
+        if ($this->hasApplys($post['uid'])) {
+            return ['errno'=>1, 'error'=>'您有尚未审核的纪念馆'];
+        }
+
+        if (Memorial::find()->where(['user_id'=>$post['uid'], 'tomb_id'=>0])->count() >= 10) {
+            return ['errno'=>1, 'error'=>'每人最多只能创建十个纪念馆'];
+        }
+
+        $model = new Memorial();
+        $model->title = $post['title'];
+        $model->intro = nl2br($post['intro']);
+        $model->user_id = $post['uid'];
+        $model->status = Memorial::STATUS_APPLY;
+        return $model->save();
+    }
+
+
+    /**
+     * @name 判断是否有待审批的纪念馆
+     */
+    public function hasApplys($uid)
+    {
+        return Memorial::find()->where(['status'=>Memorial::STATUS_APPLY])
+                                ->andWhere(['user_id'=>$uid])->one();
+
     }
 
     public function actionComment()
