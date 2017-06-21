@@ -42,17 +42,25 @@ $this->title="个人中心";
             </div>
             <p class="weui-grid__label">订单记录</p>
         </a>
+        <!--
         <a href="<?=Url::toRoute(['/grave/m/default/renew'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/xufei.png" alt="续维护费">
             </div>
             <p class="weui-grid__label">续维护费</p>
         </a>
-        <a href="<?=Url::toRoute(['/grave/m/default/reapir'])?>" class="weui-grid js_grid" data-id="button">
+        -->
+        <a href="<?=Url::toRoute(['/grave/m/default/repair'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/xiujinbo.png" alt="修金箔">
             </div>
             <p class="weui-grid__label">修金箔</p>
+        </a>
+        <a href="<?=Url::toRoute(['/grave/m/default/tombs'])?>" class="weui-grid js_grid" data-id="button">
+            <div class="weui-grid__icon">
+                <img src="/static/images/icons/archive.png" alt="墓位档案">
+            </div>
+            <p class="weui-grid__label">墓位档案</p>
         </a>
         <a href="<?=Url::toRoute(['/user/m/default/profile'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">

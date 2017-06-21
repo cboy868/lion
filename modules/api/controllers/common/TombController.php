@@ -38,8 +38,6 @@ class TombController extends Controller
         if (!isset($params['uid'])) {
             return ['errno'=>1, 'error'=>'不合法的用户id'];
         }
-//
-
 
         $query->where(['<>', 'status', $modelClass::STATUS_DELETE]);
         $query->andWhere(['user_id'=>$params['uid']]);
@@ -47,8 +45,6 @@ class TombController extends Controller
         if ($query->count() == 0) {
             return ['errno'=>1, 'error'=>'没有待续费的墓位'];
         }
-
-
 
         $pageSize = 10;
         if (isset($params['pageSize'])) {
@@ -95,6 +91,24 @@ class TombController extends Controller
 
         return ['errno'=>1, 'error'=>'下单失败，请联系管理人员'];
     }
+
+//    public function actionRepair()
+//    {
+//        $post = Yii::$app->request->post();
+//
+//        $model = $this->findModel($post['id']);
+//
+//        if (!$model) {
+//            return ['errno'=>1, 'error'=>'此墓位不存在'];
+//        }
+//
+//
+//        if (!$model->ins) {
+//            return ['errno'=>1, 'error'=>'此墓位不存在碑文，请联系工作人员'];
+//        }
+//
+//        $config = Yii::$app->getModule('grave')->params['goods'];
+//    }
 
     protected function findModel($id)
     {

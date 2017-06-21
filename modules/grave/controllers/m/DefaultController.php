@@ -139,41 +139,37 @@ class DefaultController extends \app\core\web\MController
     }
 
     /**
+     * @name 墓位档案
+     */
+    public function actionTombs()
+    {
+        $query = Tomb::find()->where(['user_id'=>Yii::$app->user->id]);
+
+        if ($query->count() == 1) {
+            $model = $query->one();
+            return $this->redirect(['tomb', 'id'=>$model->id]);
+        }
+
+        return $this->render('tombs');
+    }
+
+    public function actionTomb($id)
+    {
+        $model = $this->findTomb($id);
+
+        return $this->render('tomb', [
+            'tomb' => $model
+        ]);
+    }
+
+    /**
      * @param $id
      * @return string|yii\web\Response
      * @name 墓位续费
      */
     public function actionRenew($id=1)
     {
-        $model = $this->findTomb($id);
-
         return $this->render('renew');
-
-//        $config = Yii::$app->params['goods'];
-//        $gid = $config['id']['renew'];
-//        $fee = $config['fee']['renew'];
-//
-//        $ginfo = Goods::createVirtual($gid['id'], $gid['name']);
-//
-//        if (Yii::$app->request->isPost) {
-//            $post = Yii::$app->request->post();
-//
-//            $extra = [
-//                'price' => $post['num'] * $fee * $model->price,
-//                'num'   => $post['num'],
-//                'tid'   => $model->id,
-//                'note'  => $post['des']
-//            ];
-//            $info = $ginfo->order($model->user_id, $extra);
-//            if ($info['order']) {
-//                return $this->redirect(['/order/admin/default/view', 'id'=>$info['order']->id]);
-//            }
-//        }
-//
-//        $ginfo = \app\modules\shop\models\Goods::findOne($gid);
-//        $ginfo->original_price = $ginfo->price = $model->price * $fee;
-//
-//        return $this->render('renew', ['model'=>$model, 'ginfo'=>$ginfo]);
     }
 
     /**
@@ -181,7 +177,6 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionRepair($id=1)
     {
-        $model = $this->findTomb($id);
         return $this->render('repair');
 
 //        if (!$model->ins) {

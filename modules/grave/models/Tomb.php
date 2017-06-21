@@ -470,6 +470,10 @@ class Tomb extends \app\core\db\ActiveRecord
     {
         return Attachment::getById($this->thumb, $size, $default);
     }
+    public function getCover($size=null, $default="/static/images/up.png")
+    {
+        return Attachment::getById($this->thumb, $size, $default);
+    }
 
     public function saveAttach($info)
     {

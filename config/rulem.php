@@ -27,6 +27,13 @@ return [
     'm/memorial/<id:\d+>.html'=> 'memorial/m/default/view',
 
 
+    'm/grave'=> 'grave/m/default/index',
+    'm/grave/c<id:\d+>.html'=> 'grave/m/default/index',
+    'm/grave/<id:\d+>.html'=> 'grave/m/default/view',
+    'm/grave/tombs.html'=> 'grave/m/default/tombs',
+    'm/grave/tomb/<id:\d+>.html'=> 'grave/m/default/tomb',
+
+
     'm/article/<mid:\d+>/<cid:\d+>.html' => 'cms/m/default/index',
     'm/article/<mid:\d+>.html' => 'cms/m/default/index',
     'm/article-detail/<mid:\d+>/<id:\d+>.html' => 'cms/m/default/view',
