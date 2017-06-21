@@ -67,8 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
                           <tr>
                               <td colspan="3" style="text-align:right;">
                                 <a class="modalEditButton btn btn-info btn-xs" href="<?=Url::toRoute(['/shop/admin/type/spec-update', 'id'=>$model->id])?>" title="编辑" data-loading-text="页面加载中, 请稍后..." onclick="return false"><span class="fa fa-edit"></span>编辑属性 <?=$model->name?></a> 
-                                <a href="<?=Url::toRoute(['/shop/admin/type/spec-delete', 'id'=>$model->id])?>" class="btn btn-danger  btn-xs" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post"><span class="fa fa-trash"></span>删除此属性</a> 
+                                <a href="<?=Url::toRoute(['/shop/admin/type/spec-delete', 'id'=>$model->id])?>" class="btn btn-danger  btn-xs" title="删除" aria-label="删除" data-confirm="您确定要删除此项吗？" data-method="post"><span class="fa fa-trash"></span>删除此属性</a>
+                                  <?php if ($model->is_multi != 2): ?>
                                 <a href="<?=Url::toRoute(['/shop/admin/type/spec-create-val', 'id'=>$model->id])?>" class="modalAddButton btn btn-info  btn-xs" title="添加属性值" data-loading-text="页面加载中, 请稍后..." onclick="return false"><span class="fa fa-plus"></span>添加属性值</a>
+                                  <?php endif;?>
                               </td>
                         </tr>
                       <?php foreach ($model->vals as $val): ?>

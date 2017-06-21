@@ -91,7 +91,7 @@ border-color:#337ab7;
                             <?php if ($attr->is_multi == 2): ?>
                                 <?php $ats = $model->getAv(); ?>
                                 <label class="control-label"><?=$attr->name?></label>
-                                    <input name="AvRel[<?=$attr->id?>]" class="form-control " value="<?=$ats['attr'][$attr->id]['value']?>">
+                                    <input name="AvRel[<?=$attr->id?>]" class="form-control " value="<?=isset($ats['attr'][$attr->id]) ? $ats['attr'][$attr->id]['value'] : ''?>">
                             <?php else: ?>
                                 <label class="control-label"><?=$attr->name?></label>
                                     <select id="lunch" name="AvRel[<?=$attr->id?>]" class="sel-ize" title="<?=$attr->name?>">

@@ -294,7 +294,7 @@ class TypeController extends BackController
 
 
             if ($model->save()) {
-
+                $spec = Attr::findOne($model->attr_id);
 
                 $rdi = $spec->is_spec ? 'spec' : 'attr';
                 return $this->redirect([$rdi, 'id'=>$model->type_id]);
@@ -315,7 +315,7 @@ class TypeController extends BackController
         $model = $this->findSpecValModel($id);//->delete();
         $attr_id = $model->attr_id;
         $model->delete();
-
+        $spec = Attr::findOne($model->attr_id);
         $rdi = $spec->is_spec ? 'spec' : 'attr';
 
         return $this->redirect([$rdi, 'id'=>$model->type_id]);
@@ -384,7 +384,7 @@ class TypeController extends BackController
         if ($model->load(Yii::$app->request->post())) {
             // $model->is_spec = Attr::SPEC_YES;
             if ($model->save()) {
-                $rdi = $spec->is_spec ? 'spec' : 'attr';
+                $rdi = $model->is_spec ? 'spec' : 'attr';
                 return $this->redirect([$rdi, 'id'=>$model->type_id]);
             }
         } 
@@ -411,10 +411,10 @@ class TypeController extends BackController
             Yii::$app->db->createCommand()->delete('{{%shop_av}}', ['attr_id'=>$id])->execute();
 
             $outerTransaction->commit();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $outerTransaction->rollBack();
         }
-        $rdi = $spec->is_spec ? 'spec' : 'attr';
+        $rdi = $model->is_spec ? 'spec' : 'attr';
         return $this->redirect([$rdi, 'id'=>$model->type_id]);
     }
 

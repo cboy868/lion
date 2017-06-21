@@ -20,6 +20,8 @@ use app\core\helpers\ArrayHelper;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('名字') ?>
 
+    <?= $form->field($model, 'is_multi')->dropDownList(\app\modules\shop\models\Attr::multi())->label('输入类型') ?>
+
     <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
 
 	<div class="form-group">

@@ -74,6 +74,21 @@ class Attr extends \app\core\db\ActiveRecord
         return $this->type->title;
     }
 
+
+    public static function multi($type=null)
+    {
+        $m = [
+            self::MULTI_NO => '选择输入',
+            self::MULTI_SELF => '自输入',
+        ];
+
+        if ($type === null) {
+            return $m;
+        }
+
+        return $m[$type];
+    }
+
     public function getMulti()
     {
         $mul = [
