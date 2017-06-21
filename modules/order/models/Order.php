@@ -168,10 +168,16 @@ class Order extends \app\core\db\ActiveRecord
     public static function getValidOrder($user_id,$extra=[])
     {
 
-        $model = self::find()->where(['user_id'=>$user_id])
+        $query = self::find()->where(['user_id'=>$user_id])
                              ->andWhere(['status'=>self::STATUS_NORMAL])
-                             ->andWhere(['progress'=>self::PRO_INIT])
-                             ->one();
+                             ->andWhere(['progress'=>self::PRO_INIT]);
+
+
+        if (isset($extra['tid'])){
+            $query->andWhere(['tid'=>$extra['tid']]);
+        }
+
+        $model = $query->one();
 
         if (!$model) {
             $model = new self();

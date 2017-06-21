@@ -15,7 +15,6 @@ use app\modules\shop\models\Sku;
  */
 class Goods extends \app\modules\shop\models\Goods
 {
-    const BASE_URL = 'http://www.lion.cn';
     public function fields()
     {
 

@@ -45,9 +45,10 @@ class MemorialController extends Controller
 
         if (isset($params['uid'])) {
             $query->andWhere(['user_id'=>$params['uid']]);
+        } else {
+            $query->andWhere(['privacy'=>$modelClass::PRIVACY_PUBLIC]);
         }
 
-        $query->andWhere(['privacy'=>Memorial::PRIVACY_PUBLIC]);
 
         $pageSize = 10;
         if (isset($params['pageSize'])) {

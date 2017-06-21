@@ -9,6 +9,9 @@ $config = [
         'api' => [
             'class' => 'app\modules\api\Module',
         ],
+        'grave' => [
+            'class' => 'app\modules\grave\Module',
+        ],
     ],
     'components' => [
         'db' => require(__DIR__ . '/../db.php'),

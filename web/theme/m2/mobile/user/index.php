@@ -28,12 +28,14 @@ $this->title="个人中心";
             </div>
             <p class="weui-grid__label">申请建馆</p>
         </a>
+        <!--
         <a href="#" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/article.png" alt="投诉建议">
             </div>
             <p class="weui-grid__label">投诉建议</p>
         </a>
+        -->
         <a href="<?=Url::toRoute(['/order/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="订单记录">
@@ -123,10 +125,8 @@ $this->title="个人中心";
             memorialData:{uid:1,thumbSize:'120x120', status:1},
             applyData:{uid:1,thumbSize:'120x120', status:0},
             apiMemorial: 'http://api.lion.cn/api/v1/memorial',
-            apiUrl: 'http://api.lion.cn/api/v1/news'
         },
         beforeMount: function() {
-            this.getNews();
             this.memorial();
             this.apys();
         },
@@ -138,13 +138,6 @@ $this->title="个人中心";
             })
         },
         methods: {
-            getNews: function() {
-                this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.sendData}).then((response) => {
-                    this.$set(this, 'nitems', response.data.items)
-                }).catch(function(response) {
-                    console.log(response)
-                })
-            },
             memorial: function () {
                 this.$http.jsonp(this.apiMemorial,{'jsonp':'lcb', params:this.memorialData}).then((response) => {
                     this.$set(this, 'memorials', response.data.items)
@@ -154,7 +147,6 @@ $this->title="个人中心";
             },
             apys: function () {
                 this.$http.jsonp(this.apiMemorial,{'jsonp':'lcb', params:this.applyData}).then((response) => {
-console.dir(response.data.items);
                     this.$set(this, 'applys', response.data.items)
                 }).catch(function(response) {
                     console.log(response)
