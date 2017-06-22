@@ -23,7 +23,14 @@ class ActiveRecord extends \yii\db\ActiveRecord
     const DTNULL = '0000-00-00 00:00:00';
     const DNULL  = '0000-00-00';
 
-    const BASE_URL = 'http://www.lion.cn';
+    static $base_url;
+
+    public function init()
+    {
+        parent::init();
+        self::$base_url = 'http://' . $_SERVER['HTTP_HOST'];
+
+    }
 
     public function del()
     {

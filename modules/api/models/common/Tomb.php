@@ -25,7 +25,7 @@ class Tomb extends \app\modules\grave\models\Tomb
             //参数 cover-size=50x50&
             'cover' => function($model){
                 $size = Yii::$app->request->get('thumbSize');
-                return self::BASE_URL . $model->getImg($size);
+                return self::$base_url . $model->getImg($size);
             }
 
         ];

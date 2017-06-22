@@ -32,9 +32,9 @@ class Goods extends \app\modules\shop\models\Goods
             'cover' => function($model){
                 $size = Yii::$app->request->get('cover-size');
                 if ($size) {
-                    return self::BASE_URL . $model->getCover($size);
+                    return self::$base_url . $model->getCover($size);
                 }
-                return self::BASE_URL . $model->cover;
+                return self::$base_url . $model->cover;
             }
 
         ];

@@ -22,9 +22,9 @@ class User extends \app\modules\user\models\User
             'avatar' => function($model){
                 $size = Yii::$app->request->get('avatarSize');
                 if ($size) {
-                    return self::BASE_URL . $model->getAvatar($size);
+                    return self::$base_url . $model->getAvatar($size);
                 }
-                return self::BASE_URL . $model->avatar;
+                return self::$base_url . $model->avatar;
             },
 
         ];

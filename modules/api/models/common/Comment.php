@@ -28,7 +28,7 @@ class Comment extends \app\core\models\Comment
             //参数 cover-size=50x50&
             'avatar' => function($model){
                 $size = Yii::$app->request->get('avatarSize');
-                return self::BASE_URL . $model->fromUser->getAvatar($size);
+                return self::$base_url . $model->fromUser->getAvatar($size);
             }
 
         ];

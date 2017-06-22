@@ -4,7 +4,7 @@ namespace app\modules\api\models\common;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-
+use app\modules\news\models\NewsPhoto;
 
 /**
  * This is the model class for table "{{%shop_goods}}".
@@ -39,9 +39,9 @@ class News extends \app\modules\news\models\News
             'cover' => function($model){
                 $size = Yii::$app->request->get('cover-size');
                 if ($size) {
-                    return self::BASE_URL . $model->getCover($size);
+                    return self::$base_url . $model->getCover($size);
                 }
-                return self::BASE_URL . $model->cover;
+                return self::$base_url . $model->cover;
             },
             'body' => function($model){
                 return $model->type == self::TYPE_TEXT ? $model->body->body : '';
@@ -75,7 +75,7 @@ class News extends \app\modules\news\models\News
                     $img_size = $req->get('image-size');
                     $size = $img_size ? $img_size : null;
                     foreach ($photos as $v) {
-                        $images[$v['id']] = self::BASE_URL . NewsPhoto::getById($v['id'], $size);
+                        $images[$v['id']] = self::$base_url . NewsPhoto::getById($v['id'], $size);
                     }
                     return $images;
                 }
