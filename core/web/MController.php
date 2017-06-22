@@ -34,21 +34,26 @@ class MController extends \app\core\web\Controller
         Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
         $this->_theme();
 
+    }
+
+    protected function initWechat()
+    {
         $wid = Yii::$app->request->get('wid');
-//
-//        $session = Yii::$app->getSession();
-//
-//        if (!$session->has('wechat.id')) {
-//            return $this->redirect(['/wechat/admin/account/index']);
-//        }
-//        $wid = $session->get('wechat.id');
+
+        if (!$wid) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->setOptions($wid);
+        $this->app = new Application($this->options);
 
 
-        //暂时注释掉
-//        $this->wid = $wid;
-//        $this->setOptions($wid);
-//        $this->app = new Application($this->options);
-
+        $oauth = $this->app->oauth;
+        $session = Yii::$app->getSession();
+        if (Yii::$app->user->isGuest) {
+            $session['target_url'] = Url::current();
+            $oauth->redirect()->send();
+        }
     }
 
     protected function _theme() {

@@ -20,6 +20,8 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionIndex()
     {
+
+        $this->initWechat();
 //        $oauth = $this->app->oauth;
 //        $session = Yii::$app->getSession();
 //        if (Yii::$app->user->isGuest) {
