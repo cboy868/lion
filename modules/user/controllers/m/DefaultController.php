@@ -31,8 +31,7 @@ class DefaultController extends \app\core\web\MController
 
     public function actionIndex()
     {
-
-        p($this->sys_user);die;
+        p($this->wechat_user);die;
         return $this->render('index');
     }
 
