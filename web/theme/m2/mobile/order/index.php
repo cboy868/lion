@@ -46,11 +46,12 @@ $this->title="我的订单列表";
 
 
 <?php $this->beginBlock('order') ?>
+var uid = '<?=$wechat['user_id']?>';
 var demo = new Vue({
     el: '#order-box',
     data: {
         orders: [],
-        sendData:{relThumbSize:'60x60',user:1,page:1,pageSize:8,expand:'rels'},
+        sendData:{relThumbSize:'60x60',user:uid,page:1,pageSize:8,expand:'rels'},
         apiUrl: base_url +'order',
         apiDel: base_url +'order/del',
         pageCount:1,
