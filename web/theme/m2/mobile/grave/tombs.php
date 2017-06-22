@@ -34,7 +34,7 @@ $this->title="已购买的墓位";
                         if (response.body.errno) {
                             $.toast.prototype.defaults.duration = 3000;
                             $.toast(response.body.error, "error", function() {
-                                location.href="/m/user?wid=<?=$wid?>" ;
+                                location.href="/m/user?wid=" + wid ;
                             });
                         }
                         this.$set(this, 'tombs', response.data.items);
