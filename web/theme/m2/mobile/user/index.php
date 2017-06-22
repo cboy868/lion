@@ -16,6 +16,8 @@ $wid = Yii::$app->request->get('wid');
         <div class="swiper-pagination"></div>
     </div>
 
+    <div class="weui-panel__hd">适用于原来没有注册过本系统的用户</div>
+
     <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
         <a href="<?=Url::toRoute(['/grave/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
