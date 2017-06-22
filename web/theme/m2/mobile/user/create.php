@@ -48,7 +48,6 @@ $this->title="创建系统账号";
 </div>
 
 <?php $this->beginBlock('create') ?>
-<script>
     var wechat_uid = "<?=$wechat['id']?>";
     var wid="<?=Yii::$app->request->get('wid')?>";
     var demo = new Vue({
@@ -73,9 +72,7 @@ $this->title="创建系统账号";
 
                 this.$http.post(this.apiCreate, data,{emulateJSON:true}).then(function(response){
                     if (response.body.errno == 1) {
-                        $.toast(response.body.error, "error", function() {
-                            location.href="/m/user?wid=" + wid;
-                        });
+                        $.toast(response.body.error, "error");
                     } else {
                         $.toast('账号创建成功，请查看是否正确', "success", function() {
                             location.href="/m/user/default/profile.html?wid=" + wid;

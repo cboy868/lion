@@ -51,9 +51,7 @@ $this->title="绑定系统账号";
 
                 this.$http.post(this.apiBind, data,{emulateJSON:true}).then(function(response){
                     if (response.body.errno == 1) {
-                        $.toast(response.body.error, "error", function() {
-                            location.href="/m/user?wid=" + wid;
-                        });
+                        $.toast(response.body.error, "error");
                     } else {
                         $.toast('账号绑定成功，请查看是否正确', "success", function() {
                             location.href="/m/user/default/profile.html?wid=" + wid;
