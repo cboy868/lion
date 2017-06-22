@@ -33,6 +33,7 @@ $this->title="绑定系统账号";
 
 <?php $this->beginBlock('bind') ?>
     var wechat_uid = "<?=$wechat['id']?>";
+    var wid="<?=Yii::$app->request->get('wid')?>";
     var demo = new Vue({
         el: '#bind',
         data: {
@@ -49,7 +50,16 @@ $this->title="绑定系统账号";
                 var data = {wechat_uid:this.wechat_uid,uname:this.uname,passwd:this.passwd};
 
                 this.$http.post(this.apiBind, data,{emulateJSON:true}).then(function(response){
-                    console.dir(response);
+                    if (response.body.errno == 1) {
+                        $.toast(response.body.error, "error", function() {
+                            location.href="/m/user?wid=" + wid;
+                        });
+                    } else {
+                        $.toast('账号绑定成功，请查看是否正确', "success", function() {
+                            location.href="/m/user/default/profile.html?wid=" + wid;
+                        });
+                    }
+
                 }, function(response){
 
                 });
