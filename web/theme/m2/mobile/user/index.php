@@ -123,7 +123,7 @@ $this->title="个人中心";
 
 
 <?php $this->beginBlock('news') ?>
-    var user_id = "<?=$wechat.user_id?>";
+    var user_id = "<?=$wechat->user_id?>";
     var demo = new Vue({
         el: '#news-box',
         data: {
