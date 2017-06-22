@@ -18,13 +18,13 @@ $wid = Yii::$app->request->get('wid');
                 <input type="file" class="avatar-input" name="avatar" @change="upfile" style="display: none;">
             </a>
         </form>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html?wid=<?=$wid?>" v-if="user=null">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html?wid=<?=$wid?>" v-if="user==null">
             <div class="weui-cell__bd">
                 <p>绑定账号</p>
             </div>
             <div class="weui-cell__ft"></div>
         </a>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wid?>" v-if="user=null">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wid?>" v-if="user==null">
             <div class="weui-cell__bd">
                 <p>创建账号</p>
             </div>
@@ -49,14 +49,14 @@ $wid = Yii::$app->request->get('wid');
             </div>
         </div>
 
-        <div class="weui-cell" v-if="user=null" >
+        <div class="weui-cell" v-if="user==null" >
             <div class="weui-cell__hd"><label for="" class="weui-label">手机号</label></div>
             <div class="weui-cell__bd">
                 <input class="weui-input" pattern="[0-9]*"  placeholder="手机号" name="mobile" v-model="user.mobile">
             </div>
         </div>
 
-        <div class="weui-cell" v-if="user=null" >
+        <div class="weui-cell" v-if="user==null" >
             <div class="weui-cell__hd"><label for="" class="weui-label">邮箱</label></div>
             <div class="weui-cell__bd">
                 <input class="weui-input"  placeholder="邮箱" name="email" v-model="user.email">
