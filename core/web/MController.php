@@ -50,7 +50,7 @@ class MController extends \app\core\web\Controller
         $oauth = $this->app->oauth;
         $session = Yii::$app->getSession();
 
-        if (!$session->has('ws')) {
+        if (!$session->has('ws1')) {
             $session['target_url'] = Url::current();
             $oauth->redirect()->send();
         }

@@ -16,7 +16,7 @@ class DefaultController extends \app\core\web\MController
 
         p(Yii::$app->user->identity);
 
-        p($session['ws']);die;
+        p($session['ws1']);die;
     }
 
     public function actionIndex()
