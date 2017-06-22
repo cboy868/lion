@@ -25,6 +25,8 @@ use app\core\helpers\Url;
     <body>
     <?php $this->beginBody() ?>
 
+    <script type="text/javascript" src="/theme/m2/static/js/api.js"></script>
+
         <!-- <header class="bar bar-nav">
             <h1 class="title"><?=g("cp_name")?></h1>
         </header> -->

@@ -135,7 +135,7 @@ $wid = Yii::$app->request->get('wid');
             sendData:{limit:5, thumbSize:'120x120'},
             memorialData:{uid:user_id,thumbSize:'120x120', status:1},
             applyData:{uid:user_id,thumbSize:'120x120', status:0},
-            apiMemorial: 'http://api.lion.cn/api/v1/memorial',
+            apiMemorial: base_url + 'memorial',
         },
         beforeMount: function() {
             this.memorial();

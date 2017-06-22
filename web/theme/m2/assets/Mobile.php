@@ -16,7 +16,8 @@ class Mobile extends AssetBundle
     public $js = [
         '/theme/site/static/js/swiper.js',
         '//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js',
-        '//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js'
+        '//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js',
+        '/theme/m2/static/js/api.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
