@@ -58,12 +58,6 @@ class MController extends \app\core\web\Controller
             $oauth->redirect()->send();
         }
 
-
-
-//        if (Yii::$app->user->isGuest) {
-//            $session['target_url'] = Url::current();
-//            $oauth->redirect()->send();
-//        }
     }
 
     protected function _theme() {
