@@ -17,13 +17,13 @@ $this->title="个人信息管理";
                 <input type="file" class="avatar-input" name="avatar" @change="upfile" style="display: none;">
             </a>
         </form>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html?wid=<?=$wechat['id']?>">
             <div class="weui-cell__bd">
                 <p>绑定账号</p>
             </div>
             <div class="weui-cell__ft" v-text="user.nickname"></div>
         </a>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wechat['id']?>">
             <div class="weui-cell__bd">
                 <p>创建账号</p>
             </div>
