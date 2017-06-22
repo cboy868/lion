@@ -21,6 +21,7 @@ class DefaultController extends \app\core\web\MController
         $openid = $user->getId();
 
         $this->loginByOpenId($openid);
+        $session = Yii::$app->getSession();
 
         $targetUrl = empty($session['target_url']) ? '/m' : $session['target_url'];
         header('location:'. $targetUrl);
@@ -34,13 +35,19 @@ class DefaultController extends \app\core\web\MController
             throw new NotFoundHttpException('The requested wechat user does not exist.');
         }
 
+
         $session = Yii::$app->getSession();
         $session['wechat.user'] = $model;
+
+        p($model);
+
 
         if ($model->user_id) {
             $model->login();
             $session['wechat.sys_user'] = Yii::$app->user;
         }
+
+        p($session['wechat.sys_user']);die;
     }
 
 }
