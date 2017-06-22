@@ -33,7 +33,7 @@ $this->title="个人信息管理";
         <div class="weui-cell">
             <div class="weui-cell__hd"><label for="" class="weui-label">姓名</label></div>
             <div class="weui-cell__bd">
-                <input class="weui-input" placeholder="姓名" name="mobile" v-model="user.addition.real_name">
+                <input class="weui-input" placeholder="姓名" name="mobile" v-model="addition.real_name">
             </div>
         </div>
 
@@ -42,7 +42,7 @@ $this->title="个人信息管理";
                 <label for="" class="weui-label">性别</label>
             </div>
             <div class="weui-cell__bd">
-                <select class="weui-select" name="gender" v-model="user.addition.gender">
+                <select class="weui-select" name="gender" v-model="addition.gender">
                     <option value="1" >男</option>
                     <option value="2" >女</option>
                     <option value="3" >保密</option>
@@ -66,7 +66,7 @@ $this->title="个人信息管理";
 
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <textarea class="weui-textarea" placeholder="住址" rows="3" name="address" v-model="user.addition.address"></textarea>
+                <textarea class="weui-textarea" placeholder="住址" rows="3" name="address" v-model="addition.address"></textarea>
                 <div class="weui-textarea-counter"><span>0</span>/200</div>
             </div>
         </div>
@@ -90,7 +90,8 @@ $this->title="个人信息管理";
             apiUserInfo: 'http://api.ibagou.com/api/v1/users',
             apiSave:'http://api.lion.cn/api/v1/user/up',
             uid:user_id,
-            user:{avatar:''}
+            user:{avatar:''},
+            addition:{}
         },
         beforeMount: function() {
             this.userinfo();
@@ -100,8 +101,8 @@ $this->title="个人信息管理";
         methods: {
             userinfo: function() {
                 this.$http.jsonp(this.apiUserInfo + '/' + this.uid,{'jsonp':'lcb', params:{expand:'addition',avatarSize:'20x20'}}).then((response) => {
-                    console.dir(response.data.addition);
-                    this.$set(this, 'user', response.data)
+                    this.$set(this, 'user', response.data);
+                    this.$set(this, 'addition', response.data.addition);
                 }).catch(function(response) {
                     console.log(response)
                 })
