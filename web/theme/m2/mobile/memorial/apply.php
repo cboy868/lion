@@ -43,6 +43,7 @@ $this->title="纪念馆建馆申请";
 
 
 <?php $this->beginBlock('memorial') ?>
+var wid="<?=Yii::$app->request->get('wid')?>";
 var app = new Vue({
     el:'#memorial-content',
     data:{
@@ -61,7 +62,7 @@ var app = new Vue({
 
                 if (response.body.errno) {
                     $.toast(response.body.error, "error", function() {
-                        location.href="/m/user";
+                        location.href="/m/user?wid=" + wid;
                     });
                 }
 

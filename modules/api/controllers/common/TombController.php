@@ -43,7 +43,7 @@ class TombController extends Controller
         $query->andWhere(['user_id'=>$params['uid']]);
 
         if ($query->count() == 0) {
-            return ['errno'=>1, 'error'=>'没有待续费的墓位'];
+            return ['errno'=>1, 'error'=>'没有有效墓位'];
         }
 
         $pageSize = 10;
