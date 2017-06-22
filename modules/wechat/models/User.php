@@ -29,7 +29,6 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends \app\core\db\ActiveRecord
 {
-    private $_sysuser;
     /**
      * @inheritdoc
      */
@@ -107,11 +106,7 @@ class User extends \app\core\db\ActiveRecord
 
     public function getSysUser()
     {
-        if ($this->_sysuser === null) {
-            $this->_sysuser = \app\modules\user\models\User::findIdentity($this->user_id);
-        }
-
-        return $this->_sysuser;
+        return \app\modules\user\models\User::findIdentity($this->user_id);
     }
 
     public function login()
