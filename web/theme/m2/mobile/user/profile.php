@@ -1,6 +1,7 @@
 <?php
 $this->title="个人信息管理";
 \app\assets\JqueryFormAsset::register($this);
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content" id="profile-box">
 
@@ -17,13 +18,13 @@ $this->title="个人信息管理";
                 <input type="file" class="avatar-input" name="avatar" @change="upfile" style="display: none;">
             </a>
         </form>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html?wid=<?=$wechat['id']?>">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html?wid=<?=$wid?>">
             <div class="weui-cell__bd">
                 <p>绑定账号</p>
             </div>
             <div class="weui-cell__ft" v-text="user.nickname"></div>
         </a>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wechat['id']?>">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wid?>">
             <div class="weui-cell__bd">
                 <p>创建账号</p>
             </div>
