@@ -3,6 +3,8 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 
 \app\assets\VueAsset::register($this);
+
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content">
     <div class="swiper-container" style="height: 200px;">
@@ -15,19 +17,19 @@ use app\core\helpers\Url;
     </div>
 
     <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
-        <a href="<?=Url::toRoute(['/cms/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/cms/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/static/images/icons/help.png" alt="须知">
             </div>
             <p class="weui-grid__label">帮助</p>
         </a>
-        <a href="<?=Url::toRoute(['/shop/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/shop/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/flower.png" alt="祭祀">
             </div>
             <p class="weui-grid__label">祭祀</p>
         </a>
-        <a href="<?=Url::toRoute(['/m/default/route'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/m/default/route', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/nav.png" alt="一键导航">
             </div>
@@ -48,7 +50,7 @@ use app\core\helpers\Url;
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">新闻资讯</div>
             <div class="weui-panel__bd" id="news-box">
-                <a v-bind:href="'/m/news/' + item.id +'.html'" class="weui-media-box weui-media-box_appmsg" v-for="item in nitems">
+                <a v-bind:href="'/m/news/' + item.id +'.html?wid=<?=$wid?>'" class="weui-media-box weui-media-box_appmsg" v-for="item in nitems">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" v-bind:src="item.cover" v-bind:alt="item.title">
                     </div>
@@ -59,7 +61,7 @@ use app\core\helpers\Url;
                 </a>
             </div>
             <div class="weui-panel__ft">
-                <a href="/m/news" class="weui-cell weui-cell_access weui-cell_link">
+                <a href="/m/news?wid=<?=$wid?>" class="weui-cell weui-cell_access weui-cell_link">
                     <div class="weui-cell__bd">查看更多</div>
                     <span class="weui-cell__ft"></span>
                 </a>    
