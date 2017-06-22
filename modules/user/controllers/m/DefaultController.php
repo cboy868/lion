@@ -23,8 +23,12 @@ class DefaultController extends \app\core\web\MController
                 $this->sys_user = $session->get('wechat.sys_user');
             }
 
+
+
             $session['wechat.user'] = null;
             $session['wechat.sys_user'] =null;
+
+            p($session['target_url']);die;
 
             return true;
         }
