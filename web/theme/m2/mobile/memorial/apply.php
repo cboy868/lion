@@ -69,7 +69,7 @@ var app = new Vue({
                 if (response.body == true) {
                     $.toast.prototype.defaults.duration = 3000;
                     $.toast("纪念馆申请完成，等待审核", "success", function() {
-                        location.href="/m/user";
+                        location.href="/m/user?wid=" + wid;
                     });
                 }
             }, function(response){
