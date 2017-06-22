@@ -15,6 +15,8 @@ class DefaultController extends \app\core\web\MController
             $session = Yii::$app->getSession();
             p(Yii::$app->user->id);
             p($session['ws2']);die;
+            $session['ws2'] = null;
+
             return true;
         }
     }
