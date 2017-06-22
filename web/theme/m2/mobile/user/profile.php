@@ -87,7 +87,7 @@ $this->title="个人信息管理";
         el: '#profile-box',
         data: {
             apiUrl: 'http://api.lion.cn/api/v1/user/avatar',
-            apiUserInfo: 'http://api.lion.cn/api/v1/users',
+            apiUserInfo: 'http://api.ibagou.com/api/v1/users',
             apiSave:'http://api.lion.cn/api/v1/user/up',
             uid:user_id,
             user:{avatar:''}
