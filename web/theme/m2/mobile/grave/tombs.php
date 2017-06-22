@@ -16,6 +16,7 @@ $this->title="已购买的墓位";
 </div>
 
 <?php $this->beginBlock('memorial') ?>
+    var wid="<?=Yii::$app->request->get('wid')?>";
     $(function(){
         var app = new Vue({
             el:'#tomb-content',
@@ -30,7 +31,12 @@ $this->title="已购买的墓位";
             methods:{
                 getList(append=false){
                     this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.apiParams}).then(function (response) {
-                        console.dir(response.body.errno);
+                        if (response.body.errno) {
+                            $.toast.prototype.defaults.duration = 3000;
+                            $.toast(response.body.error, "error", function() {
+                                location.href="/m/user?wid=<?=$wid?>" ;
+                            });
+                        }
                         this.$set(this, 'tombs', response.data.items);
                     }).catch(function () {
 
