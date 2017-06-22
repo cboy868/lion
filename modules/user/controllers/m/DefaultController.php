@@ -5,6 +5,17 @@ namespace app\modules\user\controllers\m;
 
 class DefaultController extends \app\core\web\MController
 {
+
+    public function init()
+    {
+        parent::init();
+        $this->initWechat();
+
+        $session = Yii::$app->getSession();
+
+        p($session['ws']);die;
+    }
+
     public function actionIndex()
     {
         return $this->render('index');

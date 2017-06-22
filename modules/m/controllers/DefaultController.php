@@ -20,13 +20,6 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionIndex()
     {
-
-        $this->initWechat();
-
-        $session = Yii::$app->getSession();
-
-        p($session->get('ws'));die;
-
         //查找登录人的纪念馆
         $user_id = Yii::$app->user->id;
         $mems = Memorial::find()->where(['user_id'=>$user_id])->andWhere(['status'=>Memorial::STATUS_NORMAL])
