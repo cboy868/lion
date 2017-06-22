@@ -26,7 +26,7 @@ class DefaultController extends \app\core\web\MController
     }
 
 
-    public function actionIndex()
+    public function actionIndex($wid)
     {
         return $this->render('index', [
             'wechat' => ArrayHelper::toArray($this->wechat_user)

@@ -4,6 +4,7 @@ use app\core\helpers\Url;
 \app\assets\VueAsset::register($this);
 
 $this->title="个人中心";
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content" id="news-box">
     <div class="swiper-container" style="height: 200px;">
@@ -16,13 +17,13 @@ $this->title="个人中心";
     </div>
 
     <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
-        <a href="<?=Url::toRoute(['/grave/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/grave/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/static/images/icons/realition.png" alt="业务办理">
             </div>
             <p class="weui-grid__label">业务办理</p>
         </a>
-        <a href="<?=Url::toRoute(['/memorial/m/default/apply'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/memorial/m/default/apply', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/memorial.png" alt="申请建馆">
             </div>
@@ -36,7 +37,7 @@ $this->title="个人中心";
             <p class="weui-grid__label">投诉建议</p>
         </a>
         -->
-        <a href="<?=Url::toRoute(['/order/m/default/index'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/order/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="订单记录">
             </div>
@@ -50,19 +51,19 @@ $this->title="个人中心";
             <p class="weui-grid__label">续维护费</p>
         </a>
         -->
-        <a href="<?=Url::toRoute(['/grave/m/default/repair'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/grave/m/default/repair', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/xiujinbo.png" alt="修金箔">
             </div>
             <p class="weui-grid__label">修金箔</p>
         </a>
-        <a href="<?=Url::toRoute(['/grave/m/default/tombs'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/grave/m/default/tombs', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/static/images/icons/archive.png" alt="墓位档案">
             </div>
             <p class="weui-grid__label">墓位档案</p>
         </a>
-        <a href="<?=Url::toRoute(['/user/m/default/profile'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/user/m/default/profile', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">
             </div>
@@ -75,7 +76,7 @@ $this->title="个人中心";
             <div class="weui-panel__hd">纪念馆</div>
 
                 <div class="weui-panel__bd" >
-                    <a :href="'/m/memorial/'+item.id+'.html'" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access"
+                    <a :href="'/m/memorial/'+item.id+'.html?wid=<?=$wid?>'" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access"
                        v-for="item in memorials">
                         <div class="weui-media-box__hd">
                             <img class="weui-media-box__thumb" :src="item.cover">
@@ -114,7 +115,7 @@ $this->title="个人中心";
         </div>
     </div>
     <div class="weui-panel__ft">
-        <a href="/m/memorial" class="weui-cell weui-cell_access weui-cell_link">
+        <a href="/m/memorial?wid=<?=$wid?>" class="weui-cell weui-cell_access weui-cell_link">
             <div class="weui-cell__bd">查看更多公开纪念馆</div>
             <span class="weui-cell__ft"></span>
         </a>
