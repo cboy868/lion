@@ -20,9 +20,6 @@ class DefaultController extends \app\core\web\MController
 
             $this->wechat_user = $session->get('wechat.user');
 
-
-            p($this->wechat_user);die;
-
             if ($session->has('wechat.sys_user')) {
                 $this->sys_user = $session->get('wechat.sys_user');
             }
@@ -34,6 +31,8 @@ class DefaultController extends \app\core\web\MController
 
     public function actionIndex()
     {
+
+        p($this->sys_user);die;
         return $this->render('index');
     }
 
