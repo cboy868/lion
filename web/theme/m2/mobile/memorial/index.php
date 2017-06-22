@@ -29,7 +29,7 @@ $this->title="公开的纪念馆列表";
             el:'#memorial-content',
             data:{
                 memorials:[],
-                apiUrl:'http://api.lion.cn/api/v1/memorial',
+                apiUrl:base_url +'memorial',
                 apiParams : {page:1, pageSize:10,thumbSize:'50x50'},
                 pageCount:1,
                 loading:0

@@ -47,7 +47,7 @@ var wid="<?=Yii::$app->request->get('wid')?>";
 var app = new Vue({
     el:'#memorial-content',
     data:{
-        apiUrl:'http://api.lion.cn/api/v1/memorial/apply',
+        apiUrl:base_url +'memorial/apply',
         params : {uid:1},
     },
     beforeMount: function() {

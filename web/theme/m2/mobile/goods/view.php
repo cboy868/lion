@@ -114,9 +114,9 @@ var demo = new Vue({
     data: {
         item: [],
         sendData:{expand:'spec,image,sku'},
-        apiUrl: 'http://api.lion.cn/api/v1/goods/' + id,
-        cartUrl: 'http://api.lion.cn/api/v1/goods/cart',
-        carCountUrl: 'http://api.lion.cn/api/v1/goods/cart-count',
+        apiUrl: base_url +'v1/goods/' + id,
+        cartUrl: base_url +'goods/cart',
+        carCountUrl: base_url +'goods/cart-count',
         specs:[],
         currentSku:{id:0, price:1, num:1,attr:'',total_num:1},
         skus:[],

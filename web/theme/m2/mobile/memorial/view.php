@@ -90,12 +90,12 @@ var app = new Vue({
     data:{
         jisiNum:{candle:1,flower:2},
         jisiData:{uid:1,id:id},
-        jisiUrl: 'http://api.lion.cn/api/v1/memorial/jisi',
-        jisiNumUrl: 'http://api.lion.cn/api/v1/memorial/jisi-num',
+        jisiUrl: base_url +'memorial/jisi',
+        jisiNumUrl: base_url +'memorial/jisi-num',
 
 
-        commentUrl:'http://api.lion.cn/api/v1/memorial/comment',
-        commentsUrl:'http://api.lion.cn/api/v1/comment',
+        commentUrl:base_url +'memorial/comment',
+        commentsUrl:base_url +'comment',
         commentParams : {page:1, pageSize:10, res_id:id, res_name:'memorial',avatarSize:'50x50'},
         comments:[],
         pageCount:1,

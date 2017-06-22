@@ -68,11 +68,11 @@ var demo = new Vue({
     el: '#cart-box',
     data: {
         items: [],
-        apiUrl: 'http://api.lion.cn/api/v1/goods/cart-list',
-        cartUrl: 'http://api.lion.cn/api/v1/goods/update-cart',
-        carCountUrl:'http://api.lion.cn/api/v1/goods/cart-count',
-        delCartUrl:'http://api.lion.cn/api/v1/goods/del-cart',
-        buyUrl:'http://api.lion.cn/api/v1/order/buy',
+        apiUrl: base_url +'goods/cart-list',
+        cartUrl: base_url +'goods/update-cart',
+        carCountUrl:base_url +'goods/cart-count',
+        delCartUrl:base_url +'goods/del-cart',
+        buyUrl:base_url +'order/buy',
         user:1,
         sels:[],
         result:[]

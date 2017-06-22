@@ -73,7 +73,7 @@ var demo = new Vue({
         order: [],
         rels:[],
         sendData:{thumb:'35x24'},
-        apiUrl: 'http://api.lion.cn/api/v1/order/view?id=<?=$get['id']?>',
+        apiUrl: base_url +'order/view?id=<?=$get['id']?>',
     },
     beforeMount: function() {
         this.getOrder();
