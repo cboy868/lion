@@ -7,38 +7,30 @@ use app\core\helpers\Url;
 class DefaultController extends \app\core\web\MController
 {
 
+    public $wechat_user = null;
+
+    public $sys_user = null;
 
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)){
             $this->initWechat();
             $session = Yii::$app->getSession();
-            p($session['wechat.sys_user']);
-            p($session['wechat.user']);die;
-            $session['wechat.user'] = null;
+
+
+            $this->wechat_user = $session->get('wechat.user');
+
+
+            p($this->wechat_user);die;
+
+            if ($session->has('wechat.sys_user')) {
+                $this->sys_user = $session->get('wechat.sys_user');
+            }
 
             return true;
         }
     }
-//
-//    public function init()
-//    {
-//        parent::init();
-//
-//p(Yii::$app->controller);die;
-////        echo Yii::$app->controller;die;
-////        echo Url::current();die;
-////
-////        $this->initWechat(Url::current());
-////
-////        $session = Yii::$app->getSession();
-////
-////        p(Yii::$app->user->id);
-////
-////        p($session['ws1']);die;
-////
-////        return true;
-//    }
+
 
     public function actionIndex()
     {
