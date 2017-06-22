@@ -22,13 +22,10 @@ class DefaultController extends \app\core\web\MController
     {
 
         $this->initWechat();
-//        $oauth = $this->app->oauth;
-//        $session = Yii::$app->getSession();
-//        if (Yii::$app->user->isGuest) {
-//            $session['target_url'] = Url::current();
-//            $oauth->redirect()->send();
-//        }
 
+        $session = Yii::$app->getSession();
+
+        p($session->get('ws'));die;
 
         //查找登录人的纪念馆
         $user_id = Yii::$app->user->id;

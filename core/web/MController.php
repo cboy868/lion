@@ -43,17 +43,24 @@ class MController extends \app\core\web\Controller
 
     protected function initWechat()
     {
-
         if (!$this->app) {
             throw new NotFoundHttpException();
         }
 
         $oauth = $this->app->oauth;
         $session = Yii::$app->getSession();
-        if (Yii::$app->user->isGuest) {
+
+        if (!$session->has('ws')) {
             $session['target_url'] = Url::current();
             $oauth->redirect()->send();
         }
+
+
+
+//        if (Yii::$app->user->isGuest) {
+//            $session['target_url'] = Url::current();
+//            $oauth->redirect()->send();
+//        }
     }
 
     protected function _theme() {
