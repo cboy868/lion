@@ -20,7 +20,7 @@ class DefaultController extends \app\core\web\MController
         $user = $oauth->user();
         $openid = $user->getId();
 
-        $this->loginByOpenId($openid);
+//        $this->loginByOpenId($openid);
 
 
         $session = Yii::$app->getSession();
