@@ -5,6 +5,7 @@ use app\core\helpers\Url;
 
 \app\web\theme\m2\assets\Mobile::register($this);
 \app\assets\VueAsset::register($this);
+$wid = Yii::$app->request->get('wid');
 ?>
 
 <?php $this->beginPage() ?>
@@ -30,9 +31,8 @@ use app\core\helpers\Url;
             <h1 class="title"><?=g("cp_name")?></h1>
         </header> -->
         <?=$content?>
-
         <div class="weui-tabbar">
-            <a href="<?=Url::toRoute(['/m', 'wid'=>$wechat['user_id']])?>" class="weui-tabbar__item weui-bar__item--on">
+            <a href="<?=Url::toRoute(['/m', 'wid'=>$wid])?>" class="weui-tabbar__item weui-bar__item--on">
                 <div class="weui-tabbar__icon"> <i class="sstfont sst-shouye"></i> </div>
                 <p class="weui-tabbar__label">首 页</p>
             </a>
