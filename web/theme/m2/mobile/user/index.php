@@ -16,7 +16,7 @@ $wid = Yii::$app->request->get('wid');
         <div class="swiper-pagination"></div>
     </div>
 
-    <div class="weui-panel__hd">办理业务之前请先绑定或创建系统账号</div>
+    <div class="weui-panel__hd">办理业务之前请在个人设置中绑定或创建系统账号</div>
 
     <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
         <a href="<?=Url::toRoute(['/grave/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
@@ -69,7 +69,7 @@ $wid = Yii::$app->request->get('wid');
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">
             </div>
-            <p class="weui-grid__label">个人资料</p>
+            <p class="weui-grid__label">个人设置</p>
         </a>
     </div>
     <!--banner 结束-->
