@@ -54,6 +54,13 @@ class WechatUserController extends Controller
     {
         $post = Yii::$app->request->post();
 
+
+        $wecheat_user = WechatUser::findOne($post['wechat_uid']);
+
+        if ($wecheat_user->user_id) {
+            return ['errno'=>1, 'error'=>'用户已绑定，如需更换，请联系工作人员'];
+        }
+
         $uform = new UserForm();
         $uform->username = $post['uname'];
         $uform->email = $post['email'];
@@ -61,14 +68,18 @@ class WechatUserController extends Controller
         $uform->repassword = $post['repasswd'];
 
         if($user = $uform->create()) {
-            $wecheat_user = WechatUser::findOne($post['id']);
-
             $wecheat_user->user_id = $user->id;
-
+            $wecheat_user->save();
             return true;
         }
 
-        return ['errno'=>1, 'error'=>'账户创建失败，请重试'];
+        $error='';
+        if ($errors = $uform->getErrors()) {
+            $error =array_shift($errors);
+            $error = $error[0];
+        }
+
+        return ['errno'=>1, 'error'=>'账户创建失败 '.$error];
 
     }
 

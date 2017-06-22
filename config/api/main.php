@@ -4,6 +4,7 @@ $config = [
     'id' => 'app-api',
     'basePath' => dirname(dirname(__DIR__)),
     'bootstrap' => ['log'],
+    'language' => "zh-CN",
     // 'controllerNamespace' => 'api\modules\v1\controllers',
     'modules' => [
         'api' => [

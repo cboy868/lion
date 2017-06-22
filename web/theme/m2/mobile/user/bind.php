@@ -61,9 +61,7 @@ $this->title="绑定系统账号";
                     }
 
                 }, function(response){
-
                 });
-
             },
         }
     })
