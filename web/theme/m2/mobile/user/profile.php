@@ -13,41 +13,33 @@ $wid = Yii::$app->request->get('wid');
                     <p>头像</p>
                 </div>
                 <div class="weui-cell__ft">
-                    <img class="tx" :src="user.headimgurl" width="20" height="20" style="vertical-align:middle">
+                    <img class="tx" :src="wechat_user.headimgurl" width="20" height="20" style="vertical-align:middle">
                 </div>
                 <input type="file" class="avatar-input" name="avatar" @change="upfile" style="display: none;">
             </a>
         </form>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html?wid=<?=$wid?>">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html?wid=<?=$wid?>" v-if="!user.id">
             <div class="weui-cell__bd">
                 <p>绑定账号</p>
             </div>
-            <div class="weui-cell__ft" v-text="user.nickname"></div>
         </a>
-        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wid?>">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wid?>" v-if="!user.id">
             <div class="weui-cell__bd">
                 <p>创建账号</p>
             </div>
-            <div class="weui-cell__ft" v-text="user.nickname"></div>
         </a>
     </div>
 
     <form class="info-form">
         <input type="hidden" name="id" value="1">
     <div class="weui-cells">
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label for="" class="weui-label">姓名</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" placeholder="姓名" name="mobile" v-model="user.remark">
-            </div>
-        </div>
 
         <div class="weui-cell weui-cell_select weui-cell_select-after">
             <div class="weui-cell__hd">
                 <label for="" class="weui-label">性别</label>
             </div>
             <div class="weui-cell__bd">
-                <select class="weui-select" name="gender" v-model="user.sex">
+                <select class="weui-select" name="gender" v-model="wechat_user.sex">
                     <option value="1" >男</option>
                     <option value="2" >女</option>
                     <option value="3" >保密</option>
@@ -55,7 +47,6 @@ $wid = Yii::$app->request->get('wid');
             </div>
         </div>
 
-        <!--
         <div class="weui-cell">
             <div class="weui-cell__hd"><label for="" class="weui-label">手机号</label></div>
             <div class="weui-cell__bd">
@@ -69,6 +60,7 @@ $wid = Yii::$app->request->get('wid');
                 <input class="weui-input"  placeholder="邮箱" name="email" v-model="user.email">
             </div>
         </div>
+        <!--
 
         <div class="weui-cell">
             <div class="weui-cell__bd">
@@ -97,7 +89,8 @@ $wid = Yii::$app->request->get('wid');
             apiUserInfo: base_url + 'wechat-users',
             apiSave:base_url + 'user/up',
             uid:wechat_user_id,
-            user:{headimgurl:''},
+            user:{mobile:'',email:''},
+            wechat_user:{headimgurl:''},
             addition:{}
         },
         beforeMount: function() {
@@ -107,8 +100,9 @@ $wid = Yii::$app->request->get('wid');
         },
         methods: {
             userinfo: function() {
-                this.$http.jsonp(this.apiUserInfo + '/' + this.uid,{'jsonp':'lcb', params:{expand:'addition',avatarSize:'20x20'}}).then((response) => {
-                    this.$set(this, 'user', response.data);
+                this.$http.jsonp(this.apiUserInfo + '/' + this.uid,{'jsonp':'lcb', params:{expand:'user'}}).then((response) => {
+                    this.$set(this, 'wechat_user', response.data);
+                    this.$set(this, 'user', response.data.user);
                     this.$set(this, 'addition', response.data.addition);
                 }).catch(function(response) {
                     console.log(response)

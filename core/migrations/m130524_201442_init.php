@@ -46,7 +46,7 @@ class m130524_201442_init extends Migration
             'user_id' => $this->primaryKey(),
             'real_name' => $this->string(200),
             'logins'    => $this->integer(),
-            'gender'    => $this->smallInteger(1)->defaultValue(1);//1男 2女
+            'gender'    => $this->smallInteger(1)->defaultValue(1),//1男 2女
             'birth'     => $this->date(),
             'height'    => $this->integer(),//厘米
             'weight'    => $this->float(),//kg

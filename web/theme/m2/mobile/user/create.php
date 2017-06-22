@@ -27,13 +27,13 @@ $this->title="创建系统账号";
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label for="" class="weui-label">登录密码</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" v-model="passwd" placeholder="登录密码">
+                        <input class="weui-input" type="password" v-model="passwd" placeholder="登录密码">
                     </div>
                 </div>
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label for="" class="weui-label">再次输入密码</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" v-model="repasswd" placeholder="再次输入登录密码">
+                        <input class="weui-input" type="password" v-model="repasswd" placeholder="再次输入登录密码">
                     </div>
                 </div>
                 <div class="weui-cells__tips">以后可用此账号登入系统办理其它业务</div>

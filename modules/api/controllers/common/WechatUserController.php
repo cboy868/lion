@@ -12,7 +12,6 @@ class WechatUserController extends Controller
 {
     public $modelClass = 'app\modules\api\models\common\WechatUser';
 
-
     public function behaviors() {
         return parent::behaviors();
     }
