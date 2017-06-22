@@ -8,7 +8,6 @@
 namespace app\core\db;
 
 use Yii;
-
 class ActiveRecord extends \yii\db\ActiveRecord
 {
 
@@ -28,7 +27,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function init()
     {
         parent::init();
-        self::$base_url = 'http://' . $_SERVER['HTTP_HOST'];
+        $tmp = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.'));
+        self::$base_url = 'http://www' . $tmp;
 
     }
 
