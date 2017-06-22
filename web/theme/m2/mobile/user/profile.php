@@ -100,8 +100,7 @@ $this->title="个人信息管理";
         methods: {
             userinfo: function() {
                 this.$http.jsonp(this.apiUserInfo + '/' + this.uid,{'jsonp':'lcb', params:{expand:'addition',avatarSize:'20x20'}}).then((response) => {
-                    console.dir(response.data);
-console.dir(this.user.addition);
+                    console.dir(response.data.addition);
                     this.$set(this, 'user', response.data)
                 }).catch(function(response) {
                     console.log(response)
