@@ -39,7 +39,7 @@ $this->title="绑定系统账号";
             wechat_uid:wechat_uid,
             uname:'',
             passwd:'',
-            apiBind: base_url + 'wechat-users/bind'
+            apiBind: base_url + 'wechat-user/bind'
         },
         methods: {
             bind: function () {
