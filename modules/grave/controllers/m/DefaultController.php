@@ -146,7 +146,7 @@ class DefaultController extends \app\core\web\MController
         $query = Tomb::find()->where(['user_id'=>Yii::$app->user->id]);
 
         if ($query->count() == 0) {
-            return $this->redirect(['/m/user','wid'=>Yii::$app->request->get('id')]);
+            return $this->redirect(['/m/user','wid'=>Yii::$app->request->get('wid')]);
         }
 
         if ($query->count() == 1) {
