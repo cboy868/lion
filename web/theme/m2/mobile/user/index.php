@@ -52,20 +52,22 @@ $wid = Yii::$app->request->get('wid');
             </div>
             <p class="weui-grid__label">订单记录</p>
         </a>
-        <!--
-        <a href="<?=Url::toRoute(['/grave/m/default/renew'])?>" class="weui-grid js_grid" data-id="button">
+        <a href="<?=Url::toRoute(['/grave/m/default/renew', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/xufei.png" alt="续维护费">
             </div>
             <p class="weui-grid__label">续维护费</p>
         </a>
-        -->
+        <!--
+
         <a href="<?=Url::toRoute(['/grave/m/default/repair', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/theme/m2/static/mobile/images/icons/xiujinbo.png" alt="修金箔">
             </div>
             <p class="weui-grid__label">修金箔</p>
         </a>
+                -->
+
         <a href="<?=Url::toRoute(['/grave/m/default/tombs', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
                 <img src="/static/images/icons/archive.png" alt="墓位档案">
