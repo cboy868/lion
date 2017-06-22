@@ -14,8 +14,8 @@ class DefaultController extends \app\core\web\MController
             $this->initWechat();
             $session = Yii::$app->getSession();
             p(Yii::$app->user->id);
-            p($session['ws2']);die;
-            $session['ws2'] = null;
+            p($session['ws3']);die;
+            $session['ws3'] = null;
 
             return true;
         }

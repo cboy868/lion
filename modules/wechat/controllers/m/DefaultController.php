@@ -24,7 +24,7 @@ class DefaultController extends \app\core\web\MController
 
 
         $session = Yii::$app->getSession();
-        $session['ws2'] = $user;
+        $session['ws3'] = $user;
 //        $session['vu'] = Yii::$app->user->identity;
 
         $targetUrl = empty($session['target_url']) ? '/m' : $session['target_url'];
