@@ -17,6 +17,7 @@ class DefaultController extends \app\core\web\MController
             $this->initWechat();
             $session = Yii::$app->getSession();
 
+            $session['wechat.user'] = null;
 
             $this->wechat_user = $session->get('wechat.user');
 
@@ -31,7 +32,6 @@ class DefaultController extends \app\core\web\MController
 
     public function actionIndex()
     {
-        p($this->wechat_user);die;
         return $this->render('index');
     }
 
