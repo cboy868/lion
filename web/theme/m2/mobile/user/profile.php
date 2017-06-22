@@ -86,9 +86,9 @@ $this->title="个人信息管理";
     var demo = new Vue({
         el: '#profile-box',
         data: {
-            apiUrl: 'http://api.lion.cn/api/v1/user/avatar',
-            apiUserInfo: 'http://api.ibagou.com/api/v1/users',
-            apiSave:'http://api.lion.cn/api/v1/user/up',
+            apiUrl: base_url + 'user/avatar',
+            apiUserInfo: base_url + 'users',
+            apiSave:base_url + 'user/up',
             uid:user_id,
             user:{avatar:''},
             addition:{}
