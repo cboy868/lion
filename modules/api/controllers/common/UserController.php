@@ -65,7 +65,7 @@ class UserController extends Controller
 
         }
 
-        return $this->imgBaseUrl . $user->getAvatar('36x36');
+        return self::$base_url. $user->getAvatar('36x36');
 
     }
 

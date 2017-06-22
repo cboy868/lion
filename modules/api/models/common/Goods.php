@@ -62,7 +62,7 @@ class Goods extends \app\modules\shop\models\Goods
 
                 $images = [];
                 foreach ($photos as $v) {
-                    $images[] = self::BASE_URL . $v['url'];
+                    $images[] = self::$base_url . $v['url'];
                 }
                 return $images;
             },
