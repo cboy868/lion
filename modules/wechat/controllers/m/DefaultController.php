@@ -24,9 +24,8 @@ class DefaultController extends \app\core\web\MController
 
 
         $session = Yii::$app->getSession();
-        $session['ws3'] = $user;
-        $session['u'] = Yii::$app->user;
-//        $session['vu'] = Yii::$app->user->identity;
+        $session['wechat.user'] = $user;
+        $session['wechat.sys_user'] = Yii::$app->user;
 
         $targetUrl = empty($session['target_url']) ? '/m' : $session['target_url'];
         header('location:'. $targetUrl);
