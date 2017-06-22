@@ -116,6 +116,7 @@ class User extends \app\core\db\ActiveRecord
     public function login()
     {
         $a = Yii::$app->user->login($this->getSysUser(), 3600*24*30);
+        p(Yii::$app->user->identity->username);die;
         p($a);die;
     }
 
