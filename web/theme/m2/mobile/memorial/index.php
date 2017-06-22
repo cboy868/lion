@@ -1,9 +1,10 @@
 <?php
 $this->title="公开的纪念馆列表";
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="weui-panel weui-panel_access" id="memorial-content">
     <div class="weui-panel__bd">
-        <a :href="'/m/memorial/' + m.id + '.html'" class="weui-media-box weui-media-box_appmsg" v-for="m in memorials">
+        <a :href="'/m/memorial/' + m.id + '.html?wid=<?=$wid?>'" class="weui-media-box weui-media-box_appmsg" v-for="m in memorials">
             <div class="weui-media-box__hd">
                 <img class="weui-media-box__thumb" :src="m.cover" alt="">
             </div>
