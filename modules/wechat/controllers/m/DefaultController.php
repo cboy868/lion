@@ -36,7 +36,7 @@ class DefaultController extends \app\core\web\MController
         }
 
         $session = Yii::$app->getSession();
-        $session['wechat.user'] = $model;
+        $session['wechat.wechat_user'] = $model;
 
         if ($model->user_id) {
             $model->login();
