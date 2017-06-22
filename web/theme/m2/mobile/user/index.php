@@ -16,7 +16,7 @@ $wid = Yii::$app->request->get('wid');
         <div class="swiper-pagination"></div>
     </div>
 
-    <div class="weui-panel__hd">办理业务之前请在
+    <div class="weui-panel__hd" v-if="<?=$wechat['user_id']?>">办理业务之前请在
         <a href="<?=Url::toRoute(['/user/m/default/profile', 'wid'=>$wid])?>">
         <strong>个人设置</strong>
         </a>
