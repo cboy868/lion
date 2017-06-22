@@ -41,11 +41,10 @@ $this->title="绑定系统账号";
             passwd:'',
             apiBind: base_url + 'wechat-users/bind',
         },
-
         methods: {
-            //if(!this.uname || !this.passwd){$.toptip("账号与密码均必填", 'error') return;}
-            if(this.uname.length<2) {$.toptip("账号长度不可小于两位", 'error') return;}
-            if(this.passwd.length<6) {$.toptip("密码长度不可小于六位", 'error') return;}
+            //if(!this.uname || !this.passwd){$.toptip("账号与密码均必填", 'error'); return;}
+            if(this.uname.length<2) {$.toptip("账号长度不可小于两位", 'error'); return;}
+            if(this.passwd.length<6) {$.toptip("密码长度不可小于六位", 'error'); return;}
             var data = {wechat_uid:this.wechat_uid,uname:this.uname,passwd:this.passwd};
 
             this.$http.post(this.cartUrl, data,{emulateJSON:true}).then(function(response){
