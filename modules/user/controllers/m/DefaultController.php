@@ -3,21 +3,40 @@
 namespace app\modules\user\controllers\m;
 
 use yii;
-
+use app\core\helpers\Url;
 class DefaultController extends \app\core\web\MController
 {
 
-    public function init()
+
+    public function beforeAction($action)
     {
-        parent::init();
-        $this->initWechat();
-
-        $session = Yii::$app->getSession();
-
-        p(Yii::$app->user->identity);
-
-        p($session['ws1']);die;
+        if (parent::beforeAction($action)){
+            $this->initWechat();
+            $session = Yii::$app->getSession();
+            p(Yii::$app->user->id);
+            p($session['ws1']);die;
+            return true;
+        }
     }
+//
+//    public function init()
+//    {
+//        parent::init();
+//
+//p(Yii::$app->controller);die;
+////        echo Yii::$app->controller;die;
+////        echo Url::current();die;
+////
+////        $this->initWechat(Url::current());
+////
+////        $session = Yii::$app->getSession();
+////
+////        p(Yii::$app->user->id);
+////
+////        p($session['ws1']);die;
+////
+////        return true;
+//    }
 
     public function actionIndex()
     {

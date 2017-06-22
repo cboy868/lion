@@ -21,16 +21,17 @@ class MController extends \app\core\web\Controller
     public $wid;
 
 
-	public function beforeAction($action)
-    {
-        if (parent::beforeAction($action)) {
-            return true;
-        }
-    }
+//	public function beforeAction($action)
+//    {
+//        if (parent::beforeAction($action)) {
+//            return true;
+//        }
+//    }
 
     public function init()
     {
         parent::init();
+
         Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
         $this->_theme();
 
@@ -43,15 +44,17 @@ class MController extends \app\core\web\Controller
 
     protected function initWechat()
     {
+
         if (!$this->app) {
             throw new NotFoundHttpException();
         }
-
         $oauth = $this->app->oauth;
         $session = Yii::$app->getSession();
 
         if (!$session->has('ws1')) {
+
             $session['target_url'] = Url::current();
+
             $oauth->redirect()->send();
         }
 
