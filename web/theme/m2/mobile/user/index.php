@@ -123,15 +123,17 @@ $this->title="个人中心";
 
 
 <?php $this->beginBlock('news') ?>
+    var user_id = "<?=$wechat.user_id?>";
     var demo = new Vue({
         el: '#news-box',
         data: {
             nitems: [],
             memorials:[],
             applys:[],
+
             sendData:{limit:5, thumbSize:'120x120'},
-            memorialData:{uid:1,thumbSize:'120x120', status:1},
-            applyData:{uid:1,thumbSize:'120x120', status:0},
+            memorialData:{uid:user_id,thumbSize:'120x120', status:1},
+            applyData:{uid:user_id,thumbSize:'120x120', status:0},
             apiMemorial: 'http://api.lion.cn/api/v1/memorial',
         },
         beforeMount: function() {

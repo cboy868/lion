@@ -28,22 +28,16 @@ class DefaultController extends \app\core\web\MController
 
     public function actionIndex()
     {
-
-        p(ArrayHelper::toArray($this->wechat_user));
-        die;
-
-        p($this->wechat_user);
-        p($this->sys_user);
-
-
-
-        die;
-        return $this->render('index');
+        return $this->render('index', [
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
     }
 
     public function actionProfile()
     {
-        return $this->render('profile');
+        return $this->render('profile', [
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
     }
 
     /**
@@ -52,7 +46,9 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionAccount()
     {
-        return $this->render('account');
+        return $this->render('account', [
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
     }
 
     /**
@@ -61,7 +57,9 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionComplaint()
     {
-        return $this->render('complaint');
+        return $this->render('complaint', [
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
     }
 
 }
