@@ -1,6 +1,6 @@
 <?php
 $this->title="维护费";
-
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content" id="renew">
     <div class="weui-cells">
@@ -10,11 +10,6 @@ $this->title="维护费";
                 <label for="" class="weui-label">墓位</label>
             </div>
             <div class="weui-cell__bd">
-
-
-
-
-
                 <select class="weui-select" name="select2" v-model="selected" @change="selTomb">
                     <option v-for="tomb in tombs" v-bind:value="tomb.id" v-text="tomb.tomb_no"></option>
                 </select>
@@ -53,11 +48,12 @@ $this->title="维护费";
 
 
 <?php $this->beginBlock('news') ?>
+    var wid="<?=Yii::$app->request->get('wid')?>";
     var demo = new Vue({
         el: '#renew',
         data: {
             selected:0,
-            uid:1,
+            uid:<?=$wechat['user_id']?>,
             nums:1,
             renewPrice:0,
             tombs: [],
@@ -73,7 +69,7 @@ $this->title="维护费";
                 this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.sendData}).then((response) => {
                     if (response.body.errno == 1) {
                         $.toast(response.body.error, "error", function() {
-                            location.href="/m/user";
+                            location.href="/m/user?wid=" + wid;
                         });
                     }
                     this.$set(this, 'tombs', response.data.items)
@@ -99,7 +95,7 @@ $this->title="维护费";
 
                     if (response.body.errno) {
                         $.toast(response.body.error, "error", function() {
-                            location.href="/m/user";
+                            location.href="/m/user?wid="+wid;
                         });
                     }
 
@@ -107,7 +103,7 @@ $this->title="维护费";
                     if (response.body.order.id) {
                         $.toast.prototype.defaults.duration = 3000;
                         $.toast("订单已生成，正在为您跳转到支付页面", "success", function() {
-                            location.href="/m/order/" + response.body.order.id;
+                            location.href="/m/order/" + response.body.order.id +'?wid='+wid;
                         });
                     }
                 }, function(response){
