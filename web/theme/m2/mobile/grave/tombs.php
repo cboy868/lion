@@ -30,6 +30,7 @@ $this->title="已购买的墓位";
             methods:{
                 getList(append=false){
                     this.$http.jsonp(this.apiUrl,{'jsonp':'lcb', params:this.apiParams}).then(function (response) {
+                        console.dir(response.body.errno);
                         this.$set(this, 'tombs', response.data.items);
                     }).catch(function () {
 
