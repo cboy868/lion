@@ -1,16 +1,9 @@
 <?php
 namespace app\modules\api\controllers\common;
 
+use Yii;
 use app\modules\api\models\common\UserForm;
 use app\modules\api\models\common\WechatUser;
-use Yii;
-use app\core\base\Upload;
-use yii\helpers\ArrayHelper;
-use yii\filters\auth\QueryParamAuth;
-use yii\web\Response;
-use yii\filters\Cors;
-use yii\web\NotFoundHttpException;
-
 use app\modules\api\models\common\User;
 /**
  * Site controller
@@ -19,6 +12,10 @@ class WechatUserController extends Controller
 {
     public $modelClass = 'app\modules\api\models\common\WechatUser';
 
+
+    public function behaviors() {
+        return parent::behaviors();
+    }
 
     public function actions() {
         $actions = parent::actions();
