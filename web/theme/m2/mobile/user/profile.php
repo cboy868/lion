@@ -22,11 +22,13 @@ $wid = Yii::$app->request->get('wid');
             <div class="weui-cell__bd">
                 <p>绑定账号</p>
             </div>
+            <div class="weui-cell__ft"></div>
         </a>
         <a class="weui-cell weui-cell_access" href="/m/user/default/create.html?wid=<?=$wid?>" v-if="!user.id">
             <div class="weui-cell__bd">
                 <p>创建账号</p>
             </div>
+            <div class="weui-cell__ft"></div>
         </a>
     </div>
 
@@ -89,7 +91,7 @@ $wid = Yii::$app->request->get('wid');
             apiUserInfo: base_url + 'wechat-users',
             apiSave:base_url + 'user/up',
             uid:wechat_user_id,
-            user:{mobile:'',email:''},
+            user:{mobile:'',email:'',id:''},
             wechat_user:{headimgurl:''},
             addition:{}
         },
