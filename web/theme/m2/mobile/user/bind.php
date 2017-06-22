@@ -18,7 +18,7 @@ $this->title="绑定系统账号";
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label for="" class="weui-label">密码</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input"  placeholder="登录密码" v-model="passed">
+                        <input class="weui-input"  placeholder="登录密码" v-model="passwd">
                     </div>
                 </div>
 
