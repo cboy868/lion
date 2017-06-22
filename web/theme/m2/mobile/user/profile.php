@@ -12,19 +12,23 @@ $this->title="个人信息管理";
                     <p>头像</p>
                 </div>
                 <div class="weui-cell__ft">
-                    <img class="tx" :src="user.avatar" width="20" height="20" style="vertical-align:middle">
+                    <img class="tx" :src="user.headimgurl" width="20" height="20" style="vertical-align:middle">
                 </div>
                 <input type="file" class="avatar-input" name="avatar" @change="upfile" style="display: none;">
             </a>
         </form>
-<!--
-        <a class="weui-cell weui-cell_access" href="/m/user/default/account.html">
+        <a class="weui-cell weui-cell_access" href="/m/user/default/bind.html">
             <div class="weui-cell__bd">
-                <p>账号</p>
+                <p>绑定账号</p>
             </div>
-            <div class="weui-cell__ft" v-text="user.username"></div>
+            <div class="weui-cell__ft" v-text="user.nickname"></div>
         </a>
-        -->
+        <a class="weui-cell weui-cell_access" href="/m/user/default/create.html">
+            <div class="weui-cell__bd">
+                <p>创建账号</p>
+            </div>
+            <div class="weui-cell__ft" v-text="user.nickname"></div>
+        </a>
     </div>
 
     <form class="info-form">
@@ -33,7 +37,7 @@ $this->title="个人信息管理";
         <div class="weui-cell">
             <div class="weui-cell__hd"><label for="" class="weui-label">姓名</label></div>
             <div class="weui-cell__bd">
-                <input class="weui-input" placeholder="姓名" name="mobile" v-model="addition.real_name">
+                <input class="weui-input" placeholder="姓名" name="mobile" v-model="user.remark">
             </div>
         </div>
 
@@ -42,7 +46,7 @@ $this->title="个人信息管理";
                 <label for="" class="weui-label">性别</label>
             </div>
             <div class="weui-cell__bd">
-                <select class="weui-select" name="gender" v-model="addition.gender">
+                <select class="weui-select" name="gender" v-model="user.sex">
                     <option value="1" >男</option>
                     <option value="2" >女</option>
                     <option value="3" >保密</option>
@@ -50,6 +54,7 @@ $this->title="个人信息管理";
             </div>
         </div>
 
+        <!--
         <div class="weui-cell">
             <div class="weui-cell__hd"><label for="" class="weui-label">手机号</label></div>
             <div class="weui-cell__bd">
@@ -70,6 +75,7 @@ $this->title="个人信息管理";
                 <div class="weui-textarea-counter"><span>0</span>/200</div>
             </div>
         </div>
+        -->
     </div>
 
     <div class="weui-btn-area">
@@ -82,15 +88,15 @@ $this->title="个人信息管理";
 
 
 <?php $this->beginBlock('news') ?>
-    var user_id = "<?=$wechat['user_id']?>";
+    var wechat_user_id = "<?=$wechat['id']?>";
     var demo = new Vue({
         el: '#profile-box',
         data: {
             apiUrl: base_url + 'user/avatar',
-            apiUserInfo: base_url + 'users',
+            apiUserInfo: base_url + 'wechat-users',
             apiSave:base_url + 'user/up',
-            uid:user_id,
-            user:{avatar:''},
+            uid:wechat_user_id,
+            user:{headimgurl:''},
             addition:{}
         },
         beforeMount: function() {

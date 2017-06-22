@@ -52,6 +52,20 @@ class DefaultController extends \app\core\web\MController
         ]);
     }
 
+    public function actionCreate()
+    {
+        return $this->render('create', [
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
+    }
+
+    public function actionBind()
+    {
+        return $this->render('bind', [
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
+    }
+
     /**
      * @return string
      * @name 投诉建议

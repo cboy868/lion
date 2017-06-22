@@ -61,11 +61,17 @@ class IndexAction extends Action
 
         $query = $modelClass::find()->orderBy('id desc');
 
-        if (isset($params['status'])) {
-            $query->where(['status'=>$params['status']]);
-        } else {
-            $query->where(['<>', 'status', $modelClass::STATUS_DELETE]);
+
+        $columns = $modelClass::getTableSchema();
+
+        if (array_key_exists('status', $columns->columns)) {
+            if (isset($params['status'])) {
+                $query->where(['status'=>$params['status']]);
+            } else {
+                $query->where(['<>', 'status', $modelClass::STATUS_DELETE]);
+            }
         }
+
 
         if (isset($params['cid'])) {
             $query->andWhere(['category_id'=>$params['cid']]);
