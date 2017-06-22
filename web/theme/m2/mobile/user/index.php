@@ -16,7 +16,11 @@ $wid = Yii::$app->request->get('wid');
         <div class="swiper-pagination"></div>
     </div>
 
-    <div class="weui-panel__hd">办理业务之前请在个人设置中绑定或创建系统账号</div>
+    <div class="weui-panel__hd">办理业务之前请在
+        <a href="<?=Url::toRoute(['/user/m/default/profile', 'wid'=>$wid])?>">
+        <strong>个人设置</strong>
+        </a>
+        中绑定或创建系统账号</div>
 
     <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
         <a href="<?=Url::toRoute(['/grave/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
