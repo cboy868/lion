@@ -6,7 +6,7 @@ $this->title="个人信息管理";
 
     <div class="weui-cells">
         <form class="avatar-form" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="uid" value="<?=$wechat->user_id?>" />
+            <input type="hidden" name="uid" value="<?=$wechat['user_id']?>" />
             <a class="weui-cell weui-cell_access avatar-btn" href="#" @click="avatar">
                 <div class="weui-cell__bd">
                     <p>头像</p>
@@ -82,7 +82,7 @@ $this->title="个人信息管理";
 
 
 <?php $this->beginBlock('news') ?>
-    var user_id = "<?=$wechat->user_id?>";
+    var user_id = "<?=$wechat['user_id']?>";
     var demo = new Vue({
         el: '#profile-box',
         data: {
