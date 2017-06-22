@@ -110,14 +110,13 @@ class User extends \app\core\db\ActiveRecord
         if ($this->_sysuser === null) {
             $this->_sysuser = \app\modules\user\models\User::findIdentity($this->user_id);
         }
+
         return $this->_sysuser;
     }
 
     public function login()
     {
-        $a = Yii::$app->user->login($this->getSysUser(), 3600*24*30);
-        p(Yii::$app->user->identity->username);die;
-        p($a);die;
+        return Yii::$app->user->login($this->getSysUser(), 3600*24*30);
     }
 
     /**
