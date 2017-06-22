@@ -61,7 +61,7 @@ $this->title="创建系统账号";
             apiCreate: base_url + 'wechat-user/create'
         },
         methods: {
-            bind: function () {
+            save: function () {
                 if(this.uname.length<2) {$.toptip("账号长度不可小于两位", 'error'); return;}
                 if(this.passwd.length<6) {$.toptip("密码长度不可小于六位", 'error'); return;}
                 if(this.passwd != this.repasswd) {$.toptip("两次密码输入不一致", 'error'); return;}
