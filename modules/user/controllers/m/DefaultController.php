@@ -2,6 +2,7 @@
 
 namespace app\modules\user\controllers\m;
 
+use app\core\helpers\ArrayHelper;
 use yii;
 use app\core\helpers\Url;
 class DefaultController extends \app\core\web\MController
@@ -17,17 +18,9 @@ class DefaultController extends \app\core\web\MController
             $this->initWechat();
             $session = Yii::$app->getSession();
             $this->wechat_user = $session->get('wechat.user');
-
-
             if ($session->has('wechat.sys_user')) {
                 $this->sys_user = $session->get('wechat.sys_user');
             }
-
-            $session->set('wechat.wechat_user', null);
-
-            $session['wechat.wechat_user'] = null;
-            $session['wechat.sys_user'] =null;
-
             return true;
         }
     }
@@ -35,6 +28,9 @@ class DefaultController extends \app\core\web\MController
 
     public function actionIndex()
     {
+
+        p(ArrayHelper::toArray($this->wechat_user));
+        die;
 
         p($this->wechat_user);
         p($this->sys_user);
