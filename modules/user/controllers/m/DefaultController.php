@@ -20,7 +20,7 @@ class DefaultController extends \app\core\web\MController
 
 
 
-            p($session->get('wechat'));die;
+            p($session->get('wechat.user'));die;
 
             if ($session->has('wechat.sys_user')) {
                 $this->sys_user = $session->get('wechat.sys_user');
