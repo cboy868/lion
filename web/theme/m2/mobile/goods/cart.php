@@ -216,7 +216,7 @@ var demo = new Vue({
             }
 
             this.$http.post(this.buyUrl, data,{emulateJSON:true}).then(function(response){
-                location.replace('/m/order/'+ response.data.order.id + '?wid='+"<?=wid?>");
+                location.replace('/m/order/'+ response.data.order.id + '?wid='+"<?=$wid?>");
             }, function(response){
 
             });
