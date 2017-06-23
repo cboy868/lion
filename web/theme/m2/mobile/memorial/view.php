@@ -1,6 +1,6 @@
 <style>
     html body{
-        padding-top:10px;
+        padding-top:0;
     }
 </style>
 <link rel="stylesheet" href="/theme/m2/static/mobile/global.css">
