@@ -10,9 +10,12 @@ class DefaultController extends \app\core\web\MController
 {
     public function beforeAction($action)
     {
-
-        echo $action->id;die;
         if (parent::beforeAction($action)){
+
+//            if (!in_array($action->id, ['view','cart'])) {
+//                return true;
+//            }
+
             $this->initWechat();
             $session = Yii::$app->getSession();
 
@@ -24,13 +27,17 @@ class DefaultController extends \app\core\web\MController
             }
             return true;
         }
+
+        return false;
     }
 	/**
 	 * @name 商品首页
 	 */
 	public function actionIndex()
 	{
-		return $this->render('index');
+		return $this->render('index', [
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
 	}
 
 	/**
@@ -40,7 +47,8 @@ class DefaultController extends \app\core\web\MController
 	{
 		$this->layout = "@app/modules/m/views/layouts/nofooter.php";
 		return $this->render('view', [
-			'get' => \Yii::$app->request->get()
+			'get' => \Yii::$app->request->get(),
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
 		]);
 	}
 
