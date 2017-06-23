@@ -233,7 +233,7 @@ var demo = new Vue({
         },
         toCart:function(){
             if (!uid) {
-                $.toptip('请先去<span style="font-weight: 500;"> 个人中心>个人设置</span> 中绑定或创建账号', 'error');return;
+                $.toptip('请先去<span style="font-weight: 800;"> 个人中心>个人设置</span> 中绑定或创建账号', 'error');return;
             }
 
             var data = {sku_id:this.currentSku.id,num:this.currentSku.num,user:uid};
