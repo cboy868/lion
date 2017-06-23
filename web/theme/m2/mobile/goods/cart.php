@@ -76,7 +76,7 @@ var demo = new Vue({
         buyUrl:base_url +'order/buy',
         user:uid,
         sels:[],
-        result:[o_total:0,total:0]
+        result:{o_total:0,total:0}
     },
     beforeMount: function() {
         this.getCart();
