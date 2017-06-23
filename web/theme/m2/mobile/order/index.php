@@ -1,5 +1,6 @@
 <?php
 $this->title="我的订单列表";
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content" id="order-box">
     <div class="page preview js_show">
@@ -16,10 +17,14 @@ $this->title="我的订单列表";
                         <img :src="rel.cover" :alt="rel.title" style="width:45px;height:45px;padding-right:5px;" v-for="rel in item.rels">
                     </div>
                     <div class="weui-form-preview__item">
-                        <span class="weui-form-preview__value">共{{Object.keys(item.rels).length}}种商品，实付款：￥{{item.price}} {{item.add_date}} </span>
+                        <span class="weui-form-preview__value">共
+                            <span v-text="Object.keys(item.rels).length"></span>种商品，实付款：￥
+                            <span v-text="item.price"></span>
+                            <span v-text="item.add_date"></span></span>
                     </div>
                 </div>
                 <div class="weui-form-preview__ft">
+                    <a href="'/m/order/'+ item.id +'?wid=<?=$wid?>'" class="weui-form-preview__btn weui-form-preview__btn_default">明细</a>
                     <button type="submit" v-if="item.progress >= 5" class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:">评价晒单</button>
                     <button type="submit" v-if="item.progress < 5" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">支付</button>
                     <button type="submit" v-if="item.progress >= 5" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">再次购买</button>
