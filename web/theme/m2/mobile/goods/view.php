@@ -1,5 +1,6 @@
 <?php
 $this->title="商品详情";
+$wid = Yii::$app->request->get('wid');
 ?>
 <style>
     .concern-cart>div>p{
@@ -82,7 +83,7 @@ $this->title="商品详情";
 
 <div id="cart1" class="cart-concern-btm-fixed five-column four-column" style="display: table;">
         <div class="concern-cart">
-            <a class="cart-car-icn" id="toCart" href="/m/product/cart">
+            <a class="cart-car-icn" id="toCart" href="/m/product/cart?wid=<?=$wid?>">
                  <em class="btm-act-icn" id="shoppingCart">
                      <i class="order-numbers" v-text="nums.goods_num"></i>
                  </em>
@@ -109,6 +110,7 @@ $this->title="商品详情";
 <?php $this->beginBlock('news') ?>
 
 var id = <?=Yii::$app->request->get('id')?>;
+var uid = "<?=$wechat['user_id']?>";
 var demo = new Vue({
     el: '#news-box',
     data: {
@@ -121,7 +123,7 @@ var demo = new Vue({
         currentSku:{id:0, price:1, num:1,attr:'',total_num:1},
         skus:[],
         result:[],
-        user:1,
+        user:uid,
         nums:[]
     },
     beforeMount: function() {
@@ -230,7 +232,11 @@ var demo = new Vue({
             return tmp_attr;
         },
         toCart:function(){
-            var data = {sku_id:this.currentSku.id,num:this.currentSku.num,user:1};
+            if (!uid) {
+                $.toptip('请先去<span style="font-weight: 500;"> 个人中心>个人设置</span> 中绑定或创建账号', 'error');return;
+            }
+
+            var data = {sku_id:this.currentSku.id,num:this.currentSku.num,user:uid};
             this.$http.post(this.cartUrl, data,{emulateJSON:true}).then(function(response){
                 this.getCartCount();
             }, function(response){
@@ -238,7 +244,10 @@ var demo = new Vue({
             });
         },
         getCartCount:function(){
-            this.$http.jsonp(this.carCountUrl,{'jsonp':'lcb',params:{user:1}}).then((response) => {
+            if (!uid) {
+                return;
+            }
+            this.$http.jsonp(this.carCountUrl,{'jsonp':'lcb',params:{user:uid}}).then((response) => {
                 //console.dir(parseInt(response.data));
                 this.$set(this.nums, 'goods_num', response.data.goods_num);
                 this.$set(this.nums, 'type_num', response.data.type_num);
