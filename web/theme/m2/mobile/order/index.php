@@ -24,10 +24,11 @@ $wid = Yii::$app->request->get('wid');
                     </div>
                 </div>
                 <div class="weui-form-preview__ft">
-                    <a href="'/m/order/'+ item.id +'?wid=<?=$wid?>'" class="weui-form-preview__btn weui-form-preview__btn_default">明细</a>
                     <button type="submit" v-if="item.progress >= 5" class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:">评价晒单</button>
                     <button type="submit" v-if="item.progress < 5" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">支付</button>
                     <button type="submit" v-if="item.progress >= 5" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">再次购买</button>
+                    <a :href="'/m/order/'+ item.id +'?wid=<?=$wid?>'" class="weui-form-preview__btn weui-form-preview__btn_default">明细</a>
+
                 </div>
             </div>
         </div>
