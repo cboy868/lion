@@ -25,7 +25,6 @@ return [
     'm/memorial'=> 'memorial/m/default/index',
     'm/memorial/c<id:\d+>.html'=> 'memorial/m/default/index',
     'm/memorial/<id:\d+>.html'=> 'memorial/m/default/view',
-    'm/memorial/ue-upload.html'=> 'memorial/m/default/ue-upload',
 
 
     'm/grave'=> 'grave/m/default/index',

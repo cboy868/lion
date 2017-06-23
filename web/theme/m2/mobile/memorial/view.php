@@ -1,3 +1,7 @@
+<?php
+use yii\helpers\Url;
+$wid = Yii::$app->request->get('wid');
+?>
 <style>
     html body{
         padding-top:0;
@@ -33,7 +37,9 @@
             <div class="weui-cell__bd">
                 <?=\app\core\widgets\Ueditor\Ueditor::widget([
                     'name'=>'comment',
-                    'option' =>['res_name'=>'memorial'],
+                    'option' =>[
+                        'server' => Url::toRoute(['ue-upload', 'res_name'=>'memorial', 'wid'=>$wid])
+                    ],
                      'jsOptions' => [
                          'toolbars' => [
                              [

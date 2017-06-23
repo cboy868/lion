@@ -81,7 +81,12 @@ class Ueditor extends InputWidget {
         $option = $this->option;
         $res_name = isset($option['res_name']) ? $option['res_name'] : '';
         $use = isset($option['use']) ? $option['use'] : '';
-        $serverUrl = Url::toRoute(['ue-upload', 'res_name'=>$res_name, 'use'=>$use]);
+
+        if (isset($option['server'])) {
+            $serverUrl = $option['server'];
+        } else {
+            $serverUrl = Url::toRoute(['ue-upload', 'res_name'=>$res_name, 'use'=>$use]);
+        }
 
         $jsOptions = [
             'serverUrl' => $serverUrl,
