@@ -112,14 +112,12 @@ class Focus extends \yii\db\ActiveRecord
                             ->asArray()
                             ->all();
 
-        if ($size) {
-            foreach ($list as $k => &$v) {
-                $dir = dirname($v['image']);
-                $filename = basename($v['image']);
-                // $v['image'] = $dir . '/' . $size . "@" . $filename;
-                $v['image'] = Attachment::getBySrc($v['image'], $size); 
-            }unset($v);
-        }
+        foreach ($list as $k => &$v) {
+            $dir = dirname($v['image']);
+            $filename = basename($v['image']);
+            // $v['image'] = $dir . '/' . $size . "@" . $filename;
+            $v['cover'] = Attachment::getBySrc($v['image'], $size);
+        }unset($v);
         return $list;
     }
 

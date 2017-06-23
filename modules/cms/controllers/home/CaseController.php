@@ -39,7 +39,7 @@ class CaseController extends \app\core\web\HomeController
         $result = [];
         foreach ($models as $v) {
             $result[$v->id] = $v->toArray();
-            $result[$v->id]['cover'] = $v->getCover('372x248');
+            $result[$v->id]['cover'] = $v->getCover('420x240');
         }
 
 
@@ -53,7 +53,6 @@ class CaseController extends \app\core\web\HomeController
         ];
 
         return $this->render('index', $data);
-
     }
 
     public function actionView($id)

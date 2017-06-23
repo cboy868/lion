@@ -13,22 +13,22 @@ use yii\helpers\Html;
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?> - <?=g("title")?></title>
     <?php $this->head() ?>
-    <link type="text/css" rel="stylesheet" href="/theme/tomb/static/css/style.css">
-    <link type="text/css" rel="stylesheet" href="/theme/tomb/static/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="/theme/tomb/static/css/headerfooter.css">
-    <link rel="icon" href="/theme/tomb/static/images//favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/theme/tomb/static/images//favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="/theme/stone/static/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/theme/stone/static/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/theme/stone/static/css/headerfooter.css">
+    <link rel="icon" href="/theme/stone/static/images//favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/theme/stone/static/images/favicon.ico" type="image/x-icon">
 
 
-    <script src="/theme/tomb/static/js/device.min.js" type="text/javascript"></script>
+    <script src="/theme/stone/static/js/device.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         if(device.mobile()){
-            window.location = "http://m.baidujx.com/";  //可以换成http地址
+            //window.location = "http://m.baidujx.com/";  //可以换成http地址
         }
     </script>
 
-    <script src="/theme/tomb/static/js/jquery.min.js" type="text/javascript"></script>
-    <script src="/theme/tomb/static/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/theme/stone/static/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/theme/stone/static/js/bootstrap.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -43,29 +43,18 @@ use yii\helpers\Html;
 <body>
 <?php $this->beginBody() ?>
 
-
 <!--头部的开始-->
 <div class="header-pos" style="min-width: 1170px;">
     <div class="navbar navbar-style">
         <div class="container container-fixed">
             <div class="row">
                 <div class="col-xs-7 head-padding">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="list-inline"><a href=" http://e.baidu.com/localservice?subsite=jx" target="_blank">代理商查询</a></li>
-                        <li class="divider"></li>
-                        <li><a href="header-branch" data-toggle="modal" data-target="#myModal">查看分公司</a></li>
-                        <!-- <li><a href="http://demo.baidujx.com/web4.asp" target="_blank">模板中心</a></li>  -->
-                        <li><a href="http://www.baidujx.com/login.php" target="_blank">模板中心</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#financial-center">财务中心</a></li>
-                        <li><a href="http://club.baidujx.com/" target="_blank">智营销俱乐部</a></li>
-                        <li><a href="fwtk.html" target="_blank" >服务条款 </a></li>
-
-                        <!-- <li class="divider"></li> -->
-                        <!-- <li><a href="">问题反馈</a></li> -->
-                    </ul>
                 </div>
                 <div class="col-xs-5 rexian-padding-right">
-                    <p class="text-right"><img src="/theme/tomb/static/picture/phone.png"/>免费热线：<b>400-0791-666&nbsp;&nbsp;&nbsp;13970974914</b></p>
+                    <p class="text-right">
+                        <img src="/theme/stone/static/picture/phone.png"/>免费热线：
+                        <b>400-0791-666&nbsp;&nbsp;&nbsp;13970974914</b>
+                    </p>
                 </div>
             </div>
         </div>
@@ -76,18 +65,9 @@ use yii\helpers\Html;
     <div class="navbar navbar-inverse" id="navbar">
         <div class="container container-fixed">
             <div class="navbar-header">
-                <!-- 自适应隐藏导航展开按钮 -->
-                <!--  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                         data-target="#navbar-collapse-1">
-                     <span class="sr-only">Toggle navigation</span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                 </button> -->
                 <!-- 导航条LOGO -->
                 <a class="navbar-brand navbar-brand-style" href="/">
-                    <img src="/theme/tomb/static/picture/pic02.png">
-                    <!--<img  src="/theme/tomb/static/picture/happy-new-year.gif" style="height: 60px; margin-left: 10px;">-->
+                    <img src="<?=g("logo")?>" width="406" height="46">
                 </a>
             </div>
             <div class="nav-1" id="navbar-collapse-1">
@@ -98,29 +78,23 @@ use yii\helpers\Html;
                         </a>
                     </li>
                     <li class="child ">
-                        <a class="a-line-height">
+                        <a class="a-line-height" href="<?=url(['/shop/home/default/index'])?>">
                             产品
                         </a>
-                        <ul>
-                            <li><a href="products.html">百度推广</a></li>
-                            <li><a href="nuomi.html">百度糯米</a></li>
-                            <li><a href="market.html">营销网站</a></li>
-                            <li><a href="finance.html"  >百度金融 </a></li>
-                            <li><a href="http://www.appjx.cn/" target="_blank" class="child-radius">全网服务 </a></li>
-                        </ul>
+
                     </li>
                     <li class="">
-                        <a href="list7.html" class="a-line-height">
+                        <a href="<?=url(['/cms/home/case/index'])?>" class="a-line-height">
                             客户案例
                         </a>
                     </li>
                     <li class="">
-                        <a href="list3.html" class="a-line-height">
+                        <a href="<?=url(['/news/home/default/index'])?>" class="a-line-height">
                             华邦资讯
                         </a>
                     </li>
                     <li class="">
-                        <a href="about.html" class="nav-about a-line-height">
+                        <a href="<?=url(['/cms/home/about/us'])?>" class="nav-about a-line-height">
                             关于我们
                         </a>
                     </li>
@@ -174,25 +148,15 @@ use yii\helpers\Html;
                 <div class="span6 col-xs-6" style="padding-left: 150px;" >
                     <address class="address">
                         <p class="text-style-8" style="margin-bottom:20px;">联系我们</p>
-                        <p class="text-style-9">400-0791-666</p>
-                        <p class="text-style-9">13970974914</p>
-                        地址：南昌市红谷滩新区学府大道899号慧谷创意产业园3楼<br><br>
-                        体验中心：上海路699号699创意产业园5A栋<br><br>
-                        邮箱：ask@baidujx.com<br>
-                        <a role="button" class="text-style-10"  data-toggle="modal" data-target="#myModal">查看其他分公司</a>
+                        <p class="text-style-9"><?=g("cmobile")?></p>
+                        地址：<?=g("address")?><br><br>
+                        邮箱：<?=g("uemail")?><br>
 
                         <div class="div-bg">
-                            <div class="div-bg-1">
-                                <img src="/theme/tomb/static/picture/pic010.png">
-                                <!--<div class="caption">-->
-                                <p class="text-style-11">江西华邦服务中心</p>
-                                <!--</div>-->
-                            </div>
-
                             <div class="div-bg-2">
-                                <img src="/theme/tomb/static/picture/pic012.png">
+                                <img src="/theme/stone/static/picture/pic012.png">
                                 <!--<div class="caption">-->
-                                <p class="text-style-11">江西华邦公众号</p>
+                                <p class="text-style-11"><?=g("cp_name")?>公众号</p>
                                 <!--</div>-->
                             </div>
                         </div>
@@ -206,17 +170,17 @@ use yii\helpers\Html;
 <!-----------------footer---------------->
 <footer class="footer">
     <div class="container container-fixed footer-div clearfix">
-        <p class="pull-left">Copyright 2017 江西华邦传媒有限公司</p>
+        <p class="pull-left"><?=g("reserved")?></p>
 
         <ul class="pull-right">
             <li>
-                <a href="http://218.65.88.116/wljg/wwdzbssq/licenceView.pt?licencekey=20160805091948748941&amp;enttype=1" target="_blank">
-                    <img src="/theme/tomb/static/picture/pic128.png">
+                <a href="#" target="_blank">
+                    <img src="/theme/stone/static/picture/pic128.png">
                 </a>
             </li>
             <li>
-                <a href="https://ss.knet.cn/verifyseal.dll?sn=e13122736010044521evwi000000&amp;ct=df&amp;a=1&amp;pa=0.7373232821026035" target="_blank">
-                    <img src="/theme/tomb/static/picture/pic129.png">
+                <a href="#" target="_blank">
+                    <img src="/theme/stone/static/picture/pic129.png">
                 </a>
             </li>
         </ul>

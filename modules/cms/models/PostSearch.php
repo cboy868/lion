@@ -2,6 +2,7 @@
 
 namespace app\modules\cms\models;
 
+use app\core\base\Pagination;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -41,10 +42,14 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-        $query = Post::find()->orderBy('id desc');
+        $query = static::find()->orderBy('id desc');
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 1,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
