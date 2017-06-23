@@ -1,6 +1,6 @@
 <?php
 $this->title="购物车";
-
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content" id="cart-box">
     <div class="cart_list">
@@ -63,7 +63,8 @@ $this->title="购物车";
 </div>
     </div>
 
-<?php $this->beginBlock('news') ?>  
+<?php $this->beginBlock('news') ?>
+var uid = "<?=$wechat['user_id']?>";
 var demo = new Vue({
     el: '#cart-box',
     data: {
@@ -73,7 +74,7 @@ var demo = new Vue({
         carCountUrl:base_url +'goods/cart-count',
         delCartUrl:base_url +'goods/del-cart',
         buyUrl:base_url +'order/buy',
-        user:1,
+        user:uid,
         sels:[],
         result:[]
     },
@@ -154,7 +155,7 @@ var demo = new Vue({
             });
         },
         getCartCount:function(){
-            this.$http.jsonp(this.carCountUrl,{'jsonp':'lcb',params:{user:1}}).then((response) => {
+            this.$http.jsonp(this.carCountUrl,{'jsonp':'lcb',params:{user:this.user}}).then((response) => {
                 //console.dir(parseInt(response.data));
                 this.$set(this, 'result', response.data);
 
