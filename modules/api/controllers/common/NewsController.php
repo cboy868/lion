@@ -8,7 +8,7 @@ use app\modules\news\models\Category;
  */
 class NewsController extends Controller
 {
-	public $modelClass = 'app\modules\api\models\common\news';
+	public $modelClass = 'app\modules\api\models\common\News';
 
 
     public function actions() {
