@@ -9,10 +9,6 @@ use app\core\helpers\Url;
 class DefaultController extends \app\core\web\MController
 {
 
-    public $wechat_user = null;
-
-    public $sys_user = null;
-
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)){

@@ -20,6 +20,10 @@ class MController extends \app\core\web\Controller
 
     public $wid;
 
+    public $wechat_user = null;
+
+    public $sys_user = null;
+
 
 //	public function beforeAction($action)
 //    {

@@ -60,9 +60,9 @@ var demo = new Vue({
     data: {
         nitems: [],
         sendData:{fields:['id', 'name']},
-        apiUrl: 'goods/cates',
+        apiUrl: base_url + 'goods/cates',
 
-        clistUrl : 'goods',
+        clistUrl : base_url + 'goods',
         clistParams : {cid:1, page:1, pageSize:10},
         clist:[],
         pageCount:1,
