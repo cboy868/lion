@@ -58,8 +58,8 @@ $wid = Yii::$app->request->get('wid');
             renewPrice:0,
             tombs: [],
             sendData:{uid:1,expand:'card,renew_fee'},
-            apiUrl: 'http://api.lion.cn/api/v1/tomb',
-            renewUrl: 'http://api.lion.cn/api/v1/tomb/renew'
+            apiUrl: base_url +'tomb',
+            renewUrl: base_url +'tomb/renew'
         },
         beforeMount: function() {
             this.ts();

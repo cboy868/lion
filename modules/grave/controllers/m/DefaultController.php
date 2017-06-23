@@ -200,7 +200,7 @@ class DefaultController extends \app\core\web\MController
      * @return string|yii\web\Response
      * @name 墓位续费
      */
-    public function actionRenew($id=1)
+    public function actionRenew()
     {
         return $this->render('renew', [
             'wechat' => ArrayHelper::toArray($this->wechat_user)

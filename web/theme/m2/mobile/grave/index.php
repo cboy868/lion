@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Url;
 $this->title="业务办理";
+$wid = Yii::$app->request->get('wid');
 ?>
+
 <div class="content" id="news-box">
     <article class="weui-article">
         <h3>待处理</h3>
@@ -18,7 +20,7 @@ $this->title="业务办理";
         <?php if (isset($ins[0])): ?>
             <?php foreach ($ins[0] as $v):?>
             <div class="weui-panel__bd" id="listbox">
-                <a href="<?=Url::toRoute(['/grave/m/default/ins', 'id'=>$v->id])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
+                <a href="<?=Url::toRoute(['/grave/m/default/ins', 'id'=>$v->id, 'wid'=>$wid])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" src="<?=$v->front?>">
                     </div>
@@ -40,7 +42,7 @@ $this->title="业务办理";
         <?php if (isset($portrait[4])):?>
         <?php foreach ($portrait[4] as $k => $v):?>
             <div class="weui-panel__bd" id="listbox">
-                <a href="<?=Url::toRoute(['/grave/m/default/portrait', 'tid'=>$k])?>"
+                <a href="<?=Url::toRoute(['/grave/m/default/portrait', 'tid'=>$k, 'wid'=>$wid])?>"
                    class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
                     <?php foreach ($v as $val): ?>
                     <div class="weui-media-box__hd">
@@ -68,7 +70,7 @@ $this->title="业务办理";
         <?php if (isset($ins[1])): ?>
             <?php foreach ($ins[1] as $v):?>
                 <div class="weui-panel__bd" id="listbox">
-                    <a href="<?=Url::toRoute(['/grave/m/default/ins', 'id'=>$v->id])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
+                    <a href="<?=Url::toRoute(['/grave/m/default/ins', 'id'=>$v->id,'wid'=>$wid])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
                         <div class="weui-media-box__hd">
                             <img class="weui-media-box__thumb" src="<?=$v->front?>">
                         </div>
@@ -89,7 +91,7 @@ $this->title="业务办理";
         <?php if (isset($portrait['other'])): ?>
         <?php foreach ($portrait['other'] as $k=>$v):?>
             <div class="weui-panel__bd" id="listbox">
-                <a href="<?=Url::toRoute(['/grave/m/default/portrait', 'tid'=>$k])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
+                <a href="<?=Url::toRoute(['/grave/m/default/portrait', 'tid'=>$k,'wid'=>$wid])?>" class="weui-media-box weui-media-box_appmsg weui-cell weui-cell_access">
                     <?php foreach ($v as $val): ?>
                         <div class="weui-media-box__hd">
                             <img class="weui-media-box__thumb" src="<?=$val->processedImg?>">
