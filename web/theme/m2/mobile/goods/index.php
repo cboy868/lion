@@ -1,5 +1,6 @@
 <?php 
 $this->title="商城";
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content" id="news-box">
     <div class="weui-grids"> </div>
@@ -18,7 +19,7 @@ $this->title="商城";
     <div class="spbox">
         <ul class="sp_list" id="goodslist">
             <li v-for="goods in clist">
-                <a :href="'/m/product/' + goods.id+'.html'" title="">
+                <a :href="'/m/product/' + goods.id+'.html?wid=<?=$wid?>'" title="">
                     <div class="pic_div"><img :src="goods.cover" style="height: 188px;"></div>
                     <div class="tit_div" v-text="goods.name"></div>
                     <div class="price_div">
