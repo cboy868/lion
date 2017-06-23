@@ -125,6 +125,9 @@ class OrderController extends Controller
         $rels_data = [];
         foreach ($rels as $k => $v) {
             $rels_data[$v->id] = $v->toArray();
+            if (!$v->goods){
+                continue;
+            }
             $rels_data[$v->id]['cover'] = $v->goods->getCover($thumb);
         }
 
