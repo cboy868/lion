@@ -8,6 +8,7 @@ use app\modules\memorial\models\Pray;
 use app\core\models\Comment;
 use yii;
 use app\modules\api\models\common\WechatUser;
+use app\core\helpers\ArrayHelper;
 class DefaultController extends \app\core\web\MController
 {
     public function actions()
