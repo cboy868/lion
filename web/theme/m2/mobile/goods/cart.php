@@ -18,10 +18,10 @@ $wid = Yii::$app->request->get('wid');
                         <img class="weui-media-box__thumb" src="/theme/site/static/images/58f1e76d6b023_64_64.jpg" alt="">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">{{item.goods_name}}</h4>
+                        <h4 class="weui-media-box__title" v-text="item.goods_name"></h4>
                         <p class="weui-media-box__desc">
-                            <span>{{item.sku_name}}</span>
-                            <span class="fr f-red">￥<span class="oneGoodPrice">{{item.price}}</span>元</span>
+                            <span v-text="item.sku_name"></span>
+                            <span class="fr f-red">￥<span class="oneGoodPrice" v-text="item.price"></span>元</span>
                         </p>
                         <div class="caozuo">
                             <div style="font-size: 0px;" class="weui-cell__ft">
@@ -50,11 +50,11 @@ $wid = Yii::$app->request->get('wid');
     </div> -->
     <div class="shp-cart-info shp-cart-info-new  box-flex-c">
         <strong id="shpCartTotal" data-fsizeinit="14" class="shp-cart-total" style="font-size: 14px;">
-            合计:<span class="bottom-bar-price" id="cart_realPrice">¥{{result.total}}</span>
+            合计:<span class="bottom-bar-price" id="cart_realPrice">¥ <span v-text="result.total"></span></span>
         </strong>
         <span id="saleOffNew" data-fsizeinit="10" class="sale-off sale-off-new  bottom-total-price" style="font-size: 10px;">
-            总额:<span class="money-unit-bf" id="cart_oriPrice">{{result.o_total}}</span>
-            立减:<span class="money-unit-bf" id="cart_rePrice">{{result.o_total - result.total}}</span>
+            总额:<span class="money-unit-bf" id="cart_oriPrice" v-text="result.o_total"></span>
+            立减:<span class="money-unit-bf" id="cart_rePrice" v-text="result.o_total - result.total"></span>
         </span>
     </div>
     <a class="btn-right-block btn-right-block-new  box-flex-c" @click="order">
