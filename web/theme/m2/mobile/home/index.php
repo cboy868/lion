@@ -5,11 +5,16 @@ use app\core\helpers\Url;
 \app\assets\VueAsset::register($this);
 
 $wid = Yii::$app->request->get('wid');
+$focus =focus(2, 5, '425x300');
 ?>
 <div class="content">
     <div class="swiper-container" style="height: 200px;">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="/theme/site/static/images/s1.png" /></div>
+          <?php foreach ($focus as $f):?>
+        <div class="swiper-slide">
+            <img src="<?=$f['image']?>" />
+        </div>
+          <?php endforeach;?>
         <div class="swiper-slide"><img src="/theme/site/static/images/s1.png" /></div>
         <div class="swiper-slide"><img src="/theme/site/static/images/s1.png" /></div>
       </div>
