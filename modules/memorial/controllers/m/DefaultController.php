@@ -9,8 +9,25 @@ use app\core\models\Comment;
 use yii;
 use app\modules\api\models\common\WechatUser;
 use app\core\helpers\ArrayHelper;
+use yii\filters\Cors;
 class DefaultController extends \app\core\web\MController
 {
+    public function behaviors() {
+
+        $behaviors = parent::behaviors();
+
+        return ArrayHelper::merge([
+            [
+                'class' => Cors::className(),
+                'cors' => [
+                    'Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                    'Access-Control-Request-Headers' => ['*'],
+                ]
+            ],
+        ], $behaviors);
+    }
+
     public function actions()
     {
         return [
