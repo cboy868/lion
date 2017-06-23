@@ -58,7 +58,7 @@ $wid = Yii::$app->request->get('wid');
         </span>
     </div>
     <a class="btn-right-block btn-right-block-new  box-flex-c" @click="order">
-        去结算<span>({{result.goods_num}})</span>
+        去结算<span v-text="'('+result.goods_num+')'"></span>
     </a>
 </div>
     </div>
@@ -216,7 +216,7 @@ var demo = new Vue({
             }
 
             this.$http.post(this.buyUrl, data,{emulateJSON:true}).then(function(response){
-                location.replace('/m/order/'+ response.data.order.id);
+                location.replace('/m/order/'+ response.data.order.id + '?wid='+"<?=wid?>");
             }, function(response){
 
             });
