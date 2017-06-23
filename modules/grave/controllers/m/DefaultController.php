@@ -178,7 +178,7 @@ class DefaultController extends \app\core\web\MController
 
         if ($query->count() == 1) {
             $model = $query->one();
-            return $this->redirect(['tomb', 'id'=>$model->id]);
+            return $this->redirect(['tomb', 'id'=>$model->id, 'wid'=>$this->wid]);
         }
 
         return $this->render('tombs',[
