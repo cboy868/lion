@@ -85,11 +85,12 @@
 <?php $this->beginBlock('memorial') ?>
 $(function(){
 var id = "<?=Yii::$app->request->get('id');?>";
+var uid = '<?=$wechat['user_id']?>';
 var app = new Vue({
     el:'#memorial-content',
     data:{
         jisiNum:{candle:1,flower:2},
-        jisiData:{uid:1,id:id},
+        jisiData:{uid:uid,id:id},
         jisiUrl: base_url +'memorial/jisi',
         jisiNumUrl: base_url +'memorial/jisi-num',
 
@@ -107,7 +108,7 @@ var app = new Vue({
     },
     methods:{
         song(type){
-            var data = {type:type,id:1,uid:id};
+            var data = {type:type,id:id,uid:uid};
             this.$http.post(this.jisiUrl, data,{emulateJSON:true}).then(function(response){
                 if (response.data.errno) {
                     $.alert(response.data.error);

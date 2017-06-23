@@ -7,7 +7,7 @@ use app\modules\memorial\models\Memorial;
 use app\modules\memorial\models\Pray;
 use app\core\models\Comment;
 use yii;
-
+use app\modules\api\models\common\WechatUser;
 class DefaultController extends \app\core\web\MController
 {
     public function actions()
@@ -17,6 +17,23 @@ class DefaultController extends \app\core\web\MController
                 'class' => 'app\core\widgets\Ueditor\UploadAction',
             ]
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)){
+            $this->initWechat();
+            $session = Yii::$app->getSession();
+
+            $wechat_user = $session->get('wechat.wechat_user');
+
+            $this->wechat_user = WechatUser::findOne($wechat_user->id);
+
+            if ($session->has('wechat.sys_user')) {
+                $this->sys_user = $session->get('wechat.sys_user');
+            }
+            return true;
+        }
     }
 
     public function actionIndex()
@@ -39,11 +56,15 @@ class DefaultController extends \app\core\web\MController
 
         return $this->render('view', [
             'model'=>$model,
-            'prays'=>json_encode($prays),
-            'comments'=>$comments
+//            'prays'=>json_encode($prays),
+//            'comments'=>$comments,
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
         ]);
 
-        return $this->render('view', ['model'=>$model]);
+//        return $this->render('view', [
+//            'model'=>$model,
+//            'wechat' => ArrayHelper::toArray($this->wechat_user)
+//        ]);
     }
 
     /**

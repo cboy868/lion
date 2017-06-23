@@ -14,12 +14,8 @@ use app\modules\api\models\common\WechatUser;
 use app\core\helpers\ArrayHelper;
 class DefaultController extends \app\core\web\MController
 {
-    public $uid=3;
+    public $uid;
 
-
-    public $wechat_user = null;
-
-    public $sys_user = null;
 
     public function beforeAction($action)
     {
@@ -30,16 +26,20 @@ class DefaultController extends \app\core\web\MController
             $wechat_user = $session->get('wechat.wechat_user');
 
             $this->wechat_user = WechatUser::findOne($wechat_user->id);
+
+
+            if (!$this->wechat_user->user_id) {
+                return $this->redirect(['/m']);
+            }
+
+            $this->uid = $this->wechat_user->user_id;
+
             if ($session->has('wechat.sys_user')) {
                 $this->sys_user = $session->get('wechat.sys_user');
             }
             return true;
         }
     }
-
-
-
-
 
 
     public function actionIndex()
@@ -156,7 +156,7 @@ class DefaultController extends \app\core\web\MController
                 }
             }
             $outerTransaction->commit();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $outerTransaction->rollBack();
             return $this->json(null, '瓷确认失败,请及时联系工作人员', 0);
         }
@@ -170,7 +170,7 @@ class DefaultController extends \app\core\web\MController
      */
     public function actionTombs()
     {
-        $query = Tomb::find()->where(['user_id'=>Yii::$app->user->id]);
+        $query = Tomb::find()->where(['user_id'=>$this->uid]);
 
 //        if ($query->count() == 0) {
 //            return $this->redirect(['/m/user','wid'=>Yii::$app->request->get('wid')]);
@@ -181,7 +181,9 @@ class DefaultController extends \app\core\web\MController
             return $this->redirect(['tomb', 'id'=>$model->id]);
         }
 
-        return $this->render('tombs');
+        return $this->render('tombs',[
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
     }
 
     public function actionTomb($id)

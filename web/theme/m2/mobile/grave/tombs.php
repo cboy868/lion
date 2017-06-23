@@ -17,13 +17,14 @@ $this->title="已购买的墓位";
 
 <?php $this->beginBlock('memorial') ?>
     var wid="<?=Yii::$app->request->get('wid')?>";
+    var uid = '<?=$wechat['user_id']?>';
     $(function(){
         var app = new Vue({
             el:'#tomb-content',
             data:{
                 tombs:[],
-                apiUrl:'http://api.lion.cn/api/v1/tomb',
-                apiParams : {thumbSize:'50x50',uid:1},
+                apiUrl:base_url +'tomb',
+                apiParams : {thumbSize:'50x50',uid:uid},
             },
             beforeMount: function() {
                 this.getList();
@@ -43,8 +44,6 @@ $this->title="已购买的墓位";
                     });
                 }
             }
-
-
         });
     })
 

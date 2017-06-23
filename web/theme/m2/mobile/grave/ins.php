@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 $this->title="碑文确认";
 
+$wid = Yii::$app->request->get('wid');
 ?>
 <div class="content" id="ins-box">
 
@@ -49,12 +50,10 @@ $this->title="碑文确认";
 
 
 <?php $this->beginBlock('news') ?>
-
-
 var v = new Vue({
     el : '#ins-box',
     data:{
-        confirm_url:"<?=Url::toRoute(['confirm-ins'])?>"
+        confirm_url:"<?=Url::toRoute(['confirm-ins', 'wid'=>$wid])?>"
     },
     methods: {
         confirm(ins_id){

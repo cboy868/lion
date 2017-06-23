@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 $this->title="瓷像确认";
+$wid = Yii::$app->request->get('wid')
 ?>
 <div class="content" id="portrait-box">
 
@@ -33,7 +34,7 @@ $this->title="瓷像确认";
 var v = new Vue({
     el : '#portrait-box',
     data:{
-        confirm_url:"<?=Url::toRoute(['confirm-portrait'])?>"
+        confirm_url:"<?=Url::toRoute(['confirm-portrait', 'wid'=>$wid])?>"
     },
     methods: {
         confirm(tomb_id){
