@@ -15,8 +15,6 @@ $focus =focus(2, 5, '425x300');
             <img src="<?=$f['image']?>" />
         </div>
           <?php endforeach;?>
-        <div class="swiper-slide"><img src="/theme/site/static/images/s1.png" /></div>
-        <div class="swiper-slide"><img src="/theme/site/static/images/s1.png" /></div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
