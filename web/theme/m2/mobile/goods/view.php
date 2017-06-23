@@ -114,7 +114,7 @@ var demo = new Vue({
     data: {
         item: [],
         sendData:{expand:'spec,image,sku'},
-        apiUrl: base_url +'v1/goods/' + id,
+        apiUrl: base_url +'goods/' + id,
         cartUrl: base_url +'goods/cart',
         carCountUrl: base_url +'goods/cart-count',
         specs:[],
