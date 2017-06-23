@@ -40,6 +40,7 @@ class MController extends \app\core\web\Controller
         $this->_theme();
 
         $wid = Yii::$app->request->get('wid');
+        $this->wid = $wid;
         if ($wid) {
             $this->setOptions($wid);
             $this->app = new Application($this->options);
