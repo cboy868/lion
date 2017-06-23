@@ -28,7 +28,7 @@ $this->title="订单详情页面";
                         <div class="weui-media-box__bd">
                             <h4 class="weui-media-box__title" >
                                 <span v-text="rel.title"></span>
-                                <span class="pull-right" v-text="'￥' + rel.preice"></span>
+                                <span class="pull-right" v-text="'￥' + rel.price"></span>
                             </h4>
                             <p class="weui-media-box__desc">
                                 数量: <span v-text="rel.num"></span> <span v-text="rel.sku_name"></span>
