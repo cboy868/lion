@@ -17,7 +17,7 @@ use app\modules\cms\models\MsgForm;
 class ContactController extends \app\core\web\HomeController
 {
 
-    public $mid = 4;
+    public $mid = 1;
 
     public function actions()
     {

@@ -38,7 +38,6 @@ class HomeController extends \app\core\web\Controller
             '@app/modules/blog/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/blog',
             '@app/modules/memorial/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/memorial',
 
-
             '@app/modules/cms/views/home/about' => '@app/web/theme/' . $model->svalue . '/home/about',
             '@app/modules/cms/views/home/join' => '@app/web/theme/' . $model->svalue . '/home/join',
             '@app/modules/cms/views/home/case' => '@app/web/theme/' . $model->svalue . '/home/case',
@@ -46,6 +45,8 @@ class HomeController extends \app\core\web\Controller
             '@app/modules/cms/views/home/contact' => '@app/web/theme/' . $model->svalue . '/home/contact',
             '@app/modules/cms/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/article',
             '@app/modules/cms/views/home/message' => '@app/web/theme/' . $model->svalue . '/home/message',
+            '@app/modules/cms/views/home/service' => '@app/web/theme/' . $model->svalue . '/home/service',
+            '@app/modules/cms/views/home/knowledge' => '@app/web/theme/' . $model->svalue . '/home/knowledge',
         ];
     }
 
