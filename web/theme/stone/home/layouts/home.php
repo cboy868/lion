@@ -20,14 +20,6 @@ use app\core\widgets\Alert;
     <link rel="icon" href="/theme/stone/static/images//favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/theme/stone/static/images/favicon.ico" type="image/x-icon">
 
-
-    <script src="/theme/stone/static/js/device.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        if(device.mobile()){
-            //window.location = "http://m.baidujx.com/";  //可以换成http地址
-        }
-    </script>
-
     <script src="/theme/stone/static/js/jquery.min.js" type="text/javascript"></script>
     <script src="/theme/stone/static/js/bootstrap.min.js" type="text/javascript"></script>
 
