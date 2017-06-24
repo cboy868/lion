@@ -28,6 +28,14 @@ function p($arr)
     echo '<pre>'.print_r($arr,true).'</pre>';
 }
 
+function getParam($key=null)
+{
+    if ($key===null) {
+        return Yii::$app->request->get();
+    }
+    return Yii::$app->request->get($key);
+}
+
 function getFullAction()
 {
 	$app = Yii::$app->id;
@@ -463,6 +471,20 @@ function getBlogsByUser($user_id, $rows=10)
             ->limit($rows)
             ->all();
     return $blogs;
+}
+
+function formatterNtext($body)
+{
+    return Yii::$app->formatter->asNtext($body);
+}
+
+function formatterText($body)
+{
+    return Yii::$app->formatter->asText($body);
+}
+function formatterParagraphs($body)
+{
+    return Yii::$app->formatter->asParagraphs($body);
 }
 
 function  filelog($word, $file='log', $other='')

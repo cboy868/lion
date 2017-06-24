@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use app\core\widgets\Alert;
 ?>
 <?php $this->beginPage() ?>
 
@@ -52,8 +53,8 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-xs-5 rexian-padding-right">
                     <p class="text-right">
-                        <img src="/theme/stone/static/picture/phone.png"/>免费热线：
-                        <b>400-0791-666&nbsp;&nbsp;&nbsp;13970974914</b>
+                        <img src="/theme/stone/static/picture/phone.png"/>热线电话：
+                        <b><?=g("hotline")?></b>
                     </p>
                 </div>
             </div>
@@ -90,7 +91,7 @@ use yii\helpers\Html;
                     </li>
                     <li class="">
                         <a href="<?=url(['/news/home/default/index'])?>" class="a-line-height">
-                            华邦资讯
+                            <?=g('cp_name')?>资讯
                         </a>
                     </li>
                     <li class="">
@@ -104,7 +105,7 @@ use yii\helpers\Html;
     </div>
 </div>
 
-
+<?=Alert::widget()?>
 <?=$content?>
 <!----------------联系我们、问题咨询-----------start---------->
 <div class="contact-us">
@@ -112,14 +113,15 @@ use yii\helpers\Html;
         <div class="row" style="margin-top:90px;">
             <div class="span12">
                 <div class="span6 col-xs-6">
-                    <form method="post" action="put.php" id="pageForm" name="myForm">
+                    <form method="post" action="<?=url(['/cms/home/contact/msg'])?>" id="pageForm" name="myForm">
                         <input type="hidden" name="source" value="2" />
                         <input type="hidden" name="template" value="/" />
                         <fieldset>
                             <legend>问题咨询</legend>
+                            <input name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" type="hidden">
                             <input class="form-inline input-1" type="text" name="company" id="fcompany" placeholder="公司名称" autocomplete="off" />
-                            <input class="form-inline input-1 input-2" type="text" name="name" id="fname" placeholder="联系人" autocomplete="off" />
-                            <input class="form-inline input-1 input-2" type="text" name="phone" id="fphone" placeholder="您的手机号码" autocomplete="off" />
+                            <input class="form-inline input-1 input-2" type="text" name="username" id="fname" placeholder="联系人" autocomplete="off" />
+                            <input class="form-inline input-1 input-2" type="text" name="mobile" id="fphone" placeholder="您的手机号码" autocomplete="off" />
 
                             <span class="help-block span-style">您的企业现在面临的问题？</span>
                             <div>
@@ -138,7 +140,7 @@ use yii\helpers\Html;
                                     <input type="checkbox" name="problem[]" value="其他" />其他
                                 </label>
                             </div>
-                            <input class="form-control" type="text" name="info" placeholder="请用一句简单的话概述您的要求" autocomplete="off" style="margin-top: 40px;" />
+                            <input class="form-control" type="text" id="ftitle" name="title" placeholder="请用一句简单的话概述您的要求" autocomplete="off" style="margin-top: 40px;" />
                             <button type="submit" class="btn" style="background: #FF4134; color: #fff; margin-top: 40px; font-size: 18px; padding: 6px 20px; border-radius:0;">
                                 提交问题，我们帮您解答
                             </button>
@@ -240,6 +242,7 @@ use yii\helpers\Html;
         var company = $('#fcompany');
         var name = $('#fname');
         var tel = $('#fphone');
+        var title = $('#ftitle');
 
         if(!company.val().trim()){
             alert("请输入您的公司名称！");
@@ -249,6 +252,12 @@ use yii\helpers\Html;
         if(!name.val().trim()){
             alert("请输入您的称呼！");
             name.focus();
+            return false;
+        }
+
+        if(!title.val().trim()){
+            alert("请简单描述您的要求！");
+            title.focus();
             return false;
         }
 

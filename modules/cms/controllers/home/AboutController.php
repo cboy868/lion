@@ -11,7 +11,7 @@ use app\modules\mod\models\Code;
 
 class AboutController extends \app\core\web\HomeController
 {
-    public $mid = 1;
+    public $mid = 2;
 
     public function actionIndex($type=null, $cid=null)
     {

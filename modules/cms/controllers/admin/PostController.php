@@ -163,7 +163,8 @@ class PostController extends \app\core\web\BackController
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->ip = Yii::$app->request->userIP;
-            $model->created_by = Yii::$app->user->identity->id;
+            $model->created_by = Yii::$app->user->id;
+            $model->author = $model->author ? $model->author : Yii::$app->user->identity->username;
 
             if (empty($model->summary)) {
                 $model->summary = Html::cutstr_html($model->body, 50);
@@ -211,6 +212,7 @@ class PostController extends \app\core\web\BackController
         if ($model->load(Yii::$app->request->post()) ) {
             $model->created_by = Yii::$app->user->identity->id;
             $model->type = Post::TYPE_IMAGE;
+            $model->author = $model->author ? $model->author : Yii::$app->user->identity->username;
 
             $model->save();
             $i18n = Yii::$app->params['i18n'];

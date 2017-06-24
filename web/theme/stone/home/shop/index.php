@@ -1,3 +1,6 @@
+<?php
+$this->title="产品与服务";
+?>
 <?php $focus = focus(4,1);?>
 <!-------------------banner图-------------start------------>
 <?php if(isset($focus[0])):?>

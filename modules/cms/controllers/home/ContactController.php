@@ -128,8 +128,29 @@ class ContactController extends \app\core\web\HomeController
 
         $module = Module::findOne($this->mid);
 
-
         return $this->render('us', ['module'=>$module->toArray(),'model'=>$model]);
+    }
+
+    public function actionMsg()
+    {
+        $post = Yii::$app->request->post();
+
+
+        $model = new MsgForm();
+
+        $model->load($post, '');
+
+        $model->res_name = 'web';
+        $model->res_id = 0;
+        $model->intro = implode(',', $post['problem']);
+
+        if ($model->create()) {
+            Yii::$app->session->setFlash('success', '恭喜,留言成功');
+        } else {
+            Yii::$app->session->setFlash('success', '留言失败，请重试');
+        }
+
+        return $this->redirect($_SERVER["HTTP_REFERER"]);
     }
 
     private function _imageView($module, $model)

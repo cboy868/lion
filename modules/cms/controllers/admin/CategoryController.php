@@ -168,22 +168,22 @@ class CategoryController extends BackController
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $mid = $model->res_name;
+//        $mid = $model->mid;
         $model->delete();
 
-        if ($model->pid == 0) {
-            $mods = Module::find()->where(['mid'=>$mid])->all();
-
-            foreach ($mods as $m) {
-                Module::deleteMod($m);
-                $m->delete();
-            }
-
-            Yii::$app->db->createCommand()
-                ->delete(Category::tableName(),[
-                    'res_name' => $mid,
-                ])->execute();
-        }
+//        if ($model->pid == 0) {
+//            $mods = Module::find()->where(['mid'=>$mid])->all();
+//
+//            foreach ($mods as $m) {
+//                Module::deleteMod($m);
+//                $m->delete();
+//            }
+//
+//            Yii::$app->db->createCommand()
+//                ->delete(Category::tableName(),[
+//                    'mid' => $mid,
+//                ])->execute();
+//        }
 
         return $this->redirect($_SERVER["HTTP_REFERER"]);
     }

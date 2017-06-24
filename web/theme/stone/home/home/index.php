@@ -1,3 +1,6 @@
+<?php
+$this->title = '首页';
+?>
 <!---------------轮播-------------start----->
 <div id="myCarousel" class="carousel slide myCarousel carousel-banner">
     <ol class="carousel-indicators" style="margin-top: 70px;">
@@ -107,7 +110,7 @@ $cases = cmsArticle(1, null, 10, '420x240');
                         <div class="col-xs-3 div1">
                             <div class="thumbnail div2">
                                 <a href="<?=url(['/cms/home/case/view', 'id'=>$v['id']])?>" target="_blank">
-                                    <img src="<?=$v['cover']?>">
+                                    <img src="<?=$v['cover']?>" style="height: 160px;">
                                 </a>
                                 <div class="caption">
                                     <p><?=$v['title']?></p>

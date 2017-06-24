@@ -31,12 +31,13 @@ class DefaultController extends \app\core\web\HomeController
     		$category = Category::findOne($cid)->toArray();
     		$data['category'] = $category;
     	}
+    	$data['cates'] = Category::find()->asArray()->all();
 
     	$count = $query->count();
 
 
 		// 使用总数来创建一个分页对象
-		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>9]);
+		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>10]);
 
     	$items = $query->offset($pagination->offset)
 					    ->limit($pagination->limit)
@@ -44,7 +45,7 @@ class DefaultController extends \app\core\web\HomeController
 					    ->all();
 
 		foreach ($items as $k => &$v) {
-            $v['cover'] = NewsPhoto::getById($v['thumb'], '450x220');
+            $v['cover'] = NewsPhoto::getById($v['thumb'], '420x240');
             $v['tags'] = TagRel::getTagsByRes('news', $v['id']);
         }unset($v);
 
@@ -106,8 +107,9 @@ class DefaultController extends \app\core\web\HomeController
         $data['cover'] = NewsPhoto::getById($data['thumb']);
         $data['body'] = $body->body;
         $data['tags'] = TagRel::getTagsByRes('news', $model->id);
+        $cates = Category::find()->asArray()->all();
         $data = array_merge($data, $this->preAndNext($model));
-        return $this->render('text',['data'=>$data]);
+        return $this->render('text',['data'=>$data, 'cates'=>$cates]);
     }
 
     private function image($model)
@@ -121,6 +123,7 @@ class DefaultController extends \app\core\web\HomeController
             'data' => $data,
             'thumbs' => $thumbs
         ];
+        $data['cates'] = Category::find()->asArray()->all();
 
         $data = array_merge($data, $this->preAndNext($model));
 

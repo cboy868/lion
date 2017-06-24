@@ -35,10 +35,11 @@ class MsgForm extends Model
 	public function rules()
     {
         return [
-            [['username', 'title', 'mobile', 'verifyCode'], 'required'],
+            [['username', 'title', 'mobile'], 'required'],
+//            [['verifyCode'], 'required'],
             [['res_id'], 'integer'],
             ['email', 'email'],
-            ['verifyCode', 'captcha', 'captchaAction'=>'/home/default/captcha', 'message'=>'验证码错误，请重试'],
+//            ['verifyCode', 'captcha', 'captchaAction'=>'/home/default/captcha', 'message'=>'验证码错误，请重试'],
             [['intro'], 'string'],
             [['title', 'company', 'username', 'res_name'], 'string', 'max' => 255],
             [['mobile', 'email'], 'string', 'max' => 50],

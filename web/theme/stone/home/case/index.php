@@ -23,7 +23,7 @@ use yii\widgets\LinkPager;
             <div class="col-xs-3 div1">
                 <div class="thumbnail cus-case-div-1">
                     <a href="<?=url(['/cms/home/case/view', 'id'=>$v['id']])?>">
-                        <img src="<?=$v['cover']?>">
+                        <img src="<?=$v['cover']?>" style="height: 160px;">
                     </a>
 
                     <div class="caption">
