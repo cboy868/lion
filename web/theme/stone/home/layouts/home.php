@@ -1,6 +1,14 @@
 <?php
 use yii\helpers\Html;
 use app\core\widgets\Alert;
+
+
+$controller = Yii::$app->controller;
+$controller_id = $controller->id;
+$module_id = $controller->module->id;
+$action_id = $controller->action->id;
+
+$c_nav = $module_id .'_'. $controller_id .'_'. $action_id;
 ?>
 <?php $this->beginPage() ?>
 
@@ -63,30 +71,31 @@ use app\core\widgets\Alert;
                     <img src="<?=g("logo")?>" width="406" height="46">
                 </a>
             </div>
+
             <div class="nav-1" id="navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right navbar-nav-ul">
-                    <li class="active">
+                    <li class="<?php if($c_nav == 'home_default_index')echo'active';?>">
                         <a href="/" class="a-line-height">
                             首页
                         </a>
                     </li>
-                    <li class="child ">
+                    <li class="child <?php if($c_nav == 'shop_home_default_index')echo'active';?>">
                         <a class="a-line-height" href="<?=url(['/shop/home/default/index'])?>">
                             产品
                         </a>
 
                     </li>
-                    <li class="">
+                    <li class="<?php if($c_nav == 'cms_home_case_index')echo'active';?>">
                         <a href="<?=url(['/cms/home/case/index'])?>" class="a-line-height">
                             客户案例
                         </a>
                     </li>
-                    <li class="">
+                    <li class="<?php if($c_nav == 'news_home_default_index')echo'active';?>">
                         <a href="<?=url(['/news/home/default/index'])?>" class="a-line-height">
                             <?=g('cp_name')?>资讯
                         </a>
                     </li>
-                    <li class="">
+                    <li class="<?php if($c_nav == 'cms_home_about_us')echo'active';?>">
                         <a href="<?=url(['/cms/home/about/us'])?>" class="nav-about a-line-height">
                             关于我们
                         </a>
