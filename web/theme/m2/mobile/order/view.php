@@ -71,14 +71,15 @@ $this->title="订单详情页面";
 </div>
 
 
-<?php $this->beginBlock('order') ?>  
+<?php $this->beginBlock('order') ?>
+var id = '<?=Yii::$app->request->get('id')?>';
 var demo = new Vue({
     el: '#order-box',
     data: {
         order: [],
         rels:[],
-        sendData:{thumb:'35x24'},
-        apiUrl: base_url +'order/view?id=<?=$get['id']?>',
+        sendData:{thumb:'35x24',expand:'rels'},
+        apiUrl: base_url +'order/view?id=' + id,
     },
     beforeMount: function() {
         this.getOrder();
