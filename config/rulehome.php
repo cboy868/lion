@@ -85,6 +85,8 @@ return [
 //    'home/<controller:(.+)>.html'=> 'home/<controller>/index',
     'home.html'=> 'home/default/index',
 
+    'serv/<view:(.+)>.html'=> 'home/default/serv',
+
     'home/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/home/<controller>/<action>',
     'home/<module:(.+)>/<controller:(.+)>.html'=> '<module>/home/<controller>/index',
     'home/<module:(.+)>.html'=> '<module>/home/default/index',

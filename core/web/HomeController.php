@@ -30,6 +30,7 @@ class HomeController extends \app\core\web\Controller
         $model = \app\modules\sys\models\Set::findOne('theme');
 
         $this->view->theme->pathMap = [
+            '@app/modules/home/views/default/pages' => '@app/web/theme/' . $model->svalue . '/home/pages',
             '@app/modules/home/views/default' => '@app/web/theme/' . $model->svalue . '/home/home',
             '@app/modules/news/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/news',
             '@app/modules/shop/views/home/default' => '@app/web/theme/' . $model->svalue . '/home/shop',

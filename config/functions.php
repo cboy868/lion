@@ -8,6 +8,7 @@ use app\core\helpers\StringHelper;
 
 
 use app\modules\focus\models\Focus;
+use app\modules\focus\models\Category as FocusCategory;
 use app\modules\cms\models\Links;
 use app\modules\cms\models\Subject;
 use app\modules\shop\models\Category;
@@ -20,6 +21,7 @@ use app\modules\memorial\models\Memorial;
 use app\modules\blog\models\Blog;
 use app\modules\mod\models\Module;
 use app\modules\mod\models\Code;
+
 
 //  按格式打印数组
 function p($arr)
@@ -142,8 +144,13 @@ function newsCates($cates=null, $limit=10, $thumb=null, $type=null)
  */
 function focus($category_id, $limit, $imgSize=null)
 {
-	return Focus::getFocusByCategory($category_id, $limit, $imgSize);
+    return [
+        'cate' => FocusCategory::findOne($category_id)->toArray(),
+        'focus' => Focus::getFocusByCategory($category_id, $limit, $imgSize)
+    ];
 }
+
+
 
 function subject($cate, $rows, $thumbSize=null)
 {

@@ -109,16 +109,21 @@ class Focus extends \yii\db\ActiveRecord
         $list = self::find()->where(['category_id'=>$category, 'status'=>self::STATUS_ACTIVE])
                             ->limit($rows)
                             ->orderBy('sort asc')
-                            ->asArray()
+//                            ->asArray()
                             ->all();
 
-        foreach ($list as $k => &$v) {
+        $result = [];
+        foreach ($list as $k => $v) {
             $dir = dirname($v['image']);
             $filename = basename($v['image']);
             // $v['image'] = $dir . '/' . $size . "@" . $filename;
-            $v['cover'] = Attachment::getBySrc($v['image'], $size);
-        }unset($v);
-        return $list;
+
+            $result[$k] = $v->toArray();
+
+            $result[$k]['cover'] = Attachment::getBySrc($v['image'], $size);
+        };
+
+        return $result;
     }
 
     public function getImg($type=null)

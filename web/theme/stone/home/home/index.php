@@ -8,7 +8,7 @@ $this->title = '首页';
     </ol>
     <?php $focus = focus(1,5);?>
     <ul class="carousel-inner carousel-min-width">
-        <?php foreach ($focus as $f): ?>
+        <?php foreach ($focus['focus'] as $f): ?>
         <li class="item">
             <a href="<?=$f['link']?>"
                style="background: url(<?=$f['cover']?>) no-repeat center center!important;"
@@ -28,55 +28,27 @@ $this->title = '首页';
 
 <!--互联网时代-->
 <div class="mod-wrap" id="mod-wrap">
+    <?php $focus = focus(5,5);?>
     <div class="mod-inner">
         <!--标题-->
         <div class="mod-titile">
-            <h4>在互联网时代，如何解决网络营销之道</h4>
-            <span>华邦多年互联网从业经验，提供高品质的网络营销整合服务，让您离成功更迈进一步</span>
+            <h4><?=$focus['cate']['title']?></h4>
+            <span><?=$focus['cate']['intro']?></span>
         </div>
         <!--图标内容-->
         <div class="mod-content" id="mod-content">
             <ul class="mod-content-ul" id="mod-content-ul">
+                <?php foreach ($focus['focus'] as $v):?>
                 <li>
-                    <a href="market.html">
-                        <div class="mod-pic"><img src="/theme/stone/static/picture/pic134.png"/></div>
-                        <h3>营销网站</h3>
-                        <p>专业建站服务</p>
-                        <span>开启互联网营销之路</span>
+                    <a href="<?=$v['link']?>" target="_blank">
+                        <div class="mod-pic"><img src="<?=$v['cover']?>"/></div>
+                        <h3><?=$v['title']?></h3>
+                        <p>
+                            <?=formatterNtext($v['intro'])?>
+                        </p>
                     </a>
                 </li>
-                <li>
-                    <a href="products.html">
-                        <div  class="mod-pic"><img src="/theme/stone/static/picture/pic132.png"/></div>
-                        <h3>百度推广</h3>
-                        <p>多资源，高流量</p>
-                        <span>让有需求的客户找到您</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://www.appjx.cn/" target="_blank">
-                        <div  class="mod-pic"><img src="/theme/stone/static/picture/pic133.png"/></div>
-                        <h3>全网营销服务</h3>
-                        <p>高效率，高精准</p>
-                        <span>提升互联网营销能力</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="finance.html">
-                        <div  class="mod-pic"><img src="/theme/stone/static/picture/pic130.png"/></div>
-                        <h3>百度金融</h3>
-                        <p>闪电申请，秒速审批</p>
-                        <span>开启互联网营销之路</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="nuomi.html">
-                        <div class="mod-pic"><img src="/theme/stone/static/picture/pic131.png"/></div>
-                        <h3>百度糯米</h3>
-                        <p>千万级用户群体</p>
-                        <span>解决客户少的问题</span>
-                    </a>
-                </li>
+                <?php endforeach;?>
             </ul>
         </div>
     </div>

@@ -7,7 +7,6 @@ use Yii;
 class DefaultController extends \app\core\web\HomeController
 {
 
-
 	public function actionIndex()
 	{
 	    return $this->render('index');
@@ -62,14 +61,11 @@ class DefaultController extends \app\core\web\HomeController
                 // 'width' => 200,  //宽度
                 'padding' => 5,//间距
                 'fontFile' => '@app/web/static/font/maiandragd.ttf'
-            ]
+            ],
+            'serv' => [
+                'class' => 'yii\web\ViewAction',
+            ],
         ];
     }
-
-
-
-
-
-
 
 }
