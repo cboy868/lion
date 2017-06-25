@@ -18,10 +18,10 @@ $this->title="产品与服务";
 <?php $focus = focus(2,6);?>
 <div class="marketing-div-1">
     <div class="container text-center  container-fixed">
-        <p class="marketing-p-1">营销网站优势是什么？</p>
-        <p class="marketing-p-2">SEO搜索优化，让搜索引擎更快的找到您的网站，提高访问量，品牌形象，获取更多转化率</p>
+        <p class="marketing-p-1"><?=$focus['cate']['title']?></p>
+        <p class="marketing-p-2"><?=$focus['cate']['intro']?></p>
         <div class="row">
-            <?php foreach ($focus as $v):?>
+            <?php foreach ($focus['focus'] as $v):?>
             <div class="col-xs-4">
                 <dl>
                     <dd><img src="<?=$v['cover']?>"></dd>
@@ -59,7 +59,7 @@ $this->title="产品与服务";
 <div class="marketing-div-3">
     <div class="container  container-fixed padding">
         <div class="row">
-            <?php foreach ($focus as $v):?>
+            <?php foreach ($focus['focus'] as $v):?>
             <div class="col-xs-4">
                 <dl>
                     <dd class="marketing-dd-3">
