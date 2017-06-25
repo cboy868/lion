@@ -40,11 +40,12 @@ class CommonController extends \app\core\web\HomeController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'module' => $module,
-            'type'  => $type
+            'type'  => $type,
+            'data' => $dataProvider->getModels(),
+            'pagination' => $dataProvider->getPagination()
         ];
 
         return $this->render('index', $data);
-
     }
 
     public function actionView($id)

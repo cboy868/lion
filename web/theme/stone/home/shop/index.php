@@ -14,7 +14,6 @@ $this->title="产品与服务";
 <?php endif;?>
 <!-------------------banner图-------------end-------------->
 
-
 <?php $focus = focus(2,6);?>
 <div class="marketing-div-1">
     <div class="container text-center  container-fixed">
