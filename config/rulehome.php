@@ -72,6 +72,10 @@ return [
     'knowledge-us.html' => 'cms/home/knowledge/us',
     'knowledge/<id:\d+>.html' => 'cms/home/knowledge/view',
 
+    'grave.html' => 'cms/home/grave/index',
+    'grave/<cid:\d+>.html' => 'cms/home/grave/index',
+    'grave-us.html' => 'cms/home/grave/us',
+    'grave-detail/<id:\d+>.html' => 'cms/home/grave/view',
 
     'login.html' => 'home/default/login',
 

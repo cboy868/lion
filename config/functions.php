@@ -304,6 +304,41 @@ function cmsNewArticle($mid, $limit=10, $thumb=null)
 
     return $article;
 }
+
+function cmsCateAndArticle($mid, $category_id=null, $limit=10, $thumb=null)
+{
+    $module = Module::findOne($mid);
+    Code::createObj('post', $mid);
+
+
+    $c = 'Post' . $mid;
+    $class = '\app\modules\cms\models\mods\\' . $c;
+
+
+    $query = cmsCategory::find()->where(['mid'=>$mid])
+        ->andFilterWhere(['id'=>$category_id]);
+
+    if (is_numeric($category_id)) {
+        $cates = $query->one()->toArray();
+        $category_ids = $category_id;
+    } else {
+        $cates = $query->asArray()->all();
+        $category_ids = ArrayHelper::getColumn($cates, 'id');
+    }
+
+    $article = $class::find()->where(['category_id'=>$category_ids])
+        ->orderBy('id desc')
+        ->limit($limit)
+        ->asArray()
+        ->all();
+
+    foreach ($article as &$v) {
+        $v['cover'] = \app\modules\cms\models\PostImage::getById($v['thumb'], $thumb);
+    }unset($v);
+
+    return ['cates'=>$cates, 'posts'=>$article,'modInfo'=>$module->toArray()];
+
+}
 /**
  * @return null
  * @name 文章

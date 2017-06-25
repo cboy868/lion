@@ -53,27 +53,54 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
 
 
 <body>
+<style>
+    .nav > li > a {
+        margin-left: 45px;
+    }
+    @media screen and (max-width:992px) {
+        .navbar-header .navbar-brand.abc {
+            width: 100%;
+            display: none;
+        }
+    }
+    @media screen and (max-width:768px) {
+        .navbar-header .navbar-brand.abc {
+            width: 100%;
+            display: inline-block;
+        }
+    }
+    @media screen and (max-width:300px) {
+        .navbar-header .navbar-brand.abc {
+            width: 100%;
+            display: none;
+        }
+    }
+</style>
 <?php $this->beginBody() ?>
 <div class="fade out">
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">厦门创易网络-网站建设专家</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                <a class="navbar-brand" href="/" alt="nice design">
-                    <img src="/theme/zhuoxun/static/images/logo2.png" alt="<?=g("fullname")?>" class="topimg1" title="" />
-                    <img src="/theme/zhuoxun/static/images/logo.png" alt="<?=g("fullname")?>" class="topimg2">
-                </a> </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <?php foreach ($navs as $k => $v):?>
-                        <li class='<?php if($c_nav == $v['url']):?>active<?php endif;?>' >
-                            <a href="<?=Url::toRoute($v['url'])?>"><?=$v['name']?></a>
-                        </li>
-                    <?php endforeach;?>
-                </ul>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">厦门创易网络-网站建设专家</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                    <a class="navbar-brand abc" href="/" alt="nice design">
+                        <img src="/theme/zhuoxun/static/images/logo2.png" alt="厦门创易网络您做网站好伙伴" class="topimg1" title="" />
+                        <img src="/theme/zhuoxun/static/images/logo.png" alt="厦门网站建设专家" class="topimg2">
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
+                            <?php foreach ($navs as $k => $v):?>
+                                <li class='<?php if($c_nav == $v['url']):?>active<?php endif;?>' >
+                                    <a href="<?=Url::toRoute($v['url'])?>"><?=$v['name']?></a>
+                                </li>
+                            <?php endforeach;?>
+                        </ul>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+
 
     <script>
         $(function(){
@@ -93,7 +120,6 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
         <div class="foot2">
             <div class="foot_logo">
                 <img src="/theme/zhuoxun/static/images/foot_logo.png" />
-                <!-- <p style="font-size:16px; margin:5px 0 0 5px; color:#333;">厦门首家私人定制型网站建设</p> -->
             </div>
             <div class="con">
                 <ul class="list1">
@@ -148,6 +174,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                         <a href='/article/list-3-1.html'>产品设计</a>
                     </li>
                 </ul>
+
                 <ul class="list1">
                     <li>
                         <h1>知识</h1>
