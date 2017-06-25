@@ -1,12 +1,19 @@
 <?php
 use yii\helpers\Html;
-use app\core\widgets\Alert;
+use yii\helpers\Url;
+
+//$action = Yii::$app->controller->action->id;
+$navs = \app\modules\cms\models\Nav::navs();
+
 $controller = Yii::$app->controller;
 $controller_id = $controller->id;
 $module_id = $controller->module->id;
 $action_id = $controller->action->id;
-$c_nav = $module_id .'_'. $controller_id .'_'. $action_id;
+
+$c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
+
 ?>
+
 <?php $this->beginPage() ?>
 
 <!DOCTYPE html>
@@ -53,17 +60,16 @@ $c_nav = $module_id .'_'. $controller_id .'_'. $action_id;
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">厦门创易网络-网站建设专家</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                 <a class="navbar-brand" href="/" alt="nice design">
-                    <img src="/theme/zhuoxun/static/images/logo2.png" alt="厦门创易网络您做网站好伙伴" class="topimg1" title="" />
-                    <img src="/theme/zhuoxun/static/images/logo.png" alt="厦门网站建设专家" class="topimg2">
+                    <img src="/theme/zhuoxun/static/images/logo2.png" alt="<?=g("fullname")?>" class="topimg1" title="" />
+                    <img src="/theme/zhuoxun/static/images/logo.png" alt="<?=g("fullname")?>" class="topimg2">
                 </a> </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class='active' ><a href="/">首页</a></li>
-                    <li class=''><a href='/cases'>案例</a></li>
-                    <li class=''><a href='/service' rel='dropmenu1'>服务</a></li>
-                    <li class=''><a href='/article' rel='dropmenu1'>知识</a></li>
-                    <li class=''><a href='/contact' rel='dropmenu1'>联系我们</a></li>
-
+                    <?php foreach ($navs as $k => $v):?>
+                        <li class='<?php if($c_nav == $v['url']):?>active<?php endif;?>' >
+                            <a href="<?=Url::toRoute($v['url'])?>"><?=$v['name']?></a>
+                        </li>
+                    <?php endforeach;?>
                 </ul>
             </div>
         </div>

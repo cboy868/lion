@@ -66,7 +66,11 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
             </div>
             <ul>
                 <?php foreach ($navs as $k => $v):?>
-                <li><a href="<?=Url::toRoute($v['url'])?>" class="<?php if($c_nav == $v['url']):?>active<?php endif;?>"><?=$v['name']?></a></li>
+                <li>
+                    <a href="<?=Url::toRoute($v['url'])?>" class="<?php if($c_nav == $v['url']):?>active<?php endif;?>">
+                        <?=$v['name']?>
+                    </a>
+                </li>
                 <?php endforeach;?>
             </ul>
         </div>
