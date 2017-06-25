@@ -11,5 +11,5 @@ use app\modules\mod\models\Code;
 
 class JobController extends CommonController
 {
-    public $mid = 5;
+    public $mid = 6;
 }

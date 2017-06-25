@@ -11,5 +11,5 @@ use app\modules\mod\models\Code;
 
 class KnowledgeController extends CommonController
 {
-    public $mid = 2;
+    public $mid = 8;
 }

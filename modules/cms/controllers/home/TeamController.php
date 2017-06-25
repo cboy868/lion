@@ -11,5 +11,5 @@ use app\modules\mod\models\Code;
 
 class TeamController extends CommonController
 {
-    public $mid = 7;
+    public $mid = 4;
 }

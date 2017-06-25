@@ -88,8 +88,6 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
         })
     </script>
 
-
-
 <?=$content?>
     <div class="main_foot">
         <div class="foot2">
@@ -168,22 +166,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                     </li>
 
                 </ul>
-            </div><!--
-<ul class="list2">
-<li>
-  <h1>商务合作</h1>
-</li>
-<li>邮箱：info@0592ui.com</li>
-
-<li>座机：0592-3177731</li>
-<li>
-Q Q：17001781
-<a href="http://wpa.qq.com/msgrd?v=3&uin=17001781&site=qq&menu=yes" target="_blank"> <i class="qq"></i>
-  点击交谈
-</a>
-</li>
-<li>地址：厦门软件园二期望海路15号之一6层</li>
-</ul> -->
+            </div>
 
             <style>
                 .foot ul.list2 h1 {color: #222}
@@ -195,18 +178,18 @@ Q Q：17001781
                 </li>
                 <li> <i class="qq"></i>
                     <span class="qqtext">Q Q：</span>
-                    <a target="_blank" class="qqmsn" href="http://wpa.qq.com/msgrd?v=3&amp;uin=171532137&amp;site=qq&amp;menu=yes" title="我要咨询"></a>
+                    <a target="_blank" class="qqmsn" href="http://wpa.qq.com/msgrd?v=3&amp;uin=651199357&amp;site=qq&amp;menu=yes" title="我要咨询"></a>
                 </li>
                 <li> <i class="weixin"></i>
-                    微信：xiamenui
+                    微信：boi531
                 </li>
                 <li>
                     <i class="tel"></i>
-                    电话：0592-5193108 3177731
+                    电话：<?=g("cmobile")?>
                 </li>
                 <li>
                     <i class="mail"></i>
-                    邮件：vip@0592ui.com
+                    邮件：<?=g("uemail")?>
                 </li>
             </ul>
 
@@ -232,7 +215,7 @@ Q Q：17001781
             <div style="clear:both;"></div>
             </p>
             <p>厦门创易网络科技有限公司 © 2008-2020 《中华人民共和国增值电信业务经营许可证》ISP/ICP闽B1-20160151 闽ICP备14001588号-1</p>
-            <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?d2914f4b0a6ed08b223ed5bf3e7744dc"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script>
+
         </div>
     </div>
     <script type="text/javascript">
@@ -258,10 +241,31 @@ Q Q：17001781
 </script>
 <script type="text/javascript">$(function(){$("#jsa").remove()})</script>
 <ul id="side-bar" class="side-pannel side-bar">
-    <a title="" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1700781&amp;site=qq&amp;menu=yes" target="_blank" class="qq"><i class="f_top up_qq"></i></a>
-    <span class="dh"><i class="f_top up_tel"></i><div class="hide" style="top:-7px"><div class="hied_con"><dl><dt>咨询电话</dt><dt><a href="tel:0592-5193108">0592-5193108</a></dt><dt><a href="tel:0592-5193168">0592-5193168</a></dt></dl></div></div></span>
-    <a title="" href="javascript:;" class="wx weixin2 dh"><i class="f_top up_wx"></i><div class="hide" style="top: -45px"><div class="hied_con"><img src="/theme/zhuoxun/static/images/ma2.jpg"></div></div></a>
-    <a title="" href="javascript:;" class="gotop" style="display: block;"><i class="f_top up_up"></i></a></ul>
+
+    <a title="" href="http://wpa.qq.com/msgrd?v=3&amp;uin=651199357&amp;site=qq&amp;menu=yes" target="_blank" class="qq">
+        <i class="f_top up_qq"></i>
+    </a>
+    <span class="dh">
+        <i class="f_top up_tel"></i>
+        <div class="hide" style="top:-7px">
+            <div class="hied_con">
+                <dl>
+                    <dt>咨询电话</dt>
+                    <dt><a href="tel:0592-5193108"><?=g("cmobile")?></a></dt>
+                </dl>
+            </div>
+        </div>
+    </span>
+    <a title="" href="javascript:;" class="wx weixin2 dh">
+        <i class="f_top up_wx"></i>
+        <div class="hide" style="top: -45px">
+            <div class="hied_con">
+                <img src="/theme/zhuoxun/static/images/ma2.jpg">
+            </div>
+        </div>
+    </a>
+    <a title="" href="javascript:;" class="gotop" style="display: block;"><i class="f_top up_up"></i></a>
+</ul>
 <script type="text/javascript">
     $(function(){
         $(window).scroll(function(){

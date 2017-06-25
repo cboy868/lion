@@ -48,7 +48,6 @@ class HomeController extends \app\core\web\Controller
             '@app/modules/cms/views/home/message' => '@app/web/theme/' . $model->svalue . '/home/message',
             '@app/modules/cms/views/home/service' => '@app/web/theme/' . $model->svalue . '/home/service',
             '@app/modules/cms/views/home/knowledge' => '@app/web/theme/' . $model->svalue . '/home/knowledge',
-            '@app/modules/cms/views/home/grave' => '@app/web/theme/' . $model->svalue . '/home/grave',
         ];
     }
 

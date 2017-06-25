@@ -17,7 +17,7 @@ use app\modules\cms\models\MsgForm;
 class ContactController extends CommonController
 {
 
-    public $mid = 1;
+    public $mid = 3;
 
     public function actions()
     {

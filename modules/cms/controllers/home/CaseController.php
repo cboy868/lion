@@ -11,5 +11,5 @@ use app\modules\mod\models\Code;
 
 class CaseController extends CommonController
 {
-    public $mid = 1;
+    public $mid = 2;
 }

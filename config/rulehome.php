@@ -68,10 +68,6 @@ return [
     'service-us.html' => 'cms/home/service/us',
     'service/<id:\d+>.html' => 'cms/home/service/view',
 
-    'grave.html' => 'cms/home/grave/index',
-    'grave-us.html' => 'cms/home/grave/us',
-    'grave/<id:\d+>.html' => 'cms/home/grave/view',
-
     'knowledge.html' => 'cms/home/knowledge/index',
     'knowledge-us.html' => 'cms/home/knowledge/us',
     'knowledge/<id:\d+>.html' => 'cms/home/knowledge/view',
