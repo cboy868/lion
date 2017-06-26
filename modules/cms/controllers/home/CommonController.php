@@ -2,6 +2,9 @@
 
 namespace app\modules\cms\controllers\home;
 
+use app\core\helpers\ArrayHelper;
+use app\core\models\Attachment;
+use app\modules\cms\models\PostImage;
 use yii;
 use app\modules\cms\models\Post;
 use app\modules\mod\models\Module;
@@ -36,12 +39,17 @@ class CommonController extends \app\core\web\HomeController
 
         $dataProvider = $searchModel->search($params);
 
+        $data = ArrayHelper::toArray($dataProvider->getModels());
+        foreach ($data as &$v) {
+            $v['cover'] = PostImage::getById($v['thumb'], '400x300');
+        }unset($v);
+
         $data = [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'module' => $module,
             'type'  => $type,
-            'data' => $dataProvider->getModels(),
+            'data' => $data,
             'pagination' => $dataProvider->getPagination()
         ];
 

@@ -57,24 +57,24 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
     .nav > li > a {
         margin-left: 45px;
     }
-    @media screen and (max-width:992px) {
-        .navbar-header .navbar-brand.abc {
-            width: 100%;
-            display: none;
-        }
-    }
-    @media screen and (max-width:768px) {
-        .navbar-header .navbar-brand.abc {
-            width: 100%;
-            display: inline-block;
-        }
-    }
-    @media screen and (max-width:300px) {
-        .navbar-header .navbar-brand.abc {
-            width: 100%;
-            display: none;
-        }
-    }
+    /*@media screen and (max-width:992px) {*/
+        /*.navbar-header .navbar-brand.abc {*/
+            /*width: 100%;*/
+            /*display: none;*/
+        /*}*/
+    /*}*/
+    /*@media screen and (max-width:768px) {*/
+        /*.navbar-header .navbar-brand.abc {*/
+            /*width: 100%;*/
+            /*display: inline-block;*/
+        /*}*/
+    /*}*/
+    /*@media screen and (max-width:300px) {*/
+        /*.navbar-header .navbar-brand.abc {*/
+            /*width: 100%;*/
+            /*display: none;*/
+        /*}*/
+    /*}*/
 </style>
 <?php $this->beginBody() ?>
 <div class="fade out">
@@ -91,6 +91,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                     <ul class="nav navbar-nav navbar-right">
                         <ul class="nav navbar-nav navbar-right">
                             <?php foreach ($navs as $k => $v):?>
+                                <?php if($v['id'] == 2) continue;?>
                                 <li class='<?php if($c_nav == $v['url']):?>active<?php endif;?>' >
                                     <a href="<?=Url::toRoute($v['url'])?>"><?=$v['name']?></a>
                                 </li>
@@ -100,8 +101,6 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                 </div>
             </div>
         </div>
-
-
     <script>
         $(function(){
             $(window).scroll(function(){
@@ -222,26 +221,16 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
 
 
         </div>
+        <?php $links = links(10);?>
         <div class="foot_bottom">
             <p id='maker'>
                 友情链接：
-                <a href="http://www.0592ui.com/" target="_blank" >厦门网站建设</a>
-                <a href="http://weixin.0592ui.com/" target="_blank" >厦门微信营销平台</a>
-                <a href="http://www.001studio.com/" target="_blank" >湛江网站建设</a>
-                <a href="http://www.uecm.cn/" target="_blank" >十堰网站建设</a>
-                <a href="http://www.72en.com/" target="_blank" >营销型网站建设</a>
-                <a href="http://www.ihanshi.com/" target="_blank" >郑州网站建设</a>
-                <a href="http://www.mcykj.com/" target="_blank" >北京网站设计</a>
-                <a href="http://www.ceall.net.cn/" target="_blank" >佛山网络公司</a>
-                <a href="http://www.azym.cn" target="_blank" >网站源码</a>
-                <a href="http://www.szhrnet.com" target="_blank" >深圳app开发</a>
-                <a href="http://www.hfwzdj.com/" target="_blank" >合肥制作网站</a>
-                <a href="http://www.52phw.com/" target="_blank" >商丘网站建设</a>
-                <a href="http://www.znbo.com/" target="_blank" >网站建设公司</a>
-                <a href="http://www.gz898.com/" target="_blank" >广州做网站</a>
+                <?php foreach ($links as $v):?>
+                <a href="<?=$v['link']?>" target="_blank" ><?=$v['name']?></a>
+                <?php endforeach;?>
             <div style="clear:both;"></div>
             </p>
-            <p>厦门创易网络科技有限公司 © 2008-2020 《中华人民共和国增值电信业务经营许可证》ISP/ICP闽B1-20160151 闽ICP备14001588号-1</p>
+            <p><?=g("reserved")?> <?=g("beian")?></p>
 
         </div>
     </div>
@@ -278,11 +267,12 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
             <div class="hied_con">
                 <dl>
                     <dt>咨询电话</dt>
-                    <dt><a href="tel:0592-5193108"><?=g("cmobile")?></a></dt>
+                    <dt><a href="tel:<?=g("cmobile")?>"><?=g("cmobile")?></a></dt>
                 </dl>
             </div>
         </div>
     </span>
+    <!--
     <a title="" href="javascript:;" class="wx weixin2 dh">
         <i class="f_top up_wx"></i>
         <div class="hide" style="top: -45px">
@@ -291,6 +281,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
             </div>
         </div>
     </a>
+    -->
     <a title="" href="javascript:;" class="gotop" style="display: block;"><i class="f_top up_up"></i></a>
 </ul>
 <script type="text/javascript">

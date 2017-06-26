@@ -1,118 +1,134 @@
 <?php
 use yii\widgets\LinkPager;
-
-$this->title = '新闻资讯';
 ?>
-<!-------------------banner图-------------start------------>
-<div class="banner myCarousel">
-    <div class="container container-fixed">
-        <p class="text-center new-banner-text1">新闻资讯</p>
-
-        <p class="text-center new-banner-text2">提供最新最热的动态，产品活动相关资讯平台</p>
+<link href="/theme/zhuoxun/static/css/channel.css" rel="stylesheet" >
+<script type='text/javascript' src="/theme/zhuoxun/static/js/itbeing.js"></script>
+<script type='text/javascript' src="/theme/zhuoxun/static/js/jquery.itbeing.js"></script>
+<div class="about_box" style="background:url(/theme/zhuoxun/static/images/zhishi.jpg) no-repeat center top; background-size:cover;"></div>
+<!--about-->
+<div id="case_con">
+    <div class="blog_tab">
+        <ul>
+            <?php $cid = Yii::$app->request->get('cid');?>
+            <li><a href="<?=url(['/news/home/default/index'])?>"  class="case_category <?php if(!$cid)echo'current';?>" >最近更新</a></li>
+            <?php foreach ($cates as $v):?>
+                <li>
+                    <a href="<?=url(['/news/home/default/index', 'cid'=>$v['id']])?>"
+                       class="case_category <?php if($cid == $v['id'])echo'current';?>" >
+                        <?=$v['name']?>
+                    </a>
+                </li>
+            <?php endforeach;?>
+        </ul>
     </div>
-</div>
-<!-------------------banner图-------------end-------------->
-
-<!--------------------新闻列表-------------start----------->
-<section id="news-list">
-    <div class="container container-fixed">
-        <div class="row">
-            <div class="col-xs-3 tab-wrap">
-                <p class="text-left news-text-2">新闻分类</p>
-                <ul class="nav nav-pills nav-stacked nav-ul">
-                    <?php $cid = getParam('cid')?>
-                    <li class="<?php if(!$cid)echo'active'?>">
-                        <a href="<?=url(['/news/home/default/index'])?>">全部</a>
-                    </li>
-                    <?php
-                    foreach ($cates as $cate):
-                    ?>
-                    <li class="<?php if($cid==$cate['id'])echo'active'?>">
-                        <a href="<?=url(['/news/home/default/index', 'cid'=>$cate['id']])?>"><?=$cate['name']?></a>
-                    </li>
-                    <?php endforeach;?>
-                </ul>
-
-                <p class="text-left news-text-2 news-text-3">热门文章</p>
-                <?php $hots = news(null, 10, null, null, true);?>
-                <?php foreach ($hots as $hot):?>
-                <a href="<?=url(['/news/home/defualt/view','id'=>$hot['id']])?>" class="btn btn-link btn-pri" style="display: block;">
-                    <?=$hot['title']?>
-                </a>
-                <?php endforeach;?>
-            </div>
-
-
-            <div class="col-xs-9">
-                <div class="tab-content">
-                    <p class="text-left news-text-2">新闻资讯</p>
-
-                    <div class="tab-pane fade active  in" id="tab1">
-                        <?php foreach ($list as $v):?>
-                        <div class="media media-1">
-                            <div class="pull-left first">
-                                <a href="<?=url(['/news/home/default/view', 'id'=>$v['id']])?>">
-                                    <img class="img-responsive" src="<?=$v['cover']?>">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h3 class="news-title-1"><a href="<?=url(['/news/home/default/view', 'id'=>$v['id']])?>" class="news-title-1-cl"><?=$v['title']?></a></h3>
-
-                                <p class="news-text-1">
-                                    <?=$v['summary']?>
-                                </p>
-                                <div class="clear">
-                                    <p class="pull-left news-text-4 p-line-height"><?=$v['author']?>&nbsp;|&nbsp;
-                                        <label class="time"><?=date('Y-m-d H:i',$v['created_at'])?></label>
-                                    </p>
-                                    <p class="pull-right p-line-height">
-                                        <a href="<?=url(['/news/home/default/view', 'id'=>$v['id']])?>" class="btn text-right">阅读全文
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endforeach;?>
-                        <!--******分页********-->
-                        <?php
-                        echo LinkPager::widget([
-                            'pagination' => $pagination,
-                            'nextPageLabel' => '>',
-                            'prevPageLabel' => '<',
-                            'firstPageLabel' => '首页',
-                            'lastPageLabel' => '尾页',
-                            'options' =>['class'=>'pagination','style'=>'float:right;']
-                        ]);
-                        ?>
-                        <!--******分页********-->
-                    </div>
+    <!--blog_tab-->
+    <div class="case blogs">
+        <div class="case_con blog_bg blogs_con">
+            <?php foreach ($list as $v): ?>
+                <dl>
+                    <dd style="background:url(<?=$v['cover']?>) no-repeat center center; background-size:cover;height: 220px">
+                        <a href="<?=url(['/news/home/default/view', 'id'=>$v['id']])?>"></a>
+                    </dd>
+                    <dt>
+                    <h3>
+                        <a href="<?=url(['/news/home/default/view', 'id'=>$v['id']])?>">
+                            <?=$v['title']?>
+                        </a>
+                    </h3>
+                    </dt>
+                    <dt><?=$v['author']?>   <?=date('Y-m-d', $v['created_at'])?></dt>
+                    <dt style="height: 48px;overflow: hidden;">
+                        <?=$v['summary']?>
+                    </dt>
+                </dl>
+            <?php endforeach;?>
+        </div>
+        <div class="pagess">
+            <?php
+            echo LinkPager::widget([
+                'pagination' => $pagination,
+                'nextPageLabel' => '>',
+                'prevPageLabel' => '<',
+                'firstPageLabel' => '首页',
+                'lastPageLabel' => '尾页',
+            ]);
+            ?>
+            <div class="addmore">
+                <div class="loading-sk-circle" style="display: none">
+                    <div class="sk-circle1 sk-child"></div>
+                    <div class="sk-circle2 sk-child"></div>
+                    <div class="sk-circle3 sk-child"></div>
+                    <div class="sk-circle4 sk-child"></div>
+                    <div class="sk-circle5 sk-child"></div>
+                    <div class="sk-circle6 sk-child"></div>
+                    <div class="sk-circle7 sk-child"></div>
+                    <div class="sk-circle8 sk-child"></div>
+                    <div class="sk-circle9 sk-child"></div>
+                    <div class="sk-circle10 sk-child"></div>
+                    <div class="sk-circle11 sk-child"></div>
+                    <div class="sk-circle12 sk-child"></div>
                 </div>
+                <span>加载更多</span>
             </div>
         </div>
     </div>
-    </div>
-</section>
-<!--/#content-->
-<!--------------------新闻列表-------------end------------->
-
-
-
+</div>
+<script>
+    $('body').show();
+    $('.version').text(NProgress.version);
+    NProgress.start();
+    setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 5);
+</script>
 <script type="text/javascript">
-    $(function () {
-        /*
-         *   导航浮动
-         */
-        $(document).scroll(function () {
-            var top = $(document).scrollTop();
-            if (top > 40) {
-                $(".navbar-style").addClass("navbar-display");
-                $(".header-pos").addClass("header-fixed");
-                $(".header-pos .navbar-inverse").css({"box-shadow": "0px 3px 18px -5px #aaa"});
-            } else {
-                $(".navbar-style").removeClass("navbar-display");
-                $(".header-pos").removeClass("header-fixed");
-                $(".header-pos .navbar-inverse").css({"box-shadow": "none"});
-            };
-        });
+    $(document).ready(function(){
+        $('.weixin2').click(function(){
+            $('.theme-mask').show();
+            $('.theme-mask').height($(document).height());
+            $('.popover1').slideDown(200);
+        })
+        $('.close').click(function(){
+            $('.theme-mask').hide();
+            $('.popover1').slideUp(200);
+        })
     })
+</script>
+<script>
+    $(function(){
+        // 页数
+        var page = '1';
+        $(".addmore").on('click', function(){
+            var result = ''
+            page++;
+            $(".loading-sk-circle").show();
+            $.ajax({
+                type: 'GET',
+                url: '/article/get_page?type_id=2&page='+page,
+                dataType: 'json',
+                success: function(data){
+                    if(data.status){
+                        for(var i in data.cases){
+                            result +=  '<dl>'+
+                                '<dd style="background:url('+data.cases[i].image_mid+') no-repeat center center; background-size:cover;"><a href="/article/'+data.cases[i].id+'.html"></a></dd>'+
+                                '<dt>'+
+                                '<h3><a href="/article/'+data.cases[i].id+'.html">'+data.cases[i].title+'</a></h3>'+
+                                '</dt>'+
+                                '<dt>创意设计   '+data.cases[i].addtime+'</dt>'+
+                                '<dt>'+data.cases[i].daodu+'...</dt>'+
+                                '</dl>';
+                        }
+                        // 如果没有数据
+                    }else{
+                        $(".addmore").find("span").html("没有更多数据了")
+                    }
+                    $('.case_con').append(result);
+                    $(".loading-sk-circle").hide();
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    $(".loading-sk-circle").hide();
+                    // 即使加载出错，也得重置
+                }
+            });
+        })
+    });
 </script>

@@ -132,10 +132,6 @@ function newsCates($cates=null, $limit=10, $thumb=null, $type=null)
             $result[$v['id']]['child'] = $tp;
         }
     }
-
-
-
-
     return $result;
 }
 
@@ -303,6 +299,16 @@ function cmsNewArticle($mid, $limit=10, $thumb=null)
     }unset($v);
 
     return $article;
+}
+
+function cmsCates($mid, $category_id=null, $limit=10, $thumb=null)
+{
+    $cates = cmsCategory::find()->where(['mid'=>$mid])
+                                ->andFilterWhere(['id'=>$category_id])
+                                ->asArray()
+                                ->all();
+    return $cates;
+
 }
 
 function cmsCateAndArticle($mid, $category_id=null, $limit=10, $thumb=null)

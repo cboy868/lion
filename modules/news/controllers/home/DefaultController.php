@@ -45,7 +45,7 @@ class DefaultController extends \app\core\web\HomeController
 					    ->all();
 
 		foreach ($items as $k => &$v) {
-            $v['cover'] = NewsPhoto::getById($v['thumb'], '420x240');
+            $v['cover'] = NewsPhoto::getById($v['thumb'], '400x300');
             $v['tags'] = TagRel::getTagsByRes('news', $v['id']);
         }unset($v);
 
