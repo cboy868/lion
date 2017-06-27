@@ -111,7 +111,6 @@ class Focus extends \yii\db\ActiveRecord
                             ->orderBy('sort asc')
 //                            ->asArray()
                             ->all();
-
         $result = [];
         foreach ($list as $k => $v) {
             $dir = dirname($v['image']);

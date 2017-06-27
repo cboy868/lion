@@ -280,6 +280,26 @@ function productList($category_id=null,$rows=10, $thumb='')
 	return $list;
 }
 
+function cmsRand($mid, $category_id=null, $limit=10, $thumb=null)
+{
+    $module = Module::findOne($mid);
+    Code::createObj('post', $mid);
+
+    $c = 'Post' . $mid;
+    $class = '\app\modules\cms\models\mods\\' . $c;
+
+
+    $article = $class::find()->orderBy('rand()')
+        ->limit($limit)
+        ->asArray()
+        ->all();
+
+    foreach ($article as $key => &$v) {
+        $v['cover'] = \app\modules\cms\models\PostImage::getById($v['thumb'], $thumb);
+    }unset($v);
+
+    return $article;
+}
 
 function cmsNewArticle($mid, $limit=10, $thumb=null)
 {
@@ -301,7 +321,7 @@ function cmsNewArticle($mid, $limit=10, $thumb=null)
     return $article;
 }
 
-function cmsCates($mid, $category_id=null, $limit=10, $thumb=null)
+function cmsCates($mid, $category_id=null, $thumb=null)
 {
     $cates = cmsCategory::find()->where(['mid'=>$mid])
                                 ->andFilterWhere(['id'=>$category_id])
@@ -310,6 +330,7 @@ function cmsCates($mid, $category_id=null, $limit=10, $thumb=null)
     return $cates;
 
 }
+
 
 function cmsCateAndArticle($mid, $category_id=null, $limit=10, $thumb=null)
 {

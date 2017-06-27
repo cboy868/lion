@@ -8,6 +8,7 @@ use Imagine\Image\ManipulatorInterface;
 
 class Image extends \yii\imagine\Image {
 
+    const THUMB_DIR = 'thumb';
     /**
      * @name 缩略
      * 这里文件稍大时，可能会内存超出，之后再解决
@@ -18,6 +19,9 @@ class Image extends \yii\imagine\Image {
         $filePath = $event->filePath;
 
         $dir = dirname($filePath);
+
+        $thumb_dir = str_replace('upload/image', 'upload/image/' . self::THUMB_DIR, $dir);
+
         $basename = basename($filePath);
 
         if (!isset($event->res)) {
@@ -30,6 +34,10 @@ class Image extends \yii\imagine\Image {
         }
 
         $thumb = array_filter($thumb);
+
+        if (!is_dir($thumb_dir)) {
+            @mkdir($thumb_dir, 0777, true) or die($thumb_dir . ' no permission to write');
+        }
 
         if (!is_array($thumb)) {
             self::water($event->res, $filePath);
@@ -44,8 +52,7 @@ class Image extends \yii\imagine\Image {
             if (!is_numeric($size[0]) || !is_numeric($size[1])) {
                 continue;
             }
-            $thumb_path = $dir. '/' . $size[0] .'x'. $size[1] . '@' . $basename;
-
+            $thumb_path = $thumb_dir. '/' . $size[0] .'x'. $size[1] . '@' . $basename;
             // self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_INSET)->save($thumb_path);
             self::thumbnail($filePath, $size[0], $size[1], ManipulatorInterface::THUMBNAIL_OUTBOUND)->save($thumb_path);
 

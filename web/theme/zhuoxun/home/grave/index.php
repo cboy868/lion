@@ -1,3 +1,6 @@
+<?php
+$this->title="公墓管理系统介绍";
+?>
 <link href="/theme/zhuoxun/static/css/channel.css" rel="stylesheet" >
 <script type='text/javascript' src="/theme/zhuoxun/static/js/common.js"></script>
 <script type='text/javascript' src="/theme/zhuoxun/static/js/jquery.singlePageNav.min.js"></script>
@@ -9,8 +12,10 @@
 
     });
 </script>
-
-<div class="about_box" style="background:url(/theme/zhuoxun/static/images/service.jpg) no-repeat center top; background-size:cover; width:100%;  "></div>
+<?php $focus = focus(1, 1, '2560x600')?>
+<div class="about_box"
+     style="background:url(<?=$focus['focus'][0]['cover']?>) no-repeat center top; background-size:cover; width:100%;  ">
+</div>
 <!--about_box-->
 <div class="mian_tab navbg"  id="templatemo_menu">
     <ul>

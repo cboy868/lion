@@ -1,14 +1,17 @@
 <?php
 use yii\widgets\LinkPager;
+
+$this->title="卓迅知识库";
 ?>
 <link href="/theme/zhuoxun/static/css/channel.css" rel="stylesheet" >
 <script type='text/javascript' src="/theme/zhuoxun/static/js/itbeing.js"></script>
 <script type='text/javascript' src="/theme/zhuoxun/static/js/jquery.itbeing.js"></script>
-<div class="about_box" style="background:url(/theme/zhuoxun/static/images/zhishi.jpg) no-repeat center top; background-size:cover;"></div>
+<?php $focus = focus(3, 1, '2560x600')?>
+<div class="about_box" style="background:url(<?=$focus['focus'][0]['cover']?>) no-repeat center top; background-size:cover;"></div>
 <!--about-->
 <div id="case_con">
     <div class="blog_tab">
-        <?php $cates = cmsCates(8, [17,18,19,20,21], $limit=10, $thumb=null);?>
+        <?php $cates = cmsCates(8, [17,18,19,20,21,22]);?>
         <ul>
             <?php $cid = Yii::$app->request->get('cid');?>
             <li><a href="<?=url(['/cms/home/knowledge/index'])?>"  class="case_category <?php if(!$cid)echo'current';?>" >最近更新</a></li>

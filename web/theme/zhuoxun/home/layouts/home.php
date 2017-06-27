@@ -81,10 +81,15 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">厦门创易网络-网站建设专家</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">卓迅网络-公墓管理系统</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                     <a class="navbar-brand abc" href="/" alt="nice design">
-                        <img src="/theme/zhuoxun/static/images/logo2.png" alt="厦门创易网络您做网站好伙伴" class="topimg1" title="" />
-                        <img src="/theme/zhuoxun/static/images/logo.png" alt="厦门网站建设专家" class="topimg2">
+                        <img src="/theme/zhuoxun/static/image/logo2.png" alt="卓迅网络" class="topimg1" title="" />
+                        <img src="/theme/zhuoxun/static/image/logo.png" alt="卓迅公墓管理系统" class="topimg2">
                     </a>
                 </div>
                 <div class="navbar-collapse collapse">
@@ -92,6 +97,11 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                         <ul class="nav navbar-nav navbar-right">
                             <?php foreach ($navs as $k => $v):?>
                                 <?php if($v['id'] == 2) continue;?>
+                                <?php if ($c_nav == $v['url']):?>
+                                    <li class='active'>
+                                <?php else:?>
+                                    <li>
+                                <?php endif;?>
                                 <li class='<?php if($c_nav == $v['url']):?>active<?php endif;?>' >
                                     <a href="<?=Url::toRoute($v['url'])?>"><?=$v['name']?></a>
                                 </li>
@@ -118,85 +128,71 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
     <div class="main_foot">
         <div class="foot2">
             <div class="foot_logo">
-                <img src="/theme/zhuoxun/static/images/foot_logo.png" />
+                <img src="/theme/zhuoxun/static/image/footer_logo.png" />
             </div>
             <div class="con">
                 <ul class="list1">
                     <li>
-                        <h1>服务</h1>
+                        <h1>公墓管理系统</h1>
                     </li>
                     <li>
-                        <a href="/service/#templatemo1">服务体系</a>
+                        <a href="<?=url(['/cms/home/grave/index','#'=>'templatemo1'])?>">服务体系</a>
                     </li>
                     <li>
-                        <a href="/service/#templatemo2">解决方案</a>
+                        <a href="<?=url(['/cms/home/grave/index','#'=>'templatemo2'])?>">解决方案</a>
                     </li>
                     <li>
-                        <a href="/service/#templatemo3">服务优势</a>
+                        <a href="<?=url(['/cms/home/grave/index','#'=>'templatemo3'])?>">服务优势</a>
                     </li>
                     <li>
-                        <a href="/service/#templatemo4">合作流程</a>
+                        <a href="<?=url(['/cms/home/grave/index','#'=>'templatemo4'])?>">合作流程</a>
                     </li>
                 </ul>
                 <ul class="list1">
                     <li>
-                        <h1>案例</h1>
+                        <h1>卓迅知识库</h1>
                     </li>
 
+                    <?php $cates = cmsCates(8, [17,18,19,20,21], 10)?>
+
+                    <?php foreach ($cates as $v): ?>
                     <li>
-                        <a href='/cases/list-4-1'>企业网站</a>
+                        <a href='<?=url(["/cms/home/knowledge/index", "cid"=>$v["id"]])?>'><?=$v['name']?></a>
                     </li>
-
-                    <li>
-                        <a href='/cases/list-1-1'>平台门户网站</a>
-                    </li>
-
-                    <li>
-                        <a href='/cases/list-2-1'>电商网店</a>
-                    </li>
-
-                    <li>
-                        <a href='/cases/list-3-1'>移动APP</a>
-                    </li>
-
+                    <?php endforeach;?>
                 </ul>
                 <ul class="list1">
                     <li>
-                        <h1>动态</h1>
+                        <h1>新闻动态</h1>
                     </li>
 
                     <li>
-                        <a href='/article/list-2-1.html'>行业时讯</a>
+                        <a href='<?=url(['/news/home/default/index','cid'=>1])?>'>公司资讯</a>
                     </li>
 
                     <li>
-                        <a href='/article/list-3-1.html'>产品设计</a>
+                        <a href='<?=url(['/news/home/default/index','cid'=>2])?>'>行业新闻</a>
                     </li>
                 </ul>
 
                 <ul class="list1">
                     <li>
-                        <h1>知识</h1>
+                        <h1>联系我们</h1>
                     </li>
                     <li>
-                        <a href='/article/list-4-1.html'>产品运营</a>
+                        <a href='<?=url(['/cms/home/contact/us','#'=>'templatemo2'])?>'>产品优势</a>
                     </li>
                     <li>
-                        <a href='/article/list-5-1.html'>微营销</a>
+                        <a href='<?=url(['/cms/home/contact/us','#'=>'templatemo4'])?>'>留言反馈</a>
                     </li>
-                    <li>
-                        <a href='/article/list-6-1.html'>用户体验</a>
-                    </li>
-                    <li>
-                        <a href='/article/list-7-1.html'>SEO推广</a>
-                    </li>
-
                 </ul>
             </div>
 
             <style>
                 .foot ul.list2 h1 {color: #222}
-                .copy_about a.gt{color:#33a600}.foot .copy_about  i.qq{width:18px;height:18px;background:url(/theme/zhuoxun/static/images/copyright_ico.gif) 0 0 no-repeat;display:inline-block;vertical-align:middle}.copy_about a.qqmsn{width:78px;height:21px;background:url(/theme/zhuoxun/static/images/copyright_ico.gif) 0 -72px no-repeat;display:inline-block;vertical-align:middle;margin-top:1px}.copy_about .qqtext{display:inline-block;vertical-align:middle}.copy_about i.weixin{width:18px;height:18px;background:url(/theme/zhuoxun/static/images/copyright_ico.gif) 0 -18px no-repeat;display:inline-block;vertical-align:middle}.copy_about i.tel{width:18px;height:18px;background:url(/theme/zhuoxun/static/images/copyright_ico.gif) 0 -36px no-repeat;display:inline-block;vertical-align:middle}.copy_about i.mail{width:18px;height:18px;background:url(/theme/zhuoxun/static/images/copyright_ico.gif) 0 -54px no-repeat;display:inline-block;vertical-align:middle}
+                .copy_about a.gt{color:#33a600}.foot .copy_about  i.qq{width:18px;height:18px;background:url(/theme/zhuoxun/static/image/copyright_ico.gif) 0 0 no-repeat;display:inline-block;vertical-align:middle}
+                .copy_about a.qqmsn{width:78px;height:21px;background:url(/theme/zhuoxun/static/image/copyright_ico.gif) 0 -72px no-repeat;display:inline-block;vertical-align:middle;margin-top:1px}.copy_about .qqtext{display:inline-block;vertical-align:middle}
+                .copy_about i.weixin{width:18px;height:18px;background:url(/theme/zhuoxun/static/image/copyright_ico.gif) 0 -18px no-repeat;display:inline-block;vertical-align:middle}.copy_about i.tel{width:18px;height:18px;background:url(/theme/zhuoxun/static/image/copyright_ico.gif) 0 -36px no-repeat;display:inline-block;vertical-align:middle}.copy_about i.mail{width:18px;height:18px;background:url(/theme/zhuoxun/static/image/copyright_ico.gif) 0 -54px no-repeat;display:inline-block;vertical-align:middle}
             </style>
             <ul class="list2 copy_about">
                 <li>
@@ -222,7 +218,9 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
 
         </div>
         <?php $links = links(10);?>
+
         <div class="foot_bottom">
+            <!--
             <p id='maker'>
                 友情链接：
                 <?php foreach ($links as $v):?>
@@ -230,9 +228,11 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                 <?php endforeach;?>
             <div style="clear:both;"></div>
             </p>
+             -->
             <p><?=g("reserved")?> <?=g("beian")?></p>
 
         </div>
+
     </div>
     <script type="text/javascript">
         $(document).ready(function($){
@@ -258,7 +258,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
 <script type="text/javascript">$(function(){$("#jsa").remove()})</script>
 <ul id="side-bar" class="side-pannel side-bar">
 
-    <a title="" href="http://wpa.qq.com/msgrd?v=3&amp;uin=651199357&amp;site=qq&amp;menu=yes" target="_blank" class="qq">
+    <a title="" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?=g('qq_kefu')?>&amp;site=qq&amp;menu=yes" target="_blank" class="qq">
         <i class="f_top up_qq"></i>
     </a>
     <span class="dh">
@@ -277,7 +277,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
         <i class="f_top up_wx"></i>
         <div class="hide" style="top: -45px">
             <div class="hied_con">
-                <img src="/theme/zhuoxun/static/images/ma2.jpg">
+                <img src="/theme/zhuoxun/static/image/ma2.jpg">
             </div>
         </div>
     </a>

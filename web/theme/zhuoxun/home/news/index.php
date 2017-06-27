@@ -1,10 +1,13 @@
 <?php
 use yii\widgets\LinkPager;
+
+$this->title="卓迅新闻资讯";
 ?>
 <link href="/theme/zhuoxun/static/css/channel.css" rel="stylesheet" >
 <script type='text/javascript' src="/theme/zhuoxun/static/js/itbeing.js"></script>
 <script type='text/javascript' src="/theme/zhuoxun/static/js/jquery.itbeing.js"></script>
-<div class="about_box" style="background:url(/theme/zhuoxun/static/images/zhishi.jpg) no-repeat center top; background-size:cover;"></div>
+<?php $focus = focus(4, 1, '2560x600')?>
+<div class="about_box" style="background:url(<?=$focus['focus'][0]['cover']?>) no-repeat center top; background-size:cover;"></div>
 <!--about-->
 <div id="case_con">
     <div class="blog_tab">

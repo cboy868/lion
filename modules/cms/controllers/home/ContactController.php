@@ -38,7 +38,13 @@ class ContactController extends CommonController
     {
         $model = new MsgForm();
 
-        if ($model->load(Yii::$app->request->post())) {
+        $post = Yii::$app->request->post();
+
+
+        if ($model->load(Yii::$app->request->post(), '')) {
+
+
+            $model->title = '网站商务咨询' . date('Y-m-d H:i');
             $model->res_name = 'web';
             $model->res_id = 0;
             if ($model->create()) {

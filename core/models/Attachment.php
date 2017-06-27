@@ -159,18 +159,20 @@ class Attachment extends \yii\db\ActiveRecord
         if ($size) {
             $size = str_replace('*', 'x', $size);
             $file = $model->path . '/' . $size . '@' . $model->name;
-            $thumb_path = Yii::getAlias('@app/web'.$file);
+
+            $thumb_file = str_replace('upload/image', 'upload/image/'.Image::THUMB_DIR, $file);
+            $thumb_path = Yii::getAlias('@app/web'.$thumb_file);
+
             $srcFile = Yii::getAlias('@app/web'.$model->path . '/' . $model->name);
             if (!is_file($thumb_path)) {
                 if (is_file($srcFile)) {
                     $size = explode('x', str_replace('X', 'x', $size));
                     Image::autoThumb($srcFile, $thumb_path, $size, $res);
                 } else {
-                    return self::thumbDefault($size, $default);;
+                    return self::thumbDefault($size, $default);
                 }
             }
-
-            return $file;
+            return $thumb_file;
         }
 
         return $model->path . '/' . $model->name;
@@ -191,7 +193,8 @@ class Attachment extends \yii\db\ActiveRecord
             $dname = dirname($src);
             $bname = basename($src);
             $file = $dname . '/' . $size . '@' . $bname;
-            $thumb_path = Yii::getAlias('@app/web' . $file);
+            $thumb_file = str_replace('upload/image', 'upload/image/'.Image::THUMB_DIR, $file);
+            $thumb_path = Yii::getAlias('@app/web' . $thumb_file);
             $srcFile = Yii::getAlias('@app/web'. $src);
 
             if (!is_file($thumb_path)) {
@@ -203,7 +206,7 @@ class Attachment extends \yii\db\ActiveRecord
                 }
             }
 
-            return $file;
+            return $thumb_file;
         }
 
         return $src;
@@ -219,7 +222,8 @@ class Attachment extends \yii\db\ActiveRecord
         $path = dirname($default);
         $base = basename($default);
         $file = '/upload' . $path . '/' . $size . '@' . $base;
-        $thumb_path = Yii::getAlias('@app/web' . $file);
+        $thumb_file = str_replace('upload/image', 'upload/image/'.Image::THUMB_DIR, $file);
+        $thumb_path = Yii::getAlias('@app/web' . $thumb_file);
         $srcFile = Yii::getAlias('@app/web'.$default);
 
         if (!is_file($thumb_path)) {
@@ -230,7 +234,7 @@ class Attachment extends \yii\db\ActiveRecord
                 return $default;
             }
         }
-        return $file;
+        return $thumb_file;
     }
 }
 

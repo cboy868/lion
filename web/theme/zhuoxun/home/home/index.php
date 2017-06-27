@@ -1,3 +1,6 @@
+<?php
+$this->title="首页";
+?>
 <!-- $("div.navbar-fixed-top").autoHidingNavbar() -->
 <link href="/theme/zhuoxun/static/css/style.css" media="screen" rel="stylesheet" type="text/css"/>
 <div class="banner">
@@ -40,59 +43,51 @@
             }
         </style>
         <div class="wrap clearFix " >
-            <img src="/theme/zhuoxun/static/images/dy.jpg" alt="" style="display: none">
-            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/images/dy.jpg) no-repeat center top "></div>
+            <img src="/theme/zhuoxun/static/image/dy.jpg" alt="" style="display: none">
+            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/image/dy.jpg) no-repeat center top "></div>
             <div>
                 <a href="javascript:void(0)">
-                    <img src="/theme/zhuoxun/static/images/dy1.png" class="sub_4_1" alt="厦门网站建设策划" style="top: 110px;"></a>
+                    <img src="/theme/zhuoxun/static/image/dy1.png" class="sub_4_1" alt="公墓网建设" style="top: 110px;"></a>
                 <a href="javascript:void(0)">
-                    <img src="/theme/zhuoxun/static/images/dy2.png" class="sub_4_2" alt="厦门网站建设" style="bottom: 44.2742px;"></a>
+                    <img src="/theme/zhuoxun/static/image/dy2.png" class="sub_4_2" alt="公墓管理系统" style="bottom: 44.2742px;"></a>
                 <a href="javascript:void(0)">
-                    <img src="/theme/zhuoxun/static/images/dy3.png"  class="sub_4_3" alt="厦门网站建设" style="visibility: hidden; transform: scale(0) translateX(-50%);"></a>
+                    <img src="/theme/zhuoxun/static/image/dy3.png"  class="sub_4_3" alt="公墓网上商城" style="visibility: hidden; transform: scale(0) translateX(-50%);"></a>
             </div>
         </div>
         <div class="wrap clearFix " >
-            <img src="/theme/zhuoxun/static/images/dy.jpg" alt="" style="display: none">
-            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/images/banner_aa.jpg) no-repeat center top #ffa800"></div>
+            <img src="/theme/zhuoxun/static/image/dy.jpg" alt="" style="display: none">
+            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/image/banner_aa.jpg) no-repeat center top #ffa800"></div>
             <div>
-                <img src="/theme/zhuoxun/static/images/cz_ban_a.png" class="sub_1_1" alt="厦门移动APP开发" style="top: -163px;">
-                <img src="/theme/zhuoxun/static/images/cz_ban_b.png" class="sub_1_2" alt="厦门网站推广" style="bottom: -286px;">
-                <img src="/theme/zhuoxun/static/images/cz_ban_c.png" class="sub_1_3" alt="厦门做网站" style="top: 357px; bottom: -336px;">
-                <img src="/theme/zhuoxun/static/images/cz_ban_d.png" class="sub_1_4" alt="厦门手机网站建设" style="top: -236px;">
-                <!-- <a href="/p_jjfa.htm">
-                <img src="/theme/zhuoxun/static/images/czx1.png" class="sub_1_5" alt="厦门网站建设"></a>
-              -->
+                <img src="/theme/zhuoxun/static/image/cz_ban_a.png" class="sub_1_1" alt="网上纪念馆" style="top: -163px;">
+                <img src="/theme/zhuoxun/static/image/cz_ban_b.png" class="sub_1_2" alt="微信公众号" style="bottom: -286px;">
+                <img src="/theme/zhuoxun/static/image/cz_ban_c.png" class="sub_1_3" alt="陵园管理系统" style="top: 357px; bottom: -336px;">
+                <img src="/theme/zhuoxun/static/image/cz_ban_d.png" class="sub_1_4" alt="公墓网络办公" style="top: -236px;">
             </div>
         </div>
         <div class="wrap clearFix " >
-            <img src="/theme/zhuoxun/static/images/dy.jpg" alt="" style="display: none">
-            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/images/banner_bbb.png) no-repeat center top "></div>
+            <img src="/theme/zhuoxun/static/image/dy.jpg" alt="" style="display: none">
+            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/image/banner_bbb.png) no-repeat center top "></div>
             <div>
-                <img src="/theme/zhuoxun/static/images/czym_ccc.png" class="sub_2_1" alt="厦门微信网站建设" style="left: 120%;">
-                <img src="/theme/zhuoxun/static/images/czym_bbb.png" class="sub_2_2" alt="厦门网站建设案例" style="left: -100%;">
-                <!-- <a href="/p_zhishixueyuan.htm">
-                <img src="/theme/zhuoxun/static/images/czym_aaa.png" class="sub_2_3" alt="厦门网站建设"></a>
-              -->
+                <img src="/theme/zhuoxun/static/image/czym_ccc.png" class="sub_2_1" alt="公墓办公自动化" style="left: 120%;">
+                <img src="/theme/zhuoxun/static/image/czym_bbb.png" class="sub_2_2" alt="公墓业务管理系统" style="left: -100%;">
             </div>
         </div>
         <div class="wrap clearFix " >
-            <img src="/theme/zhuoxun/static/images/dy.jpg" alt="" style="display: none">
-            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/images/czym_ddd.png) no-repeat center top "></div>
+            <img src="/theme/zhuoxun/static/image/dy.jpg" alt="" style="display: none">
+            <div class="cz_bannn" style="background:url(/theme/zhuoxun/static/image/czym_ddd.png) no-repeat center top "></div>
             <div>
-                <img src="/theme/zhuoxun/static/images/czym_eee.png" class="sub_3_1" alt="厦门营销营网站建设" style="top: -162px;">
-                <img src="/theme/zhuoxun/static/images/czyu_ccc.png" class="sub_3_2" alt="厦门网络营销案例" style="top: -297px;">
-                <a href="/p_qygw.htm">
-                </a>
+                <img src="/theme/zhuoxun/static/image/czym_eee.png" class="sub_3_1" alt="公墓网" style="top: -162px;">
+                <img src="/theme/zhuoxun/static/image/czyu_ccc.png" class="sub_3_2" alt="公墓营销" style="top: -297px;">
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     if(window.screen.width<=1000){
-        $(".sub_4_3").attr("src","/theme/zhuoxun/static/images/dy4.png")
+        $(".sub_4_3").attr("src","/theme/zhuoxun/static/image/dy4.png")
     }
     else{
-        $(".sub_4_3").attr("src","/theme/zhuoxun/static/images/dy3.png")
+        $(".sub_4_3").attr("src","/theme/zhuoxun/static/image/dy3.png")
     }
     $(function () {
         $("#mangoShow").kinMaxShow({
@@ -208,19 +203,13 @@
 </style>
 <div class="case_main">
     <?php
-        $post = cmsCateAndArticle(9, [6,7,8,9,10], 9, '380x220');
+        $post = cmsCateAndArticle(9, 6, 9, '380x220');
     ?>
     <div class="case">
         <div class="title">
-            <h1><?=$post['modInfo']['intro']?></h1>
+            <h1><?=$post['modInfo']['title']?> - <?=$post['cates']['name']?></h1>
             <span>
-                <a href='<?=url(['/cms/home/grave/index'])?>'>公墓综合</a>
-                <?php foreach ($post['cates'] as $v):?>
-                /
-                <a href='<?=url(['/cms/home/grave/index','cid'=>$v['id']])?>' title="<?=$v['name']?>">
-                    <?=$v['name']?>
-                </a>
-                <?php endforeach;?>
+                <?=$post['cates']['seo_keywords']?>
             </span>
         </div>
         <div class="case_con">
@@ -243,28 +232,25 @@
         </div>
     </div>
 </div>
+
+
+
 <div class="case_main">
     <?php
-    $post = cmsCateAndArticle(5, [11,12,13,14], 9, '380x220');
+    $post = cmsCateAndArticle(8, 22, 9, '380x220');
     ?>
     <div class="case">
         <div class="title">
-            <h1><?=$post['modInfo']['intro']?></h1>
+            <h1><?=$post['modInfo']['title']?> - <?=$post['cates']['name']?></h1>
             <span>
-                <a href='<?=url(['/cms/home/service/index'])?>'>建站综合</a>
-                <?php foreach ($post['cates'] as $v):?>
-                    /
-                    <a href='<?=url(['/cms/home/service/index','cid'=>$v['id']])?>' title="<?=$v['name']?>">
-                    <?=$v['name']?>
-                </a>
-                <?php endforeach;?>
+                <?=$post['cates']['body']?>
             </span>
         </div>
         <div class="case_con">
             <?php foreach ($post['posts'] as $v):?>
                 <dl>
                     <dd style="background:url() no-repeat center top; background-size: 100% 220px;">
-                        <a href="<?=url(['/cms/home/service/view','id'=>$v['id']])?>">
+                        <a href="<?=url(['/cms/home/knowledge/view','id'=>$v['id']])?>">
                             <div class="case_img">
                                 <img src="<?=$v['cover']?>" alt="">
                             </div>
@@ -273,7 +259,6 @@
                                 <?=$v['summary']?>
                             </p>
                         </a>
-
                     </dd>
                 </dl>
             <?php endforeach;?>
@@ -288,49 +273,18 @@
         也是您的用户体验专家
     </h1>
     <p>
-        创易网络是厦门首家定制型网站建设公司，我们专注用户体验设计与互联网品牌建设，
-        创立至今为500多位客户提供了创新与专业的整站建设系统解决方案。设计服务范围包括：
-        平台定制开发、电商定制开发、微信/APP定制开发、品牌企业网站建设、产品视觉设计等。我们的价值与宗旨是为用户
-        和客户打造最好的设计、最好的用户体验，用设计提升产品和企业价值。
+        卓迅网络创立于2017年4月，我们专注公墓行业管理系统开发及平台建设，
+        为公墓行业提供互联网方化的解决方案。产品服务内容包括：
+        公墓业务系统、纪念馆制作、微信公众号、公墓品牌企业网站建设、我们的价值与宗旨是
+        为客户打造最易用的系统、最好的用户体验，用卓迅产品提升工作效率及品牌价值。
     </p>
-    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=17001781&amp;site=qq&amp;menu=yes">咨询我们</a>
-    <a href='/contact' >了解更多</a>
+    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?=g('qq_kefu')?>&amp;site=qq&amp;menu=yes">咨询我们</a>
+    <a href='<?=url(['/cms/home/contact/index'])?>' >了解更多</a>
 </div>
 
-<div class="case_main">
-    <?php
-    $post = cmsCateAndArticle(2, null, 9, '380x220');
-    ?>
-    <div class="case">
-        <div class="title">
-            <h1><?=$post['modInfo']['title']?></h1>
-            <span>
-                <?=$post['modInfo']['intro']?>
-            </span>
-        </div>
-        <div class="case_con">
-            <?php foreach ($post['posts'] as $v):?>
-                <dl>
-                    <dd style="background:url() no-repeat center top; background-size: 100% 220px;">
-                        <a href="<?=url(['/cms/home/service/view','id'=>$v['id']])?>">
-                            <div class="case_img">
-                                <img src="<?=$v['cover']?>" alt="">
-                            </div>
-                            <h3><?=$v['title']?></h3>
-                            <p>
-                                <?=$v['summary']?>
-                            </p>
-                        </a>
-
-                    </dd>
-                </dl>
-            <?php endforeach;?>
-        </div>
-    </div>
-</div>
 <div class="client">
     <div class="title">
-        <h1>他们选择了创易</h1>
+        <h1>他们选择了卓迅</h1>
         <span>客户是我们服务的遵旨</span>
     </div>
     <div class="client_list">
@@ -341,10 +295,6 @@
                 <img src="<?=$f['cover']?>"/>
             </li>
             <?php endforeach;?>
-
-            <li class="img16">
-                <img src="/theme/zhuoxun/static/images/l16.png" alt="">
-            </li>
         </ul>
     </div>
 </div>
