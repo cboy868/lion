@@ -61,7 +61,7 @@ $this->title = "联系我们";
     <div class="bottom">
         <dl>
             <dd>
-                <img src="/theme/zhuoxun/static/images/xiangmu_03.jpg"></dd>
+                <img src="/theme/zhuoxun/static/image/xiangmu_03.jpg"></dd>
             <dt>
             <h2>我们沉浸于用户体验</h2>
             <dt>
@@ -70,7 +70,7 @@ $this->title = "联系我们";
         </dl>
         <dl>
             <dd>
-                <img src="images/guanyu_06.png"></dd>
+                <img src="image/guanyu_06.png"></dd>
             <dt>
             <h2>服务思维下的商业解决方案设计</h2>
             <dt>
@@ -79,7 +79,7 @@ $this->title = "联系我们";
         </dl>
         <dl>
             <dd>
-                <img src="images/guanyu_08.png"></dd>
+                <img src="image/guanyu_08.png"></dd>
             <dt>
             <h2>精益合作和分享的态度</h2>
             <dt>

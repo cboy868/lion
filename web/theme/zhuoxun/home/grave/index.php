@@ -150,7 +150,7 @@ $this->title="公墓管理系统介绍";
 <div id="templatemo4"  class="path" >
     <h1>服务流程</h1>
     <div class="pic">
-        <img src="/theme/zhuoxun/static/images/path.jpg" title="目标 项目实施 调整 维护">
+        <img src="/theme/zhuoxun/static/images/path.jpg" title="目标 立项 项目实施 调整 维护">
     </div>
 </div>
 <!--path-->
@@ -159,39 +159,39 @@ $this->title="公墓管理系统介绍";
     <div class="demand" id="demand">
         <h1>快速提交您的需求</h1>
         <div class="demand_table">
-            <form action="/plus/diy.php" enctype="multipart/form-data" method="post">
-                <input type="hidden" name="action" value="post" />
-                <input type="hidden" name="diyid" value="1" />
-                <input type="hidden" name="do" value="2" />
+            <form enctype="multipart/form-data" method="post" action="<?=url('/cms/home/contact/us')?>">
                 <div class="row">
-                    <label><span>您的姓名</span>
-                        <input type="text" class="txt w1 input1"  name="name">
-                    </label>
-                    <label><span>邮箱</span>
-                        <input type="text" class="txt w1 input2" name="email">
-                    </label>
+                    <label>
+                        <span>您的姓名</span>
+                        <input type="text" class="txt w1 input1"  name="username"></label>
+                    <label>
+                        <span>邮箱</span>
+                        <input type="text" class="txt w1 input2" name="email"></label>
                 </div>
                 <!--row-->
                 <div class="row">
-                    <label><span>电话</span>
-                        <input type="text" class="txt w1 input3"  name="mobile">
-                    </label>
-                    <label><span>公司名称</span>
-                        <input type="text" class="txt w1 input4" name="company">
-                    </label>
+                    <label>
+                        <span>电话</span>
+                        <input type="text" class="txt w1 input3"  name="mobile"></label>
+                    <label>
+                        <span>公司名称</span>
+                        <input type="text" class="txt w1 input4" name="company"></label>
                 </div>
                 <!--row-->
                 <div class="row">
-                    <label><span>您的需求描述？</span>
-                        <textarea class="txt w2 input5" name="content"></textarea>
+                    <label>
+                        <span>您的需求描述？</span>
+                        <textarea class="txt w2 input5" name="intro"></textarea>
                     </label>
                 </div>
-                <input type="hidden" name="dede_fields" value="name,text;email,text;mobile,text;company,text;content,multitext" />
-                <input type="hidden" name="dede_fieldshash" value="e5333b0db4b7cd6d58a1e661910922c3" />
+                <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
                 <!--row-->
                 <div class="row">
                     <input type="submit" class="btn ajaxformbtn" value="发送您的需求">
-                    <p class="xin">或者发送商务咨询到邮箱：<a href="javascript:;">vip@0592ui.com</a></p>
+                    <p class="xin">
+                        或者发送商务咨询到邮箱：
+                        <a href="mailto:<?=g("uemail")?>"><?=g("uemail")?></a>
+                    </p>
                 </div>
                 <!--row-->
             </form>
@@ -200,6 +200,13 @@ $this->title="公墓管理系统介绍";
     </div>
 </div>
 <script type="text/javascript"><!--
+    $(function () {
+        <?php
+        if (Yii::$app->session->hasFlash('success')) {
+            echo 'alert("留言成功，非常感谢您的关注,我们会尽快联系您");';
+        }
+        ?>
+    });
     $('.ajaxformbtn').click(function(){
         var status = true;
         if(!$(".input1").val()){

@@ -1,3 +1,6 @@
+<?php
+$this->title = $model->title;
+?>
 <link href="/theme/zhuoxun/static/css/channel.css" rel="stylesheet" >
 <link href="/theme/zhuoxun/static/css/base-page.min.css" media="screen" rel="stylesheet" type="text/css" />
 <div class="news_con_banner" style="background:url(/theme/zhuoxun/static/image/article-news.jpg) no-repeat center top;background-size:cover;">
@@ -12,9 +15,9 @@
             </li>
         </ul>
         <a href="/" class="more">&lt;返回首页</a></div>
-    <!--con--></div>
+    <!--con-->
+</div>
 <!--news_con_top-->
 <div class="news_con">
     <?=$model->body?>
-</div>
 </div>

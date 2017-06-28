@@ -37,7 +37,7 @@ class CommonController extends \app\core\web\HomeController
             $params[$c]['type'] = $type_key;
         }
 
-        $dataProvider = $searchModel->search($params);
+        $dataProvider = $searchModel->searchHome($params);
 
         $data = ArrayHelper::toArray($dataProvider->getModels());
         foreach ($data as &$v) {

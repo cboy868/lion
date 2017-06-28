@@ -56,7 +56,7 @@ class ContactController extends CommonController
 //                    ->send();
 
                 Yii::$app->session->setFlash('success', '留言成功，非常感谢您的关注,我们会尽快联系您');
-                return $this->redirect(['us']);
+                return $this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
 

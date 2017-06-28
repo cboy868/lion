@@ -1,3 +1,7 @@
+<?php
+$this->title = $model->title;
+
+?>
 <link href="/theme/zhuoxun/static/css/channel.css" rel="stylesheet" >
 <link href="/theme/zhuoxun/static/css/base-page.min.css" media="screen" rel="stylesheet" type="text/css" />
 
