@@ -10,7 +10,7 @@ $focus =focus(2, 5, '425x300');
 <div class="content">
     <div class="swiper-container" style="height: 200px;">
       <div class="swiper-wrapper">
-          <?php foreach ($focus as $f):?>
+          <?php foreach ($focus['focus'] as $f):?>
         <div class="swiper-slide">
             <img src="<?=$f['image']?>" />
         </div>
