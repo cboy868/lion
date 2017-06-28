@@ -35,7 +35,6 @@ class DefaultController extends \app\core\web\HomeController
 
     	$count = $query->count();
 
-
 		// 使用总数来创建一个分页对象
 		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>10]);
 

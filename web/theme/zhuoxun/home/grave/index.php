@@ -3,7 +3,7 @@ $this->title="公墓管理系统介绍";
 ?>
 <link href="/theme/zhuoxun/static/css/channel.css" rel="stylesheet" >
 <script type='text/javascript' src="/theme/zhuoxun/static/js/common.js"></script>
-<script type='text/javascript' src="/theme/zhuoxun/static/js/jquery.singlePageNav.min.js"></script>
+<script type='text/javascript' src="/theme/zhuoxun/static/js/jquery.singlepagenav.min.js"></script>
 
 <script type="text/javascript">
     jQuery(function(){

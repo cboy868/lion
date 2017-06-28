@@ -68,6 +68,26 @@ function tags($res_name, $limit=10)
 }
 
 
+function newsRand($category_id=null, $limit=10, $thumb=null)
+{
+    $article = News::find()->filterWhere(['cateogry_id'=>$category_id])->orderBy('rand()')
+        ->limit($limit)
+//        ->asArray()
+        ->all();
+
+    $result = [];
+    foreach ($article as $v) {
+        $result[$v->id] = $v->toArray();
+        $result[$v->id]['category_name'] = '';
+        if ($v->category_id) {
+            $result[$v->id]['category_name'] = $v->category->name;
+        }
+        $result[$v->id]['cover'] = $v->getCover($thumb);
+    }
+
+    return $result;
+}
+
 /**
  * @param null $category_id
  * @param int $limit

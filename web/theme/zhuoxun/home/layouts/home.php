@@ -46,7 +46,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
     <script type="text/javascript" src="/theme/zhuoxun/static/js/nprogress.js"></script>
     <script type="text/javascript" src="/theme/zhuoxun/static/js/qrcode.js"></script>
     <script type="text/javascript" src="/theme/zhuoxun/static/js/respond.js"></script>
-    <script type="text/javascript" src="/theme/zhuoxun/static/js/jquery.kinMaxShow-1.0.min.js"></script>
+    <script type="text/javascript" src="/theme/zhuoxun/static/js/jquery.kinmaxshow-1.0.min.js"></script>
     <script src="/theme/zhuoxun/static/js/bootstrap.js"></script>
     <script src="/theme/zhuoxun/static/js/jquery.bootstrap-autohidingnavbar.js"></script>
 </head>
