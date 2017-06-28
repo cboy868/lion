@@ -8,7 +8,7 @@ use app\modules\memorial\models\MemorialSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\core\base\Upload;
 /**
  * DefaultController implements the CRUD actions for Memorial model.
  */
@@ -90,7 +90,23 @@ class DefaultController extends BackController
     {
         $model = $this->findModel($id);
 
+        $thumb = $model->thumb;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $upload = Upload::getInstance($model, 'thumb', 'memorial');
+
+            if ($upload) {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $upload->save();
+
+                $info = $upload->getInfo();
+                $model->thumb = $info['mid'];
+            } else {
+                $model->thumb = $thumb;
+            }
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
