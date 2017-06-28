@@ -160,8 +160,13 @@ function newsCates($cates=null, $limit=10, $thumb=null, $type=null)
  */
 function focus($category_id, $limit, $imgSize=null)
 {
+    $cate = FocusCategory::findOne($category_id);
+
+    if (!$cate) {
+        return [];
+    }
     return [
-        'cate' => FocusCategory::findOne($category_id)->toArray(),
+        'cate' => $cate->toArray(),
         'focus' => Focus::getFocusByCategory($category_id, $limit, $imgSize)
     ];
 }
