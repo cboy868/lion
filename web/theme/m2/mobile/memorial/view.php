@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Url;
 $wid = Yii::$app->request->get('wid');
-$this->title=$model->title;
+$this->title=$model->title . '的纪念馆';
 ?>
 <style>
     html body{
