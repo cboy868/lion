@@ -90,8 +90,6 @@ class DefaultController extends BackController
     {
         $model = $this->findModel($id);
 
-        p($model);die;
-
         $thumb = $model->thumb;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
