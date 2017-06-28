@@ -46,8 +46,8 @@ $wid = Yii::$app->request->get('wid');
                                  'emotion', '|', 'simpleupload'
                              ],
                          ],
-                         'initialFrameHeight'=>'100px',
-                         'maximumWords' => '10'
+                         'initialFrameHeight'=>'60px',
+                         'maximumWords' => '100'
                      ]
                 ])?>
             </div>
