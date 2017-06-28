@@ -94,20 +94,16 @@ class DefaultController extends BackController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $upload = Upload::getInstance($model, 'thumb', 'memorial');
-p($upload);
             if ($upload) {
                 $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
                 $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
                 $upload->save();
 
                 $info = $upload->getInfo();
-                p($info);die;
                 $model->thumb = $info['mid'];
             } else {
                 $model->thumb = $thumb;
             }
-
-            p($model->getErrors());die;
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
