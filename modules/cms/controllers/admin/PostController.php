@@ -304,6 +304,9 @@ class PostController extends \app\core\web\BackController
     {
 
         $model->setScenario('text');
+
+
+        $thumb = $model->thumb;
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $up = Upload::getInstance($model, 'thumb', 'post'.$module->id);
@@ -315,6 +318,8 @@ class PostController extends \app\core\web\BackController
                 $up->save();
                 $info = $up->getInfo();
                 $model->thumb = $info['mid'];
+            } else {
+                $model->thumb = $thumb;
             }
             $summary = strip_tags($model->summary);
 
