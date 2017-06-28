@@ -15,7 +15,6 @@ $wid = Yii::$app->request->get('wid');
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
         <title><?=$this->title ? $this->title.'-':''?><?=g("cp_name")?></title>
-        <title><?= Html::encode($this->title) ?></title>
         <?= Html::csrfMetaTags() ?>
         <?php $this->head() ?>
         <!-- 引入 WeUI -->
