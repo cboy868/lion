@@ -16,14 +16,10 @@
       'water' => 1,
       'water_mod' => 'text',
       'water_image' => NULL,
-      'water_text' => 'abc',
+      'water_text' => '卓迅网络',
       'water_pos' => '0',
       'min_width' => '100',
       'min_height' => '100',
-      'thumb' => 
-      array (
-        0 => '100x100',
-      ),
     ),
   ),
 );
