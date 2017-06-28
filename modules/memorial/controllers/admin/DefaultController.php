@@ -106,7 +106,7 @@ p($upload);
                 $model->thumb = $thumb;
             }
 
-            p($model);die;
+            p($model->getErrors());die;
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
