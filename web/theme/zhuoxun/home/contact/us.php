@@ -130,29 +130,29 @@ $this->title = "联系我们";
         </div>
         <div class="team_con">
             <div class="left_cor">
-                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/images/team_2.jpg) no-repeat; background-size:cover;">
+                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/image/team_2.jpg) no-repeat; background-size:cover;">
                     <div class="cover">
                         <h3>团队建设活动摄影</h3>
                     </div>
                 </div>
-                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/images/team_3.jpg) no-repeat; background-size:cover;">
+                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/image/team_3.jpg) no-repeat; background-size:cover;">
                     <div class="cover">
                         <h3>团队建设活动摄影</h3>
                     </div>
                 </div>
-                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/images/team_4.jpg) no-repeat; background-size:cover;">
+                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/image/team_4.jpg) no-repeat; background-size:cover;">
                     <div class="cover">
                         <h3>团队建设活动摄影</h3>
                     </div>
                 </div>
-                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/images/team_5.jpg) no-repeat; background-size:cover;">
+                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/image/team_5.jpg) no-repeat; background-size:cover;">
                     <div class="cover">
                         <h3>团队建设活动摄影</h3>
                     </div>
                 </div>
             </div>
             <div class="right_cor">
-                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/images/team_6.jpg) no-repeat; background-size:cover;">
+                <div class="boxgrid" style="background:url(/theme/zhuoxun/static/image/team_6.jpg) no-repeat; background-size:cover;">
                     <div class="cover1">
                         <h3>团队建设活动摄影</h3>
                     </div>

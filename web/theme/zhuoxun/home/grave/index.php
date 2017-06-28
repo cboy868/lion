@@ -35,7 +35,7 @@ $this->title="公墓管理系统介绍";
     </div>
     <div class="con">
         <dl>
-            <dd> <img src="/theme/zhuoxun/static/images/service_bt_04.png"/> </dd>
+            <dd> <img src="/theme/zhuoxun/static/image/service_bt_04.png"/> </dd>
             <dt>
             <h2>公墓业务办理</h2>
             </dt>
@@ -46,7 +46,7 @@ $this->title="公墓管理系统介绍";
             <dt> 智能保存业务数据 </dt>
         </dl>
         <dl>
-            <dd> <img src="/theme/zhuoxun/static/images/service_bt_12.png"/> </dd>
+            <dd> <img src="/theme/zhuoxun/static/image/service_bt_12.png"/> </dd>
             <dt>
             <h2>公墓电商</h2>
             </dt>
@@ -57,7 +57,7 @@ $this->title="公墓管理系统介绍";
             <dt> 供货商/进销存管理 </dt>
         </dl>
         <dl>
-            <dd> <img src="/theme/zhuoxun/static/images/service_bt_10.png"/> </dd>
+            <dd> <img src="/theme/zhuoxun/static/image/service_bt_10.png"/> </dd>
             <dt>
             <h2>微信公众号</h2>
             </dt>
@@ -68,7 +68,7 @@ $this->title="公墓管理系统介绍";
             <dt> 业务记录及提醒 </dt>
         </dl>
         <dl>
-            <dd> <img src="/theme/zhuoxun/static/images/service_bt_08.png"/> </dd>
+            <dd> <img src="/theme/zhuoxun/static/image/service_bt_08.png"/> </dd>
             <dt>
             <h2>网络纪念馆</h2>
             </dt>
@@ -80,7 +80,7 @@ $this->title="公墓管理系统介绍";
         </dl>
 
         <dl>
-            <dd> <img src="/theme/zhuoxun/static/images/service_bt_06.png"/> </dd>
+            <dd> <img src="/theme/zhuoxun/static/image/service_bt_06.png"/> </dd>
             <dt>
             <h2>公墓门户平台</h2>
             </dt>
@@ -91,7 +91,7 @@ $this->title="公墓管理系统介绍";
             <dt> 全站自定义SEO关键词 </dt>
         </dl>
         <dl>
-            <dd> <img src="/theme/zhuoxun/static/images/service_bt_14.png"/> </dd>
+            <dd> <img src="/theme/zhuoxun/static/image/service_bt_14.png"/> </dd>
             <dt>
             <h2>公墓后台管理</h2>
             </dt>
@@ -150,7 +150,7 @@ $this->title="公墓管理系统介绍";
 <div id="templatemo4"  class="path" >
     <h1>服务流程</h1>
     <div class="pic">
-        <img src="/theme/zhuoxun/static/images/path.jpg" title="目标 立项 项目实施 调整 维护">
+        <img src="/theme/zhuoxun/static/image/path.jpg" title="目标 立项 项目实施 调整 维护">
     </div>
 </div>
 <!--path-->
