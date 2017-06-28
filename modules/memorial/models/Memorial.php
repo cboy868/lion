@@ -44,6 +44,20 @@ class Memorial extends \app\core\db\ActiveRecord
         return '{{%memorial}}';
     }
 
+    public static function privacys($privac=null)
+    {
+        $p =[
+            self::PRIVACY_PUBLIC =>'公开',
+            self::PRIVACY_PRIVATE =>'非公开',
+        ];
+
+        if ($privac === null) {
+            return $p;
+        }
+
+        return $p[$privac];
+    }
+
     public static function statusLabel($status=null)
     {
         $s = [

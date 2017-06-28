@@ -18,7 +18,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'intro')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'privacy')->textInput() ?>
+    <?= $form->field($model, 'privacy')->dropDownList(\app\modules\memorial\models\Memorial::privacys()) ?>
 
     <?= $form->field($model, 'tpl')->textInput() ?>
 

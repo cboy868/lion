@@ -105,6 +105,8 @@ class DefaultController extends BackController
                 $model->thumb = $thumb;
             }
 
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
