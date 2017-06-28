@@ -282,6 +282,7 @@ $this->title="首页";
     <a href='<?=url(['/cms/home/contact/index'])?>' >了解更多</a>
 </div>
 
+<!--
 <div class="client">
     <div class="title">
         <h1>他们选择了卓迅</h1>
@@ -298,6 +299,7 @@ $this->title="首页";
         </ul>
     </div>
 </div>
+-->
 <div class="project">
 
     <?php
