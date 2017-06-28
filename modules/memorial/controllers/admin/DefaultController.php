@@ -101,6 +101,7 @@ p($upload);
                 $upload->save();
 
                 $info = $upload->getInfo();
+                p($info);die;
                 $model->thumb = $info['mid'];
             } else {
                 $model->thumb = $thumb;
