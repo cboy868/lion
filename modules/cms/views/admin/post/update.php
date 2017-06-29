@@ -1,3 +1,14 @@
+<?php
+
+use app\core\helpers\Html;
+use app\core\helpers\Url;
+use yii\widgets\Breadcrumbs;
+
+
+$this->title = '修改' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => $module->title . '模块', 'url' => ['index','mid'=>$module->id]];
+$this->params['breadcrumbs'][] = $this->title;
+?>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">

@@ -9,7 +9,7 @@ use yii\widgets\LinkPager;
         <img src="/theme/m2/static/modules/memorial/images/common/in_btns.png" alt="进入馆主博客">
     </a>
 </div>
-<div id="memorial-content" class="cort12">
+<div id="memorial-content" class="">
 
     <div id="memorial-main" class="left">
         <!--  info -->
@@ -91,7 +91,7 @@ use yii\widgets\LinkPager;
             </div>
         </div>
 
-        <div id="flower-candle" class="cor12">
+        <div id="flower-candle" class="">
             <div class="flower-candlebox clearfix padlr0">
                 <input name="flowers" value="0" type="hidden">
                 <input name="candles" value="0" type="hidden">
@@ -215,7 +215,7 @@ use yii\widgets\LinkPager;
             </div>
             <!-- candle end -->
             <a name="commentPost"></a>
-            <div id="wish-msg" class="corb12">
+            <div id="wish-msg" class="">
                 <h3>
                     <img src="/theme/m2/static/modules/memorial/images/ink/wish_msg.png" alt="祝福留言">
                 </h3>
@@ -307,20 +307,20 @@ use yii\widgets\LinkPager;
 
     <!-- 服务小组 -->
     <div id="memorial-aside" class="right">
-        <div id="service-admin" class="corner14">
-            <h4 class="cornert12">服务专员动态</h4>
+        <div id="service-admin" class="">
+            <h4 class="">服务专员动态</h4>
             <!--  -->
-            <ol class="clearfix cornerb12">
+            <ol class="clearfix">
             </ol>
             <div class="more-box">
             </div>
         </div>
 
         <!-- 思念文章 -->
-        <div id="wish-article" class="corner12">
+        <div id="wish-article" class="">
             <a class="add-btns" href="#" target="_blank">添加文章</a>
             <h4 class="cornert12">思念文章</h4>
-            <div class="friendly-tip cornerb12">暂时没有思念文章，点击
+            <div class="friendly-tip">暂时没有思念文章，点击
                 <a class="gray" href="#" target="_blank">此处</a>添加</div>
         </div>
 
