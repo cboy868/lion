@@ -303,7 +303,7 @@ $this->title="首页";
 <div class="project">
 
     <?php
-    $post = cmsCateAndArticle(8, 15, 6, '120x80');
+    $post = cmsCateAndArticle(8, [15,18], 6, '120x80');
     ?>
     <div class="title">
         <h1>如何练就优秀的产品</h1>
