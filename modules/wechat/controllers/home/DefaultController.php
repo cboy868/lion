@@ -21,7 +21,7 @@ class DefaultController extends \app\core\web\HomeController
     protected $msg_re = '/(\d{1})@(.+)/';
 
 
-    const TYPE_SCREEN = 6;
+    const TYPE_SCREEN = 9;
     const TYPE_TOUSU = 7;
 
 
