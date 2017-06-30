@@ -1351,6 +1351,8 @@ class InsProcess extends Ins
             return null;
         }
 
+        if (!isset($rel['av_id'])) return null;
+
         return isset($shape[$rel['av_id']]) ? $shape[$rel['av_id']] : null;
     }
 

@@ -47,8 +47,8 @@ use yii\bootstrap\Modal;
 .table ul li img {
     padding: 0px;
     display: block;
-    height: 24px;
-    width: 24px;
+    height: 34px;
+    width: 34px;
     margin-top: 0px;
     margin-right: auto;
     margin-bottom: 0px;
@@ -116,8 +116,8 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
                 <?php foreach ($models as $model): ?>
                  <li>
                      <div>
-                         <a href="<?=Url::toRoute(['option', 'id'=>$model->id])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
-                             <img src="/static/images/tree.jpg" width="26" height="26" title="<?=$model->tomb_no?>">
+                         <a href="<?=Url::toRoute(['option', 'id'=>$model->id])?>" class="modalAddButton" data-loading-text="等待..." onclick="return false">
+                             <img src="/static/images/grave/<?=$model->status?>.jpg" width="36" height="36" title="<?=$model->tomb_no?>">
                          </a>
                          <span><?=$model->col?>号</span>
                      </div>

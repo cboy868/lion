@@ -10,6 +10,7 @@ use app\modules\grave\models\search\BurySearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\grave\models\Tomb;
 
 /**
  * BuryController implements the CRUD actions for Bury model.
@@ -126,6 +127,11 @@ class BuryController extends BackController
 
         $bury = Bury::findOne($post['id']);
         $bury->status = Bury::STATUS_OK;
+
+        $tomb = Tomb::findOne($bury['tomb_id']);
+        $tomb->afterBuryConfirm();
+
+
         if ($bury->save()) {
             return $this->json();
         }
@@ -152,6 +158,9 @@ class BuryController extends BackController
 
                 Card::initCard($bury->tomb_id, $order_rel_id);
             }
+
+            $tomb = Tomb::findOne($bury['tomb_id']);
+            $tomb->afterBuryConfirm();
 
             Yii::$app->session->setFlash('success', '确认安葬成功');
 //            return $this->json();

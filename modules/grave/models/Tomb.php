@@ -181,6 +181,31 @@ class Tomb extends \app\core\db\ActiveRecord
         return isset($sta[$status]) ? $sta[$status] : '';
     }
 
+    public function afterBuryConfirm()
+    {
+        $deads = $this->deads;
+        $dead_count = count($deads);
+
+        if ($dead_count == 1) {
+            $this->status = self::STATUS_SINGLE;
+        } else {
+
+            $status = self::STATUS_ALL;
+            foreach ($deads as $v) {
+                if ($v->is_alive) {
+                    $status = self::STATUS_PART;
+                    break;
+                }
+            }
+
+            $this->status = $status;
+
+        }
+
+
+        return $this->save();
+    }
+
     public function getStatusText()
     {
         return self::getSta($this->status);
