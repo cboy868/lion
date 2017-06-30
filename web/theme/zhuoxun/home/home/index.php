@@ -218,7 +218,7 @@ $this->title="首页";
                 <dd style="background:url() no-repeat center top; background-size: 100% 220px;">
                     <a href="<?=url(['/cms/home/grave/view','id'=>$v['id']])?>">
                         <div class="case_img">
-                            <img src="<?=$v['cover']?>" alt="">
+                            <img src="<?=$v['cover']?>" alt="<?=$v['title']?>" title="<?=$v['title']?>">
                         </div>
                         <h3><?=$v['title']?></h3>
                         <p>
@@ -252,7 +252,7 @@ $this->title="首页";
                     <dd style="background:url() no-repeat center top; background-size: 100% 220px;">
                         <a href="<?=url(['/cms/home/knowledge/view','id'=>$v['id']])?>">
                             <div class="case_img">
-                                <img src="<?=$v['cover']?>" alt="">
+                                <img src="<?=$v['cover']?>" alt="<?=$v['title']?>" title="<?=$v['title']?>">
                             </div>
                             <h3><?=$v['title']?></h3>
                             <p>
@@ -314,7 +314,7 @@ $this->title="首页";
             <?php foreach ($post['posts'] as $v):?>
                 <dl>
                     <dt>
-                        <img src="<?=$v['cover']?>" alt="<?=$v['title']?>"></dt>
+                        <img src="<?=$v['cover']?>" alt="<?=$v['title']?>" title="<?=$v['title']?>"></dt>
                     <dd class="tn-caption">
                         <a href="<?=url(['/cms/home/knowledge/view','id'=>$v['id']])?>" target="_blank">
                             <?=$v['title']?>
