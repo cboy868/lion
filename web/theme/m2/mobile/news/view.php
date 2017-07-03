@@ -48,7 +48,7 @@ var demo = new Vue({
             })
         },
         getRecommend:function(){
-          this.$http.jsonp('http://api.lion.cn/v1/news',{'jsonp':'lcb',params:this.sendData}).then((response) => {
+          this.$http.jsonp(base_url + 'news',{'jsonp':'lcb',params:this.sendData}).then((response) => {
             this.$set(this, 'recommend', response.data.items);
             //console.dir(response.data.items);
           }).catch(function(response) {
