@@ -33,7 +33,7 @@ $this->title="新闻资讯";
                 </div>
                 <div class="weui-media-box__bd">
                     <h4 class="weui-media-box__title" v-text="item.title"></h4>
-                    <p class="weui-media-box__desc" v-text="item.created_date"></p>
+                    <p class="weui-media-box__desc" v-text="item.summary"></p>
                 </div>
             </a>
         </div>
