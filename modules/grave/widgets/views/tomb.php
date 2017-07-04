@@ -26,9 +26,9 @@ SelectAsset::register($this);
 }
 </style>
 
-<?= $form->field($model, 'grave_id')->dropDownList($grave, ['class'=>'sel-ize', 'style'=>'width:200px;', 'prompt'=>'请选择墓区']) ?>
-<?= $form->field($model, 'row')->textInput(['style'=>'width:60px']) ?>
-<?= $form->field($model, 'col')->textInput(['style'=>'width:60px']) ?>
+<?= $form->field($model, 'grave_id')->dropDownList($grave, ['class'=>'sel-ize gv ggrave', 'style'=>'width:200px;', 'prompt'=>'请选择墓区']) ?>
+<?= $form->field($model, 'row')->textInput(['style'=>'width:60px','class'=>'gv form-control grow']) ?>
+<?= $form->field($model, 'col')->textInput(['style'=>'width:60px','class'=>'gv form-control gcol']) ?>
 
 <?php $this->beginBlock('sel') ?>  
 $(function(){

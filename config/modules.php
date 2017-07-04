@@ -70,6 +70,9 @@ return [
     'news' => [
         'class' => 'app\modules\news\Module',
     ],
+    'ashes' => [
+        'class' => 'app\modules\ashes\Module',
+    ],
 
 
 ];

@@ -1,0 +1,204 @@
+<?php
+
+use app\core\helpers\Html;
+use app\core\helpers\Url;
+use yii\helpers\ArrayHelper;
+
+$this->title = '骨灰堂';
+$this->params['breadcrumbs'][] = $this->title;
+
+?>
+<style type="text/css">
+    ul, ol, li{
+        list-style: none;
+    }
+    .graveimg img{
+        width:100px;
+        height:100px;
+    }
+</style>
+<div class="page-content">
+    <!-- /section:settings.box -->
+    <div class="page-content-area">
+        <div class="page-header">
+            <h1>
+                <?=  Html::encode($this->title) ?>
+                <small>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+            <?php $pid = 1; ?>
+
+            <div class="col-xs-2">
+                <ul class="nav nav-list">
+                    <?=  Html::a('<i class="fa fa-plus"></i> 添加新架区', ['create'], ['class' => 'btn btn-primary btn-sm ', 'style'=>'width:100%']) ?>
+                    <li class="<?php if ($pid == 0) { echo 'active'; } ?>" >
+                        <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-circle"></i>
+                            <span class="menu-text">所有架区</span>
+                        </a>
+                    </li>
+                    <?php foreach ($cates as $key => $value): ?>
+                        <li class="<?php if(isset($value['child'])){echo 'p-menu';}?> <?php if ($value['id'] == $pid) { echo 'active'; } ?>">
+                            <a href="<?=$value['url']?>" class="dropdown-toggle">
+                                <i class="menu-icon fa fa-bars"></i>
+                                <span class="menu-text"><?=$value['title']?></span>
+                                <b class="arrow"></b>
+                            </a>
+                            <b class="arrow"></b>
+                            <?php if (!isset($value['child'])) { continue; } ?>
+                            <ul class="submenu" style="display:block;">
+                                <?php foreach ($value['child'] as $k => $val): ?>
+                                    <?php if (!isset($val['child'])): ?>
+                                        <li class="<?php if ($val['id'] == $pid) { echo 'active'; } ?>" rel="">
+                                            <a href="<?=$val['url']?>">
+                                                <i class="menu-icon"></i>
+                                                <?=$val['title']?>
+                                                <b class="arrow"></b>
+                                            </a>
+                                            <b class="arrow"></b>
+                                        </li>
+                                    <?php else: ?>
+                                        <li class="p-menu">
+                                            <a href="#" class="dropdown-toggle">
+                                                <i class="menu-icon fa fa-caret-right"></i>
+                                                <?=$val['title']?>
+                                                <b class="arrow "></b>
+                                            </a>
+                                            <b class="arrow"></b>
+                                            <ul class="submenu" style="display:block;">
+                                                <?php foreach ($val['child'] as $k => $last):?>
+                                                    <li class="<?php if ($last['id'] == $pid) {echo 'active';}?>">
+                                                        <a href="<?=$last['url'];?>">
+                                                            <i class="menu-icon fa fa-caret-right"></i>
+                                                            <?=$last['title']?>
+                                                            <b class="arrow "></b>
+                                                        </a>
+                                                        <b class="arrow"></b>
+                                                    </li>
+                                                <?php endforeach;?>
+                                            </ul>
+                                        </li>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
+                    <?php endforeach;?>
+                </ul><!-- /.nav-list -->
+
+            </div>
+
+            <style type="text/css">
+                .table ul {
+                    margin-top: 5px;
+                    margin-right: 10px;
+                    margin-bottom: 5px;
+                    margin-left: 40px;
+                    list-style-image: none;
+                    list-style-type: none;
+                    white-space: nowrap;
+                    padding: 0px;
+                }
+                .table ul li.box {
+                    margin: 0px;
+                    padding: 0px;
+                    display: block;
+                    /*width: 40px;*/
+                    float: left;
+                    background: #eee;
+                    border: 1px solid #ccc;
+                    height: 100px;
+                    width: 120px;
+                    margin-right:5px;
+                    position: relative;
+                    overflow: hidden;
+                    font-size: 12px;
+                }
+
+                .table ul li.box a.btn-op {
+                    position: absolute;
+                    bottom: 5px;
+                    right:5px;
+                }
+                .table ul li.box a.view {
+                    position: absolute;
+                    bottom: 5px;
+                    left:5px;
+                }
+                .table ul li.box p{
+                    margin-bottom:2px;
+                }
+            </style>
+
+            <?php
+            $models = $dataProvider->getModels();
+            $result = ArrayHelper::index($models, 'id', 'row');
+
+            ?>
+            <div class="col-xs-10 grave-index">
+                <div class="rows">
+                    <div class="col-xs-12">
+                        <?php if(Yii::$app->session->hasFlash('success')): ?>
+                            <div class="alert alert-success" style="word-break: break-all;word-wrap: break-word;">
+                                <?php echo Yii::$app->session->getFlash('success'); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if(Yii::$app->session->hasFlash('error')): ?>
+                            <div class="alert alert-danger" style="word-break: break-all;word-wrap: break-word;">
+                                <?php echo Yii::$app->session->getFlash('error'); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <table class="table">
+                            <tbody>
+                            <?php foreach ($result as $k=>$models):?>
+                            <tr>
+                                <td>
+                                    <div class="pull-left"><?=$k?>排</div>
+                                    <ul>
+                                    <?php foreach ($models as $model): ?>
+                                        <li class="box">
+
+                                            <h5><?=$model->col?>号</h5>
+
+                                            <p>联系人:张三</p>
+                                            <p>电话:18555557777</p>
+
+
+                                            <a href="<?=url(['/ashes/admin/log/create', 'box_id'=>$model->id])?>" class="btn btn-info btn-xs btn-op">
+                                                存入
+                                            </a>
+
+                                            <a href="<?=url(['/ashes/admin/log/create', 'box_id'=>$model->id])?>" class="view">
+                                                详细
+                                            </a>
+
+                                            <!--
+                                            <a href="<?=url(['/ashes/admin/log/create', 'id'=>$model->id])?>" class="btn btn-info btn-xs">
+                                                取出
+                                            </a>
+                                            -->
+                                        </li>
+                                    <?php endforeach;?>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="hr hr-18 dotted hr-double"></div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content-area -->
+</div>
+
+

@@ -228,8 +228,10 @@ trait TreeTrait {
                           ->all();
 
         foreach ($sort as $k => &$v) {
+            if (!isset($v['thumb'])) break;
           $v['cover'] = Attachment::getById($v['thumb'], $size);
         }unset($v);
+
         return $sort;
     }
 
