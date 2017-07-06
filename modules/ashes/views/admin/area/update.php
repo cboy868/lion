@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\ashes\models\Area */
 
 $this->title = ' ' . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Areas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '架区管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '修改';
 ?>
 
 <div class="page-content">

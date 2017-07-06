@@ -4,9 +4,6 @@ use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 use app\modules\sys\models\AuthPermission;
 use app\core\helpers\Url;
-/* @var $this yii\web\View */
-/* @var $model sys\models\Menu */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="menu-form">

@@ -2,6 +2,8 @@
 
 namespace app\modules\ashes\controllers\admin;
 
+use app\modules\ashes\models\Box;
+use app\modules\ashes\models\Log;
 use yii;
 use app\core\helpers\Url;
 use app\modules\ashes\models\Area;
@@ -27,9 +29,11 @@ class DefaultController extends \app\core\web\BackController
         ]);
     }
 
-    public function actionView()
+    public function actionView($box_id)
     {
-        return $this->render('view');
+        $box = Box::findOne($box_id);
+
+        return $this->render('view', ['model'=>$box]);
     }
 
     private function getAreas()

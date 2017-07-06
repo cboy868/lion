@@ -17,6 +17,8 @@ use Yii;
  */
 class Box extends \app\core\db\ActiveRecord
 {
+    const STATUS_FULL = 2;
+    const STATUS_EMPTY = 1;
     /**
      * @inheritdoc
      */
@@ -31,7 +33,7 @@ class Box extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'log_id'], 'required'],
+            [['row', 'col', 'area_id'], 'required'],
             [['id', 'log_id', 'box_no', 'area_id', 'row', 'col', 'status'], 'integer'],
         ];
     }
@@ -50,5 +52,35 @@ class Box extends \app\core\db\ActiveRecord
             'col' => '列',
             'status' => '状态',
         ];
+    }
+
+    public static function create($area_id, $row, $col)
+    {
+        $index = 1;
+        for ($i=1;$i<=$row;$i++) {
+            for ($j=1; $j<=$col; $j++) {
+                $model = new self;
+                $model->area_id = $area_id;
+                $model->row = $i;
+                $model->col = $j;
+                $model->box_no = $index;
+                $model->log_id = 0;
+                $index++;
+                $model->save();
+            }
+        }
+        return true;
+    }
+
+    public function getArea()
+    {
+        return $this->hasOne(Area::className(), ['id'=>'area_id']);
+    }
+
+    public function getLogs()
+    {
+        return $this->hasMany(Log::className(), ['box_id'=>'id'])
+            ->andWhere(['status'=>Log::STATUS_NORMAL])
+            ->orderBy('id desc');
     }
 }

@@ -12,7 +12,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'pid')->textInput() ?>
+    <?= $form->field($model, 'pid')->dropDownList($model->getAreas()) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

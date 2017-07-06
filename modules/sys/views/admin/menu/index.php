@@ -2,8 +2,6 @@
 
 use app\core\helpers\Html;
 use app\core\helpers\Url;
-use yii\grid\GridView;
-use app\assets\Tabletree;
 use yii\bootstrap\Modal;
 use app\modules\sys\models\Menu;
 
@@ -12,7 +10,7 @@ use app\modules\sys\models\Menu;
 $this->title = '菜单管理';
 $this->params['breadcrumbs'][] = $this->title;
 \app\assets\JqueryFormAsset::register($this);
-Tabletree::register($this);
+\app\assets\Tabletree::register($this);
 ?>
 
 <div class="page-content">
@@ -118,7 +116,7 @@ Tabletree::register($this);
 
 <?php $this->beginBlock('auth') ?>  
 $(function(){
-    $("#menu-table").treetable({ expandable: false });
+    $("#menu-table").treetable({ expandable: true,initialState:'expanded' });
 
     $('.sel-menu').change(function(){
         var panel = $(this).val();

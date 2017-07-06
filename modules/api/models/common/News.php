@@ -56,7 +56,6 @@ class News extends \app\modules\news\models\News
         unset($fields['status']);
 
         return $fields;
-
     }
 
     /**

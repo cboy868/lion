@@ -41,6 +41,29 @@ class Area extends \app\core\models\Category
         ];
     }
 
+    public function getAreas($type = 1)
+    {
+        $areas = self::find()
+            ->where(['<>','status', self::STATUS_DELETE])
+            ->orderBy('id asc')
+            ->asArray()
+            ->all();
+
+        $areas = \app\core\helpers\Tree::recursion($areas,0,2);
+
+        if ($type == 2) {
+            return $areas;
+        }
+
+        $result = [];
+        $result['0'] = '顶级';
+
+        foreach ($areas as $v) {
+            $result[$v['id']] = $v['html'] . $v['title'];
+        }
+        return $result;
+    }
+
     /**
      * @inheritdoc
      */

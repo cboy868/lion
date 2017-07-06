@@ -65,16 +65,20 @@ class LogController extends BackController
     public function actionCreate($box_id)
     {
         $model = new Log();
+        $box = Box::findOne(($box_id));
 
         if ($model->load(Yii::$app->request->post())) {
 
             $model->op_id = Yii::$app->user->id;
             $model->save_time = date('Y-m-d H:i:s');
             $model->save();
+
+            $box->status = Box::STATUS_FULL;
+            $box->save();
             return $this->redirect(['/ashes/admin/default/index', 'box_id' => $model->box_id]);
         }
 
-        $box = Box::findOne(($box_id));
+
         $model->box_id = $box_id;
         $model->area_id = $box->area_id;
         $model->action = Log::ACTION_IN;

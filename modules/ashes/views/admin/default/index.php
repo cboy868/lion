@@ -3,6 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\helpers\ArrayHelper;
+use app\modules\ashes\models\Box;
 
 $this->title = '骨灰堂';
 $this->params['breadcrumbs'][] = $this->title;
@@ -26,6 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <small>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
                 </small>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/ashes/admin/area/index'])?>">
+                        <i class="fa fa-th-large fa-2x"></i>  架区管理</a>
+                </div>
             </h1>
         </div><!-- /.page-header -->
 
@@ -34,11 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-2">
                 <ul class="nav nav-list">
-                    <?=  Html::a('<i class="fa fa-plus"></i> 添加新架区', ['create'], ['class' => 'btn btn-primary btn-sm ', 'style'=>'width:100%']) ?>
                     <li class="<?php if ($pid == 0) { echo 'active'; } ?>" >
-                        <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
+                        <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
-                            <span class="menu-text">所有架区</span>
+                            <span class="menu-text">架区选择</span>
                         </a>
                     </li>
                     <?php foreach ($cates as $key => $value): ?>
@@ -171,19 +176,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <p>电话:18555557777</p>
 
 
+                                            <?php if ($model->status == Box::STATUS_EMPTY):?>
                                             <a href="<?=url(['/ashes/admin/log/create', 'box_id'=>$model->id])?>" class="btn btn-info btn-xs btn-op">
                                                 存入
                                             </a>
+                                            <?php endif;?>
 
-                                            <a href="<?=url(['/ashes/admin/log/create', 'box_id'=>$model->id])?>" class="view">
+                                            <a href="<?=url(['view', 'box_id'=>$model->id])?>" class="view">
                                                 详细
                                             </a>
 
-                                            <!--
-                                            <a href="<?=url(['/ashes/admin/log/create', 'id'=>$model->id])?>" class="btn btn-info btn-xs">
+                                            <?php if ($model->status == Box::STATUS_FULL):?>
+                                            <a href="<?=url(['/ashes/admin/log/take', 'id'=>$model->id])?>" class="btn btn-info btn-xs btn-op">
                                                 取出
                                             </a>
-                                            -->
+                                            <?php endif;?>
                                         </li>
                                     <?php endforeach;?>
                                     </ul>

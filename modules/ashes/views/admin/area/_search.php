@@ -13,27 +13,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'pid') ?>
-
-    <?= $form->field($model, 'level') ?>
-
-    <?= $form->field($model, 'code') ?>
-
-    <?= $form->field($model, 'is_leaf') ?>
-
-    <?php // echo $form->field($model, 'title') ?>
-
-    <?php // echo $form->field($model, 'row') ?>
-
-    <?php // echo $form->field($model, 'col') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'intro') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'title') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

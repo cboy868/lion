@@ -2,6 +2,8 @@
 
 namespace app\modules\ashes\models;
 
+use app\modules\grave\models\Tomb;
+use app\modules\user\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -93,5 +95,24 @@ class Log extends \app\core\db\ActiveRecord
             'status' => '状态',
             'created_at' => '添加时间',
         ];
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(), ['id'=>'tomb_id']);
+    }
+
+    public function getTombNo()
+    {
+        if($this->tomb) {
+            return $this->tomb->tomb_no;
+        }
+
+        return '';
+    }
+
+    public function getOp()
+    {
+        return $this->hasOne(User::className(), ['id'=>'op_id']);
     }
 }
