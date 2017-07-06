@@ -14,6 +14,14 @@ class NewsController extends Controller
     public function actions() {
         $actions = parent::actions();
 
+        $actions = array_merge($actions, [
+            'recommend' => [
+                'class' => 'app\modules\api\actions\RecommendAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+            ],
+        ]);
+
 
         // 禁用""index,delete" 和 "create" 操作
 //        unset($actions['delete'], $actions['create'], $actions['view']);
@@ -36,17 +44,17 @@ class NewsController extends Controller
         return $items;
     }
 
-    public function actionRecommend($category_id = null, $limit=5)
-    {
-        $model = $this->modelClass;
-        $data = $model::find()->filterWhere(['category_id'=>$category_id])
-            ->orderBy('id desc')
-            ->limit($limit)
-            ->asArray()
-            ->all();
-
-        return $data;
-
-    }
+//    public function actionRecommend($category_id = null, $limit=5)
+//    {
+//        $model = $this->modelClass;
+//        $data = $model::find()->filterWhere(['category_id'=>$category_id])
+//            ->orderBy('id desc')
+//            ->limit($limit)
+//            ->asArray()
+//            ->all();
+//
+//        return $data;
+//
+//    }
 
 }
