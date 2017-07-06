@@ -63,7 +63,7 @@ class RecommendAction extends Action
 
 
         $query->where(['<>', 'status', $modelClass::STATUS_DELETE]);
-//        $query->andWhere(['recommend'=>1]);
+        $query->andWhere(['recommend'=>1]);
 
         if (isset($params['cid'])) {
             $query->andWhere(['category_id'=>$params['cid']]);
