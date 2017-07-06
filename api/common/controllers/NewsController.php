@@ -49,6 +49,8 @@ class NewsController extends Controller
         return $items;
     }
 
+
+
     public function actionClist($cid, $page=1, $pageSize=1, $order='created_at desc', $thumbSize="36x36")
     {
         $model = $this->modelClass;

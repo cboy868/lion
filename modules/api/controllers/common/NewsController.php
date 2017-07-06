@@ -36,4 +36,17 @@ class NewsController extends Controller
         return $items;
     }
 
+    public function actionRecommend($category_id = null, $limit=5)
+    {
+        $model = $this->modelClass;
+        $data = $model::find()->filterWhere(['category_id'=>$category_id])
+            ->orderBy('id desc')
+            ->limit($limit)
+            ->asArray()
+            ->all();
+
+        return $data;
+
+    }
+
 }
