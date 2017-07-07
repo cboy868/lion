@@ -13,19 +13,11 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'log_id') ?>
-
     <?= $form->field($model, 'box_no') ?>
-
-    <?= $form->field($model, 'area_id') ?>
 
     <?= $form->field($model, 'row') ?>
 
-    <?php // echo $form->field($model, 'col') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
+    <?= $form->field($model, 'col') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

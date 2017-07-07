@@ -24,9 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <?=  Html::encode($this->title) ?>
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
-                </small>
 
                 <div class="pull-right nc">
                     <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/ashes/admin/area/index'])?>">
@@ -41,6 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'header' => '取盒操作',
             'id' => 'modalAdd',
             // 'size' => 'modal'
+//            'options' => [
+//                    'tabindex' => 1
+//            ]
         ]) ;
 
         echo '<div id="modalContent"></div>';
@@ -128,25 +128,37 @@ $this->params['breadcrumbs'][] = $this->title;
                     float: left;
                     background: #eee;
                     border: 1px solid #ccc;
-                    height: 100px;
-                    width: 120px;
                     margin-right:5px;
                     position: relative;
                     overflow: hidden;
                     font-size: 10px;
                     border-radius: 5px;
                     padding: 3px;
+                    margin-top: 10px;
+                }
+                .table ul li{
+                    width:120px;
+                    height:100px;
+                }
+                .table ul li.empty{
+                    width:45px;
+                }
+
+                .table ul li.box .btns{
+                    width:100%;
+                    position: absolute;
+                    bottom:1px;
                 }
 
                 .table ul li.box a.btn-op {
-                    position: absolute;
-                    bottom: 5px;
-                    right:5px;
+                    float: right;
+                    margin-right:5px;
                 }
                 .table ul li.box a.view {
-                    position: absolute;
-                    bottom: 5px;
-                    left:5px;
+                    float: left;
+                    margin-left:5px;
+                    text-align: center;
+                    margin-top:3px;
                 }
                 .table ul li.box p{
                     margin-bottom:2px;
@@ -175,39 +187,47 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="col-xs-12">
-                        <table class="table">
+                        <table class="table table-hover">
                             <tbody>
                             <?php foreach ($result as $k=>$models):?>
                             <tr>
                                 <td>
-                                    <div class="pull-left"><?=$k?>排</div>
+                                    <div class="pull-left">
+                                        <strong> <?=$k?>排 </strong>
+                                    </div>
                                     <ul>
                                     <?php foreach ($models as $model): ?>
-                                        <li class="box">
+                                        <li class="box <?php if(!$model->log_id)echo"empty"?>">
 
-                                            <h5><?=$model->col?>号</h5>
+                                            <h5><?=$model->box_no?>号</h5>
 
                                             <?php if ($model->log_id):?>
                                             <p>联系人:<?=$model->log->contact?></p>
                                             <p><?=$model->log->mobile?></p>
                                             <?php endif?>
 
-                                            <?php if ($model->status == Box::STATUS_EMPTY):?>
-                                            <a href="<?=url(['/ashes/admin/log/create', 'box_id'=>$model->id])?>" class="btn btn-info btn-xs btn-op">
-                                                存入
-                                            </a>
-                                            <?php endif;?>
+                                            <div class="btns">
 
-                                            <a href="<?=url(['view', 'box_id'=>$model->id])?>" class="view">
-                                                详细
-                                            </a>
 
-                                            <?php if ($model->status == Box::STATUS_FULL):?>
-                                                <a href="<?=Url::toRoute(['/ashes/admin/log/take', 'box_id'=>$model->id])?>"
-                                                   class='btn btn-info btn-sm modalAddButton btn-op'
-                                                   title="取盒"
-                                                   data-loading-text="页面加载中, 请稍后..." onclick="return false">取盒</a>
-                                            <?php endif;?>
+                                                <a href="<?=url(['view', 'box_id'=>$model->id])?>" class="view">
+                                                    详细
+                                                </a>
+
+                                                <?php if ($model->status == Box::STATUS_EMPTY):?>
+                                                    <a href="<?=url(['/ashes/admin/log/create', 'box_id'=>$model->id])?>"
+                                                       class="btn btn-info btn-xs btn-op">
+                                                        存入
+                                                    </a>
+                                                <?php endif;?>
+
+                                                <?php if ($model->status == Box::STATUS_FULL):?>
+                                                    <a href="<?=Url::toRoute(['/ashes/admin/log/take', 'box_id'=>$model->id])?>"
+                                                       class='btn btn-info btn-xs modalAddButton btn-op'
+                                                       title="取盒"
+                                                       data-loading-text="页面加载中, 请稍后..." onclick="return false">取盒</a>
+                                                <?php endif;?>
+                                            </div>
+
                                         </li>
                                     <?php endforeach;?>
                                     </ul>

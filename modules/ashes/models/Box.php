@@ -34,7 +34,8 @@ class Box extends \app\core\db\ActiveRecord
     {
         return [
             [['row', 'col', 'area_id'], 'required'],
-            [['id', 'log_id', 'box_no', 'area_id', 'row', 'col', 'status'], 'integer'],
+            [['id', 'log_id', 'area_id', 'row', 'col', 'status'], 'integer'],
+            [['box_no'], 'string'],
         ];
     }
 

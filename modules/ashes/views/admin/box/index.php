@@ -5,11 +5,8 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\ashes\models\BoxSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Boxes';
+use yii\bootstrap\Modal;
+$this->title = '柜子管理';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -20,14 +17,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
+                <?=  $this->title ?>
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/ashes/admin/default/index'])?>">
+                        <i class="fa fa-th-large fa-2x"></i>  存盒取盒操作</a>
+                </div>
+
             </h1>
+
         </div><!-- /.page-header -->
+
+        <?php
+        Modal::begin([
+            'header' => '编辑',
+            'id' => 'modalEdit',
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="editContent"></div>';
+
+        Modal::end();
+        ?>
 
         <div class="row">
             <div class="col-xs-12">
@@ -44,17 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'log_id',
             'box_no',
-            'area_id',
+            'area.title',
             'row',
-            // 'col',
-            // 'status',
+             'col',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update} {delete} {view}',
+                'buttons' => [
+                    'update' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑',
+                            'class'=>'modalEditButton',
+                            "data-loading-text"=>"页面加载中, 请稍后...",
+                            "onclick"=>"return false"] );
+                    }
 
-            ['class' => 'yii\grid\ActionColumn'],
+                ],
+                'headerOptions' => ['width' => '240',"data-type"=>"html"]
+            ]
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

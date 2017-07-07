@@ -12,20 +12,7 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
-
-    <?= $form->field($model, 'log_id')->textInput() ?>
-
     <?= $form->field($model, 'box_no')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'area_id')->textInput() ?>
-
-    <?= $form->field($model, 'row')->textInput() ?>
-
-    <?= $form->field($model, 'col')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
