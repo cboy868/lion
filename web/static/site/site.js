@@ -11,12 +11,12 @@ $(function(){
         // $('#modal').modal('show')
         //             .find('#modalContent')
         //             .load($(this).attr('value'));
-        var btn = $(this).button('loading');
+        var btn = $(this).button().button('loading');
         //加载完再显示，看着舒服一点
         $('#modalAdd').find('#modalContent')
                     .load($(this).attr('href'),function(xhr){
                         $('#modalAdd').modal('show');
-                        btn.button('reset');
+                        btn.button().button('reset');
                     });
     });
 

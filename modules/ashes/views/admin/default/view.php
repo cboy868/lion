@@ -4,17 +4,31 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 use app\modules\ashes\models\Box;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\ashes\models\Box */
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => '柜子', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->id . '号柜操作记录';
+
+
 ?>
 
 <div class="page-content">
     <!-- /section:settings.box -->
+
+    <?php
+    Modal::begin([
+        'header' => '取盒操作',
+        'id' => 'modalAdd',
+        // 'size' => 'modal'
+    ]) ;
+
+    echo '<div id="modalContent"></div>';
+
+    Modal::end();
+    ?>
+
     <div class="page-content-area">
         <div class="page-header">
             <h1><?= Html::encode($model->box_no) ?>号柜
@@ -35,9 +49,10 @@ $this->params['breadcrumbs'][] = $model->id . '号柜操作记录';
                     <?php endif;?>
 
                     <?php if ($model->status == Box::STATUS_FULL):?>
-                        <a href="<?=url(['/ashes/admin/log/take', 'box_id'=>$model->id])?>" class="btn btn-info btn-xs btn-op">
-                            取出
-                        </a>
+                        <a href="<?=Url::toRoute(['/ashes/admin/log/take', 'box_id'=>$model->id])?>"
+                           class='btn btn-info btn-sm modalAddButton btn-op'
+                           title="取盒"
+                           onclick="return false">取盒</a>
                     <?php endif;?>
                 </small>
             </h1>
@@ -86,7 +101,7 @@ $this->params['breadcrumbs'][] = $model->id . '号柜操作记录';
                             <td width="130"><?=$v->deads?></td>
                             <td width="100"><?=$v->bury_date?></td>
                             <td width="100"><?=$v->op->username?></td>
-                            <td width="300"><?=$v->save_time?>-<?=$v->out_time?></td>
+                            <td width="300"><?=$v->save_time?> 至 <?=$v->out_time?></td>
                             <td><?=date('Y-m-d H:i:s', $v->created_at);?></td>
                         </tr>
                         <tr>

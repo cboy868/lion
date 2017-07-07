@@ -74,7 +74,10 @@ class LogController extends BackController
             $model->save();
 
             $box->status = Box::STATUS_FULL;
+            $box->log_id = $model->id;
             $box->save();
+
+            Yii::$app->session->setFlash('success', '存入成功,柜号:'.$box->box_no);
             return $this->redirect(['/ashes/admin/default/index', 'box_id' => $model->box_id]);
         }
 
@@ -87,7 +90,37 @@ class LogController extends BackController
         return $this->render('create', [
             'model' => $model,
         ]);
-}
+    }
+
+    public function actionTake($box_id)
+    {
+        $box = Box::findOne($box_id);
+
+        if (!$box->log_id){
+            Yii::$app->session->setFlash('error', '操作出错，或已经取出');
+
+            return $this->redirect(['/ashes/admin/default/index']);
+        }
+
+        $log = $box->log;
+        $note = $log->note;
+
+        if ($log->load(Yii::$app->request->post()) && $log->save()) {
+
+            Yii::$app->session->setFlash('success', '取盒操作成功');
+
+            $box->log_id = 0;
+            $box->status = Box::STATUS_EMPTY;
+            $box->save();
+            return $this->redirect(['/ashes/admin/default/index']);
+
+        }
+
+        $log->out_time = date('Y-m-d H:i:s');
+        $log->out_user = $log->save_user;
+
+        return $this->renderAjax('take', ['log'=>$log]);
+    }
 
     /**
      * Updates an existing Log model.

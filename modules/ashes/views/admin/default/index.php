@@ -4,7 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\helpers\ArrayHelper;
 use app\modules\ashes\models\Box;
-
+use yii\bootstrap\Modal;
 $this->title = '骨灰堂';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -34,6 +34,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </h1>
         </div><!-- /.page-header -->
+        <?=\app\core\widgets\Alert::widget();?>
+
+        <?php
+        Modal::begin([
+            'header' => '取盒操作',
+            'id' => 'modalAdd',
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="modalContent"></div>';
+
+        Modal::end();
+        ?>
+
 
         <div class="row">
             <?php $pid = 1; ?>
@@ -109,7 +123,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
                 .table ul li.box {
                     margin: 0px;
-                    padding: 0px;
                     display: block;
                     /*width: 40px;*/
                     float: left;
@@ -120,7 +133,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     margin-right:5px;
                     position: relative;
                     overflow: hidden;
-                    font-size: 12px;
+                    font-size: 10px;
+                    border-radius: 5px;
+                    padding: 3px;
                 }
 
                 .table ul li.box a.btn-op {
@@ -172,9 +187,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                             <h5><?=$model->col?>号</h5>
 
-                                            <p>联系人:张三</p>
-                                            <p>电话:18555557777</p>
-
+                                            <?php if ($model->log_id):?>
+                                            <p>联系人:<?=$model->log->contact?></p>
+                                            <p><?=$model->log->mobile?></p>
+                                            <?php endif?>
 
                                             <?php if ($model->status == Box::STATUS_EMPTY):?>
                                             <a href="<?=url(['/ashes/admin/log/create', 'box_id'=>$model->id])?>" class="btn btn-info btn-xs btn-op">
@@ -187,9 +203,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </a>
 
                                             <?php if ($model->status == Box::STATUS_FULL):?>
-                                            <a href="<?=url(['/ashes/admin/log/take', 'id'=>$model->id])?>" class="btn btn-info btn-xs btn-op">
-                                                取出
-                                            </a>
+                                                <a href="<?=Url::toRoute(['/ashes/admin/log/take', 'box_id'=>$model->id])?>"
+                                                   class='btn btn-info btn-sm modalAddButton btn-op'
+                                                   title="取盒"
+                                                   data-loading-text="页面加载中, 请稍后..." onclick="return false">取盒</a>
                                             <?php endif;?>
                                         </li>
                                     <?php endforeach;?>

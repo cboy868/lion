@@ -83,4 +83,39 @@ class Box extends \app\core\db\ActiveRecord
             ->andWhere(['status'=>Log::STATUS_NORMAL])
             ->orderBy('id desc');
     }
+
+    public function getLog()
+    {
+        return $this->hasOne(Log::className(), ['id'=>'log_id']);
+    }
+
+    public function getContact()
+    {
+        if ($this->log_id == 0) {
+            return '';
+        }
+
+        $log = Log::findOne($this->log_id);
+
+        if (!$log) {
+            return '';
+        }
+
+        return $log->contact;
+    }
+
+    public function getMobile()
+    {
+        if ($this->log_id == 0) {
+            return '';
+        }
+
+        $log = Log::findOne($this->log_id);
+
+        if (!$log) {
+            return '';
+        }
+
+        return $log->mobile;
+    }
 }

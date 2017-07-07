@@ -16,6 +16,7 @@ app\assets\ExtAsset::register($this);
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="hid">
+        <?= $form->field($model, 'tomb_id')->hiddenInput(['class'=>'tomb_id'])->label(false) ?>
     <?= $form->field($model, 'box_id')->hiddenInput()->label(false) ?>
     <?= $form->field($model, 'area_id')->hiddenInput()->label(false) ?>
     <?= $form->field($model, 'action')->hiddenInput()->label(false) ?>
@@ -71,6 +72,9 @@ function getTombInfo()
             $('.save_user').val('');
             retrn;
         }
+
+        $('.tomb_id').val(xhr.data.tomb.id);
+
         if ('customer' in xhr.data){
             var c = xhr.data.customer;
             $('.contact').val(c.name);
