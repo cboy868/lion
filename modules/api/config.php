@@ -39,7 +39,8 @@ return [
                         'v1/order',
                         'v1/goods',
                         'v1/post',
-                        'v1/user'
+                        'v1/user',
+                        'v1/memorial'
                     ]
                 ]
             ]

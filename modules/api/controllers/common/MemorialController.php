@@ -24,6 +24,10 @@ class MemorialController extends Controller
         return $actions;
     }
 
+    public function behaviors() {
+        return parent::behaviors();
+    }
+
     public function _index()
     {
         $params = Yii::$app->request->queryParams;
