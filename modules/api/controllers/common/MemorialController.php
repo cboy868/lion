@@ -24,10 +24,6 @@ class MemorialController extends Controller
         return $actions;
     }
 
-    public function behaviors() {
-        return parent::behaviors();
-    }
-
     public function _index()
     {
         $params = Yii::$app->request->queryParams;
@@ -71,12 +67,6 @@ class MemorialController extends Controller
     public function actionJisi()
     {
         $post = Yii::$app->request->post();
-
-
-        p(Yii::$app->request->rawBody);die;
-
-        p($post);die;
-
 
         if (!$post['id'] || !$post['type'] || !$post['uid']) {
             return ["errno"=>1, 'error'=>'参数错误'];
