@@ -73,7 +73,7 @@ class MemorialController extends Controller
         $post = Yii::$app->request->post();
 
 
-        p(Yii::$app->request->bodyParams);die;
+        p(Yii::$app->request->rawBody);die;
 
         p($post);die;
 
