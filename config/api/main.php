@@ -64,6 +64,7 @@ $config = [
                         'api/v1/goods',
                         'api/v1/post',
                         'api/v1/user',
+                        'api/v1/memorial',
                         'api/v1/wechat-user'
                     ]
                 ],
