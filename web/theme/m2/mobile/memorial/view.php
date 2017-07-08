@@ -146,7 +146,7 @@ var app = new Vue({
             if (!content) {return;}
 
             if (editor_w0.getContentLength(true)>10) {$.alert('字符串过长，请修改');return;}
-            this.$http.post(this.commentUrl, {content:content,id:id,uid:1},{emulateJSON:true}).then(function(response){
+            this.$http.post(this.commentUrl, {content:content,id:id,uid:uid},{emulateJSON:true}).then(function(response){
                 if (response.data.errno) {
                     $.alert(response.data.error);
                 } else {
