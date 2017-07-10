@@ -45,4 +45,13 @@ class GraveController extends Controller
         ]);
     }
 
+    /**
+     * @name 预定
+     */
+    public function actionPre()
+    {
+        $post = Yii::$app->request->post();
+        return $post;
+    }
+
 }
