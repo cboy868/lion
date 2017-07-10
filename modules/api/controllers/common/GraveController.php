@@ -2,9 +2,11 @@
 namespace app\modules\api\controllers\common;
 
 use app\modules\api\models\common\Grave;
+use app\modules\user\models\User;
 use Yii;
 use yii\data\Pagination;
 use yii\data\ActiveDataProvider;
+use app\modules\cms\models\MsgForm;
 
 /**
  * Site controller
@@ -51,7 +53,23 @@ class GraveController extends Controller
     public function actionPre()
     {
         $post = Yii::$app->request->post();
-        return $post;
+        $user_id = $post['uid'];
+        $grave_id = $post['gid'];
+        $uinfo = User::findOne($user_id);
+
+        if (!$uinfo) {
+            return ['errno'=>1,'error'=>'用户未找到，请先绑定'];
+        }
+
+        $model = new MsgForm();
+        $model->username = $uinfo->name;
+        $model->email = $uinfo->email;
+        $model->title = '墓区预定';
+        $model->res_id = $grave_id;
+        $model->res_name = 'grave';
+        $model->create();
+
+        return true;
     }
 
 }
