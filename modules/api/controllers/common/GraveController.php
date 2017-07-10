@@ -31,6 +31,7 @@ class GraveController extends Controller
 
         $query = $modelClass::find()->where(['is_show'=>Grave::SHOW_YES])
                                     ->andWhere(['status'=>Grave::STATUS_SALE])
+                                    ->andWhere(['is_leaf'=>1])
                                     ->orderBy('id desc');
 
         $pageSize = 10;
