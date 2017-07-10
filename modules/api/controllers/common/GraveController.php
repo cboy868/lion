@@ -67,9 +67,8 @@ class GraveController extends Controller
         $model->title = '墓区预定';
         $model->res_id = $grave_id;
         $model->res_name = 'grave';
-        $model->create();
-
-        return true;
+        $model->mobile = $uinfo->mobile;
+        return $model->create();
     }
 
 }
