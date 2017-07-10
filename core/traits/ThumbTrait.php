@@ -8,7 +8,7 @@ use app\core\models\Attachment;
 
 
 trait ThumbTrait {
-   public function getThumb($size='', $default='')
+   public function getThumb($size='', $default='/static/images/default.png')
     {
         return Attachment::getById($this->thumb, $size, $default);
     }
