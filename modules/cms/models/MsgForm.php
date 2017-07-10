@@ -87,6 +87,7 @@ class MsgForm extends Model
                 $msg->res_name = $this->res_name;
                 $msg->term = $this->term;
                 $msg->save();
+                return $msg->getErrors();die;
 
                 $client = new Client();
                 $client->name = $this->username;
