@@ -24,6 +24,17 @@ class Grave extends \app\modules\grave\models\Grave
             'cover' => function($model){
                 $size = Yii::$app->request->get('cover-size');
                 return self::$base_url . $model->getThumb($size);
+            },
+            'cnt' => function($model){
+                $cnt = $model->staCount();
+                $total = array_sum($cnt);
+
+                $data = [
+                    'not' => $cnt[\app\modules\grave\models\Tomb::STATUS_EMPTY],
+                    'yet' => $total - $cnt[\app\modules\grave\models\Tomb::STATUS_EMPTY]
+                ];
+
+                return $data;
             }
 
         ];
