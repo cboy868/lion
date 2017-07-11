@@ -90,7 +90,7 @@ class WechatUserController extends Controller
 
         $options = [
             'mini_program' => [
-                'app_id'   => 'wxa49d94dde698d291',
+                'app_id'   => 'wx6b31b3c15e5f1b85',
                 'secret'   => '65931a81bde1c9f92e8bd4fea3e5822a',
                 'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
                 'aes_key'  => 'component-aes-key'
