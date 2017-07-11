@@ -29,6 +29,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends \app\core\db\ActiveRecord
 {
+    const TYPE_MINI = 1;
+    const TYPE_ZHONG = 0;
     /**
      * @inheritdoc
      */

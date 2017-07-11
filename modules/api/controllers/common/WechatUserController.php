@@ -95,16 +95,24 @@ class WechatUserController extends Controller
         $miniProgram = $app->mini_program;
 
         $data = $miniProgram->sns->getSessionKey($code);
-//        $openid = $data['openid'];
+        $openid = $data['openid'];
 
         $udata = json_decode($params['udata'], true);
 
 
 
+        $class = $this->modelClass;
 
-//        $umodel = \app\modules\wechat\models\User::findOne($da)
+        $umodel = $class::find()->where(['openid'=>$openid, 'type'=>1])->one();
+        if (!$umodel) {
+            $umodel = new $class;
+            $umodel->load($udata['userInfo'], '');
+            $umodel->openid = $openid;
+            $umodel->save();
+        }
 
-        return $data;
+        return $umodel;
+
 
         return $udata['userInfo'];
 
