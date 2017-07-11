@@ -114,9 +114,15 @@ class WechatUserController extends Controller
 
 
 
-//        $miniProgram->encryptor->decryptData($sessionKey, $iv, $encryptedData);
+//        $miniProgram->encryptor->decryptData($sessionKey, $iv, "sRGS9taH/HmYQw2xhXQVddWvFof5QcDiExLCtP8RHmDijo14lf/aLfzDAUKBaFhoBOokaT9FhDyBY3qMkxw7cy1CEbOscSvDI1nDorY4Ea0Q+WwDY2QoMGskeslQ+Sy/TU/MtdbAN05tpMMnjemSOzGbCShmbWIr6RhqR6OmZ2nkN0ujg5AMx8GAMLES+OXzxBoNSpKzFM91ZR1MjtvsVgp2nct01FOYYD1gWPS7vO8gNF5ZbKG+KnHe9hldRdtnSkepaUCfAmYFuz5BcfPUhByPNnLSebYQjmAYvSLtXM/R1F3Y8NwOCjR2J74AqUDKDuzjB3zwh1ETf7JCt+5wbx7kmArYX89tPZrFG84r+ZTbIRAx9IN2yv8lFIIn9SHt1TPtxTO9CgfIPkRwDFW2SOIY6xTyH2gUphCKlZcm9fHMNHMArJ2ModnTkDnX5WhrF1ex8kaHTFt539/yNIyNCA==");
 
 
+    }
+
+    public function actionAdd()
+    {
+        $post = Yii::$app->request->post();
+        return $post;
     }
 
 }
