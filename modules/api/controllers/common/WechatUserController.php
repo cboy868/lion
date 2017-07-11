@@ -109,7 +109,8 @@ class WechatUserController extends Controller
 
         $data = $miniProgram->sns->getSessionKey($code);
 
-        p($data);die;
+        return $data['openid'];
+
 
 
 
