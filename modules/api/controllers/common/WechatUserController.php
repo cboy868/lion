@@ -88,7 +88,7 @@ class WechatUserController extends Controller
     public function actionLogin($code)
     {
 
-        $post = Yii::$app->request->post();
+        $post = Yii::$app->request->get();
 
         $app = $this->initMiniProgram();
 
