@@ -100,32 +100,24 @@ class WechatUserController extends Controller
         $udata = json_decode($params['udata'], true);
 
 
-
         $class = $this->modelClass;
 
         $umodel = $class::find()->where(['openid'=>$openid, 'type'=>1])->one();
         if (!$umodel) {
             $umodel = new $class;
-            $umodel->load($udata['userInfo'], '');
+            $umodel->load($udata, '');
             $umodel->openid = $openid;
             $umodel->type = $umodel::TYPE_MINI;
-            $umodel->nickname = $udata['userInfo']['nickName'];
-            $umodel->sex = $udata['userInfo']['gender'];
-            $umodel->headimgurl = $udata['userInfo']['avatarUrl'];
+            $umodel->nickname = $udata['nickName'];
+            $umodel->sex = $udata['gender'];
+            $umodel->headimgurl = $udata['avatarUrl'];
             $umodel->save();
         }
 
         return $umodel;
 
 
-        return $udata['userInfo'];
-
-
-
-
-        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
-//
-//        return $a;
+//        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
 
 
     }
