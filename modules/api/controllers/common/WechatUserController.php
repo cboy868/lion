@@ -87,13 +87,18 @@ class WechatUserController extends Controller
 
     public function actionLogin($code)
     {
+
+        $params  = Yii::$app->getModule('wechat')->params;
+
         $options = [
             'mini_program' => [
                 'app_id'   => 'wxa49d94dde698d291',
-                'secret'   => 'db9f2d31ee80a622568d7f6eab3649c8',
+                'secret'   => 'faa82fb3a6fc95c51c0b8534ca68cbe3',
                 'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
                 'aes_key'  => 'component-aes-key'
             ],
+            'debug'  => $params['debug'],
+            'log' => $params['log']
         ];
         $app = new Application($options);
         $miniProgram = $app->mini_program;
