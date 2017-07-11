@@ -88,7 +88,7 @@ class WechatUserController extends Controller
     public function actionLogin($code)
     {
 
-        $post = Yii::$app->request->get();
+        $params = Yii::$app->request->get();
 
         $app = $this->initMiniProgram();
 
@@ -96,16 +96,15 @@ class WechatUserController extends Controller
 
         $data = $miniProgram->sns->getSessionKey($code);
 
-        return $post;
+        $udata = json_decode($params['udata']);
+        return $udata;
 
 
-        $userInfo = json_decode($post['udata']['rawData']);
 
-        return $userInfo;
 
-        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
-
-        return $a;
+//        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
+//
+//        return $a;
 
 
     }
