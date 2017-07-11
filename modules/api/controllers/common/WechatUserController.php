@@ -96,6 +96,8 @@ class WechatUserController extends Controller
 
         $data = $miniProgram->sns->getSessionKey($code);
 
+        return $post;
+
 
         $userInfo = json_decode($post['udata']['rawData']);
 
