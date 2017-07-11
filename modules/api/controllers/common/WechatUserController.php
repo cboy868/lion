@@ -91,7 +91,7 @@ class WechatUserController extends Controller
         $options = [
             'mini_program' => [
                 'app_id'   => 'wxa49d94dde698d291',
-                'secret'   => 'faa82fb3a6fc95c51c0b8534ca68cbe3',
+                'secret'   => '65931a81bde1c9f92e8bd4fea3e5822a',
                 'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
                 'aes_key'  => 'component-aes-key'
             ],
@@ -102,8 +102,6 @@ class WechatUserController extends Controller
                 'file'       => '/tmp/easywechat.log',
             ]
         ];
-
-
 
         $app = new Application($options);
         $miniProgram = $app->mini_program;
