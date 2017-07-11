@@ -31,10 +31,19 @@ class GraveController extends Controller
 
         $modelClass = $this->modelClass;
 
+
+
+
+
         $query = $modelClass::find()->where(['is_show'=>Grave::SHOW_YES])
                                     ->andWhere(['status'=>Grave::STATUS_SALE])
-                                    ->andWhere(['is_leaf'=>1])
-                                    ->orderBy('id desc');
+                                    ->andWhere(['is_leaf'=>1]);
+
+
+        if (isset($params['recommend'])) {
+            $query->andWhere(['recommend'=>1]);
+        }
+        $query->orderBy('id desc');
 
         $pageSize = 10;
         if (isset($params['pageSize'])) {

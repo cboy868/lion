@@ -87,6 +87,23 @@ class DefaultController extends BackController
         return $tree;
     }
 
+    public function actionRecommend($id)
+    {
+        $model = Grave::findOne($id);
+
+        if (!$model) {
+            return $this->json(null, '未找到此墓区', 0);
+        }
+
+        $model->recommend = $model->recommend ? 0 : 1;
+
+        if ($model->save()) {
+            return $this->json($model->recommend);
+        }
+
+        return $this->json(null, '操作失败,请重试', 0);
+    }
+
     /**
      * Displays a single Grave model.
      * @param integer $id

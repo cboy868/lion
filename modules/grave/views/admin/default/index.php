@@ -166,13 +166,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                   <?php if ($grave->is_leaf): ?>
                                       <div class="col-xs-8 text-right">
-
+                                          <a href="<?=Url::toRoute(['recommend', 'id'=>$grave->id])?>" class="recommend" style="color:green;">
+                                              <?php if ($grave->recommend):?>
+                                              取消推荐
+                                                <?php else:?>
+                                              推荐
+                                              <?php endif;?>
+                                          </a>
                                           <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$grave->id])?>"><i class="fa fa-plus"></i> 添加墓位</a>
                                           &nbsp;
                                          <a href="<?=Url::toRoute(['delete', 'id'=>$grave->id])?>" 
                                          style="color:red;" data-confirm="您确定要删除此项吗？" 
                                          data-method="post" data-pjax="0"><i class="fa fa-trash"></i>
                                          </a>
+
+
 
                                       </div>
                                   <?php endif ?>
@@ -188,5 +196,30 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+
+
+<?php $this->beginBlock('img') ?>
+$(function(){
+    $('.recommend').click(function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var that = this;
+        $.get(url,function(xhr){
+            if (xhr.status) {
+                if (xhr.data==1){
+                    $(that).text('取消推荐');
+                } else {
+                    $(that).text('推荐');
+                }
+            } else {
+                alert(xhr.info);
+            }
+        },'json');
+    });
+
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['img'], \yii\web\View::POS_END); ?>
+
 
 
