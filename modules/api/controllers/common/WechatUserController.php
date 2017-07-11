@@ -99,10 +99,10 @@ class WechatUserController extends Controller
         $miniProgram = $app->mini_program;
 
 
-        $miniProgram->sns->getSessionKey($code);
+        $data = $miniProgram->sns->getSessionKey($code);
 
-        p($miniProgram);
-        p($miniProgram->sns);
+        p($data);die;
+
 
 
 //        $miniProgram->encryptor->decryptData($sessionKey, $iv, $encryptedData);
