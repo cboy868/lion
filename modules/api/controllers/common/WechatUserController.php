@@ -5,6 +5,7 @@ use Yii;
 use app\modules\api\models\common\UserForm;
 use app\modules\api\models\common\WechatUser;
 use app\modules\api\models\common\User;
+use EasyWeChat\Foundation\Application;
 /**
  * Site controller
  */
@@ -21,6 +22,8 @@ class WechatUserController extends Controller
         unset($actions['delete'], $actions['create']);
         return $actions;
     }
+
+
 
     public function actionBind()
     {
@@ -79,6 +82,26 @@ class WechatUserController extends Controller
         }
 
         return ['errno'=>1, 'error'=>'账户创建失败 '.$error];
+
+    }
+
+    public function actionLogin()
+    {
+        $options = [
+            'mini_program' => [
+                'app_id'   => 'wxa49d94dde698d291',
+                'secret'   => 'db9f2d31ee80a622568d7f6eab3649c8',
+                'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
+                'aes_key'  => 'component-aes-key'
+            ],
+        ];
+        $app = new Application($options);
+        $miniProgram = $app->mini_program;
+
+        $miniProgram->sns->getSessionKey($code);
+
+        $miniProgram->encryptor->decryptData($sessionKey, $iv, $encryptedData);
+
 
     }
 

@@ -6,7 +6,7 @@ $this->title="绑定系统账号";
 
     <div class="page__bd">
         <div class="weui-panel weui-panel_access">
-            <div class="weui-panel__hd">适用于已有本系统的用户</div>
+            <div class="weui-panel__hd">适用于已有本系统账号的用户</div>
             <div class="weui-cells">
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label for="" class="weui-label">登录账号</label></div>

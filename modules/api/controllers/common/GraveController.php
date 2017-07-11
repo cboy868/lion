@@ -31,10 +31,6 @@ class GraveController extends Controller
 
         $modelClass = $this->modelClass;
 
-
-
-
-
         $query = $modelClass::find()->where(['is_show'=>Grave::SHOW_YES])
                                     ->andWhere(['status'=>Grave::STATUS_SALE])
                                     ->andWhere(['is_leaf'=>1]);
