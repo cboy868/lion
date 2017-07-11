@@ -111,6 +111,7 @@ class WechatUserController extends Controller
             $umodel->type = $umodel::TYPE_MINI;
             $umodel->nickname = $udata['userInfo']['nickName'];
             $umodel->sex = $udata['userInfo']['gender'];
+            $umodel->headimgurl = $udata['userInfo']['avatarUrl'];
             $umodel->save();
         }
 
