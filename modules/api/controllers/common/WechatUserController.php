@@ -85,7 +85,7 @@ class WechatUserController extends Controller
 
     }
 
-    public function actionLogin()
+    public function actionLogin($code)
     {
         $options = [
             'mini_program' => [
@@ -98,9 +98,8 @@ class WechatUserController extends Controller
         $app = new Application($options);
         $miniProgram = $app->mini_program;
 
-        $post = Yii::$app->request->post();
 
-        $miniProgram->sns->getSessionKey($post['code']);
+        $miniProgram->sns->getSessionKey($code);
 
         p($miniProgram);
         p($miniProgram->sns);
