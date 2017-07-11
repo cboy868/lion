@@ -95,8 +95,17 @@ class WechatUserController extends Controller
         $miniProgram = $app->mini_program;
 
         $data = $miniProgram->sns->getSessionKey($code);
+//        $openid = $data['openid'];
 
         $udata = json_decode($params['udata'], true);
+
+
+
+
+//        $umodel = \app\modules\wechat\models\User::findOne($da)
+
+        return $data;
+
         return $udata['userInfo'];
 
 
@@ -108,6 +117,7 @@ class WechatUserController extends Controller
 
 
     }
+
 
     public function actionAdd()
     {

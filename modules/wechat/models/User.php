@@ -43,7 +43,7 @@ class User extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['gid', 'user_id', 'sex', 'subscribe', 'subscribe_at', 'created_at'], 'integer'],
+            [['gid', 'user_id', 'sex', 'subscribe', 'subscribe_at', 'created_at', 'type'], 'integer'],
             [['openid'], 'required'],
             [['birth'], 'safe'],
             [['addr'], 'string'],
