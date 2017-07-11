@@ -98,9 +98,15 @@ class WechatUserController extends Controller
         $app = new Application($options);
         $miniProgram = $app->mini_program;
 
-        $miniProgram->sns->getSessionKey($code);
+        $post = Yii::$app->request->post();
 
-        $miniProgram->encryptor->decryptData($sessionKey, $iv, $encryptedData);
+        $miniProgram->sns->getSessionKey($post['code']);
+
+        p($miniProgram);
+        p($miniProgram->sns);
+
+
+//        $miniProgram->encryptor->decryptData($sessionKey, $iv, $encryptedData);
 
 
     }
