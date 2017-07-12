@@ -59,6 +59,8 @@ class WechatProUserController extends Controller
 
         $wecheat_user = WechatUser::findOne($post['wechat_uid']);
 
+        return $wecheat_user;
+
         if (isset($wecheat_user->user_id)) {
             return ['errno'=>1, 'error'=>'用户已绑定，如需更换，请联系工作人员'];
         }
@@ -69,13 +71,16 @@ class WechatProUserController extends Controller
         $uform->password = $post['passwd'];
         $uform->repassword = $post['repasswd'];
 
+        p($uform);
+
         if($user = $uform->create()) {
             $wecheat_user->user_id = $user->id;
             $wecheat_user->save();
+
+            p($user);die;
+
             return true;
         }
-
-        return $uform->getErrors();die;
 
         $error='';
         if ($errors = $uform->getErrors()) {
