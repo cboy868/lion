@@ -23,6 +23,14 @@ class WechatProUserController extends Controller
         return $actions;
     }
 
+    public function actionUinfo($wechat_uid)
+    {
+        $class = $this->modelClass;
+
+        $model = $class::findOne($wechat_uid);
+
+        return $model;
+    }
 
 
     public function actionBind()
@@ -51,6 +59,8 @@ class WechatProUserController extends Controller
         return $wecheat_user->save();
 
     }
+
+
 
     public function actionCreate()
     {
