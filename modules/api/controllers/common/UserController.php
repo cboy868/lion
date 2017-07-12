@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\api\controllers\common;
 
+use app\modules\user\models\Addition;
 use Yii;
 use app\core\base\Upload;
 use yii\helpers\ArrayHelper;
@@ -78,6 +79,11 @@ class UserController extends Controller
 
         $model = $this->findModel($id);
         $addition = $model->addition;
+
+        if (!$addition) {
+            $addition = new Addition();
+            $addition->user_id = $model->id;
+        }
 
         $model->mobile = isset($post['mobile']) ? $post['mobile'] : $model->mobile;
         $model->email = isset($post['email']) ? $post['email'] : $model->email;
