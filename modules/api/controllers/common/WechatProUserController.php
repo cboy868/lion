@@ -75,6 +75,8 @@ class WechatProUserController extends Controller
             return true;
         }
 
+        return $uform->getErrors();die;
+
         $error='';
         if ($errors = $uform->getErrors()) {
             $error =array_shift($errors);
