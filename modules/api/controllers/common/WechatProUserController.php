@@ -131,11 +131,14 @@ class WechatProUserController extends Controller
         }
 
         return $umodel;
-
-
 //        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
+    }
 
-
+    public function actionUserInfo($id)
+    {
+        $class = $this->modelClass;
+        $uInfo = $class::findOne($id);
+        return $uInfo;
     }
 
 
