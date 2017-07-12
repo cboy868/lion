@@ -59,9 +59,8 @@ class WechatProUserController extends Controller
 
         $wecheat_user = WechatUser::findOne($post['wechat_uid']);
 
-        return $wecheat_user;
 
-        if (isset($wecheat_user->user_id)) {
+        if (isset($wecheat_user->user_id) && $wecheat_user->user_id) {
             return ['errno'=>1, 'error'=>'用户已绑定，如需更换，请联系工作人员'];
         }
 
