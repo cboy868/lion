@@ -53,13 +53,11 @@ class WechatProUserController extends Controller
             return ['errno'=>1, 'error'=>'用户已绑定，如需更换，请联系工作人员'];
         }
 
-
         $wecheat_user->user_id = $user->id;
 
         return $wecheat_user->save();
 
     }
-
 
 
     public function actionCreate()
@@ -135,17 +133,17 @@ class WechatProUserController extends Controller
     }
 
 
-    public function actionAdd()
-    {
-        $post = Yii::$app->request->post();
-
-        $app = $this->initMiniProgram();
-        $miniProgram = $app->mini_program;
-        $data = $miniProgram->sns->getSessionKey($code);
-
-
-        return $post;
-    }
+//    public function actionAdd()
+//    {
+//        $post = Yii::$app->request->post();
+//
+//        $app = $this->initMiniProgram();
+//        $miniProgram = $app->mini_program;
+//        $data = $miniProgram->sns->getSessionKey($code);
+//
+//
+//        return $post;
+//    }
 
     public function initMiniProgram()
     {
