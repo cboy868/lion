@@ -9,7 +9,7 @@ use EasyWeChat\Foundation\Application;
 /**
  * Site controller
  */
-class WechatUserController extends Controller
+class WechatProUserController extends Controller
 {
     public $modelClass = 'app\modules\api\models\common\WechatUser';
 
@@ -85,7 +85,7 @@ class WechatUserController extends Controller
 
     }
 
-    public function actionMiniProLogin($code)
+    public function actionLogin($code)
     {
 
         $params = Yii::$app->request->get();
