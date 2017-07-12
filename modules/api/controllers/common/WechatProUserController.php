@@ -23,14 +23,14 @@ class WechatProUserController extends Controller
         return $actions;
     }
 
-    public function actionUinfo($wechat_uid)
-    {
-        $class = $this->modelClass;
-
-        $model = $class::findOne($wechat_uid);
-
-        return $model;
-    }
+//    public function actionUinfo($wechat_uid)
+//    {
+//        $class = $this->modelClass;
+//
+//        $model = $class::findOne($wechat_uid);
+//
+//        return $model;
+//    }
 
 
     public function actionBind()
@@ -153,6 +153,29 @@ class WechatProUserController extends Controller
 //
 //        return $post;
 //    }
+
+    /**
+     * @name 更新个人信息
+     */
+    public function actionUpUser()
+    {
+        $post = Yii::$app->request->post();
+
+        $user = \app\modules\user\models\User::findOne($post['id']);
+        $user->email = $post['email'];
+        $user->mobile = $post['mobile'];
+        return $user->save();
+    }
+
+    public function actionGetSysUserInfo($id)
+    {
+        $user = \app\modules\user\models\User::findOne($id);
+        if (!$user) {
+            return ['errno'=>1, 'error'=>'不存在此账号'];
+        }
+
+        return ['email'=>$user->email, 'mobile'=>$user->mobile,'username'=>$user->username];
+    }
 
     public function initMiniProgram()
     {
