@@ -164,6 +164,7 @@ class WechatProUserController extends Controller
         $user = \app\modules\user\models\User::findOne($post['id']);
         $user->email = $post['email'];
         $user->mobile = $post['mobile'];
+        return $user;
         return $user->save();
     }
 
