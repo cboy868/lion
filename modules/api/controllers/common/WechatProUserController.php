@@ -72,27 +72,33 @@ class WechatProUserController extends Controller
             return ['errno'=>1, 'error'=>'用户已绑定，如需更换，请联系工作人员'];
         }
 
-        $uform = new UserForm();
-        $uform->username = $post['uname'];
-        $uform->email = $post['email'];
-        $uform->password = $post['passwd'];
-        $uform->repassword = $post['repasswd'];
+        $outerTransaction = Yii::$app->db->beginTransaction();
+        try{
+            $uform = new UserForm();
+            $uform->username = $post['uname'];
+            $uform->email = $post['email'];
+            $uform->password = $post['passwd'];
+            $uform->repassword = $post['repasswd'];
+            $user = $uform->create();
 
-
-        if($user = $uform->create()) {
             $wecheat_user->user_id = $user->id;
             $wecheat_user->save();
-            return true;
+
+            $error='';
+            if ($errors = $uform->getErrors()) {
+                $error =array_shift($errors);
+                $error = $error[0];
+            }
+
+            $outerTransaction->commit();
+
+        } catch (\Exception $e) {
+            $outerTransaction->rollBack();
+            return ['errno'=>1, 'error'=>'账户创建失败 '.$error];
+
         }
 
-        $error='';
-        if ($errors = $uform->getErrors()) {
-            $error =array_shift($errors);
-            $error = $error[0];
-        }
-
-        return ['errno'=>1, 'error'=>'账户创建失败 '.$error];
-
+        return true;
     }
 
     public function actionLogin($code)
