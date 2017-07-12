@@ -87,10 +87,12 @@ class UserController extends Controller
         $addition->real_name = isset($post['addition']['real_name']) ? $post['addition']['real_name'] : $addition->real_name;
 
 
-        $model->save();
-        $addition->save();
+        if ($model->save() && $addition->save()) {
+            return true;
+        }
 
-        return true;
+        return ['errno'=>1, 'error'=>'更新失败，请重试'];
+
     }
 
     protected function findModel($id)
