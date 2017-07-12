@@ -2,6 +2,7 @@
 
 namespace app\modules\api\models\common;
 
+use app\modules\user\models\Addition;
 use Yii;
 use yii\base\Model;
 
@@ -69,6 +70,9 @@ class UserForm extends Model
             $user->is_staff = User::STAFF_NO;
             $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
+                $addition = new Addition();
+                $addition->user_id = $user->id;
+                $addition->save();
                 return $user;
             }
         }
