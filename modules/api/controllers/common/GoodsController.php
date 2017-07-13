@@ -23,14 +23,20 @@ class GoodsController extends Controller
         // 禁用""index,delete" 和 "create" 操作
 //        unset($actions['delete'], $actions['create']);
 
+        $actions = array_merge($actions, [
+            'recommend' => [
+                'class' => 'app\modules\api\actions\RecommendAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+            ],
+        ]);
+
         return $actions;
     }
 
     public function behaviors() {
 
         return parent::behaviors();
-
-
     }
 
 //	public function actionList($limit=5, $thumbSize='')

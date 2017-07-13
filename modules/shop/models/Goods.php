@@ -47,7 +47,7 @@ class Goods extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'thumb', 'num', 'status', 'created_at', 'updated_at', 'is_show'], 'integer'],
+            [['category_id', 'thumb', 'num', 'status', 'created_at', 'updated_at', 'is_show', 'recommend'], 'integer'],
             [['intro', 'skill', 'serial'], 'string'],
             [['price', 'original_price'], 'number'],
             // ['name', 'unique',  'message' => '此菜品已存在，请确定'],
@@ -111,9 +111,9 @@ class Goods extends \app\core\db\ActiveRecord
         return $this->hasOne(Attachment::className(), ['id'=>'thumb']);
     }
 
-    public function getRecommend()
+    public function getIsRecommend()
     {
-        return $this->is_recommend ? '是' : '否';
+        return $this->recommend ? '是' : '否';
     }
 
 
