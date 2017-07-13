@@ -1,6 +1,3 @@
-<?php
-$this->title="首页";
-?>
 <!-- $("div.navbar-fixed-top").autoHidingNavbar() -->
 <link href="/theme/zhuoxun/static/css/style.css" media="screen" rel="stylesheet" type="text/css"/>
 <div class="banner">
