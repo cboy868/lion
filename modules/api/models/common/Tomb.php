@@ -47,6 +47,9 @@ class Tomb extends \app\modules\grave\models\Tomb
             },
             'renew_fee' => function($model) {
                 return \Yii::$app->getModule('grave')->params['goods']['fee']['renew'];
+            },
+            'memorial' => function($model) {
+                return $model->memorial;
             }
         ];
     }
