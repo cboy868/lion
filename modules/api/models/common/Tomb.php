@@ -50,6 +50,9 @@ class Tomb extends \app\modules\grave\models\Tomb
             },
             'memorial' => function($model) {
                 return $model->memorial;
+            },
+            'customer' => function($model) {
+                return $model->customer;
             }
         ];
     }
