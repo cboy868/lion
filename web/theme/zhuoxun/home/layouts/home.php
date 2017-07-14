@@ -31,7 +31,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
             $title = g('title');
         }
     ?>
-    <title><?= Html::encode($this->title) ?> - <?=g("title")?></title>
+    <title><?=$title?></title>
     <?php $this->head() ?>
     <meta name="keywords" content="<?=g("keywords")?>" />
     <meta name="description" content="<?=g("description")?>" />
@@ -201,7 +201,10 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                         <h1>合作伙伴</h1>
                     </li>
                     <li>
-                        <a href='http://www.stone139.com/' target="_blank">139石材网</a>
+                        <a href='http://www.stone139.com/' target="_blank">石材</a>
+                    </li>
+                    <li>
+                        <a href="http://www.zhongshenginfo.com/" target="_blank">众盛信息</a>
                     </li>
                 </ul>
             </div>

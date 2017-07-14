@@ -124,7 +124,7 @@ class GoodsController extends Controller
         $result = [];
         foreach ($list as $k => &$v) {
             $sku = Sku::findOne($v['sku_id']);
-            $v['cover'] = Attachment::getById($sku->goods->thumb, $thumbSize);
+            $v['cover'] = self::$base_url . Attachment::getById($sku->goods->thumb, $thumbSize);
             $v['goods_name'] = $sku->goods->name;
             $v['sku_name'] = $sku->name;
 
