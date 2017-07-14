@@ -24,6 +24,13 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
     <![endif]-->
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>"/>
     <?= Html::csrfMetaTags() ?>
+    <?php
+        if ($this->title) {
+            $title = $this->title .' - ' . g('title');
+        } else {
+            $title = g('title');
+        }
+    ?>
     <title><?= Html::encode($this->title) ?> - <?=g("title")?></title>
     <?php $this->head() ?>
     <meta name="keywords" content="<?=g("keywords")?>" />
@@ -161,6 +168,8 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                     </li>
                     <?php endforeach;?>
                 </ul>
+
+                <!--
                 <ul class="list1">
                     <li>
                         <h1>新闻动态</h1>
@@ -174,7 +183,7 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                         <a href='<?=url(['/news/home/default/index','cid'=>2])?>'>行业新闻</a>
                     </li>
                 </ul>
-
+-->
                 <ul class="list1">
                     <li>
                         <h1>联系我们</h1>
@@ -184,6 +193,15 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                     </li>
                     <li>
                         <a href='<?=url(['/cms/home/contact/us','#'=>'templatemo4'])?>'>留言反馈</a>
+                    </li>
+                </ul>
+
+                <ul class="list1">
+                    <li>
+                        <h1>合作伙伴</h1>
+                    </li>
+                    <li>
+                        <a href='http://www.stone139.com/' target="_blank">139石材网</a>
                     </li>
                 </ul>
             </div>
@@ -220,7 +238,6 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
         <?php $links = links(10);?>
 
         <div class="foot_bottom">
-            <!--
             <p id='maker'>
                 友情链接：
                 <?php foreach ($links as $v):?>
@@ -228,7 +245,6 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                 <?php endforeach;?>
             <div style="clear:both;"></div>
             </p>
-             -->
             <p><?=g("reserved")?> <?=g("beian")?></p>
 
         </div>
