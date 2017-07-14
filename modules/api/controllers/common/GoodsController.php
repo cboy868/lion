@@ -210,6 +210,8 @@ class GoodsController extends Controller
         $params = array_filter($post['params']);
         $user_id = $post['user'];
 
+        p($params);die;
+
         Yii::$app->db->createCommand()
             ->delete(Cart::tableName(),[
                 'user_id' => $user_id,
