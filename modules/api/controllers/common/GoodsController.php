@@ -192,6 +192,9 @@ class GoodsController extends Controller
     public function actionUpdateCart()
     {
         $post = Yii::$app->request->post();
+
+        return $post['params'];
+
         $params = array_filter($post['params']);
         $user_id = $post['user'];
 
