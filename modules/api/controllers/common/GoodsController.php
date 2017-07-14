@@ -215,16 +215,12 @@ class GoodsController extends Controller
                 'user_id' => $user_id,
             ])->execute();
 
-
-        return $user_id;
-        return Yii::$app->db->createCommand()
-            ->delete(Cart::tableName(),[
-                'user_id' => $user_id,
-            ])->getSql();
         foreach ($params as $k => $v) {
             $model = Cart::findOne($v['id']);
             $model->num = $v['num'];
             $model->save();
+
+            p($model->getErrors());
         }
 
         return true;
