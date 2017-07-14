@@ -35,7 +35,7 @@ class OrderController extends Controller
     public function actions() {  
         $actions = parent::actions();  
         // 禁用""index,delete" 和 "create" 操作  
-        unset($actions['delete'], $actions['create'], $actions['view']);  
+        unset($actions['delete'], $actions['create']);
           
         return $actions;  
     }
