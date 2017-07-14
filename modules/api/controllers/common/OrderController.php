@@ -35,7 +35,7 @@ class OrderController extends Controller
     public function actions() {  
         $actions = parent::actions();  
         // 禁用""index,delete" 和 "create" 操作  
-        unset($actions['delete'], $actions['create']);
+        unset($actions['delete'], $actions['create'], $actions['view']);
           
         return $actions;  
     }
@@ -53,47 +53,47 @@ class OrderController extends Controller
     /**
      * @name 订单详情
      */
-//    public function actionView($id, $thumb="")
-//    {
-//
-//        $order = Order::findOne($id);
-//        $rels = $order->rels;
-//
-//        //支付方式
-//        $pays = $order->pays;
-//        $pay_type = '';
-//        foreach ($pays as $k => $v) {
-//            $pay_type .= $v->method . ' ';
-//        }
-//
-//
-//        $order_data = $order->toArray();
-//        $order_data['created_date'] = date('Y-m-d H:i', $order_data['created_at']);
-//        $order_data['pay_type'] = $pay_type;
-//        $order_data['progress'] = $order->pro;
-//
-//        $rels_data = [];
-//        foreach ($rels as $k => $v) {
-//            $rels_data[$v->id] = $v->toArray();
-//            if (!$v->goods){
-//                continue;
-//            }
-//            $rels_data[$v->id]['cover'] = self::$base_url . $v->goods->getCover($thumb);
-//        }
-//
-//        $data = [
-//            'order' => $order_data,
-//            'rels' => $rels_data
-//        ];
-//        if($this->callback){
-//            return array(
-//                'callback' => $this->callback,
-//                'data' => $data
-//            );
-//        }
-//
-//        return $data;
-//    }
+    public function actionView($id, $thumb="")
+    {
+
+        $order = Order::findOne($id);
+        $rels = $order->rels;
+
+        //支付方式
+        $pays = $order->pays;
+        $pay_type = '';
+        foreach ($pays as $k => $v) {
+            $pay_type .= $v->method . ' ';
+        }
+
+
+        $order_data = $order->toArray();
+        $order_data['created_date'] = date('Y-m-d H:i', $order_data['created_at']);
+        $order_data['pay_type'] = $pay_type;
+        $order_data['progress'] = $order->pro;
+
+        $rels_data = [];
+        foreach ($rels as $k => $v) {
+            $rels_data[$v->id] = $v->toArray();
+            if (!$v->goods){
+                continue;
+            }
+            $rels_data[$v->id]['cover'] = self::$base_url . $v->goods->getCover($thumb);
+        }
+
+        $data = [
+            'order' => $order_data,
+            'rels' => $rels_data
+        ];
+        if($this->callback){
+            return array(
+                'callback' => $this->callback,
+                'data' => $data
+            );
+        }
+
+        return $data;
+    }
 
     /**
      * @name 创建订单
