@@ -210,6 +210,14 @@ class GoodsController extends Controller
         $params = array_filter($post['params']);
         $user_id = $post['user'];
 
+        $list = Cart::find()->where(['user_id'=>$user_id])->all();
+        $list_ids = ArrayHelper::getColumn($list, 'id');
+        $new_ids = ArrayHelper::getColumn($params,'id');
+        $del_ids = array_diff($list_ids, $new_ids);
+
+        return $del_ids;
+
+
         Yii::$app->db->createCommand()
             ->delete(Cart::tableName(),[
                 'user_id' => $user_id,
