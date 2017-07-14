@@ -136,6 +136,30 @@ class GoodsController extends Controller
         return $list;
     }
 
+    public function actionCartGoods($thumbSize='64x64')
+    {
+        $post = Yii::$app->request->post();
+        $list = Cart::find()->where(['user_id'=>$post['user']])
+            ->indexBy('id')
+            ->asArray()
+            ->all();
+
+        $thumbSize = isset($post['thumbSize'])? $post['thumbSize'] : '64x64';
+        $result = [];
+        foreach ($list as $k => &$v) {
+            $sku = Sku::findOne($v['sku_id']);
+            $v['cover'] = self::$base_url . Attachment::getById($sku->goods->thumb, $thumbSize);
+            $v['goods_name'] = $sku->goods->name;
+            $v['sku_name'] = $sku->name;
+
+            $v['price'] = $sku->price;
+            $v['original_price'] = $sku->original_price;
+
+        }unset($v);
+
+        return $list;
+    }
+
     public function actionCartCount()
     {
         $get = Yii::$app->request->get();
