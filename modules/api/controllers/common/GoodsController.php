@@ -192,13 +192,28 @@ class GoodsController extends Controller
     public function actionUpdateCart()
     {
         $post = Yii::$app->request->post();
-
-        if (is_string($post['params'])) {
-            $post['params'] = json_decode($post['params']);
-        }
-
         $params = array_filter($post['params']);
         $user_id = $post['user'];
+
+        foreach ($params as $k => $v) {
+            $model = Cart::findOne($v['id']);
+            $model->num = $v['num'];
+            $model->save();
+        }
+
+        return true;
+    }
+
+    public function actionUpdateCartGoods()
+    {
+        $post = Yii::$app->request->post();
+        $params = array_filter($post['params']);
+        $user_id = $post['user'];
+
+        Yii::$app->db->createCommand()
+            ->delete(Cart::tableName(),[
+                'user_id' => $user_id,
+            ])->execute();
 
         foreach ($params as $k => $v) {
             $model = Cart::findOne($v['id']);
