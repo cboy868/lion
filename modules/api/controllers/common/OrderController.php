@@ -78,7 +78,7 @@ class OrderController extends Controller
             if (!$v->goods){
                 continue;
             }
-            $rels_data[$v->id]['cover'] = $v->goods->getCover($thumb);
+            $rels_data[$v->id]['cover'] = self::$base_url . $v->goods->getCover($thumb);
         }
 
         $data = [

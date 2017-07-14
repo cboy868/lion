@@ -25,10 +25,6 @@ class Order extends \app\modules\order\models\Order
      */
     public function extraFields()
     {
-        return [
-
-            rels => self::$base_url
-        ];
         $req = Yii::$app->request;
         return [
             'rels' => function($model) use ($req){
