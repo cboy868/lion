@@ -35,7 +35,7 @@ class Order extends \app\modules\order\models\Order
                 foreach ($rels as $rel) {
                     $r[$rel['id']] = [
                         'title' => $rel->title,
-                        'cover' => $rel->goods? self::$base_url . $rel->goods->getCover($size) : ''
+//                        'cover' => $rel->goods? self::$base_url . $rel->goods->getCover($size) : ''
                     ];
                 }
                 return $r;
