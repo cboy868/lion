@@ -193,7 +193,9 @@ class GoodsController extends Controller
     {
         $post = Yii::$app->request->post();
 
-        return $post['params'];
+        if (is_string($post['params'])) {
+            $post['params'] = json_decode($post['params']);
+        }
 
         $params = array_filter($post['params']);
         $user_id = $post['user'];
