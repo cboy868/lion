@@ -214,21 +214,17 @@ class GoodsController extends Controller
         $list_ids = ArrayHelper::getColumn($list, 'id');
         $new_ids = ArrayHelper::getColumn($params,'id');
         $del_ids = array_diff($list_ids, $new_ids);
-p($del_ids);
-        return $del_ids;
 
 
         Yii::$app->db->createCommand()
             ->delete(Cart::tableName(),[
-                'user_id' => $user_id,
+                'id' => $del_ids,
             ])->execute();
 
         foreach ($params as $k => $v) {
             $model = Cart::findOne($v['id']);
             $model->num = $v['num'];
             $model->save();
-
-            p($model->getErrors());
         }
 
         return true;
