@@ -215,6 +215,8 @@ class GoodsController extends Controller
                 'user_id' => $user_id,
             ])->execute();
 
+
+        return $user_id;
         return Yii::$app->db->createCommand()
             ->delete(Cart::tableName(),[
                 'user_id' => $user_id,
