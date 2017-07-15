@@ -180,7 +180,7 @@ class GoodsController extends Controller
         }
 
         $data = [
-            'goods_num' => $goods_num,
+            'goods_num' => $goods_num ? $goods_num : 0,
             'type_num'  => $type_num,
             'total' => $total,
             'o_total' => $o_total
