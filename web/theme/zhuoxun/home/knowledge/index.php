@@ -11,7 +11,7 @@ $this->title="卓迅知识库";
 <!--about-->
 <div id="case_con">
     <div class="blog_tab">
-        <?php $cates = cmsCates(8, [18,20,22,23]);?>
+        <?php $cates = cmsCates(8, [18,22,23]);?>
         <ul>
             <?php $cid = Yii::$app->request->get('cid');?>
             <li><a href="<?=url(['/cms/home/knowledge/index'])?>"  class="case_category <?php if(!$cid)echo'current';?>" >最近更新</a></li>
