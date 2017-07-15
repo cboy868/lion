@@ -125,6 +125,7 @@ $this->title="公墓管理系统介绍";
     </div>
 </div>
 <!--solution-->
+<!--
 <div id="templatemo3"   class="project_gray">
     <div class="project" style="margin-top: 0px">
         <div class="title" >
@@ -143,9 +144,10 @@ $this->title="公墓管理系统介绍";
             </dl>
             <?php endforeach;?>
         </div>
-        <!--project_con--></div>
-    <!--project-->
+    </div>
 </div>
+-->
+
 <!--project_gray-->
 <div id="templatemo4"  class="path" >
     <h1>服务流程</h1>
