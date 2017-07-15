@@ -108,7 +108,7 @@ $this->title="公墓管理系统介绍";
     <h1>解决方案</h1>
     <div class="con">
         <?php
-        $post = cmsCateAndArticle(9, 16, 8, '417x249');
+        $post = cmsCateAndArticle(8, 23, 8, '417x249');
         ?>
         <?php foreach ($post['posts'] as $v):?>
         <dl>
