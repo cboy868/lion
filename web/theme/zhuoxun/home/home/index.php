@@ -276,7 +276,7 @@
         为客户打造最易用的系统、最好的用户体验，用卓迅产品提升工作效率及品牌价值。
     </p>
     <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?=g('qq_kefu')?>&amp;site=qq&amp;menu=yes">咨询我们</a>
-    <a href='<?=url(['/cms/home/contact/us'])?>' >了解更多</a>
+    <a href='<?=url(['/cms/home/contact/us'])?>' >在线留言</a>
 </div>
 
 <!--
