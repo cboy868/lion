@@ -248,7 +248,10 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
                 <?php endforeach;?>
             <div style="clear:both;"></div>
             </p>
-            <p><?=g("reserved")?> <?=g("beian")?><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255593087'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/stat.php%3Fid%3D1255593087%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script></p>
+            <p>
+                <?=g("reserved")?> <?=g("beian")?>
+                <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255593087'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/stat.php%3Fid%3D1255593087%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+            </p>
 
         </div>
 
