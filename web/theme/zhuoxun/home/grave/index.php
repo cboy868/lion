@@ -105,10 +105,10 @@ $this->title="公墓管理系统介绍";
 </div>
 <!--service1-->
 <div id="templatemo2" class="solution">
-    <h1>解决方案</h1>
+    <h1>系统功能一览</h1>
     <div class="con">
         <?php
-        $post = cmsCateAndArticle(8, 23, 8, '417x249');
+        $post = cmsCateAndArticle(8, 22, 8, '417x249');
         ?>
         <?php foreach ($post['posts'] as $v):?>
         <dl>

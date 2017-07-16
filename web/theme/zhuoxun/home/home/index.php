@@ -238,7 +238,7 @@
     ?>
     <div class="case">
         <div class="title">
-            <h1><?=$post['modInfo']['title']?> - <?=$post['cates']['name']?></h1>
+            <h1>卓迅公墓管理系统 - 功能聚合</h1>
             <span>
                 <?=$post['cates']['body']?>
             </span>
