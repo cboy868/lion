@@ -44,5 +44,5 @@ $this->title = $data['title'];
             </dl>
         <?php endforeach;?>
     </div>
-    <a href="<?=url(['/news/home/default/index'])?>" class="allnews">返回知识库</a></div>
+    <a href="<?=url(['/news/home/default/index'])?>" class="allnews">返回</a></div>
 </div>
