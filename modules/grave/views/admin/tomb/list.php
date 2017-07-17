@@ -68,6 +68,7 @@ use yii\bootstrap\Modal;
         'header' => '业务操作',
         'id' => 'modalAdd',
         'size' => Modal::SIZE_LARGE,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
         'footer' => '<button class="btn btn-info" data-dismiss="modal">取消</button>',
     ]) ;
 

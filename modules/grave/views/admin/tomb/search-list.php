@@ -7,6 +7,7 @@ use yii\bootstrap\Modal;
     Modal::begin([
         'header' => '新增',
         'id' => 'modalAdd',
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
         // 'size' => 'modal'
     ]) ;
 

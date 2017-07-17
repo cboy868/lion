@@ -26,7 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
 Modal::begin([
     'header' => '添增',
     'id' => 'modalAdd',
-     'size' => 'modal-lg'
+     'size' => 'modal-lg',
+    'clientOptions' => ['backdrop' => 'static', 'show' => false]
 ]) ;
 
 echo '<div id="modalContent"></div>';
@@ -38,6 +39,7 @@ Modal::end();
 Modal::begin([
     'header' => '编辑',
     'id' => 'modalEdit',
+    'clientOptions' => ['backdrop' => 'static', 'show' => false]
     // 'size' => 'modal'
 ]) ;
 

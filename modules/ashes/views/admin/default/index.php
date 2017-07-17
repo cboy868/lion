@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
         Modal::begin([
             'header' => '取盒操作',
             'id' => 'modalAdd',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false]
             // 'size' => 'modal'
 //            'options' => [
 //                    'tabindex' => 1

@@ -8,6 +8,7 @@ use yii\bootstrap\Modal;
     Modal::begin([
         'header' => '业务办理',
         'id' => 'modalAdd',
+        'clientOptions' => ['backdrop' => 'static', 'show' => false]
         // 'size' => 'modal-lg'
     ]) ;
 

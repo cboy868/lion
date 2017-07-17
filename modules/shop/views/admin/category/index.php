@@ -49,6 +49,7 @@ Tabletree::register($this);
                 'header' => '添增',
                 'id' => 'modalAdd',
                 // 'size' => 'modal'
+                'clientOptions' => ['backdrop' => 'static', 'show' => false]
             ]) ;
 
             echo '<div id="modalContent"></div>';
@@ -60,6 +61,7 @@ Tabletree::register($this);
             Modal::begin([
                 'header' => '编辑',
                 'id' => 'modalEdit',
+                'clientOptions' => ['backdrop' => 'static', 'show' => false]
                 // 'size' => 'modal'
             ]) ;
 
@@ -155,7 +157,7 @@ Tabletree::register($this);
 <?php $this->beginBlock('tree') ?>  
 $(function(){
     $("#menu-table").treetable({ expandable: true });
-})  
+})
 <?php $this->endBlock() ?>  
 <?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>  
 

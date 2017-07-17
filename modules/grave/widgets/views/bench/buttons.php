@@ -21,6 +21,8 @@ use yii\bootstrap\Modal;
     Modal::begin([
         'header' => '业务办理',
         'id' => 'modalAdd',
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
+
         // 'size' => 'modal-lg'
     ]) ;
 

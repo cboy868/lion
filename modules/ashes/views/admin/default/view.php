@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $model->id . '号柜操作记录';
     Modal::begin([
         'header' => '取盒操作',
         'id' => 'modalAdd',
+        'clientOptions' => ['backdrop' => 'static', 'show' => false]
         // 'size' => 'modal'
     ]) ;
 

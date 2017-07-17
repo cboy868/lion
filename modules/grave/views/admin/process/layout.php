@@ -158,6 +158,7 @@ AdminAsset::register($this);
                     'header' => '购买商品',
                     'id' => 'modalAdd',
                     'size' => 'modal-lg',
+                    'clientOptions' => ['backdrop' => 'static', 'show' => false]
                 ]) ;
 
                 echo '<div id="modalContent"></div>';

@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = ['label' => '属性列表', 'url' => ['index']]
             Modal::begin([
                 'header' => '添增',
                 'id' => 'modalAdd',
+                'clientOptions' => ['backdrop' => 'static', 'show' => false]
                 // 'size' => 'modal'
             ]) ;
 
@@ -53,6 +54,7 @@ $this->params['breadcrumbs'][] = ['label' => '属性列表', 'url' => ['index']]
             Modal::begin([
                 'header' => '编辑',
                 'id' => 'modalEdit',
+                'clientOptions' => ['backdrop' => 'static', 'show' => false]
                 // 'size' => 'modal'
             ]) ;
 

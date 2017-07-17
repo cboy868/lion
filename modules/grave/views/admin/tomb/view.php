@@ -34,6 +34,8 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
             Modal::begin([
                 'header' => '新增',
                 'id' => 'modalAd',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
+
                 // 'size' => 'modal'
             ]) ;
 
@@ -46,6 +48,8 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
             Modal::begin([
                 'header' => '编辑',
                 'id' => 'modalEdi',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
+
                 // 'size' => 'modal'
             ]) ;
 

@@ -41,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             Modal::begin([
                 'header' => '修改价格',
                 'id' => 'modalEdit',
-                'size' => 'SIZE_SMALL'
+                'size' => 'SIZE_SMALL',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
+
             ]) ;
 
             echo '<div id="editContent"></div>';

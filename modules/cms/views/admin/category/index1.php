@@ -33,6 +33,7 @@ Tabletree::register($this);
             Modal::begin([
                 'header' => '添增',
                 'id' => 'modalAdd',
+                'clientOptions' => ['backdrop' => 'static', 'show' => false]
                 // 'size' => 'modal'
             ]) ;
 
@@ -45,6 +46,7 @@ Tabletree::register($this);
             Modal::begin([
                 'header' => '编辑',
                 'id' => 'modalEdit',
+                'clientOptions' => ['backdrop' => 'static', 'show' => false]
                 // 'size' => 'modal'
             ]) ;
 
