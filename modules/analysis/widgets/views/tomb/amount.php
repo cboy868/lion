@@ -25,7 +25,7 @@ app\assets\EchartsAsset::register($this);
             }
 
             var amountseries =[];
-            for (i in data.data.num) {
+            for (i in data.data.amount) {
                 amountseries.push({
                     name:data.data.amountcate[i],
                     type:'bar',

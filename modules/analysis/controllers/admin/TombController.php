@@ -21,22 +21,16 @@ class TombController extends \app\core\web\BackController
         $result = [];
 
         foreach ($data as $k => $v) {
-            foreach ($v as $val) {
+//            foreach ($v as $val) {
                 for ($i=1; $i <= 12; $i++) {
                     $index = str_pad($i, 2, '0', STR_PAD_LEFT);
-                    $result['amount'][$k][$i] = $v[$k . $index]['amount']/10000;
                     $result['num'][$k][$i] = $v[$k . $index]['num'];
                 }
-            }
-            $result['amount'][$k] = array_values($result['amount'][$k]);
+//            }
             $result['num'][$k] = array_values($result['num'][$k]);
-
-            $yearAmount = number_format(sprintf("%.2f",$data[$k][$k]['amount']/10000),2);
-            $result['amountcate'][$k] = "$k(".$yearAmount."万)";
             $result['numcate'][$k] = "$k(".$data[$k][$k]['num']."个)";
         }
 
-        ksort($result['amountcate']);
         ksort($result['numcate']);
 
         return $this->json($result, null, 1);
@@ -52,13 +46,40 @@ class TombController extends \app\core\web\BackController
         $result = [];
 
         foreach ($data as $k => $v) {
-            foreach ($v as $val) {
+//            foreach ($v as $val) {
+                for ($i=1; $i <= 12; $i++) {
+                    $index = str_pad($i, 2, '0', STR_PAD_LEFT);
+                    $result['amount'][$k][$i] = $v[$k . $index]['amount']/10000;
+                }
+//            }
+            $result['amount'][$k] = array_values($result['amount'][$k]);
+
+            $yearAmount = number_format(sprintf("%.2f",$data[$k][$k]['amount']/10000),2);
+            $result['amountcate'][$k] = "$k(".$yearAmount."万)";
+        }
+
+        ksort($result['amountcate']);
+
+        return $this->json($result, null, 1);
+    }
+
+    /**
+     * @return array
+     * @name 销售数量与金额在一起, actionSaleAmount 与actionSaleNum的组合，调取数据更方便
+     */
+    public function actionSale()
+    {
+        $data = SettlementTomb::data(4);
+        $result = [];
+
+        foreach ($data as $k => $v) {
+//            foreach ($v as $val) {
                 for ($i=1; $i <= 12; $i++) {
                     $index = str_pad($i, 2, '0', STR_PAD_LEFT);
                     $result['amount'][$k][$i] = $v[$k . $index]['amount']/10000;
                     $result['num'][$k][$i] = $v[$k . $index]['num'];
                 }
-            }
+//            }
             $result['amount'][$k] = array_values($result['amount'][$k]);
             $result['num'][$k] = array_values($result['num'][$k]);
 
@@ -74,35 +95,9 @@ class TombController extends \app\core\web\BackController
     }
 
     /**
-     * @return array
-     * @name 销售数量与金额在一起
+     * @name 导购员销售金额统计
      */
-    public function actionSale()
-    {
-        $data = SettlementTomb::data(4);
-        $result = [];
 
-        foreach ($data as $k => $v) {
-            foreach ($v as $val) {
-                for ($i=1; $i <= 12; $i++) {
-                    $index = str_pad($i, 2, '0', STR_PAD_LEFT);
-                    $result['amount'][$k][$i] = $v[$k . $index]['amount']/10000;
-                    $result['num'][$k][$i] = $v[$k . $index]['num'];
-                }
-            }
-            $result['amount'][$k] = array_values($result['amount'][$k]);
-            $result['num'][$k] = array_values($result['num'][$k]);
-
-            $yearAmount = number_format(sprintf("%.2f",$data[$k][$k]['amount']/10000),2);
-            $result['amountcate'][$k] = "$k(".$yearAmount."万)";
-            $result['numcate'][$k] = "$k(".$data[$k][$k]['num']."个)";
-        }
-
-        ksort($result['amountcate']);
-        ksort($result['numcate']);
-
-        return $this->json($result, null, 1);
-    }
 
 
 	/**

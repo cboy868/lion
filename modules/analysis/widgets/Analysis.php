@@ -51,5 +51,30 @@ class Analysis extends \yii\base\Widget
         return $this->render('tomb/amount');
     }
 
+    private function guideYearPercent()
+    {
+        return $this->render('guide/year-percent');
+    }
+
+    private function guideYearCompare()
+    {
+        return $this->render('guide/year-compare');
+    }
+
+    private function guideSelfMonth()
+    {
+        return $this->render('guide/self-month');
+    }
+
+    private function guideMonthCompare()
+    {
+        return $this->render('guide/month-compare');
+    }
+
+    private function guideMonthPercent()
+    {
+        return $this->render('guide/month-percent');
+    }
+
 
 }
