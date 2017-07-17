@@ -356,6 +356,24 @@ class GoodsController extends BackController
         TagRel::addTagRel($tags, 'goods', $id);
     }
 
+    public function actionRecommend($id)
+    {
+        $model = $this->findModel($id);
+        $model->recommend = $model->recommend ? 0 : 1;
+        if ($model->save()) {
+            $note = $model->recommend ? '推荐成功' : '取消推荐成功';
+
+            Yii::$app->session->setFlash('success',$note);
+            return $this->json(null, null, 1);
+        }
+
+
+        $note = $model->recommend ? '推荐失败' : '取消推荐失败';
+        Yii::$app->session->setFlash('error',$note);
+
+        return $this->json(null, $note,0);
+    }
+
     /**
      * @return array
      * @name 批量删除商品

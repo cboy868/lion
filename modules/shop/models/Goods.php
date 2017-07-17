@@ -140,12 +140,14 @@ class Goods extends \app\core\db\ActiveRecord
 
     public function getThumb($type = '')
     {
-        $thumb = Attachment::find()->where(['id'=>$this->thumb])->one();
-        if (!$thumb) {
-            return '';
-        }
 
-        return $thumb->getImg($type);
+        return Attachment::getById($this->thumb, $type);
+//        $thumb = Attachment::find()->where(['id'=>$this->thumb])->one();
+//        if (!$thumb) {
+//            return '';
+//        }
+//
+//        return $thumb->getImg($type);
     }
 
     public function getCover($size = '')

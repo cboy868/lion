@@ -78,6 +78,7 @@ FootableAsset::register($this);
             </h1>
         </div><!-- /.page-header -->
 
+        <?=\app\core\widgets\Alert::widget()?>
 
         <?php 
             Modal::begin([
@@ -223,10 +224,12 @@ $category_id = Yii::$app->getRequest()->get('category_id');
             ],
             [
                 // 'headerOptions' => ["data-breakpoints"=>"all"],
-                'label' => 'thumb',
+                'label' => '产品',
+                'headerOptions' => ["data-type"=>"html",'width'=>''],
                 // 'format'=> 'raw',
                 'value' => function($model){
-                    return "<img src='".$model->getThumb('36x36')."'>" . $model->name;
+                    $recommend = $model->recommend ? '<font color="#f00">(推荐商品)</font>' : '';
+                    return "<img src='".$model->getThumb('36x36')."'>" . $model->name . $recommend;
                 },
                 'format' => 'raw'
             ],
@@ -235,8 +238,6 @@ $category_id = Yii::$app->getRequest()->get('category_id');
             'serial',
             // 'thumb',
             // 'intro:ntext',
-
-            
             [
                 'headerOptions' => ["data-breakpoints"=>"all"],
                 'label' => 'intro',
@@ -265,20 +266,28 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'class' => 'yii\grid\ActionColumn',
 
                 'template' => '
-{update} {delete} {view}
 <div class="btn-group">
   <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     更多 <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
     <li><a href="#">{default}</a></li>
+    <li><a href="#">{recommend}</a></li>
     <li><a href="#">{update-lg}</a></li>
     <li role="separator" class="divider"></li>
   </ul>
-</div>',
+</div>
+{update} {delete} {view}
+',
                 'buttons' => [
                     'default' => function($url, $model, $key) {
                         return Html::a('前台查看', Url::toRoute(['/shop/home/default/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );
+                    },
+                    'recommend' => function($url, $model, $key) {
+                        $name = $model->recommend ? '取消推荐' : '推荐';
+
+                        return Html::a($name, Url::toRoute(['recommend', 'id'=>$model->id]),
+                            ['title' => $name, 'target'=>'_blank', 'class'=>'recommend'] );
                     },
                     'update' => function($url, $model, $key) {
                         return Html::a('修改', Url::toRoute(['/shop/admin/goods/update-cate', 'id'=>$model->id]), ['title' => '修改', 'class'=>'modalEditButton'] );
@@ -332,6 +341,21 @@ endif;
 <?php $this->beginBlock('foo') ?>  
   $(function(){
     $('.table').footable();
+
+
+
+    $('body').on('click', '.recommend', function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.get(url,function(xhr){
+            if (!xhr.status){
+                alert(xhr.info);
+            } else {
+                location.reload();
+            }
+
+        },'json');
+    });
 
    // $('.redcreate').click(function(){
         //var category_id = $('select[name=category_id]').val();

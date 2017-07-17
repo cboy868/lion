@@ -20,7 +20,7 @@ class Goods extends GoodsModel
     public function rules()
     {
         return [
-            [['category_id', 'thumb', 'is_recommend', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'thumb', 'recommend', 'status', 'created_at', 'updated_at'], 'integer'],
             [['name', 'intro', 'skill', 'unit', 'id', 'serial', 'sname'], 'safe'],
             [['price'], 'number'],
         ];
@@ -66,7 +66,7 @@ class Goods extends GoodsModel
             'serial' => $this->serial,
             'thumb' => $this->thumb,
             'price' => $this->price,
-            'is_recommend' => $this->is_recommend,
+            'recommend' => $this->recommend,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
