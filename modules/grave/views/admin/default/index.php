@@ -163,30 +163,32 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php endforeach;endif;?>
                                 </td>
                             </tr>
-                            <tr><th>介绍</th><td colspan="2"><?=$model->intro;?></td></tr>
+
                             <tr><th>操作</th><td colspan="2">
                                     <div style="float: right;">
                                     <a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>" class="btn btn-default"><i class="fa fa-edit"></i> 编辑</a>
                                     <?php if ($model->is_leaf): ?>
-                                            <a href="<?=Url::toRoute(['recommend', 'id'=>$model->id])?>" class="recommend btn btn-default" style="color:green;">
-                                                <?php if ($model->recommend):?>
-                                                    取消推荐
-                                                <?php else:?>
-                                                    推荐
-                                                <?php endif;?>
-                                            </a>
-                                            <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$model->id])?>" class="btn btn-default"><i class="fa fa-plus"></i> 添加墓位</a>
-                                            &nbsp;
-                                            <a href="<?=Url::toRoute(['delete', 'id'=>$model->id])?>"
-                                               class="btn btn-default"
-                                               style="color:red;" data-confirm="您确定要删除此项吗？"
-                                               data-method="post" data-pjax="0"><i class="fa fa-trash"></i> 删除
-                                            </a>
+                                        <a href="<?=Url::toRoute(['recommend', 'id'=>$model->id])?>" class="recommend btn btn-default" style="color:green;">
+                                            <?php if ($model->recommend):?>
+                                                取消推荐
+                                            <?php else:?>
+                                                推荐
+                                            <?php endif;?>
+                                        </a>
+                                        <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$model->id])?>" class="btn btn-default"><i class="fa fa-plus"></i> 添加墓位</a>
+                                        &nbsp;
+                                        <a href="<?=Url::toRoute(['delete', 'id'=>$model->id])?>"
+                                           class="btn btn-default"
+                                           style="color:red;" data-confirm="您确定要删除此项吗？"
+                                           data-method="post" data-pjax="0"><i class="fa fa-trash"></i> 删除
+                                        </a>
 
+                                        <a href="<?=Url::toRoute(['/grave/admin/tomb/ix', 'grave_id'=>$model->id])?>" class="btn btn-success" target="_blank"> 进入墓位列表</a>
                                     <?php endif ?>
                                     </div>
                                 </td>
                             </tr>
+                            <tr><th>介绍</th><td colspan="2"><?=$model->intro;?></td></tr>
                             </tbody>
                         </table>
                     </div>
