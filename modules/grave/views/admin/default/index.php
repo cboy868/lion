@@ -6,7 +6,7 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 use app\modules\Grave\models\Tomb;
-
+use app\core\widgets\DetailView;
 $this->title = '墓区管理';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -40,19 +40,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <?php $pid = $params['pid']; ?>
+
+            <?php $id = Yii::$app->request->get('id');?>
 
             <div class="col-xs-2">
                  <ul class="nav nav-list">
                      <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create'], ['class' => 'btn btn-primary btn-sm ', 'style'=>'width:100%']) ?>
-                     <li class="<?php if ($pid == 0) { echo 'active'; } ?>" >
+                     <li class="<?php if (!$id) { echo 'active'; } ?>" >
                          <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
                             <span class="menu-text">所有大区</span>
                         </a>
                      </li>
                     <?php foreach ($cates as $key => $value): ?>
-                        <li class="<?php if(isset($value['child'])){echo 'p-menu';}?> <?php if ($value['id'] == $pid) { echo 'active'; } ?>">
+                        <li class="<?php if(isset($value['child'])){echo 'p-menu';}?> <?php if ($value['id'] == $id) { echo 'active'; } ?>">
                                 <a href="<?=$value['url']?>" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-bars"></i>
                                     <span class="menu-text"><?=$value['name']?></span>
@@ -63,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <ul class="submenu" style="display:block;">
                                 <?php foreach ($value['child'] as $k => $val): ?>
                                     <?php if (!isset($val['child'])): ?>
-                                        <li class="<?php if ($val['id'] == $pid) { echo 'active'; } ?>" rel="">
+                                        <li class="<?php if ($val['id'] == $id) { echo 'active'; } ?>" rel="">
                                             <a href="<?=$val['url']?>">
                                                 <i class="menu-icon"></i>
                                                 <?=$val['name']?>
@@ -72,8 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <b class="arrow"></b>
                                         </li>
                                     <?php else: ?>
-                                        <li class="p-menu">
-                                            <a href="#" class="dropdown-toggle">
+                                        <li class="p-menu <?php if ($val['id'] == $id) { echo 'active'; } ?>">
+                                            <a href="<?=$val['url']?>" class="dropdown-toggle">
                                                 <i class="menu-icon fa fa-caret-right"></i>
                                                 <?=$val['name']?>
                                                 <b class="arrow "></b>
@@ -81,14 +82,37 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <b class="arrow"></b>
                                             <ul class="submenu" style="display:block;">
                                                 <?php foreach ($val['child'] as $k => $last):?>
-                                                    <li class="<?php if ($last['id'] == $pid) {echo 'active';}?>">
-                                                        <a href="<?=$last['url'];?>">
-                                                            <i class="menu-icon fa fa-caret-right"></i>
-                                                           <?=$last['name']?>
-                                                           <b class="arrow "></b>
-                                                        </a>
-                                                        <b class="arrow"></b>
-                                                    </li>
+                                                    <?php if (!isset($last['child'])): ?>
+                                                        <li class="<?php if ($last['id'] == $id) { echo 'active'; } ?>" rel="">
+                                                            <a href="<?=$last['url']?>">
+                                                                <i class="menu-icon"></i>
+                                                                <?=$last['name']?>
+                                                                <b class="arrow"></b>
+                                                            </a>
+                                                            <b class="arrow"></b>
+                                                        </li>
+                                                    <?php else: ?>
+                                                        <li class="p-menu <?php if ($last['id'] == $id) { echo 'active'; } ?>">
+                                                            <a href="<?=$last['url']?>" class="dropdown-toggle">
+                                                                <i class="menu-icon fa fa-caret-right"></i>
+                                                                <?=$last['name']?>
+                                                                <b class="arrow "></b>
+                                                            </a>
+                                                            <b class="arrow"></b>
+                                                            <ul class="submenu" style="display:block;">
+                                                                <?php foreach ($last['child'] as $k => $l1):?>
+                                                                    <li class="<?php if ($l1['id'] == $id) {echo 'active';}?>">
+                                                                        <a href="<?=$l1['url'];?>">
+                                                                            <i class="menu-icon fa fa-caret-right"></i>
+                                                                            <?=$l1['name']?>
+                                                                            <b class="arrow "></b>
+                                                                        </a>
+                                                                        <b class="arrow"></b>
+                                                                    </li>
+                                                                <?php endforeach;?>
+                                                            </ul>
+                                                        </li>
+                                                    <?php endif;?>
                                                 <?php endforeach;?>
                                             </ul>
                                         </li>
@@ -103,94 +127,77 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             <div class="col-xs-10 grave-index">
-            <div class="rows">
-                <div class="col-xs-12">
-                    <?php if(Yii::$app->session->hasFlash('success')): ?>
-                    <div class="alert alert-success" style="word-break: break-all;word-wrap: break-word;">
-                        <?php echo Yii::$app->session->getFlash('success'); ?>
-                    </div>
-                    <?php endif; ?>
-
-                    <?php if(Yii::$app->session->hasFlash('error')): ?>
-                    <div class="alert alert-danger" style="word-break: break-all;word-wrap: break-word;">
-                        <?php echo Yii::$app->session->getFlash('error'); ?>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <?php foreach ($dataProvider->getModels() as $k => $grave): ?>
-                    <div class="col-xs-4">
-                        <div class="panel panel-info">
-                          <div class="panel-heading text-center">
-                          <?php if ($grave->is_leaf): ?>
-                            <a href="<?=Url::toRoute(['/grave/admin/tomb/ix', 'grave_id'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
-                          <?php else: ?>
-                            <a href="<?=Url::toRoute(['index', 'pid'=>$grave->id])?>"><strong><?=$grave->name?></strong></a>
-                          <?php endif ?>
-                          </div>
-                          <div class="panel-body no-padding" style="min-height:110px">
-
-                            <div class="row">
-                                <div class="col-sm-6 graveimg">
-
-                              <?php if ($grave->is_leaf): ?>
-                                <a href="<?=Url::toRoute(['/grave/admin/tomb/ix', 'grave_id'=>$grave->id])?>">
-                                    <img src="<?=$grave->getThumb('200x400', '/static/images/default.png')?>" class="img-thumbnail">
-                                </a>
-                              <?php else: ?>
-                                <a href="<?=Url::toRoute(['index', 'pid'=>$grave->id])?>">
-                                    <img src="<?=$grave->getThumb('200x400', '/static/images/default.png')?>" class="img-thumbnail">
-                                </a>
-                              <?php endif ?>
-                                    
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul style="padding-left:0">
-                                        <?php $cnt =  $grave->staCount();
-                                        $sta = Tomb::getSta();
-                                        ?>
-                                        <li>总数：<code><?=array_sum($cnt)?>个</code></li>
-                                        <?php foreach ($cnt as $k => $v): ?>
-                                            <li><?=$sta[$k]?>：<code><?=$v?>个</code></li>
-                                        <?php endforeach ?>
-                                        
-                                    </ul>
-                                </div>
+                <?php if (isset($model) && $model):?>
+                <div class="rows">
+                    <div class="col-xs-12">
+                        <?php if(Yii::$app->session->hasFlash('success')): ?>
+                            <div class="alert alert-success" style="word-break: break-all;word-wrap: break-word;">
+                                <?php echo Yii::$app->session->getFlash('success'); ?>
                             </div>
+                        <?php endif; ?>
 
-                          </div>
-                          <div class="panel-footer">
-                              <div class="row">
-                                  <div class="col-xs-4 text-left">
-                                      <a href="<?=Url::toRoute(['update', 'id'=>$grave->id])?>"><i class="fa fa-edit"></i> 编辑</a>
-                                  </div>
-
-                                  <?php if ($grave->is_leaf): ?>
-                                      <div class="col-xs-8 text-right">
-                                          <a href="<?=Url::toRoute(['recommend', 'id'=>$grave->id])?>" class="recommend" style="color:green;">
-                                              <?php if ($grave->recommend):?>
-                                              取消推荐
-                                                <?php else:?>
-                                              推荐
-                                              <?php endif;?>
-                                          </a>
-                                          <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$grave->id])?>"><i class="fa fa-plus"></i> 添加墓位</a>
-                                          &nbsp;
-                                         <a href="<?=Url::toRoute(['delete', 'id'=>$grave->id])?>" 
-                                         style="color:red;" data-confirm="您确定要删除此项吗？" 
-                                         data-method="post" data-pjax="0"><i class="fa fa-trash"></i>
-                                         </a>
-
-
-
-                                      </div>
-                                  <?php endif ?>
-                              </div>
-                          </div>
-                        </div>
+                        <?php if(Yii::$app->session->hasFlash('error')): ?>
+                            <div class="alert alert-danger" style="word-break: break-all;word-wrap: break-word;">
+                                <?php echo Yii::$app->session->getFlash('error'); ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                <?php endforeach ?>
+                    <div class="col-md-8">
+                        <table id="w1" class="table table-striped table-bordered detail-view">
+                            <tbody>
+                            <tr><th width="100">墓区名</th><td><?=$model->name?></td>
+                                <td rowspan="6" width="300"><img src="<?=$model->getThumb('300x200')?>"></td>
+                            </tr>
+                            <tr><th>总面积</th><td><?=$model->area_totle;?></td></tr>
+                            <tr><th>使用面积</th><td><?=$model->area_use;?></td></tr>
+                            <tr><th>墓基价</th><td><?=$model->price;?></td></tr>
+                            <tr><th>添加时间</th><td><?=date('Y-m-d H:i',$model->created_at);?></td></tr>
+                            <tr><th>子墓区</th>
+                                <td>
+                                    <?php
+                                    $son = $model->getDirectSon(true);
+                                    if ($son):
+                                        foreach ($son as $v):
+                                    ?>
+                                        <a href="<?=Url::toRoute(['/grave/admin/default/index', 'id'=>$v['id']])?>"><?=$v['name']?></a> /
+                                    <?php endforeach;endif;?>
+                                </td>
+                            </tr>
+                            <tr><th>介绍</th><td colspan="2"><?=$model->intro;?></td></tr>
+                            <tr><th>操作</th><td colspan="2">
+                                    <div style="float: right;">
+                                    <a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>" class="btn btn-default"><i class="fa fa-edit"></i> 编辑</a>
+                                    <?php if ($model->is_leaf): ?>
+                                            <a href="<?=Url::toRoute(['recommend', 'id'=>$model->id])?>" class="recommend btn btn-default" style="color:green;">
+                                                <?php if ($model->recommend):?>
+                                                    取消推荐
+                                                <?php else:?>
+                                                    推荐
+                                                <?php endif;?>
+                                            </a>
+                                            <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$model->id])?>" class="btn btn-default"><i class="fa fa-plus"></i> 添加墓位</a>
+                                            &nbsp;
+                                            <a href="<?=Url::toRoute(['delete', 'id'=>$model->id])?>"
+                                               class="btn btn-default"
+                                               style="color:red;" data-confirm="您确定要删除此项吗？"
+                                               data-method="post" data-pjax="0"><i class="fa fa-trash"></i> 删除
+                                            </a>
 
-            </div>
+                                    <?php endif ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <?=\app\modules\analysis\widgets\Analysis::widget([
+                            'name'=>'graveStatus',
+                            'options'=>['grave_id'=>$model->id]])?>
+                    </div>
+                </div>
+                <?php endif;?>
+
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->

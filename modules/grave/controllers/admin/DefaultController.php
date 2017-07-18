@@ -48,7 +48,38 @@ class DefaultController extends BackController
      * @return mixed
      * @name 墓区列表
      */
-    public function actionIndex()
+    public function actionIndex($id=null)
+    {
+
+        $cates = $this->getGraves();
+
+        $searchModel = new GraveSearch();
+
+        $params = Yii::$app->request->queryParams;
+        $params['pid'] = isset($params['pid']) ? $params['pid'] : 0;
+        $params['GraveSearch']['pid'] = $params['pid'];
+
+        $dataProvider = $searchModel->search($params);
+
+
+        $data = [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'cates' => $cates,
+            'params' => $params
+
+        ];
+
+        if ($id) {
+            $model = $this->findModel($id);
+            $data['model'] = $model;
+        }
+
+
+        return $this->render('index', $data);
+    }
+
+    public function actionIndex1()
     {
 
         $cates = $this->getGraves();
@@ -75,10 +106,11 @@ class DefaultController extends BackController
      */
     private function getGraves()
     {
-        $tree = Grave::sortTree(['is_leaf'=>0]);
+        $tree = Grave::sortTree();
 
         foreach ($tree as $k => &$v) {
-            $v['url'] =Url::toRoute(['index', 'pid'=>$v['id']]);
+//            $v['url'] =Url::toRoute(['index', 'pid'=>$v['id']]);
+            $v['url'] =Url::toRoute(['index', 'id'=>$v['id']]);
         }
 
         $tree = \yii\helpers\ArrayHelper::index($tree, 'id');
@@ -109,12 +141,12 @@ class DefaultController extends BackController
      * @param integer $id
      * @return mixed
      */
-//    public function actionView($id)
-//    {
-//        return $this->render('view', [
-//            'model' => $this->findModel($id),
-//        ]);
-//    }
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
     /**
      * Creates a new Grave model.
@@ -136,7 +168,7 @@ class DefaultController extends BackController
             }
 
             if ($model->save(false)) {
-                return $this->redirect(['index', 'pid' => $model->pid]);
+                return $this->redirect(['index', 'id' => $model->id]);
             }
             
         }
@@ -168,7 +200,7 @@ class DefaultController extends BackController
             }
 
             if ($model->save(false)) {
-                return $this->redirect(['index', 'pid' => $model->pid]);
+                return $this->redirect(['index', 'id' => $model->id]);
             }
 
         }

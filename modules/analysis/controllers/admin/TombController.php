@@ -4,6 +4,8 @@ namespace app\modules\analysis\controllers\admin;
 
 
 use app\modules\analysis\models\SettlementTomb;
+use app\modules\grave\models\Grave;
+use app\modules\grave\models\Tomb;
 
 class TombController extends \app\core\web\BackController
 {
@@ -90,6 +92,22 @@ class TombController extends \app\core\web\BackController
 
         ksort($result['amountcate']);
         ksort($result['numcate']);
+
+        return $this->json($result, null, 1);
+    }
+
+    public function actionGraveStatus($grave_id=null)
+    {
+        $data = Grave::statusAnalysis($grave_id);
+        $statusLabel = Tomb::getSta();
+        $result = [];
+
+        foreach ($data as $k=>$v) {
+            $result[] = [
+                'name' => $statusLabel[$k],
+                'value' => $v
+            ];
+        }
 
         return $this->json($result, null, 1);
     }

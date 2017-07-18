@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\traits\TreeTrait;
@@ -169,6 +170,40 @@ class Grave extends \app\core\db\ActiveRecord
     //     return Attachment::getById($this->thumb, $size, $default);
     // }
 
+
+    public static function statusAnalysis($grave_id=null)
+    {
+        if ($grave_id) {
+            $model = self::findOne($grave_id);
+            $leafs = $model->getSonLeafs();
+
+            if ($leafs) {
+                $ids = ArrayHelper::getColumn($leafs, 'id');
+                $grave_id = array_merge($ids, [$grave_id]);
+            }
+        }
+
+        $counts = Tomb::find()->where(['<>', 'status', TOMB::STATUS_DELETE])
+            ->andFilterWhere(['grave_id'=>$grave_id])
+            ->groupBy('status')
+            ->select(['status','COUNT(*) as cnt'])
+            ->indexBy('status')
+            ->asArray()
+            ->all();
+
+
+        $cnt = [];
+        $total = 0;
+        foreach ($counts as $k => $val) {
+            $total += $val['cnt'];
+            $cnt[$k] = $val['cnt'];
+        }
+
+        return $cnt;
+
+
+    }
+
     public function staCount($type = 'total')
     {
         // $tombs = Tomb::find()->where(['grave_id'=>$this->id])
@@ -177,13 +212,26 @@ class Grave extends \app\core\db\ActiveRecord
         //                      ->asArray()
         //                      ->all();
 
-        $counts = Tomb::find()->where(['grave_id'=>$this->id])
+        $grave_id = $this->id;
+        $leafs = $this->getSonLeafs();
+
+        if ($leafs) {
+            $ids = ArrayHelper::getColumn($leafs, 'id');
+            $grave_id = array_merge($ids, [$grave_id]);
+        }
+
+
+
+        $counts = Tomb::find()->where(['grave_id'=>$grave_id])
                              ->andWhere(['<>', 'status', TOMB::STATUS_DELETE])
                              ->groupBy('status')
                              ->select(['status','COUNT(*) as cnt'])
                              ->indexBy('status')
                              ->asArray()
                              ->all();
+
+
+
         $cnt = [];
         $total = 0;
         foreach ($counts as $k => $val) {

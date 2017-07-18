@@ -52,6 +52,22 @@ trait TreeTrait {
         return $query->all();
     }
 
+    public function getDirectSon($asArray = false)
+    {
+        if ($this->isLeaf()) {
+            return [];
+        }
+
+        $query = self::find()->where(['pid'=>$this->id])
+                                ->orderBy('id asc');
+
+        if ($asArray) {
+            $query->asArray();
+        }
+
+        return $query->all();
+    }
+
     /**
      * @name 取所有子叶子节点 
      */

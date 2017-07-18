@@ -27,6 +27,8 @@ class Analysis extends \yii\base\Widget
 
     public $uid;
 
+    public $options;
+
     /**
      * Renders the widget.
      */
@@ -74,6 +76,13 @@ class Analysis extends \yii\base\Widget
     private function guideMonthPercent()
     {
         return $this->render('guide/month-percent');
+    }
+
+    private function graveStatus()
+    {
+        $data['grave_id'] = isset($this->options['grave_id']) ? $this->options['grave_id'] : null;
+
+        return $this->render('tomb/grave', $data);
     }
 
 

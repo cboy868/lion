@@ -29,6 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <hr>
         <div class="row">
             <div class="col-xs-12 client-index">
+                <?=\app\modules\analysis\widgets\Analysis::widget([
+                        'name'=>'graveStatus',
+                    'options'=>['grave_id'=>Yii::$app->request->get('id')]])?>
+                <div class="hr hr-18 dotted hr-double"></div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <div class="row">
+            <div class="col-xs-12 client-index">
                 <h3>统计分析</h3>
                 <div>
                     <!-- Nav tabs -->
