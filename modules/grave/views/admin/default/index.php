@@ -34,13 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-12">
-                <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
-                </div>
-            </div>
-
-
             <?php $id = Yii::$app->request->get('id');?>
 
             <div class="col-xs-2">
@@ -49,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                      <li class="<?php if (!$id) { echo 'active'; } ?>" >
                          <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
-                            <span class="menu-text">所有大区</span>
+                            <span class="menu-text">所墓大区</span>
                         </a>
                      </li>
                     <?php foreach ($cates as $key => $value): ?>
@@ -198,6 +191,34 @@ $this->params['breadcrumbs'][] = $this->title;
                             'options'=>['grave_id'=>$model->id]])?>
                     </div>
                 </div>
+                <?php else:?>
+                    <div class="rows">
+                        <style>
+                            .note p{
+                                font-size: 20px;
+                                color:#666;
+                            }
+                            .note strong{
+                                color:green;
+                                font-size:25px;
+                            }
+                        </style>
+                        <div class="col-md-7 note">
+                            <h2>园区概览</h2>
+                            <hr>
+                            <p>本园区共有大区 <strong><?=$large_cnt?></strong> 处，子墓区 <strong><?=$small_cnt?></strong> 处,
+                                墓位总计 <strong><?=$tomb_cnt?> </strong> 座,销售情况如右图
+                            </p>
+                            <p>更多详细情况，请点击左侧墓区列表</p>
+                        </div>
+                        <div class="col-md-5">
+                            <?=\app\modules\analysis\widgets\Analysis::widget([
+                                'name'=>'graveStatus'
+                                ])?>
+                        </div>
+                    </div>
+
+
                 <?php endif;?>
 
                 <div class="hr hr-18 dotted hr-double"></div>

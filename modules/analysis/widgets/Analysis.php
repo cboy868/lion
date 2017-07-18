@@ -85,5 +85,15 @@ class Analysis extends \yii\base\Widget
         return $this->render('tomb/grave', $data);
     }
 
+    private function clientYearCompare()
+    {
+        return $this->render('client/year-compare');
+    }
+
+    private function clientYearPercent()
+    {
+        return $this->render('client/year-percent');
+    }
+
 
 }

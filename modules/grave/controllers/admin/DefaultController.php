@@ -50,32 +50,25 @@ class DefaultController extends BackController
      */
     public function actionIndex($id=null)
     {
-
         $cates = $this->getGraves();
 
-        $searchModel = new GraveSearch();
+        $data = [];
+        //大区数量
+        $data['large_cnt'] = count($cates);
 
-        $params = Yii::$app->request->queryParams;
-        $params['pid'] = isset($params['pid']) ? $params['pid'] : 0;
-        $params['GraveSearch']['pid'] = $params['pid'];
+        //小区数量
+        $data['small_cnt'] = Grave::find()->where(['is_leaf'=>1])->andWhere(['<>', 'status', Grave::STATUS_DELETE])->count();
 
-        $dataProvider = $searchModel->search($params);
+        //墓位数量
 
+        $data['tomb_cnt'] = Tomb::find()->where(['<>', 'status', Tomb::STATUS_DELETE])->count();
 
-        $data = [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'cates' => $cates,
-            'params' => $params
-
-        ];
+        $data['cates'] = $cates;
 
         if ($id) {
             $model = $this->findModel($id);
             $data['model'] = $model;
         }
-
-
         return $this->render('index', $data);
     }
 
