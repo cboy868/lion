@@ -118,7 +118,7 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
                  <li>
                      <div>
                          <a href="<?=Url::toRoute(['option', 'id'=>$model->id])?>" class="modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
-                             <img src="/static/images/tree.jpg" width="26" height="26" title="<?=$model->tomb_no?>">
+                             <img src="/static/images/grave/<?=$model->status?>.jpg" width="26" height="26" title="<?=$model->tomb_no?>">
                          </a>
                          <span><?=$model->col?>号</span>
                      </div>

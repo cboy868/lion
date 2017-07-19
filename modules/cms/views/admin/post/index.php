@@ -51,9 +51,29 @@ FootableAsset::register($this);
 
     Modal::end();
     ?>
+    <style>
+        .parallelogram {
+            -webkit-transform:skew(-15deg);
+            -moz-transform:skew(-15deg);
+            -o-transform:skew(-15deg);
+            -ms-transform:skew(-15deg);
+            transform:skew(-15deg);
+            -webkit-border-radius:5px;
+            -moz-border-radius:5px;
+            border-radius:5px;
+        }
+    </style>
 
     <div class="page-content-area">
         <div class="page-header">
+            <h1>
+                <a href="#" class="btn btn-default btn-lg parallelogram">招商加盟</a>
+                <a href="#" class="btn btn-default btn-lg parallelogram">加入我们</a>
+                <a href="#" class="btn btn-default btn-lg parallelogram">关于我们</a>
+                <a href="#" class="btn btn-default btn-lg parallelogram">知识库</a>
+                <a href="#" class="btn btn-primary btn-lg parallelogram">产品案例</a>
+            </h1>
+            <hr>
             <h1>
                 <?=$module->title?>内容管理
                 <small>
@@ -87,16 +107,16 @@ FootableAsset::register($this);
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-12">
-            <?=\app\core\widgets\Alert::widget()?>
+            <div class="col-xs-2">
+
             </div>
-            <div class="col-xs-12">
+
+            <div class="col-xs-10 news-index">
+                <?=\app\core\widgets\Alert::widget()?>
+
                 <div class="search-box search-outline">
                     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
-            </div>
-
-            <div class="col-xs-12 news-index">
 
                 <div class="widget-box transparent ui-sortable-handle">
                     <div class="widget-header" style="border:none;">

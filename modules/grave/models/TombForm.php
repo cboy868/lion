@@ -109,8 +109,6 @@ class TombForm extends Model
             $ts[$tomb['row'] . '_' . $tomb['col']] = $tomb;
         }
 
-        
-
         $data = [
             'grave_id' => $this->grave_id,
             'hole'      => $this->hole,

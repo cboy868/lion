@@ -28,6 +28,7 @@ use yii\bootstrap\Modal;
     padding: 0px;
     display: block;
     width: 40px;
+    height:48px;
     float: left;
 }
 .table ul li span {
@@ -107,13 +108,24 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
  <?php if (!$models): ?>
      <p>此墓区不存在相应墓位</p>
  <?php endif ?>
- <table class="table">
+ <table class="table table-hover">
     <?php foreach ($result as $k=>$models):?>
      <tr>
          <td>
             <div class="pull-left"><?=$k?>排</div>
              <ul>
-                <?php foreach ($models as $model): ?>
+                <?php $col=$minCol;foreach ($models as $model): ?>
+                    <?php
+                    if ($col < $model->col):
+                        for(; $col< $model->col; $col++):
+                            if($col==0)continue;
+                    ?>
+                    <li><div>&nbsp;</div></li>
+                    <?php
+                        endfor;
+                        endif;
+                    $col++;
+                    ?>
                  <li>
                      <div>
                          <a href="<?=Url::toRoute(['option', 'id'=>$model->id])?>" class="modalAddButton" data-loading-text="等待..." onclick="return false">
@@ -122,7 +134,7 @@ $sta = \Yii::$app->request->get('TombSearch')['status'];
                          <span><?=$model->col?>号</span>
                      </div>
                  </li>
-                <?php endforeach ?>
+                <?php endforeach; ?>
              </ul>
          </td>
      </tr>

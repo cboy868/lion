@@ -88,6 +88,22 @@ class TombSearch extends Tomb
     }
 
 
+    public function minCol($params)
+    {
+        $query = Tomb::find();
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'grave_id' => $this->grave_id,
+            'row' => $this->row,
+            'col' => $this->col,
+            'status' => $this->status,
+        ]);
+
+        return $query->min('col');
+    }
+
+
     public static function searchTomb($params)
     {
         $searchModel = new self();

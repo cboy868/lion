@@ -98,7 +98,8 @@ class TombController extends BackController
         $dataProvider = $searchModel->search($params);
 
         return $this->renderAjax('ixlist', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'minCol' => $searchModel->minCol($params)
         ]);
     }
 
@@ -308,7 +309,7 @@ class TombController extends BackController
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->create()) {
 
-            return $this->redirect(['index', 'grave_id' => $model->grave_id]);
+            return $this->redirect(['/grave/admin/default/index', 'id'=>$model->grave_id]);
             
         } else {
 

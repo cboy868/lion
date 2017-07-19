@@ -11,7 +11,8 @@ use app\core\helpers\ArrayHelper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '墓位管理';
-$this->params['breadcrumbs'][] = ['label' => '墓区管理', 'url' => ['/grave/admin/default/index']];
+$grave_id = Yii::$app->request->get('grave_id');
+$this->params['breadcrumbs'][] = ['label' => '墓区管理', 'url' => ['/grave/admin/default/index', 'id'=>$grave_id]];
 $this->params['breadcrumbs'][] = $this->title;
 
 
