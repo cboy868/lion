@@ -74,8 +74,8 @@ use app\modules\grave\models\Grave;
             <td colspan="3"><?= $form->field($model, 'note')->textarea(['rows' => 6])->label(false) ?></td>
         </tr>
         <tr>
-            <td>
-                <?=  Html::submitButton('生成墓位', ['class' => 'btn btn-primary btn-block']) ?>
+            <td colspan="4" style="text-align: center">
+                <?=  Html::submitButton(' 生成墓位 ', ['class' => 'btn btn-primary btn-lg']) ?>
             </td>
         </tr>
     </table>

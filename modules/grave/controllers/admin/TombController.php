@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use app\modules\grave\models\Card;
 use app\modules\shop\models\Goods;
 use app\modules\grave\models\TombForm;
+use app\core\base\Upload;
 
 
 /**
@@ -55,61 +56,77 @@ class TombController extends BackController
      * @return string
      * @name 墓位列表
      */
-    public function actionIx()
-    {
-        $searchModel = new TombSearch();
-        $params = Yii::$app->request->queryParams;
-
-
-        $grave = null;
-        if (isset($params['grave_id'])) {
-            $params['TombSearch']['grave_id'] = $params['grave_id'];
-            $grave = Grave::findOne($params['grave_id']);
-        }
-
-        $dataProvider = $searchModel->search($params);
-
-        $parents = null;
-        if ($grave) {
-            $parents = $grave->getParents();
-        }
-
-        return $this->render('ix', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'grave' => $grave,
-            'parents' => $parents
-        ]);
-    }
+//    public function actionIx()
+//    {
+//        $searchModel = new TombSearch();
+//        $params = Yii::$app->request->queryParams;
+//
+//
+//        $grave = null;
+//        if (isset($params['grave_id'])) {
+//            $params['TombSearch']['grave_id'] = $params['grave_id'];
+//            $grave = Grave::findOne($params['grave_id']);
+//        }
+//
+//        $dataProvider = $searchModel->search($params);
+//
+//        $parents = null;
+//        if ($grave) {
+//            $parents = $grave->getParents();
+//        }
+//
+//        return $this->render('ix', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//            'grave' => $grave,
+//            'parents' => $parents
+//        ]);
+//    }
 
     /**
      * @return string
      * @name ajax提取数据
      */
-    public function actionIxlist(){
+//    public function actionIxlist(){
+//        $searchModel = new TombSearch();
+//
+//        $params = Yii::$app->request->queryParams;
+//
+////        if (!$params['grave_id']) {
+////            return '';
+////        }
+//
+//        $params['TombSearch']['grave_id'] = $params['grave_id'];
+//        $dataProvider = $searchModel->search($params);
+//
+//        return $this->renderAjax('ixlist', [
+//            'dataProvider' => $dataProvider,
+//            'minCol' => $searchModel->minCol($params)
+//        ]);
+//    }
+
+    public function actionIndex()
+    {
         $searchModel = new TombSearch();
-
         $params = Yii::$app->request->queryParams;
-
-        if (!$params['grave_id']) {
-            return '';
+        if (isset($params['status'])) {
+            $params['TombSearch']['status'] = $params['status'];
         }
 
-        $params['TombSearch']['grave_id'] = $params['grave_id'];
+
         $dataProvider = $searchModel->search($params);
 
-        return $this->renderAjax('ixlist', [
+        return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'minCol' => $searchModel->minCol($params)
         ]);
     }
-
     /**
      * Lists all Tomb models.
      * @return mixed
      * @name 列表
      */
-    public function actionIndex()
+    public function actionIndexbak()
     {
         $searchModel = new TombSearch();
         $params = Yii::$app->request->queryParams;
@@ -344,11 +361,26 @@ class TombController extends BackController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $thumb = $model->thumb;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            $up = Upload::getInstance($model, 'thumb', 'tomb');
+
+            if ($up) {
+                $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $up->save();
+                $info = $up->getInfo();
+                $model->thumb = $info['mid'];
+            } else {
+                $model->thumb = $thumb;
+            }
+
+            $model->save();
+
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -366,6 +398,45 @@ class TombController extends BackController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+
+
+    /**
+     * @return array
+     * @name 批量删除
+     */
+    public function actionBatchDel()
+    {
+        $post = Yii::$app->request->post();
+
+        $ses = Yii::$app->getSession();
+
+        if (empty($post['ids'])) {
+            return $this->json(null, '请选择要删除的数据 ', 0);
+        }
+
+        $outerTransaction = Yii::$app->db->beginTransaction();
+
+        try{
+
+            Yii::$app->db->createCommand()
+                ->update(
+                    Tomb::tableName(),
+                    ['status'=>Tomb::STATUS_DELETE],
+                    ['id'=>$post['ids']]
+                )->execute();
+
+            $outerTransaction->commit();
+
+        } catch (\Exception $e){
+            $outerTransaction->rollBack();
+            return $this->json(null, '删除失败', 0);
+        }
+
+        $ses->setFlash('success','数据批量删除成功');
+        return $this->json();
+
     }
 
     /**

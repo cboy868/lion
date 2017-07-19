@@ -224,64 +224,137 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="hr hr-18 dotted hr-double"></div>
                 <?php if (isset($tombs) && $tombs):?>
+                    <?php
+                    Modal::begin([
+                        'header' => '业务操作',
+                        'id' => 'modalAdd',
+                        'size' => Modal::SIZE_LARGE,
+                        'footer' => '<button class="btn btn-info" data-dismiss="modal">取消</button>',
+                    ]) ;
+
+                    echo '<div id="modalContent"></div>';
+
+                    Modal::end();
+                    ?>
                 <div class="col-md-12">
                     <style type="text/css">
-                        .table ul li.full {
-                            margin:5px;
-                            border: 1px solid #FFF;
-                            background: #ccc;
+                        .table ul {
+                            margin-top: 5px;
+                            margin-right: 10px;
+                            margin-bottom: 5px;
+                            margin-left: 40px;
+                            list-style-image: none;
+                            list-style-type: none;
+                            white-space: nowrap;
+                            padding: 0px;
                         }
-                        .pic td{
-                            width:40px;
-                        }
-                        .pic>thead>tr>th,.pic>tbody>tr>th{
-                            text-align: center;
-                            border: none;
-                        }
-                        .table td div.full{
+                        .table ul li {
+                            margin: 0px;
+                            padding: 0px;
+                            display: block;
+                            width: 40px;
+                            height:48px;
+                            float: left;
                             padding:2px;
-                            background: #ccc;
                         }
+                        .table ul li span {
+                            padding: 0px;
+                            display: block;
+                            height: 14px;
+                            width: 40px;
+                            margin-top: 0px;
+                            margin-right: auto;
+                            margin-bottom: 0px;
+                            margin-left: auto;
+                            line-height: 14px;
+                            text-align: center;
+                            color: #000000;
+                            font-size: 12px;
+                        }
+                        .table ul li img {
+                            display: block;
+                            height: 34px;
+                            width: 34px;
+                            margin-top: 0px;
+                            margin-right: auto;
+                            margin-bottom: 0px;
+                            margin-left: auto;
+                            border: 1px solid #FFF;
+                        }
+                        .search label{
+                            /*width:40px;*/
+                            margin-left:10px;
+                            /*text-align: right;*/
+                        }
+                        .table ul li.on{
+                            background: green;
+                            padding:10px;
+                            width: 60px;
+                            height: 68px;
+                        }
+                        @-webkit-keyframes twinkling{    /*透明度由0到1*/
+                            0%{
+                                opacity:0; /*透明度为0*/
+                            }
+                            100%{
+                                opacity:1; /*透明度为1*/
+                            }
+                        }
+                        .table > tbody > tr > td{
+                            padding:2px;
+                        }
+                        div.search{
+                            border: solid 1px #186f1a;
+                            padding: 8px;
+                            border-radius: 5px;
+                        }
+
                     </style>
-                    <h2>墓位示意</h2>
+                    <h2>本区墓位 <small>(<?=count($tombs)?>座墓) 点击图标可直接办理业务</small></h2>
+
                     <?php
                     $result = ArrayHelper::index($tombs, 'id', 'row');
                     ?>
-
-                    <table class="table table-hover table-condensed table-bordered pic" style="width:auto;">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <?php
-                                for ($i=$minCol;$i<=$maxCol;$i++):
-                                    if ($i==0) continue;?>
-                            <th><?=$i?></th>
-                            <?php endfor;?>
-
-                        </tr>
-                        </thead>
+                    <div class="search">
+                        <label>排
+                        <input type="text" class="tomb_row tsearch" placeholder="排">
+                        </label>
+                        <label>列
+                        <input type="text" class="tomb_col tsearch" placeholder="列">
+                        </label>
+                        <button>查找</button>
+                    </div>
+                    <table class="table table-hover">
                         <?php foreach ($result as $k=>$models):?>
-                        <tr>
-                            <th><?=$k?></th>
-                            <?php $col=$minCol;foreach ($models as $model): ?>
-                                <?php
-                                if ($col < $model->col):
-                                    for(; $col< $model->col; $col++):
-                                        if($col==0)continue;
-                                        ?>
-                                        <td>&nbsp;</td>
-                                        <?php
-                                    endfor;
-                                endif;
-                                $col++;
-                                ?>
-                            <td><div class="full">&nbsp</div></td>
-                            <?php endforeach;?>
-                            <?php if($col < $maxCol):for(;$col<=$maxCol; $col++):?>
-                                <td></td>
-                            <?php endfor;endif; ?>
-                        </tr>
-                        <?php endforeach;?>
+                            <tr>
+                                <td>
+                                    <div class="pull-left"><?=$k?>排</div>
+                                    <ul>
+                                        <?php $col=$minCol;foreach ($models as $model): ?>
+                                            <?php
+                                            if ($col < $model->col):
+                                                for(; $col< $model->col; $col++):
+                                                    if($col==0)continue;
+                                                    ?>
+                                                    <li><div>&nbsp;</div></li>
+                                                    <?php
+                                                endfor;
+                                            endif;
+                                            $col++;
+                                            ?>
+                                            <li class="item_<?=$model->row.'_'.$model->col?>">
+                                                <div>
+                                                    <a href="<?=Url::toRoute(['/grave/admin/tomb/option', 'id'=>$model->id])?>" class="modalAddButton" data-loading-text="等待..." onclick="return false">
+                                                        <img src="/static/images/grave/<?=$model->status?>.jpg" width="36" height="36" title="<?=$model->tomb_no?>">
+                                                    </a>
+                                                    <span><?=$model->col?>号</span>
+                                                </div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
                     </table>
                 </div>
                 <?php endif;?>
@@ -293,6 +366,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $this->beginBlock('img') ?>
 $(function(){
+
+    $('.tsearch').change(function(){
+        var row = $('.tomb_row').val();
+        var col = $('.tomb_col').val();
+        var obj = 'item_' + row + '_' + col;
+
+$('li').css({"-webkit-animation":""});
+$('.'+obj).css({"-webkit-animation":"twinkling 1s infinite ease-in-out"});
+        //$('.'+obj).addClass('on');
+    });
+
+
     $('.recommend').click(function(e){
         e.preventDefault();
         var url = $(this).attr('href');

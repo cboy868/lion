@@ -12,6 +12,7 @@ use app\modules\grave\models\Tomb;
  */
 class TombSearch extends Tomb
 {
+    public $customer_name; //<=====就是加在这里
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class TombSearch extends Tomb
     {
         return [
             [['id', 'grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id', 'agent_id', 'agency_id', 'guide_id', 'thumb', 'created_at', 'status'], 'integer'],
-            [['special', 'tomb_no', 'sale_time', 'note'], 'safe'],
+            [['special', 'tomb_no', 'sale_time', 'note', 'customer_name'], 'safe'],
             [['price', 'cost', 'area_total', 'area_use'], 'number'],
         ];
     }
@@ -42,25 +43,33 @@ class TombSearch extends Tomb
      */
     public function search($params)
     {
-        $query = Tomb::find();
-
-
+        $query = Tomb::find()->joinWith(['customer'])->where(['<>','grave_tomb.status',Tomb::STATUS_DELETE]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy('row asc, col asc'),
             'pagination' => [
-                'pageSize' => 10000,
+                'pageSize' => 15,
             ],
+        ]);
+        $dataProvider->setSort([
+            'attributes' => [
+                /*  下面这段是加入的 */
+                /*=============*/
+                'customer_name' => [
+                    'asc' => ['customer.name' => SORT_ASC],
+                    'desc' => ['customer.name' => SORT_DESC],
+                    'label' => '客户'
+                ],
+                /*=============*/
+            ]
         ]);
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-
-
         $query->andFilterWhere([
-            'id' => $this->id,
+            'grave_tomb.id' => $this->id,
             'grave_id' => $this->grave_id,
             'row' => $this->row,
             'col' => $this->col,
@@ -70,23 +79,20 @@ class TombSearch extends Tomb
             'area_total' => $this->area_total,
             'area_use' => $this->area_use,
             'user_id' => $this->user_id,
-            'customer_id' => $this->customer_id,
             'agent_id' => $this->agent_id,
             'agency_id' => $this->agency_id,
-            'guide_id' => $this->guide_id,
+            'grave_tomb.guide_id' => $this->guide_id,
             'sale_time' => $this->sale_time,
-            'thumb' => $this->thumb,
-            'created_at' => $this->created_at,
-            'status' => $this->status,
+            'grave_tomb.status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'special', $this->special])
             ->andFilterWhere(['like', 'tomb_no', $this->tomb_no])
             ->andFilterWhere(['like', 'note', $this->note]);
+        $query->andFilterWhere(['like', '{{%grave_customer}}.name', $this->customer_name]) ;//<=====加入这句
 
         return $dataProvider;
     }
-
 
     public function minCol($params)
     {

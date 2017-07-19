@@ -127,6 +127,11 @@ class Tomb extends \app\core\db\ActiveRecord
             'thumb' => '封面',
             'created_at' => '添加时间',
             'status' => '状态',
+            'user.username' => '客户账号',
+            'customer.name' => '客户',
+            'agent.username'=> '业务',
+            'guide.username' => '导购',
+            'mnt_by' => '立碑人'
         ];
     }
 

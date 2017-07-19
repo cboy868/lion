@@ -12,7 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 \app\assets\JqueryFormAsset::register($this);
 \app\assets\Tabletree::register($this);
 ?>
-
+<style>
+    table.treetable{
+        font-size:1em;
+    }
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">

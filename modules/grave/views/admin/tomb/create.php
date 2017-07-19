@@ -7,7 +7,9 @@ use app\core\helpers\ArrayHelper;
 /* @var $model app\modules\grave\models\Tomb */
 
 $this->title = '添加墓位';
-$this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']];
+$grave_id = Yii::$app->request->get('grave_id');
+
+$this->params['breadcrumbs'][] = ['label' => '墓区管理', 'url' => ['/grave/admin/default/index', 'id'=>$grave_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -33,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->
             <?php if (isset($tombs) && $tombs):?>
-                <div class="col-md-12">
+                <div class="col-md-12" style="overflow:hidden;overflow:auto;">
                     <style type="text/css">
                         .table ul li.full {
                             margin:5px;
@@ -52,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             background: #2E6589;
                         }
                     </style>
-                    <h2>已生成墓位示意</h2>
+                    <h2>已生成墓位示意<small>(<?=count($tombs)?>座墓)</small></h2>
                     <?php
                     $result = ArrayHelper::index($tombs, 'id', 'row');
                     ?>
