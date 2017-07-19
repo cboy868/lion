@@ -7,6 +7,7 @@ use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 use app\modules\Grave\models\Tomb;
 use app\core\widgets\DetailView;
+use yii\helpers\ArrayHelper;
 $this->title = '墓区管理';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -222,6 +223,68 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endif;?>
 
                 <div class="hr hr-18 dotted hr-double"></div>
+                <?php if (isset($tombs) && $tombs):?>
+                <div class="col-md-12">
+                    <style type="text/css">
+                        .table ul li.full {
+                            margin:5px;
+                            border: 1px solid #FFF;
+                            background: #ccc;
+                        }
+                        .pic td{
+                            width:40px;
+                        }
+                        .pic>thead>tr>th,.pic>tbody>tr>th{
+                            text-align: center;
+                            border: none;
+                        }
+                        .table td div.full{
+                            padding:2px;
+                            background: #ccc;
+                        }
+                    </style>
+                    <h2>墓位示意</h2>
+                    <?php
+                    $result = ArrayHelper::index($tombs, 'id', 'row');
+                    ?>
+
+                    <table class="table table-hover table-condensed table-bordered pic" style="width:auto;">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <?php
+                                for ($i=$minCol;$i<=$maxCol;$i++):
+                                    if ($i==0) continue;?>
+                            <th><?=$i?></th>
+                            <?php endfor;?>
+
+                        </tr>
+                        </thead>
+                        <?php foreach ($result as $k=>$models):?>
+                        <tr>
+                            <th><?=$k?></th>
+                            <?php $col=$minCol;foreach ($models as $model): ?>
+                                <?php
+                                if ($col < $model->col):
+                                    for(; $col< $model->col; $col++):
+                                        if($col==0)continue;
+                                        ?>
+                                        <td>&nbsp;</td>
+                                        <?php
+                                    endfor;
+                                endif;
+                                $col++;
+                                ?>
+                            <td><div class="full">&nbsp</div></td>
+                            <?php endforeach;?>
+                            <?php if($col < $maxCol):for(;$col<=$maxCol; $col++):?>
+                                <td></td>
+                            <?php endfor;endif; ?>
+                        </tr>
+                        <?php endforeach;?>
+                    </table>
+                </div>
+                <?php endif;?>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->

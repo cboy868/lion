@@ -13,6 +13,7 @@ use app\modules\grave\models\Card;
 use app\modules\shop\models\Goods;
 use app\modules\grave\models\TombForm;
 
+
 /**
  * TombController implements the CRUD actions for Tomb model.
  */
@@ -319,11 +320,17 @@ class TombController extends BackController
                 $model->grave_id = $grave_id;
                 $grave = Grave::findOne($grave_id);
                 $model->price = $grave->price;
-            }
 
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+                $data['tombs'] = Tomb::find()->where(['grave_id'=>$grave_id])
+                    ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
+                    ->orderBy('row asc,col asc')->all();
+
+                $data['minCol'] = $grave->minCol();
+                $data['maxCol'] = $grave->maxCol();
+            }
+            $data['model'] = $model;
+
+            return $this->render('create', $data);
         }
     }
 

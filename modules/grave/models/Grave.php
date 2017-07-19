@@ -79,6 +79,20 @@ class Grave extends \app\core\db\ActiveRecord
         ];
     }
 
+    public function minCol()
+    {
+        return Tomb::find()->where(['grave_id'=>$this->id])
+            ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
+            ->min('col');
+    }
+
+    public function maxCol()
+    {
+        return Tomb::find()->where(['grave_id'=>$this->id])
+            ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
+            ->max('col');
+    }
+
     /**
      * @inheritdoc
      */

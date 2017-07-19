@@ -68,6 +68,11 @@ class DefaultController extends BackController
         if ($id) {
             $model = $this->findModel($id);
             $data['model'] = $model;
+            $data['tombs'] = Tomb::find()->where(['grave_id'=>$id])
+                ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
+                ->orderBy('row asc,col asc')->all();
+            $data['minCol'] = $model->minCol();
+            $data['maxCol'] = $model->maxCol();
         }
         return $this->render('index', $data);
     }
