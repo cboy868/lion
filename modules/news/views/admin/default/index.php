@@ -92,8 +92,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class'=>yii\grid\CheckboxColumn::className(),
                 'name'=>'id',  //设置每行数据的复选框属性
                 'headerOptions' => ['width'=>'30'],
-                'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
-                'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+                'footer' => '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
+                    '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+                'footerOptions' => ['colspan' => 10, 'class'=>'deltd'],  //设置删除按钮垮列显示；
             ],
             [
                 'label' => '封面',
@@ -218,6 +219,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
+$('td.deltd').siblings('td').remove();
     $(".top, .recommend").click(function(e){
         e.preventDefault();
         var url = $(this).attr('href');

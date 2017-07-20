@@ -15,8 +15,9 @@ use app\modules\cms\models\Post;
             'class'=>yii\grid\CheckboxColumn::className(),
             'name'=>'id',  //设置每行数据的复选框属性
             'headerOptions' => ['width'=>'30'],
-            'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
-            'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+            'footer' => '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
+                '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+            'footerOptions' => ['colspan' => 11, 'class'=>'deltd'],  //设置删除按钮垮列显示；
         ],
         //['class' => 'yii\grid\CheckboxColumn'],
         [
@@ -84,6 +85,7 @@ use app\modules\cms\models\Post;
 
 <?php $this->beginBlock('img') ?>
 $(function(){
+$('td.deltd').siblings('td').remove();
 $('.btn-delete').click(function(){
 
     if (!confirm("您确定要删除这些文章吗?,删除后不可恢复")){return false;}

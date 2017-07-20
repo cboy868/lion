@@ -177,7 +177,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                            data-method="post" data-pjax="0"><i class="fa fa-trash"></i> 删除
                                         </a>
 
-                                        <a href="<?=Url::toRoute(['/grave/admin/tomb/ix', 'grave_id'=>$model->id])?>" class="btn btn-success" target="_blank"> 进入墓位列表</a>
+                                        <a href="<?=Url::toRoute(['/grave/admin/tomb/index', 'grave_id'=>$model->id])?>" class="btn btn-success" target="_blank"> 进入墓位列表</a>
                                     <?php endif ?>
                                     </div>
                                 </td>

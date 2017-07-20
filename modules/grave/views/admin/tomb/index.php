@@ -39,6 +39,19 @@ $this->params['breadcrumbs'][] = $this->title;
         Modal::end();
         ?>
 
+        <?php
+        Modal::begin([
+            'header' => '业务操作',
+            'id' => 'modalAdd',
+            'size' => Modal::SIZE_LARGE,
+            'footer' => '<button class="btn btn-info" data-dismiss="modal">取消</button>',
+        ]) ;
+
+        echo '<div id="modalContent"></div>';
+
+        Modal::end();
+        ?>
+
         <div class="row">
             <div class="col-xs-12">
                 <div class="search-box search-outline">
@@ -79,8 +92,9 @@ $sta = \Yii::$app->request->get('status');
                             'class'=>yii\grid\CheckboxColumn::className(),
                             'name'=>'id',  //设置每行数据的复选框属性
                             'headerOptions' => ['width'=>'30'],
-                            'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
-                            'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+                            'footer' => '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
+                                '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+                            'footerOptions' => ['colspan' => 14, 'class'=>'deltd'],  //设置删除按钮垮列显示；
                         ],
                         'id',
                         [
@@ -125,7 +139,7 @@ $sta = \Yii::$app->request->get('status');
                             'header'=>'操作',
 
                             'template' => '
-{view}
+{view} / {option}
 <div class="btn-group">
   <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     更多 <span class="caret"></span>
@@ -139,6 +153,13 @@ $sta = \Yii::$app->request->get('status');
                             'buttons' => [
                                 'view' => function($url, $model, $key){
                                     return Html::a('墓位明细',$url,['target'=>'_blank']);
+                                },
+                                'option' => function($url, $model, $key){
+                                    return Html::a('办理业务',$url,[
+                                        'class'=>"modalAddButton btn btn-default btn-xs",
+                                        'data-loading-text'=>"等待...",
+                                        'onclick'=>"return false"
+                                    ]);
                                 },
                                 'update' => function($url, $model, $key) {
                                     return Html::a('编辑', $url, [
@@ -157,7 +178,7 @@ $sta = \Yii::$app->request->get('status');
                                     ]);
                                 }
                             ],
-                            'headerOptions' => ['width' => '190',"data-type"=>"html"]
+                            'headerOptions' => ['width' => '200',"data-type"=>"html"]
                         ]
                     ],
                 ]); ?>
@@ -170,7 +191,7 @@ $sta = \Yii::$app->request->get('status');
 
 <?php $this->beginBlock('cate') ?>
     $(function(){
-
+    $('td.deltd').siblings('td').remove();
         $('.btn-delete').click(function(){
             if (!confirm("您确定要删除这些墓位?,删除后不可恢复")){return false;}
             var ids = $('#grid').yiiGridView('getSelectedRows');
@@ -185,6 +206,8 @@ $sta = \Yii::$app->request->get('status');
             },'json');
 
         });
+
+        $('td.deltd').siblings('td').remove();
 
     })
 <?php $this->endBlock() ?>

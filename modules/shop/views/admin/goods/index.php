@@ -221,8 +221,9 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'class'=>yii\grid\CheckboxColumn::className(),
                 'name'=>'id',  //设置每行数据的复选框属性
                 'headerOptions' => ['width'=>'30', "data-type"=>"html"],
-                'footer' => '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
-                'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+                'footer' => '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
+                    '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+                'footerOptions' => ['colspan' => 6, 'class'=>'deltd'],  //设置删除按钮垮列显示；
             ],
             [
                 // 'headerOptions' => ["data-breakpoints"=>"all"],
@@ -342,6 +343,7 @@ endif;
 
 <?php $this->beginBlock('foo') ?>  
   $(function(){
+$('td.deltd').siblings('td').remove();
     $('.table').footable();
 
 
