@@ -44,7 +44,12 @@ class DefaultController extends BackController
     public function actionIndex()
     {
         $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $params = Yii::$app->request->queryParams;
+        if (isset($params['is_staff'])) {
+            $params['UserSearch']['is_staff'] = $params['is_staff'];
+        }
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

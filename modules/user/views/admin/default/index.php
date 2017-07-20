@@ -50,6 +50,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-12 user-index">
 
+                <div class="widget-box transparent ui-sortable-handle" >
+
+                    <?php
+                    $is_staff = Yii::$app->request->get('is_staff');
+                    ?>
+                    <div class="widget-header" style="z-index: 0">
+                        <div class="no-border">
+                            <ul class="nav nav-tabs">
+                                <li class="<?php if ($is_staff == null): ?>active<?php endif ?>">
+                                    <a href="<?=Url::toRoute(['index'])?>" aria-expanded="true">全部</a>
+                                </li>
+                                <li class="<?php if ($is_staff == 1): ?>active<?php endif ?>">
+                                    <a href="<?=Url::toRoute(['index','is_staff'=>1])?>" aria-expanded="true">员工</a>
+                                </li>
+                                <li class="<?php if ($is_staff == 2): ?>active<?php endif ?>">
+                                    <a href="<?=Url::toRoute(['index','is_staff'=>2])?>" aria-expanded="true">业务员</a>
+                                </li>
+                                <li class="<?php if ($is_staff === 0): ?>active<?php endif ?>">
+                                    <a href="<?=Url::toRoute(['index','is_staff'=>0])?>" aria-expanded="true">客户</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
@@ -63,10 +88,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['width'=>'30', "data-type"=>"html"],
                 'footer' => '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
                     '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
-                'footerOptions' => ['colspan' => 5, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+                'footerOptions' => ['colspan' => 6, 'class'=>'deltd'],  //设置删除按钮垮列显示；
             ],
             'id',
             'username',
+            'mobile',
             'email:email',
             // 'status',
             // 'created_at',
