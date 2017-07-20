@@ -2,6 +2,7 @@
 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
+\app\assets\ExtAsset::register($this);
 ?>
 
 <div class="user-form">
@@ -12,7 +13,7 @@ use app\core\widgets\ActiveForm;
 
     <div class="col-md-5">
     	<?= $form->field($addition, 'real_name')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($addition, 'birth')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($addition, 'birth')->textInput(['maxlength' => true,'dt'=>'true','dt-year'=>'true', 'dt-month'=>'true']) ?>
     	<?= $form->field($addition, 'gender')->radioList(['1'=> '男', '2'=>'女']) ?>
     </div>
 

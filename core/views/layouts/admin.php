@@ -377,6 +377,13 @@ AdminAsset::register($this);
                                     </a>
                                 </li>
 
+                                <li>
+                                    <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">
+                                        <i class="ace-icon fa fa-cog"></i>
+                                        个人设置
+                                    </a>
+                                </li>
+
                                 <li class="divider"></li>
 
                                 <li>

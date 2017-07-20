@@ -74,7 +74,7 @@ class ProfileController extends BackController
         
     }
 
-    protected function findModel($id)
+    protected function findModel()
     {
         if (($model = User::findOne(Yii::$app->user->id)) !== null) {
             return $model;
@@ -121,12 +121,11 @@ class ProfileController extends BackController
 
             $upload = Upload::getInstanceByName('__avatar1', $res_name);
             $upload->use = $use ? $use : null;
-
+            $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
             $upload->save();
 
-            $info = $upload->getInfo();
 
-            $avatar = $info['mid'];
+            $info = $upload->getInfo();
 
             $model = $this->findModel($user_id);
             $model->avatar = $info['mid'];

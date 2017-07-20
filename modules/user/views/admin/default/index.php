@@ -90,8 +90,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
                 'footerOptions' => ['colspan' => 6, 'class'=>'deltd'],  //设置删除按钮垮列显示；
             ],
-            'id',
-            'username',
+//            'id',
+            [
+                'label' => '账号',
+                'value' => function($model){
+                    return Html::img($model->getAvatar('36x36', '/static/images/avatar.png')) . $model->username;
+                },
+                'format' => 'raw'
+            ],
             'mobile',
             'email:email',
             // 'status',
