@@ -8,12 +8,7 @@ use yii\bootstrap\Modal;
 use app\modules\cms\models\Category;
 use app\assets\FootableAsset;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\cms\models\PostSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = $module->name . '内容管理';
-$this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/mod/admin/default/index']];
+$this->title = '图文模块内容管理';
 $this->params['breadcrumbs'][] = $this->title;
 FootableAsset::register($this);
 
@@ -21,6 +16,16 @@ FootableAsset::register($this);
 <style>
     .nc{
         margin-right:10px;
+    }
+    .parallelogram {
+        -webkit-transform:skew(-15deg);
+        -moz-transform:skew(-15deg);
+        -o-transform:skew(-15deg);
+        -ms-transform:skew(-15deg);
+        transform:skew(-15deg);
+        -webkit-border-radius:5px;
+        -moz-border-radius:5px;
+        border-radius:5px;
     }
 </style>
 <div class="page-content">
@@ -51,27 +56,15 @@ FootableAsset::register($this);
 
     Modal::end();
     ?>
-    <style>
-        .parallelogram {
-            -webkit-transform:skew(-15deg);
-            -moz-transform:skew(-15deg);
-            -o-transform:skew(-15deg);
-            -ms-transform:skew(-15deg);
-            transform:skew(-15deg);
-            -webkit-border-radius:5px;
-            -moz-border-radius:5px;
-            border-radius:5px;
-        }
-    </style>
-
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-                <a href="#" class="btn btn-default btn-lg parallelogram">招商加盟</a>
-                <a href="#" class="btn btn-default btn-lg parallelogram">加入我们</a>
-                <a href="#" class="btn btn-default btn-lg parallelogram">关于我们</a>
-                <a href="#" class="btn btn-default btn-lg parallelogram">知识库</a>
-                <a href="#" class="btn btn-primary btn-lg parallelogram">产品案例</a>
+                <?php
+                $mid = Yii::$app->request->get('mid');
+                foreach ($modules as $v): ?>
+                    <a href="<?=Url::toRoute(['/cms/admin/post/index', 'mid'=>$v['id']])?>"
+                       class="btn <?php if($mid == $v['id']){echo 'btn-primary';} else{echo 'btn-default';}?> btn-lg parallelogram"><?=$v['title']?></a>
+                <?php endforeach;?>
             </h1>
             <hr>
             <h1>
@@ -81,12 +74,12 @@ FootableAsset::register($this);
                     $mod = Yii::$app->request->get('id');
                     ?>
                     <div class="pull-right nc">
-                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/mod/admin/default/index'])?>">
+                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/mod/admin/default/index'])?>" target="_blank">
                             <i class="fa fa-th-large fa-2x"></i>  模块管理</a>
                     </div>
 
                     <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/category/index','mid'=>$module->id])?>">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/category/index','mid'=>$module->id])?>" target="_blank">
                             <i class="fa fa-list-ol fa-2x"></i>  分类管理</a>
                     </div>
 
@@ -108,7 +101,98 @@ FootableAsset::register($this);
 
         <div class="row">
             <div class="col-xs-2">
+                <?php $cid = Yii::$app->request->get('category_id');?>
+                <ul class="nav nav-list">
+                    <?=  Html::a('<i class="fa fa-plus"></i> 添加新分类',
+                        ['/cms/admin/category/create', 'mid'=>$module->id],
+                        ['class' => 'btn btn-primary btn-sm modalAddButton',
+                            'title'=>"添加分类",
+                            'data-loading-text'=>"页面加载中, 请稍后...",
+                            'onclick'=>"return false",
+                            'style'=>'width:100%',
 
+                        ]) ?>
+
+
+
+
+
+                    <li class="<?php if (!$cid) { echo 'active'; } ?>" >
+                        <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-circle"></i>
+                            <span class="menu-text">所有分类</span>
+                        </a>
+                    </li>
+                    <?php foreach ($cates as $key => $value): ?>
+                        <li class="<?php if(isset($value['child'])){echo 'p-menu';}?> <?php if ($value['id'] == $cid) { echo 'active'; } ?>">
+                            <a href="<?=$value['url']?>" class="dropdown-toggle">
+                                <i class="menu-icon fa fa-bars"></i>
+                                <span class="menu-text"><?=$value['name']?></span>
+                                <b class="arrow"></b>
+                            </a>
+                            <b class="arrow"></b>
+                            <?php if (!isset($value['child'])) { continue; } ?>
+                            <ul class="submenu" style="display:block;">
+                                <?php foreach ($value['child'] as $k => $val): ?>
+                                    <?php if (!isset($val['child'])): ?>
+                                        <li class="<?php if ($val['id'] == $cid) { echo 'active'; } ?>" rel="">
+                                            <a href="<?=$val['url']?>">
+                                                <i class="menu-icon"></i>
+                                                <?=$val['name']?>
+                                                <b class="arrow"></b>
+                                            </a>
+                                            <b class="arrow"></b>
+                                        </li>
+                                    <?php else: ?>
+                                        <li class="p-menu <?php if ($val['id'] == $cid) { echo 'active'; } ?>">
+                                            <a href="<?=$val['url']?>" class="dropdown-toggle">
+                                                <i class="menu-icon fa fa-caret-right"></i>
+                                                <?=$val['name']?>
+                                                <b class="arrow "></b>
+                                            </a>
+                                            <b class="arrow"></b>
+                                            <ul class="submenu" style="display:block;">
+                                                <?php foreach ($val['child'] as $k => $last):?>
+                                                    <?php if (!isset($last['child'])): ?>
+                                                        <li class="<?php if ($last['id'] == $cid) { echo 'active'; } ?>" rel="">
+                                                            <a href="<?=$last['url']?>">
+                                                                <i class="menu-icon"></i>
+                                                                <?=$last['name']?>
+                                                                <b class="arrow"></b>
+                                                            </a>
+                                                            <b class="arrow"></b>
+                                                        </li>
+                                                    <?php else: ?>
+                                                        <li class="p-menu <?php if ($last['id'] == $cid) { echo 'active'; } ?>">
+                                                            <a href="<?=$last['url']?>" class="dropdown-toggle">
+                                                                <i class="menu-icon fa fa-caret-right"></i>
+                                                                <?=$last['name']?>
+                                                                <b class="arrow "></b>
+                                                            </a>
+                                                            <b class="arrow"></b>
+                                                            <ul class="submenu" style="display:block;">
+                                                                <?php foreach ($last['child'] as $k => $l1):?>
+                                                                    <li class="<?php if ($l1['id'] == $cid) {echo 'active';}?>">
+                                                                        <a href="<?=$l1['url'];?>">
+                                                                            <i class="menu-icon fa fa-caret-right"></i>
+                                                                            <?=$l1['name']?>
+                                                                            <b class="arrow "></b>
+                                                                        </a>
+                                                                        <b class="arrow"></b>
+                                                                    </li>
+                                                                <?php endforeach;?>
+                                                            </ul>
+                                                        </li>
+                                                    <?php endif;?>
+                                                <?php endforeach;?>
+                                            </ul>
+                                        </li>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
+                    <?php endforeach;?>
+                </ul><!-- /.nav-list -->
             </div>
 
             <div class="col-xs-10 news-index">

@@ -2,6 +2,7 @@
 
 namespace app\modules\cms\controllers\admin;
 
+use app\modules\cms\models\Category;
 use app\modules\cms\models\LgPost;
 use Yii;
 
@@ -16,6 +17,7 @@ use app\core\base\Upload;
 use app\core\helpers\Html;
 use app\modules\cms\models\PostImageSearch;
 use yii\base\Model;
+use app\core\helpers\Url;
 
 class PostController extends \app\core\web\BackController
 {
@@ -54,8 +56,18 @@ class PostController extends \app\core\web\BackController
      * @return string
      * @name 图文列表
      */
-    public function actionIndex($mid, $type=null, $category_id=null, $i18n=false, $id=null)
+    public function actionIndex($mid=null, $type=null, $category_id=null, $i18n=false, $id=null)
     {
+
+        //取所有模块
+        $modules = Module::find()->where(['status'=>Module::STATUS_NORMAL])->asArray()->all();
+
+        if ($mid === null) {
+            return $this->render('empty_index', ['modules'=>$modules]);
+        }
+
+        $cates = $this->getCates($mid);
+
         $module = Module::findOne($mid);
         Code::createObj('post', $mid);
 
@@ -84,7 +96,9 @@ class PostController extends \app\core\web\BackController
             'module' => $module,
             'type'  => $type,
             'i18n' => $i18n,
-            'i18n_flag' => Yii::$app->params['i18n']['flag']
+            'i18n_flag' => Yii::$app->params['i18n']['flag'],
+            'modules' => $modules,
+            'cates' => $cates
         ];
 
         if (!empty($id)) {
@@ -93,6 +107,21 @@ class PostController extends \app\core\web\BackController
 
         return $this->render('index', $data);
 
+    }
+
+    private function getCates($mid)
+    {
+        $tree = Category::sortTree(['mid'=>$mid]);
+
+        foreach ($tree as $k => &$v) {
+//            $v['url'] =Url::toRoute(['index', 'pid'=>$v['id']]);
+            $v['url'] =Url::toRoute(['index', 'category_id'=>$v['id'], 'mid'=>$mid]);
+        }
+
+        $tree = \yii\helpers\ArrayHelper::index($tree, 'id');
+        $tree = \app\core\helpers\Tree::recursion($tree,0,1);
+
+        return $tree;
     }
 
     /**
