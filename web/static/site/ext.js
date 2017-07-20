@@ -58,7 +58,7 @@ LN = {
         $('body').on('click', 'input[dttime=true]', function(e){
            var $this = $(this);
            if ( !$this.data('dttimeInit') ) {
-               $this.datetimepicker();
+               $this.datetimepicker({format:'Y-m-d H:i'});
                $this.data('dttimeInit', true);
                $this.blur();
                $this.focus();

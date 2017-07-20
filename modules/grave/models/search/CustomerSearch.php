@@ -41,15 +41,13 @@ class CustomerSearch extends Customer
      */
     public function search($params)
     {
-        $query = Customer::find();
+        $query = Customer::find()->where(['<>','status', Customer::STATUS_DELETE])->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $query->andWhere([
-            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
-        ]);
+
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -57,23 +55,27 @@ class CustomerSearch extends Customer
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'tomb_id' => $this->tomb_id,
             'user_id' => $this->user_id,
             'is_vip' => $this->is_vip,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'name', trim($this->name)])
             ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'second_ct', $this->second_ct])
-            ->andFilterWhere(['like', 'second_mobile', $this->second_mobile])
             ->andFilterWhere(['like', 'units', $this->units])
             ->andFilterWhere(['like', 'relation', $this->relation])
             ->andFilterWhere(['like', 'vip_desc', $this->vip_desc]);
+
+        if ($params['TombSearch']['grave_id']) {
+            $query->andWhere([
+                'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+            ]);
+        }
+
 
         return $dataProvider;
     }

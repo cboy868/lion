@@ -74,11 +74,14 @@ class DeadSearch extends Dead
             'status' => $this->status,
         ]);
 
-        $query->andWhere([
-            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
-        ]);
 
-        $query->andFilterWhere(['like', 'dead_name', $this->dead_name])
+        if ($params['TombSearch']['grave_id']) {
+            $query->andWhere([
+                'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+            ]);
+        }
+
+        $query->andFilterWhere(['like', 'dead_name', trim($this->dead_name)])
             ->andFilterWhere(['like', 'second_name', $this->second_name])
             ->andFilterWhere(['like', 'dead_title', $this->dead_title])
             ->andFilterWhere(['like', 'birth_place', $this->birth_place])

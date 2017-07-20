@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\grave\models\Customer */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '客户列表', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -37,8 +37,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
         'model' => $model,
         'attributes' => [
             'id',
-            'tomb_id',
-            'user_id',
+            'tomb.tomb_no',
+            'user.username',
             'name',
             'phone',
             'mobile',
@@ -49,9 +49,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
             'relation',
             'is_vip',
             'vip_desc:ntext',
-            'created_at',
-            'updated_at',
-            'status',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

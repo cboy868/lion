@@ -1,68 +1,60 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\Dead */
-/* @var $form yii\widgets\ActiveForm */
+use yii\widgets\ActiveForm;
+\app\assets\DateTimeAsset::register($this);
+\app\assets\ExtAsset::register($this);
 ?>
 
 <div class="dead-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <div class="col-md-6">
+        <?= $form->field($model, 'dead_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tomb_id')->textInput() ?>
+        <?= $form->field($model, 'second_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'memorial_id')->textInput() ?>
+        <?= $form->field($model, 'dead_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'dead_name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'birth_place')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'second_name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'birth')->textInput(['dt'=>"true"]) ?>
 
-    <?= $form->field($model, 'dead_title')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'fete')->textInput() ?>
 
-    <?= $form->field($model, 'serial')->textInput() ?>
+        <?= $form->field($model, 'age')->textInput() ?>
 
-    <?= $form->field($model, 'gender')->textInput() ?>
+    </div>
 
-    <?= $form->field($model, 'birth_place')->textInput(['maxlength' => true]) ?>
+    <div class="col-md-6">
 
-    <?= $form->field($model, 'birth')->textInput() ?>
 
-    <?= $form->field($model, 'fete')->textInput() ?>
+        <?= $form->field($model, 'bone_type')->dropDownList(\app\modules\grave\models\Dead::getBoneTypes()) ?>
 
-    <?= $form->field($model, 'is_alive')->textInput() ?>
+        <?= $form->field($model, 'bone_box')->dropDownList(\app\modules\grave\models\Dead::getBoneBoxs()) ?>
 
-    <?= $form->field($model, 'is_adult')->textInput() ?>
+        <?= $form->field($model, 'pre_bury')->textInput(['dttime'=>'true']) ?>
 
-    <?= $form->field($model, 'age')->textInput() ?>
+        <?= $form->field($model, 'bury')->textInput(['dttime'=>'true']) ?>
 
-    <?= $form->field($model, 'follow_id')->textInput() ?>
+        <?= $form->field($model, 'gender')->radioList([1=>'男',2=>'女']) ?>
 
-    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'is_alive')->radioList([0=>'否',1=>'是']) ?>
 
-    <?= $form->field($model, 'is_ins')->textInput() ?>
+        <?= $form->field($model, 'is_adult')->radioList([0=>'否',1=>'是'])->label('是否已成年') ?>
 
-    <?= $form->field($model, 'bone_type')->textInput() ?>
+        <?= $form->field($model, 'is_ins')->radioList([0=>'否',1=>'是'])->label('是否立碑') ?>
+    </div>
 
-    <?= $form->field($model, 'bone_container')->textInput() ?>
+    <div class="col-md-12">
 
-    <?= $form->field($model, 'pre_bury')->textInput() ?>
-
-    <?= $form->field($model, 'bury')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
+        <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
+    </div>
 
 
 	<div class="form-group">
-        <div class="col-sm-offset-2 col-sm-3">
+        <div class="col-sm-3">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
         </div>
     </div>

@@ -46,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
         // 'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'name',
             [
                 'label' => '墓位号',
                 'value' => function($model){
@@ -54,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw'
             ],
+            'name',
             [
                 'label' => '账号',
                 'value' => function($model){
@@ -74,14 +74,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'mobile',
-            // 'email:email',
-            // 'second_ct',
+             'email:email',
+             'second_ct',
             // 'second_mobile',
             // 'units',
-            // 'relation',
+             'relation',
             // 'is_vip',
             // 'vip_desc:ntext',
-            // 'created_at',
+             'created_at:date',
             // 'updated_at',
             // 'status',
 

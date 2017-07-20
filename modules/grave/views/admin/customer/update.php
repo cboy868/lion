@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\grave\models\Customer */
 
 $this->title = ' ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '客户列表', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '修改';
 ?>
 
 <div class="page-content">

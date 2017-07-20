@@ -261,6 +261,26 @@ class Dead extends \app\core\db\ActiveRecord
         return true;
     }
 
+    public static function getBoneTypes()
+    {
+        return Yii::$app->controller->module->params['bone_type'];
+    }
+
+    public static function getBoneBoxs()
+    {
+        return Yii::$app->controller->module->params['bone_box'];
+    }
+
+    public function getBoneBox()
+    {
+        $bone = Yii::$app->controller->module->params['bone_box'];
+        if ($this->bone_box) {
+            return $bone[$this->bone_box];
+        }
+        return '';
+    }
+
+
     public function getBoneType()
     {
         $types = Yii::$app->controller->module->params['bone_type'];

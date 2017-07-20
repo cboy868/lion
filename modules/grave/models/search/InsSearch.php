@@ -79,9 +79,12 @@ class InsSearch extends Ins
             'status' => $this->status,
         ]);
 
-        $query->andWhere([
-            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
-        ]);
+
+        if (isset($params['TombSearch']['grave_id']) && $params['TombSearch']['grave_id']) {
+            $query->andWhere([
+                'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+            ]);
+        }
 
         $query->andFilterWhere(['like', 'position', $this->position])
             ->andFilterWhere(['like', 'content', $this->content])

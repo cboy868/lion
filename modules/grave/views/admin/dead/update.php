@@ -6,9 +6,9 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\grave\models\Dead */
 
-$this->title = ' ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Deads', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = ' ' . ' ' . $model->dead_name;
+$this->params['breadcrumbs'][] = ['label' => '使用人信息', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '修改';
 ?>
 
 <div class="page-content">

@@ -37,29 +37,66 @@ $this->params['breadcrumbs'][] = ['label' => '使用人管理', 'url' => ['index
         'model' => $model,
         'attributes' => [
             'id',
+            'serial',
             'user.username',
+            [
+                'label' => '性别',
+                'value' => function($model){
+                    return [1=>'男',2=>'妇'][$model->gender];
+                }
+            ],
+
             'tomb.tomb_no',
-            'memorial_id',
+            [
+                'label' => '纪念馆',
+                'value' => function($model){
+                    return Html::a($model->memorial->title,
+                        ['/memorial/home/default/view', 'id'=>$model->memorial_id],
+                        ['target'=>'_blank']);
+                },
+                'format'=>'raw'
+            ],
             'dead_name',
             'second_name',
             'dead_title',
-            'serial',
-            'gender',
             'birth_place',
             'birth',
             'fete',
-            'is_alive',
-            'is_adult',
+            [
+                'label' => '是否键在',
+                'value' => function($model){
+                    return [1=>'是',0=>'否'][$model->is_alive];
+                }
+            ],
+            [
+                'label' => '是否成年',
+                'value' => function($model){
+                    return $model->is_adult === null ? '未知' : [1=>'是',0=>'否'][$model->is_adult];
+                }
+            ],
             'age',
-            'follow_id',
             'desc:ntext',
-            'is_ins',
-            'bone_type',
-            'bone_box',
+            [
+                'label' => '是否立碑',
+                'value' => function($model){
+                    return $model->is_ins === null ? '未知' : [1=>'是',0=>'否'][$model->is_ins];
+                }
+            ],
+            [
+                'label' => '安葬性质',
+                'value' => function($model){
+                    return $model->boneType;
+                }
+            ],
+            [
+                'label' => '安葬盒类型',
+                'value' => function($model){
+                    return $model->boneBox;
+                }
+            ],
             'pre_bury',
             'bury',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
         ],
     ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>

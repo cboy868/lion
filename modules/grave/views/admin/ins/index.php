@@ -27,8 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-xs-12 ins-index">
   
     <div class="widget-box transparent ui-sortable-handle" id="widget-box-13">
-        <div class="widget-header">
-            <div class="widget-toolbar no-border">
+        <div class="widget-header" style="z-index: 0">
+            <div class="widget-toolbar no-border" style="float: left;">
                 <ul class="nav nav-tabs">
                     <li class="<?php if ($searchModel->is_confirm == null): ?>active<?php endif ?>">
                         <a href="<?=Url::toRoute(['index'])?>" aria-expanded="true">全部</a>
@@ -61,9 +61,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'content:ntext',
             // 'img',
-            // 'is_tc',
+            [
+                'label' => '是否繁体',
+                'value' => function($model){
+                    return [0=>'否', 1=>'是'][$model->is_tc];
+                }
+            ],
             // 'font',
-            // 'font_num',
+             'small_num',
+            'big_num',
             // 'new_font_num',
             [
                 'label' => '已确认',
@@ -72,10 +78,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw'
             ],
-            // 'confirm_date',
-            // 'confirm_by',
-            // 'pre_finish',
-            // 'finish_at',
+             'confirm_date',
+             'confirm.username',
+             'pre_finish',
+//             'finish_at',
             // 'note:ntext',
             // 'version',
             'paintTxt',
@@ -90,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '操作',
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete}',
+                'template' => '{delete} {view}',
             ]
         ],
     ]); ?>
