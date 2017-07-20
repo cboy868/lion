@@ -73,8 +73,10 @@ use yii\bootstrap\Modal;
             $form->fieldConfig['options']['class'] = 'form-group';
 
         ?>
-        <?= $form->field($model, 'row')->textInput(['class'=>'form-control srow', 'placeholder'=>'排'])->label(false) ?>
-        <?= $form->field($model, 'col')->textInput(['class'=>'form-control scol', 'placeholder'=>'号'])->label(false) ?>
+        <?= $form->field($model, 'row')->textInput(['class'=>'form-control srow', 'placeholder'=>'排', 'style'=>'width:100px;'])
+            ->label(false) ?>
+        <?= $form->field($model, 'col')->textInput(['class'=>'form-control scol', 'placeholder'=>'号', 'style'=>'width:100px;'])
+            ->label(false) ?>
 
     <?php ActiveForm::end(); ?>
 

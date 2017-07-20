@@ -13,7 +13,11 @@ use app\modules\cms\models\Category;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
+    <?php
+    $cates = Category::selTree();
+    ?>
+
+    <?= $form->field($model, 'pid')->dropDownList($cates) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

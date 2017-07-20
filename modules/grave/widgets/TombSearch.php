@@ -23,6 +23,8 @@ use app\core\helpers\ArrayHelper;
 class TombSearch extends \yii\base\Widget
 {
     public $form;
+
+    public $grave_id;
     // public $options = [];
 
     /**
@@ -42,9 +44,13 @@ class TombSearch extends \yii\base\Widget
 
         $model = new Search;
         $model->search(\Yii::$app->request->queryParams);
-
-
-        return $this->render('tomb', ['model'=>$model, 'grave'=>$grave_ids, 'form'=>$this->form]);
+        if ($this->grave_id) {
+            $model->grave_id = $this->grave_id;
+        }
+        return $this->render('tomb', ['model'=>$model,
+            'grave'=>$grave_ids,
+            'form'=>$this->form
+        ]);
     }
 
 

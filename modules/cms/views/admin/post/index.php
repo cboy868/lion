@@ -118,7 +118,7 @@ FootableAsset::register($this);
 
 
                     <li class="<?php if (!$cid) { echo 'active'; } ?>" >
-                        <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
+                        <a href="<?=Url::toRoute(['index', 'mid'=>$module->id])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
                             <span class="menu-text">所有分类</span>
                         </a>

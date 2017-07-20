@@ -15,7 +15,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'id')->label('墓位ID ') ?>
 
-    <?=\app\modules\grave\widgets\TombSearch::widget(['form'=>$form])?>
+    <?=\app\modules\grave\widgets\TombSearch::widget(['form'=>$form, 'grave_id'=>Yii::$app->request->get('grave_id')])?>
 
     <?php  echo $form->field($model, 'customer_name')->label('客户名') ?>
 
