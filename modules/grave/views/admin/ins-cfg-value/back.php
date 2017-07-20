@@ -66,30 +66,35 @@ input, select {
                   <label class="col-sm-2 control-label no-padding-right">主内容</label>
                   <div class="col-sm-10">
 	                    <span class="">
-	                        <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[main][<?=$i?>][size]" value="<?=$cfgs['main'][$i]['size']?>">
+	                        <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[main][<?=$i?>][size]"
+                                   value="<?=isset($cfgs['main'][$i]['size'])? $cfgs['main'][$i]['size']:'' ?>">
 	                    </span>
                     <span class="">
-                        <input type="text" class="input-mini x" placeholder="x" name="tpl[main][<?=$i?>][x]" value="<?=$cfgs['main'][$i]['x']?>">
+                        <input type="text" class="input-mini x" placeholder="x" name="tpl[main][<?=$i?>][x]"
+                               value="<?=isset($cfgs['main'][$i]['x'])?$cfgs['main'][$i]['x']: ''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-mini y" placeholder="y" name="tpl[main][<?=$i?>][y]" value="<?=$cfgs['main'][$i]['y']?>">
+                        <input type="text" class="input-mini y" placeholder="y" name="tpl[main][<?=$i?>][y]"
+                               value="<?=isset($cfgs['main'][$i]['y'])?$cfgs['main'][$i]['y']:''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[main][<?=$i?>][color]"   value="<?=$cfgs['main'][$i]['color']?>">
+                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[main][<?=$i?>][color]"
+                               value="<?=isset($cfgs['main'][$i]['color']) ? $cfgs['main'][$i]['color'] : ''?>">
                     </span>
 
                     <label>
-                      <input name="tpl[main][<?=$i?>][direction]" type="checkbox" value="1" <?php if($cfgs['main'][$i]['direction'] == 1) echo 'checked'; ?>>反向
+                      <input name="tpl[main][<?=$i?>][direction]" type="checkbox" value="1" <?php if(isset($cfgs['main'][$i]['direction']) && $cfgs['main'][$i]['direction'] == 1) echo 'checked'; ?>>反向
                       </label>
                       </span>
 
                     <span class="">
                         <label>
-                        <input name="tpl[main][<?=$i?>][is_big]" type="checkbox" value="1" <?php if($cfgs['main'][$i]['is_big'] == 1) echo 'checked'; ?>>大字
+                        <input name="tpl[main][<?=$i?>][is_big]" type="checkbox" value="1" <?php if(isset($cfgs['main'][$i]['is_big'])&&$cfgs['main'][$i]['is_big'] == 1) echo 'checked'; ?>>大字
                         </label>
                       </span>
                     <span class="">
-                        <input type="text" class="input-sm" placeholder="测试值" style="width:150px;"   name="tpl[main][<?=$i?>][value]" value="<?=$cfgs['main'][$i]['text']?>">
+                        <input type="text" class="input-sm" placeholder="测试值" style="width:150px;" name="tpl[main][<?=$i?>][value]"
+                               value="<?=isset($cfgs['main'][$i]['text']) ? $cfgs['main'][$i]['text'] : ''?>">
                     </span>
                   </div>
                 </div>
@@ -101,31 +106,36 @@ input, select {
                   <label class="col-sm-2 control-label no-padding-right">落款</label>
                   <div class="col-sm-10">
                         <span class="">
-                            <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[inscribe][1][size]" value="<?=$cfgs['inscribe'][1]['size']?>">
+                            <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[inscribe][1][size]"
+                                   value="<?=isset($cfgs['inscribe'][1]['size'])?$cfgs['inscribe'][1]['size']: ''?>">
                         </span>
                     <span class="">
-                        <input type="text" class="input-mini x" placeholder="x" name="tpl[inscribe][1][x]" value="<?=$cfgs['inscribe'][1]['x']?>">
+                        <input type="text" class="input-mini x" placeholder="x" name="tpl[inscribe][1][x]"
+                               value="<?=isset($cfgs['inscribe'][1]['x']) ? $cfgs['inscribe'][1]['x'] : ''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-mini y" placeholder="y" name="tpl[inscribe][1][y]" value="<?=$cfgs['inscribe'][1]['y']?>">
+                        <input type="text" class="input-mini y" placeholder="y" name="tpl[inscribe][1][y]"
+                               value="<?=isset($cfgs['inscribe'][1]['y'])? $cfgs['inscribe'][1]['y'] : ''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[inscribe][1][color]"   value="<?=$cfgs['inscribe'][1]['color']?>">
+                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[inscribe][1][color]"
+                               value="<?=isset($cfgs['inscribe'][1]['color']) ? $cfgs['inscribe'][1]['color']: ''?>">
                     </span>
 
                     <label>
-                      <input name="tpl[inscribe][1][direction]" type="checkbox" value="1" <?php if($cfgs['inscribe'][1]['direction'] == 1) echo 'checked'; ?>>反向
+                      <input name="tpl[inscribe][1][direction]" type="checkbox" value="1" <?php if(isset($cfgs['inscribe'][1]['direction']) && $cfgs['inscribe'][1]['direction'] == 1) echo 'checked'; ?>>反向
                       </label>
                       </span>
 
                     <span class="">
                         <label>
-                        <input name="tpl[inscribe][1][is_big]" type="checkbox" value="1" <?php if($cfgs['inscribe'][1]['is_big'] == 1) echo 'checked'; ?>>大字
+                        <input name="tpl[inscribe][1][is_big]" type="checkbox" value="1" <?php if(isset($cfgs['inscribe'][1]['is_big']) && $cfgs['inscribe'][1]['is_big'] == 1) echo 'checked'; ?>>大字
                         </label>
                       </span>
 
                     <span class="">
-                        <input type="text" class="input-sm" placeholder="测试值"  style="width:150px;" name="tpl[inscribe][1][value]" value="<?=$cfgs['inscribe'][1]['text']?>">
+                        <input type="text" class="input-sm" placeholder="测试值"  style="width:150px;" name="tpl[inscribe][1][value]"
+                               value="<?=isset($cfgs['inscribe'][1]['text'])?$cfgs['inscribe'][1]['text'] : ''?>">
                     </span>
                   </div>
                 </div>
@@ -135,32 +145,37 @@ input, select {
                   <label class="col-sm-2 control-label no-padding-right">落款日期</label>
                   <div class="col-sm-10">
                         <span class="">
-                            <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[inscribe_date][1][size]" value="<?=$cfgs['inscribe_date'][1]['size']?>">
+                            <input type="text" class="input-mini size" placeholder="尺寸" name="tpl[inscribe_date][1][size]"
+                                   value="<?=isset($cfgs['inscribe_date'][1]['size']) ?$cfgs['inscribe_date'][1]['size']: ''?>">
                         </span>
                     <span class="">
-                        <input type="text" class="input-mini x" placeholder="x" name="tpl[inscribe_date][1][x]" value="<?=$cfgs['inscribe_date'][1]['x']?>">
+                        <input type="text" class="input-mini x" placeholder="x" name="tpl[inscribe_date][1][x]"
+                               value="<?=isset($cfgs['inscribe_date'][1]['x']) ? $cfgs['inscribe_date'][1]['x'] :''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-mini y" placeholder="y" name="tpl[inscribe_date][1][y]" value="<?=$cfgs['inscribe_date'][1]['y']?>">
+                        <input type="text" class="input-mini y" placeholder="y" name="tpl[inscribe_date][1][y]"
+                               value="<?=isset($cfgs['inscribe_date'][1]['y']) ? $cfgs['inscribe_date'][1]['y'] : ''?>">
                     </span>
                     <span class="">
-                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[inscribe_date][1][color]"   value="<?=$cfgs['inscribe_date'][1]['color']?>">
+                        <input type="text" class="input-small colorpicker1" placeholder="颜色" name="tpl[inscribe_date][1][color]"
+                               value="<?=isset($cfgs['inscribe_date'][1]['color']) ? $cfgs['inscribe_date'][1]['color'] : ''?>">
                     </span>
 
                     <label>
-                      <input name="tpl[inscribe_date][1][direction]" type="checkbox" value="1" <?php if($cfgs['inscribe_date'][1]['direction'] == 1) echo 'checked'; ?>>反向
+                      <input name="tpl[inscribe_date][1][direction]" type="checkbox" value="1" <?php if(isset($cfgs['inscribe_date'][1]['direction']) && $cfgs['inscribe_date'][1]['direction'] == 1) echo 'checked'; ?>>反向
                       </label>
                       </span>
 
                     <span class="">
                         <label>
-                        <input name="tpl[inscribe_date][1][is_big]" type="checkbox" value="1" <?php if($cfgs['inscribe_date'][1]['is_big'] == 1) echo 'checked'; ?>>大字
+                        <input name="tpl[inscribe_date][1][is_big]" type="checkbox" value="1" <?php if(isset($cfgs['inscribe_date'][1]['is_big']) && $cfgs['inscribe_date'][1]['is_big'] == 1) echo 'checked'; ?>>大字
                         </label>
                       </span>
 
 
                     <span class="">
-                        <input type="text" class="input-sm" placeholder="测试值"  style="width:150px;" name="tpl[inscribe_date][1][value]" value="<?=$cfgs['inscribe_date'][1]['text']?>">
+                        <input type="text" class="input-sm" placeholder="测试值"  style="width:150px;" name="tpl[inscribe_date][1][value]"
+                               value="<?=isset($cfgs['inscribe_date'][1]['text'])?$cfgs['inscribe_date'][1]['text']:''?>">
                     </span>
                   </div>
                 </div>

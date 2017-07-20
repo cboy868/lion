@@ -11,6 +11,7 @@ use yii\bootstrap\Modal;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '碑文墓区样式配置';
+$this->params['breadcrumbs'][] = ['label' => '配置总表', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -43,9 +44,10 @@ ul.grave-list li.selected{
   </div>
   <div class="row">
     <div class="col-xs-12">
-		<h2><?=$cfg['name']?> <font size="2">-- <?=$cfg['note']?>&nbsp;
-        <button class="btn btn-xs all" rel='add'>全选</button>&nbsp;&nbsp;
-        <button class="btn btn-xs all" rel='del'>全部删除</button></span></h2>
+        <h2><?=$cfg['name']?> -- <font size="5"><?=$cfg['note']?></font>
+            <button class="btn btn-xs all" rel='add'>全选</button>
+            <button class="btn btn-xs all" rel='del'>全部删除</button></span>
+        </h2>
 		<ul class="grave-list">
 
             <?php foreach ($graves as $grave): ?>

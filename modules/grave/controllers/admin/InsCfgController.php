@@ -98,7 +98,7 @@ class InsCfgController extends BackController
         $flag = true;
         if ($action == 'del') {
 
-            if ($data['grave_id']) {
+            if (isset($data['grave_id']) && $data['grave_id']) {
                 $model = InsCfgRel::find()->where($data)->one();
                 $flag = $model->delete();
             } else {

@@ -113,10 +113,6 @@ FootableAsset::register($this);
 
                         ]) ?>
 
-
-
-
-
                     <li class="<?php if (!$cid) { echo 'active'; } ?>" >
                         <a href="<?=Url::toRoute(['index', 'mid'=>$module->id])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
@@ -222,7 +218,8 @@ FootableAsset::register($this);
                 <?=$this->render('_text',[
                         'dataProvider' => $dataProvider,
                         'type' => $type,
-                        'mid' =>$module->id
+                        'mid' =>$module->id,
+                        'i18n_flag' => $i18n_flag
                 ]) ?>
 
                 </div>

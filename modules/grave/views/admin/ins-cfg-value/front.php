@@ -3,7 +3,7 @@ use app\core\helpers\Url;
 
 $this->title = '碑文模板样式制作';
 $this->params['breadcrumbs'][] = ['label' => '配置首页', 'url' => ['/grave/admin/ins-cfg/index']];
-$this->params['breadcrumbs'][] = ['label' => '配置项', 'url' => ['/grave/admin/ins-cfg-case/index']];
+$this->params['breadcrumbs'][] = ['label' => '配置项', 'url' => ['/grave/admin/ins-cfg-case/index', 'cfg_id'=>$cfg->id]];
 $this->params['breadcrumbs'][] = $this->title;
 
  ?>

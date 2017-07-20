@@ -9,7 +9,7 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\grave\models\search\InsCfgValue */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ins Cfg Values';
+$this->title = '配置项';
 $this->params['breadcrumbs'][] = $this->title;
 
 

@@ -70,7 +70,9 @@ use app\modules\cms\models\Post;
                     $url = Url::toRoute(['delete', 'id'=>$model->id, 'mid'=>$mid]);
                     return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
                 },
-                'update-lg' => function($url, $model, $key) use ($mid) {
+                'update-lg' => function($url, $model, $key) use ($mid, $i18n_flag) {
+
+                    if (!$i18n_flag) return '';
                     $url = Url::toRoute(['update-lg', 'id'=>$model->id, 'mid'=>$mid, 'type'=>Post::types($model->type)]);
                     return Html::a('多语言编辑', $url, ['title' => '多语言'] );
                 },
