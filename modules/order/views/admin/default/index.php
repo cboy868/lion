@@ -6,14 +6,8 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use app\modules\order\models\Order;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\order\models\OrderSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = '订单列表';
 $this->params['breadcrumbs'][] = $this->title;
-
-
 ?>
 
 <div class="page-content">
@@ -55,6 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{delete} {view} {refund}',
+                'visibleButtons' =>[
+                    'view' =>Yii::$app->user->can('order/default/view'),
+                    'delete' =>Yii::$app->user->can('order/default/delete'),
+                    'refund' =>Yii::$app->user->can('order/default/refund'),
+                ],
                 'buttons' => [
                     'delete' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );

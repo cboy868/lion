@@ -60,6 +60,9 @@ $config = [
         ],
         'authManager' => [
             'class' => 'app\modules\sys\rbac\DbManager',
+            'cache' => [
+                'class'=>'yii\caching\FileCache'
+            ]
         ],
         'formatter' => [
             'class' => 'yii\i18n\Formatter',

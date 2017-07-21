@@ -23,6 +23,11 @@ echo GridView::widget([
 					'class' => 'yii\grid\ActionColumn',
 					'template' => '{download} {restore} {delete}',
 					'header' => '操作',
+                    'visibleButtons' =>[
+                        'download' =>Yii::$app->user->can('sys/backup/download'),
+                        'restore' =>Yii::$app->user->can('sys/backup/restore'),
+                        'delete' =>Yii::$app->user->can('sys/backup/delete'),
+                    ],
 					'buttons' => [
 						'download' => function ($url, $model) {
 							$url = Url::toRoute(['download','filename'=>$model['name']]);

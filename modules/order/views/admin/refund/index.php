@@ -70,6 +70,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{delete} {verify}',
+                'visibleButtons' =>[
+                    'delete' =>Yii::$app->user->can('order/refund/delete'),
+                    'verfy' =>Yii::$app->user->can('order/refund/verfy'),
+                ],
                 'buttons' => [
                     'verify' => function($url, $model, $key) {
 

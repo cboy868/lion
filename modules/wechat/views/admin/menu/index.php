@@ -142,6 +142,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'yii\grid\ActionColumn',
                                 'header'=>'操作',
                                 'template' => '{delete} {info}',
+                                'visibleButtons' =>[
+                                    'delete' =>Yii::$app->user->can('wechat/menu/delete'),
+                                    'info' =>Yii::$app->user->can('wechat/menu/info'),
+                                ],
                                 'buttons' => [
                                     'info' => function($url, $model, $key) {
                                         return Html::a('管理', $url, ['title' => '进入公众号'] );

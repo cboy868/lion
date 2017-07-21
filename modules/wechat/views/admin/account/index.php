@@ -25,7 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?>
             -->
                     <small>
+                        <?php if (Yii::$app->user->can('wechat/account/create')):?>
                         <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                        <?php endif;?>
                     </small>
                 </h1>
             </div><!-- /.page-header -->
@@ -64,11 +66,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'yii\grid\ActionColumn',
                                 'header'=>'操作',
                                 'template' => '{update} {delete} {view} {switch}',
+                                'visibleButtons' =>[
+                                    'update' =>Yii::$app->user->can('wechat/account/update'),
+                                    'view' =>Yii::$app->user->can('wechat/account/view'),
+                                    'delete' =>Yii::$app->user->can('wechat/account/delete'),
+                                    'switch' =>Yii::$app->user->can('wechat/account/switch'),
+                                ],
                                 'buttons' => [
                                     'switch' => function($url, $model, $key) {
                                         return Html::a('进入公众号', $url, ['title' => '进入公众号'] );
                                     }
-
                                 ],
                                 'headerOptions' => ['width' => '240',"data-type"=>"html"]
                             ]

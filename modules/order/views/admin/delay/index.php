@@ -87,6 +87,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{delete} {verfy}',
+                'visibleButtons' =>[
+                    'delete' =>Yii::$app->user->can('order/delay/delete'),
+                    'verfy' =>Yii::$app->user->can('order/delay/verfy'),
+                ],
                 'buttons' => [
 
                     // 'more' => function($url, $model, $key) {

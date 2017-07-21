@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
 
-
                                 <div class="send-form">
 
                                     <?php $form = ActiveForm::begin(); ?>
@@ -102,6 +101,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{delete}',
+                'visibleButtons' =>[
+                    'delete' =>Yii::$app->user->can('sms/default/delete'),
+                ],
                 'buttons' => [
                     'delete' => function($url, $model, $key) {
                         if ($model->status == $model::STATUS_OK) {

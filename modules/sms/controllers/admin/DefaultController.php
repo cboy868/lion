@@ -49,7 +49,6 @@ class DefaultController extends BackController
 
             $users = self::parseUsers($model);
 
-
             foreach ($users as $k => $v) {
                 if (!$v) {
                     continue;
@@ -61,9 +60,7 @@ class DefaultController extends BackController
                 $m->save();
             }
 
-
             return $this->redirect(['index']);
-
         }
 
 

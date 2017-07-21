@@ -5,10 +5,6 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\user\models\UserSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = '数据备份';
 $this->params['breadcrumbs'][] = ['label' => '系统管理', 'url' => ['admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,10 +21,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	                <?= Html::encode($this->title) ?>
 					<small>
 						<div class="btn-group pull-right">
+                            <?php if (Yii::$app->user->can('sys/backup/index')):?>
 			        		<a href="<?=Url::toRoute(['index'])?>" class="btn btn-info">备份列表</a>
+                            <?php endif;?>
+                            <?php if (Yii::$app->user->can('sys/backup/create')):?>
 			        		<a href="<?=Url::toRoute(['create'])?>" class="btn btn-info">创建新备份</a>
+                            <?php endif;?>
+                            <?php if (Yii::$app->user->can('sys/backup/upload')):?>
 			        		<a href="<?=Url::toRoute(['upload'])?>" class="btn btn-info">上传备份文件</a>
+                            <?php endif;?>
+                            <?php if (Yii::$app->user->can('sys/backup/clean')):?>
 			        		<a href="<?=Url::toRoute(['clean'])?>" class="btn btn-warning">清空数据库</a>
+                            <?php endif;?>
 						</div>
 					</small>
 				</h1>

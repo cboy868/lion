@@ -23,7 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
+                    <?php if (Yii::$app->user->can('sys/menu/create')):?>
                     <a id="modalButton" href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm new-menu modalAddButton' title="新增菜单" data-loading-text="页面加载中, 请稍后..." onclick="return false">新增菜单</a>
+                    <?php endif;?>
                 </small>
 
             </h1>
@@ -96,10 +98,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                 </form>
                             </td>
-                            <td> 
+                            <td>
+                            <?php if (Yii::$app->user->can('sys/menu/update')):?>
                                 <?= Html::a('编辑', ['update', 'id' => $v['id']],
                                     ['class' => 'btn btn-info btn-xs modalEditButton', 'title'=>'更新菜单',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]
-                                ) ?> 
+                                ) ?>
+                                <?php endif;?>
+                                <?php if (Yii::$app->user->can('sys/menu/delete')):?>
                                 <?= Html::a('删除', ['delete', 'id' => $v['id']], [
                                         'class' => 'btn btn-danger btn-xs delete',
                                         'data' => [
@@ -107,6 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'method' => 'post',
                                         ],
                                     ]) ?>
+                                <?php endif;?>
                             </td>
                         </tr>
                         <?php endforeach;?>

@@ -9,7 +9,7 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\sms\models\EmailSendSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Email Sends';
+$this->title = '发送邮件';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -53,7 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             // 'created_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'view' =>Yii::$app->user->can('sms/email/view'),
+                    'update' =>Yii::$app->user->can('sms/email/update'),
+                    'delete' =>Yii::$app->user->can('sms/email/delete'),
+                ],
+            ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>
