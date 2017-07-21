@@ -77,7 +77,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'updated_at',
             // 'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('grave/dead/update'),
+                    'view' =>Yii::$app->user->can('grave/dead/view'),
+                    'delete' =>Yii::$app->user->can('grave/dead/delete'),
+                ],
+                ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

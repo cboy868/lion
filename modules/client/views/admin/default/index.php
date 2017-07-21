@@ -26,7 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+                    <?php if (Yii::$app->user->can('client/default/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -122,6 +124,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}  {recep}',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('client/default/update'),
+                    'recep' =>Yii::$app->user->can('client/recep/index'),
+                    'delete' =>Yii::$app->user->can('client/default/delete'),
+                ],
                 'buttons' => [
                     'recep' => function($url, $model, $key) {
                         return Html::a('联系记录', Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );

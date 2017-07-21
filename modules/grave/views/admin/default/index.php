@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::encode($this->title) ?> 
                 <small>
                     墓区管理页面
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -39,7 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-2">
                  <ul class="nav nav-list">
+                     <?php if (Yii::$app->user->can('grave/default/create')):?>
                      <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create'], ['class' => 'btn btn-primary btn-sm ', 'style'=>'width:100%']) ?>
+                     <?php endif;?>
                      <li class="<?php if (!$id) { echo 'active'; } ?>" >
                          <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
@@ -160,8 +161,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <tr><th>操作</th><td colspan="2">
                                     <div style="float: right;">
+                                        <?php if (Yii::$app->user->can('grave/default/update')):?>
                                     <a href="<?=Url::toRoute(['update', 'id'=>$model->id])?>" class="btn btn-default"><i class="fa fa-edit"></i> 编辑</a>
+                                        <?php endif;?>
                                     <?php if ($model->is_leaf): ?>
+                                        <?php if (Yii::$app->user->can('grave/default/recommend')):?>
                                         <a href="<?=Url::toRoute(['recommend', 'id'=>$model->id])?>" class="recommend btn btn-default" style="color:green;">
                                             <?php if ($model->recommend):?>
                                                 取消推荐
@@ -169,15 +173,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 推荐
                                             <?php endif;?>
                                         </a>
+                                        <?php endif;?>
+                                        <?php if (Yii::$app->user->can('grave/tomb/create')):?>
                                         <a href="<?=Url::toRoute(['admin/tomb/create', 'grave_id'=>$model->id])?>" class="btn btn-default"><i class="fa fa-plus"></i> 添加墓位</a>
-                                        &nbsp;
+                                        &nbsp;<?php endif;?>
+                                        <?php if (Yii::$app->user->can('grave/default/delete')):?>
                                         <a href="<?=Url::toRoute(['delete', 'id'=>$model->id])?>"
                                            class="btn btn-default"
                                            style="color:red;" data-confirm="您确定要删除此项吗？"
                                            data-method="post" data-pjax="0"><i class="fa fa-trash"></i> 删除
                                         </a>
-
+                                        <?php endif;?>
+                                        <?php if (Yii::$app->user->can('grave/tomb/index')):?>
                                         <a href="<?=Url::toRoute(['/grave/admin/tomb/index', 'grave_id'=>$model->id])?>" class="btn btn-success" target="_blank"> 进入墓位列表</a>
+                                        <?php endif;?>
                                     <?php endif ?>
                                     </div>
                                 </td>

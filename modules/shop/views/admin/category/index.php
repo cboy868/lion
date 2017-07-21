@@ -26,20 +26,29 @@ Tabletree::register($this);
         <div class="page-header">
             <h1>
                 <small>
-                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' data-loading-text="页面加载中, 请稍后..." onclick="return false" title="添加分类"><i class="fa fa-plus"></i>添加分类</a>
-
+                    <?php if (Yii::$app->user->can('shop/category/create')):?>
+                    <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton'
+                       data-loading-text="页面加载中, 请稍后..." onclick="return false" title="添加分类">
+                        <i class="fa fa-plus"></i>添加分类</a>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/type/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/type/index'])?>">
                             <i class="fa fa-cubes fa-2x"></i>  商品类型管理</a>
                     </div>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/goods/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/goods/index'])?>">
                             <i class="fa fa-shopping-basket fa-2x"></i>  商品管理</a>
                     </div>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/bag/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/bag/index'])?>">
                             <i class="fa fa-shopping-bag fa-2x"></i>  打包品管理</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -88,10 +97,13 @@ Tabletree::register($this);
                             <td><?=$v['name']?></td>
                             <td><img src="<?=$v['cover']?>" width="36" height="36"></td>
                             <td><?=date('Y/m/d',$v['created_at'])?></td>
-                            <td> 
+                            <td>
+                                <?php if (Yii::$app->user->can('shop/goods/update')):?>
                                 <?= Html::a('编辑', ['update', 'id' => $v['id']],
                                     ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false" ]
-                                ) ?> 
+                                ) ?>
+                                <?php endif;?>
+                                <?php if (Yii::$app->user->can('shop/goods/delete')):?>
                                 <?= Html::a('删除', ['delete', 'id' => $v['id']], [
                                         'class' => 'btn btn-danger btn-xs delete',
                                         'data' => [
@@ -99,6 +111,7 @@ Tabletree::register($this);
                                             'method' => 'post',
                                         ],
                                     ]) ?>
+                                <?php endif;?>
                             </td>
                         </tr>
 
@@ -108,10 +121,13 @@ Tabletree::register($this);
                                         <td><?=$v2['name']?></td>
                                         <td><img src="<?=$v2['cover']?>" width="36" height="36"></td>
                                         <td><?=date('Y/m/d',$v2['created_at'])?></td>
-                                        <td> 
+                                        <td>
+                                    <?php if (Yii::$app->user->can('shop/goods/update')):?>
                                             <?= Html::a('编辑', ['update', 'id' => $v2['id']],
                                                 ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false" ]
-                                            ) ?> 
+                                            ) ?>
+                                    <?php endif;?>
+                                    <?php if (Yii::$app->user->can('shop/goods/delete')):?>
                                             <?= Html::a('删除', ['delete', 'id' => $v2['id']], [
                                                     'class' => 'btn btn-danger btn-xs delete',
                                                     'data' => [
@@ -119,6 +135,7 @@ Tabletree::register($this);
                                                         'method' => 'post',
                                                     ],
                                                 ]) ?>
+                                        <?php endif;?>
                                         </td>
                                     </tr>
                                     <?php if (isset($v2['children'])): ?>
@@ -127,10 +144,13 @@ Tabletree::register($this);
                                                 <td><?=$v3['name']?></td>
                                                 <td><img src="<?=$v3['cover']?>" width="36" height="36"></td>
                                                 <td><?=date('Y/m/d',$v3['created_at'])?></td>
-                                                <td> 
+                                                <td>
+                                            <?php if (Yii::$app->user->can('shop/goods/update')):?>
                                                     <?= Html::a('编辑', ['update', 'id' => $v3['id']],
                                                         ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false" ]
-                                                    ) ?> 
+                                                    ) ?>
+                                                <?php endif;?>
+                                            <?php if (Yii::$app->user->can('shop/goods/delete')):?>
                                                     <?= Html::a('删除', ['delete', 'id' => $v3['id']], [
                                                             'class' => 'btn btn-danger btn-xs delete',
                                                             'data' => [
@@ -138,6 +158,7 @@ Tabletree::register($this);
                                                                 'method' => 'post',
                                                             ],
                                                         ]) ?>
+                                                <?php endif;?>
                                                 </td>
                                             </tr>  
                                         <?php endforeach ?>

@@ -23,11 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
+                    <?php if (Yii::$app->user->can('shop/bag/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+                    <?php endif;?>
+
+                    <?php if (Yii::$app->user->can('shop/goods/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/goods/index'])?>">
                             <i class="fa fa-shopping-basket fa-2x"></i>  普通商品管理</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -69,6 +74,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{update} {delete} {view} {rel}',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('shop/bag/update-cate'),
+                    'rel' =>Yii::$app->user->can('shop/bag/rel'),
+                    'delete' =>Yii::$app->user->can('shop/bag/delete'),
+                    'view' =>Yii::$app->user->can('shop/bag/view'),
+                ],
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑'] );

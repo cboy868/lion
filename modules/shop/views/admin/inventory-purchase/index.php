@@ -26,16 +26,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+                    <?php if (Yii::$app->user->can('shop/inventory-supplier/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 进 货', ['create'], ['class' => 'btn btn-info btn-sm']) ?>
-
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/inventory-supplier/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-supplier/index'])?>">
                             <i class="fa fa-hand-o-right fa-2x"></i>  供货商管理</a>
                     </div>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/inventory-supplier/refunds')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-purchase/refunds'])?>">
                             <i class="fa fa-rotate-left fa-2x"></i>  退货管理</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -126,6 +131,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{rel-refund}',
+                'visibleButtons' =>[
+                    'rel-refund' =>Yii::$app->user->can('shop/inventory-purchase/rel-refund'),
+                ],
                 'buttons' => [
                     'rel-refund' => function($url, $model, $key) {
                         return Html::a('退货', $url, ['title' => '退货', 'data-confirm'=>"您确定要进行退货操作吗？","data-method"=>"post"] );

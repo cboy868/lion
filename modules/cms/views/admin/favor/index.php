@@ -55,6 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'delete' =>Yii::$app->user->can('cms/favor/delete'),
+                ],
                 'header'=>'操作',
                 'template' => '{delete}',
                 'headerOptions' => ['width' => '140',"data-type"=>"html"]

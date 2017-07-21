@@ -6,14 +6,8 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\Type */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = '类型列表';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 <style type="text/css">
@@ -28,13 +22,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+                    <?php if (Yii::$app->user->can('shop/type/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+                    <?php endif;?>
 
-
+                    <?php if (Yii::$app->user->can('shop/category/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/category/index'])?>">
                             <i class="fa fa-sitemap fa-2x"></i>  商品分类管理</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -85,6 +82,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{update} {delete} {spec} {attr}',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('shop/type/update'),
+                    'spec' =>Yii::$app->user->can('shop/type/spec'),
+                    'attr' =>Yii::$app->user->can('shop/type/attr'),
+                    'delete' =>Yii::$app->user->can('shop/type/delete'),
+                ],
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );

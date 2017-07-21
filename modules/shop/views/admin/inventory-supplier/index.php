@@ -27,15 +27,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+                    <?php if (Yii::$app->user->can('shop/inventory-supplier/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+                    <?php endif;?>
+
+                    <?php if (Yii::$app->user->can('shop/inventory-purchase/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-purchase/index'])?>">
                             <i class="fa fa-cart-plus fa-2x"></i>  进货记录</a>
                     </div>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/inventory-purchase/refunds')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-purchase/refunds'])?>">
                             <i class="fa fa-rotate-left fa-2x"></i>  退货记录</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -84,7 +91,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' =>'raw'
             ],
             'note:ntext',
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('shop/inventory-supplier/update'),
+                    'view' =>Yii::$app->user->can('shop/inventory-supplier/view'),
+                    'delete' =>Yii::$app->user->can('shop/inventory-supplier/delete'),
+                ],
+            ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

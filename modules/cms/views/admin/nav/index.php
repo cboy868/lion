@@ -24,7 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+                    <?php if (Yii::$app->user->can('cms/nav/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -58,6 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{update} {delete}',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('cms/nav/update'),
+                    'delete' =>Yii::$app->user->can('cms/nav/delete'),
+                ],
                 'headerOptions' => ['width' => '240',"data-type"=>"html"]
             ]
 

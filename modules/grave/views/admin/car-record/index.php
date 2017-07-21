@@ -100,6 +100,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete} {complete} {receive}',
+                'visibleButtons' =>[
+                    'complete' =>Yii::$app->user->can('grave/car-record/complete'),
+                    'receive' =>Yii::$app->user->can('grave/car-record/receive'),
+                    'delete' =>Yii::$app->user->can('grave/car-record/delete'),
+                ],
                 'buttons' => [
                     'complete' => function($url, $model, $key) {
                         return $model->status == \app\modules\grave\models\CarRecord::STATUS_RECEIVE ? Html::a('确认完成', $url, ['title' => '确认完成', 'class'=>'cmp btn btn-default btn-sm'] ) : '';

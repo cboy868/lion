@@ -97,6 +97,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete} {view}',
+                'visibleButtons' =>[
+                    'view' =>Yii::$app->user->can('grave/ins/view'),
+                    'delete' =>Yii::$app->user->can('grave/ins/delete'),
+                ],
             ]
         ],
     ]); ?>

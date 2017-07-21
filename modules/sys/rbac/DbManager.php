@@ -79,6 +79,25 @@ class DbManager extends \yii\rbac\DbManager
         return $items;
     }
 
+    public function checkAccess($userId, $permissionName, $params = [])
+    {
+        if ($userId == 1) {
+//            return true;
+        }
+        $assignments = $this->getAssignments($userId);
+
+        if ($this->hasNoAssignments($assignments)) {
+            return false;
+        }
+
+        $this->loadFromCache();
+        if ($this->items !== null) {
+            return $this->checkAccessFromCache($userId, $permissionName, $params, $assignments);
+        } else {
+            return $this->checkAccessRecursive($userId, $permissionName, $params, $assignments);
+        }
+    }
+
 //    public function getPermissionsByUser($userId)
 //    {
 //

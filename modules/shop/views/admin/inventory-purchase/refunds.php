@@ -24,14 +24,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <?=  $this->title ?> 
                 <small>
+                    <?php if (Yii::$app->user->can('shop/inventory-supplier/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-supplier/index'])?>">
                             <i class="fa fa-hand-o-right fa-2x"></i>  供货商管理</a>
                     </div>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/inventory-purchase/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/inventory-purchase/index'])?>">
                             <i class="fa fa-cart-plus fa-2x"></i>  进货记录</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->

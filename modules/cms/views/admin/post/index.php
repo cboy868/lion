@@ -73,17 +73,21 @@ FootableAsset::register($this);
                     <?php
                     $mod = Yii::$app->request->get('id');
                     ?>
+<?php if (Yii::$app->user->can('mod/default/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/mod/admin/default/index'])?>" target="_blank">
                             <i class="fa fa-th-large fa-2x"></i>  模块管理</a>
                     </div>
+<?php endif;?>
+<?php if (Yii::$app->user->can('cms/category/index')):?>
 
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/cms/admin/category/index','mid'=>$module->id])?>" target="_blank">
                             <i class="fa fa-list-ol fa-2x"></i>  分类管理</a>
                     </div>
 
-
+<?php endif;?>
+<?php if (Yii::$app->user->can('cms/post/create')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false"
                            href="<?=Url::toRoute(['/cms/admin/post/create', 'type'=>'image', 'mid'=>$module->id])?>">
@@ -95,6 +99,7 @@ FootableAsset::register($this);
                            href="<?=Url::toRoute(['/cms/admin/post/create', 'type'=>'text', 'mid'=>$module->id])?>">
                             <i class="fa fa-file-image-o fa-2x"></i>  添加文章</a>
                     </div>
+<?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -103,6 +108,7 @@ FootableAsset::register($this);
             <div class="col-xs-2">
                 <?php $cid = Yii::$app->request->get('category_id');?>
                 <ul class="nav nav-list">
+<?php if (Yii::$app->user->can('cms/post/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 添加新分类',
                         ['/cms/admin/category/create', 'mid'=>$module->id],
                         ['class' => 'btn btn-primary btn-sm modalAddButton',
@@ -112,6 +118,7 @@ FootableAsset::register($this);
                             'style'=>'width:100%',
 
                         ]) ?>
+    <?php endif;?>
 
                     <li class="<?php if (!$cid) { echo 'active'; } ?>" >
                         <a href="<?=Url::toRoute(['index', 'mid'=>$module->id])?>" class="dropdown-toggle">

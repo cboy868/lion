@@ -11,8 +11,6 @@ use app\core\widgets\GridView;
 
 $this->title = '用户附加字段';
 $this->params['breadcrumbs'][] = $this->title;
-
-
 ?>
 
 <div class="page-content">
@@ -24,7 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+                    <?php if (Yii::$app->user->can('user/field/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -55,7 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'order',
             // 'created_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('user/field/update'),
+                    'view' =>Yii::$app->user->can('user/field/view'),
+                    'delete' =>Yii::$app->user->can('user/field/delete'),
+                ],
+            ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

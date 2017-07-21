@@ -25,9 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
             -->
                 <small>
 
-
+                    <?php if (Yii::$app->user->can('user/default/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-
+                    <?php endif;?>
 
                     <?php  //echo  Html::a('<i class="fa fa-trash"></i> 清除不活跃用户', ['drop'], [
                                 //'class' => 'btn btn-danger btn-sm new-menu',
@@ -86,8 +86,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class'=>yii\grid\CheckboxColumn::className(),
                 'name'=>'id',  //设置每行数据的复选框属性
                 'headerOptions' => ['width'=>'30', "data-type"=>"html"],
-                'footer' => '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
-                    '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
+                'footer' => Yii::$app->user->can('user/default/batch-del') ? '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
+                    '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>' : '',
                 'footerOptions' => ['colspan' => 6, 'class'=>'deltd'],  //设置删除按钮垮列显示；
             ],
 //            'id',
@@ -104,7 +104,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('user/default/update'),
+                    'view' =>Yii::$app->user->can('user/default/view'),
+                    'delete' =>Yii::$app->user->can('user/default/delete'),
+                ],
+
+            ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

@@ -86,6 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete} {confirm}',
+                'visibleButtons' =>[
+                    'confirm' =>Yii::$app->user->can('grave/bury/confirm'),
+                    'delete' =>Yii::$app->user->can('grave/bury/delete'),
+                ],
                 'buttons' => [
                     'confirm' => function($url, $model, $key) {
                         return Html::a('确认安葬', $url, [

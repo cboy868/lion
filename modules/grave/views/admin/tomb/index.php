@@ -20,7 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <?= $this->title ?>
                 <small>
+<?php if (Yii::$app->user->can('grave/tomb/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增墓位', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+<?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -150,6 +152,12 @@ $sta = \Yii::$app->request->get('status');
     <li role="separator" class="divider"></li>
   </ul>
 </div>',
+                            'visibleButtons' =>[
+                                'update' =>Yii::$app->user->can('grave/tomb/update'),
+                                'view' =>Yii::$app->user->can('grave/tomb/view'),
+                                'delete' =>Yii::$app->user->can('grave/tomb/delete'),
+                                'option' =>Yii::$app->user->can('grave/tomb/option'),
+                            ],
                             'buttons' => [
                                 'view' => function($url, $model, $key){
                                     return Html::a('墓位明细',$url,['target'=>'_blank']);

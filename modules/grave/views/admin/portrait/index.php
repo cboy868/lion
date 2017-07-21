@@ -152,6 +152,12 @@ HTML;
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete} {view} {complete}',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('grave/portrait/update'),
+                    'view' =>Yii::$app->user->can('grave/portrait/view'),
+                    'delete' =>Yii::$app->user->can('grave/portrait/delete'),
+                    'complete' =>Yii::$app->user->can('grave/portrait/complete'),
+                ],
                 'buttons' => [
                     'complete' => function($url, $model, $key) {
                         return $model->status == Portrait::STATUS_MAKE ? Html::a('完成', $url, ['title' => '完成', 'class'=>'cmp btn btn-default btn-sm'] ) : '';

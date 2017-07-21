@@ -16,6 +16,7 @@ class AuthController extends \app\core\web\BackController
      */
     public function init()
     {
+        parent::init();
         $this->auth = Yii::$app->authManager;
     }
 

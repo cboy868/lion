@@ -21,7 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
+                    <?php if (Yii::$app->user->can('sys/auth-group/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增权限组', ['create'], ['class' => 'btn btn-info btn-sm modalAddButton', 'title'=>'新增权限组',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+                    <?php endif;?>
                 </small>
                 <?= $this->render('@app/modules/sys/views/admin/layout/_nav.php') ?>
             </h1>
@@ -76,6 +78,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{update} {delete} {permission}',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('sys/auth-group/update'),
+                    'permission' =>Yii::$app->user->can('sys/auth-group/permission'),
+                    'delete' =>Yii::$app->user->can('sys/auth-group/delete'),
+                ],
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );

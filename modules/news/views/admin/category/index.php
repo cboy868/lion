@@ -26,12 +26,10 @@ Tabletree::register($this);
         <div class="page-header">
             <h1>
                 <small>
+                    <?php if (Yii::$app->user->can('news/category/create')):?>
                     <a href="<?=Url::to(['create'])?>" class='btn btn-default btn-sm modalAddButton' title="添加分类" data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus fa-2x"></i> 添加分类</a>
-
-                    <div class="pull-right nc">
-                        <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/news/admin/category/index'])?>" target="_blank">
-                            <i class="fa fa-list-ol fa-2x"></i>  分类管理</a>
-                    </div>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('news/default/create')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/news/admin/default/create', 'type'=>'text'])?>" target="_blank">
                             <i class="fa fa-file-text fa-2x"></i>  添加文本资讯</a>
@@ -45,6 +43,7 @@ Tabletree::register($this);
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/news/admin/default/create', 'type'=>'video'])?>" target="_blank">
                             <i class="fa fa-file-video-o fa-2x"></i>  添加视频资讯</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -90,10 +89,13 @@ Tabletree::register($this);
                         <tr data-tt-id=<?=$v['id']?> data-tt-parent-id=<?=$v['pid']?>>
                             <td><img src="<?=$v['cover']?>" width="36" height="36"><?=$v['name']?></td>
                             <td><?=date('Y/m/d',$v['created_at'])?></td>
-                            <td> 
+                            <td>
+                            <?php if (Yii::$app->user->can('news/category/update')):?>
                                 <?= Html::a('编辑', ['update', 'id' => $v['id']],
                                     ['class' => 'btn btn-info btn-xs  modalEditButton', 'title'=>'更新',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]
-                                ) ?> 
+                                ) ?>
+                                <?php endif;?>
+                                <?php if (Yii::$app->user->can('news/category/delete')):?>
                                 <?= Html::a('删除', ['delete', 'id' => $v['id']], [
                                         'class' => 'btn btn-danger btn-xs delete',
                                         'data' => [
@@ -101,6 +103,7 @@ Tabletree::register($this);
                                             'method' => 'post',
                                         ],
                                     ]) ?>
+                            <?php endif;?>
                             </td>
                         </tr>
                         <?php endforeach;?>

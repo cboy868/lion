@@ -116,6 +116,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete} {deal}',
+                'visibleButtons' =>[
+                    'deal' =>Yii::$app->user->can('cms/message/deal'),
+                    'delete' =>Yii::$app->user->can('cms/message/delete'),
+                ],
                 'buttons' => [
                     'deal' => function($url, $model, $key) {
                         if ($model->status == Message::STATUS_NORMAL) {

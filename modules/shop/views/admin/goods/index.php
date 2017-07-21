@@ -28,8 +28,11 @@ FootableAsset::register($this);
             <!-- 
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus"></i> 新增 </button>
+<?php if (Yii::$app->user->can('shop/goods/create')):?>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-plus"></i> 新增
+            </button>
+<?php endif;?>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -66,14 +69,18 @@ FootableAsset::register($this);
 
 
                 <small>
+                    <?php if (Yii::$app->user->can('shop/bag/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/bag/index'])?>">
                             <i class="fa fa-shopping-bag fa-2x"></i>  打包品管理</a>
                     </div>
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('shop/category/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/category/index'])?>">
                             <i class="fa fa-sitemap fa-2x"></i>  商品分类管理</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -282,6 +289,13 @@ $category_id = Yii::$app->getRequest()->get('category_id');
 </div>
 {update} {delete} {view}
 ',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('shop/goods/update-cate'),
+                    'recommend' =>Yii::$app->user->can('shop/goods/recommend'),
+                    'update-lg' =>Yii::$app->user->can('shop/goods/update-lg'),
+                    'delete' =>Yii::$app->user->can('shop/goods/delete'),
+                    'view' =>Yii::$app->user->can('shop/goods/view'),
+                ],
                 'buttons' => [
                     'default' => function($url, $model, $key) {
                         return Html::a('前台查看', Url::toRoute(['/shop/home/default/view', 'id'=>$model->id]), ['title' => '查看', 'target'=>'_blank'] );

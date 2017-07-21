@@ -24,11 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  $this->title ?> 
                 <small>
 
+                    <?php if (Yii::$app->user->can('news/category/index')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-danger btn-sm" href="<?=Url::toRoute(['/news/admin/category/index'])?>">
                             <i class="fa fa-list-ol fa-2x"></i>  分类管理</a>
                     </div>
-                    
+                    <?php endif;?>
+                    <?php if (Yii::$app->user->can('news/default/create')):?>
                     <div class="pull-right nc">
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'text'])?>">
                             <i class="fa fa-file-text fa-2x"></i>  添加文本资讯</a>
@@ -42,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['create', 'type'=>'video'])?>">
                             <i class="fa fa-file-video-o fa-2x"></i>  添加视频资讯</a>
                     </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -156,6 +159,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <li role="separator" class="divider"></li>
   </ul>
 </div>',
+                'visibleButtons' =>[
+                    'update' => \Yii::$app->user->can('news/default/update'),
+                    'delete' => \Yii::$app->user->can('news/default/delete'),
+                    'top' => \Yii::$app->user->can('news/default/top'),
+                    'recommend' => \Yii::$app->user->can('news/default/recommend'),
+                    'update-lg' => \Yii::$app->user->can('news/default/update-lg'),
+                ],
                 'buttons' => [
                     'top' => function($url, $model, $key){
                         if ($model->is_top) {

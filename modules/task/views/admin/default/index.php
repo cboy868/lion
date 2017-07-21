@@ -25,14 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
+                    <?php if (Yii::$app->user->can('task/default/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新任务', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
 
         <?php 
             Modal::begin([
-                'header' => '添增',
+                'header' => '新增',
                 'id' => 'modalAdd',
                 'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
 
@@ -87,6 +89,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
                 'template' => '{update} {delete} {view} {finish}',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('task/default/update'),
+                    'view' =>Yii::$app->user->can('task/default/view'),
+                    'delete' =>Yii::$app->user->can('task/default/delete'),
+                    'finish' =>Yii::$app->user->can('task/default/finish'),
+                ],
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );

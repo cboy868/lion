@@ -53,6 +53,12 @@ use app\modules\cms\models\Post;
             'class' => 'yii\grid\ActionColumn',
             'header'=>'操作',
             'template' => '{update} {delete} {view} {update-lg}',
+            'visibleButtons' =>[
+                'update' =>Yii::$app->user->can('cms/post/update'),
+                'view' =>Yii::$app->user->can('cms/post/view'),
+                'delete' =>Yii::$app->user->can('cms/post/delete'),
+                'update-lg' =>Yii::$app->user->can('cms/post/update-lg'),
+            ],
             'buttons' => [
                 'update' => function($url, $model, $key) use ($mid) {
                     $url = Url::toRoute(['update', 'id'=>$model->id, 'mid'=>$mid, 'type'=>Post::types($model->type)]);

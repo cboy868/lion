@@ -22,7 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
+                    <?php if (Yii::$app->user->can('task/info/create')):?>
                     <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -77,6 +79,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'trigger' => function($url, $model, $key) {
                         return Html::a('触发条件', $url, ['title' => '触发条件', 'class'=>''] );
                     },
+                ],
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('task/info/update'),
+                    'trigger' =>Yii::$app->user->can('task/info/trigger'),
+                    'delete' =>Yii::$app->user->can('task/info/delete'),
                 ],
                 'headerOptions' => ['width' => '120',"data-type"=>"html"]
             ]

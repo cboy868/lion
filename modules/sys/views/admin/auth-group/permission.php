@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <label class=''>
                                             <input name="action" value="<?=$v['name']?>" type="checkbox" <?php if($v['check']) echo 'checked';?> class="action ace">
                                         <span class="lbl "><?php echo $k?>
-                                            <?php echo $v['title']?> <?=$v['check']?>
+                                            <?php echo $v['title']?>
                                         </span>
                                         </label>
                                     </dd>

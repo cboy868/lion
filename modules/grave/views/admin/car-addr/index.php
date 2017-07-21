@@ -17,8 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
+                <?php if (Yii::$app->user->can('grave/car-addr/create')):?>
                     <a href="<?=Url::to(['create'])?>" class='btn btn-primary btn-sm modalAddButton' title="添加分类"
                        data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加分类</a>
+                <?php endif;?>
             </h1>
         </div><!-- /.page-header -->
 
@@ -75,6 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '操作',
                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                 'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('grave/car-addr/update'),
+                    'delete' =>Yii::$app->user->can('grave/car-addr/delete'),
+                ],
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );

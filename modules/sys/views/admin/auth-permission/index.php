@@ -21,7 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <small>
+                    <?php if (Yii::$app->user->can('sys/auth-permission/sync')):?>
                     <a data-loading-text="数据更新中, 请稍后..." href="<?=Url::toRoute('sync')?>" class="btn btn-danger auth-sync">权限初始化</a>
+                    <?php endif;?>
                 </small>
 
                 <?= $this->render('@app/modules/sys/views/admin/layout/_nav.php') ?>
