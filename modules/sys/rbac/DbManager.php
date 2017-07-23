@@ -82,7 +82,7 @@ class DbManager extends \yii\rbac\DbManager
     public function checkAccess($userId, $permissionName, $params = [])
     {
         if ($userId == 1) {
-//            return true;
+            return true;
         }
         $assignments = $this->getAssignments($userId);
 

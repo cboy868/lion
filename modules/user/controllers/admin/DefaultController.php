@@ -2,6 +2,7 @@
 
 namespace app\modules\user\controllers\admin;
 
+use app\core\base\Upload;
 use app\core\helpers\ArrayHelper;
 use app\modules\sys\models\Menu;
 use app\modules\user\models\MenuRel;
@@ -55,6 +56,32 @@ class DefaultController extends BackController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+     * @name 导入数据
+     */
+    public function actionImport()
+    {
+        $upload = Upload::getFileInstanceByName('users');
+
+        $upload->saveFile();
+
+        $info = $upload->getInfo();
+
+        $path = $info['path'] .'/'. $info['fileName'];
+        $rel_path = Yii::getAlias('@app/web') . $path;
+
+
+        \app\core\libs\PHPExcel::import($rel_path);
+
+
+//        $info = $upload->getInfo();
+//
+//        $post = Yii::$app->getRequest()->post();
+//        $id = $post['id'];
+//        $model = Menu::findOne($id);
+//        $model->ico = $info['path'] . '/' . $info['fileName'];
     }
 
 

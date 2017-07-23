@@ -1,0 +1,107 @@
+﻿.onlineImg-list dd .thumb img{
+    width:107px;
+    height:107px;
+    cursor:pointer;
+}
+
+.onlineImg-list dl dd {
+    float: left;
+    list-style: none;
+    margin: 0 0 9px 9px;
+    position: relative;
+    overflow: hidden;
+}
+
+.onlineImg-list dl dd.selected .icon {
+    background-image: url(images/success.png);
+    background-position: 70px 70px;
+}
+
+.onlineImg-list dl dd .icon {
+    cursor: pointer;
+    width: 113px;
+    height: 113px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border: 0;
+    background-repeat: no-repeat;
+}
+
+/*.onlineImg-list dl{
+    float: left;
+    display: block;
+    list-style: none;
+    padding: 0;
+    width: 113px;
+    height: 123px;
+    margin: 0 0 9px 9px;
+    *margin: 0 0 6px 6px;
+    background-color: #eee;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+
+}
+.onlineImg-list dd{
+    position:relative;
+    border:1px solid #e0e0e0;
+
+}
+.onlineImg-list dd .thumb{
+    padding:5px 0;
+    text-align:center;
+    height:116px;
+
+}
+.onlineImg-list dd .thumb img{
+    width:107px;
+    height:107px;
+
+}
+.onlineImg-list dd .thumb img{
+    display:none;
+}
+.onlineImg-list dd .icon{
+    display:none;
+    padding-top:40px;
+    text-align:center;
+}
+
+.onlineImg-list dd:hover{
+    border:1px solid #000;
+}
+.onlineImg-list dd:hover .icon{
+    width:100%;height:100%;position:absolute;cursor:pointer; left:0;top:0;display:block;
+}
+
+.onlineImg-list dd:hover .icon {
+    cursor: pointer;
+    width: 113px;
+    height: 113px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border: 0;
+    background-repeat: no-repeat;
+}
+.onlineImg-list dd:hover .icon:hover {
+    width: 113px;
+    height: 117px;
+    border: 3px solid #1094fa;
+    background-position: 72px 72px;
+}
+
+.onlineImg-list dd.selected .icon {
+    background-image: url(images/success.png);
+    background-image: url(images/success.gif)\9;
+    background-position: 75px 75px;
+}
+.onlineImg-list dd.selected .icon:hover {
+    width: 113px;
+    height: 117px;
+    border: 3px solid #1094fa;
+    background-position: 72px 72px;
+}*/

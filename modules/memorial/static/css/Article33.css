@@ -1,0 +1,9 @@
+﻿.art-content{ width:720px; height:auto; margin:auto;  display:table; margin-top:8px; background-color:#fcf2aa; }
+.art-nerong{ width:720px; height:auto; margin:auto; background:url(Article-pic/top33.jpg) no-repeat top; padding-top:50px;}
+.art-foot{ width:720px; height:253px; margin:auto;  background:url(Article-pic/foot33.jpg) no-repeat top; background-color:#FFFFFF;}
+
+.art-biaoti{ height:auto;  text-align:center; width:680px;  margin:auto; padding-top:8px; padding-bottom:4px;}
+.art-biaoti h1{font-size:20px; font-weight:bold; color:#922009; line-height:20px;}
+.art-fabiren{ height:20px;  text-align:center; width:680px;  margin:auto;  font-size:13px; color:#333333; font-family:Arial; padding-top:8px; padding-bottom:4px;}
+.art-zhenwen{ line-height:25px; width:680px; height:auto;  margin:auto;  padding:10px; font-size:14px; color:#3a3303; font-weight:normal; }
+.art-zhenwen p{ font-size:14px; color:#3a3303; line-height:25px; text-indent:10px; padding-left:10px;}

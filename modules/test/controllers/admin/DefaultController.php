@@ -34,7 +34,7 @@ class DefaultController extends \app\core\web\BackController
 
     public function actionEx()
     {
-        \app\core\libs\PHPExcel::import();
+        \app\core\libs\PHPExcel::import(\Yii::getALias('@app/core/libs/01simple.xlsx'));
     }
 
     public function actionLongContent()

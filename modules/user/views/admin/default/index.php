@@ -4,14 +4,9 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\user\models\UserSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
+\app\assets\JqueryFormAsset::register($this);
 $this->title = '用户列表';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -71,9 +66,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <a href="<?=Url::toRoute(['index','is_staff'=>0])?>" aria-expanded="true">客户</a>
                                 </li>
 
+                                <li style="float: right;">
+
+                                    <form enctype="multipart/form-data" method="post" action="<?=Url::toRoute(['import'])?>" class="cover-form form-inline">
+                                        <div class="form-group " style="margin:0px;">
+                                            <input type="file" class="form-control input-sm up-excel" name="users" value="" style="">
+                                        </div>
+                                        <a href="#" class="btn btn-default">下载模板</a>
+                                    </form>
+
+                                </li>
+
                             </ul>
+
                         </div>
+
                     </div>
+
                 </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -122,7 +131,24 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php $this->beginBlock('foo') ?>
 $(function(){
-$('td.deltd').siblings('td').remove();
+
+    $(".up-excel").change(function () {
+        var _this = this;
+        //$(_this).closest('div').html('文件正在上传，请稍后');
+        $(this).closest('form').ajaxSubmit({
+            dataType: 'json',
+            success: function (data) {
+                if ( data.status ) {
+                    console.dir(data);
+                } else {
+                    alert(data.info);
+                }
+            },
+            error: function (data) {}
+        });
+    });
+
+    $('td.deltd').siblings('td').remove();
 
     $('.btn-delete').click(function(){
         var ids = $('#grid').yiiGridView('getSelectedRows');

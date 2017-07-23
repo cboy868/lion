@@ -1,0 +1,12 @@
+﻿@charset "utf-8";
+.album-list{overflow:hidden;}
+.album-list li{background:url("/Resource/Images/memorials/photo-bbg.png") center top no-repeat;width:367px;height:192px;margin:0 0 20px 22px;padding:20px 0 0 30px;float:left;}
+.album-list .album-cover{width:132px;float:left;margin-right:16px;}
+.album-list .album-pro{width:168px;float:left;font-size:12px;line-height:20px;}
+.album-list .album-pro a{color:#333;display:block;line-height:25px;font-weight:bold;font-size:14px;}
+.album-list .album-pro a:hover{color:#f60;}
+.album-list .album-pro p{color:#666;}
+.album-list .album-pro span{color:#999;display:block;}
+.album-list .album-handle{clear:both;padding-top:10px;}
+.album-list .album-handle a{position:relative;padding:6px 8px;color:#6a6a6a;}
+.album-list .album-handle a:hover{background-color:#eee;border-radius:5px;}

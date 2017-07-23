@@ -29,6 +29,13 @@ $params = [
         'id' => 'cboy868',
         'pwd' => 'wsq850531',
     ],
+    'file' => [
+        'common' => [
+            'fileMaxSize'  => '8048000',
+            'fileAllowFiles' => [".xlsx",".xls"],
+            'filePathFormat' => "/upload/file/{yyyy}{mm}/{time}{rand:3}"
+        ]
+    ],
     'image' => [
     	'common' => [
             'water' => 1,

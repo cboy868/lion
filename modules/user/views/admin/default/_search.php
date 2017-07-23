@@ -22,6 +22,9 @@ use app\core\widgets\ActiveForm;
         <?= Html::a('<i class="fa fa-reply"></i>  重置',Url::toRoute(['index']),['class'=>'btn btn-danger btn-sm']);?>
     </div>
 
+
+
     <?php ActiveForm::end(); ?>
+
 
 </div>

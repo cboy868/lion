@@ -1,0 +1,60 @@
+﻿@charset "utf-8";
+
+.likeIcon{background:url("../../images/memorials/like-icon.gif") left top no-repeat;height:16px;width:16px;display:inline-block;}
+.likeIcon.like{background-position:left top;}
+.likeIcon.give{background-position:right top;}
+
+.news-list{padding:0 15px;}
+.news-list ul{list-style:none;padding:0;margin:0;}
+.news-list li{border-bottom:1px solid #e6e6e6;padding-bottom:15px;margin-bottom:15px;}
+.news-list h4 a{color:#333;font-weight:bold;}
+.news-list h4 a:hover{text-decoration:underline;}
+.new-cont{color:#4a4a4a;line-height:24px;padding-top:10px;}
+.new-data{color:#666;font-size:12px;padding-top:10px;}
+.new-data span{display:inline-block;padding-right:15px;}
+
+.art-content{padding:0 15px;}
+.art-content h2{text-align:center;}
+.add-date{text-align:center;border-bottom:1px solid #e6e6e6; padding-bottom:15px;}
+.add-date span{padding:0 20px;}
+.new-cont{line-height:180%;}
+
+.like-bian{clear:both;padding-top:15px;overflow:hidden;}
+.like-bian ul{list-style:none;padding:0;margin:0;}
+.like-bian li{width:50%;float:left;}
+.like-btn{border:1px solid #e0e0e0;border-radius:5px;margin:0 15px;text-align:center;}
+.like-num, .give-num{color:#555555;text-align:center;border-radius:5px 5px 0 0;padding:5px 10px;min-width:100px;font-size:18px;font-weight:bold;}
+.like-num{background-color:#daf1b1;}
+.give-num{background-color:#ffc855;}
+.like-test{line-height:35px;height:35px;display:block;background-color:#FFF;border-radius:0 0 5px 5px;position:relative;color:#333;font-weight:bold;}
+.like-test .likeIcon{position:relative; top:2px;}
+.pandn{clear:both;padding:15px 0; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6;margin-top:80px }
+
+.fenxiang-bian{position:relative;padding-top:25px; overflow:hidden;}
+.fenxiang-bian .add-bnt-b{position:absolute; right:0; top:25px;}
+.add-bnt-b a{font-size:18px;}
+.add-bnt-b span.add{top:-2px;position:relative;}
+
+.visitor{border:1px solid #e0e0e0; margin-top:25px;padding:10px;width:auto !important;}
+.visitor div{overflow:hidden; }
+.visitor div span{font-size:14px;color:#333;font-weight:bold;}
+
+.ttxx-index-a{width:696px;}
+
+.list-msg{border:1px solid #e0e0e0;padding:15px;width:auto;overflow:hidden;}
+.list-msg textarea{width:97%;}
+.list-msg .mes-index-bnt{width:auto;}
+
+/*****************about*******************/
+.about-ny{line-height:200%;}
+.about-ny p{padding-bottom:10px;}
+/*****************about end*******************/
+
+/*****************打赏*******************/
+.give-body ul{list-style:none;padding:0 30px;margin:0;}
+.give-body li{line-height:28px;}
+.give-body li span{display:block;width:100px;float:left;text-align:justify;text-justify:inter-ideograph;}
+.give-body li div{width:400px;float:left;}
+.give-body li strong{color:#F30;}
+.give-body li label{padding-right:10px;}
+/*****************打赏 end*******************/

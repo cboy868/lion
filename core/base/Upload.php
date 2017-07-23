@@ -89,6 +89,20 @@ class Upload extends Component{
         return $up;
     }
 
+    public static function getFileInstanceByName($name, $res='common', $res_id=null)
+    {
+        $up = new self;
+        $up->uploader = UploadedFile::getInstanceByName($name);
+        if (!$up->uploader) {
+            return false ;
+        }
+        $up->res = $res;
+        $up->res_id = $res_id;
+        $up->setFilePathName();
+        return $up;
+    }
+
+
 
 
 
@@ -150,6 +164,41 @@ class Upload extends Component{
     //         $this->trigger(self::EVENT_AFTER_UPLOAD, $event);
     //     }
     // }
+
+    /**
+     * @name 保存图片之外的其它文件
+     */
+    public function saveFile()
+    {
+        if (!$this->uploader) {
+            return ;//没有上传文件
+        }
+
+//        $filePath = '@app/web' . '/upload/file/'.date('Y')  . date('m') . '/' .$this->fileName;
+//        $filePath = Yii::getAlias($filePath);
+
+        $filePath = $this->getFilePath();
+
+        if (!is_dir(dirname($filePath))) {
+            @mkdir(dirname($filePath), 0777, true) or die(dirname($filePath) . ' no permission to write');
+        }
+
+        if ($this->uploader->saveAs($filePath, false) !== false) {
+
+            $info = [
+                'path' => $this->path,
+                'fileName' => $this->fileName,
+                'ext'  => $this->ext,
+                'res' => $this->res,
+                'title' => $this->title,
+                'filePath' => $filePath,
+                'use' => $this->use ? $this->use : null,
+                'res_id' => $this->res_id ? $this->res_id : null
+            ];
+
+        }
+
+    }
 
     /**
      * @name 保存图片，新改的,为每张缩略图加水印
@@ -328,8 +377,6 @@ class Upload extends Component{
         $ext = $this->getExtension();
         $format = '/' . ltrim($format, '/');
 
-        
-
         $this->ext = $ext;
         $this->path = dirname($format);
         $this->fileName = basename($format).'.'.$ext;
@@ -339,6 +386,59 @@ class Upload extends Component{
 
         $base_arr = explode('/', $format, 3);
         $this->backPath = dirname('/' . $base_arr[1] . '/ori/' . $base_arr[2]). '/' . $this->fileName;
+    }
+
+
+    private function setFilePathName()
+    {
+        //替换日期事件
+        $t = time();
+        $d = explode('-', date("Y-y-m-d-H-i-s"));
+        $format = self::getFileConfig($this->res,'filePathFormat');
+        $format = str_replace("{yyyy}", $d[0], $format);
+        $format = str_replace("{yy}", $d[1], $format);
+        $format = str_replace("{mm}", $d[2], $format);
+        $format = str_replace("{dd}", $d[3], $format);
+        $format = str_replace("{hh}", $d[4], $format);
+        $format = str_replace("{ii}", $d[5], $format);
+        $format = str_replace("{ss}", $d[6], $format);
+        $format = str_replace("{time}", $t, $format);
+
+        //替换随机字符串
+        $randNum = rand(1, 10000000000) . rand(1, 10000000000);
+        if (preg_match("/\{rand\:([\d]*)\}/i", $format, $matches)) {
+            $format = preg_replace("/\{rand\:[\d]*\}/i", substr($randNum, 0, $matches[1]), $format);
+        }
+
+        $ext = basename($this->uploader->name);
+        $ext = substr($ext, strrpos($ext, '.'));
+
+        $format = '/' . ltrim($format, '/');
+
+        $this->ext = $ext;
+        $this->path = dirname($format);
+        $this->fileName = basename($format).$ext;
+        $this->fullPath = $this->path .'/'. $this->fileName;
+        $this->originPath = $this->path . '/' . $this->originName . '_' .$this->fileName;
+        $this->title = $this->uploader->name;
+    }
+
+    public static function getFileConfig($res, $field=null)
+    {
+        $configs = Yii::$app->params['file'];
+
+        $current_config = isset($configs[$res]) ? $configs[$res] : [];
+
+        $config = array_merge($configs['common'], $current_config);
+
+        if ($field) {
+            if (!isset($config[$field])) {
+                return false;
+            }
+            return $config[$field];
+        } else {
+            return $config;
+        }
     }
 
     

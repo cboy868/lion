@@ -70,11 +70,15 @@ class PHPExcel extends \PHPExcel
 	/**
 	 * @name 导入
 	 */
-	public static function import()
+	public static function import($excel_file)
 	{
+
+
+
 		$reader = \PHPExcel_IOFactory::createReader('Excel2007'); //设置以Excel5格式(Excel97-2003工作簿)
-		$PHPExcel = $reader->load(\Yii::getALias('@app/core/libs/01simple.xlsx')); // 载入excel文件
-		 
+//		$PHPExcel = $reader->load(\Yii::getALias('@app/core/libs/01simple.xlsx')); // 载入excel文件
+
+        $PHPExcel = $reader->load($excel_file);
 		foreach($PHPExcel->getWorksheetIterator() as $sheet)  //循环读取sheet
 		 {
 
