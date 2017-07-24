@@ -85,22 +85,50 @@ class PostController extends Controller
     public function actionView($mid, $id)
     {
         $model = $this->findModel($mid, $id);
-
-        return $model;
-
         if ($model->type == Post::TYPE_IMAGE) {
-            return $model->getImages();
+            return [
+                'album' => $model,
+                'images' => $model->getImages()
+            ];
         } else {
             return $model;
         }
     }
 
+
     protected function findModel($mid, $id)
     {
-        $model = $query = (new \yii\db\Query())
+        Code::createObj('post', $mid);
+
+        $class = '\app\modules\cms\models\mods\Post' . $mid;
+        if (($model = $class::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findModel1($mid, $id)
+    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $model = (new \yii\db\Query())
             ->from('post_' . $mid)
             ->where(['id'=>$id])
             ->one();
+
+        p($model);die;
 
         return $model;
     }
