@@ -88,7 +88,7 @@ class PostController extends Controller
         if ($model->type == Post::TYPE_IMAGE) {
             return [
                 'album' => $model,
-                'images' => $model->getImages()
+                'images' => Post::getPics($mid, $id)
             ];
         } else {
             return $model;

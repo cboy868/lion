@@ -15,16 +15,10 @@ class Post extends \app\modules\cms\models\Post
         return PostImage::getById($this->thumb, $size);
     }
 
-    public function getImages($size=null)
+    public static function getPics($mid, $id, $size=null)
     {
-        if ($this->type != self::TYPE_IMAGE) return ;
 
-        $table = static::tableName();
-        $table = str_replace(['{{', '}}'], '', $table);
-        $mod = substr($table, strpos($table, '_')+1);
-
-        $list = PostImage::find()->where(['mod'=>$mod, 'post_id'=>$this->id])->all();
-
+        $list = PostImage::find()->where(['mod'=>$mid, 'post_id'=>$id])->all();
         $result = [];
 
         foreach ($list as $v) {
