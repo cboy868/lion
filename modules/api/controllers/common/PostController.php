@@ -108,30 +108,6 @@ class PostController extends Controller
         }
     }
 
-    protected function findModel1($mid, $id)
-    {
-
-
-
-
-
-
-
-
-
-
-
-
-
-        $model = (new \yii\db\Query())
-            ->from('post_' . $mid)
-            ->where(['id'=>$id])
-            ->one();
-
-        p($model);die;
-
-        return $model;
-    }
 
     public function actionCates($mid)
     {
