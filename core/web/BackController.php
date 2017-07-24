@@ -15,8 +15,9 @@ class BackController extends \app\core\web\Controller
 
 	public function beforeAction($action)
     {
-        Yii::$app->setHomeUrl(Url::toRoute(['/admin']));
+//        Yii::$app->setHomeUrl(Url::toRoute(['/admin']));
 
+        Yii::$app->setHomeUrl(Url::toRoute(['/admin/grave/workbench']));
         // if (!parent::beforeAction($action)) {
         //     return false;
         // }

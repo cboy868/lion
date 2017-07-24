@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				  </ul>
 
 				  <!-- Tab panes -->
+                    <!--
 				  <div class="tab-content">
 				  	<?php for($i=1; $i<=date('m'); $i++): ?>
 				    <div role="tabpanel" class="tab-pane  <?php if($i==date('m')):?> active<?php endif;?>" id="t<?=$i?>">
@@ -55,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				    </div>
 				    <?php endfor; ?>
 				  </div>
+				  -->
 				</div>
 	        </div>
         </div>

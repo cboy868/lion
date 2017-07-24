@@ -86,7 +86,7 @@ AdminAsset::register($this);
                         </li>
 
                         <li class="green">
-                            <a href="<?=Url::toRoute(['/admin/default/workbench'])?>" target="_blank">
+                            <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>" target="_blank">
                                 工作台
                             </a>
                         </li>

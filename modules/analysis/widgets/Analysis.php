@@ -42,7 +42,13 @@ class Analysis extends \yii\base\Widget
     /**
      * @return string
      * @name 总销量及金额
+     * @desc 暂时有问题，应该只能列出一年的，目的 是想把销售量和金额放在一起展示 再说
      */
+    private function tombSales()
+    {
+        return $this->render('tomb/sales');
+    }
+
     private function tombNum()
     {
         return $this->render('tomb/num');
