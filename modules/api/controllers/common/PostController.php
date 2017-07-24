@@ -84,7 +84,13 @@ class PostController extends Controller
 
     public function actionView($mid, $id)
     {
-        return $this->findModel($mid, $id);
+        $model = $this->findModel($mid, $id);
+
+        if ($model->type == Post::TYPE_IMAGE) {
+            return $model->getImages();
+        } else {
+            return $model;
+        }
     }
 
     protected function findModel($mid, $id)
