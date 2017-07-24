@@ -86,6 +86,8 @@ class PostController extends Controller
     {
         $model = $this->findModel($mid, $id);
 
+        return $model;
+
         if ($model->type == Post::TYPE_IMAGE) {
             return $model->getImages();
         } else {
