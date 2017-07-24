@@ -144,9 +144,16 @@ class Settlement extends \app\core\db\ActiveRecord
         $settles = self::find()->where(['order_id'=>$pay->order_id, 'status'=>self::STATUS_NORMAL])
                                ->all();
 
+
+
+        $guide_id = 0;
+        if (isset($order->tomb->guide_id)) {
+            $guide_id = $order->tomb->guide_id;
+        }
+
         $cdata = [
             'op_id'    => Yii::$app->user->id,
-            'guide_id' => 0,
+            'guide_id' => $guide_id,
             'agent_id' => 0,
             'year'     => date('Y'),
             'quarter'  => ceil((date('n'))/3),

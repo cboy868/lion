@@ -2,6 +2,7 @@
 
 namespace app\modules\order\models;
 
+use app\modules\grave\models\Tomb;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\shop\models\Cart;
@@ -349,6 +350,12 @@ class Order extends \app\core\db\ActiveRecord
         } else {
             return $arr[$type];
         }
+    }
+
+    public function getTomb()
+    {
+        if (!$this->tid) {return null;};
+        return $this->hasOne(Tomb::className(), ['id'=>'tid']);
     }
 
     public function afterSave($insert, $changedAttributes)
