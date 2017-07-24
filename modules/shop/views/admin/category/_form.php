@@ -19,7 +19,6 @@ use app\core\helpers\ArrayHelper;
 
     <?= $form->field($model, 'type_id')->dropDownList(ArrayHelper::map(Type::find()->all(), 'id', 'title')) ?>
 
-    <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -31,7 +30,10 @@ use app\core\helpers\ArrayHelper;
 
     <?= $form->field($model, 'body')->textArea(['rows'=>6])->label('描述') ?>
 
-	<div class="form-group">
+    <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
+
+
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
         </div>

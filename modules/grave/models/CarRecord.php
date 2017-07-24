@@ -117,8 +117,8 @@ class CarRecord extends \app\core\db\ActiveRecord
             'order_rel_id' => 'Order Rel ID',
             'is_cremation' => '是否火化',
             'car_type' => '车类型',
-            'updated_at' => 'Updated At',
-            'created_at' => 'Created At',
+            'updated_at' => '修改时间',
+            'created_at' => '添加时间',
             'bury_id' => '安葬记录',
             'end_time' => '结束时间'
         ];

@@ -26,10 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-md-6">
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'buttons'])?>
 
-                <?=\app\modules\grave\widgets\Analysis::widget(['name'=>'tomb'])?>
 
             </div>
             <div class="col-md-6">
+                <?=\app\modules\analysis\widgets\Analysis::widget(['name'=>'guideSelfMonth'])?>
+
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'task'])?>
 
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'client'])?>

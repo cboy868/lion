@@ -17,10 +17,14 @@ $(function(){
         var data = data.data;
         var name = [],value=[];
         for (var i in data){
-            name.push(data[i].month);
+            name.push(data[i].month + '月');
             value.push(parseFloat(data[i].total));
         }
         option = {
+            title:{
+                'text':'个人销售金额统计',
+                'left':'right'
+            },
             color: ['#3398aB'],
             tooltip : {
                 trigger: 'axis',

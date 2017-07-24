@@ -35,6 +35,7 @@ use yii\bootstrap\Modal;
 <!--    <div class="widget-header">-->
 <!--        <h4 class="widget-title lighter"><i class="fa fa-cubes"></i> 业务</h4>-->
 <!--    </div>-->
+    <?php if (Yii::$app->user->can('/grave/admin/tomb/search')):?>
     <div class="widget-body">
         <div class="widget-main padding-12 no-padding-left no-padding-right">
             <a href="<?=Url::toRoute(['/grave/admin/tomb/search'])?>" class="btn btn-default modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
@@ -43,6 +44,7 @@ use yii\bootstrap\Modal;
             </a>
         </div>
     </div>
+    <?php endif;?>
 </div>
 <?php foreach ($menus as $k=>$v):?>
 <div class="widget-box transparent ui-sortable-handle" style="opacity: 1;">
@@ -66,6 +68,7 @@ use yii\bootstrap\Modal;
     <div class="widget-body">
         <div class="widget-main padding-12 no-padding-left no-padding-right">
             <?php foreach ($v as $menu):?>
+                <?php if (!Yii::$app->user->can($menu['auth_name'])) continue;?>
             <a href="<?=$menu['url']?>" target="_blank" class="btn btn-default">
                 <img src="<?=$menu['ico']?>" class="fa-app">
                 <?=$menu['name']?>

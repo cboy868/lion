@@ -5,9 +5,9 @@ $thumb = require(__DIR__ . '/thumb.php');
 $goods = require(__DIR__ . '/goods.php');
 
 $params = [
-    'version' =>'0.1',
+    'version' =>'20170620 1.0',
     'adminEmail' => 'cboy868@163.com',
-    'supportEmail' => 'support@example.com',
+    'supportEmail' => 'info@zhuo-xun.com',
     'user.passwordResetTokenExpire' => 3600,
     'i18n' => [
         'flag'=>false,

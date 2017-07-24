@@ -128,7 +128,9 @@ class MallController extends BackController
             $info = (array) $info;
         }unset($info);
 
-        $config = Yii::$app->params['goods']['cate'];
+        $config = Yii::$app->getModule('grave')->params['goods']['cate'];
+
+//        $config = Yii::$app->params['goods']['cate'];
 
         $ins_cate = $config['ins'];
         $portrait_cate = $config['portrait'];
@@ -147,6 +149,7 @@ class MallController extends BackController
             $order_info = $sku->order($tomb->user_id, $extra);
             $rel = $order_info['rel'];
             $goods = Goods::findOne($info['id']);
+
 
             if ($ins_cate == $goods->category_id) {
                 InsProcess::insGoods($tomb_id, $sku, $rel);

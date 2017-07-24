@@ -24,6 +24,11 @@ use yii\bootstrap\Modal;
         top: 1px;
         right: 5px;
     }
+    li.media, li.media:first-child{
+        width: 49%;
+        float: left;
+        margin-top:5px;
+    }
 </style>
 
 <div class="widget-box transparent ui-sortable-handle client" style="opacity: 1;">

@@ -17,8 +17,6 @@ if (!isset($point[0])) {
     var geolocation = new BMap.Geolocation();
     var ya_lat = <?=$point[1]?>;
     var ya_lng = <?=$point[0]?>;
-    var ya_lat = 41.018923;
-    var ya_lng = 118.704211;
 
     geolocation.getCurrentPosition(function(r){
         if(this.getStatus() == BMAP_STATUS_SUCCESS){

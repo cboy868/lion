@@ -23,6 +23,10 @@ $(function(){
             });
         }
         myChart.setOption({
+            title:{
+                'text':'年度占比',
+                'left':'right'
+            },
             roseType : 'radius',
             tooltip : {
                 trigger: 'item',

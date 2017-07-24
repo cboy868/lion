@@ -22,6 +22,10 @@ $(function(){
         }
 
         option = {
+            title:{
+                'text':'年度对比',
+                'left':'right'
+            },
             color: ['#3398aB'],
             tooltip : {
                 trigger: 'axis',

@@ -337,11 +337,11 @@ class Task extends \app\core\db\ActiveRecord
 
                     $model->load($data, '');
 
-                    if ($v < 0) {
-                        $model->pre_finish = date('Y-m-d', strtotime($model->pre_finish .' '. $v .' days'));
-                    } else if ($v > 0) {
-                        $model->pre_finish = date('Y-m-d');
-                    }
+//                    if ($v < 0) {
+//                        $model->pre_finish = date('Y-m-d', strtotime($model->pre_finish .' '. $v .' days'));
+//                    } else if ($v > 0) {
+//                        $model->pre_finish = date('Y-m-d');
+//                    }
 
                     $model->save();
 

@@ -102,7 +102,7 @@ PluploadAssets::register($this);
 
                         <div class="col-md-12">
                             <?php
-                            $portrait = Yii::$app->params['goods']['cate']['portrait'];
+                            $portrait = Yii::$app->getModule('grave')->params['goods']['cate']['portrait'];
                             ?>
                             <div class="alert alert-success" role="alert" style="height: 100px; text-align: center; font-size: 40px;">
                             请

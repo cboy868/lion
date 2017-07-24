@@ -43,6 +43,7 @@ class GuideController extends \app\core\web\BackController
             $v['guide_name'] = $guides[$v['guide_id']]['username'];
         }unset($v);
 
+
         return $this->json($data, null, 1);
     }
 
@@ -68,7 +69,6 @@ class GuideController extends \app\core\web\BackController
      */
     public function actionMonth($year=null, $month=null)
     {
-        $month = 6;
         $month = $month === null ? date('m') : $month;
         $year = $year === null ? date('Y') : $year;
 
