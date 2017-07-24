@@ -51,11 +51,14 @@ $user = Yii::$app->user->identity;
         </ul>
     </div>
 </div>
+
 <div id="index-header">
     <div id="header">
+        <!--
         <a class="logo" href="#">
             <img class="png" src="/theme/m2/static/images/common/logo_03.jpg" alt="">
         </a>
+        -->
     </div>
 </div>
 <div id="nav">

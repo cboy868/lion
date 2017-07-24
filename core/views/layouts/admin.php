@@ -86,7 +86,7 @@ AdminAsset::register($this);
                         </li>
 
                         <li class="green">
-                            <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>" target="_blank">
+                            <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
                                 工作台
                             </a>
                         </li>
@@ -369,6 +369,7 @@ AdminAsset::register($this);
                                         网站设置
                                     </a>
                                 </li> -->
+                                <!--
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/member'])?>">
@@ -376,6 +377,7 @@ AdminAsset::register($this);
                                         个人中心
                                     </a>
                                 </li>
+                                -->
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">

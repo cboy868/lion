@@ -8,7 +8,7 @@ use app\core\widgets\DetailView;
 /* @var $model app\modules\grave\models\Withdraw */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Withdraws', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '退墓记录', 'url' => ['index']];
 ?>
 
 <div class="page-content">

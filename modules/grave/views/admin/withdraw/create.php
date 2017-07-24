@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\grave\models\Withdraw */
 
-$this->title = 'Create Withdraw';
+$this->title = '添加退墓记录';
 $this->params['breadcrumbs'][] = ['label' => 'Withdraws', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

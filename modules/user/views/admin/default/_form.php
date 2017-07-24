@@ -14,6 +14,8 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'is_staff')->dropDownList(['1'=>'员工', '0'=>'客户', '2'=>'业务员']) ?>
+
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->hint('默认密码:999999') ?>

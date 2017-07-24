@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="widget-header" style="z-index: 0">
                         <div class="no-border">
                             <ul class="nav nav-tabs">
-                                <li class="<?php if ($is_staff == null): ?>active<?php endif ?>">
+                                <li class="<?php if ($is_staff === null): ?>active<?php endif ?>">
                                     <a href="<?=Url::toRoute(['index'])?>" aria-expanded="true">全部</a>
                                 </li>
                                 <li class="<?php if ($is_staff == 1): ?>active<?php endif ?>">
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <li class="<?php if ($is_staff == 2): ?>active<?php endif ?>">
                                     <a href="<?=Url::toRoute(['index','is_staff'=>2])?>" aria-expanded="true">业务员</a>
                                 </li>
-                                <li class="<?php if ($is_staff === 0): ?>active<?php endif ?>">
+                                <li class="<?php if ($is_staff == 0 && $is_staff!==null): ?>active<?php endif ?>">
                                     <a href="<?=Url::toRoute(['index','is_staff'=>0])?>" aria-expanded="true">客户</a>
                                 </li>
 

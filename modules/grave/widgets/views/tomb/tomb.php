@@ -31,11 +31,13 @@ PluploadAssets::register($this);
                         <?=$tomb->tomb_no?>
                     </td>
                     <td rowspan="11" width="280">
+                        <!--
                         <div>
-                            <img src="/admin/index/bindPng?user_id=61140">
+                            <img src="#">
                             <br>
                             <span style="margin-left:20px;font-size:20px">购买人微信扫码，绑定微信</span>
                         </div>
+                        -->
                     </td>
                 </tr>
                 <tr>

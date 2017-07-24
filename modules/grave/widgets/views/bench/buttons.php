@@ -50,7 +50,8 @@ use yii\bootstrap\Modal;
         <?php
 
         if (!isset($panels[$k])) {
-            p($k);die;
+//            p($k);die;
+            continue;
         }
         ?>
         <h4 class="widget-title lighter"><i class="<?=$panels[$k]['icon']?>"></i> <?=$panels[$k]['name']?></h4>

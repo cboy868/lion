@@ -9,7 +9,7 @@ use app\core\widgets\GridView;
 /* @var $searchModel app\modules\grave\models\WithdrawSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Withdraws';
+$this->title = '退墓记录';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -44,22 +44,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'guide_id',
-            'user_id',
-            'tomb_id',
-            'current_tomb_id',
+//            'guide_id',
+//            'user_id',
+            'tomb.tomb_no',
+//            'current_tomb_id',
             // 'refund_id',
-            // 'ct_name',
-            // 'ct_mobile',
+             'ct_name',
+             'ct_mobile',
             // 'ct_card',
-            // 'ct_relation',
-            // 'reson:ntext',
-            // 'price',
+             'ct_relation',
+             'reson:ntext',
+             'price',
             // 'in_tomb_id',
-            // 'note:ntext',
+             'note:ntext',
             // 'status',
             // 'updated_at',
             // 'created_at',

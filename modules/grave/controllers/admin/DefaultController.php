@@ -231,7 +231,7 @@ class DefaultController extends BackController
         $tombs = Tomb::find()->where(['grave_id'=>$id])->all();
         if ($tombs) {
             Yii::$app->getSession()->setFlash('error', '请先删除此墓区下墓位。');
-            return $this->redirect(['index']);
+            return $this->redirect(['index', 'id'=>$id]);
         }
 
         $model->delete();

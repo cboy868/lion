@@ -12,14 +12,14 @@ use app\core\widgets\ActiveForm;
 
 
     <div class="col-md-6">
-    	<?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
     	<?= $form->field($addition, 'real_name')->textInput(['maxlength' => true]) ?>
     	<?= $form->field($addition, 'gender')->radioList(['1'=> '男', '2'=>'女']) ?>
+        <?= $form->field($addition, 'birth')->textInput(['maxlength' => true]) ?>
+
     </div>
 
     <div class="col-md-6">
-    	<?= $form->field($addition, 'birth')->textInput(['maxlength' => true]) ?>
 	    <?= $form->field($addition, 'height')->textInput(['maxlength' => true, 'placeholder'=>'单位:cm']) ?>
 	    <?= $form->field($addition, 'weight')->textInput(['maxlength' => true, 'placeholder'=>'单位:kg']) ?>
 	    <?= $form->field($addition, 'qq')->textInput(['maxlength' => true]) ?>

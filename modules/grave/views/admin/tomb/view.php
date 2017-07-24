@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 use app\modules\grave\widgets\Tomb;
+use app\modules\grave\models\Tomb as GraveTomb;
 use yii\bootstrap\Modal;
 use app\core\helpers\Url;
 \app\assets\ExtAsset::register($this);
@@ -28,7 +29,13 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="page-header">
-            <h1>一墓一档 <small>墓位详细信息 <a class="btn btn-info btn-sm pull-right" href="<?=Url::toRoute(['/grave/admin/process/index', 'tomb_id'=>$model->id,'step'=>1])?>" target="_blank">办业务</a></small></h1>
+            <h1>一墓一档
+                <small>墓位详细信息
+                    <?php if($model->status >1 &&$model->status < 9 ):?>
+                    <a class="btn btn-info btn-sm pull-right" href="<?=Url::toRoute(['/grave/admin/process/index', 'tomb_id'=>$model->id,'step'=>1])?>" target="_blank">办业务</a>
+                    <?php endif;?>
+                </small>
+            </h1>
         </div>
         <?php 
             Modal::begin([

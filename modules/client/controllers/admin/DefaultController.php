@@ -74,7 +74,7 @@ class DefaultController extends BackController
                 $model->come_from = 0;
             }
             if ($model->save()) {
-                return $this->redirect(['index']);
+                return $this->redirect(['/client/admin/recep/index', 'id'=>$model->id]);
             }
         }
 

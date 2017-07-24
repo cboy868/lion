@@ -48,9 +48,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            'tomb.tomb_no',
+            [
+                'label' =>'墓位号',
+                'value' => function($model) {
+                    return Html::a($model->tomb->tomb_no, ['/grave/admin/tomb/view', 'id'=>$model->tomb_id],['target'=>'_blank']);
+                },
+                'format' => 'raw'
+
+            ],
             'guide.username',
-            'op.username',
+//            'op.username',
             'user.username',
             // 'position',
             [
@@ -64,7 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '是否繁体',
                 'value' => function($model){
-                    return [0=>'否', 1=>'是'][$model->is_tc];
+                    $ar = [0=>'否', 1=>'是'];
+                    return $ar[$model->is_tc];
                 }
             ],
             // 'font',
@@ -90,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'letter_price',
             // 'tc_price',
             // 'status',
-            'updated_at:datetime',
+//            'updated_at:datetime',
             // 'created_at',
             [
                 'header' => '操作',

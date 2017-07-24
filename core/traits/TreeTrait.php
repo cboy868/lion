@@ -244,7 +244,7 @@ trait TreeTrait {
                           ->all();
 
         foreach ($sort as $k => &$v) {
-            if (!isset($v['thumb']) && !is_null($v['thumb'])) break;
+            if (!isset($v['thumb']) || !is_null($v['thumb'])) break;
             if (!$v['thumb']) {
                 $v['cover'] = '';
                 continue;

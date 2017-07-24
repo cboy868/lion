@@ -63,17 +63,22 @@ class Withdraw extends \app\core\db\ActiveRecord
             'tomb_id' => 'Tomb ID',
             'current_tomb_id' => 'Current Tomb ID',
             'refund_id' => 'Refund ID',
-            'ct_name' => 'Ct Name',
-            'ct_mobile' => 'Ct Mobile',
-            'ct_card' => 'Ct Card',
-            'ct_relation' => 'Ct Relation',
-            'reson' => 'Reson',
-            'price' => 'Price',
+            'ct_name' => '联系人',
+            'ct_mobile' => '联系人手机号',
+            'ct_card' => '联系人身份证',
+            'ct_relation' => '与使用人关系',
+            'reson' => '退墓 原因',
+            'price' => '退款',
             'in_tomb_id' => 'In Tomb ID',
-            'note' => 'Note',
-            'status' => 'Status',
-            'updated_at' => 'Updated At',
-            'created_at' => 'Created At',
+            'note' => '备注',
+            'status' => '状态 ',
+            'updated_at' => '修改时间',
+            'created_at' => '添加时间',
         ];
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(), ['id'=>'tomb_id']);
     }
 }

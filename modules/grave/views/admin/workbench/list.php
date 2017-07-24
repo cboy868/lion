@@ -1,18 +1,6 @@
 <?php
 
-use app\core\helpers\Html;
-use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-use app\core\helpers\ArrayHelper;
-use app\modules\grave\models\Portrait;
-use yii\bootstrap\Modal;
-
-
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\PortraitSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
 
