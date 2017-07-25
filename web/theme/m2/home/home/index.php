@@ -11,20 +11,21 @@ use yii\helpers\Url;
     <div class="full_slider">
         <ul class="slider_main">
 
+            <?php
 
-
-            <?php foreach ($banner as $k => $v):?>
+            if (isset($banner['focus'])):
+            foreach ($banner['focus'] as $k => $v):?>
                 <li style="<?php if($k==0):?>display:block;<?php endif;?>background-image:url(<?=$v['image']?>)"><a href="<?=$v['link']?>"></a></li>
-            <?php endforeach;?>
+            <?php endforeach; endif;?>
 
 <!--            <li style="display:block; background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>-->
 <!--            <li style="background-image:url(http://placehold.it/1920x450)"><a href="#"></a></li>-->
 <!--            <li style="background-image:url(http://www.shfsy.com/uploads/images2/450.jpg)"><a href="#"></a></li>-->
         </ul>
         <div class="btns">
-            <?php foreach ($banner as $k => $v):?>
+            <?php if (isset($banner['focus'])):foreach ($banner as $k => $v):?>
                 <span class="<?php if($k==0):?>active<?php endif;?>"></span>
-            <?php endforeach;?>
+            <?php endforeach;endif;?>
         </div>
     </div>
     <div class="container">
@@ -56,7 +57,7 @@ use yii\helpers\Url;
                 <script type="text/javascript" src="/theme/m2/static/libs/CKplayer/ckplayer/ckplayer.js" charset="utf-8"></script>
                 <script type="text/javascript">
                     var flashvars={
-                        f:'http://gls.gls024.com/static/upload/gls_xc.flv',
+                        f:'http://player.youku.com/player.php/sid/XMjkwMDY5MjA4NA==/v.swf',
                         c:0,
                         p:1,
                         wh:'16:9',

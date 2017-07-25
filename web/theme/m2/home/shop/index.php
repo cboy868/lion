@@ -105,7 +105,7 @@ use yii\helpers\Url;
                                 </p>
                                 <div class="function-box clearfix right">
                                     <a href="#"><img alt="加入购物车" src="/theme/m2/static/gls/img/product/small_online_appointment.png"></a>
-                                    <a href="#"><img alt="购买" src="/theme/m2/static/gls/img/product/buy_small_btn.png"></a>
+<!--                                    <a href="#"><img alt="购买" src="/theme/m2/static/gls/img/product/buy_small_btn.png"></a>-->
                                 </div>
                             </li>
                             <?php endforeach;?>
@@ -129,13 +129,16 @@ use yii\helpers\Url;
                             <div class="tabcon">
                                 <?php foreach ($glist as $k => $v):?>
                                 <div class="flower_list clearfix" style="<?php if($k==0):?>display:block;<?php endif;?>">
-                                    <?php foreach ($v['child'] as $goods):?>
+
+                                    <?php
+                                    if (isset($v['child'])):
+                                    foreach ($v['child'] as $goods):?>
                                         <div class="items_n">
                                             <a target="_blank" class="pic" href="<?=Url::toRoute(['/shop/home/default/view', 'id'=>$goods['id']])?>"><img src="<?=$goods['cover']?>"></a>
                                             <p class="tit"><?=$goods['name']?></p>
                                             <a href="#" class="reservation">点击预定</a>
                                         </div>
-                                    <?php endforeach;?>
+                                    <?php endforeach;endif;?>
                                 </div>
                                 <?php endforeach;?>
                             </div>

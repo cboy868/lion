@@ -118,7 +118,7 @@
 				</div>
 				<div class="borbox rank">
 					<h2 class="tit2">
-						<span class="right">献花次数</span>
+<!--						<span class="right">献花次数</span>-->
 						<span class="txtd">纪念排行榜</span>
 					</h2>
 					<div class="det clearfix padb0">

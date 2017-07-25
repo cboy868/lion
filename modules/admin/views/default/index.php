@@ -13,6 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 感谢选用<strong>卓迅公墓管理</strong>系统
             </h1>
         </div><!-- /.page-header -->
+        <p style="line-height: 2em;color:red;">
+            请注意：目前本系统所有数据均为示例数据，如有疑问，请联系15910470214
+        </p>
 
         <div class="row">
             <div class="col-xs-12 welcome-index">
@@ -30,9 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading bg-info">以下是本系统主要模块 <small>
                         <a href="<?=\yii\helpers\Url::toRoute(['/grave/admin/workbench'])?>">进入工作台</a>
                     </small></div>
-                <p style="line-height: 2em;color:red;">
-                    请注意：目前本系统所有数据均为求你数据，如有疑问，请联系15910470214
-                </p>
+
 
                 <div class="hr hr-18 dotted hr-double">
                     <img src="/static/images/help/sys.png" alt="系统功能导图">

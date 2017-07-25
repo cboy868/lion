@@ -5,9 +5,9 @@ use yii\widgets\LinkPager;
 <link rel="stylesheet" href="/theme/m2/static/modules/memorial/css/<?=$model->tpl?>.css" type="text/css">
 <div id="ink-hook"></div>
 <div id="memorial-header">
-    <a href="http://gls.gls024.com/home/profile/6003" target="_blank">
-        <img src="/theme/m2/static/modules/memorial/images/common/in_btns.png" alt="进入馆主博客">
-    </a>
+<!--    <a href="#" target="_blank">-->
+<!--        <img src="/theme/m2/static/modules/memorial/images/common/in_btns.png" alt="进入馆主博客">-->
+<!--    </a>-->
 </div>
 <div id="memorial-content" class="">
 
@@ -27,8 +27,9 @@ use yii\widgets\LinkPager;
                 </dt>
             </dl>
             <dl class="memorial-info right">
-                <dt class="png">
-                    <img src="/theme/m2/static/modules/memorial/images/ink/jng_title.png" alt="永安大家庭纪念馆">
+                <dt class="png" style="font-size: 30px;color: #8D5728;font-family: cursive;font-weight: 900;">
+                    <?=g('cp_name')?>纪念馆
+<!--                    <img src="/theme/m2/static/modules/memorial/images/ink/jng_title.png" alt="">-->
                 </dt>
                 <dd>
                     <?php foreach ($model->deads as $v):?>
