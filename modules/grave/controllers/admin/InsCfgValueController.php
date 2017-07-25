@@ -182,6 +182,8 @@ class InsCfgValueController extends BackController
         $data = $this->inverseAlign($data, $attr['shape']);
         //竖碑时才这样弄
 
+        $is_god = isset($attr['is_god']) ? $attr['is_god'] : 0;
+
         $tmp_path = 'upload/ins/tmp/'.uniqid().'.png';
         if ($attr['shape'] == 'v') {
             $newdata = array();
@@ -189,9 +191,9 @@ class InsCfgValueController extends BackController
                 $arr = $this->verText($v['text'],$v['x'], $v['y'], $v['size'], $v['color']);
                 $newdata = array_merge($newdata, $arr);
             }
-            $img_info = InsHelper::showImg($newdata, $attr['width'], $attr['height'], $font, $tmp_path, $attr['is_god']*1);
+            $img_info = InsHelper::showImg($newdata, $attr['width'], $attr['height'], $font, $tmp_path, $is_god*1);
         } else {
-            $img_info = InsHelper::showImg($data, $attr['width'], $attr['height'], $font, $tmp_path, $attr['is_god']*2);
+            $img_info = InsHelper::showImg($data, $attr['width'], $attr['height'], $font, $tmp_path, $is_god*2);
         }
         
 
