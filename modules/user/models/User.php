@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\user\models;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -157,6 +158,48 @@ class User extends \app\core\models\User
     public function isStaff()
     {
         return $this->is_staff ? true : false;
+    }
+
+    public static function getRoleUsers($role_name)
+    {
+
+        $auth = Yii::$app->authManager;
+
+        if (is_array($role_name)) {
+            $users = [];
+            foreach ($role_name as $k => $v) {
+                $user_id = $auth->getUserIdsByRole($v);
+
+                $tmp = User::find()->where(['id'=>$user_id])
+                    ->andWhere(['status'=>User::STATUS_ACTIVE])
+                    ->select(['id', 'username'])
+                    ->asArray()
+                    ->all();
+
+                $users = array_merge($users, $tmp);
+            }
+        } else if (is_string($role_name)) {
+
+
+            $user_id = $auth->getUserIdsByRole($role_name);
+
+            $users = User::find()->where(['id'=>$user_id])
+                ->andWhere(['status'=>User::STATUS_ACTIVE])
+                ->select(['id', 'username'])
+                ->asArray()
+                ->all();
+
+        }
+
+
+        $users = ArrayHelper::map($users, 'id', 'username');
+        return $users;
+    }
+
+    public static function getGuides()
+    {
+        $guide = Yii::$app->getModule('grave')->params['role']['guide'];
+        return self::getRoleUsers($guide);
     }
 
     

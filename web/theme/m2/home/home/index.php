@@ -52,7 +52,7 @@ use yii\helpers\Url;
             </div>
 
             <div class="youku">
-                <h2>2013年 <?=g('cp_name')?>元年纪事</h2>
+                <h2>2017年 <?=g('cp_name')?>元年纪事</h2>
                 <div id="a1"></div>
                 <script type="text/javascript" src="/theme/m2/static/libs/CKplayer/ckplayer/ckplayer.js" charset="utf-8"></script>
                 <script type="text/javascript">

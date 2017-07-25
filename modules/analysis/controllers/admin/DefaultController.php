@@ -37,29 +37,29 @@ class DefaultController extends \app\core\web\BackController
      */
     public function actionTombSale()
     {
-        $data = SettlementTomb::data(4);
-        $result = [];
-
-        foreach ($data as $k => $v) {
-            foreach ($v as $val) {
-                for ($i=1; $i <= 12; $i++) { 
-                    $index = str_pad($i, 2, '0', STR_PAD_LEFT);
-                    $result['amount'][$k][$i] = $v[$k . $index]['amount']/10000;
-                    $result['num'][$k][$i] = $v[$k . $index]['num'];
-                }
-            }
-            $result['amount'][$k] = array_values($result['amount'][$k]);
-            $result['num'][$k] = array_values($result['num'][$k]);
-
-            $yearAmount = number_format(sprintf("%.2f",$data[$k][$k]['amount']/10000),2);
-            $result['amountcate'][$k] = "$k(".$yearAmount."万)";
-            $result['numcate'][$k] = "$k(".$data[$k][$k]['num']."个)";
-        }
-
-        ksort($result['amountcate']);
-        ksort($result['numcate']);
-
-        return $this->json($result, null, 1);
+//        $data = SettlementTomb::data(4);
+//        $result = [];
+//
+//        foreach ($data as $k => $v) {
+//            foreach ($v as $val) {
+//                for ($i=1; $i <= 12; $i++) {
+//                    $index = str_pad($i, 2, '0', STR_PAD_LEFT);
+//                    $result['amount'][$k][$i] = $v[$k . $index]['amount']/10000;
+//                    $result['num'][$k][$i] = $v[$k . $index]['num'];
+//                }
+//            }
+//            $result['amount'][$k] = array_values($result['amount'][$k]);
+//            $result['num'][$k] = array_values($result['num'][$k]);
+//
+//            $yearAmount = number_format(sprintf("%.2f",$data[$k][$k]['amount']/10000),2);
+//            $result['amountcate'][$k] = "$k(".$yearAmount."万)";
+//            $result['numcate'][$k] = "$k(".$data[$k][$k]['num']."个)";
+//        }
+//
+//        ksort($result['amountcate']);
+//        ksort($result['numcate']);
+//
+//        return $this->json($result, null, 1);
     }
 
 }

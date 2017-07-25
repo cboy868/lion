@@ -7,70 +7,83 @@
  */
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
+
 ?>
+<div>
+    <h4 style="text-align: right">
+        月份选择
+        <?=\yii\helpers\Html::dropDownList('month',intval(date('m')),months(),['class'=>'selMonthCompare'])?>
+    </h4>
+</div>
 <div id="month-compare" style="height:400px;"></div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){
-    var myChart = echarts.init(document.getElementById('month-compare'), 'vintage');
-    $.get('<?=Url::toRoute('/analysis/admin/guide/month')?>').done(function (data) {
-        var data = data.data;
-        var name = [],value=[];
-        for (var i in data){
-            name.push(data[i].guide_name);
-            value.push(parseFloat(data[i].total));
-        }
 
-        option = {
-            title: {
-                text: '月销售额对比'
-            },
-            color: ['#3398aB'],
-            tooltip : {
-                trigger: 'axis',
-                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis : [
-                {
-                    type : 'category',
-                    data : name,
-                    axisTick: {
-                        alignWithLabel: true
+    getMonthCompare(<?=date('m')?>);
+
+    $('.selMonthCompare').change(function (e) {
+        e.preventDefault();
+        var month = $(this).val();
+        getMonthCompare(month);
+    });
+
+    function getMonthCompare(month) {
+        var myChart = echarts.init(document.getElementById('month-compare'), 'vintage');
+        $.get('<?=Url::toRoute('/analysis/admin/guide/month')?>?month='+month).done(function (data) {
+            var data = data.data;
+            var name = [],value=[];
+            for (var i in data){
+                name.push(data[i].guide_name);
+                value.push(parseFloat(data[i].total));
+            }
+
+            option = {
+                title: {
+                    text: '月销售额对比',
+                    left: 'right'
+                },
+                color: ['#3398aB'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                     }
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value'
-                }
-            ],
-            series : [
-                {
-                    name:'销售金额',
-                    type:'bar',
-                    barWidth: '60%',
-                    data:value
-                }
-            ]
-        };
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : name,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'销售金额',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:value
+                    }
+                ]
+            };
 
+            myChart.setOption(option);
 
-
-
-
-
-
-        myChart.setOption(option);
-
-    })
+        })
+    }
 
 })
 <?php $this->endBlock() ?>

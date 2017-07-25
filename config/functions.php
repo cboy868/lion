@@ -30,6 +30,54 @@ function p($arr)
     echo '<pre>'.print_r($arr,true).'</pre>';
 }
 
+function months()
+{
+    $currentMonth = intval(date('m'));
+
+    $all = [
+        1 => '一月',
+        2 => '二月',
+        3 => '三月',
+        4 => '四月',
+        5 => '五月',
+        6 => '六月',
+        7 => '七月',
+        8 => '八月',
+        9 => '九月',
+        10 => '十月',
+        11 => '十一月',
+        12 => '十二月'
+    ];
+
+    $months = [];
+
+    for ($i=0;$i<$currentMonth;$i++) {
+        $m = $currentMonth - $i;
+        $months[$m] = $all[$m];
+    }
+
+    return $months;
+
+}
+
+function years($year_num=10)
+{
+    $currentYear = date('Y');
+
+    $years = [];
+
+    if (!$year_num) {
+        $year_num = 10;
+    }
+
+    for ($i=0;$i<$year_num;$i++) {
+        $y = $currentYear - $i;
+        $years[$y] = $y . '年';
+    }
+
+    return $years;
+}
+
 function getParam($key=null)
 {
     if ($key===null) {

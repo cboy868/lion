@@ -8,12 +8,31 @@
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
 ?>
+<div>
+    <h4 style="text-align: right">
+        年度选择
+        <?=\yii\helpers\Html::dropDownList('month',intval(date('Y')),years(6),['class'=>'selPercentYear'])?>
+    </h4>
+</div>
 <div id="year-persent" style="height:400px;"></div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){
+
+    var year = $('.selPercentYear').val();
+    getYearPercent(year);
+
+    $('.selPercentYear').change(function (e) {
+        e.preventDefault();
+        var year = $(this).val();
+        getYearPercent(year);
+    });
+
+
+
+function getYearPercent(year) {
     var myChart = echarts.init(document.getElementById('year-persent'), 'vintage');
-    $.get('<?=Url::toRoute('/analysis/admin/guide/year')?>').done(function (data) {
+    $.get('<?=Url::toRoute('/analysis/admin/guide/year')?>?year='+year).done(function (data) {
         var data = data.data;
         var result = [];
         for (var i in data){
@@ -43,6 +62,10 @@ $(function(){
         })
 
     })
+}
+
+
+
 
 })
 <?php $this->endBlock() ?>

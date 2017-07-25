@@ -7,13 +7,33 @@
  */
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
+$guides = \app\modules\user\models\User::getGuides();
+
 ?>
+
+<div>
+    <h4 style="text-align: right">
+        导购选择
+        <?=\yii\helpers\Html::dropDownList('guide',null,$guides,['class'=>'selGuide'])?>
+    </h4>
+</div>
 <div id="self-month" style="height:400px;"></div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){
+    var user = $('.selGuide').val();
+    getSelf(user);
+
+    $('.selGuide').change(function (e) {
+        e.preventDefault();
+        var user = $(this).val();
+        getSelf(user);
+    });
+
+
+function getSelf(user){
     var myChart = echarts.init(document.getElementById('self-month'), 'vintage');
-    $.get('<?=Url::toRoute(['/analysis/admin/guide/self-month','guide_id'=>1])?>').done(function (data) {
+    $.get('<?=Url::toRoute(['/analysis/admin/guide/self-month'])?>?guide_id='+user).done(function (data) {
         var data = data.data;
         var name = [],value=[];
         for (var i in data){
@@ -65,7 +85,11 @@ $(function(){
         myChart.setOption(option);
 
     })
+}
 
 })
+
+
+
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['per'], \yii\web\View::POS_END); ?>

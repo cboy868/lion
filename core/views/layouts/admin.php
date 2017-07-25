@@ -369,15 +369,13 @@ AdminAsset::register($this);
                                         网站设置
                                     </a>
                                 </li> -->
-                                <!--
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/member'])?>">
                                         <i class="ace-icon fa fa-user"></i>
-                                        个人中心
+                                        会员中心
                                     </a>
                                 </li>
-                                -->
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">
