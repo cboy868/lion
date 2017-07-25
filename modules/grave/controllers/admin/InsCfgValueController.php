@@ -191,9 +191,9 @@ class InsCfgValueController extends BackController
                 $arr = $this->verText($v['text'],$v['x'], $v['y'], $v['size'], $v['color']);
                 $newdata = array_merge($newdata, $arr);
             }
-            $img_info = InsHelper::showImg($newdata, $attr['width'], $attr['height'], $font, $tmp_path, $is_god*1);
+            InsHelper::showImg($newdata, $attr['width'], $attr['height'], $font, $tmp_path, $is_god*1);
         } else {
-            $img_info = InsHelper::showImg($data, $attr['width'], $attr['height'], $font, $tmp_path, $is_god*2);
+            InsHelper::showImg($data, $attr['width'], $attr['height'], $font, $tmp_path, $is_god*2);
         }
         
 

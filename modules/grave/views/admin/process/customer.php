@@ -8,7 +8,7 @@ use app\core\widgets\Area\Select;
 // JqueryuiAsset::register($this);
 
 \app\assets\ExtAsset::register($this);
-
+\app\assets\VueAsset::register($this);
 
 $this->title="购墓流程"
 ?>
@@ -28,6 +28,13 @@ $this->title="购墓流程"
         -webkit-user-select:none;
         -ms-user-select:none;
         user-select:none;
+    }
+     ul.oldUser{
+         padding-left:0;
+
+     }
+    ul{
+        list-style: none;
     }
   </style>
 <div class="page-content">
@@ -60,7 +67,7 @@ $this->title="购墓流程"
                         $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>';
                      ?>
 
-                    <table class="table table-condensed">
+                    <table class="table table-condensed" id="userSel">
                         <tr>
                         <?php
                           // $agent_disabled = $tomb->agent_id ? true : false;
@@ -81,41 +88,83 @@ $this->title="购墓流程"
                                     'validateOnSubmit' => true,
                                     'validateOnBlur' => true,
                                     'validateOnType' => true,
-                                ],'class'=>'uname form-control'
+                                ], 'class'=>'uname form-control',
+                                    '@change'=>'checkUser',
+                                    'v-model'=>"params.uname"
                             ])->label("账号(<font color='red'>*</font>)")
                               ->hint('账号不可与系统中已有账号重复，如重复，请修改账号名')?></td>
-                            <td></td>
-                        </tr>
-                        <tr style="display:none;">
                             <td>
-                                <div class="form-group field-user-username required">
-                                    <label class="control-label col-sm-2">已存在的账号</label>
-                                    <ul class="col-sm-8 olduser">
+                                <?= $form->field($user, 'id')->hiddenInput(['class'=>'uid form-control','v-model'=>"current.uid"])->label(false)?>
+                                <?= $form->field($model, 'id')->hiddenInput(['class'=>'cid form-control','v-model'=>"current.cid"])->label(false)?>
+                            </td>
+                        </tr>
+                        <tr style="" >
+                            <td colspan="2">
 
-                                    </ul>
+                                <div class="form-group field-user-username required has-success" v-show="user.id">
+                                    <label class="control-label col-sm-1">已存在的账号</label>
+                                    <div class="col-sm-11">
+                                        <p class="alert-danger">
+                                            系统已存在此账号，请检查是否正确，正确请勾选以下选项，否则请修改账号
+                                        </p>
+                                        <p>
+                                            勾选新增联系人，则为此账号增加新的联系人
+                                        </p>
+
+
+
+                                        <ul class="oldUser">
+
+                                            <li>
+                                                <span>
+                                                    <label>
+                                                        <span v-text="user.username"></span>
+                                                        (<span v-text="user.mobile"></span>)
+                                                    </label>
+                                                </span>
+                                                <ul>
+                                                    <span><label><input type="radio" name="customer" class="sel-customer" @change="selCustomer(0)"> 新增联系人</label></span>
+                                                    <span v-for="c in user.customers">
+                                                        <label>
+                                                            <input type="radio" name="customer" class="sel-customer" @change="selCustomer(c.id)">
+                                                            <span v-text="c.name"></span> (<span v-text="c.mobile"></span>)
+                                                        </label>
+                                                    </span>
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
                                 </div>
                             </td>
-                            <td></td>
                         </tr>
-                        <?= $form->field($user, 'id')->hiddenInput(['class'=>'uid form-control'])->label(false)?>
-                        <?= $form->field($model, 'id')->hiddenInput(['class'=>'cid form-control'])->label(false)?>
+
+
                         <tr>
-                            <td><?= $form->field($model, 'name')->textInput(['class'=>'cname form-control'])->label("客户名(<font color='red'>*</font>)") ?></td>
-                            <td><?= $form->field($model, 'mobile')->textInput(['class'=>'cmobile form-control','maxlength' => true])->label("手机号(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($model, 'name')->textInput(['class'=>'cname form-control','v-model'=>'current.customer.name'])
+                                    ->label("客户名(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($model, 'mobile')
+                                    ->textInput(['class'=>'cmobile form-control','maxlength' => true,'v-model'=>'current.customer.mobile'])
+                                    ->label("手机号(<font color='red'>*</font>)") ?></td>
                         </tr>
 
                         <tr>
                             <td>
-                                <?= $form->field($model, 'email')->textInput(['class'=>'cemail form-control','maxlength' => true]) ?>
+                                <?= $form->field($model, 'email')
+                                    ->textInput(['class'=>'cemail form-control','maxlength' => true,'v-model'=>'current.customer.email']) ?>
                             </td>
                             <td>
-                                <?= $form->field($model, 'phone')->textInput(['class'=>'cphone form-control','maxlength' => true]) ?>
+                                <?= $form->field($model, 'phone')
+                                    ->textInput(['class'=>'cphone form-control','maxlength' => true,'v-model'=>'current.customer.phone']) ?>
                             </td>
                         </tr>
 
                         <tr>
-                            <td><?= $form->field($model, 'second_ct')->textInput(['class'=>'csecond_ct form-control','maxlength' => true]) ?></td>
-                            <td><?= $form->field($model, 'second_mobile')->textInput(['class'=>'csecond_mobile form-control','maxlength' => true]) ?></td>
+                            <td><?= $form->field($model, 'second_ct')
+                                    ->textInput(['class'=>'csecond_ct form-control','maxlength' => true,'v-model'=>'current.customer.second_ct']) ?></td>
+                            <td><?= $form->field($model, 'second_mobile')
+                                    ->textInput(['class'=>'csecond_mobile form-control','maxlength' => true,'v-model'=>'current.customer.second_mobile']) ?></td>
                         </tr>
 
                         <tr>
@@ -130,14 +179,15 @@ $this->title="购墓流程"
                                     'zone_name' => 'Customer[zone]',
                                     'pro'=>$model->province,
                                     'city'=>$model->city,
-                                    'zone'=>$model->zone,
+                                    'zone'=>$model->zone
                                   ]);?>
                                 </div>
                               </div>
                                 <?php $form->fieldConfig['labelOptions']['class']='control-label col-sm-1';
                                       $form->fieldConfig['template']='{label}<div class="col-sm-10">{input}{hint}{error}</div>';
                                  ?>
-                                <?= $form->field($model, 'addr')->textArea(['class'=>'caddr form-control','maxlength' => true, 'placeholder'=>'详细地址']) ?>
+                                <?= $form->field($model, 'addr')
+                                    ->textArea(['class'=>'caddr form-control','maxlength' => true, 'placeholder'=>'详细地址','v-model'=>'current.customer.addr']) ?>
                             </td>
                         </tr>
                     </table>
@@ -164,89 +214,159 @@ $this->title="购墓流程"
 
 
 <?php $this->beginBlock('customer') ?>
+    var v = new Vue({
+        el : '#userSel',
+        data:{
+            user:{},
+            current:{uid:0,customer:{},cid:0},
+            params:{uname:''},
+            checkUrl:"<?=Url::toRoute(['/grave/admin/customer/user-info-by-name'])?>"
+        },
+        methods: {
 
-$(function(){
-    var csrf = "<?=Yii::$app->getRequest()->getCsrfToken()?>";
-    var user = [];
+            checkUser(){
 
-    $('.uname').blur(function(){
-        var uname = $(this).val();
-        //查看有无重复用户
-        var url="<?=Url::toRoute(['/grave/admin/customer/user-info-by-name'])?>";
-        $.post(url,{_csrf:csrf,uname:uname},function(xhr){
+                this.$http.get(this.checkUrl,{params:this.params}).then(function (response) {
+                    if (response.body.status) {
+                        this.$set(this, 'user', response.body.data.user);
+                    } else {
+                        this.$set(this, 'user', {});
+                        this.$set(this.current, 'uid', 0);
+                        this.$set(this.current, 'cid', 0);
+                        this.$set(this.current, 'customer', {});
+                    }
 
-            if (xhr.status) {
-                user = xhr.data.user;
-                var u = xhr.data.user;
-                var selHtml = '';
-                for (i in u.customers){
-                    var c = u.customers[i];
-                    selHtml += '<li><label>' +
-                            '<input type="radio" name="oldname" class="sel-customer" rid="'+c.id+'"> '+
-                            u.username+' ('+u.mobile+')' +
-                            c.name+' ('+c.mobile+')' +
-                            '</label></li>';
+                }).catch(function () {
 
+                });
+
+            },
+            selCustomer(customer_id){
+
+                this.$set(this.current, 'uid', this.user.id);
+                this.$set(this.current, 'cid', customer_id);
+
+                if (customer_id == 0) {
+                    this.$set(this.current, 'customer', {});
+                    $('.area_province').val(0);
+                    $('.area_city').val(0);
+                    $('.area_zone').val(0);
+                } else {
+                    this.$set(this.current, 'customer', this.user.customers[customer_id]);
+                    $('.area_province').val(this.current.customer.province);
+                    $('.area_province').trigger('change');
+                    $('.area_city').val(this.current.customer.city);
+                    $('.area_city').trigger('change');
+                    $('.area_zone').val(this.current.customer.zone);
                 }
-                $('.olduser').html(selHtml);
-                $('.olduser').closest('tr').show();
-            } else {
-                $('.olduser').html('');
-                $('.olduser').closest('tr').hide();
-            }
-            empty();
 
-            //同步客户名称
-            if (!$('.cname').val()) {
-                $('.cname').val(uname);
             }
-        },'json');
+
+        },
 
     });
 
-    $('body').on('click', '.sel-customer',function(){
-        var uid = user.id;
-        var cid = $(this).attr('rid');
-        var cname = user.customers[cid].name;
-        var cmobile = user.customers[cid].mobile;
-
-        $('.uid').val(uid);
-        $('.cid').val(cid);
-        //$('.uname').val(user.username);
-        $('.cname').val(cname);
-        $('.cmobile').val(cmobile);
-        $('.cemail').val(user.customers[cid].email);
-        $('.cphone').val(user.customers[cid].phone);
-        $('.csecond_ct').val(user.customers[cid].second_ct);
-        $('.csecond_mobile').val(user.customers[cid].second_mobile);
-        $('.caddr').val(user.customers[cid].addr);
-        $('.area_province').val(user.customers[cid].province);
-        $('.area_province').trigger('change');
-        $('.area_city').val(user.customers[cid].city);
-        $('.area_city').trigger('change');
-        $('.area_zone').val(user.customers[cid].zone);
-    });
-
-function empty(){
-    $('.uid').val('');
-    $('.cid').val('');
-    //$('.uname').val('');
-    $('.cname').val('');
-    $('.cmobile').val('');
-    $('.cemail').val('');
-    $('.cphone').val('');
-    $('.csecond_ct').val('');
-    $('.csecond_mobile').val('');
-    $('.caddr').val('');
-    $('.area_province').val('');
-    $('.area_province').trigger('change');
-    $('.area_city').val('');
-    $('.area_city').trigger('change');
-    $('.area_zone').val('');
-}
 
 
-})
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//$(function(){
+//    var csrf = "<?//=Yii::$app->getRequest()->getCsrfToken()?>//";
+//    var user = [];
+//
+//    $('.uname').blur(function(){
+//return;
+//        var uname = $(this).val();
+//        //查看有无重复用户
+//        var url="<?//=Url::toRoute(['/grave/admin/customer/user-info-by-name'])?>//";
+//        $.post(url,{_csrf:csrf,uname:uname},function(xhr){
+//
+//            if (xhr.status) {
+//                user = xhr.data.user;
+//                var u = xhr.data.user;
+//                var selHtml = '';
+//                for (i in u.customers){
+//                    var c = u.customers[i];
+//                    selHtml += '<li><label>' +
+//                            '<input type="radio" name="oldname" class="sel-customer" rid="'+c.id+'"> '+
+//                            u.username+' ('+u.mobile+')' +
+//                            c.name+' ('+c.mobile+')' +
+//                            '</label></li>';
+//
+//                }
+//                $('.olduser').html(selHtml);
+//                $('.olduser').closest('tr').show();
+//            } else {
+//                $('.olduser').html('');
+//                $('.olduser').closest('tr').hide();
+//            }
+//            empty();
+//
+//            //同步客户名称
+//            if (!$('.cname').val()) {
+//                $('.cname').val(uname);
+//            }
+//        },'json');
+//
+//    });
+//
+//    $('body').on('click', '.sel-customer',function(){
+//return;
+//        var uid = user.id;
+//        var cid = $(this).attr('rid');
+//        var cname = user.customers[cid].name;
+//        var cmobile = user.customers[cid].mobile;
+//
+//        $('.uid').val(uid);
+//        $('.cid').val(cid);
+//        //$('.uname').val(user.username);
+//        $('.cname').val(cname);
+//        $('.cmobile').val(cmobile);
+//        $('.cemail').val(user.customers[cid].email);
+//        $('.cphone').val(user.customers[cid].phone);
+//        $('.csecond_ct').val(user.customers[cid].second_ct);
+//        $('.csecond_mobile').val(user.customers[cid].second_mobile);
+//        $('.caddr').val(user.customers[cid].addr);
+//        $('.area_province').val(user.customers[cid].province);
+//        $('.area_province').trigger('change');
+//        $('.area_city').val(user.customers[cid].city);
+//        $('.area_city').trigger('change');
+//        $('.area_zone').val(user.customers[cid].zone);
+//    });
+//
+//function empty(){
+//    $('.uid').val('');
+//    $('.cid').val('');
+//    //$('.uname').val('');
+//    $('.cname').val('');
+//    $('.cmobile').val('');
+//    $('.cemail').val('');
+//    $('.cphone').val('');
+//    $('.csecond_ct').val('');
+//    $('.csecond_mobile').val('');
+//    $('.caddr').val('');
+//    $('.area_province').val('');
+//    $('.area_province').trigger('change');
+//    $('.area_city').val('');
+//    $('.area_city').trigger('change');
+//    $('.area_zone').val('');
+//}
+//
+//
+//})
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['customer'], \yii\web\View::POS_END); ?>
 

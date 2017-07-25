@@ -118,8 +118,8 @@ class CustomerController extends BackController
      */
     public function actionUserInfoByName()
     {
-        $post = Yii::$app->getRequest()->post();
-        $uname = $post['uname'];
+        $get = Yii::$app->getRequest()->get();
+        $uname = $get['uname'];
         $user = User::find()->where(['username'=>$uname])->one();
 
         if (!$user) {

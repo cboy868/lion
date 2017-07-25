@@ -14,11 +14,11 @@ use app\core\models\Area;
  */
 class Select extends Widget {
 
-    public $pro;
+    public $pro=0;
 
-    public $city;
+    public $city=0;
 
-    public $zone;
+    public $zone=0;
 
     public $pro_name;
 
@@ -28,11 +28,15 @@ class Select extends Widget {
 
     public $zone_show = true;
 
+    public $jsOptions;
+
     static $flag = 0;
     /**
      * Renders the widget.
      */
     public function run() {
+
+
 
       $province_list = Area::find()->where(['level'=>1])->asArray()->all();
       $province_list = ArrayHelper::map($province_list, 'id', 'name');
@@ -41,13 +45,14 @@ class Select extends Widget {
       return $this->render('select', [
             'province_list' => $province_list,
             'flag' => self::$flag,
-            'pro' => $this->pro,
+            'pro' => $this->pro ? $this->pro : 0,
             'city' => $this->city,
             'zone' => $this->zone,
             'pro_name' => $this->pro_name ? $this->pro_name : 'province_id',
             'city_name' => $this->city_name ? $this->city_name : 'city_id',
             'zone_name' => $this->zone_name ? $this->zone_name : 'zone_id',
-            'zone_show' => $this->zone_show
+            'zone_show' => $this->zone_show,
+            'jsOptions' => $this->jsOptions
           ]);
     }
 }
