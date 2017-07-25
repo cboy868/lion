@@ -91,6 +91,12 @@ AdminAsset::register($this);
                             </a>
                         </li>
 
+                        <li class="dark">
+                            <a href="http://screen.ibagou.com:8080/?rows=4" target="_blank">
+                                微信大屏
+                            </a>
+                        </li>
+
 <!--                        <li class="green">-->
 <!--                            <a href="--><?//=Url::toRoute(['/grave/admin/default/workbench'])?><!--" target="_blank">-->
 <!--                                工作台-->
@@ -383,6 +389,8 @@ AdminAsset::register($this);
                                         个人设置
                                     </a>
                                 </li>
+
+
 
                                 <li class="divider"></li>
 
