@@ -121,7 +121,7 @@ class InsCfgValueController extends BackController
                         'color'=> isset($val['color']) ? $val['color'] : '#000000',
                         'direction'=> isset($val['direction']) ? $val['direction'] : 0,
                         'is_big' => isset($val['is_big'])? $val['is_big'] : 0,
-                         'add_time' => time()
+                         'add_time' => date('Y-m-d H:i:s')
                 );
 
                 // if ($savedata['is_big'] == 0) {
