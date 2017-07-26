@@ -112,7 +112,9 @@ class ProcessController extends BackController
 
                 if ($user->validate()) {
 //                    $user->mobile = $customer->mobile; 遇到重复手机号  可能会有问题 暂时去掉
-                    $user->createUser();
+                    if ($user->isNewRecord) {
+                        $user->createUser();
+                    }
                 } else {
                     goto show;
                 }
@@ -144,7 +146,6 @@ class ProcessController extends BackController
 
                 $outerTransaction->commit();
                 return $this->next();
-                die;
             } catch (\Exception $e) {
                 echo $e->getMessage();
                 Yii::error($e->getMessage(), __METHOD__);
