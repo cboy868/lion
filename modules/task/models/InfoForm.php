@@ -32,6 +32,8 @@ class InfoForm extends Model
     public $msg_type;
 
     public $msg_time;
+
+    public $pid;
     /**
      * @inheritdoc
      */
@@ -40,9 +42,9 @@ class InfoForm extends Model
         return [
             [['intro', 'msg'], 'string'],
             [['trigger'], 'integer'],
-            [['name', 'user'], 'required'],
+            [['name', 'user', 'pid'], 'required'],
             [['name'], 'string', 'max' => 200],
-            [['user', 'default', 'msg_type', 'trigger', 'msg_time'], 'safe'],
+            [['user', 'default', 'msg_type', 'trigger', 'msg_time', 'pid'], 'safe'],
         ];
     }
 
@@ -58,7 +60,8 @@ class InfoForm extends Model
             'msg' => '消息内容',
             'created_at' => '添加时间',
             'user' => '任务接收人',
-            'default' => '直接处理人'
+            'default' => '直接处理人',
+            'pid' => '项目'
         ];
     }
 
@@ -150,6 +153,7 @@ class InfoForm extends Model
             $info->name = $this->name;
             $info->msg = $this->msg;
             $info->intro = $this->intro;
+            $info->pid = $this->pid;
             $info->msg_type = implode(',', $this->msg_type);
             $info->msg_time = $this->msg_time;
             $info->trigger = $this->trigger;

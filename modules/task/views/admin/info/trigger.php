@@ -15,7 +15,7 @@ use app\modules\shop\models\Category;
 /* @var $model app\modules\task\models\Info */
 
 $this->title = '配置任务的触发条件';
-$this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '任务项目管理', 'url' => ['project']];
 $this->params['breadcrumbs'][] = '配置任务的触发条件, 勾选或取消勾选即可，无需保存';
 ?>
 

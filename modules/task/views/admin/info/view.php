@@ -1,15 +1,11 @@
 <?php
 
 use app\core\helpers\Html;
-use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 use app\modules\task\models\Info;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Info */
-
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '任务设置', 'url' => ['index', 'pid'=>$model->pid]];
 ?>
 
 <div class="page-content">

@@ -7,7 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'sourceLanguage' => 'en-US',
     'language' => "zh-CN",
-
+    'timeZone'=>'Asia/Chongqing',
     'bootstrap' => ['log'],
     'defaultRoute' => 'home',
     'modules' => require(__DIR__ . '/modules.php'),

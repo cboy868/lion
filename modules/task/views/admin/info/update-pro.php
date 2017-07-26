@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\task\models\Info */
 
 $this->title = ' ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => '任务设置', 'url' => ['index', 'pid'=>$model->pid]];
+$this->params['breadcrumbs'][] = ['label' => '任务消息管理', 'url' => ['project']];
 $this->params['breadcrumbs'][] = '修改';
 ?>
 
@@ -25,9 +25,8 @@ $this->params['breadcrumbs'][] = '修改';
 
 		<div class="row">
 			<div class="col-xs-12 info-update">
-				 <?= $this->render('_form', [
+				 <?= $this->render('_pro_form', [
 				        'model' => $model,
-				        'sels' => $sels
 				    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

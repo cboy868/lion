@@ -4,16 +4,14 @@ namespace app\modules\task\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use app\modules\user\models\User;
+use app\modules\user\models\User as SysUser;
 
 
 use app\modules\order\models\OrderRel;
 use app\modules\order\models\Order;
 
-use app\modules\task\models\Goods;
 use app\modules\shop\models\Goods as ShopGoods;
 use app\modules\grave\models\Tomb;
-use app\modules\task\models\Info;
 
 /**
  * This is the model class for table "{{%task}}".
@@ -50,7 +48,7 @@ class Task extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cate_id', 'res_id', 'user_id', 'order_rel_id', 'op_id', 'status', 'created_at'], 'integer'],
+            [['cate_id', 'res_id', 'user_id', 'order_rel_id', 'op_id', 'status', 'created_at', 'is_msg'], 'integer'],
             [['content'], 'string'],
             [['pre_finish', 'finish'], 'safe'],
             [['cate_id', 'title'], 'required'],
@@ -104,7 +102,9 @@ class Task extends \app\core\db\ActiveRecord
             'status' => '状态',
             'statusText' => '状态',
             'created_at' => '添加时间',
-            'op.username'=>'操作人'
+            'op.username'=>'操作人',
+            'msg_time' => '提醒时间',
+            'is_msg' => '已发消息'
         ];
     }
 
@@ -145,50 +145,8 @@ class Task extends \app\core\db\ActiveRecord
 
             $tinfo = Info::findOne($v->category_id);
 
-            $content = $tinfo->msg;
-            $content = self::replace($v, $content, $res_name, $res_id);
 
-            $data = [
-                'res_name' => $res_name,
-                'res_id' => $res_id,
-                'user_id' => 0,
-                'cate_id' => $tinfo->id,
-                'title'  => $tinfo->name,
-                'op_id'  => $tinfo->default->user_id,
-                'content' => $content,
-                'pre_finish' => $v->use_time,
-                'order_rel_id' => $v->id
-            ];
-
-            $msg_time = str_replace('，', ',', $tinfo->msg_time);
-            $msgs = explode(',', $msg_time);
-
-            foreach ($msgs as $v) {
-                $model = new self;
-
-                $model->load($data, '');
-
-                if ($v < 0) {
-                    $model->pre_finish = date('Y-m-d H:i:s', strtotime($model->pre_finish .' '. $v .' days'));
-                } else if ($v > 0) {
-                    $model->pre_finish = date('Y-m-d H:i:s');
-                }
-
-                $model->save();
-
-                $msg_type = str_replace('，', ',', $tinfo->msg_type);
-                $msg_type = explode(',', $msg_type);
-
-                if (in_array(Info::MSG_SMS, $msg_type)) {
-                    \app\modules\sms\models\Send::create($tinfo->default->user->mobile, $content, $model->pre_finish);
-                }
-
-                if (in_array(Info::MSG_EMAIL, $msg_type)) {
-                    \app\modules\sms\models\EmailSend::create($tinfo->default->user->email, $tinfo->name, $content, $model->pre_finish, '系统邮件');
-                }
-
-                unset($model);
-            }
+            $tinfo->createTask($v, $res_name, $res_id);
 
         }
 
@@ -220,7 +178,8 @@ class Task extends \app\core\db\ActiveRecord
             return;
         }
 
-        $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$goods_ids['res_id']])->indexBy('res_id')->all();
+        $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$goods_ids['res_id']])
+            ->indexBy('res_id')->all();
 
         if ($goods_rels) {
             foreach ($goods_ids['model'] as $k => $rel) {
@@ -230,53 +189,9 @@ class Task extends \app\core\db\ActiveRecord
                 }
 
                 $goods = $goods_rels[$rel->goods_id];
+                $info = $goods->info;
 
-                $content = $goods->info->msg;
-                $content = self::replace($rel, $content, $res_name, $res_id);
-
-                $data = [
-                    'res_name' => $res_name,
-                    'res_id' => $res_id,
-                    'user_id' => 0,
-                    'cate_id' => $goods->info->id,
-                    'title'  => $goods->info->name,
-                    'op_id'  => $goods->info->default->user_id,
-                    'content' => $content,
-                    'pre_finish' => $rel->use_time,
-                    'order_rel_id' => $rel->id
-                ];
-
-                $msg_time = str_replace('，', ',', $goods->info->msg_time);
-                $msgs = explode(',', $msg_time);
-
-
-                foreach ($msgs as $v) {
-                    $model = new self;
-
-                    $model->load($data, '');
-
-                    if ($v < 0) {
-                        $model->pre_finish = date('Y-m-d H:i:s', strtotime($model->pre_finish .' '. $v .' days'));
-                    } else if ($v > 0) {
-                        $model->pre_finish = date('Y-m-d H:i:s');
-                    }
-
-                    $model->save();
-
-                    $msg_type = str_replace('，', ',', $goods->info->msg_type);
-                    $msg_type = explode(',', $msg_type);
-
-                    if (in_array(Info::MSG_SMS, $msg_type)) {
-                        \app\modules\sms\models\Send::create($goods->info->default->user->mobile, $content, $model->pre_finish);
-                    }
-
-                    if (in_array(Info::MSG_EMAIL, $msg_type)) {
-                        \app\modules\sms\models\EmailSend::create($goods->info->default->user->email, $goods->info->name, $content, $model->pre_finish, '系统邮件');
-                    }
-
-                    unset($model);
-                }
-
+                $info->createTask($rel, $res_name, $res_id);
             }
         }
     }
@@ -305,7 +220,8 @@ class Task extends \app\core\db\ActiveRecord
             return ;
         }
 
-        $cate_rels = Goods::find()->where(['res_name'=>'category', 'res_id'=>$category_ids['res_id']])->indexBy('res_id')->all();
+        $cate_rels = Goods::find()->where(['res_name'=>'category', 'res_id'=>$category_ids['res_id']])
+                                ->indexBy('res_id')->all();
 
         if ($cate_rels) {
             foreach ($category_ids['model'] as $k => $rel) {
@@ -314,50 +230,10 @@ class Task extends \app\core\db\ActiveRecord
                     continue;
                 }
                 $cate = $cate_rels[$rel->category_id];
-                $content = $cate->info->msg;
-                $content = self::replace($rel, $content, $res_name, $res_id);
 
-                $data = [
-                    'res_name' => $res_name,
-                    'res_id' => $res_id,
-                    'user_id' => 0,
-                    'cate_id' => $cate->info->id,
-                    'title'  => $cate->info->name,
-                    'op_id'  => $cate->info->default->user_id,
-                    'content' => $content,
-                    'pre_finish' => $rel->use_time,
-                    'order_rel_id' => $rel->id
-                ];
+                $info = $cate->info;
+                $info->createTask($rel, $res_name, $res_id);
 
-                $msg_time = str_replace('，', ',', $cate->info->msg_time);
-                $msgs = explode(',', $msg_time);
-
-                foreach ($msgs as $v) {
-                    $model = new self;
-
-                    $model->load($data, '');
-
-//                    if ($v < 0) {
-//                        $model->pre_finish = date('Y-m-d', strtotime($model->pre_finish .' '. $v .' days'));
-//                    } else if ($v > 0) {
-//                        $model->pre_finish = date('Y-m-d');
-//                    }
-
-                    $model->save();
-
-                    $msg_type = str_replace('，', ',', $cate->info->msg_type);
-                    $msg_type = explode(',', $msg_type);
-                    
-                    if (in_array(Info::MSG_SMS, $msg_type)) {
-                        \app\modules\sms\models\Send::create($cate->info->default->user->mobile, $content, $model->pre_finish);
-                    }
-
-                    if (in_array(Info::MSG_EMAIL, $msg_type)) {
-                        \app\modules\sms\models\EmailSend::create($cate->info->default->user->email, $cate->info->name, $content, $model->pre_finish, '系统邮件');
-                    }
-
-                    unset($model);
-                }
             }
         }
     }
@@ -393,11 +269,11 @@ class Task extends \app\core\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(),['id'=>'user_id']);
+        return $this->hasOne(SysUser::className(),['id'=>'user_id']);
     }
     public function getOp()
     {
-        return $this->hasOne(User::className(),['id'=>'op_id']);
+        return $this->hasOne(SysUser::className(),['id'=>'op_id']);
     }
     public function getInfo()
     {

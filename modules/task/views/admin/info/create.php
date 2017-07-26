@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\task\models\Info */
 
-$this->title = '添加任务类型';
-$this->params['breadcrumbs'][] = ['label' => '任务分类信息', 'url' => ['index']];
+$this->title = '添加任务设置';
+$this->params['breadcrumbs'][] = ['label' => '任务设置', 'url' => ['index', 'pid'=>Yii::$app->request->get('pid')]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

@@ -6,13 +6,8 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use app\modules\task\models\Info;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\task\models\search\InfoSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = '任务分类信息';
+$this->title = '任务设置';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -23,74 +18,74 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <small>
                     <?php if (Yii::$app->user->can('task/info/create')):?>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create', 'pid'=>Yii::$app->request->get('pid')], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                     <?php endif;?>
                 </small>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/task/admin/info/project'])?>">
+                        <i class="fa fa-list-ol fa-2x"></i>  项目管理</a>
+                </div>
             </h1>
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-12">
-                <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
-                </div>
-            </div>
-
             <div class="col-xs-12 info-index">
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
-        // 'filterModel' => $searchModel,
-        'columns' => [
-            'id',
-            'name',
-            [
-                'label' => '处理人',
-                'value' => function($model) {
-                    return $model->default->user->username;
-                }
-            ],
-            'intro:ntext',
-            'msg:ntext',
-            'created_at:datetime',
-            [   
-                'label' => '提醒方式',
-                'value' => function($model) {
-                    return $model->getMsgType();
-                }
-            ],
-            [
-                'label' => '提醒时间',
-                'value' => function($model) {
-                    return $model->getTimes();
-                }
-            ],
-            [
-                'label' => '触发方式',
-                'value' => function($model) {
-                    return Info::trig($model->trigger);
-                }
-            ],
-            [   
-                'class' => 'yii\grid\ActionColumn',
-                'header'=>'操作',
-                'template' => '{update} {delete} {trigger}',
-                'buttons' => [
-                    'trigger' => function($url, $model, $key) {
-                        return Html::a('触发条件', $url, ['title' => '触发条件', 'class'=>''] );
-                    },
-                ],
-                'visibleButtons' =>[
-                    'update' =>Yii::$app->user->can('task/info/update'),
-                    'trigger' =>Yii::$app->user->can('task/info/trigger'),
-                    'delete' =>Yii::$app->user->can('task/info/delete'),
-                ],
-                'headerOptions' => ['width' => '120',"data-type"=>"html"]
-            ]
-        ],
-    ]); ?>
+            <?=\app\core\widgets\Alert::widget()?>
+
+                <table class="table table-striped table-hover table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th>任务</th>
+                        <th>处理人</th>
+
+                        <th>备注</th>
+                        <th>消息内容</th>
+                        <th>提醒方式</th>
+                        <th>提醒时间</th>
+                        <th width="120">创建时间</th>
+                        <th width="120"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($info as $k => $v):?>
+                        <tr>
+                            <td>[<?=$v->parent->name?>] <?=$v->name?></td>
+                            <td><?=$v->default->user->username?></td>
+
+                            <td><?=$v->intro?></td>
+                            <td><?=$v->msg?></td>
+                            <td><?=$v->getMsgType()?></td>
+                            <td><?=$v->getTimes()?></td>
+                            <td><?=date('Y/m/d',$v['created_at'])?></td>
+
+
+                            <td width="100">
+                                <?php if (Yii::$app->user->can('task/info/update')):?>
+                                    <?= Html::a('编辑', ['update', 'id' => $v['id']],
+                                        ['class' => 'btn btn-info btn-xs', 'title'=>'编辑']
+                                    ) ?>
+                                <?php endif;?>
+
+                                <?php if (Yii::$app->user->can('task/info/delete')):?>
+                                    <?= Html::a('删除', ['delete', 'id' => $v['id']], [
+                                        'class' => 'btn btn-danger btn-xs delete',
+                                        'data' => [
+                                            'confirm' => '确定要删除此项任务设置吗?',
+                                            'method' => 'post',
+                                        ],
+                                    ]) ?>
+                                <?php endif;?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                    </tbody>
+                </table>
+
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+

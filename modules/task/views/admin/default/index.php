@@ -83,6 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:ntext',
             'pre_finish:date',
             'finish',
+            'msg_time',
             'statusText',
 
             [   

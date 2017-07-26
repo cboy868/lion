@@ -2,6 +2,8 @@
 
 namespace app\modules\task\controllers\admin;
 
+use app\modules\order\models\OrderRel;
+use app\modules\task\models\ProForm;
 use Yii;
 use app\modules\task\models\Info;
 use app\modules\task\models\InfoForm;
@@ -36,16 +38,41 @@ class InfoController extends BackController
      * Lists all Info models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($pid=null)
     {
 
-        $searchModel = new InfoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Info::find();
+        if (!$pid) {
+            $query->where(['<>', 'pid', 0]);
+        } else {
+            $query->where(['pid'=>$pid]);
+        }
+
+        $infos = $query->orderBy('pid asc')->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'info'  => $infos,
         ]);
+
+    }
+
+
+    /**
+     * @name 项目管理
+     */
+    public function actionProject()
+    {
+
+//        $info = Info::findOne(14);
+//        $order_rel = OrderRel::findOne(27);
+//        $info->createTask($order_rel, 'goods', $order_rel->tid);
+
+        $infos = Info::find()->where(['pid'=>0])->orderBy('code asc')->all();
+
+        return $this->render('project', [
+            'info'  => $infos,
+        ]);
+
     }
 
     /**
@@ -70,18 +97,38 @@ class InfoController extends BackController
      */
     public function actionCreate()
     {
+        $request = Yii::$app->request;
         $model = new InfoForm();
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load($request->post())) {
+
             $info =  $model->create();
-            return $this->redirect(['view', 'id' => $info->id]);
+            return $this->redirect(['index', 'pid' => $info->pid]);
         } else {
             $model->trigger = Info::TRIGGER_PAY;
             $model->msg_type = Info::MSG_EMAIL;
 
             $user = User::find()->where(['is_staff'=>User::STAFF_YES, 'status'=>User::STATUS_ACTIVE])->all();
+
+            $model->pid = $request->get('pid') ? $request->get('pid') : 0;
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user,
+            ]);
+        }
+    }
+
+    public function actionCreatePro()
+    {
+        $request = Yii::$app->request;
+        $model = new ProForm();
+        if ($model->load($request->post()) && $model->create()) {
+
+            return $this->redirect(['project']);
+        } else {
+            $model->trigger = Info::TRIGGER_PAY;
+
+            return $this->render('create-pro', [
+                'model' => $model,
             ]);
         }
     }
@@ -176,8 +223,8 @@ class InfoController extends BackController
         $form->msg_time = $model->msg_time;
         $form->msg_type = explode(',', $model->msg_type);
         $form->trigger = $model->trigger;
+        $form->pid = $model->pid;
         $selUsers = $model->users;
-
 
         $result = [];
 
@@ -190,11 +237,32 @@ class InfoController extends BackController
         if ($form->load(Yii::$app->request->post())) {
             $info =  $form->update();
 
-            return $this->redirect(['view', 'id' => $info->id]);
+            return $this->redirect(['index', 'pid' => $info->pid]);
         } else {
             return $this->render('update', [
                 'model' => $form,
                 'sels' => $result
+            ]);
+        }
+
+    }
+
+    public function actionUpdatePro($id)
+    {
+
+        $form = new ProForm();
+        $model = $this->findModel($id);
+
+        $form->name = $model->name;
+        $form->intro = $model->intro;
+        $form->trigger = $model->trigger;
+
+
+        if ($form->load(Yii::$app->request->post()) && $form->update()) {
+            return $this->redirect(['project']);
+        } else {
+            return $this->render('update-pro', [
+                'model' => $form,
             ]);
         }
 
@@ -208,18 +276,39 @@ class InfoController extends BackController
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+
+        $session = Yii::$app->session;
+
+
         $connection = Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
             $this->findModel($id)->delete();
             $connection->createCommand()->delete(TaskUser::tableName(), ['info_id'=>$id])->execute();
             $transaction->commit();
+            $session->setFlash('success', '设置删除成功');
 
         } catch (\Exception $e) {
             $transaction->rollBack();
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'pid'=>$model->pid]);
+    }
+
+    public function actionDeletePro($id)
+    {
+        $model = $this->findModel($id);
+
+        $session = Yii::$app->session;
+        if ($model->hasChild()) {
+            $session->setFlash('error', '此项目下尚有任务设置，请先删除任务设置');
+            return $this->redirect(['project']);
+        }
+
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['project']);
     }
 
     /**

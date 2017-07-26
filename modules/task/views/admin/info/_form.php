@@ -42,7 +42,6 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
 
     <?php $form = ActiveForm::begin(); ?>
 
-
     <table class="table">
         
         <tr>
@@ -54,6 +53,21 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
             </td>
         </tr>
 
+        <?php if($model->pid):?>
+            <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
+        <?php else:?>
+
+        <tr>
+            <th>
+                项目选择
+            </th>
+            <td>
+                <?= $form->field($model, 'pid')->dropDownList(Info::getInfos(),['prompt'=>'请选择任务项目'])->label(false) ?>
+            </td>
+        </tr>
+        <?php endif;?>
+
+
         <tr>
             <th>
                 触发方式
@@ -63,6 +77,8 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
             </td>
         </tr>
 
+
+
         <tr>
             <th>
                 提醒方式
@@ -71,15 +87,18 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
                 <?= $form->field($model, 'msg_type')->checkBoxList(Info::msgType())->label(false)->hint('消息提醒类型，可多选') ?>
             </td>
         </tr>
-
+        <?php if($model->pid):?>
         <tr>
             <th>
                 提醒时间
             </th>
             <td>
-                <?= $form->field($model, 'msg_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])->label(false)->hint('1马上, 0当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔') ?>
+                <?= $form->field($model, 'msg_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])
+                    ->label(false)
+                    ->hint('<span style="color:green">atonce 马上, 0当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔;<br>如果值大于0，则为延后提醒,1表示延后1天，2个示延后2天,以此类推，任务完成时间相应延后到与消息时间相同</span>') ?>
             </td>
         </tr>
+        <?php endif;?>
         <tr>
             <th>
                 描述
@@ -95,10 +114,7 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
             <td>
                 <?php 
                     $replace = $this->context->module->params['shortcut'];
-
-
                  ?>
-
 
                  <div class="shortcut">插入参数
 
@@ -132,12 +148,6 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
                 
             </td>
         </tr>
-
-
-
-
-
-
 
     </table>
 
