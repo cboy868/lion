@@ -39,7 +39,7 @@ use app\core\helpers\Url;
 
                             <ul class="media-list" style="border-right: 1px solid #ccc;">
                                 <?php
-                                if (isset($models['tomorrow'])):
+                                if (isset($models['today'])):
                                 ?>
                                 <?php foreach ($models['today'] as $k => $model): ?>
                                     <li class="media">
@@ -116,9 +116,12 @@ use app\core\helpers\Url;
                         </div>
                     </div>
                 </div>
+                <div class="hr hr-18 dotted hr-double"></div>
             </div>
+            <div class="hr hr-18 dotted hr-double"></div>
         </div>
     </div>
+    <div style="clear:both;"></div>
 </div>
 
 <?php $this->beginBlock('cate') ?>

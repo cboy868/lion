@@ -85,16 +85,13 @@ class Info extends \app\core\models\Category
 
         $result = '';
         foreach ($arr as $k => $v) {
-            if ($v == 0) {
-                $result .= '当天,';
-            }
-            if ($v < 0) {
-                $result .= '提前' . abs($v) . '天,';
-            }
             if ($v == 'atonce') {
                 $result .= '马上,';
-            }
-            if ($v > 0) {
+            } else if ($v < 0) {
+                $result .= '提前' . abs($v) . '天,';
+            } else if ($v == 0) {
+                $result .= '当天,';
+            } else if ($v > 0) {
                 $result .= '延后' . abs($v) . '天,任务完成时间相应延后';
             }
         }
@@ -208,16 +205,21 @@ class Info extends \app\core\models\Category
 
                 $model->load($data, '');
 
+                //这些是子任务的时间，现在想错了，msg_time还应该是pre_finish
+                //比如发个安葬任务，则提前两天有个清穴，提前一天有个清穴，当天有个清穴，这些都是要完成的任务，而不是提醒
                 if ($v == 'atonce') {//马上
-                    $model->msg_time = date('Y-m-d H:i:s');
+//                    $model->msg_time = date('Y-m-d H:i:s');
+                    $model->pre_finish = date('Y-m-d H:i:s');
                 } else if ($v == 0) { //当天
-                    $model->msg_time = $data['pre_finish'];
+//                    $model->msg_time = $data['pre_finish'];
+//                    $model->pre_finish = $data['pre_finish'];//两值相同，就不用再给值了
                 } else {
-                    $model->msg_time = date('Y-m-d H:i:s', strtotime($data['pre_finish'] .' '. $v .' days'));
+//                    $model->msg_time = date('Y-m-d H:i:s', strtotime($data['pre_finish'] .' '. $v .' days'));
+                    $model->pre_finish = date('Y-m-d H:i:s', strtotime($data['pre_finish'] .' '. $v .' days'));
 
-                    if ($v > 0) {
-                        $model->pre_finish = $model->msg_time;
-                    }
+//                    if ($v > 0) {
+//                        $model->pre_finish = $model->msg_time;
+//                    }
                 }
 
                 $model->save();
