@@ -33,7 +33,8 @@ use app\modules\grave\models\Tomb;
 class Task extends \app\core\db\ActiveRecord
 {
 
-    const  STATUS_FINISH = 2;//完成
+    const STATUS_FINISH = 2;//完成
+//    const STATUS_OVERDUE = 5;//过期
     /**
      * @inheritdoc
      */
@@ -81,6 +82,18 @@ class Task extends \app\core\db\ActiveRecord
 
         return $s[$status];
     }
+
+    public function getStatusText()
+    {
+
+        if ($this->pre_finish < date('Y-m-d')) {
+            return '已过期';
+        }
+
+        return static::status($this->status);
+    }
+
+
 
     /**
      * @inheritdoc

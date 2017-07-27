@@ -67,18 +67,6 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
         </tr>
         <?php endif;?>
 
-
-        <tr>
-            <th>
-                触发方式
-            </th>
-            <td>
-                <?= $form->field($model, 'trigger')->radioList(Info::trig())->label(false) ?>
-            </td>
-        </tr>
-
-
-
         <tr>
             <th>
                 提醒方式

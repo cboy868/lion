@@ -14,10 +14,10 @@ use app\modules\cms\models\Category;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php
-    $cates = Category::selTree();
+    $cates = Category::selTree(['mid'=>Yii::$app->request->get('mid')]);
     ?>
 
-    <?= $form->field($model, 'pid')->dropDownList($cates) ?>
+    <?= $form->field($model, 'pid')->dropDownList($cates, ['prompt'=>'请选择父级分类']) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

@@ -91,23 +91,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header'=>'操作',
                 'template' => '{update} {delete} {view} {finish}',
                 'visibleButtons' =>[
-                    'update' =>Yii::$app->user->can('task/default/update'),
-                    'view' =>Yii::$app->user->can('task/default/view'),
-                    'delete' =>Yii::$app->user->can('task/default/delete'),
-                    'finish' =>Yii::$app->user->can('task/default/finish'),
+                    'update' =>function($model){
+                        return Yii::$app->user->can('task/default/update') &&
+                            $model->pre_finish >= date('Y-m-d');
+                    },
+                    'view' => Yii::$app->user->can('task/default/view'),
+                    'delete' => Yii::$app->user->can('task/default/delete'),
+                    'finish' => Yii::$app->user->can('task/default/finish')
                 ],
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     },
                     'finish' => function($url, $model, $key) {
+                        if ($model->pre_finish < date('Y-m-d')) {
+                            return '<span class="overdue">任务过期</span>';
+                        }
                         if ($model->status == $model::STATUS_FINISH) {
                             return '';
                         }
                         return Html::a('<span class="fa fa-check"></span>', $url, ['title' => '完成'] );
                     }
                 ],
-               'headerOptions' => ['width' => '80',"data-type"=>"html"]
+               'headerOptions' => ['width' => '100',"data-type"=>"html"]
             ]
         ],
     ]); ?>
@@ -116,3 +122,22 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+<style>
+    .overdue{
+        color:red;
+        font-weight:700;
+    }
+    tr.overdue{
+        background:#FDBCC9;
+        color:white;
+    }
+</style>
+
+<?php $this->beginBlock('tag') ?>
+
+$(function () {
+    $('.overdue').closest('tr').addClass('overdue');
+});
+
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['tag'], \yii\web\View::POS_END); ?>

@@ -581,7 +581,7 @@ class ProcessController extends BackController
                     $model->save();
 
 
-                    if ($car_model->load($req->post())) {
+                    if ($car_model->load($req->post()) && $car_model->car_type != 3) {
                         $car_model->bury_id = $model->id;
                         $start_time = $model->pre_bury_date;
 
@@ -592,8 +592,10 @@ class ProcessController extends BackController
                     }
                 }
                 $outerTransaction->commit();
+
                 return $this->next();
             } catch (\Exception $e) {
+
                 $outerTransaction->rollBack();
             }
         }
