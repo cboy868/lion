@@ -116,7 +116,7 @@ class Task extends \app\core\db\ActiveRecord
             'statusText' => '状态',
             'created_at' => '添加时间',
             'op.username'=>'任务接收人',
-            'msg_time' => '提醒时间',
+//            'msg_time' => '提醒时间',
             'is_msg' => '已发消息'
         ];
     }

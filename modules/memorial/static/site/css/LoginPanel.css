@@ -1,0 +1,18 @@
+﻿@charset "utf-8";
+.reg-left ul{ padding:0px; margin:0px; list-style:none;}
+.reg-left li{ width:600px; height:60px; float:left; position:relative;}
+.reg-left li p{ float:left; width:90px; padding-right:30px; text-align:right; font-family:"微软雅黑"; font-size:16px; color:#666666; padding-top:8px; height:52px;}
+.reg-left li span{ float:left;  } 
+/*.reg-left li span img{ padding-top:3px; float:left; padding-left:10px;}*/
+.reg-left li span a{ width:50px; display:block; font-family:"微软雅黑"; font-size:14px; color:#478ed0; text-decoration:none; padding-left:10px; padding-top:8px; float:left; }
+.reg-left li b{ height:60px; float:left; font-size:14px;  font-family:"微软雅黑"; font-weight:normal; color:#666666;}
+.reg-left li b a{color:#666666; text-decoration:none;}
+.reg-left li b a:hover{ color:#000; text-decoration:underline;}
+.form-input-a{ width:300px; height:25px; float:left; border-radius:5px; border:1px solid #DBDBDB; padding:6px 12px;font-size:18px; color:#333333;}
+.form-input-b{ width:110px; height:25px; float:left;  border-radius:5px; border:1px solid #DBDBDB; padding:6px 12px;font-size:18px; color:#333333;}
+.buttem-a{ float:left; }
+.buttem-a a{ width:325px; height:35px; display:block; background-color:#ff4f00; border-radius:6px;  font-family:"微软雅黑"; font-size:18px; color:#ffffff; text-align:center; text-decoration:none; padding-top:8px;}
+.buttem-a button { width:325px; height:35px; display:block; background-color:#ff4f00; border-radius:6px;  font-family:"微软雅黑"; font-size:18px; color:#ffffff; text-align:center; text-decoration:none; padding-top:8px;}
+.buttem-a button:hover { background:#ff9602;}
+.buttem-a a:hover{ background:#ff9602;}
+

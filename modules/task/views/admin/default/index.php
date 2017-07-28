@@ -6,14 +6,10 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\task\models\search\TaskSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = '任务列表';
 $this->params['breadcrumbs'][] = $this->title;
 
-
+\app\assets\JqueryuiAsset::register($this);
 ?>
 
 <div class="page-content">
@@ -83,7 +79,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:ntext',
             'pre_finish:date',
             'finish',
-            'msg_time',
             'statusText',
 
             [   
@@ -101,6 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'buttons' => [
                     'update' => function($url, $model, $key) {
+                        if ($model->status == \app\modules\task\models\Task::STATUS_FINISH) {return '';}
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );
                     },
                     'finish' => function($url, $model, $key) {

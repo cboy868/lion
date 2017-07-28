@@ -9,7 +9,7 @@
   'uemail' => 'info@zhuo-xun.com',
   'address' => '北京',
   'cmobile' => '15910470214',
-  'cp_name' => '卓迅',
+  'cp_name' => '卓迅网络1',
   'hotline' => '400-800-900',
   'fullname' => '承德卓迅网络科技有限公司',
   'keywords' => '公墓办公自动化、陵园软件、公墓erp、业务办理、公祭祀、微商、数据统计分析、微信公众平台',

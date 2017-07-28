@@ -9,9 +9,6 @@ use app\assets\ExtAsset;
 
 ExtAsset::register($this);
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Task */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="task-form">
@@ -35,3 +32,14 @@ ExtAsset::register($this);
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php $this->beginBlock('tag') ?>
+
+$(function () {
+LN.dtInit();
+});
+
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['tag'], \yii\web\View::POS_END); ?>
+
+

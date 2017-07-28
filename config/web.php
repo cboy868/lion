@@ -11,6 +11,11 @@ $config = [
     'bootstrap' => ['log'],
     'defaultRoute' => 'home',
     'modules' => require(__DIR__ . '/modules.php'),
+    'on beforeRequest' => function($event) {
+        \yii\base\Event::on(\yii\db\BaseActiveRecord::className(), \yii\db\BaseActiveRecord::EVENT_AFTER_INSERT, ['app\core\base\OpLog', 'write']);
+        \yii\base\Event::on(\yii\db\BaseActiveRecord::className(), \yii\db\BaseActiveRecord::EVENT_AFTER_UPDATE, ['app\core\base\OpLog', 'write']);
+        \yii\base\Event::on(\yii\db\BaseActiveRecord::className(), \yii\db\BaseActiveRecord::EVENT_BEFORE_DELETE, ['app\core\base\OpLog', 'write']);
+    },
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -44,11 +49,31 @@ $config = [
         'mailer' => $mailer,
 
         'log' => [
+            'flushInterval' => 100,   // default is 1000
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'logVars' => ['_SERVER'],
+                    'exportInterval' => 1,
+                ],
+                [
+                    'class' => 'yii\log\DbTarget',
+                    'levels' => ['error'],
+                    'logVars' => ['_SERVER'],
+                    'exportInterval' => 1,
+                ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['error'],
+                    'categories' => ['yii\db\*'],
+                    'message' => [
+                        'from' => ['cboy868@163.com'],
+                        'to' => ['cboy868@163.com'],
+                        'subject' => 'Database errors at lion.com',
+                    ],
+                    'logVars' => [],
                 ],
             ],
         ],

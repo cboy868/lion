@@ -7,6 +7,7 @@ namespace app\modules\test\controllers\admin;
 use app\core\models\TagRel;
 use app\core\libs\Fpdf;
 use app\modules\shop\models\Sku;
+use yii;
 
 class DefaultController extends \app\core\web\BackController
 {
@@ -25,6 +26,13 @@ class DefaultController extends \app\core\web\BackController
         return $this->render('index');
     }
 
+    public function actionLog()
+    {
+//        Yii::trace('abc', __METHOD__);
+//        Yii::info('info', __METHOD__);
+        Yii::error('error', __METHOD__);
+//        Yii::warning('warning', __METHOD__);
+    }
 
     public function actionExcel()
     {

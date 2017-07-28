@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-\app\modules\memorial\assets\MainAsset::register($this);
+\app\modules\memorial\assets\HallAsset::register($this);
 ?>
 
 <?php $this->beginPage() ?>

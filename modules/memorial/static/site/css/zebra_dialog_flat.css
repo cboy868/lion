@@ -1,0 +1,211 @@
+﻿.ZebraDialog *,
+.ZebraDialog *:after,
+.ZebraDialog *:before  { -moz-box-sizing: content-box !important; -webkit-box-sizing: content-box !important; box-sizing: content-box !important }
+
+.ZebraDialog {
+    width: 450px;
+    z-index: 1000500;
+    background-color: #fff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    background-clip: padding-box;
+    outline: 0;
+}
+
+.ZebraDialog,
+.ZebraDialog,
+.ZebraDialog .ZebraDialog_Body,
+.ZebraDialog {
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft YaHei", SimHei, sans-serif;
+    font-size:15px;
+    text-align: left;
+    line-height: 1.4;
+}
+
+/*Update On 2015-10-08 By Zuber */
+.ZebraDialog_Buttons a
+{
+    display:inline-block;
+    margin-bottom:0;
+    font-weight:normal;
+    text-align:center;
+    vertical-align:middle;
+    touch-action:manipulation;
+    cursor:pointer;
+    background-image:none;
+    border:1px solid transparent;
+    white-space:nowrap;
+    padding:6px 12px;
+    font-size:14px;
+    line-height:1.42857143;
+    border-radius:4px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.ZebraDialog {
+    /*font-size: 14px;*/
+    /*font-weight: bold;*/
+    color: #000;
+    color:inherit;
+    background: #FFF;
+    /*padding: 12px 15px;*/
+    vertical-align: middle;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.ZebraDialog_Title {
+    text-align: left;
+    font-size: 18px !important;
+    margin: 0;
+    padding:15px;
+    line-height: 1.42857143;
+    border-bottom: 1px solid #e5e5e5;
+    font-family: inherit;
+    font-weight: 500;
+    color: inherit;
+    display: block;
+    box-sizing: border-box;
+  /*font-weight: bold;*/
+}
+
+/*  set background color here and not on ZebraDialog_Body, or you'll eventually run into problems with rounded corners
+    when using smaller widths for border! */
+.ZebraDialog .ZebraDialog_BodyOuter {
+    background: #FFF;
+}
+
+.ZebraDialog .ZebraDialog_Body {
+    color: #44484A;
+    padding:15px;
+}
+
+.ZebraDialog .ZebraDialog_ButtonsOuter {
+    background: #FFF;
+    padding: 15px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.ZebraDialog .ZebraDialog_Buttons:before,
+.ZebraDialog .ZebraDialog_Buttons:after     { content: "\0020"; display: block; height: 0; visibility: hidden; font-size: 0 }
+.ZebraDialog .ZebraDialog_Buttons:after     { clear: both }
+.ZebraDialog .ZebraDialog_Buttons           { *zoom: 1 } /* for IE only */
+
+.ZebraDialog_Buttons a {
+    /*font-weight: bold;*/
+    /*color: #FFF;*/
+    padding: 10px 15px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    float: right;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 5px;
+    /*min-width: 60px;*/
+    float: right;
+    _width: 60px;
+    background: #fff;
+
+}
+
+.ZebraDialog .ZebraDialog_Buttons a:hover {
+    background: #ddd;
+    color: #333
+}
+
+.ZebraDialog a.ZebraDialog_Close {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    text-decoration: none;
+    font-family: "Microsoft YaHei", SimHei, sans-serif;
+    /*font-weight: bold;*/
+    font-size: 21px;
+    color: #333
+}
+
+
+.ZebraDialogOverlay {
+    opacity: .5 !important;
+    filter: alpha(opacity=50);
+    background: #000;
+    position:fixed;
+    z-index: 1040;
+    width: 100%;
+    height: 100%;
+}
+
+/* = YOU SHOULD NOT CHANGE ANYTHING FROM THIS POINT ON
+---------------------------------------------------------------------------------------------------------------------*/
+.ZebraDialog .ZebraDialog_Body {
+    overflow: auto;
+}
+
+.ZebraDialog .ZebraDialog_Icon {
+    background-repeat: no-repeat;
+    background-position: 20px 25px;
+    padding-left: 124px;
+    min-height: 64px;
+    _height: 64px;
+}
+
+.ZebraDialog .ZebraDialog_Confirmation  { background-image: url('confirmation.png') }
+.ZebraDialog .ZebraDialog_Error         { background-image: url('error.png') }
+.ZebraDialog .ZebraDialog_Information   { background-image: url('information.png') }
+.ZebraDialog .ZebraDialog_Question      { background-image: url('question.png') }
+.ZebraDialog .ZebraDialog_Warning       { background-image: url('warning.png') }
+
+.ZebraDialog  {
+    /*white-space: nowrap;*/
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 5px;
+    /*min-width: 60px;*/
+    float: right;
+    _width: 60px;
+    background: #fff;
+}
+
+.ZebraDialog .ZebraDialog_Buttons_Centered .ZebraDialog_Buttons {
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ZebraDialog .ZebraDialog_Buttons_Centered a {
+    zoom: 1;
+    *display: inline;
+}
+
+.ZebraDialog .ZebraDialog_Preloader {
+    height: 32px;
+    background: url('preloader.gif') no-repeat center center;
+}
