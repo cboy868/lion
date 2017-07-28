@@ -17,9 +17,7 @@ class OpLog
         }
 
         $desc = '';
-
         if ($event->name == ActiveRecord::EVENT_AFTER_INSERT) {
-            $description = "%s新增 %s";
             if (!empty($event->changedAttributes)) {
                 $desc = '';
                 foreach($event->changedAttributes as $name => $value) {
@@ -28,8 +26,8 @@ class OpLog
                 }
                 $desc = substr($desc, 0, -1);
             }
+            $action = \app\core\models\OpLog::ACTION_ADD;
         } elseif($event->name == ActiveRecord::EVENT_AFTER_UPDATE) {
-            $description = "%s修改 %s";
             if (!empty($event->changedAttributes)) {
 
                 foreach($event->changedAttributes as $name => $value) {
@@ -39,33 +37,32 @@ class OpLog
                     $desc .= $name . ' : ' . $oldValue .'=>'. $newValue . ',';
                 }
             }
+            $action = \app\core\models\OpLog::ACTION_UPDATE;
         } else {
-            $description = "%s删除 %s";
             foreach ($event->sender->getOldAttributes() as $name=>$value) {
                 $desc .= $name . ' : ' . $value . ',';
             }
+            $action = \app\core\models\OpLog::ACTION_DEL;
         }
 
         $desc = substr($desc, 0, -1);
 
-        $userName = '';
         $userId = 0;
         if (!Yii::$app->user->isGuest) {
-            $userName = Yii::$app->user->identity->username;
             $userId = Yii::$app->user->id;
         }
 
         $tableName = $event->sender->tableSchema->name;
-        $description = sprintf($description, $userName, $desc);
         $route = Url::to();
 
         $ip = ip2long(Yii::$app->request->userIP);
         $data = [
             'table_name' => $tableName,
             'route' => $route,
-            'description' => $description,
+            'description' => $desc,
             'user_id' => $userId,
-            'ip' => $ip
+            'ip' => $ip,
+            'action' => $action
         ];
         $model = new \app\core\models\OpLog();
         $model->setAttributes($data);
