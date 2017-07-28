@@ -48,12 +48,17 @@ class OpLog
 
         $desc = substr($desc, 0, -1);
 
-        $userName = Yii::$app->user->identity->username;
+        $userName = '';
+        $userId = 0;
+        if (!Yii::$app->user->isGuest) {
+            $userName = Yii::$app->user->identity->username;
+            $userId = Yii::$app->user->id;
+        }
+
         $tableName = $event->sender->tableSchema->name;
         $description = sprintf($description, $userName, $desc);
         $route = Url::to();
 
-        $userId = Yii::$app->user->id;
         $ip = ip2long(Yii::$app->request->userIP);
         $data = [
             'table_name' => $tableName,
