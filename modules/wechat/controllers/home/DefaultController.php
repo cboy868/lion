@@ -160,6 +160,13 @@ class DefaultController extends \app\core\web\HomeController
         }
     }
 
+    private function _eventClick($msg)
+    {
+        if ($msg->EventKey =='m12') {
+            return 111;
+        }
+    }
+
     /**
      * @name 处理文字消息
      */
