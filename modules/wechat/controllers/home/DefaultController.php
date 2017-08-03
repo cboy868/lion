@@ -133,14 +133,14 @@ class DefaultController extends \app\core\web\HomeController
             $model = new User();
         }
 
+        Yii::error($uInfo);
 
-        $model->load($uInfo, '');
+
         $model->gid = $uInfo['groupid'];
         $model->subscribe_at = $uInfo['subscribe_time'];
         $model->openid = $openid;
         $model->save();
 
-        Yii::error($model->getErrors());
 
         return '非常感谢您的关注，我们将竭诚为您服务';
 
