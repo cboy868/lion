@@ -163,7 +163,7 @@ class DefaultController extends \app\core\web\HomeController
     private function _eventClick($msg)
     {
         if ($msg->EventKey =='m12') {
-            return 111;
+            return '发送9@ + 您要发的内容 到本公众号，祝福马上显示在大屏和纪念馆，如:9@最美好的祝福';
         }
     }
 
