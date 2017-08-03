@@ -139,8 +139,6 @@ class DefaultController extends \app\core\web\HomeController
 
         $method = '_text' . ucfirst(self::methods($action));
 
-        return $method;
-
         return $this->$method($msg, $text);
 
     }
@@ -151,9 +149,9 @@ class DefaultController extends \app\core\web\HomeController
     private function _textScreen($msg, $text)
     {
 
-        if (Screen::msg($msg->FromUserName, $text)) {
-            return '您好，祝福留言成功';
-        }
+//        if (Screen::msg($msg->FromUserName, $text)) {
+//            return '您好，祝福留言成功';
+//        }
         return '您好，留言失败，请重试';
 
     }
