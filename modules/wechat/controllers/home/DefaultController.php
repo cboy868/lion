@@ -149,10 +149,18 @@ class DefaultController extends \app\core\web\HomeController
     private function _textScreen($msg, $text)
     {
 
+        try {
+            Screen::msg($msg->FromUserName, $text);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+
+        return '您好，祝福留言成功';
 //        if (Screen::msg($msg->FromUserName, $text)) {
 //            return '您好，祝福留言成功';
 //        }
-        return '您好，留言失败，请重试';
+//        return '您好，留言失败，请重试';
 
     }
 
