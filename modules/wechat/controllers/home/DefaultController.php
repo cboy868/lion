@@ -136,10 +136,33 @@ class DefaultController extends \app\core\web\HomeController
         Yii::error($uInfo);
 
 
+
+//        :"openid";s:28:"ofYkL1rwpqdx4Ug6OvNhg5EbUTcw";s:8:
+//        "nickname";s:3:"万";s:3:"sex";i:1;s:8:"language";s:5:"zh_CN";
+//        s:4:"city";s:6:"海淀";s:8:"province";s:6:"北京";s:7:"country";s:
+//        6:"中国";s:10:"headimgurl";s:125:"http://wx.qlogo.cn/mmopen/PMjBOKY7ZdXlibCmY2jGoJ411L4C8qVeoszSvs0KSRJlxqrxfAMA7SYwKLAw4ALn8tSqC7r70Haj
+//        OauWM6j1dkX0ddGXnD6H8/0";s:
+//        14:"subscribe_time";i:1501774782;s:6:"remark";s:0:
+//        "";s:7:"groupid";i:0;s:10:"tagid_list";a:0:{}}}')
+//
+//
+//
+//
+
+
+        $model->nickname = $uInfo['nickname'];
+        $model->sex = $uInfo['sex'];
+        $model->language = $uInfo['language'];
+        $model->city = $uInfo['city'];
+        $model->province = $uInfo['province'];
+        $model->country = $uInfo['country'];
+        $model->headimgurl = $uInfo['headimgurl'];
         $model->gid = $uInfo['groupid'];
         $model->subscribe_at = $uInfo['subscribe_time'];
         $model->openid = $openid;
         $model->save();
+
+        Yii::error($model->getErrors());
 
 
         return '非常感谢您的关注，我们将竭诚为您服务';
