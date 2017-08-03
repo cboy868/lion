@@ -139,6 +139,8 @@ class DefaultController extends \app\core\web\HomeController
         $model->subscribe_at = $uInfo['subscribe_time'];
         $model->save();
 
+        return implode(',',$model->getErrors());
+
         return '非常感谢您的关注，我们将竭诚为您服务';
 
     }
