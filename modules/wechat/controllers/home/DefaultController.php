@@ -75,6 +75,7 @@ class DefaultController extends \app\core\web\HomeController
                     return '收到事件消息';
                     break;
                 case 'text':
+                    return $message->Content;
                     return $this->text($message);
                     break;
                 case 'image':
