@@ -112,6 +112,19 @@ class DefaultController extends \app\core\web\HomeController
         echo $server->serve()->send();
     }
 
+    private function event($msg)
+    {
+        $method = '_evelt' . ucfirst($msg->Event);
+        return $this->$method($msg);
+    }
+
+    private function _eventSubscribe($msg)
+    {
+        $openid = $msg->FromUserName;
+        return $openid;
+
+    }
+
     /**
      * @name 处理文字消息
      */
@@ -155,12 +168,7 @@ class DefaultController extends \app\core\web\HomeController
             return $e->getMessage();
         }
 
-
         return '您好，祝福留言成功';
-//        if (Screen::msg($msg->FromUserName, $text)) {
-//            return '您好，祝福留言成功';
-//        }
-//        return '您好，留言失败，请重试';
 
     }
 
