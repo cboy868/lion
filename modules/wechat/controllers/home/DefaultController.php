@@ -115,6 +115,7 @@ class DefaultController extends \app\core\web\HomeController
     private function event($msg)
     {
         $method = '_evelt' . ucfirst($msg->Event);
+        return $method;
         return $this->$method($msg);
     }
 
