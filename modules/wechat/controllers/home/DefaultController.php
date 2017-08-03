@@ -124,9 +124,6 @@ class DefaultController extends \app\core\web\HomeController
         $rs = preg_match($this->msg_re, $content, $match);
 
 
-        return $content . $rs;
-
-
         if ( !$rs ) {
             // 不匹配@进多客服
             return $this->muti_person_service();
@@ -141,6 +138,8 @@ class DefaultController extends \app\core\web\HomeController
         if (!$text) return;//没有内容也返回空
 
         $method = '_text' . ucfirst(self::methods($action));
+
+        return $method;
 
         return $this->$method($msg, $text);
 
