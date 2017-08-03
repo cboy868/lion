@@ -119,6 +119,7 @@ class DefaultController extends \app\core\web\HomeController
     {
         Yii::info($msg);
         $content = $msg->Content;
+        return $content;
 
         $content = str_replace('＠', '@', $content);
         $rs = preg_match($this->msg_re, $content, $match);
