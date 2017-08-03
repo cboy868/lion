@@ -150,7 +150,7 @@ class DefaultController extends \app\core\web\HomeController
     {
 
         try {
-            Screen::msg($msg->FromUserName, $text);
+            return Screen::msg($msg->FromUserName, $text);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

@@ -71,7 +71,12 @@ class Screen extends \app\core\db\ActiveRecord
 
     public static function msg($openid, $msg)
     {
+
         $user = User::find()->where(['openid'=>$openid])->one();
+
+        if (!$user) {
+            return '您好，请先关注我们的公众号';
+        }
 
         $model = new self;
         $model->openid = $openid;
@@ -82,7 +87,7 @@ class Screen extends \app\core\db\ActiveRecord
         $model->save();
 
         self::push([$model->id]);
-        return true;
+        return '您好，祝福留言成功';
     }
 
 
