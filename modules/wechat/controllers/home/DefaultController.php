@@ -7,6 +7,7 @@ use yii;
 use app\modules\wechat\models\Wechat;
 use EasyWeChat\Foundation\Application;
 use yii\web\NotFoundHttpException;
+use app\modules\wechat\models\User;
 
 class DefaultController extends \app\core\web\HomeController
 {
@@ -121,7 +122,24 @@ class DefaultController extends \app\core\web\HomeController
     private function _eventSubscribe($msg)
     {
         $openid = $msg->FromUserName;
-        return $openid;
+
+        $userService = $this->app->user;
+        $uInfo = $userService->get($openid);
+
+
+        $model = User::find()->where(['openid'=>$openid])->one();
+
+        if (!$model) {
+            $model = new User();
+        }
+
+
+        $model->load($uInfo, '');
+        $model->gid = $uInfo['groupid'];
+        $model->subscribe_at = $uInfo['subscribe_time'];
+        $model->save();
+
+        return '非常感谢您的关注，我们将竭诚为您服务';
 
     }
 
