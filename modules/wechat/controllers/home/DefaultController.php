@@ -137,6 +137,7 @@ class DefaultController extends \app\core\web\HomeController
         $model->load($uInfo, '');
         $model->gid = $uInfo['groupid'];
         $model->subscribe_at = $uInfo['subscribe_time'];
+        $model->openid = $openid;
         $model->save();
 
         Yii::error($model->getErrors());
