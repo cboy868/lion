@@ -243,6 +243,8 @@ class MenuController extends Controller
         $menus = Menu::getWechatMenus($this->wid, $id);
         $buttons = $this->parseMenus($menus);
 
+        p($buttons);die;
+
         if ($menu->add($buttons)) {
             Yii::$app->getSession()->setFlash('success', '同步微信菜单成功');
         } else {
