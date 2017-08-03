@@ -72,7 +72,7 @@ class DefaultController extends \app\core\web\HomeController
 
             switch ($message->MsgType) {
                 case 'event':
-                    return '收到事件消息';
+                    return $this->event($message);
                     break;
                 case 'text':
                     return $this->text($message);
