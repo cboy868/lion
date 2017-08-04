@@ -74,8 +74,8 @@ $this->title="创建系统账号";
                     if (response.body.errno == 1) {
                         $.toast(response.body.error, "error");
                     } else {
-                        $.toast('账号创建成功，请查看是否正确', "success", function() {
-                            location.href="/m/user/default/profile.html?wid=" + wid;
+                        $.toast('账号创建成功', "success", function() {
+                            location.href="/m/user.html?wid=" + wid;
                         });
                     }
 

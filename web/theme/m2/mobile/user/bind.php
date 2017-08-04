@@ -53,8 +53,8 @@ $this->title="绑定系统账号";
                     if (response.body.errno == 1) {
                         $.toast(response.body.error, "error");
                     } else {
-                        $.toast('账号绑定成功，请查看是否正确', "success", function() {
-                            location.href="/m/user/default/profile.html?wid=" + wid;
+                        $.toast('账号绑定成功', "success", function() {
+                            location.href="/m/user.html?wid=" + wid;
                         });
                     }
 
