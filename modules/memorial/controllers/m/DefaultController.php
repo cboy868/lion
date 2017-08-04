@@ -87,6 +87,8 @@ class DefaultController extends \app\core\web\MController
 
     public function actionApply()
     {
-        return $this->render('apply');
+        return $this->render('apply',[
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
+        ]);
     }
 }
