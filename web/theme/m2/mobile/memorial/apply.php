@@ -44,11 +44,12 @@ $this->title="纪念馆建馆申请";
 
 <?php $this->beginBlock('memorial') ?>
 var wid="<?=Yii::$app->request->get('wid')?>";
+var uid = '<?=$wechat['user_id']?>';
 var app = new Vue({
     el:'#memorial-content',
     data:{
         apiUrl:base_url +'memorial/apply',
-        params : {uid:1},
+        params : {uid:uid},
     },
     beforeMount: function() {
     },
