@@ -106,11 +106,11 @@ class WechatProUserController extends Controller
 
         $params = Yii::$app->request->get();
 
-        return $code;
 
         $app = $this->initMiniProgram();
 
         $miniProgram = $app->mini_program;
+        return $code;
 
         $data = $miniProgram->sns->getSessionKey($code);
 
