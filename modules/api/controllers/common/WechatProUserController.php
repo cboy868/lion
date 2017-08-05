@@ -67,10 +67,16 @@ class WechatProUserController extends Controller
 
         $wecheat_user = WechatUser::findOne($post['wechat_uid']);
 
+        if (!$wecheat_user) {
+            return ['errno'=>1, 'error'=>'缺少参数'];
+        }
+
 
         if (isset($wecheat_user->user_id) && $wecheat_user->user_id) {
             return ['errno'=>1, 'error'=>'用户已绑定，如需更换，请联系工作人员'];
         }
+
+
 
         $outerTransaction = Yii::$app->db->beginTransaction();
         try{
@@ -94,7 +100,6 @@ class WechatProUserController extends Controller
 
         } catch (\Exception $e) {
             $outerTransaction->rollBack();
-            P($e->getMessage());die;
             return ['errno'=>1, 'error'=>'账户创建失败 '];
 
         }
@@ -182,8 +187,8 @@ class WechatProUserController extends Controller
     {
         $options = [
             'mini_program' => [
-                'app_id'   => 'wxddc8ada25ff73f9e',
-                'secret'   => 'f29ab7ad6001d56bc6b7f9e991afb3e5',
+                'app_id'   => 'wx6b31b3c15e5f1b85',
+                'secret'   => '65931a81bde1c9f92e8bd4fea3e5822a',
                 'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
                 'aes_key'  => 'component-aes-key'
             ],

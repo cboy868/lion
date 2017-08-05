@@ -121,9 +121,9 @@ $focus =focus(2, 5, '425x300');
                         <h4 class="weui-media-box__title" v-text="apply.title"></h4>
                         <p class="weui-media-box__desc" v-text="apply.intro"></p>
                     </div>
-                    <div class="weui-cell__ft">
-                        进入
-                    </div>
+<!--                    <div class="weui-cell__ft">-->
+<!--                        进入-->
+<!--                    </div>-->
                 </a>
             </div>
         </div>
