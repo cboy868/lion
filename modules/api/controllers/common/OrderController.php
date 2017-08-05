@@ -116,4 +116,18 @@ class OrderController extends Controller
         return $order;
     }
 
+    public function actionDirectBuy()
+    {
+        $post = Yii::$app->request->post();
+        $sku_id = $post['sku_id'];
+        if (!$sku_id) {
+            return ['errno'=>1, 'msg'=>'请选择商品规格'];
+        }
+        $sku = Sku::findOne($sku_id);
+
+        $order = $sku->order($post['user'], ['num'=>$post['num']]);
+
+        return $order;
+    }
+
 }
