@@ -73,6 +73,7 @@ class WechatProUserController extends Controller
         }
 
         $outerTransaction = Yii::$app->db->beginTransaction();
+        $error='';
         try{
             $uform = new UserForm();
             $uform->username = $post['uname'];
@@ -84,7 +85,7 @@ class WechatProUserController extends Controller
             $wecheat_user->user_id = $user->id;
             $wecheat_user->save();
 
-            $error='';
+
             if ($errors = $uform->getErrors()) {
                 $error =array_shift($errors);
                 $error = $error[0];
@@ -94,6 +95,9 @@ class WechatProUserController extends Controller
 
         } catch (\Exception $e) {
             $outerTransaction->rollBack();
+            $error = implode(',', $e->getMessage());
+
+
             return ['errno'=>1, 'error'=>'账户创建失败 '.$error];
 
         }
