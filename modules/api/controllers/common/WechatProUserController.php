@@ -94,7 +94,7 @@ class WechatProUserController extends Controller
 
         } catch (\Exception $e) {
             $outerTransaction->rollBack();
-            return ['errno'=>1, 'error'=>'账户创建失败'];
+            return ['errno'=>1, 'error'=>'账户创建失败 '];
 
         }
 
@@ -106,15 +106,11 @@ class WechatProUserController extends Controller
 
         $params = Yii::$app->request->get();
 
-
         $app = $this->initMiniProgram();
 
         $miniProgram = $app->mini_program;
-        return $code;
 
         $data = $miniProgram->sns->getSessionKey($code);
-
-        return $data;
         $openid = $data['openid'];
 
         $udata = json_decode($params['udata'], true);
