@@ -214,7 +214,6 @@ class Goods extends \app\core\db\ActiveRecord
     {
         $attr = [];
         $spec = [];
-        p($this->avs);
         foreach ($this->avs as $k => $v) {
 
             p($v->val);
