@@ -230,7 +230,7 @@ class Goods extends \app\core\db\ActiveRecord
                 $attr[$v->attr_id] = [
                     'attr_id' => $v->attr_id,
                     'attr_name' => $v->attr->name,
-                    'attr_val' => $v->val->val,
+                    'attr_val' => isset($v->val) ? $v->val->val : $v->value,
                     'attr_val_id' => $v->av_id,
                 ];
             }
