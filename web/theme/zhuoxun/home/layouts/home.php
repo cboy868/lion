@@ -294,16 +294,22 @@ $c_nav = '/'.$module_id .'/'. $controller_id .'/'. $action_id;
             </div>
         </div>
     </span>
-    <!--
     <a title="" href="javascript:;" class="wx weixin2 dh">
         <i class="f_top up_wx"></i>
+        <div class="hide" style="top: -45px">
+            <div class="hied_con">
+                <img src="/theme/zhuoxun/static/image/ma1.jpg">
+            </div>
+        </div>
+    </a>
+    <a title="" href="javascript:;" class="wx weixin2 dh">
+        <i class="f_top up_wx2"></i>
         <div class="hide" style="top: -45px">
             <div class="hied_con">
                 <img src="/theme/zhuoxun/static/image/ma2.jpg">
             </div>
         </div>
     </a>
-    -->
     <a title="" href="javascript:;" class="gotop" style="display: block;"><i class="f_top up_up"></i></a>
 </ul>
 <script type="text/javascript">

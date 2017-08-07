@@ -1239,8 +1239,9 @@ body {
 .side-bar a.wx i{ background:url(../image/side_10.png) no-repeat; width:26px; height:22px; display:block; margin:14px auto;}
 .side-bar a.gotop i{ background:url(../image/side_14.png) no-repeat; width:23px; height:13px; display:block; margin:17px auto;}*/
 
-.side-bar .dh .hide{  width: 160px ; position:absolute; left:-160px; top:-0px;}
-.side-bar .dh .hied_con{ width:120px; background:#222; border-radius:4px; color:#fff;  padding:10px;box-shadow:0 0 8px 0 rgba(0,0,0,.2); transition:width .3s ease-in-out; display:none;}
+.side-bar .dh .hide{  width: 220px ; position:absolute; left:-220px; top:-0px;}
+
+.side-bar .dh .hied_con{ width:180px; background:#222; border-radius:4px; color:#fff;  padding:10px;box-shadow:0 0 8px 0 rgba(0,0,0,.2); transition:width .3s ease-in-out; display:none;}
 .side-bar .dh:hover .hied_con{ display:block }
 .side-bar .dh .hied_con:after{ content:""; width:10px; height:10px; background:#222; position:absolute; right:15px; top:50%;margin-top: -5px; transform:rotate(45deg);}
 
@@ -1253,7 +1254,12 @@ body {
 .up_qq:before{content: "";display:block;width: 50px;height: 50px;background-image: url(../image/icon1.png);background-repeat: no-repeat;background-position: center;}
 .up_tel{font-size: 26px;}
 .up_tel:before{content: "";display:block;width: 50px;height: 50px;background-image: url(../image/icon2.png);background-repeat: no-repeat;background-position: center;}
-.up_wx:before{content: "";display:block;width: 50px;height: 50px;background-image: url(../image/icon3.png);background-repeat: no-repeat;background-position: center;}
+.up_wx:before{content: "";display:block;width: 50px;
+  height: 50px;background-image: url(../image/icon3.png);
+  background-repeat: no-repeat;background-position: center;}
+.up_wx2:before{content: "";display:block;width: 50px;
+  height: 50px;background-image: url(../image/icon5.png);
+  background-repeat: no-repeat;background-position: center;}
 .up_up{font-size: 20px;}
 .up_up:before{content: "";display:block;width: 50px;height: 50px;background-image: url(../image/icon4.png);background-repeat: no-repeat;background-position: center;}
 
