@@ -1,3 +1,8 @@
+<?php
+$this->params['current_nav'] = 'record';
+$mem = Yii::$app->getAssetManager()->publish(Yii::getAlias('@app/modules/memorial/static/hall'));
+$this->registerCssFile($mem[1] . '/css/records.css');
+?>
 <style type="text/css">
     .date {
         padding:0 15px;
@@ -18,7 +23,7 @@
 
 </style>
 
-<div class="container white-bg ptb" id="containerDiv">
+<div class="container memorial-container">
     <div class="row">
         <!---------------左边开始----------------->
         <div class="col-md-3 hidden-sm no-padding-right mb20">
@@ -151,63 +156,10 @@
                         <div>
                             <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/100109092055208.jpg">
                         </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193707015.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193617125.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193141687.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193000734.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192901359.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192638625.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192433265.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192316828.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192225234.jpg">
-                        </div>
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091112223318312.jpg">
-                        </div>
-
                     </div>
-
 
                 </div>
             </div>
-            <script src="/Resource/Scripts/plugins/owl-carousel/owl.carousel.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    setTimeout(function () {
-                        $("#owl-img").owlCarousel({
-                            autoPlay: 3000,
-                            stopOnHover: true,
-                            navigation: true,
-                            paginationSpeed: 1000,
-                            goToFirstSpeed: 2000,
-                            singleItem: true,
-                            autoHeight: true,
-                            transitionStyle: "fadeUp",
-                            navigationText: ["上一张", "下一张"],
-                            lazyLoad: true,
-                            pagination: false
-                        });
-                    }, 100)
-                });
-            </script>
-
 
             <div class="blank"></div>
 

@@ -1,4 +1,9 @@
-<div class="container white-bg ptb">
+<?php
+$this->params['current_nav'] = 'miss';
+$mem = Yii::$app->getAssetManager()->publish(Yii::getAlias('@app/modules/memorial/static/hall'));
+$this->registerCssFile($mem[1] . '/css/relist.css');
+?>
+<div class="container memorial-container">
     <div class="row">
         <!---------------左边开始----------------->
         <div class="col-md-3 hidden-sm no-padding-right mb20">

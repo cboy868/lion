@@ -12,23 +12,17 @@ use yii\helpers\Url;
 class MemberController extends \app\core\web\Controller
 {
 
-//    public $layout = "@app/core/views/layouts/member.php";
-    public $layout = "@app/modules/member/views/layouts/member.php";
+    public $layout = "@app/core/views/layouts/member.php";
+//    public $layout = "@app/modules/member/views/layouts/member.php";
 
 
 
     public function init()
     {
-
         parent::init();
-
-        // Yii::$app->language = 'en-US';
-
         Yii::$app->user->loginUrl = ['member/default/login'];
         Yii::$app->errorHandler->errorAction = 'member/default/error';
-//        \Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
-        $this->_theme();
-
+//        $this->_theme();
     }
 
     public function actions()
@@ -52,7 +46,7 @@ class MemberController extends \app\core\web\Controller
 
     public function beforeAction($action)
     {
-        Yii::$app->setHomeUrl(Url::toRoute(['/member/default/panel']));
+        Yii::$app->setHomeUrl(Url::toRoute(['/member/default/index']));
         //检查不需要登录的action 如 site/login site/captcha
         if (in_array($action->uniqueID, $this->ignoreLogin()))
         {

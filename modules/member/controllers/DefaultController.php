@@ -16,15 +16,6 @@ use app\modules\user\models\Token;
 
 class DefaultController extends \app\core\web\MemberController
 {
-//    public $layout = "@app/modules/member/views/layouts/member.php";
-//
-//    public function init()
-//    {
-//        parent::init();
-//        \Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
-//        $this->_theme();
-//
-//    }
 
 	public function behaviors()
     {
@@ -38,44 +29,16 @@ class DefaultController extends \app\core\web\MemberController
         ];
     }
 
-//    public function actions()
-//    {
-//        return  [
-//            'error' => [
-//                'class' => 'yii\web\ErrorAction',
-//            ],
-//            'captcha' => [
-//                'class' => 'yii\captcha\CaptchaAction',
-//                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-//                'maxLength' => 6, //最大显示个数
-//                'minLength' => 4,//最少显示个数
-//                // 'height'=>92,//高度
-//                // 'width' => 200,  //宽度
-//                'padding' => 5,//间距
-//                'fontFile' => '@app/web/static/font/maiandragd.ttf'
-//            ]
-//        ];
-//    }
-
     public function actionIndex()
     {
         return $this->render('index');
     }
 
-//    protected function _theme() {
-//        $model = \app\modules\sys\models\Set::findOne('theme');
-//
-//        $this->view->theme->pathMap = [
-//            '@app/modules/member/views/default' => '@app/web/theme/'.$model->svalue.'/member/default',
-//            '@app/modules/member/views/layouts' => '@app/web/theme/' . $model->svalue . '/member/layouts',
-//            '@app/modules/blog/views/member/default' => '@app/web/theme/' . $model->svalue . '/member/blog',
-//            '@app/modules/blog/views/member/album' => '@app/web/theme/' . $model->svalue . '/member/album',
-//            '@app/modules/blog/views/member/video' => '@app/web/theme/' . $model->svalue . '/member/video',
-//            '@app/modules/order/views/member/default' => '@app/web/theme/' . $model->svalue . '/member/order',
-//        ];
-//    }
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
 
-
-
+        return $this->redirect(['/']);
+    }
 
 }

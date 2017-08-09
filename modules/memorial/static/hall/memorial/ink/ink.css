@@ -1,0 +1,127 @@
+body{font-size:12px;color:#413c29;background:#ebe7cc url(./images/ink_btm.jpg) no-repeat center bottom;}
+.fyh20{font-family:"微软雅黑","宋体";font-size:20px;color:#007432}
+#ink-hook{width:100%;height:734px;position:absolute;top:0;left:0;background:url(./images/ink_top.jpg) no-repeat center top}
+#memorial-person{position:relative;z-index:1;margin-bottom:50px}
+.memorial-avatar .info{text-align:center}
+.memorial-title{font-size:35px;font-family:cursive;font-weight:700;color:#8D5728}
+.avatar-box{width:251px;height:295px;overflow:hidden;padding:14px 22px 20px 14px;margin-bottom:12px;background:url(./images/photo_border.jpg) no-repeat top;text-align:center;display:table-cell;vertical-align:middle}
+.memorial-info{height:auto;color:#413c29}
+.memorial-info dt{margin-bottom:16px}
+.memorial-info dd{height:245px;overflow:auto}
+#wish-msg{height:auto;background:#fff;padding:12px 30px 16px 16px;overflow:hidden}
+#wish-msg h3{margin-bottom:10px}
+#wish-msgbox{padding-left:26px;margin-bottom:22px}
+#wish-msgbox p textarea{width:588px;height:135px;overflow:hidden}
+#wish-msgbox p{margin-bottom:6px}
+#wish-msgbox p.submit-box{text-align:right}
+#wish-msgbox p label{font-size:14px;color:#3c513e}
+#wish-msgbox p label input{width:114px;height:20px;line-height:20px;border:1px solid #c5c5c5}
+ol.leave-msglist{font-size:14px}
+.leave-msglist li{padding:12px 10px 22px;border-top:1px dashed #c5c5c5}
+.leave-msglist li a.avatar{width:47px;height:47px}
+.leave-msglist li a.avatar img{display:block}
+.leave-msgbody{margin-left:85px;word-wrap:break-word;word-break:break-all}
+.leave-msgbody h6{overflow:hidden;margin-bottom:4px}
+.leave-msgbody h6 span.ip{color:#966943}
+.leave-msgcontent{overflow:hidden;margin-bottom:24px;line-height:1.5}
+.leave-msgcontent img{max-width:516px}
+.leave-msgcontent span.time{position:absolute;right:0;top:0;color:#966943}
+a.repaly-btns{display:inline-block;color:#966943;text-decoration:underline}
+.textarea-box{padding-top:12px;display:block}
+.textarea-box textarea{width:510px;height:150px}
+.leave-comment{border-top:1px dashed #c5c5c5;padding-top:10px}
+a.smaller-avatar img{height:16px;width:16px;padding:2px;border:1px solid #B9E38F}
+.fc-966{color:#966943}
+#service-admin{overflow:hidden;border:1px solid #cfb39b;padding-top:1px;margin-bottom:10px;background:#fff}
+
+#service-admin ol{padding:10px 0 8px 26px;background:#fff}
+#service-admin ol li{width:55px;float:left;display:inline;margin:0 24px 4px 0}
+.memorial-dg{padding:4px;border:1px solid #94C855}
+.memorial-az{padding:4px;border:1px solid #94C855}
+#service-admin ol li a.name{color:#966943;display:block;padding:4px 0 0;text-align:center}
+#service-admin ul li{padding:7px 20px 7px 15px;overflow:hidden}
+#service-admin ul li.alter{background:#fffae4}
+#service-admin ul li .memorial-az,#service-admin ul li .memorial-dg{float:left;display:inline;margin-right:8px}
+#service-admin ul li div.left{margin-right:8px}
+#service-admin ul li div.f14{line-height:1.38;padding-top:10px}
+#service-admin ul li p.time{color:#9ba883}
+.more-box{padding:12px 20px 0 0;text-align:right}
+#wish-video{border:1px solid #cfb39b;position:relative;overflow:hidden;padding-top:1px;background:#fffae4;margin-bottom:10px}
+#wish-video h4,#service-admin h4,#wish-article h4,#memorial-album h4,#visitor-log h4,#memorial-msg h4{
+    height:35px;
+    line-height: 35px;
+    background:#eae4ca;
+    padding-left: 10px;
+    color: #AB956F;
+}
+
+
+a.add-btns{
+	height:29px;position:absolute;
+    top:10px;right:4px;
+    z-index:10;display:block;
+	color:#C5966F;
+	/*border-radius: 2px;*/
+	/*background: #C5966F;*/
+	padding:2px 6px;
+
+}
+/*#wish-video a.add-btns{background:url(./images/add_video_btn.png) no-repeat left top}*/
+#video-box{width:210px;height:175px;overflow:hidden;margin:14px 28px 18px}
+#wish-article{border:1px solid #cfb39b;overflow:hidden;position:relative;padding-top:1px;background:#fffae4;margin-bottom:10px}
+
+/*#wish-article a.add-btns{background:url(./images/add_article_btn.png) no-repeat left top;*/
+/*line-height: 45px;
+    padding-left: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #AB956F;}*/
+#wish-article ul{padding:10px 0 24px}
+#wish-article ul li{padding:7px 0 7px 42px;position:relative;background:url(../common/images/square_icon.png) no-repeat 26px center}
+#wish-article ul li.alter{background:#f6f1de url(../common/images/square_icon.png) no-repeat 26px center}
+#wish-article ul li a{color:#413c29}
+#memorial-album{border:1px solid #cfb39b;overflow:hidden;position:relative;padding-top:1px;background:#eae4ca;margin-bottom:10px}
+#memorial-msg{border:1px solid #cfb39b;overflow:hidden;position:relative;padding-top:1px;background:#eae4ca;margin-bottom:10px}
+/*#memorial-album a.add-btns{background:url(./images/add_photo_btn.png) no-repeat left top}*/
+#memorial-album-box{width:236px;height:160px;overflow:hidden;padding-top:20px;margin:0 15px 20px;text-align:center;background:url(./images/album_bg.png) no-repeat left top}
+#visitor-log{border:1px solid #cfb39b;overflow:hidden;position:relative;padding-top:1px;background:#fff}
+
+#visitor-log ol{padding:28px 0 28px 22px}
+#visitor-log ol li{width:55px;overflow:hidden;text-align:center;padding-right:20px;float:left;display:inline}
+#visitor-log ol li a.avatar{display:block;margin-bottom:8px}
+#visitor-log ol li a.avatar img{display:block;padding:4px;border:1px solid #94c855;background:#fefff1}
+#visitor-log ol li div p{margin-bottom:6px}
+#tomb-servicefeed{padding:10px 0 0 0;width:580px;height:390px;overflow:auto}
+.servicefeed-list{padding-bottom:10px}
+.servicefeed-list li{padding:20px 18px;color:#777045}
+.servicefeed-list li.alter{background:#f7f0dd}
+.servicefeed-list li h6{font-weight:700;color:#007236;padding-left:8px;margin-bottom:4px;background:url(../common/images/square_green.png) no-repeat left center}
+.servicefeed-list li p{padding-left:8px;line-height:1.5}
+.del-memorial-relation{padding:6px 0 12px;text-align:center}
+.del-memorial-relation a{color:#999}
+.del-memorial-relation a:hover{text-decoration:underline}
+#wish-article li a.red{color:#999;position:absolute;right:10px}
+#wish-article li a.red:hover{text-decoration:underline}
+.memorial_time{padding:10px 0;clear:both}
+.memorial_time .det{padding:0;margin-bottom:20px}
+.memorial_time .count{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.memorial_time .count .inner{
+    background: #ddd;
+    padding: 4px;
+}
+.memorial_time .count td{font-size:14px;font-weight:700}
+.memorial_time .count td.txt{width:150px;padding-right:6px;text-align:right}
+.memorial_time .count td.txt span.size{font-size:16px;font-family:"微软雅黑";margin:0 3px;color:#007432}
+.memorial_time .count td.day{padding:0 6px}
+.memorial_time .count td.hours{padding-left:6px}
+.memorial_time .count td.count_det{width:27px;height:38px;background:url(../common/images/countbg.gif) left 2px no-repeat;text-align:center;color:#333;font-size:22px;font-family:"微软雅黑";font-weight:400}
+.memorial_time .det p{font-size:14px;color:#413c29;line-height:2em;font-weight:700}
+.memorial_time .det p.first{padding-top:20px}
+.give_count tr td,.give_count tr th{padding:0 15px}
+.give_count tr th{background:url(../common/images/cline.jpg) no-repeat right top}
+.give_count tr td{text-align:center;font-size:14px;font-weight:700}
+#footer{margin:0 auto}

@@ -1,91 +1,39 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\MemberAsset;
-use app\modules\member\models\Member;
+use app\core\widgets\GridView;
+use app\assets\Tabletree;
+use yii\bootstrap\Modal;
 
-MemberAsset::register($this);
+
+$this->params['breadcrumbs'][] = '个人中心首页';
+
 ?>
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
+<div class="page-content">
+    <!-- /section:settings.box -->
+    <div class="page-content-area">
+        <div class="page-header">
+            <h1>欢迎回来，<?=Yii::$app->user->identity->username;?></h1>
+        </div><!-- /.page-header -->
 
-<?php $this->beginPage() ?>
-<!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="renderer" content="webkit">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
 
-<body style="background-color:#f2f9fd;">
-<?php $this->beginBody() ?>
 
-<div class="header bg-main">
-  <div class="logo margin-big-left fadein-top">
-    <h1><img src="<?=Member::getAvatar()?>" class="radius-circle rotate-hover" height="50" alt="" />Member Center</h1>
-  </div>
-  <div class="head-l float-right button-group">
-    <a class="button button-little bg-green" href="<?=Url::toRoute(['/'])?>" target="_blank"><span class="icon-home"></span> Website Home</a> &nbsp;&nbsp;
-    <!-- <a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp; -->
-    <?php if (Yii::$app->user->identity->is_staff): ?>
-      <a class="button button-little bg-blue" href="<?=Url::toRoute(['/admin'])?>" data-method="post"> Management Center</a> 
-    <?php endif ?>
-    <a class="button button-little bg-red" href="<?=Url::toRoute(['default/logout'])?>" data-method="post"><span class="icon-power-off"></span> Logout</a> 
-  </div>
+
+    </div><!-- /.page-content-area -->
 </div>
-<div class="leftnav">
-  <!-- <div class="leftnav-title"><strong><span class="icon-list"></span>MENU</strong></div> -->
-  <h2><span class="icon-user"></span>MENU</h2>
-  <ul style="display:block">
-    <li><a href="<?=Url::toRoute(['/member/default/panel'])?>" target="right"><span class="icon-caret-right"></span>Dashboard</a></li>
-    <li><a href="<?=Url::toRoute(['/member/user/profile/index'])?>" target="right"><span class="icon-caret-right"></span>My Settings</a></li>
-    <!-- <li><a href="info.html" target="right"><span class="icon-caret-right"></span>我的文章</a></li> -->
-    <!-- <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>我的图集</a></li> -->
-    <li><a href="<?=Url::toRoute(['/member/cms/favor/index'])?>" target="right"><span class="icon-caret-right"></span>My Favorites</a></li>  
-    <!-- <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>      -->
-    <!-- <li><a href="column.html" target="right"><span class="icon-caret-right"></span>查看历史记录</a></li>
 
-    <li>
-      <a href="<?=Url::toRoute(['/member/memorial'])?>" target="right" class="float-left" target="right"><span class="icon-caret-right"></span>纪念馆</a> 
-      <a href="<?=Url::toRoute(['/member/memorial/default/create'])?>" class="float-right" style="margin-right:20px;" target="right">添加</a>
-    </li> -->
-  </ul>   
-  <!-- <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
-  <ul>
-    <li><a href="list.html" target="right"><span class="icon-caret-right"></span>内容管理</a></li>
-    <li><a href="add.html" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
-    <li><a href="cate.html" target="right"><span class="icon-caret-right"></span>分类管理</a></li>        
-  </ul>   -->
-</div>
-<div class="admin">
-  <iframe scrolling="auto" rameborder="0" src="<?=Url::toRoute(['/member/default/panel'])?>" name="right" width="100%" height="100%"></iframe>
-</div>
-<?php $this->beginBlock('nav') ?>
+
+<?php $this->beginBlock('tree') ?>
 $(function(){
-  $(".leftnav h2").click(function(){
-      $(this).next().slideToggle(200);  
-      $(this).toggleClass("on"); 
-  })
-  $(".leftnav ul li a").click(function(){
-        //$("#a_leader_txt").text($(this).text());
-        $(".leftnav ul li a").removeClass("on");
-        $(this).addClass("on");
-  })
-});
-<?php $this->endBlock('nav') ?>
-<?php $this->registerJs($this->blocks['nav'], \yii\web\View::POS_END); ?>
-<?php $this->endBody() ?>
-</body>
-</html>
-<?php $this->endPage() ?>
+
+$("#menu-table").treetable({ expandable: true });
+
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>
+

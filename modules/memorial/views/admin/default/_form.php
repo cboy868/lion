@@ -1,11 +1,8 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\memorial\models\Memorial */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="memorial-form">
@@ -27,7 +24,7 @@ use app\core\widgets\ActiveForm;
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
         </div>
     </div>
-    
+
     <?php ActiveForm::end(); ?>
 
 </div>

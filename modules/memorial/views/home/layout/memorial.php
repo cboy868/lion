@@ -21,7 +21,6 @@ use yii\helpers\Url;
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="row">
@@ -32,112 +31,111 @@ use yii\helpers\Url;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand hidden-md hidden-lg" href="/">
-                    <img src="/Resource/Images/v2_top_logo.gif" alt="天堂纪念网" />
+                <a class="navbar-brand hidden-md hidden-lg" href="<?=g("url")?>">
+                    <img src="<?=g('logo')?>" alt="<?=g('cp_name')?>">
                 </a>
             </div>
             <div class="navbar-collapse collapse" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">孝爱主页</a></li>
-
-                    <li><a class="red" href="/MemberCenter/Recharge/Index">在线充值</a></li>
+                    <li><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>"><?=g('cp_name')?>主页</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="display:block">
-                    <li><a href="javascript:LoginPanel()"><i class="navIcon user"></i>登录</a></li>
-                    <li><a href="/account/Register"><i class="navIcon register"></i>注册</a></li>
-                    <li><a href="/ServCenter/CommonProblem"><i class="navIcon help"></i>帮助</a></li>
+                    <li><a href="#"><i class="navIcon user"></i>登录</a></li>
+                    <li><a href="#"><i class="navIcon register"></i>注册</a></li>
                     <li class="dropdown">
-                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="http://www.5201000.com/Memorial/TT000000069#">
                             <i class="navIcon snav"></i>网站导航 <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">纪念馆首页</a></li>
-                            <li><a href="<?=Url::toRoute(['/memorial/home/hall/index'])?>">纪念馆</a></li>
-                            <li><a href="/Today">生日/忌日</a></li>
-                            <li><a href="/Obituary">在线讣告</a></li>
-                            <li><a href="/Article">深情感文</a></li>
-                            <li><a href="/Mailbox">时空信箱</a></li>
-                            <li><a href="/Times">时光留影</a></li>
-                            <li><a href="/ServCenter">服务专区</a></li>
-
+                            <li><a href="<?=Url::toRoute(['/memorial/home/site/miss'])?>">追思文章</a></li>
+                            <li><a href="<?=Url::toRoute(['/memorial/home/site/msg'])?>">美好祝福</a></li>
+                            <li><a href="<?=Url::toRoute(['/memorial/home/site/album'])?>">影像资料</a></li>
+                            <li><a href="<?=Url::toRoute(['/memorial/home/site/recird'])?>">祭祀记录</a></li>
                         </ul>
                     </li>
                 </ul>
-                <ul class="list-inline jlg-user" style="display:none">
-                    <li><a href="#"><p title="进入我的博客中心"></p></a></li>
-                    <li><a href="/MemberCenter"><p><strong>进入个人中心</strong></p></a></li>
-                    <li><a href="/ServCenter/CommonProblem"><p><strong>帮助</strong></p></a></li>
 
-                    <li><a href="/MemberCenter/Message"><div class="badge">0</div><span title="我的消息" class="userIcon msg">我的消息</span></a></li>
-                    <li><a href="/Account/LoginOut"><p>退出</p></a></li>
+                <ul class="list-inline jlg-user" style="display:none">
+                    <li><a href="#"><p title="我的博客中心"></p></a></li>
+                    <li><a href="#"><p><strong>进入个人中心</strong></p></a></li>
+                    <li><a href="#"><p><strong>帮助</strong></p></a></li>
+
+                    <li><a href="#">
+                            <div class="badge">0</div><span title="我的消息" class="userIcon msg">我的消息</span></a></li>
+                    <li><a href="#"><p>退出</p></a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-
-
-<div class="container">
-    <div class="bt-top">
-        <div class="jng-info">
-            <h1>中国近代民主革命伟大先行者孙中山</h1>
-            <p>
-                <span>天堂纪念馆号：<strong class="ttid">TT000000069</strong></span>
-                <span>本馆由[
-                    <a data-toggle="modal" data-target=".user-info-dialog"
-                       data-url="/MemberInfo?id=632858" href="javascript:void(0)">
-                        hu</a>]创建于2009年11月12日
-                </span>
-            </p>
-            <div class="m-tool">
-                <a onclick="Care('6b3eae8e-808b-4653-a41b-7f77585cc850',this)" href="javascript:void(0)">
-                    <i class="smIcon add"></i>
-                    <span>我要关注</span>
-                </a>
-
-                <button id="JoinFriendMeorialHall" class="tt-btn">加入亲友馆</button>
-                <a onclick="Vote('6b3eae8e-808b-4653-a41b-7f77585cc850',this)" href="javascript:;" class="tt-btn">我要祈福</a>
-                <a id="VoteList" href="javascript:void(0)" >
-                    <strong class="visit">535</strong><span>次</span>
-                </a>
-            </div>
-        </div>
-        <a href="/ServCenter/Detailed?id=66">
-            <span class="m-level level0"></span>
-        </a>
-    </div>
-</div>
-<div class="container">
+<div id="ink-hook"></div>
+<div class="container" style="margin-top:100px;">
     <div class="row">
         <div class="menu-list">
             <ul id="toolbar" class="list-unstyled">
-                <li><a class="menu_1" href="<?=Url::toRoute(['/memorial/home/site/index'])?>">纪念首页</a></li>
-                <li><a class="menu_2" key="M" href="<?=Url::toRoute(['/memorial/home/hall/index'])?>">网上纪念堂</a></li>
-
-                <li><a href="<?=Url::toRoute(['/memorial/home/site/life'])?>">生平简介</a></li>
-                <li><a href="<?=Url::toRoute(['/memorial/home/site/album'])?>">音容笑貌</a></li>
-                <li><a href="<?=Url::toRoute(['/memorial/home/site/achive'])?>">档案资料</a></li>
-                <li><a href="<?=Url::toRoute(['/memorial/home/site/miss'])?>">追忆文章</a></li>
-                <li><a href="<?=Url::toRoute(['/memorial/home/site/msg'])?>">时空信箱</a></li>
-                <li><a href="<?=Url::toRoute(['/memorial/home/site/record'])?>">祭奠记录</a></li>
+                <?php
+                $current_nav = isset($this->params['current_nav']) ? $this->params['current_nav'] : '';
+                $id = Yii::$app->request->get('id');
+                ?>
+                <li class="<?php if($current_nav=='index'):?>active<?php endif;?>">
+                    <a class="" key="" href="<?=Url::toRoute(['/memorial/home/hall/index', 'id'=>$id])?>">首页</a></li>
+                <li class="<?php if($current_nav=='memorial'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/memorial', 'id'=>$id])?>">网上纪念馆</a></li>
+                <li class="<?php if($current_nav=='life'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/life', 'id'=>$id])?>">生平简介</a></li>
+                <li class="<?php if($current_nav=='album'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/album', 'id'=>$id])?>">音容笑貌</a></li>
+                <li class="<?php if($current_nav=='achive'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/achive', 'id'=>$id])?>">档案资料</a></li>
+                <li class="<?php if($current_nav=='miss'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/miss', 'id'=>$id])?>">追忆文章</a></li>
+                <li class="<?php if($current_nav=='msg'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/msg', 'id'=>$id])?>">美好祝福</a></li>
+                <li class="<?php if($current_nav=='record'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/record', 'id'=>$id])?>">祭祀记录</a></li>
             </ul>
         </div>
     </div>
 </div>
-
 <?=$content?>
 
-<div class="container footer">
-    <div class="col-md-8">
-        <p>建馆者：<a href="#">hu</a> | 建馆时间:2009年11月12日 | 您是
-            <strong>638516</strong>位前来悼念的人</p>
-        <p>服务电话：400-860-4520 0756-5505883 0756-5505888</p>
-        <p>邮箱：tt@waheaven.com 公司常年法律顾问：广东林氏律师事务所林叔权律师  <a href="#" class="tt-btn">我要举报</a></p>
-    </div>
-    <div class="col-md-4"><div class="text-right footer-logo"><img src="/Resource/images/memorials/foot-wenzhi.png"></div></div>
-</div>
+
+
 <div class="blank"></div>
+<div class="mainfooter waheaven-footer">
+    <div class="container">
+        <div class="">
+            <div class="col-md-9">
+                <div class="row">
+                    <ul class="list-inline">
+                        <li><a href="#">关于我们</a></li>
+                        <li><a href="#">公司动态</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                    <p>
+                        <a href="http://www.miibeian.gov.cn/" target="_blank"><?=g("beian")?></a>
+                        <?=g("reserved")?>
+                    </p>
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row attention">
+                    <div class="col-md-6 col-xs-12">
+                        <img width="100" src="/static/images/ma1.jpg">
+                        <p>关注微信平台</p>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <img width="100" src="/static/images/ma2.jpg">
+                        <p>小程序</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php $this->endBody() ?>
 </body>

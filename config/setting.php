@@ -1,7 +1,7 @@
 <?php return array (
   'url' => 'www.zhuo-xun.com',
   'logo' => '/upload/image/201707/1500946879491.png',
-  'beian' => '承ICP备888888号',
+  'beian' => '冀ICP备17015208号-2',
   'point' => '116.350692,40.038368',
   'theme' => 'm2',
   'title' => '公墓办公 公墓cms 公墓业务',
@@ -9,11 +9,11 @@
   'uemail' => 'info@zhuo-xun.com',
   'address' => '北京',
   'cmobile' => '15910470214',
-  'cp_name' => '卓迅网络1',
+  'cp_name' => '卓迅网络',
   'hotline' => '400-800-900',
   'fullname' => '承德卓迅网络科技有限公司',
   'keywords' => '公墓办公自动化、陵园软件、公墓erp、业务办理、公祭祀、微商、数据统计分析、微信公众平台',
-  'reserved' => 'Copyright@ 2016 巨鼎有限公司 All rights reserved.',
+  'reserved' => 'Copyright@ 2017 承德卓迅网络科技有限公司 All rights reserved.',
   'chuanzhen' => '01088889999',
   'description' => '卓迅网络以公墓具体业务为导向、提供一整套公墓网络办公解决方案，包括业务办理、任务自动化、门户、商城、微商城、数据管理及统计分析等等',
 ) ;

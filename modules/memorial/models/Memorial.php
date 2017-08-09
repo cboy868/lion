@@ -48,7 +48,7 @@ class Memorial extends \app\core\db\ActiveRecord
     {
         $p =[
             self::PRIVACY_PUBLIC =>'公开',
-            self::PRIVACY_PRIVATE =>'非公开',
+            self::PRIVACY_PRIVATE =>'私密',
         ];
 
         if ($privac === null) {
@@ -62,7 +62,7 @@ class Memorial extends \app\core\db\ActiveRecord
     {
         $s = [
             self::STATUS_APPLY =>'待审核',
-            self::STATUS_ACTIVE => '正常'
+            self::STATUS_ACTIVE => '审核通过'
         ];
 
         if ($status === null) {
@@ -75,6 +75,11 @@ class Memorial extends \app\core\db\ActiveRecord
     public function getStatusText()
     {
         return self::statusLabel($this->status);
+    }
+
+    public function getPrivacyText()
+    {
+        return self::privacys($this->privacy);
     }
 
     /**
@@ -110,7 +115,7 @@ class Memorial extends \app\core\db\ActiveRecord
             'tomb_id' => '墓位id',
             'title' => '馆名',
             'thumb' => '封面',
-            'intro' => '生平介绍',
+            'intro' => '馆介绍',
             'privacy' => '隐私',
             'view_all' => '查看次数',
             'com_all' => '评论数',
@@ -169,15 +174,33 @@ class Memorial extends \app\core\db\ActiveRecord
         return $this->hasOne(Tomb::className(),['id'=>'tomb_id']);
     }
 
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(), ['id'=>'user_id']);
+    }
+
     public function getDeads()
     {
         return $this->hasMany(Dead::className(), ['memorial_id'=>'id'])->andWhere(['status'=>Dead::STATUS_NORMAL]);
+    }
+
+    public function getNotAliveDeads()
+    {
+        return $this->hasMany(Dead::className(), ['memorial_id'=>'id'])
+            ->andWhere(['status'=>Dead::STATUS_NORMAL])
+            ->andWhere(['is_alive'=>0]);
     }
 
     public function incrementView()
     {
         $this->view_all++;
         return $this->save();
+    }
+
+    public function getThumbImg($size, $default="/static/images/default.png")
+    {
+        return \app\core\models\Attachment::getById($this->thumb, $size, $default);
+
     }
 
 }

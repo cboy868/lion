@@ -1,30 +1,27 @@
 <?php
-/**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
 
 namespace app\assets;
 
 use yii\web\AssetBundle;
-/**
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
- */
+
 class MemberAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'static/libs/member/css/pintuer.css',
-        'static/libs/member/css/admin.css',
+        'static/ace/css/ace.css',
+        'static/ace/css/ace-skins.min.css'
     ];
     public $js = [
-        // 'static/libs/member/js/jquery.js',
-        'static/libs/member/js/pintuer.js',
+        'static/ace/js/ace-extra.min.js',
+        'static/ace/js/jquery-ui.custom.min.js',
+        'static/ace/js/ace.min.js',
+        'static/site/site.js',
     ];
     public $depends = [
+        'app\assets\FontawesomeAsset',
         'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
+        'app\assets\TodcAsset'
     ];
 }

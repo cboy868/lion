@@ -62,7 +62,7 @@ class Dead extends \app\core\db\ActiveRecord
     {
         return [
             [['user_id', 'tomb_id', 'dead_name', 'dead_title'], 'required'],
-            [['user_id', 'tomb_id', 'memorial_id', 'serial', 'gender', 'sort', 'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_box', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['user_id', 'tomb_id', 'memorial_id', 'serial', 'gender', 'sort', 'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_box', 'created_at', 'updated_at', 'status', 'avatar'], 'integer'],
             [['birth', 'fete', 'pre_bury', 'bury'], 'safe'],
             [['desc', 'bone_type'], 'string'],
             [['dead_name', 'second_name', 'dead_title', 'birth_place'], 'string', 'max' => 255],
@@ -289,5 +289,10 @@ class Dead extends \app\core\db\ActiveRecord
         }
 
         return '';
+    }
+
+    public function getAvatarImg($size, $default="/static/images/default.png")
+    {
+        return \app\core\models\Attachment::getById($this->avatar, $size, $default);
     }
 }

@@ -81,6 +81,22 @@ return [
     'login.html' => 'home/default/login',
 
     'wechat' => 'wechat/home/default/index',
+
+
+
+
+    //最新纪念馆部分
+    'mem/<id:\d+>.html' => 'memorial/home/hall/index',
+
+
+
+
+
+
+
+
+
+
     # home group
 //    'home/<controller:(.+)>/<action:(.+)>.html'=> 'home/<controller>/<action>',
 //    'home/<controller:(.+)>.html'=> 'home/<controller>/index',

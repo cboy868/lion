@@ -60,12 +60,10 @@ class MemorialSearch extends Memorial
             'com_all' => $this->com_all,
             'tpl' => $this->tpl,
             'status' => $this->status,
-            'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'cover', $this->cover])
             ->andFilterWhere(['like', 'intro', $this->intro]);
 
         return $dataProvider;

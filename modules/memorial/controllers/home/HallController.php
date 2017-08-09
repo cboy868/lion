@@ -4,16 +4,29 @@ namespace app\modules\memorial\controllers\home;
 
 use app\core\models\Comment;
 use app\modules\cms\controllers\home\CommonController;
-use app\modules\memorial\models\Memorial;
 use app\modules\memorial\models\Pray;
 use yii;
+use app\modules\memorial\models\Memorial;
+use yii\web\NotFoundHttpException;
 
 class HallController extends Controller
 {
 
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        return $this->render('index');
+        $memorial = $this->findModel($id);
+        $deads = $memorial->deads;
+
+        return $this->render('index',[
+            'memorial' => $memorial,
+            'deads' => $deads
+        ]);
+    }
+
+    public function actionMemorial($id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('memorial', ['memorial'=>$memorial]);
     }
 
     /**
@@ -68,6 +81,15 @@ class HallController extends Controller
     public function actionRecord()
     {
         return $this->render('record');
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Memorial::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
 

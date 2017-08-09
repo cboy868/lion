@@ -1,11 +1,7 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\memorial\models\Memorial */
 
 $this->title = '添加纪念馆';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];

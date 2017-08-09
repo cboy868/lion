@@ -1,7 +1,7 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 
 /*****************通用样式开始*******************/
-body{ background:#c6d0e4 url("images/bg.jpg") fixed no-repeat top center;/* background:#f4efdc url("images/bg.jpg") fixed no-repeat top center;*/font-family:"Microsoft YaHei", SimHei, sans-serif;font-size:14px !important;}
+body{ background:#EBE7CC url("images/bg.jpg") fixed no-repeat top center;/* background:#f4efdc url("images/bg.jpg") fixed no-repeat top center;*/font-family:"Microsoft YaHei", SimHei, sans-serif;font-size:14px !important;}
 .bt-top{color:#FFF;padding-top:120px;padding-bottom:100px;}
 .m-tool{color:#333;}
 .setToolBg{background:url('images/opacity.png');}

@@ -1,4 +1,7 @@
-<div class="container white-bg ptb">
+<?php
+$this->params['current_nav'] = 'life';
+?>
+<div class="container memorial-container">
     <div class="row">
         <!---------------左边开始----------------->
         <div class="col-md-3 hidden-sm no-padding-right mb20">
@@ -125,66 +128,20 @@
                 </div>
                 <div class="photo">
                     <div id="owl-img" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
-                        <div class="owl-wrapper-outer autoHeight" style="height: 145px;"><div class="owl-wrapper" style="width: 4312px; left: 0px; display: block; transition: all 0ms ease; transform: translate3d(-980px, 0px, 0px); transform-origin: 1078px center 0px; perspective-origin: 1078px center;"><div class="owl-item" style="width: 196px;"><div>
+                        <div class="owl-wrapper-outer autoHeight" style="height: 145px;">
+                            <div class="owl-wrapper" style="width: 5302px; left: 0px; display: block; transition: all 0ms ease; transform: translate3d(-1446px, 0px, 0px); transform-origin: 1566.5px center 0px; perspective-origin: 1566.5px center;">
+                                <div class="owl-item" style="width: 196px;"><div>
                                         <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/100109092055208.jpg" height="166" width="118">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193707015.jpg" height="200" width="249">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193617125.jpg" height="186" width="250">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193141687.jpg" height="130" width="250">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115193000734.jpg" height="200" width="175">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192901359.jpg" height="145" width="250">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192638625.jpg" height="127" width="133">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192433265.jpg" height="187" width="250">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192316828.jpg" height="200" width="166">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091115192225234.jpg" height="200" width="152">
-                                    </div></div><div class="owl-item" style="width: 196px;"><div>
-                                        <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/091112223318312.jpg" height="200" width="134">
-                                    </div></div></div></div>
-
-
-
-
-
-
-
-
-
-
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="owl-controls clickable"><div class="owl-buttons"><div class="owl-prev">上一张</div><div class="owl-next">下一张</div></div></div></div>
 
 
                 </div>
             </div>
-            <script src="/Resource/Scripts/plugins/owl-carousel/owl.carousel.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    setTimeout(function () {
-                        $("#owl-img").owlCarousel({
-                            autoPlay: 3000,
-                            stopOnHover: true,
-                            navigation: true,
-                            paginationSpeed: 1000,
-                            goToFirstSpeed: 2000,
-                            singleItem: true,
-                            autoHeight: true,
-                            transitionStyle: "fadeUp",
-                            navigationText: ["上一张", "下一张"],
-                            lazyLoad: true,
-                            pagination: false
-                        });
-                    }, 100)
-                });
-            </script>
-
 
             <div class="blank"></div>
 

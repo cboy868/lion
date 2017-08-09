@@ -1,0 +1,4 @@
+/*覆盖bootcss*/
+.navbar{
+	min-height: auto;
+}
