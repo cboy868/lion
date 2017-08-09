@@ -108,8 +108,15 @@ class DefaultController extends \app\core\web\MemberController
             return $this->redirect(['deads', 'id'=>$id]);
         }
 
+        $dead_title = Yii::$app->getModule('grave')->params['dead_title'];
+        $dead_titles = [];
+        foreach ($dead_title as $title) {
+            $dead_titles[$title] = $title;
+        }
+
         return $this->renderAjax('create-dead', [
-            'model' => $model
+            'model' => $model,
+            'dead_titles' => $dead_titles
         ]);
     }
 
@@ -178,6 +185,32 @@ class DefaultController extends \app\core\web\MemberController
             'model' => $memorial,
             'deads' => $deads,
             'dead_titles' => $dead_titles
+        ]);
+    }
+
+    /**
+     * @name 追忆文章
+     */
+    public function actionMiss($id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('miss',[
+            'model' => $memorial
+        ]);
+    }
+
+    public function actionAlbum($id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('album',[
+            'model' => $memorial
+        ]);
+    }
+    public function actionPhotos($id, $album_id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('photos',[
+            'model' => $memorial
         ]);
     }
 

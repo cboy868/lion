@@ -24,10 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php
         Modal::begin([
-            'header' => '新增',
+            'header' => '新增逝者',
             'id' => 'modalAdd',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false]
-            // 'size' => 'modal'
+            'clientOptions' => ['backdrop' => 'static', 'show' => false],
+             'size' => 'modal-lg'
         ]) ;
 
         echo '<div id="modalContent"></div>';
@@ -140,9 +140,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                             <?= $form->field($dead, "[$k]age")->textInput() ?>
 
+                                            <?= $form->field($dead, "[$k]birth_place")->textarea(['rows'=>3]) ?>
 
-
-                                            <?= $form->field($dead, "[$k]birth_place")->textarea(['rows'=>5]) ?>
+                                            <?= $form->field($dead,"[$k]desc")->widget('app\core\widgets\Ueditor\Ueditor',[
+                                             'option' =>['res_name'=>'dead', 'use'=>'ue'],
+                                             'value'=>$dead->desc,
+                                             'jsOptions' => [
+                                                 'toolbars' => [
+                                                     [
+                                                         'fullscreen', 'source', 'undo', 'redo', '|',
+                                                         'fontsize',
+                                                         'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat',
+                                                         'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
+                                                         'forecolor', 'backcolor', '|',
+                                                         'lineheight', 'simpleupload', '|',
+                                                         'indent', '|'
+                                                     ],
+                                                 ]
+                                             ]
+                                             ])->label('生平简介');
+                                             ?>
 
                                             <div class="xb12 xl12">
                                                 <div class="form-group">
