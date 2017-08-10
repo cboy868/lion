@@ -25,6 +25,8 @@ class Areaup extends Widget {
         $this->options['server'] = isset($this->options['server'])? $this->options['server']:\yii\helpers\Url::toRoute(['web-upload']);
         $this->options['id'] = isset($this->options['id']) ? $this->options['id'] : '';
         $this->options['reload'] = isset($this->options['reload']) ? $this->options['reload'] : true;
+        $this->options['auto'] = isset($this->options['auto']) ? $this->options['auto'] : true;
+        $this->options['mid'] = isset($this->options['mid']) ? $this->options['mid'] : 0;
 
         AreaAsset::register($this->view);
 

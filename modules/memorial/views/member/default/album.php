@@ -2,15 +2,11 @@
 
 use app\core\helpers\Html;
 use app\core\helpers\Url;
-use yii\widgets\ActiveForm;
-use app\core\models\Attachment;
 use yii\bootstrap\Modal;
-
-\app\assets\ExtAsset::register($this);
-\app\assets\PluploadAssets::register($this);
+use yii\widgets\LinkPager;
 
 
-$this->title = '追忆文章';
+$this->title = '回忆相册';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -24,19 +20,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php
         Modal::begin([
-            'header' => '新增逝者',
+            'header' => '新增相册',
             'id' => 'modalAdd',
             'clientOptions' => ['backdrop' => 'static', 'show' => false],
-             'size' => 'modal-lg'
         ]) ;
-
         echo '<div id="modalContent"></div>';
+        Modal::end();
+        ?>
 
+        <?php
+        Modal::begin([
+            'header' => '编辑相册',
+            'id' => 'modalEdit',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false],
+        ]) ;
+        echo '<div id="editContent"></div>';
         Modal::end();
         ?>
         <div class="row">
 
-            <?=$this->render('left-menu', ['cur'=>'album'])?>
+            <?=$this->render('left-menu', ['cur'=>'album', 'id'=>$model->id])?>
 
             <div class="col-xs-10 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>
@@ -48,14 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <style>
-                    .img-full {
-                        width: 100%;
-                    }
-                    .r-2x {
+                    .album-img {
                         border-radius: 4px;
-                    }
-                    .r {
-                        border-radius: 2px 2px 2px 2px;
+                        max-width: 100%;
+                        max-height: 200px;
                     }
                     .wrapper-sm {
                         padding: 10px;
@@ -76,89 +75,67 @@ $this->params['breadcrumbs'][] = $this->title;
                     a{
                         color:#333;
                     }
-                    .deal{
-                        margin-left:5px;
-                    }
                     .bg-white{
                         color:#666;
                         background-color: #fff;
                     }
+                    .pagination {
+                        margin: 10px 0;
+                    }
+                    .panel-footer{
+                        padding:0 20px;
+                    }
                 </style>
 
                 <div class="row masonry">
+                    <?php $albums = $dataProvider->getModels()?>
+                    <?php foreach ($albums as $k => $album):?>
                     <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="item panel panel-default wrapper-sm">
                             <div class="pos-rlt">
                                 <div class="bottom">
-                                    <span class="pull-right badge bg-white"><small>123</small></span>
+                                    <span class="pull-right badge bg-white"><small><?=$album->num?></small></span>
                                 </div>
-                                <a href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320">
-                                    <img class="r r-2x img-full" alt="" src="http://www.5201000.com/UploadFiles/Image/2017/8/8/Heaven/ImgInfo/ImageImgPath/20170808204128.jpg">
+                                <a style="height: 200px;display: inline-block" href="<?=Url::toRoute(['photos', 'id'=>$album->id])?>">
+                                    <img class="album-img" alt="" src="<?=$album->getCover('690x430')?>">
                                 </a>
                             </div>
                             <div class="padder-h text-center">
-                                <h4 class="h4 m-b-sm">参军照 </h4>
+                                <h4 class="h4 m-b-sm"><?=$album->title?> </h4>
 
-                                <a href="javascript:void(0)" onclick="LoadAjaxModal('修改', '/MemberCenter/Album/Edit?id=41320')">
-                                    <span class="fa fa-wrench"></span> 修改
-                                </a>
-                                <a class="m-l" href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320"><span class="fa fa-plus"></span> 添加相片</a>
-                                <a class="m-l" href="#" data-id="formImgGroup41320" data-toggle="confirmation" data-original-title="" title=""><span class="fa fa-trash-o"></span> 删除</a>
+                                <i class="fa fa-plus icon-muted"></i>
+                                <?= Html::a('上传照片', ['photos', 'id'=>$album->id]);?>
+                                <i class="fa fa-pencil icon-muted"></i>
+                                <?= Html::a('修改', ['/memorial/member/default/update-album', 'id'=>$album->id],
+                                    ['class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );?>
+                                <i class="fa fa-trash-o icon-muted"></i>
+
+                                <?= Html::a('删除',['del-album', 'id'=>$album->id], [
+                                    'data-confirm' => '删除会连同照片一起删除，您确定要删除吗？',
+                                    'data-method' => 'post'
+                                ])?>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-                        <div class="item panel panel-default wrapper-sm">
-                            <div class="pos-rlt">
-                                <div class="bottom">
-                                    <span class="pull-right badge bg-white m-r-xs m-b-xs"><small>123</small></span>
-                                </div>
-                                <a href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320">
-                                    <img class="r r-2x img-full" alt="" src="http://www.5201000.com/UploadFiles/Image/2017/8/8/Heaven/ImgInfo/ImageImgPath/20170808204128.jpg">
-                                </a>
-                            </div>
-                            <div class="padder-h text-center">
-                                <h4 class="h4 m-b-sm">参军照 </h4>
-
-                                <a href="javascript:void(0)" onclick="LoadAjaxModal('修改', '/MemberCenter/Album/Edit?id=41320')">
-                                    <span class="fa fa-wrench"></span> 修改
-                                </a>
-                                <a class="m-l" href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320"><span class="fa fa-plus"></span> 添加相片</a>
-                                <a class="m-l" href="#" data-id="formImgGroup41320" data-toggle="confirmation" data-original-title="" title=""><span class="fa fa-trash-o"></span> 删除</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-                        <div class="item panel panel-default wrapper-sm">
-                            <div class="pos-rlt">
-                                <div class="bottom">
-                                    <span class="pull-right badge bg-white m-r-xs m-b-xs"><small>123</small></span>
-                                </div>
-                                <a href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320">
-                                    <img class="r r-2x img-full" alt="" src="http://www.5201000.com/UploadFiles/Image/2017/8/8/Heaven/ImgInfo/ImageImgPath/20170808204128.jpg">
-                                </a>
-                            </div>
-                            <div class="padder-h text-center">
-                                <h4 class="h4 m-b-sm">参军照 </h4>
-
-                                <a href="javascript:void(0)" onclick="LoadAjaxModal('修改', '/MemberCenter/Album/Edit?id=41320')">
-                                    <span class="fa fa-wrench"></span> 修改
-                                </a>
-                                <a class="deal" href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320"><span class="fa fa-plus"></span> 添加相片</a>
-                                <a class="deal" href="#" data-id="formImgGroup41320" data-toggle="confirmation" data-original-title="" title=""><span class="fa fa-trash-o"></span> 删除</a>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    <?php endforeach;?>
                 </div>
 
 
 
                 <footer class="panel-footer">
                     <div class="row">
-
-                        111
+                        <?php
+                        echo LinkPager::widget([
+                            'pagination' => $dataProvider->getPagination(),
+                            'nextPageLabel' => '>',
+                            'prevPageLabel' => '<',
+                            'lastPageLabel' => '尾页',
+                            'firstPageLabel' => '首页',
+                            'options' => [
+                                'class' => 'pull-right pagination'
+                            ]
+                        ]);
+                        ?>
 
                     </div>
                 </footer>
@@ -170,21 +147,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div><!-- /.page-content-area -->
 </div>
-<?php $this->beginBlock('cate') ?>
-$(function(){
-    $('.selize-rel').each(function(index, item){
-        var $this = $(item);
-        if ( !$this.data('select-init') ) {
-            $this.selectize({
-                create: true
-            });
-        }
-    });
-
-})
-<?php $this->endBlock() ?>
-<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>
-
-
-
-

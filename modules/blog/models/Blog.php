@@ -140,6 +140,7 @@ class Blog extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
             'status' => '状态',
+            'privacy_Text' =>'隐私'
         ];
     }
 

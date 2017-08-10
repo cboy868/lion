@@ -2,6 +2,10 @@
 
 namespace app\modules\memorial\controllers\member;
 
+use app\modules\blog\models\Album;
+use app\modules\blog\models\AlbumPhoto;
+use app\modules\blog\models\AlbumPhotoSearch;
+use app\modules\blog\models\AlbumSearch;
 use app\modules\blog\models\Blog;
 use app\modules\blog\models\BlogSearch;
 use app\modules\grave\models\Dead;
@@ -23,8 +27,14 @@ class DefaultController extends \app\core\web\MemberController
             'ue-upload' => [
                 'class' => 'app\core\widgets\Ueditor\UploadAction',
             ],
+            'album-upload' => [
+                'class' => 'app\core\web\AlbumUploadAction',
+                'type' =>'blog_album'
+            ]
         ];
     }
+
+
 
     /**
      * @return string
@@ -48,8 +58,6 @@ class DefaultController extends \app\core\web\MemberController
     {
         return $this->render('manage');
     }
-
-
 
 
     /**
@@ -200,6 +208,8 @@ class DefaultController extends \app\core\web\MemberController
 
         $params['BlogSearch']['user_id'] = Yii::$app->user->id;
         $params['BlogSearch']['res'] = Blog::RES_ARCHIVE;
+        $params['BlogSearch']['memorial_id'] = $id;
+
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search($params);
 
@@ -312,7 +322,6 @@ class DefaultController extends \app\core\web\MemberController
 
     }
 
-
     /**
      * @name 追忆文章
      */
@@ -325,6 +334,7 @@ class DefaultController extends \app\core\web\MemberController
 
         $params['BlogSearch']['user_id'] = Yii::$app->user->id;
         $params['BlogSearch']['res'] = Blog::RES_BLOG;
+        $params['BlogSearch']['memorial_id'] = $id;
 
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search($params);
@@ -342,46 +352,113 @@ class DefaultController extends \app\core\web\MemberController
     public function actionAlbum($id)
     {
         $memorial = $this->findModel($id);
-        return $this->render('album',[
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['AlbumSearch']['user_id'] = Yii::$app->user->id;
+        $params['AlbumSearch']['memorial_id'] = $id;
+        $searchModel = new AlbumSearch();
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('album', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
             'model' => $memorial
         ]);
+
     }
 
     public function actionCreateAlbum($id)
     {
-        $memorial = $this->findModel($id);
-        return $this->render('album',[
-            'model' => $memorial
+        $model = new Album();
+
+        $req = Yii::$app->getRequest();
+
+        if (Yii::$app->request->isPost) {
+            $model->load($req->post());
+            $model->memorial_id = $id;
+            $model->created_by = Yii::$app->user->id;
+            $model->is_customer = Yii::$app->user->identity->isStaff() ? 0 : 1;
+            $model->ip = Yii::$app->request->getUserIP();
+
+            if ($model->save() !== false) {
+                Yii::$app->session->setFlash('success', '添加相册成功');
+            } else {
+                Yii::$app->session->setFlash('error', '添加相册失败,请重试或联系管理员');
+            }
+
+            return $this->redirect(['album', 'id'=>$id]);
+        }
+
+        $model->privacy = Album::PRIVACY_PUBLIC;
+        return $this->renderAjax('create-album', [
+            'model' => $model,
         ]);
+
     }
 
     public function actionUpdateAlbum($id)
     {
-        $memorial = $this->findModel($id);
-        return $this->render('album',[
-            'model' => $memorial
+        $model = Album::findOne($id);
+        $req = Yii::$app->getRequest();
+
+
+        if ($model->load($req->post())) {
+            if ($model->save() !== false) {
+                Yii::$app->session->setFlash('success', '修改相册成功');
+            } else {
+                Yii::$app->session->setFlash('error', '修改相册失败,请重试或联系管理员');
+            }
+
+            return $this->redirect(['album', 'id'=>$model->memorial_id]);
+        }
+
+        return $this->renderAjax('update-album',[
+            'model' => $model
         ]);
     }
 
-    public function actionPhotos($id, $album_id)
+    public function actionPhotos($id)
     {
-        $memorial = $this->findModel($id);
-        return $this->render('photos',[
-            'model' => $memorial
+
+        $album = Album::findOne($id);
+        $memorial = $this->findModel($album->memorial_id);
+        $params = Yii::$app->request->queryParams;
+
+        $params['AlbumPhotoSearch']['album_id'] = $id;
+        $searchModel = new AlbumPhotoSearch();
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('photos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'album' => $album,
+            'memorial' => $memorial
         ]);
+
     }
 
-    public function actionDelPhoto($id, $album_id)
+    public function actionSetAlbumCover($id)
     {
-        $memorial = $this->findModel($id);
-        return $this->render('photos',[
-            'model' => $memorial
-        ]);
+        $photo = AlbumPhoto::findOne($id);
+        $album = Album::findOne($photo->album_id);
+        $album->thumb = $id;
+        $album->save();
+        return $this->redirect(['photos', 'id'=>$album->id]);
     }
 
-    public function actionDelAlbum($album_id)
+    public function actionDelPhoto($id)
     {
-        $memorial = $this->findModel($album_id);
+        $photo = AlbumPhoto::findOne($id);
+        $photo->delete();
+        return $this->redirect(['photos', 'id'=>$photo->album_id]);
+    }
+
+    public function actionDelAlbum($id)
+    {
+        $model = Album::findOne($id);
+        $model->delete();
+        return $this->redirect(['album', 'id'=>$model->memorial_id]);
     }
 
     public function actionMsg($id)

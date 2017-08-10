@@ -1,6 +1,5 @@
 <?php
 use yii\helpers\Url;
-$id = Yii::$app->request->get('id');
 ?>
 <div class="col-xs-2">
     <div class="list-group no-radius no-border no-bg ">

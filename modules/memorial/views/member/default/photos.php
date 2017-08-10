@@ -1,17 +1,13 @@
 <?php
 
-use app\core\helpers\Html;
+
+use app\core\widgets\Webup\Areaup;
 use app\core\helpers\Url;
-use yii\widgets\ActiveForm;
-use app\core\models\Attachment;
-use yii\bootstrap\Modal;
+use yii\widgets\LinkPager;
 
-\app\assets\ExtAsset::register($this);
-\app\assets\PluploadAssets::register($this);
-
-
-$this->title = '照片明细';
+$this->title = '照片列表';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '相册管理', 'url' => ['album', 'id'=>$memorial->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -22,34 +18,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- /section:settings.box -->
     <div class="page-content-area">
 
-        <?php
-        Modal::begin([
-            'header' => '新增逝者',
-            'id' => 'modalAdd',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false],
-             'size' => 'modal-lg'
-        ]) ;
-
-        echo '<div id="modalContent"></div>';
-
-        Modal::end();
-        ?>
         <div class="row">
 
-            <?=$this->render('left-menu', ['cur'=>'album'])?>
+            <?=$this->render('left-menu', ['cur'=>'album','id'=>$memorial->id])?>
 
             <div class="col-xs-10 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>
-                <div class="page-header">
-                    <h1>
-                            <a href="<?=Url::to(['create-album', 'id'=>$model->id])?>" class='btn btn-danger btn-sm modalAddButton'
-                               data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>创建相册</a>
-                    </h1>
-
-                </div>
                 <style>
                     .img-full {
-                        width: 100%;
+                        max-width: 100%;
                     }
                     .r-2x {
                         border-radius: 4px;
@@ -62,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     .pos-rlt {
                         position: relative;
+                        text-align: center;
                     }
                     .item .bottom {
                         position: absolute;
@@ -76,80 +54,83 @@ $this->params['breadcrumbs'][] = $this->title;
                     a{
                         color:#333;
                     }
-                    .deal{
-                        margin-left:5px;
-                    }
-                    .bg-white{
-                        color:#666;
-                        background-color: #fff;
-                    }
                     .bg-set{
                         color:#666;
                         background-color: #62A8D1;
                     }
+                    .bg-del{
+                        color:#f33;
+                        background-color: #62A8D1;
+                    }
+                    .pagination {
+                        margin: 10px 0;
+                    }
+                    .panel-footer{
+                        padding:0 20px;
+                    }
                 </style>
-
-                <div class="row masonry">
-                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-                        <div class="item panel panel-default wrapper-sm">
-                            <div class="pos-rlt">
-                                <div class="bottom">
-                                    <a class="pull-right badge bg-set"><small>设为封面</small></a>
-                                </div>
-                                <a href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320">
-                                    <img class="r r-2x img-full" alt="" src="http://www.5201000.com/UploadFiles/Image/2017/8/8/Heaven/ImgInfo/ImageImgPath/20170808204128.jpg">
-                                </a>
-                            </div>
-                            <div class="padder-h text-center">
-                                <input type="text" placeholder="参军照" value="参军照" style="width:100%;">
-                                <textarea placeholder="照片描述" style="width:100%;height:80px;">描述</textarea>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php echo Areaup::widget(['options'=>[
+                            'res_name'=>'album',
+                            'auto' => false,
+                            'album_id'=>$album->id,
+                            'server' => Url::toRoute('album-upload')
+                        ]]);
+                        ?>
                     </div>
-
-                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-                        <div class="item panel panel-default wrapper-sm">
-                            <div class="pos-rlt">
-                                <div class="bottom">
-                                    <a class="pull-right badge bg-set"><small>设为封面</small></a>
-                                </div>
-                                <a href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320">
-                                    <img class="r r-2x img-full" alt="" src="http://www.5201000.com/UploadFiles/Image/2017/8/8/Heaven/ImgInfo/ImageImgPath/20170808204128.jpg">
-                                </a>
-                            </div>
-                            <div class="padder-h text-center">
-                                <input type="text" placeholder="参军照" value="参军照" style="width:100%;">
-                                <textarea placeholder="照片描述" style="width:100%;height:80px;">描述</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-                        <div class="item panel panel-default wrapper-sm">
-                            <div class="pos-rlt">
-                                <div class="bottom">
-                                    <a class="pull-right badge bg-set"><small>设为封面</small></a>
-                                </div>
-                                <a href="/MemberCenter/Album/PhotoList?ParentUrl=Memorial&amp;id=e2042e8b-3f39-4d20-b559-75a414e34f89&amp;Gid=41320">
-                                    <img class="r r-2x img-full" alt="" src="http://www.5201000.com/UploadFiles/Image/2017/8/8/Heaven/ImgInfo/ImageImgPath/20170808204128.jpg">
-                                </a>
-                            </div>
-                            <div class="padder-h text-center">
-                                <input type="text" placeholder="参军照" value="参军照" style="width:100%;">
-                                <textarea placeholder="照片描述" style="width:100%;height:80px;">描述</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
-
-
+                <div class="row masonry">
+                    <?php $photos = $dataProvider->getModels();?>
+                    <?php foreach ($photos as $photo):?>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+                        <div class="item panel panel-default wrapper-sm">
+                            <div class="pos-rlt">
+                                <div class="bottom">
+                                    <?php if ($album->thumb == $photo->id):?>
+                                        <a class="badge bg-set" href="javascript:;">
+                                            <small>封面</small>
+                                        </a>
+                                    <?php else:?>
+                                    <a class="badge bg-set" href="<?=Url::toRoute(['set-album-cover', 'id'=>$photo->id])?>">
+                                        <small>设为封面</small>
+                                    </a>
+                                    <?php endif;?>
+                                    <a class="badge bg-del"
+                                       href="<?=Url::toRoute(['del-photo','id'=>$photo->id])?>"
+                                       data-method="post"
+                                       data-confirm="删除不可恢复，请再次确认？"
+                                    >
+                                        <small>删除 </small>
+                                    </a>
+                                </div>
+                                <a href="" style="height: 200px;display: inline-block">
+                                    <img style="max-height: 200px;" class="r r-2x img-full" alt="" src="<?=$photo->getThumb('690x430')?>">
+                                </a>
+                            </div>
+                            <div class="padder-h text-center">
+                                <input type="text" placeholder="照片名" value="<?=$photo->title?>" style="width:100%;">
+                                <textarea placeholder="照片描述" style="width:100%;height:80px;"><?=$photo->body?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach;?>
+                </div>
 
                 <footer class="panel-footer">
                     <div class="row">
-
-                        111
+                        <?php
+                        echo LinkPager::widget([
+                            'pagination' => $dataProvider->getPagination(),
+                            'nextPageLabel' => '>',
+                            'prevPageLabel' => '<',
+                            'lastPageLabel' => '尾页',
+                            'firstPageLabel' => '首页',
+                            'options' => [
+                                'class' => 'pull-right pagination'
+                            ]
+                        ]);
+                        ?>
 
                     </div>
                 </footer>

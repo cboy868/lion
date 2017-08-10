@@ -2,8 +2,10 @@
 
 namespace app\modules\blog\models;
 
+use app\core\models\Attachment;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use app\core\helpers\Image;
 /**
  * This is the model class for table "{{%blog_album_photo}}".
  *
@@ -24,7 +26,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $updated_at
  * @property integer $status
  */
-class AlbumPhoto extends \app\core\db\ActiveRecord
+class AlbumPhoto extends Attachment
 {
     /**
      * @inheritdoc
@@ -95,4 +97,29 @@ class AlbumPhoto extends \app\core\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+    public function getThumb($size='', $default="/static/images/default.png")
+    {
+        if ($size) {
+            $size = str_replace('*', 'x', $size);
+            $file = $this->path . '/' . $size . '@' . $this->name;
+
+            $thumb_file = str_replace('upload/image', 'upload/image/'.Image::THUMB_DIR, $file);
+            $thumb_path = Yii::getAlias('@app/web'.$thumb_file);
+
+            $srcFile = Yii::getAlias('@app/web'.$this->path . '/' . $this->name);
+            if (!is_file($thumb_path)) {
+                if (is_file($srcFile)) {
+                    $size = explode('x', str_replace('X', 'x', $size));
+                    Image::autoThumb($srcFile, $thumb_path, $size, 'blog');
+                } else {
+                    return $default;
+                }
+            }
+            return $thumb_file;
+        }
+
+        return $this->path . '/' . $this->name;
+    }
+
 }

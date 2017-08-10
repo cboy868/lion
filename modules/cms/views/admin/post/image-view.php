@@ -92,75 +92,75 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?php $this->beginBlock('cate') ?>
-$(function(){
-$('.title, .desc').change(function(e){
-e.preventDefault();
-var box = $(this).closest('.dbox');
+    $(function(){
+        $('.title, .desc').change(function(e){
+            e.preventDefault();
+            var box = $(this).closest('.dbox');
 
-var title = box.find('.title').val();
-var desc = box.find('.desc').val();
-var id = box.attr('rel');
-var csrf="<?=Yii::$app->request->csrfToken?>";
-$.post("<?=Url::toRoute(['/cms/admin/post/tit-des'])?>", {title:title, desc:desc, id:id, _csrf:csrf}, function(xhr){
-if (xhr.status) {
-box.popover({ placement:'top', content:'修改成功'}).popover('toggle');
-} else {
-box.popover({ placement:'top', content:'修改失败，请重试'}).popover('toggle');
-}
-}, 'json');
+            var title = box.find('.title').val();
+            var desc = box.find('.desc').val();
+            var id = box.attr('rel');
+            var csrf="<?=Yii::$app->request->csrfToken?>";
+            $.post("<?=Url::toRoute(['/cms/admin/post/tit-des'])?>", {title:title, desc:desc, id:id, _csrf:csrf}, function(xhr){
+                if (xhr.status) {
+                    box.popover({ placement:'top', content:'修改成功'}).popover('toggle');
+                } else {
+                    box.popover({ placement:'top', content:'修改失败，请重试'}).popover('toggle');
+                }
+            }, 'json');
 
-});
+        });
 
-$(".image").click(function(e) {
-e.preventDefault();
-var title = $(this).attr('title');
-$(".artimg").colorbox({
-rel: 'artimg',
-maxWidth:'600px',
-maxHeight:'700px',
-next:'',
-previous:'',
-close:'',
-current:""
-});
-});
+        $(".image").click(function(e) {
+            e.preventDefault();
+            var title = $(this).attr('title');
+            $(".artimg").colorbox({
+                rel: 'artimg',
+                maxWidth:'600px',
+                maxHeight:'700px',
+                next:'',
+                previous:'',
+                close:'',
+                current:""
+            });
+        });
 
-$( "#sortable" ).sortable({
-update:function(event, ui){
-var ids = [];
-$('#sortable li').each(function(index){
-var id = $(this).attr('rel');
-ids.push(id);
-});
+        $( "#sortable" ).sortable({
+            update:function(event, ui){
+                var ids = [];
+                $('#sortable li').each(function(index){
+                    var id = $(this).attr('rel');
+                    ids.push(id);
+                });
 
-var uri = "<?=Url::toRoute(['sort', 'post_id'=>$model->id])?>";
-var _csrf = $('meta[name=csrf-token]').attr('content');
-$.post(uri, {ids:ids, _csrf:_csrf},function(xhr){
-if (xhr.status) {
+                var uri = "<?=Url::toRoute(['sort', 'post_id'=>$model->id])?>";
+                var _csrf = $('meta[name=csrf-token]').attr('content');
+                $.post(uri, {ids:ids, _csrf:_csrf},function(xhr){
+                    if (xhr.status) {
 //location.reload();
-}
-},'json');
+                    }
+                },'json');
 
-}
-});
+            }
+        });
 
-$('.cover').click(function(e){
-e.preventDefault();
-var that = this;
+        $('.cover').click(function(e){
+            e.preventDefault();
+            var that = this;
 
-var url = $(this).attr('href');
-var _csrf = $('meta[name=csrf-token]').attr('content');
-$.post(url, {}, function(xhr){
-if (xhr.status) {
-$('.thumbnail').removeClass('active');
-$(that).closest('.thumbnail').addClass('active');
-}
-}, 'json');
-});
+            var url = $(this).attr('href');
+            var _csrf = $('meta[name=csrf-token]').attr('content');
+            $.post(url, {}, function(xhr){
+                if (xhr.status) {
+                    $('.thumbnail').removeClass('active');
+                    $(that).closest('.thumbnail').addClass('active');
+                }
+            }, 'json');
+        });
 
 
 
-})
+    })
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>
 

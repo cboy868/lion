@@ -29,6 +29,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class Album extends \app\core\db\ActiveRecord
 {
+    const PRIVACY_PRIVATE = 2;
+    const PRIVACY_PUBLIC = 1;
+
+
     /**
      * @inheritdoc
      */
@@ -42,6 +46,26 @@ class Album extends \app\core\db\ActiveRecord
         return [
             TimestampBehavior::className(),
         ];
+    }
+
+    public static function privacys($privacy =null)
+    {
+        $p = [
+            self::PRIVACY_PUBLIC => '公开',
+            self::PRIVACY_PRIVATE=> '私密'
+        ];
+
+        if ($privacy === null) {
+            return $p;
+        }
+
+        return $p[$privacy];
+    }
+
+
+    public function getPrivacyText()
+    {
+        return static::privacys($this->privacy);
     }
 
     /**
@@ -65,24 +89,29 @@ class Album extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'summary' => 'Summary',
-            'thumb' => 'Thumb',
-            'body' => 'Body',
+            'title' => '相册名',
+            'summary' => '简介',
+            'thumb' => '封面',
+            'body' => '介绍',
             'sort' => 'Sort',
-            'recommend' => 'Recommend',
+            'recommend' => '推荐',
             'is_customer' => 'Is Customer',
             'is_top' => 'Is Top',
             'memorial_id' => 'Memorial ID',
-            'privacy' => 'Privacy',
-            'view_all' => 'View All',
-            'com_all' => 'Com All',
-            'num' => 'Num',
-            'created_by' => 'Created By',
+            'privacy' => '隐私',
+            'view_all' => '查看次数',
+            'com_all' => '评论次数',
+            'num' => '照片数量',
+            'created_by' => '创建人',
             'ip' => 'Ip',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
             'status' => 'Status',
         ];
+    }
+
+    public function getCover($size, $default="/static/images/default.png")
+    {
+        return AlbumPhoto::getById($this->thumb, $size);
     }
 }

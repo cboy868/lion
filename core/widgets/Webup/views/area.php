@@ -8,6 +8,7 @@
             <input type="hidden" class="mid" value="<?=$options['mid']?>">
             <input type="hidden" class="reload" value="<?=$options['reload']?>">
             <input type="hidden" class="server" value="<?=$options['server']?>">
+            <input type="hidden" class="auto" value="<?=$options['auto']?>">
             <div class="queueList">
                 <div id="dndArea" class="placeholder">
                     <div id="filePicker"></div>

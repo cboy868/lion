@@ -5,13 +5,8 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\blog\models\BlogSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Blogs';
+$this->title = '文章管理';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -44,8 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'title',
             'summary:ntext',
@@ -58,13 +51,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'is_top',
             // 'type',
             // 'memorial_id',
-            // 'privacy',
-            // 'view_all',
-            // 'com_all',
+             'privacyText',
+             'view_all',
+             'com_all',
             // 'publish_at',
-            // 'created_by',
-            // 'ip',
-            // 'created_at',
+             'user.username',
+             'created_at:date',
             // 'updated_at',
             // 'status',
 

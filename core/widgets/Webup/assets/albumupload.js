@@ -153,7 +153,7 @@ $(function() {
             chunked: false,
             chunkSize: 512 * 1024,
             server: $wrap.find('.server').val(),
-            auto: true,
+            auto: $wrap.find('.auto').val(),
             // runtimeOrder: 'flash',
 
             // accept: {
