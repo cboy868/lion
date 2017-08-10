@@ -2,6 +2,8 @@
 
 namespace app\modules\memorial\controllers\member;
 
+use app\modules\blog\models\Blog;
+use app\modules\blog\models\BlogSearch;
 use app\modules\grave\models\Dead;
 use yii;
 use app\modules\memorial\models\Memorial;
@@ -188,6 +190,102 @@ class DefaultController extends \app\core\web\MemberController
         ]);
     }
 
+    public function actionArchive($id)
+    {
+        $memorial = $this->findModel($id);
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['BlogSearch']['user_id'] = Yii::$app->user->id;
+        $params['BlogSearch']['res'] = Blog::RES_ARCHIVE;
+        $searchModel = new BlogSearch();
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('archive', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $memorial
+        ]);
+
+    }
+
+    public function actionCreateArchive($id)
+    {
+
+        $model = new Blog();
+
+        $req = Yii::$app->getRequest();
+
+        if (Yii::$app->request->isPost) {
+            $model->load($req->post());
+            $model->memorial_id = $id;
+            $model->res = Blog::RES_ARCHIVE;
+            $model->created_by = Yii::$app->user->id;
+            $model->is_customer = Yii::$app->user->identity->isStaff() ? 0 : 1;
+            $model->ip = Yii::$app->request->getUserIP();
+            $model->status = Blog::STATUS_VRIFY;
+
+            if ($model->save() !== false) {
+                Yii::$app->session->setFlash('success', '添加档案成功');
+            } else {
+                Yii::$app->session->setFlash('error', '添加档案失败,请重试或联系管理员');
+            }
+
+            return $this->redirect(['archive', 'id'=>$id]);
+        }
+
+
+        $model->privacy = Blog::PRIVACY_PUBLIC;
+        return $this->renderAjax('create-archive', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdateArchive($archive_id)
+    {
+
+        $model = Blog::findOne($archive_id);
+
+        $req = Yii::$app->getRequest();
+
+        if (Yii::$app->request->isPost) {
+            $model->load($req->post());
+            $model->ip = Yii::$app->request->getUserIP();
+            $model->status = Blog::STATUS_VRIFY;
+
+            if ($model->save() !== false) {
+                Yii::$app->session->setFlash('success', '修改档案成功');
+            } else {
+                Yii::$app->session->setFlash('error', '修改档案失败,请重试或联系管理员');
+            }
+
+            return $this->redirect(['archive', 'id'=>$model->memorial_id]);
+        }
+
+
+        return $this->renderAjax('update-archive', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionViewArchive($archive_id)
+    {
+
+        $model = Blog::findOne($archive_id);
+
+        return $this->renderAjax('view-archive', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDelArchive($archive_id)
+    {
+        $model = Blog::findOne($archive_id);
+        $model->delete();
+
+        return $this->redirect(['archive', 'id'=>$model->memorial_id]);
+    }
+
     /**
      * @name 追忆文章
      */
@@ -197,6 +295,11 @@ class DefaultController extends \app\core\web\MemberController
         return $this->render('miss',[
             'model' => $memorial
         ]);
+    }
+
+    public function actionCreateMiss($id)
+    {
+
     }
 
     public function actionAlbum($id)
@@ -210,6 +313,14 @@ class DefaultController extends \app\core\web\MemberController
     {
         $memorial = $this->findModel($id);
         return $this->render('photos',[
+            'model' => $memorial
+        ]);
+    }
+
+    public function actionMsg($id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('msg',[
             'model' => $memorial
         ]);
     }

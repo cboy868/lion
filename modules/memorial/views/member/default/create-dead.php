@@ -2,17 +2,11 @@
 
 use app\core\helpers\Html;
 use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use yii\widgets\ActiveForm;
 
 use app\core\models\Attachment;
 \app\assets\ExtAsset::register($this);
 \app\assets\PluploadAssets::register($this);
-
-
-$this->title = '添加纪念馆';
-$this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="page-content">
@@ -70,10 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'age')->textInput() ?>
                 <?= $form->field($model, 'birth_place')->textarea(['rows'=>3]) ?>
-
-            </div>
-
-            <div class="col-md-12">
 
             </div>
 

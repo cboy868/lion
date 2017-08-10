@@ -31,5 +31,16 @@ $(function(){
     });
 
 
+    $('.modalViewButton').click(function(e){
+        e.preventDefault();
+        var btn = $(this).button('loading');
+        $('#modalView').find('#viewContent')
+            .load($(this).attr('href'),function(){
+                $('#modalView').modal('show');
+                btn.button('reset');
+            });
+    });
+
+
 
 })

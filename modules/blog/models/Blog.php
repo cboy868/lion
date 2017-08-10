@@ -35,8 +35,14 @@ class Blog extends \app\core\db\ActiveRecord
     const PRIVACY_PRIVATE = 2;
     const PRIVACY_PUBLIC = 1;
 
-    const TYPE_TEXT = 1;//'博客';
+    const TYPE_TEXT = 1;//'文字 ';
     const TYPE_VIDEO = 2;// '视频';
+
+    const RES_BLOG = 1; //博客类型
+    const RES_ARCHIVE = 2; //档案类型
+
+    const STATUS_VRIFY = 0;//待审核
+    const STATUS_NOVRIFY = -2;//审核未通过
 
     /**
      * @inheritdoc
@@ -60,6 +66,27 @@ class Blog extends \app\core\db\ActiveRecord
         return $p[$privacy];
     }
 
+    public static function status($status = null)
+    {
+        $s = [
+            self::STATUS_DEL => '删除',
+            self::STATUS_NORMAL => '审核通过',
+            self::STATUS_VRIFY => '待审核',
+            self::STATUS_NOVRIFY => '审核未通过'
+        ];
+
+        if ($status === null) {
+            return $s;
+        }
+
+        return $s[$status];
+    }
+
+    public function getPrivacyText()
+    {
+        return static::privacys($this->privacy);
+    }
+
     public function behaviors()
     {
         return [
@@ -77,7 +104,9 @@ class Blog extends \app\core\db\ActiveRecord
         return [
             [['title', 'body'], 'required'],
             [['summary', 'body'], 'string'],
-            [['thumb', 'sort', 'recommend', 'is_customer', 'is_top', 'type', 'memorial_id', 'privacy', 'view_all', 'com_all', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['thumb', 'sort', 'recommend', 'is_customer', 'is_top',
+                'type', 'memorial_id', 'privacy', 'view_all', 'com_all',
+                'created_by', 'created_at', 'updated_at', 'status','res'], 'integer'],
             [['publish_at'], 'safe'],
             [['title', 'video'], 'string', 'max' => 255],
             [['ip'], 'string', 'max' => 200],
@@ -102,7 +131,7 @@ class Blog extends \app\core\db\ActiveRecord
             'is_top' => '是否置顶',
             'type' => '类型',
             'memorial_id' => '纪念馆',
-            'privacy' => '陶然',
+            'privacy' => '隐私',
             'view_all' => '查看次数',
             'com_all' => '评论次数',
             'publish_at' => '发布时间',

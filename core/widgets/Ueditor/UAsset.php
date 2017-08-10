@@ -11,6 +11,8 @@ use yii\web\View;
 class UAsset extends AssetBundle
 {
 
+    public $sourcePath = '@app/core/widgets/Ueditor/assets';
+
 	public $js = [
         'ueditor.config.js',
         'ueditor.all.js',
@@ -22,7 +24,7 @@ class UAsset extends AssetBundle
    
     public function init()
     {
-        $this->sourcePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+//        $this->sourcePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
     }
 }
 

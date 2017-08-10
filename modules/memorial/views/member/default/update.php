@@ -28,17 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             </style>
 
-            <div class="col-xs-2">
-                <div class="list-group no-radius no-border no-bg ">
-                    <a href="#" class="list-group-item active">基本信息</a>
-                    <a href="<?=Url::toRoute(['/memorial/member/default/deads', 'id'=>$model->id])?>" class="list-group-item">逝者资料</a>
-                    <a href="#" class="list-group-item ">档案资料</a>
-                    <!--                    <a href="#" class="list-group-item">模板设置</a>-->
-                    <a href="#" class="list-group-item">追忆文章</a>
-                    <a href="#" class="list-group-item">回忆相册</a>
-                    <a href="#" class="list-group-item">祝福管理</a>
-                </div>
-            </div>
+            <?=$this->render('left-menu', ['cur'=>'base'])?>
 
             <div class="col-xs-10 memorial-index">
 
