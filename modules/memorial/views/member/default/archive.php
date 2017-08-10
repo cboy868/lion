@@ -4,6 +4,7 @@ use app\core\helpers\Url;
 use yii\bootstrap\Modal;
 use app\core\helpers\Html;
 use yii\widgets\LinkPager;
+use app\modules\blog\models\Blog;
 
 $this->title = '档案管理';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
@@ -66,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= \app\core\widgets\Alert::widget();?>
                 <div class="page-header">
                     <h1>
-                        <a href="<?=Url::to(['create-archive', 'id'=>$model->id])?>" class='btn btn-danger btn-sm modalAddButton'
+                        <a href="<?=Url::to(['create-blog', 'id'=>$model->id,'res'=>Blog::RES_ARCHIVE])?>" class='btn btn-danger btn-sm modalAddButton'
                                data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加档案资料</a>
                     </h1>
 
@@ -112,7 +113,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     .pagination {
                         margin: 10px 0;
-                        border-radius: 2px;
                     }
                     .panel-footer{
                         padding:0 20px;
@@ -144,14 +144,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <i class="fa fa-clock-o icon-muted"></i> <span class="m-r-sm"><?=date('Y-m-d H:i', $post->created_at)?></span>
 
                                 <i class="fa fa-eye icon-muted"></i>
-                                <?= Html::a('查看', ['/memorial/member/default/view-archive', 'archive_id'=>$post->id],
+                                <?= Html::a('查看', ['/memorial/member/default/view-blog', 'archive_id'=>$post->id],
                                     ['class'=>'modalViewButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );?>
                                 <i class="fa fa-pencil icon-muted"></i>
-                                <?= Html::a('修改', ['/memorial/member/default/update-archive', 'archive_id'=>$post->id],
+                                <?= Html::a('修改', ['/memorial/member/default/update-blog', 'archive_id'=>$post->id],
                                     ['class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );?>
                                 <i class="fa fa-trash-o icon-muted"></i>
 
-                                <?= Html::a('删除',['del-archive', 'archive_id'=>$post->id], [
+                                <?= Html::a('删除',['del-blog', 'archive_id'=>$post->id], [
                                         'data-confirm' => '您确定要删除此档案吗？',
                                         'data-method' => 'post'
                                 ])?>

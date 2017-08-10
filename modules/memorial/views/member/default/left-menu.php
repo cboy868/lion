@@ -8,7 +8,7 @@ $id = Yii::$app->request->get('id');
         <a href="<?=Url::toRoute(['deads', 'id'=>$id])?>" class="list-group-item <?php if($cur=='dead')echo'active';?>">逝者资料</a>
         <a href="<?=Url::toRoute(['archive', 'id'=>$id])?>" class="list-group-item <?php if($cur=='archive')echo'active';?>">档案资料</a>
         <!--                    <a href="#" class="list-group-item">模板设置</a>-->
-        <a href="<?=Url::toRoute(['miss', 'id'=>$id])?>" class="list-group-item <?php if($cur=='miss')echo'active';?>">追忆文章</a>
+        <a href="<?=Url::toRoute(['miss', 'id'=>$id])?>" class="list-group-item <?php if($cur=='miss')echo'active';?>">追思文章</a>
         <a href="<?=Url::toRoute(['album', 'id'=>$id])?>" class="list-group-item <?php if($cur=='album')echo'active';?>">回忆相册</a>
         <a href="<?=Url::toRoute(['msg', 'id'=>$id])?>" class="list-group-item <?php if($cur=='msg')echo'active';?>">祝福管理</a>
     </div>

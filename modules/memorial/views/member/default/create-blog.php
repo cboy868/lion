@@ -3,7 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\ActiveForm;
-//\app\assets\ExtAsset::register($this);
+use app\modules\blog\models\Blog;
 ?>
 
 <div class="page-content">
@@ -12,7 +12,6 @@ use yii\widgets\ActiveForm;
 		<div class="row">
 
                 <?php $form = ActiveForm::begin(); ?>
-
 
             <?=$form->field($model,'title')?>
 
@@ -37,6 +36,7 @@ use yii\widgets\ActiveForm;
             ?>
 
             <?=$form->field($model,'privacy')->radioList(\app\modules\blog\models\Blog::privacys())?>
+            <?=$form->field($model,'res')->hiddenInput()->label(false)?>
 
             <div class="form-group">
                 <div class="x1-move x4">

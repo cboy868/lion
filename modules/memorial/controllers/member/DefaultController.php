@@ -190,6 +190,8 @@ class DefaultController extends \app\core\web\MemberController
         ]);
     }
 
+    #< 档案及追思部分开始
+
     public function actionArchive($id)
     {
         $memorial = $this->findModel($id);
@@ -209,7 +211,7 @@ class DefaultController extends \app\core\web\MemberController
 
     }
 
-    public function actionCreateArchive($id)
+    public function actionCreateBlog($id, $res)
     {
 
         $model = new Blog();
@@ -219,29 +221,37 @@ class DefaultController extends \app\core\web\MemberController
         if (Yii::$app->request->isPost) {
             $model->load($req->post());
             $model->memorial_id = $id;
-            $model->res = Blog::RES_ARCHIVE;
+//            $model->res = Blog::RES_ARCHIVE;
             $model->created_by = Yii::$app->user->id;
             $model->is_customer = Yii::$app->user->identity->isStaff() ? 0 : 1;
             $model->ip = Yii::$app->request->getUserIP();
             $model->status = Blog::STATUS_VRIFY;
 
-            if ($model->save() !== false) {
-                Yii::$app->session->setFlash('success', '添加档案成功');
-            } else {
-                Yii::$app->session->setFlash('error', '添加档案失败,请重试或联系管理员');
+            if ($res == Blog::RES_BLOG) {
+                $redirect = 'miss';
+                $note = '添加追思文章';
+            } else if ($res == Blog::RES_ARCHIVE) {
+                $redirect = 'archive';
+                $note = '添加档案';
             }
 
-            return $this->redirect(['archive', 'id'=>$id]);
+            if ($model->save() !== false) {
+                Yii::$app->session->setFlash('success', $note . '成功');
+            } else {
+                Yii::$app->session->setFlash('error', $note .'失败,请重试或联系管理员');
+            }
+
+            return $this->redirect([$redirect, 'id'=>$id]);
         }
 
-
         $model->privacy = Blog::PRIVACY_PUBLIC;
-        return $this->renderAjax('create-archive', [
+        $model->res = Yii::$app->request->get('res');
+        return $this->renderAjax('create-blog', [
             'model' => $model,
         ]);
     }
 
-    public function actionUpdateArchive($archive_id)
+    public function actionUpdateBlog($archive_id)
     {
 
         $model = Blog::findOne($archive_id);
@@ -253,54 +263,81 @@ class DefaultController extends \app\core\web\MemberController
             $model->ip = Yii::$app->request->getUserIP();
             $model->status = Blog::STATUS_VRIFY;
 
-            if ($model->save() !== false) {
-                Yii::$app->session->setFlash('success', '修改档案成功');
-            } else {
-                Yii::$app->session->setFlash('error', '修改档案失败,请重试或联系管理员');
+
+            if ($model->res == Blog::RES_BLOG) {
+                $redirect = 'miss';
+                $note = '修改追思文章';
+            } else if ($model->res == Blog::RES_ARCHIVE) {
+                $redirect = 'archive';
+                $note = '修改档案';
             }
 
-            return $this->redirect(['archive', 'id'=>$model->memorial_id]);
+
+            if ($model->save() !== false) {
+                Yii::$app->session->setFlash('success', $note . '成功');
+            } else {
+                Yii::$app->session->setFlash('error', $note . '失败,请重试或联系管理员');
+            }
+
+
+            return $this->redirect([$redirect, 'id'=>$model->memorial_id]);
         }
 
 
-        return $this->renderAjax('update-archive', [
+        return $this->renderAjax('update-blog', [
             'model' => $model,
         ]);
     }
 
-    public function actionViewArchive($archive_id)
+    public function actionViewBlog($archive_id)
     {
 
         $model = Blog::findOne($archive_id);
 
-        return $this->renderAjax('view-archive', [
+        return $this->renderAjax('view-blog', [
             'model' => $model,
         ]);
     }
 
-    public function actionDelArchive($archive_id)
+    public function actionDelBlog($archive_id)
     {
         $model = Blog::findOne($archive_id);
         $model->delete();
 
-        return $this->redirect(['archive', 'id'=>$model->memorial_id]);
+        if ($model->res == Blog::RES_ARCHIVE) {
+            return $this->redirect(['archive', 'id'=>$model->memorial_id]);
+        } else if ($model->res == Blog::RES_BLOG) {
+            return $this->redirect(['miss', 'id'=>$model->memorial_id]);
+        }
+
     }
+
 
     /**
      * @name 追忆文章
      */
     public function actionMiss($id)
     {
+
         $memorial = $this->findModel($id);
-        return $this->render('miss',[
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['BlogSearch']['user_id'] = Yii::$app->user->id;
+        $params['BlogSearch']['res'] = Blog::RES_BLOG;
+
+        $searchModel = new BlogSearch();
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('miss', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
             'model' => $memorial
         ]);
-    }
-
-    public function actionCreateMiss($id)
-    {
 
     }
+
+    #> 档案追忆文章部分结束
 
     public function actionAlbum($id)
     {
@@ -309,6 +346,23 @@ class DefaultController extends \app\core\web\MemberController
             'model' => $memorial
         ]);
     }
+
+    public function actionCreateAlbum($id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('album',[
+            'model' => $memorial
+        ]);
+    }
+
+    public function actionUpdateAlbum($id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('album',[
+            'model' => $memorial
+        ]);
+    }
+
     public function actionPhotos($id, $album_id)
     {
         $memorial = $this->findModel($id);
@@ -317,12 +371,30 @@ class DefaultController extends \app\core\web\MemberController
         ]);
     }
 
+    public function actionDelPhoto($id, $album_id)
+    {
+        $memorial = $this->findModel($id);
+        return $this->render('photos',[
+            'model' => $memorial
+        ]);
+    }
+
+    public function actionDelAlbum($album_id)
+    {
+        $memorial = $this->findModel($album_id);
+    }
+
     public function actionMsg($id)
     {
         $memorial = $this->findModel($id);
         return $this->render('msg',[
             'model' => $memorial
         ]);
+    }
+
+    public function actionDelMsg($id)
+    {
+
     }
 
     protected function findModel($id)

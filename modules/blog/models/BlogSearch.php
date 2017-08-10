@@ -18,7 +18,9 @@ class BlogSearch extends Blog
     public function rules()
     {
         return [
-            [['id', 'thumb', 'sort', 'recommend', 'is_customer', 'is_top', 'type', 'memorial_id', 'privacy', 'view_all', 'com_all', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['id', 'thumb', 'sort', 'recommend', 'is_customer', 'is_top',
+                'type', 'memorial_id', 'privacy', 'view_all', 'com_all', 'created_by',
+                'created_at', 'updated_at', 'status','res'], 'integer'],
             [['title', 'summary', 'video', 'body', 'publish_at', 'ip'], 'safe'],
         ];
     }
@@ -41,7 +43,7 @@ class BlogSearch extends Blog
      */
     public function search($params)
     {
-        $query = Blog::find();
+        $query = Blog::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -71,6 +73,7 @@ class BlogSearch extends Blog
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'status' => $this->status,
+            'res' => $this->res
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
