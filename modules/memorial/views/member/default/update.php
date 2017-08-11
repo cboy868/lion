@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             </style>
 
-            <?=$this->render('left-menu', ['cur'=>'base', 'id'=>$model->id])?>
+            <?=$this->render('left-menu', ['cur'=>'base', 'model'=>$model])?>
 
             <div class="col-xs-10 memorial-index">
 

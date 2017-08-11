@@ -9,7 +9,7 @@ use yii\bootstrap\Modal;
 
 
 $this->params['breadcrumbs'][] = '个人中心首页';
-
+Yii::$app->params['cur_nav'] = 'member_index';
 ?>
 <style type="text/css">
     .nc{margin-right: 10px;}

@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <div class="row">
 
-            <?=$this->render('left-menu', ['cur'=>'album', 'id'=>$model->id])?>
+            <?=$this->render('left-menu', ['cur'=>'album', 'model'=>$model])?>
 
             <div class="col-xs-10 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>

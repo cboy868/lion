@@ -119,8 +119,13 @@ MemberAsset::register($this);
                 try{ace.settings.check('sidebar' , 'fixed')}catch(e){ }
             </script>
 
+
+            <?php
+
+            $cur_nav = isset(Yii::$app->params['cur_nav']) ? Yii::$app->params['cur_nav'] : ''
+            ?>
             <ul class="nav nav-list">
-                <li class="p-menu" rel="">
+                <li class="p-menu <?php if($cur_nav == 'member_index')echo'active';?>" rel="">
                     <a href="<?=Url::toRoute(['/member/default/index'])?>">
                         <i class="menu-icon fa fa-user"></i>
                         会员首页
@@ -135,7 +140,7 @@ MemberAsset::register($this);
                     </a>
                     <b class="arrow"></b>
                     <ul class="submenu">
-                        <li class="active" rel="">
+                        <li class="<?php if($cur_nav == 'memorial_index')echo'active';?>" rel="">
                             <a href="<?=Url::toRoute(['/memorial/member/default/index'])?>">
                                 我创建的
                             </a>
@@ -143,14 +148,14 @@ MemberAsset::register($this);
                         </li>
 
                         <li class="" rel="">
-                            <a href="/admin/shop/category/index.html">
+                            <a href="#">
                                 我的关注
                             </a>
                             <b class="arrow"></b>
                         </li>
 
-                        <li class="" rel="">
-                            <a href="/admin/shop/type/index.html">
+                        <li class="<?php if($cur_nav == 'memorial_create')echo'active';?>" rel="">
+                            <a href="<?=Url::toRoute(['/memorial/member/default/create'])?>">
                                 创建新馆
                             </a>
                             <b class="arrow"></b>

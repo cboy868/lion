@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <div class="row">
 
-            <?=$this->render('left-menu', ['cur'=>'msg', 'id'=>$model->id])?>
+            <?=$this->render('left-menu', ['cur'=>'msg', 'model'=>$model])?>
 
             <div class="col-xs-10 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>

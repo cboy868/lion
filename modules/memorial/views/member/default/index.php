@@ -9,7 +9,7 @@ use yii\bootstrap\Modal;
 
 
 $this->params['breadcrumbs'][] = '个人中心首页';
-
+Yii::$app->params['cur_nav'] = 'memorial_index';
 ?>
 <style type="text/css">
     .nc{margin-right: 10px;}
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = '个人中心首页';
                                 <img src="<?=$model->getThumbImg('150x181')?>">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="/TT591539105" target="_blank">
+                                        <a href="#" target="_blank">
                                             <h4><?=$model->title?></h4>
                                         </a>
                                     </li>

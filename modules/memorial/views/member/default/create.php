@@ -8,6 +8,8 @@ use yii\widgets\Breadcrumbs;
 $this->title = '添加纪念馆';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+Yii::$app->params['cur_nav'] = 'memorial_create';
 ?>
 
 <div class="page-content">

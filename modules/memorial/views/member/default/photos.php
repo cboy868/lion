@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
 
-            <?=$this->render('left-menu', ['cur'=>'album','id'=>$memorial->id])?>
+            <?=$this->render('left-menu', ['cur'=>'album', 'model'=>$memorial])?>
 
             <div class="col-xs-10 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>
