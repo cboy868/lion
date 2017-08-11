@@ -3,9 +3,10 @@
 namespace app\core\models;
 
 use app\core\base\Pagination;
+use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use app\modules\user\models\User;
+use app\modules\user\models\User as SysUser;
 /**
  * This is the model class for table "{{%comment}}".
  *
@@ -84,21 +85,42 @@ class Comment extends \app\core\db\ActiveRecord
 
     public function getFromUser()
     {
-        return $this->hasOne(User::className(), ['id'=>'from']);
+        return $this->hasOne(SysUser::className(), ['id'=>'from']);
     }
 
-    public static function getByRes($res_name, $res_id, $limit=20, $thumb='45x45')
+    public static function getByRes($res_name, $res_id, $limit=15, $thumb='45x45')
     {
         $query = self::find()->where(['status'=>self::STATUS_NORMAL])
-                            ->andWhere(['res_name'=>$res_name, 'res_id'=>$res_id]);
+                            ->andWhere(['res_name'=>$res_name, 'res_id'=>$res_id])
+                            ->andWhere(['pid'=>0]);
 
         $cnt = $query->count();
         $pagination = new Pagination(['totalCount'=>$cnt, 'pageSize'=>$limit]);
-        $list = $query->orderBy('id desc')
+        $list = $query
+                    ->orderBy('id desc')
                     ->offset($pagination->offset)
                     ->limit($pagination->limit)
 //                    ->asArray()
                     ->all();
+
+
+
+        $ids = ArrayHelper::getColumn($list, 'id');
+        $sons = self::find()->where(['status'=>self::STATUS_NORMAL])
+                        ->andWhere(['res_name'=>$res_name, 'res_id'=>$res_id])
+                        ->andWhere(['pid'=>$ids])
+                        ->all();
+        $son_result = [];
+        foreach ($sons as $k => $v) {
+            $tmp = $v->toArray();
+            $tmp['avatar'] = $v->fromUser->getAvatar($thumb);
+            $tmp['date'] = date('Y-m-d H:i', $v->created_at);
+            $tmp['username'] = $v->fromUser->username;
+            $son_result[] = $tmp;
+        }
+
+
+        $sons = ArrayHelper::group($son_result, 'pid');
 
 
         $result = [];
@@ -107,11 +129,13 @@ class Comment extends \app\core\db\ActiveRecord
             $tmp['avatar'] = $v->fromUser->getAvatar($thumb);
             $tmp['date'] = date('Y-m-d H:i', $v->created_at);
             $tmp['username'] = $v->fromUser->username;
+            if (isset($sons[$v->id])) {
+                $tmp['child'] = $sons[$v->id];
+            }
             $result[] = $tmp;
         }
 
         return ['list'=>$result, 'pagination'=>$pagination];
-
 
     }
 

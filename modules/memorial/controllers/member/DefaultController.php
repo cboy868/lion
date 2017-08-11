@@ -2,6 +2,7 @@
 
 namespace app\modules\memorial\controllers\member;
 
+use app\core\models\Comment;
 use app\modules\blog\models\Album;
 use app\modules\blog\models\AlbumPhoto;
 use app\modules\blog\models\AlbumPhotoSearch;
@@ -464,13 +465,56 @@ class DefaultController extends \app\core\web\MemberController
     public function actionMsg($id)
     {
         $memorial = $this->findModel($id);
+        $comment = new Comment();
+
+
+        //取评论
+        $comments = Comment::getByRes('memorial', $id, 15, '36x36');
+
+
         return $this->render('msg',[
-            'model' => $memorial
+            'model' => $memorial,
+            'comment' => $comment,
+            'comments' => $comments
         ]);
+    }
+
+    public function actionCreateMsg($id)
+    {
+        $model = new Comment();
+        $req = Yii::$app->getRequest();
+
+        $model->content = $req->post('content');
+        $model->res_name = 'memorial';
+        $model->res_id = $id;
+        $model->from = Yii::$app->user->id;
+        $model->to = 0;
+        $model->privacy = Comment::PRIVACY_PUBLIC;
+
+        if ($model->save() !== false) {
+            $result = Comment::getByRes('memorial', $id, 1);
+            return $this->json($result);
+        } else {
+
+
+            return $this->json(null, '祝福留言失败,请重试或联系管理员', 0);
+        }
+
+
     }
 
     public function actionDelMsg($id)
     {
+        $model = Comment::findOne($id);
+        if ($model->delete()) {
+            Yii::$app->db->createCommand()
+                ->delete(Comment::tableName(),[
+                    'pid' => $id,
+                ])
+                ->execute();
+            return $this->json();
+        }
+        return $this->json('删除失败', null, 0);
 
     }
 

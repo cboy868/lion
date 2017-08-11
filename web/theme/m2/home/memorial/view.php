@@ -205,10 +205,10 @@ use yii\widgets\LinkPager;
             <div id="_tpl_pray" style="display:none;">
                 <li>
                     <div class="left">
-                        <a href="/theme/m2/static/modules/memorial/images/ink/2931"><img src="http://gls.gls024.com/home/memorial/detail/id/2931" alt=""></a>
+                        <a href="#"><img src="#" alt=""></a>
                     </div>
                     <h6>
-                        <a class="pray-username" href="http://gls.gls024.com/home/memorial/detail/id/2931"></a>
+                        <a class="pray-username" href="#"></a>
                     </h6>
                     <p class="desc"></p>
                     <p class="time"></p>

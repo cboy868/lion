@@ -9,6 +9,7 @@ $this->title = '照片列表';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => '相册管理', 'url' => ['album', 'id'=>$memorial->id]];
 $this->params['breadcrumbs'][] = $this->title;
+\app\assets\ColorBoxAsset::register($this);
 ?>
 
 <style type="text/css">
@@ -104,8 +105,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <small>删除 </small>
                                     </a>
                                 </div>
-                                <a href="" style="height: 200px;display: inline-block">
-                                    <img style="max-height: 200px;" class="r r-2x img-full" alt="" src="<?=$photo->getThumb('690x430')?>">
+                                <a href="<?=$photo->getThumb('690x430')?>" style="height: 200px;display: inline-block" class="artimg ">
+                                    <img style="max-height: 200px;" class="r r-2x img-full image" src="<?=$photo->getThumb('690x430')?>">
                                 </a>
                             </div>
                             <div class="padder-h text-center">
@@ -151,6 +152,20 @@ $(function(){
                 create: true
             });
         }
+    });
+
+    $(".image").click(function(e) {
+        e.preventDefault();
+        var title = $(this).attr('title');
+        $(".artimg").colorbox({
+            rel: 'artimg',
+            maxWidth:'600px',
+            maxHeight:'700px',
+            next:'',
+            previous:'',
+            close:'',
+            current:""
+        });
     });
 
 })
