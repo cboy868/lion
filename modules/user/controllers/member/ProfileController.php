@@ -46,7 +46,7 @@ class ProfileController extends MemberController
                 $model->save();
 
                 $outerTransaction->commit();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 echo $e->getMessage();
                 $outerTransaction->rollBack();
             }

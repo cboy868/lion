@@ -81,13 +81,25 @@ MemberAsset::register($this);
 
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li>
-                                <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">
+                                <a href="<?=Url::toRoute(['/user/member/profile/index'])?>" target="_blank">
                                     <i class="ace-icon fa fa-cog"></i>
                                     个人设置
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="<?=Url::toRoute(['/user/member/profile/passwd'])?>" target="_blank">
+                                    <i class="ace-icon fa fa-cog"></i>
+                                    修改密码
+                                </a>
+                            </li>
 
+                            <li>
+                                <a href="<?=Url::toRoute(['/user/member/profile/avatar'])?>" target="_blank">
+                                    <i class="ace-icon fa fa-cog"></i>
+                                    修改头像
+                                </a>
+                            </li>
                             <li class="divider"></li>
 
                             <li>
@@ -157,6 +169,57 @@ MemberAsset::register($this);
                         <li class="<?php if($cur_nav == 'memorial_create')echo'active';?>" rel="">
                             <a href="<?=Url::toRoute(['/memorial/member/default/create'])?>">
                                 创建新馆
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+<!--                <li class="my-blog"><a target="_blank" href="--><?//=Url::toRoute(['/blog/member/default/index'])?><!--">我的日志</a>-->
+                <li class="p-menu hsub">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa fa-shopping-cart"></i>
+                        <span class="menu-text">业务管理</span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="<?php if($cur_nav == 'memorial_index')echo'active';?>" rel="">
+                            <a href="#">
+                                墓位续费
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="" rel="">
+                            <a href="#">
+                                瓷像碑文
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="p-menu hsub">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa fa-shopping-cart"></i>
+                        <span class="menu-text">资料管理</span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="<?php if($cur_nav == 'memorial_index')echo'active';?>" rel="">
+                            <a href="<?=Url::toRoute(['/blog/member/default/index'])?>">
+                                博客
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="" rel="">
+                            <a href="<?=Url::toRoute(['/blog/member/album/index'])?>">
+                                相册
                             </a>
                             <b class="arrow"></b>
                         </li>
