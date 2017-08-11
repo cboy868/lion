@@ -70,18 +70,6 @@ class DefaultController extends \app\core\web\MemberController
 
         if ($model->load(Yii::$app->request->post()) ) {
 
-
-            $upload = Upload::getInstance($model, 'thumb', 'memorial');
-
-            if ($upload) {
-                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
-                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-                $upload->save();
-
-                $info = $upload->getInfo();
-                $model->thumb = $info['mid'];
-            }
-
             $model->user_id = Yii::$app->user->id;
             $model->status = Memorial::STATUS_APPLY;//待审核状态
             $model->save();
@@ -109,6 +97,7 @@ class DefaultController extends \app\core\web\MemberController
             $model->memorial_id = $id;
             $model->user_id = Yii::$app->user->id;
             $model->tomb_id = 0;
+            $model->is_alive = 0;
 
             if ($model->save() !== false) {
                 Yii::$app->session->setFlash('success', '添加逝者成功');
@@ -134,23 +123,8 @@ class DefaultController extends \app\core\web\MemberController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $thumb = $model->thumb;
 
         if ($model->load(Yii::$app->request->post()) ) {
-
-
-            $upload = Upload::getInstance($model, 'thumb', 'memorial');
-
-            if ($upload) {
-                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
-                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-                $upload->save();
-
-                $info = $upload->getInfo();
-                $model->thumb = $info['mid'];
-            } else {
-                $model->thumb = $thumb;
-            }
 
             if ($model->save() !== false) {
                 Yii::$app->session->setFlash('success', '修改成功');
@@ -158,7 +132,6 @@ class DefaultController extends \app\core\web\MemberController
                 Yii::$app->session->setFlash('error', '修改失败');
             }
             return $this->redirect(['update', 'id'=>$id]);
-
 
 
         } else {

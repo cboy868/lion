@@ -90,7 +90,7 @@ Yii::$app->params['cur_nav'] = 'memorial_index';
                                 <?php if (is_array($deads)):?>
                                     <?php foreach ($deads as $dead):?>
                                 <div class="dead">
-                                    <img width="90" height="114" src="http://www.5201000.com/Resource/Images/Default/ren-pic.jpg" alt="">
+                                    <img width="90" height="114" src="<?=$dead->getAvatarImg('170x210')?>" alt="">
                                     <div>
                                         <div class="h4 m-t-xs m-b-xs">
                                                 <?=$dead->dead_name?>
