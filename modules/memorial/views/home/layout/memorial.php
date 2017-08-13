@@ -87,8 +87,8 @@ use yii\helpers\Url;
                     <a class="" href="<?=Url::toRoute(['/memorial/home/hall/life', 'id'=>$id])?>">生平简介</a></li>
                 <li class="<?php if($current_nav=='album'):?>active<?php endif;?>">
                     <a class="" href="<?=Url::toRoute(['/memorial/home/hall/album', 'id'=>$id])?>">音容笑貌</a></li>
-                <li class="<?php if($current_nav=='achive'):?>active<?php endif;?>">
-                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/achive', 'id'=>$id])?>">档案资料</a></li>
+                <li class="<?php if($current_nav=='archive'):?>active<?php endif;?>">
+                    <a class="" href="<?=Url::toRoute(['/memorial/home/hall/archive', 'id'=>$id])?>">档案资料</a></li>
                 <li class="<?php if($current_nav=='miss'):?>active<?php endif;?>">
                     <a class="" href="<?=Url::toRoute(['/memorial/home/hall/miss', 'id'=>$id])?>">追忆文章</a></li>
                 <li class="<?php if($current_nav=='msg'):?>active<?php endif;?>">

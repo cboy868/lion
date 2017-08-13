@@ -2,6 +2,7 @@
 $this->params['current_nav'] = 'record';
 $mem = Yii::$app->getAssetManager()->publish(Yii::getAlias('@app/modules/memorial/static/hall'));
 $this->registerCssFile($mem[1] . '/css/records.css');
+
 ?>
 <style type="text/css">
     .date {
@@ -28,54 +29,7 @@ $this->registerCssFile($mem[1] . '/css/records.css');
         <!---------------左边开始----------------->
         <div class="col-md-3 hidden-sm no-padding-right mb20">
 
-            <div class="person-list">
-                <div class="sline-box person-info">
-
-                    <ul class="nav nav-tabs sline" role="tablist">
-
-                    </ul>
-                </div>
-            </div>
-            <div class="box">
-                <div class="tab-content person-content" id="person_left">
-                    <div class="tab-pane fade  in active   ps_533577">
-                        <form id="formDeceased533577" action="/BaseMemorial/EditHeadImg" onsubmit="return false;">
-                            <p>
-                                <img id="PhotoHead_533577" name="PhotoHead_533577" class="img-responsive img-rounded center-block"
-                                     src="http://imgs.5201000.com/UploadFiles/Image/Heaven/MemorialHall/PhotoPath/091112222633484.jpg"
-                                     alt="孙中山" />
-
-                            </p>
-                            <div class="blank"></div>
-                            <div class="blank"></div>
-                            <div class="ny-ren-xx">
-                                <ul class="list-unstyled">
-
-                                    <li><span>姓名：</span>孙中山</li>
-                                    <li><span>生辰：</span>1866年11月12日</li>
-                                    <li><span>忌辰：</span>1925年03月12日</li>
-                                    <li>
-                                        <span>天堂纪念馆号：</span><strong style="color:#F60; font-size:16px;">TT000000069</strong>
-                                    </li>
-                                    <li><span>已经离开我们：</span><strong>33735</strong>天</li>
-                                    <li>
-                                        <span>建馆者：</span>
-                                        <a data-toggle="modal" data-target=".user-info-dialog"
-                                           data-url="/MemberInfo?id=632858" href="javascript:void(0)">
-                                            hu
-                                        </a>
-                                    </li>
-                                    <li><span>建馆时间：</span>2009年11月12日</li>
-                                    <li><span>点击数：</span>638588次</li>
-                                </ul>
-                            </div>
-                            <input type="hidden" name="Id" value="533577" />
-                            <input type="hidden" name="PhotoPath" value="" />
-                        </form>
-                    </div>
-
-                </div>
-            </div>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'info','mid'=>Yii::$app->request->get('id')])?>
 
             <div class="blank"></div>
 
@@ -141,28 +95,9 @@ $this->registerCssFile($mem[1] . '/css/records.css');
                 </div>
             </div>
             <div class="blank"></div>
-
-
-            <link href="/Resource/Scripts/plugins/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css">
-            <link href="/Resource/Scripts/plugins/owl-carousel/owl.theme.css" rel="stylesheet">
-            <link href="/Resource/Scripts/plugins/owl-carousel/owl.transitions.css" rel="stylesheet" type="text/css">
-            <div class="box">
-                <div class="side-title">
-                    <a class="tit" href="/Memorial/AlbumList/69.html">音容笑貌</a>
-                    <a class="more" href="/Memorial/AlbumList/69.html">更多>></a>
-                </div>
-                <div class="photo">
-                    <div id="owl-img" class="owl-carousel">
-                        <div>
-                            <img onload="AutoResizeImage(250, 200, this)" src="http://imgs.5201000.com/UploadFiles/Image/2016/12/29/Heaven/ImgInfo/BreviaryImgPath/100109092055208.jpg">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'album','mid'=>Yii::$app->request->get('id')])?>
 
             <div class="blank"></div>
-
 
             <div class="box">
                 <form action="/Search" method="get">

@@ -47,13 +47,57 @@ class BlogSearch extends Blog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-
+            'pagination' => [
+                'pageSize' => 20,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'thumb' => $this->thumb,
+            'sort' => $this->sort,
+            'recommend' => $this->recommend,
+            'is_customer' => $this->is_customer,
+            'is_top' => $this->is_top,
+            'type' => $this->type,
+            'memorial_id' => $this->memorial_id,
+            'privacy' => $this->privacy,
+            'view_all' => $this->view_all,
+            'com_all' => $this->com_all,
+            'publish_at' => $this->publish_at,
+            'created_by' => $this->created_by,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'status' => $this->status,
+            'res' => $this->res
+        ]);
+
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'body', $this->body])
+            ->andFilterWhere(['like', 'ip', $this->ip]);
+
+        return $dataProvider;
+    }
+
+
+    public function homeSearch($params)
+    {
+        $query = Blog::find()->orderBy('id desc');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 12,
+            ],
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
 
         $query->andFilterWhere([
             'id' => $this->id,

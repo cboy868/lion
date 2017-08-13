@@ -4,12 +4,15 @@ namespace app\modules\memorial\controllers\home;
 
 use app\core\helpers\ArrayHelper;
 use app\core\models\Comment;
+use app\modules\blog\models\Album;
+use app\modules\blog\models\AlbumPhoto;
 use app\modules\blog\models\Blog;
 use app\modules\cms\controllers\home\CommonController;
 use app\modules\memorial\models\Pray;
 use yii;
 use app\modules\memorial\models\Memorial;
 use yii\web\NotFoundHttpException;
+use app\modules\blog\models\BlogSearch;
 
 class HallController extends Controller
 {
@@ -20,24 +23,44 @@ class HallController extends Controller
         $deads = $memorial->deads;
 
         //档案及追忆
-        $blogs = Blog::find()->where([
+        //档案
+        $archives = Blog::find()->where([
             'memorial_id'=>$id,
             'status'=>Blog::STATUS_NORMAL,
-            'privacy' => Blog::PRIVACY_PUBLIC
-            ])
-            ->all();
-        $blogs = ArrayHelper::index($blogs, 'id', 'res');
+            'privacy' => Blog::PRIVACY_PUBLIC,
+            'res' =>Blog::RES_ARCHIVE
+        ])
+            ->orderBy('id desc')->limit(10)->all();
+
+        //追忆
+        $miss = Blog::find()->where([
+            'memorial_id'=>$id,
+            'status'=>Blog::STATUS_NORMAL,
+            'privacy' => Blog::PRIVACY_PUBLIC,
+            'res' =>Blog::RES_MISS
+        ])
+            ->orderBy('id desc')->limit(10)->all();
 
 
         //祝福
-        $msgs = Comment::find()->where(['res_name'=>'memorial', 'res_id'=>$id])->all();
+        $msgs = Comment::find()->where(['res_name'=>'memorial', 'res_id'=>$id, 'pid'=>0])
+            ->orderBy('id desc')
+            ->limit(10)->all();
+
+        //找几张照片
+        $albums = Album::find()->where(['memorial_id'=>$id,'privacy'=>Album::PRIVACY_PUBLIC])
+            ->orderBy('id desc')->limit(10)->all();
+        $albums_ids = ArrayHelper::getColumn($albums, 'id');
+        $photos = AlbumPhoto::find()->where(['album_id'=>$albums_ids, 'status'=>AlbumPhoto::STATUS_ACTIVE])
+            ->limit(10)->all();
 
         return $this->render('index',[
             'memorial' => $memorial,
             'deads' => $deads,
-            'archives' => isset($blogs[Blog::RES_ARCHIVE]) ? $blogs[Blog::RES_ARCHIVE] : [],
-            'miss' => isset($blogs[Blog::RES_MISS]) ? $blogs[Blog::RES_MISS] : [],
-            'msgs' => $msgs
+            'archives' => $archives,
+            'miss' => $miss,
+            'msgs' => $msgs,
+            'photos' => $photos
         ]);
     }
 
@@ -51,9 +74,15 @@ class HallController extends Controller
      * @name 生平
      * @return string
      */
-    public function actionLife()
+    public function actionLife($id)
     {
-        return $this->render('life');
+
+        $memorial = $this->findModel($id);
+        $deads = $memorial->deads;
+        return $this->render('life', [
+            'deads' => $deads,
+            'memorial' => $memorial
+        ]);
     }
 
     /**
@@ -67,9 +96,24 @@ class HallController extends Controller
     /**
      * @name 档案资料
      */
-    public function actionAchive()
+    public function actionArchive($id)
     {
-        return $this->render('achive');
+        $memorial = $this->findModel($id);
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['BlogSearch']['res'] = Blog::RES_ARCHIVE;
+        $params['BlogSearch']['memorial_id'] = $id;
+        $params['BlogSearch']['privacy'] = Blog::PRIVACY_PUBLIC;
+
+        $searchModel = new BlogSearch();
+        $dataProvider = $searchModel->homeSearch($params);
+
+        return $this->render('archive', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $memorial
+        ]);
     }
 
     /**
@@ -83,9 +127,24 @@ class HallController extends Controller
     /**
      * @name 追思文章
      */
-    public function actionMiss()
+    public function actionMiss($id)
     {
-        return $this->render('miss');
+        $memorial = $this->findModel($id);
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['BlogSearch']['res'] = Blog::RES_MISS;
+        $params['BlogSearch']['memorial_id'] = $id;
+        $params['BlogSearch']['privacy'] = Blog::PRIVACY_PUBLIC;
+
+        $searchModel = new BlogSearch();
+        $dataProvider = $searchModel->homeSearch($params);
+
+        return $this->render('miss', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $memorial
+        ]);
     }
 
     /**
