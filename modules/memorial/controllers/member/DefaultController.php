@@ -205,19 +205,20 @@ class DefaultController extends \app\core\web\MemberController
         if (Yii::$app->request->isPost) {
             $model->load($req->post());
             $model->memorial_id = $id;
-//            $model->res = Blog::RES_ARCHIVE;
             $model->created_by = Yii::$app->user->id;
             $model->is_customer = Yii::$app->user->identity->isStaff() ? 0 : 1;
             $model->ip = Yii::$app->request->getUserIP();
-            $model->status = Blog::STATUS_VRIFY;
 
-            if ($res == Blog::RES_BLOG) {
+            if ($res == Blog::RES_MISS) {
                 $redirect = 'miss';
                 $note = '添加追思文章';
+                $status = Yii::$app->params['blog']['missInitStatus'];
             } else if ($res == Blog::RES_ARCHIVE) {
                 $redirect = 'archive';
                 $note = '添加档案';
+                $status = Yii::$app->params['blog']['archiveInitStatus'];
             }
+            $model->status = $status;
 
             if ($model->save() !== false) {
                 Yii::$app->session->setFlash('success', $note . '成功');
@@ -248,7 +249,7 @@ class DefaultController extends \app\core\web\MemberController
             $model->status = Blog::STATUS_VRIFY;
 
 
-            if ($model->res == Blog::RES_BLOG) {
+            if ($model->res == Blog::RES_MISS) {
                 $redirect = 'miss';
                 $note = '修改追思文章';
             } else if ($model->res == Blog::RES_ARCHIVE) {
@@ -290,7 +291,7 @@ class DefaultController extends \app\core\web\MemberController
 
         if ($model->res == Blog::RES_ARCHIVE) {
             return $this->redirect(['archive', 'id'=>$model->memorial_id]);
-        } else if ($model->res == Blog::RES_BLOG) {
+        } else if ($model->res == Blog::RES_MISS) {
             return $this->redirect(['miss', 'id'=>$model->memorial_id]);
         }
 
@@ -307,7 +308,7 @@ class DefaultController extends \app\core\web\MemberController
         $params = Yii::$app->request->queryParams;
 
         $params['BlogSearch']['user_id'] = Yii::$app->user->id;
-        $params['BlogSearch']['res'] = Blog::RES_BLOG;
+        $params['BlogSearch']['res'] = Blog::RES_MISS;
         $params['BlogSearch']['memorial_id'] = $id;
 
         $searchModel = new BlogSearch();
@@ -410,6 +411,28 @@ class DefaultController extends \app\core\web\MemberController
             'memorial' => $memorial
         ]);
 
+    }
+
+    /**
+     * @return array
+     * @name 修改图片名及描述
+     */
+    public function actionTitDes()
+    {
+        $post = Yii::$app->request->post();
+
+        $tit = $post['title'];
+        $des = $post['desc'];
+        $id  = $post['id'];
+
+        $model = AlbumPhoto::findOne($id);
+        $model->title = $tit;
+        $model->body = $des;
+        if ($model->save()) {
+            return $this->json();
+        }
+
+        return $this->json(null, null, 0);
     }
 
     public function actionSetAlbumCover($id)

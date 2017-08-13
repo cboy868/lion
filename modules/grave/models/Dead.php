@@ -295,4 +295,48 @@ class Dead extends \app\core\db\ActiveRecord
     {
         return \app\core\models\Attachment::getById($this->avatar, $size, $default);
     }
+
+    /**
+     * @name 取纪念日
+     */
+    public function getDays()
+    {
+
+        $birth = $this->birth;
+        $fete = $this->fete;
+
+        $data = [
+            [
+                'title' => '生辰',
+                'date'  => $birth,
+            ],
+            [
+                'title' => '祭日',
+                'date'  => $fete,
+            ]
+        ];
+
+
+        //other
+        $days = Dates::find()->where(['dead_id'=>$this->id])->asArray()->all();
+
+        foreach ($days as $v) {
+            $data[] = [
+                'title' => $v['title'],
+                'date' => $v['solar_dt']
+            ];
+        }
+
+        //取当前日期
+        $current = date('Y-m-d');
+
+
+        foreach ($data as &$v) {
+            $md = date('Y') . date('-m-d', strtotime($v['date']));
+            $v['days'] = (strtotime($current) - strtotime($md))/86400;
+        }unset($v);
+
+        return $data;
+
+    }
 }

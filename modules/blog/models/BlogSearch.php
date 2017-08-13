@@ -20,8 +20,8 @@ class BlogSearch extends Blog
         return [
             [['id', 'thumb', 'sort', 'recommend', 'is_customer', 'is_top',
                 'type', 'memorial_id', 'privacy', 'view_all', 'com_all', 'created_by',
-                'created_at', 'updated_at', 'status','res'], 'integer'],
-            [['title', 'summary', 'video', 'body', 'publish_at', 'ip'], 'safe'],
+                'created_at', 'updated_at'], 'integer'],
+            [['title', 'summary', 'video', 'body', 'publish_at', 'ip','status','res'], 'safe'],
         ];
     }
 
@@ -47,14 +47,13 @@ class BlogSearch extends Blog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-//            'pagination' => [
-//                'pageSize' => 1,
-//            ],
+
         ]);
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -77,8 +76,6 @@ class BlogSearch extends Blog
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'summary', $this->summary])
-            ->andFilterWhere(['like', 'video', $this->video])
             ->andFilterWhere(['like', 'body', $this->body])
             ->andFilterWhere(['like', 'ip', $this->ip]);
 

@@ -210,14 +210,14 @@ MemberAsset::register($this);
                     </a>
                     <b class="arrow"></b>
                     <ul class="submenu">
-                        <li class="<?php if($cur_nav == 'memorial_index')echo'active';?>" rel="">
+                        <li class="<?php if($cur_nav == 'blog_index')echo'active';?>" rel="">
                             <a href="<?=Url::toRoute(['/blog/member/default/index'])?>">
                                 博客
                             </a>
                             <b class="arrow"></b>
                         </li>
 
-                        <li class="" rel="">
+                        <li class="<?php if($cur_nav == 'album_index')echo'active';?>" rel="">
                             <a href="<?=Url::toRoute(['/blog/member/album/index'])?>">
                                 相册
                             </a>

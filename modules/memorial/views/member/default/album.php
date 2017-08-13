@@ -9,6 +9,7 @@ use yii\widgets\LinkPager;
 $this->title = '回忆相册';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('/static/site/blog.css');
 ?>
 
 <style type="text/css">
@@ -50,42 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     </h1>
 
                 </div>
-                <style>
-                    .album-img {
-                        border-radius: 4px;
-                        max-width: 100%;
-                        max-height: 200px;
-                    }
-                    .wrapper-sm {
-                        padding: 10px;
-                    }
-                    .pos-rlt {
-                        position: relative;
-                    }
-                    .item .bottom {
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                    }
-                    .badge {
-                        margin-bottom: 5px;
-                        margin-right: 5px;
-                    }
-                    a{
-                        color:#333;
-                    }
-                    .bg-white{
-                        color:#666;
-                        background-color: #fff;
-                    }
-                    .pagination {
-                        margin: 10px 0;
-                    }
-                    .panel-footer{
-                        padding:0 20px;
-                    }
-                </style>
 
                 <div class="row masonry">
                     <?php $albums = $dataProvider->getModels()?>

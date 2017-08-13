@@ -65,10 +65,19 @@ $this->params['current_nav'] = 'index';
                 <div class="col-md-10 jdwz">
                     本馆由 <strong><?=$memorial->user->username;?></strong>于<?=date('Y-m-d', $memorial->created_at)?>建立。<br>
                     今日:<?=date('Y-m-d')?>。<br>
-                    距:薄一波 <strong>11</strong>周年忌日还剩  <strong>160</strong> 天;
-                    距:胡明 <strong>10</strong>周年忌日还剩  <strong>60</strong> 天
+
+                    <?php foreach ($deads as $v):?>
+                        距:<?=$v->dead_name?>
+                        <?php foreach ($v->getDays() as $d): ?>
+                            <?php if ($d['days']<0) continue; ?>
+                            <strong><?=$d['title']?></strong>还剩  <strong><?=$d['days']?></strong> 天;
+                        <?php endforeach;?>
+                        <br>
+                    <?php endforeach;?>
+
+                    <hr>
                     <p>
-                        以下是本管的一个简要介绍
+                        <?=\app\core\helpers\Html::cutstr_html($memorial->intro, 100)?>
                     </p>
                 </div>
             </div>
@@ -107,289 +116,93 @@ $this->params['current_nav'] = 'index';
                 <div class="blank"></div>
                 <div class="box">
                     <div class="bg-title">
-                        <div class="pull-left"><a class="bg-tit" href="http://www.5201000.com/Memorial/ArticleList/69.html">档案资料</a></div>
-                        <div class="pull-right"><a href="http://www.5201000.com/Memorial/ArticleList/69.html">更多内容&gt;&gt;</a></div>
+                        <div class="pull-left"><a class="bg-tit" href="#">档案资料</a></div>
+                        <div class="pull-right"><a href="#">更多内容&gt;&gt;</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="about-index da-info">
-                        <ul class="list-unstyled" id="Opusli">
+                        <ul class="list-unstyled">
+                            <?php foreach ($archives as $v): ?>
                             <li>
                                 <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568605.html">• 《最后的岁月》</a></h5>
+                                    <h5><a href="#"><?=$v->title?></a></h5>
                                     <h6>
                                         发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=632858" href="javascript:void(0)">
-                                            hu
+                                        <a href="javascript:void(0)">
+                                            <?=$v->user->username?>
                                         </a>
                                     </h6>
-                                    <span>时间：2010年09月26日</span>
+                                    <span>时间：<?=date('Y-m-d', $v->created_at)?></span>
                                 </div>
                                 <div class="wz-br-index">
                                     <div>
-                                        　　孙中山最后岁月　　新华报业网讯 1925年3月12日，一场基督徒式的葬礼在协和大礼堂举行，这是早年是一名外科医生后来成为革命家的孙中山的葬礼。孙中山生命最后两个月的大部分时间，是在协和度过的。1924年的最后一天，孙中山抱病来到北京，连日来不断加重的肝病，让他都已无力宣读那300字的入京宣言。此后，有人建议他到东郊民巷的德国医院去，他说：东郊民巷是租界，我不去。并最终选择了协和医院。
-                                        　　1
+                                        　　<?=\app\core\helpers\Html::cutstr_html($v->body, 200)?>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568601.html">• 各省联军解放南京</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=632858" href="javascript:void(0)">
-                                            hu
-                                        </a>
-                                    </h6>
-                                    <span>时间：2010年09月26日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-                                        　　各省联军解放南京
-                                        　　1911年10月10日，武昌起义的消息传到江苏后，清政府属下新军官兵及广大民众群情振奋，纷纷响应，短短20多天，上海、苏州、无锡、镇江、淮阴等地迅速宣告解放，南京孤悬于东南一隅。
-                                        　　对于南京这个兵家必争之地，革命军与清政府，一方认为志在必得，一方认为志在必守，南京又一次被推到了历史的风口浪尖上。
-                                        　　11月上旬，同盟会通电已光复的各省火速派兵增援，组成江浙联军。只
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568598.html">• 中山陵</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=632858" href="javascript:void(0)">
-                                            hu
-                                        </a>
-                                    </h6>
-                                    <span>时间：2010年01月09日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-                                        中山陵位于南京东郊钟山风景区内。作为伟大的民主革命先驱孙中山先生的墓地，它以凝重的历史意义、极高的文化价值和优美的园林景致在海内外享有盛誉，成为海内外华人竞相瞻仰的地方。
-                                        １９２５年３月１２日，孙中山在北京病逝。遵照先生生前归葬南京东郊钟山之遗愿，南京国民政府决定建造中山陵。１９２９年春，陵墓主体工程完工，同年６月１日举行了隆重的奉安大典。
-                                        中山陵位于紫金山南麓，前临平川，后依青山，气象
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568597.html">• 孙中山的三份遗嘱</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=632858" href="javascript:void(0)">
-                                            hu
-                                        </a>
-                                    </h6>
-                                    <span>时间：2010年01月09日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-                                        孙中山先生临终前十七天,即１９２５年２月２４日,知道自己病已不治，预立了三份遗嘱，这三份遗嘱是《遗嘱》、《家事遗嘱》、和《致苏联遗书》。前两份遗嘱由孙中山口授，汪精卫笔录。《致苏联遗书》则是由孙中山以英语口授，他的苏联顾问鲍罗廷等笔录。孙中山口授遗嘱时，在场的宋子文、孙科、孔祥熙、邵元冲、吴敬恒、戴恩赛、何香凝、邹鲁、戴季陶等人都作为证明人在遗嘱上签了字。孙中山本来也要签字的，但是，因为听见宋庆龄
-                                    </div>
-                                </div>
-                            </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
                 <div class="blank"></div>
                 <div class="box">
                     <div class="bg-title">
-                        <div class="pull-left"><a class="bg-tit" href="http://www.5201000.com/Memorial/ReList/69.html">追思文章</a></div>
-                        <div class="pull-right"><a href="http://www.5201000.com/Memorial/ReList/69.html">更多内容&gt;&gt;</a></div>
+                        <div class="pull-left"><a class="bg-tit" href="#">追思文章</a></div>
+                        <div class="pull-right"><a href="#">更多内容&gt;&gt;</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="about-index da-info">
                         <ul class="list-unstyled" id="ArticleLi">
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i627002.html">• 向中山先生致敬!!</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890013" href="javascript:void(0)">
-                                            pan.conan@gmail.com
-                                        </a>
-                                    </h6>
-                                    <span>时间：2017年06月21日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-                                        偉大的中山先生，我們向您致敬!
+                            <?php foreach ($miss as $v): ?>
+                                <li>
+                                    <div class="wz-bt-index">
+                                        <h5><a href="#"><?=$v->title?></a></h5>
+                                        <h6>
+                                            发布人：
+                                            <a href="javascript:void(0)">
+                                                <?=$v->user->username?>
+                                            </a>
+                                        </h6>
+                                        <span>时间：<?=date('Y-m-d', $v->created_at)?></span>
                                     </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568658.html">• 祝福</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=540675" href="javascript:void(0)">
-                                            蒙哥
-                                        </a>
-                                    </h6>
-                                    <span>时间：2015年11月21日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-
+                                    <div class="wz-br-index">
+                                        <div>
+                                            　　<?=\app\core\helpers\Html::cutstr_html($v->body, 200)?>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568657.html">• 新闻社会娱乐军事大连枪杀1男1</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=587800" href="javascript:void(0)">
-                                            蝙蝠
-                                        </a>
-                                    </h6>
-                                    <span>时间：2015年07月24日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-                                        新闻
-                                        社会
-                                        娱乐
-                                        军事
-                                        大连枪杀1男1女嫌犯被抓获(图)
-                                        人社部：大部分省份公务员涨工资
-                                        男子实名举报妻子遭村官多次强奸
-                                        NASA宣布发现 另一个地球 (图)
-                                        辞职看世界教师：丈夫就是我世界
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568656.html">• 孙中山先生你好</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=591689" href="javascript:void(0)">
-                                            zwmseo
-                                        </a>
-                                    </h6>
-                                    <span>时间：2015年04月27日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-                                        孙中山先生你好
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wz-bt-index">
-                                    <h5><a href="http://www.5201000.com/Memorial/ReView/69i568655.html">• 伟大革命先行者</a></h5>
-                                    <h6>
-                                        发布人：
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=612488" href="javascript:void(0)">
-                                            521孙钰紫
-                                        </a>
-                                    </h6>
-                                    <span>时间：2014年04月07日</span>
-                                </div>
-                                <div class="wz-br-index">
-                                    <div>
-                                        推翻帝制，使民主共和深入人心
-                                        为中国的发展提出了宏大的蓝图，孙中山一心要建设中国，希望把中国建设成为政治修明，人民安乐，为民所有，为民所治，为民所享的共和民主富强康乐国家。他为中国民族自由、政治民主、人民幸福，致力革命，尽瘁一生。虽然遇到袁世凯篡权，军阀混战，陈炯明及蒋介石先后叛变，使孙中山的建设设想和计划，未能实现，但是，中国人民追求未来美好的生活，建设中国美好的愿望，始终未衰。多少志士仁
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            <?php endforeach;?>
                         </ul>
                     </div>
                 </div>
                 <div class="blank"></div>
                 <div class="box">
                     <div class="bg-title">
-                        <div class="pull-left"><a class="bg-tit" href="http://www.5201000.com/Memorial/RemarkIndex/69.html">祝福留言</a></div>
-                        <div class="pull-right"><a href="http://www.5201000.com/Memorial/RemarkIndex/69.html">更多内容&gt;&gt;</a></div>
+                        <div class="pull-left"><a class="bg-tit" href="#">祝福留言</a></div>
+                        <div class="pull-right"><a href="#">更多内容&gt;&gt;</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="about-index da-info">
                         <ul id="Commentli" class="list-unstyled">
+                            <?php foreach ($msgs as $v):?>
                             <li>
                                 <div class="ttxx-inde-pic">
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                        <img class="img-responsive" src="static/images/Member.jpg">
+                                    <a href="javascript:void(0)">
+                                        <img class="img-responsive" src="<?=$v->fromUser->getAvatar('36x36', '/static/images/default.png')?>">
                                     </a>
                                     <p>
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                            153*****363
+                                        <a href="javascript:void(0)">
+                                            <?=$v->fromUser->username?>
                                         </a>
                                     </p>
                                 </div>
                                 <div class="ttxx-index-a">
-                                    <div><p><img src="static/images/p33.png" data-num="1"></p></div>
-                                    <div><br></div>
-                                    <div><span>写信时间：2017/06/29 08:48:21 </span></div>
+                                    <div><p><?=$v->content?></p></div>
+                                    <br>
+                                    <div><span>祝福时间：<?=date('Y-m-d H:i', $v->created_at)?> </span></div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="ttxx-inde-pic">
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                        <img class="img-responsive" src="static/images/Member.jpg">
-                                    </a>
-                                    <p>
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                            153*****363
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="ttxx-index-a">
-                                    <div><p><img src="static/images/p55.png" data-num="1"></p></div>
-                                    <div><br></div>
-                                    <div><span>写信时间：2017/06/29 08:48:06 </span></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="ttxx-inde-pic">
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                        <img class="img-responsive" src="static/images/Member.jpg">
-                                    </a>
-                                    <p>
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                            153*****363
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="ttxx-index-a">
-                                    <div><p>致敬<img src="static/images/p22.png"></p></div>
-                                    <div><br></div>
-                                    <div><span>写信时间：2017/06/29 08:41:29 </span></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="ttxx-inde-pic">
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890013" href="javascript:void(0)">
-                                        <img class="img-responsive" src="static/images/Member.jpg">
-                                    </a>
-                                    <p>
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890013" href="javascript:void(0)">
-                                            pan.conan@gmail.com
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="ttxx-index-a">
-                                    <div><p>中山先生，謝謝您為了民主奮鬥！<img src="static/images/p22.png"></p></div>
-                                    <div><br></div>
-                                    <div><span>写信时间：2017/06/21 23:43:31 </span></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="ttxx-inde-pic">
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=574281" href="javascript:void(0)">
-                                        <img class="img-responsive" src="static/images/479f3a8113404ed4a1751829947f4a20.jpg">
-                                    </a>
-                                    <p>
-                                        <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=574281" href="javascript:void(0)">
-                                            柏名
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="ttxx-index-a">
-                                    <div><p><img src="static/images/p33.png" data-num="9"></p></div>
-                                    <div><br></div>
-                                    <div><span>写信时间：2017/04/04 10:53:12 </span></div>
-                                </div>
-                            </li>
+                            <?php endforeach;?>
                         </ul>
                     </div>
                 </div>

@@ -7,6 +7,7 @@
  */
 namespace app\modules\blog\controllers\member;
 
+use app\modules\blog\models\BlogSearch;
 use yii;
 use app\modules\blog\models\Blog;
 use yii\data\Pagination;
@@ -44,22 +45,21 @@ class DefaultController extends \app\core\web\MemberController
 
     public function actionIndex()
     {
-        $this->layout = "@app/modules/member/views/layouts/profile.php";
 
-        $query = Blog::find()->where(['status'=>Blog::STATUS_NORMAL])
-                            ->andWhere(['type'=>Blog::TYPE_TEXT])
-                            ->andWhere(['created_by'=>$this->homeuid]);
-        $count = $query->count();
+        $searchModel = new BlogSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['BlogSearch']['status'] = [Blog::STATUS_VRIFY,Blog::STATUS_NOVRIFY,Blog::STATUS_NORMAL];
+        $params['BlogSearch']['type'] = Blog::TYPE_TEXT;
+        $params['BlogSearch']['created_by'] = $this->homeuid;
+        $params['BlogSearch']['res'] = [Blog::RES_MISS, Blog::RES_BLOG];//查找追忆和普通博客
 
-        $pagination = new Pagination(['totalCount'=>$count, 'pageSize'=>20]);
-        $list = $query->offset($pagination->offset)
-                            ->limit($pagination->limit)
-                            ->all();
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
-            'list' => $list,
-            'pagination' => $pagination
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
+
     }
 
     public function actionView()

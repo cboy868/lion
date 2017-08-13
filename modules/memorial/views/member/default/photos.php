@@ -10,6 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index
 $this->params['breadcrumbs'][] = ['label' => '相册管理', 'url' => ['album', 'id'=>$memorial->id]];
 $this->params['breadcrumbs'][] = $this->title;
 \app\assets\ColorBoxAsset::register($this);
+$this->registerCssFile('/static/site/blog.css');
 ?>
 
 <style type="text/css">
@@ -25,51 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-xs-10 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>
-                <style>
-                    .img-full {
-                        max-width: 100%;
-                    }
-                    .r-2x {
-                        border-radius: 4px;
-                    }
-                    .r {
-                        border-radius: 2px 2px 2px 2px;
-                    }
-                    .wrapper-sm {
-                        padding: 10px;
-                    }
-                    .pos-rlt {
-                        position: relative;
-                        text-align: center;
-                    }
-                    .item .bottom {
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                    }
-                    .badge {
-                        margin-bottom: 5px;
-                        margin-right: 5px;
-                    }
-                    a{
-                        color:#333;
-                    }
-                    .bg-set{
-                        color:#666;
-                        background-color: #62A8D1;
-                    }
-                    .bg-del{
-                        color:#f33;
-                        background-color: #62A8D1;
-                    }
-                    .pagination {
-                        margin: 10px 0;
-                    }
-                    .panel-footer{
-                        padding:0 20px;
-                    }
-                </style>
                 <div class="row">
                     <div class="col-md-12">
                         <?php echo Areaup::widget(['options'=>[
@@ -109,9 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <img style="max-height: 200px;" class="r r-2x img-full image" src="<?=$photo->getThumb('690x430')?>">
                                 </a>
                             </div>
-                            <div class="padder-h text-center">
-                                <input type="text" placeholder="照片名" value="<?=$photo->title?>" style="width:100%;">
-                                <textarea placeholder="照片描述" style="width:100%;height:80px;"><?=$photo->body?></textarea>
+                            <div class="padder-h text-center dbox" rel="<?=$photo->id?>">
+                                <input class="title" type="text" placeholder="照片名" value="<?=$photo->title?>" style="width:100%;">
+                                <textarea class="desc" placeholder="照片描述" style="width:100%;height:80px;"><?=$photo->body?></textarea>
                             </div>
                         </div>
                     </div>
@@ -166,6 +122,24 @@ $(function(){
             close:'',
             current:""
         });
+    });
+
+    $('.title, .desc').change(function(e){
+        e.preventDefault();
+        var box = $(this).closest('.dbox');
+
+        var title = box.find('.title').val();
+        var desc = box.find('.desc').val();
+        var id = box.attr('rel');
+        var csrf="<?=Yii::$app->request->csrfToken?>";
+        $.post("<?=Url::toRoute(['tit-des'])?>", {title:title, desc:desc, id:id, _csrf:csrf}, function(xhr){
+            if (xhr.status) {
+                box.popover({ placement:'top', content:'修改成功'}).popover('toggle');
+            } else {
+                box.popover({ placement:'top', content:'修改失败，请重试'}).popover('toggle');
+            }
+        }, 'json');
+
     });
 
 })

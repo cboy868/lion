@@ -23,7 +23,7 @@ use yii\helpers\ArrayHelper;
 //             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat',
 //             'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
 //             'forecolor', 'backcolor', '|',
-//             'lineheight', 'simpleupload', '|',
+//             'lineheight', 'simpleupload', 'insertvideo','|',
 //             'indent', '|'
 //         ],
 //     ]

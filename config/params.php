@@ -18,6 +18,12 @@ $params = [
             'ru-RU' => 'ru'
         ]
     ],
+    'blog' => [
+        //写博客时的初始状态 0待审核 1审核成功
+        'blogInitStatus' => 1,
+        'missInitStatus' => 1,
+        'archiveInitStatus' => 1
+    ],
     'wechat' => [
         'wx' => [
             'appid' => 'wxa49d94dde698d291',

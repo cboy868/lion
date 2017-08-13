@@ -40,6 +40,7 @@ class Blog extends \app\core\db\ActiveRecord
 
     const RES_BLOG = 1; //博客类型
     const RES_ARCHIVE = 2; //档案类型
+    const RES_MISS = 3;//博客类型的纪念馆追忆文章
 
     const STATUS_VRIFY = 0;//待审核
     const STATUS_NOVRIFY = -2;//审核未通过

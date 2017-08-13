@@ -5,10 +5,10 @@ use yii\bootstrap\Modal;
 use app\core\helpers\Html;
 use yii\widgets\LinkPager;
 use app\modules\blog\models\Blog;
-$this->title = '追思管理';
+$this->title = '博客管理';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-
+$this->registerCssFile('/static/site/blog.css');
 
 \app\core\widgets\Ueditor\UAsset::register($this);
 ?>
@@ -60,65 +60,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <div class="row">
 
-            <?=$this->render('left-menu', ['cur'=>'miss', 'model'=>$model])?>
-
-            <div class="col-xs-10 memorial-index">
+            <div class="col-xs-12 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>
                 <div class="page-header">
                     <h1>
-                        <a href="<?=Url::to(['create-blog', 'id'=>$model->id, 'res'=>Blog::RES_MISS])?>" class='btn btn-danger btn-sm modalAddButton'
+                        <a href="<?=Url::to(['create'])?>" class='btn btn-danger btn-sm modalAddButton'
                            data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加追思文章</a>
                     </h1>
 
                 </div>
-
-                <style>
-
-                    body{
-                        color:#788188;
-                    }
-                    a {
-                        color: #545a5f;
-                        text-decoration: none;
-                    }
-                    a {
-                        background: transparent;
-                    }
-                    .post-item {
-                        border-radius: 3px;
-                        background-color: #fff;
-                        -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.15);
-                        box-shadow: 0px 1px 2px rgba(0,0,0,0.15);
-                        margin-bottom: 15px;
-                    }
-                    .wrapper-lg {
-                        padding: 30px;
-                    }
-                    .post-item .post-title {
-                        margin-top: 0;
-                    }
-                    .line-lg {
-                        margin-top: 15px;
-                        margin-bottom: 15px;
-                    }
-                    .line {
-                        height: 2px;
-                        margin: 10px 0;
-                        font-size: 0;
-                        overflow: hidden;
-                    }
-                    .text-muted {
-                        color: #939aa0;
-                    }
-                    .pagination {
-                        margin: 10px 0;
-                    }
-                    .panel-footer{
-                        padding:0 20px;
-                    }
-
-                </style>
-
                 <div class="blog-post">
                     <?php $posts = $dataProvider->getModels()?>
                     <?php foreach ($posts as $post):?>

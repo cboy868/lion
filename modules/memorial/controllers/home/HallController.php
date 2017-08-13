@@ -2,7 +2,9 @@
 
 namespace app\modules\memorial\controllers\home;
 
+use app\core\helpers\ArrayHelper;
 use app\core\models\Comment;
+use app\modules\blog\models\Blog;
 use app\modules\cms\controllers\home\CommonController;
 use app\modules\memorial\models\Pray;
 use yii;
@@ -17,9 +19,25 @@ class HallController extends Controller
         $memorial = $this->findModel($id);
         $deads = $memorial->deads;
 
+        //档案及追忆
+        $blogs = Blog::find()->where([
+            'memorial_id'=>$id,
+            'status'=>Blog::STATUS_NORMAL,
+            'privacy' => Blog::PRIVACY_PUBLIC
+            ])
+            ->all();
+        $blogs = ArrayHelper::index($blogs, 'id', 'res');
+
+
+        //祝福
+        $msgs = Comment::find()->where(['res_name'=>'memorial', 'res_id'=>$id])->all();
+
         return $this->render('index',[
             'memorial' => $memorial,
-            'deads' => $deads
+            'deads' => $deads,
+            'archives' => isset($blogs[Blog::RES_ARCHIVE]) ? $blogs[Blog::RES_ARCHIVE] : [],
+            'miss' => isset($blogs[Blog::RES_MISS]) ? $blogs[Blog::RES_MISS] : [],
+            'msgs' => $msgs
         ]);
     }
 

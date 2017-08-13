@@ -97,7 +97,7 @@ class Album extends \app\core\db\ActiveRecord
             'recommend' => '推荐',
             'is_customer' => 'Is Customer',
             'is_top' => 'Is Top',
-            'memorial_id' => 'Memorial ID',
+            'memorial_id' => '发布到纪念馆',
             'privacy' => '隐私',
             'view_all' => '查看次数',
             'com_all' => '评论次数',
