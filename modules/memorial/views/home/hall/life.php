@@ -74,71 +74,7 @@ $this->params['current_nav'] = 'life';
             </div>
             <div class="blank"></div>
 
-
-            <div class="box">
-                <div class="side-title"><a class="tit" href="#">到过这里的访客</a><a class="more" href="#">更多&gt;&gt;</a></div>
-                <div class="xp-huiyuan">
-                    <ul>
-                        <li>
-                            <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=889768" href="javascript:void(0)">
-                                <img width="73" height="83" alt="344803800@qq.com" src="http://imgs.5201000.com/Resource/Images/Default/Member.jpg">
-                            </a>
-                            <p class="ellipsis">
-                                <a title="344803800@qq.com" data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=889768" href="javascript:void(0)">344803800@qq.com</a>
-                            </p>
-                            <span>07月17日</span>
-                        </li>
-                        <li>
-                            <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                <img width="73" height="83" alt="153*****363" src="http://imgs.5201000.com/Resource/Images/Default/Member.jpg">
-                            </a>
-                            <p class="ellipsis">
-                                <a title="153*****363" data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">153*****363</a>
-                            </p>
-                            <span>07月11日</span>
-                        </li>
-                        <li>
-                            <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890159" href="javascript:void(0)">
-                                <img width="73" height="83" alt="180*****805" src="http://imgs.5201000.com/UploadFiles/Image/2017/7/4/Heaven/Member/HeadPic/20170704180312.JPG">
-                            </a>
-                            <p class="ellipsis">
-                                <a title="180*****805" data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890159" href="javascript:void(0)">180*****805</a>
-                            </p>
-                            <span>07月04日</span>
-                        </li>
-                        <li>
-                            <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=889981" href="javascript:void(0)">
-                                <img width="73" height="83" alt="565853277@qq.com" src="http://imgs.5201000.com/Resource/Images/Default/Member.jpg">
-                            </a>
-                            <p class="ellipsis">
-                                <a title="565853277@qq.com" data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=889981" href="javascript:void(0)">565853277@qq.com</a>
-                            </p>
-                            <span>06月25日</span>
-                        </li>
-                        <li>
-                            <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890013" href="javascript:void(0)">
-                                <img width="73" height="83" alt="pan.conan@gmail.com" src="http://imgs.5201000.com/Resource/Images/Default/Member.jpg">
-                            </a>
-                            <p class="ellipsis">
-                                <a title="pan.conan@gmail.com" data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890013" href="javascript:void(0)">pan.conan@gmail.com</a>
-                            </p>
-                            <span>06月21日</span>
-                        </li>
-                        <li>
-                            <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890009" href="javascript:void(0)">
-                                <img width="73" height="83" alt="Bluebaryamy@gmail.com" src="http://imgs.5201000.com/Resource/Images/Default/Member.jpg">
-                            </a>
-                            <p class="ellipsis">
-                                <a title="Bluebaryamy@gmail.com" data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890009" href="javascript:void(0)">Bluebaryamy@gmail.com</a>
-                            </p>
-                            <span>06月21日</span>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
         </div>
         <!---------------左边结束----------------->
 

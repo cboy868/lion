@@ -4,6 +4,7 @@ namespace app\modules\memorial\widgets;
 use app\modules\memorial\models\Memorial;
 use app\modules\blog\models\Album;
 use app\modules\blog\models\AlbumPhoto;
+use app\modules\user\models\Track;
 use yii\helpers\ArrayHelper;
 /**
  * The ZActiveForm widget extend ActiveForm.
@@ -43,6 +44,23 @@ class Mem extends \yii\base\Widget
 
         return $this->render('mem/album', [
             'models'=>$photos,
+            'memorial_id' => $this->mid
+        ]);
+    }
+
+    /**
+     * @name 脚印
+     */
+    private function track()
+    {
+        $tracks = Track::find()->where(['res_name'=>Track::RES_MEMORIAL, 'res_id'=>$this->mid])
+                    ->orderBy('id desc')
+                    ->limit(18)
+                    ->all();
+
+
+        return $this->render('mem/track',[
+            'tracks' => $tracks,
             'memorial_id' => $this->mid
         ]);
     }

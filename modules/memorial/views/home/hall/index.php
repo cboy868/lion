@@ -1,6 +1,10 @@
 <?php
 use yii\helpers\Url;
+use app\modules\user\models\Track;
 $this->params['current_nav'] = 'index';
+if ($memorial->user_id != Yii::$app->user->id) {
+    Track::create(Track::RES_MEMORIAL, $memorial->id);
+}
 ?>
 <div class="container memorial-container">
     <!--这里加内容-->
@@ -268,39 +272,7 @@ $this->params['current_nav'] = 'index';
                     </div>
                 </div>
                 <div class="blank"></div>
-                <div class="box">
-                    <div class="side-title">
-                        <a class="tit" href="javascript:void(0)">到过这里的访客</a>
-                        <a class="more" href="javascript:void(0)">更多&gt;&gt;</a>
-                    </div>
-                    <div class="xp-huiyuan">
-                        <ul>
-                            <li>
-                                <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=889768" href="javascript:void(0)">
-                                    <img width="73" height="83" alt="344803800@qq.com" src="static/images/Member.jpg">
-                                </a>
-                                <p class="ellipsis">
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=889768" href="javascript:void(0)">
-                                        344803800@qq.com
-                                    </a>
-                                </p>
-                                <span>07月15日</span>
-                            </li>
-                            <li>
-                                <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                    <img width="73" height="83" alt="153*****363" src="static/images/Member.jpg">
-                                </a>
-                                <p class="ellipsis">
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=890058" href="javascript:void(0)">
-                                        153*****363
-                                    </a>
-                                </p>
-                                <span>07月11日</span>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
+                <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
             </div>
             <!---------------右侧内容结束------------------>
         </div>
