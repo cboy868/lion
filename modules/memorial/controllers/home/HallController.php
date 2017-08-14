@@ -17,6 +17,17 @@ use app\modules\blog\models\BlogSearch;
 
 class HallController extends Controller
 {
+    public function actions()
+    {
+        return [
+            'pl-upload' => [
+                'class' => 'app\core\web\PluploadAction',
+            ],
+            'ue-upload' => [
+                'class' => 'app\core\widgets\Ueditor\UploadAction',
+            ]
+        ];
+    }
 
     public function actionIndex($id)
     {
@@ -187,6 +198,54 @@ class HallController extends Controller
             'comment' => $comment,
             'comments' => $comments
         ]);
+    }
+
+    public function actionReplyMsg()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->json(null, '请先登录', 0);
+        }
+
+        $post = Yii::$app->request->post();
+
+
+        $data = [
+            'from' => Yii::$app->user->id,
+            'to' => $post['to'],
+            'content' => $post['content'],
+            'pid' => $post['pid'],
+            'res_name' => $post['res_name'],
+            'res_id' => $post['res_id'],
+            'privacy' => Comment::PRIVACY_PUBLIC
+        ];
+
+        $msg = new Comment();
+        $msg->load($data, '');
+        if ($msg->save() !== false) {
+            return $this->json();
+        }
+
+        return $this->json(null, '回复失败',0);
+
+    }
+
+    public function actionCreateMsg()
+    {
+        $model = new Comment();
+        $req = Yii::$app->getRequest();
+
+
+        $model->load($req->post());
+
+        $model->from = Yii::$app->user->id;
+        $model->to = 0;
+        $model->privacy = Comment::PRIVACY_PUBLIC;
+
+        if ($model->save() !== false) {
+            return $this->json();
+        } else {
+            return $this->json(null, '祝福留言失败,请重试或联系管理员', 0);
+        }
     }
 
 

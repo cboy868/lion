@@ -495,8 +495,6 @@ class DefaultController extends \app\core\web\MemberController
 
             return $this->json(null, '祝福留言失败,请重试或联系管理员', 0);
         }
-
-
     }
 
     public function actionDelMsg($id)
