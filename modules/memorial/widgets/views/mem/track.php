@@ -1,7 +1,6 @@
 <div class="box">
     <div class="side-title">
         <a class="tit" href="javascript:void(0)">到过这里的访客</a>
-        <a class="more" href="javascript:void(0)">更多&gt;&gt;</a>
     </div>
     <div class="xp-huiyuan">
         <ul>

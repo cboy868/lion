@@ -114,4 +114,23 @@ class Album extends \app\core\db\ActiveRecord
     {
         return AlbumPhoto::getById($this->thumb, $size);
     }
+
+    public static function updateNum($album_id)
+    {
+        if (!$album_id) return ;
+
+        $count = AlbumPhoto::find()->where([
+            'album_id'=>$album_id,
+            'status'=>self::STATUS_NORMAL
+        ])->count();
+
+        $model = self::findOne($album_id);
+        if (!$model) {
+            return false;
+        }
+
+        $model->num = $count;
+
+        return $model->save();
+    }
 }

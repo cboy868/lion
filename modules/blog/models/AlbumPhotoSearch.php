@@ -73,4 +73,39 @@ class AlbumPhotoSearch extends AlbumPhoto
 
         return $dataProvider;
     }
+
+    public function searchHome($params)
+    {
+        $query = AlbumPhoto::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20
+            ]
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'album_id' => $this->album_id,
+            'sort' => $this->sort,
+            'view_all' => $this->view_all,
+            'com_all' => $this->com_all,
+            'privacy' => $this->privacy,
+            'created_by' => $this->created_by,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'status' => $this->status,
+        ]);
+
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'body', $this->body]);
+
+        return $dataProvider;
+    }
 }

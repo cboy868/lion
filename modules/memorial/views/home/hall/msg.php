@@ -2,6 +2,8 @@
 $this->params['current_nav'] = 'msg';
 $mem = Yii::$app->getAssetManager()->publish(Yii::getAlias('@app/modules/memorial/static/hall'));
 $this->registerCssFile($mem[1] . '/css/remark.css');
+
+\app\assets\FontawesomeAsset::register($this);
 ?>
 <div class="container memorial-container">
     <div class="row">
@@ -10,93 +12,10 @@ $this->registerCssFile($mem[1] . '/css/remark.css');
 
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'info','mid'=>Yii::$app->request->get('id')])?>
 
-
             <div class="blank"></div>
 
-            <div class="box">
-                <div  class="side-title">
-                    微信扫一扫“码”上纪念 孙中山
-                </div>
-                <div style="text-align:center" class="side-tips">
-        <span>
-            <img src="/Generate?id=69" />
-        </span>
-                </div>
-            </div>
-
-
-
-
-
-
-            <div class="blank"></div>
-
-
-            <div class="box">
-                <div class="side-title"><a class="tit" href="#">我要祭奠</a><a class="more" href="#">点一柱香、献一束花、敬一杯酒</a></div>
-                <div class="row hold-box">
-                    <div class="col-md-3">
-                        <a href="/M/TT000000069" class="holdIcon a"></a>
-                        <a href="/M/TT000000069">我要献花</a>
-
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/M/TT000000069" class="holdIcon f"></a>
-                        <a href="/M/TT000000069">我要点烛</a>
-
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/M/TT000000069" class="holdIcon b"></a>
-                        <a href="/M/TT000000069">我要上香</a>
-
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/M/TT000000069" class="holdIcon d"></a>
-                        <a href="/M/TT000000069">我要摆供</a>
-
-                    </div>
-                </div>
-                <div class="row hold-box">
-                    <div class="col-md-3">
-                        <a href="/M/TT000000069" class="holdIcon c"></a>
-                        <a href="/M/TT000000069">我要祭酒</a>
-
-                    </div>
-                    <div class="col-md-3">
-                        <a href="" class="holdIcon e"></a>
-                        <a href="">我要行礼</a>
-
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/Memorial/RemarkIndex/69.html" class="holdIcon g"></a>
-                        <a href="/Memorial/RemarkIndex/69.html">我要写信</a>
-
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/Memorial/ReList/69.html" class="holdIcon h"></a>
-                        <a href="/Memorial/ReList/69.html">发表祭文</a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="blank"></div>
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'album','mid'=>Yii::$app->request->get('id')])?>
 
-            <div class="blank"></div>
-
-            <div class="box">
-                <form action="/Search" method="get">
-                    <div class="side-title"><a class="tit" href="#">搜索纪念馆</a><a class="more" href="/Search">高级搜索</a></div>
-                    <input name="keyword" class="form-control" type="text" />
-                    <button class="tt-btn tt-btn-default"><i class="smIcon search"></i> 搜索</button>
-                </form>
-            </div>
-            <div class="blank"></div>
-            <div class="col-md-12">
-                <div class="row">
-                    <a href="/MemberCenter/Memorial/Add"><img class="img-responsive center-block" src="../../../../resource/images/memorials/right-avd.gif" alt="免费创建纪念馆" /></a>
-                </div>
-            </div>
             <div class="blank"></div>
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
 
@@ -105,778 +24,104 @@ $this->registerCssFile($mem[1] . '/css/remark.css');
         <!---------------右边开始----------------->
         <div class="col-md-9 mb20">
 
-            <input type="hidden" name="TT" value="TT000000069" />
-            <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-            <input type="hidden" name="CurrentHallCommentMainID" value="" />
-            <input type="hidden" name="CurrentHallCommentReplyID" value="" />
-            <input type="hidden" name="CurrentMemberHeadPic" value="" />
-            <input type="hidden" name="CurrentMemberNickName" value="我" />
             <div class="box">
                 <div class="row page-nav">
-                    <ul class="list-unstyled">
-                        <li class="active"><a href="javascript:void(0)">时空信箱</a></li>
-                        <li class="pull-right">
-                            <div>
-                            </div>
-                        </li>
-                    </ul>
+                    <h2 style="text-align: center">祝福留言</h2>
                 </div>
                 <div class="blank"></div>
-                <div class="send-box">
-                    <div class="base-tool">
-                        <ul class="list-unstyled">
-                            <li id="publishEmotion" data-editor="publishEditor" class="dropdown">
-                                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)"><span class="baseIcon face"></span>插入表情</a>
-                                <div class="dropdown-menu"></div>
-                            </li>
-                            <li id="choice" class="dropdown">
-                                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="baseIcon msg"></span>插入精选留言</a>
-                                <div id="jxly" class="dropdown-menu choice-content"></div>
-                            </li>
-                            <li id="relation" class="dropdown">
-                                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="baseIcon con"></span>选择回信关系</a>
-                                <div class="dropdown-menu">
-                                    <ul class="list-unstyled relation-list choice-list" style="text-align:center">
-                                        <li onclick="ChangeRelation(0,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="0">普通纪念者留言</li>
-                                        <li onclick="ChangeRelation(1,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="1">子孙纪念祖父</li>
-                                        <li onclick="ChangeRelation(2,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="2">子孙纪念祖母</li>
-                                        <li onclick="ChangeRelation(3,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="3">子孙纪念祖父祖母</li>
-                                        <li onclick="ChangeRelation(4,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="4">外孙纪念外公</li>
-                                        <li onclick="ChangeRelation(5,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="5">外孙纪念外婆</li>
-                                        <li onclick="ChangeRelation(6,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="6">外孙纪念外公外婆</li>
-                                        <li onclick="ChangeRelation(7,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="7">父母纪念儿女</li>
-                                        <li onclick="ChangeRelation(8,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="8">儿女纪念父亲</li>
-                                        <li onclick="ChangeRelation(9,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="9">儿女纪念母亲</li>
-                                        <li onclick="ChangeRelation(10,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="10">儿女纪念父母</li>
-                                        <li onclick="ChangeRelation(11,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="11">夫妻之间</li>
-                                        <li onclick="ChangeRelation(12,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="12">情侣之间</li>
-                                        <li onclick="ChangeRelation(13,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="13">纪念老师</li>
-                                        <li onclick="ChangeRelation(14,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="14">纪念朋友</li>
-                                        <li onclick="ChangeRelation(15,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="15">纪念同事</li>
-                                        <li onclick="ChangeRelation(16,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="16">纪念亲人</li>
-                                        <li onclick="ChangeRelation(17,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="17">纪念公益人物</li>
-                                        <li onclick="ChangeRelation(18,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="18">祖父纪念子孙</li>
-                                        <li onclick="ChangeRelation(19,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="19">祖母纪念子孙</li>
-                                        <li onclick="ChangeRelation(20,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="20">外公纪念外孙</li>
-                                        <li onclick="ChangeRelation(21,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="21">外婆纪念外孙</li>
-                                        <li onclick="ChangeRelation(22,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="22">纪念学生</li>
-                                        <li onclick="ChangeRelation(23,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="23">纪念舅舅</li>
-                                        <li onclick="ChangeRelation(24,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="24">纪念同学</li>
-                                        <li onclick="ChangeRelation(25,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="25">纪念战友</li>
-                                        <li onclick="ChangeRelation(26,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="26">纪念军人</li>
-                                        <li onclick="ChangeRelation(27,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="27">纪念阿姨</li>
-                                        <li onclick="ChangeRelation(28,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="28">纪念叔叔</li>
-                                        <li onclick="ChangeRelation(29,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="29">纪念姑姑</li>
-                                        <li onclick="ChangeRelation(31,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="31">纪念曾孙</li>
-                                        <li onclick="ChangeRelation(32,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="32">纪念曾孙女</li>
-                                        <li onclick="ChangeRelation(33,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="33">纪念曾外孙</li>
-                                        <li onclick="ChangeRelation(34,'6b3eae8e-808b-4653-a41b-7f77585cc850')" data-id="34">纪念曾外孙女</li>
-                                    </ul>
-                                </div>
 
-                            </li>
-                        </ul>
-                        <div class="show-relation">
-                            普通纪念者留言                            </div>
-                    </div>
-                    <div class="base-content">
-                        <span id="post-msg"></span>
-                    </div>
-                    <div class="base-footer">
-                        <form id="fromCommentContent" data-validate="parsley" onsubmit="return false">
-                            <div class="col-md-9 col-xs-9">
-                                <div class="form-box">
-                                    <ul class="list-unstyled">
-                                        <li>
-
-                                            <div class="pull-left">
-                                                <span>验证码：</span><input data-required="true" style="display:inline;width:80px" class="form-control" id="code" name="Code" type="text" />
-                                            </div>
-                                            <div class="verification-code">
-                                                <a href="javascript:ChangeValidateMainCode()">
-                                                    <img id="RemarkOne" src="/Remark/ValidateMainCode" width="62" height="27" />
-                                                </a>
-                                                <span> 看不清，<a id="RemarkOneChange" href="javascript:ChangeValidateMainCode()">换一张</a></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label style="display:none"><input name="p" type="radio" value="pub" checked="checked" /><span>公开</span></label>
-
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-xs-3 submit-btn">
-                                <a class="tt-btn" id="publish-btn" href="javascript:void(0);">
-                                    <span class="glyphicon glyphicon-hand-right"></span> 发布
-                                </a>
-                            </div>
-                            <input name="MemorialHallID" type="hidden" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                            <input name="Relation" type="hidden" value="0" />
-                            <input name="__RequestVerificationToken" type="hidden" value="4qkpD4zYew-mNANweUPKgMcPwAjSLK6CD4pZ6HdZfXivscbmDvVfigTjvJwJ5mgwWwvFUbWVOvrG51AbksTrQZK1Y3nChGGiiyBjNAFKqmIROVz6cm86Lo0Z310mWRTa4dcXD5ONw2gOg-TyOu6t0bq56veo3FFLYjTte3od1281" />
-                            <input style="display:none" type="submit" onclick="$('#publish-btn').click()" />
-                        </form>
-                    </div>
-                </div>
                 <div id="replayContet">
-
-                    <div class="main-page">
-
-                        <style type="text/css">
-                            .PaginationMain {
-                                float: left;
-                                text-align: center;
-                                /*margin:20px auto;*/
-                            }
-
-                            .PaginationMain .Jump {
-                                width: 40px;
-                                height: 30px;
-                                text-align: center;
-                                background-color: #fff;
-                                background-image: none;
-                                border: 1px solid #ccc;
-                                border-radius: 4px;
-                                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-                                color: #555;
-                                font-size: 14px;
-                            }
-
-                            .PaginationMain button {
-                                margin: -5px 0 0 0;
-                            }
-                        </style>
-
-                        <div class="memorials-pager">
-                            <div style="float:right ">
-                                <ul class="pagination pagination-sm m-t-none m-b-none">
-
-                                    <li class="disabled"><a aria-label="Previous" href="javascript:void(0)"><span aria-hidden="true">«上一页</span></a></li>
-                                    <li class="active"><a href="javascript:void(0)">1</a></li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=2&amp;NodeContenName=replayContet')" href="javascript:void(0)">2</a>
-                                    </li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=3&amp;NodeContenName=replayContet')" href="javascript:void(0)">3</a>
-                                    </li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=4&amp;NodeContenName=replayContet')" href="javascript:void(0)">4</a>
-                                    </li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=5&amp;NodeContenName=replayContet')" href="javascript:void(0)">5</a>
-                                    </li>
-                                    <li>
-                                        <a aria-label="Next" onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=2&amp;NodeContenName=replayContet')" href="javascript:void(0)"><span aria-hidden="true">下一页»</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-
-                        <script type="text/javascript">
-                            var backdropLoading = {
-                                create: function (ele) {
-                                    var html = '<div class="backdropLoading" style="background-color:#000;background-color:rgba(0,0,0,.6);width:100%;height:100%;position:absolute;left:0;top:0;z-index:99999;">'
-                                        + '<div style="position:absolute;top:10px;left:0;color:#fff;font-size:18px;width:100%;text-align:center;">正在加载中...</div>'
-                                        + '<div style="position:absolute;bottom:10px;left:0;color:#fff;font-size:18px;width:100%;text-align:center;">正在加载中...</div></div>';
-                                    ele = ele ? ele : 'body';
-                                    $(ele).css({ 'position': 'relative' }).append(html);
-                                },
-                                remove: function (ele) {
-                                    ele = ele ? ele : 'body';
-                                    $('.backdropLoading', ele).remove();
-                                }
-                            };
-
-                            function GetSubmitUrlreplayContet(formIdName) {
-                                var form = $("#" + formIdName);
-                                var PageUrlRule = "";
-                                if (PageUrlRule != "") {
-                                    PageUrlRule = PageUrlRule.replace("{PageIndex}", form.find("[name=PageIndex]").val());
-                                    location.href = PageUrlRule;
-                                }
-                            }
-
-                            function GetAjaxDatareplayContet(url) {
-                                moveEditor();        $.ajax({
-                                    type: "get",
-                                    url: url + "&_r=" + Math.random() * new Date().getTime(),
-                                    beforeSend: function () {
-                                        if ("times-list" == "") {
-                                            backdropLoading.create()
-                                        }
-                                        else {
-                                            backdropLoading.create('#times-list');
-                                        }
-                                    },
-                                    success: function (data) {
-                                        $("#replayContet").html(data);
-
-                                        if ("times-list" == "") {
-                                            backdropLoading.remove()
-                                        }
-                                        else {
-                                            backdropLoading.remove('#times-list');
-                                        }
-
-                                    },
-                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        alert("NetworkError:" + XMLHttpRequest.status + " " + XMLHttpRequest.statusText)
-                                        if ("times-list" == "") {
-                                            backdropLoading.remove()
-                                        }
-                                        else {
-                                            backdropLoading.remove('#times-list');
-                                        }
-                                    }
-                                })
-                            }
-                        </script>
-                    </div>
                     <div class="blank"></div>
                     <div id="times-list">
+
+                        <?php foreach ($comments['list'] as $comment):?>
+
                         <div class="post-box">
                             <div class="publish-author">
                                 <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=890058" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="153*****363" src="/Resource/Images/Default/Member.jpg">
-                                        <p>153*****363</p>
+                                    <a href="#">
+                                        <img class="img-responsive img-rounded center-block" src="<?=$comment['avatar']?>">
+                                        <p><?=$comment['username']?></p>
                                     </a>
                                 </div>
                             </div>
                             <div class="publish-content">
                                 <div class="p-cont">
-                                    <img src='/Resource/Mobile/images/p33.png' data-num=1 />
+                                    <?=$comment['content']?>
                                 </div>
                                 <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
+                                    <ul class="list-unstyled">
+                                        <li><div><span class="fa fa-user"></span> <?=$comment['username']?></div></li>
+                                        <li><div><span class="fa fa-clock-o"></span> <?=date('Y-m-d H:i', $comment['created_at'])?></div></li>
 
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> 153*****363</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-06-29 08:48:21</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="12179865" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
                                         <div class="clear"></div>
                                     </ul>
                                 </div>
                                 <!-- 回复 -->
+                                <?php if (isset($comment['child'])):?>
+                                    <?php foreach ($comment['child'] as $reply):?>
+                                <div class="p-reply">
+                                    <div class="r-author">
+                                        <a href="javascript:void(0)">
+                                            <img src="<?=$reply['avatar']?>">
+                                        </a>
+                                    </div>
+                                    <div class="r-user">
+                                        <div class="a-cont">
+                                            <?php if (isset($reply['tousername'])):?>
+                                                <a href="#" target="_blank"><?=$reply['username']?></a> 回复
+                                                <a href="#" target="_blank"><?=$reply['tousername']?></a>
+                                                <?php else:?>
+                                                <a href="#" target="_blank"><?=$reply['username']?>：</a>
+                                            <?php endif;?>
+
+                                            <?=$reply['content']?>
+                                            <p class="post-date">
+                                                <?=date('Y-m-d H:i', $reply['created_at'])?>
+                                                <a class="replyto" href="javascript:;">
+                                                    <span class="fa fa-reply"></span> 我要回复
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                        <?php endforeach;?>
+                                <?php endif;?>
                                 <form onsubmit="return false">
                                     <div class="ttxx-msg reply-author">
                                         <div class="placeholder">我也说一句...</div>
                                         <div class="reply-editor"></div>
                                     </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="12179865" />
-                                    <input type="hidden" name="ParentId" value="0" />
                                 </form>
 
                                 <!-- 回复结束 -->
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="post-box">
-                            <div class="publish-author">
-                                <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=890058" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="153*****363" src="/Resource/Images/Default/Member.jpg">
-                                        <p>153*****363</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="publish-content">
-                                <div class="p-cont">
-                                    <img src='/Resource/Mobile/images/p55.png' data-num=1 />
-                                </div>
-                                <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
 
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> 153*****363</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-06-29 08:48:06</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="12179863" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <!-- 回复 -->
-                                <form onsubmit="return false">
-                                    <div class="ttxx-msg reply-author">
-                                        <div class="placeholder">我也说一句...</div>
-                                        <div class="reply-editor"></div>
-                                    </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="12179863" />
-                                    <input type="hidden" name="ParentId" value="0" />
-                                </form>
-
-                                <!-- 回复结束 -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="post-box">
-                            <div class="publish-author">
-                                <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=890058" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="153*****363" src="/Resource/Images/Default/Member.jpg">
-                                        <p>153*****363</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="publish-content">
-                                <div class="p-cont">
-                                    致敬<img src='/Resource/Mobile/images/p22.png' />
-                                </div>
-                                <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
-
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> 153*****363</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-06-29 08:41:29</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="12179846" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <!-- 回复 -->
-                                <form onsubmit="return false">
-                                    <div class="ttxx-msg reply-author">
-                                        <div class="placeholder">我也说一句...</div>
-                                        <div class="reply-editor"></div>
-                                    </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="12179846" />
-                                    <input type="hidden" name="ParentId" value="0" />
-                                </form>
-
-                                <!-- 回复结束 -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="post-box">
-                            <div class="publish-author">
-                                <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=890013" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="pan.conan@gmail.com" src="/Resource/Images/Default/Member.jpg">
-                                        <p>pan.conan@gmail.com</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="publish-content">
-                                <div class="p-cont">
-                                    中山先生，謝謝您為了民主奮鬥！<img src='/Resource/Mobile/images/p22.png' />
-                                </div>
-                                <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
-
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> pan.conan@gmail.com</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-06-21 23:43:31</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="12167571" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <!-- 回复 -->
-                                <form onsubmit="return false">
-                                    <div class="ttxx-msg reply-author">
-                                        <div class="placeholder">我也说一句...</div>
-                                        <div class="reply-editor"></div>
-                                    </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="12167571" />
-                                    <input type="hidden" name="ParentId" value="0" />
-                                </form>
-
-                                <!-- 回复结束 -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="post-box">
-                            <div class="publish-author">
-                                <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=574281" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="柏名" src="/UploadFiles/Image/Information/Member/HeadPic/2011/4/12/479f3a8113404ed4a1751829947f4a20.jpg">
-                                        <p>柏名</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="publish-content">
-                                <div class="p-cont">
-                                    <img src='/Resource/Mobile/images/p33.png' data-num=9 />
-                                </div>
-                                <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
-
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> 柏名</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-04-04 10:53:12</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="11918991" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <!-- 回复 -->
-                                <form onsubmit="return false">
-                                    <div class="ttxx-msg reply-author">
-                                        <div class="placeholder">我也说一句...</div>
-                                        <div class="reply-editor"></div>
-                                    </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="11918991" />
-                                    <input type="hidden" name="ParentId" value="0" />
-                                </form>
-
-                                <!-- 回复结束 -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="post-box">
-                            <div class="publish-author">
-                                <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=887890" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="15986324971" src="/Resource/Images/Default/Member.jpg">
-                                        <p>15986324971</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="publish-content">
-                                <div class="p-cont">
-                                    <img src='/Resource/Mobile/images/p33.png' data-num=9 />
-                                </div>
-                                <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
-
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> 15986324971</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-04-04 09:27:43</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="11918504" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <!-- 回复 -->
-                                <form onsubmit="return false">
-                                    <div class="ttxx-msg reply-author">
-                                        <div class="placeholder">我也说一句...</div>
-                                        <div class="reply-editor"></div>
-                                    </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="11918504" />
-                                    <input type="hidden" name="ParentId" value="0" />
-                                </form>
-
-                                <!-- 回复结束 -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="post-box">
-                            <div class="publish-author">
-                                <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=887890" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="15986324971" src="/Resource/Images/Default/Member.jpg">
-                                        <p>15986324971</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="publish-content">
-                                <div class="p-cont">
-                                    <img src='/Resource/Mobile/images/p22.png' data-num=9 />
-                                </div>
-                                <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
-
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> 15986324971</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-04-04 09:27:37</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="11918503" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <!-- 回复 -->
-                                <form onsubmit="return false">
-                                    <div class="ttxx-msg reply-author">
-                                        <div class="placeholder">我也说一句...</div>
-                                        <div class="reply-editor"></div>
-                                    </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="11918503" />
-                                    <input type="hidden" name="ParentId" value="0" />
-                                </form>
-
-                                <!-- 回复结束 -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="post-box">
-                            <div class="publish-author">
-                                <div class="p-author">
-                                    <a href="javascript:void(0)" data-url="/MemberInfo?id=887890" data-target=".user-info-dialog" data-toggle="modal">
-                                        <img class="img-responsive img-rounded center-block" alt="15986324971" src="/Resource/Images/Default/Member.jpg">
-                                        <p>15986324971</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="publish-content">
-                                <div class="p-cont">
-                                    <img src='/Resource/Mobile/images/p55.png' data-num=9 />
-                                </div>
-                                <div class="p-tool">
-                                    <form onsubmit="return false">
-                                        <ul class="list-unstyled">
-                                            <li><a class="review" href="javascript:void(0)"><span class="postIcon msg"></span> 评论</a></li>
-                                            <li><a data-id="1" class="praise" href="javascript:void(0)"><span class="postIcon za"></span> 赞(<em>0</em>)</a></li>
-
-                                            <li><div><span class="postIcon phone"></span>手机微信端</div></li>
-                                            <li><div><span class="postIcon user"></span> 15986324971</div></li>
-                                            <li><div><span class="postIcon clock"></span>2017-04-04 09:27:30</div></li>
-
-                                            <div class="clear"></div>
-                                        </ul>
-                                        <input type="hidden" name="HallCommentMainID" value="11918502" />
-                                    </form>
-                                </div>
-                                <div class="ttxx-dz">
-                                    <ul>
-                                        <li style=" display:none;">
-                            <span class="ttxx-dz-but">
-                                <a href="javascript:;">点赞</a>
-                            </span>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <!-- 回复 -->
-                                <form onsubmit="return false">
-                                    <div class="ttxx-msg reply-author">
-                                        <div class="placeholder">我也说一句...</div>
-                                        <div class="reply-editor"></div>
-                                    </div>
-                                    <input type="hidden" name="MemorialHallID" value="6b3eae8e-808b-4653-a41b-7f77585cc850" />
-                                    <input type="hidden" name="HallCommentMainID" value="11918502" />
-                                    <input type="hidden" name="ParentId" value="0" />
-                                </form>
-
-                                <!-- 回复结束 -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <!---------------信箱内容结束----------------->
-
+                        <?php endforeach;?>
 
                     </div>
-                    <div class="main-page">
+                    <footer class="panel-footer">
+                        <div class="row">
 
-                        <style type="text/css">
-                            .PaginationMain {
-                                float: left;
-                                text-align: center;
-                                /*margin:20px auto;*/
-                            }
+                            <?php
+                            echo \yii\widgets\LinkPager::widget([
+                                'pagination' => $comments['pagination'],
+                                'nextPageLabel' => '>',
+                                'prevPageLabel' => '<',
+                                'lastPageLabel' => '尾页',
+                                'firstPageLabel' => '首页',
+                                'options' => [
+                                    'class' => 'pull-right pagination'
+                                ]
+                            ]);
+                            ?>
 
-                            .PaginationMain .Jump {
-                                width: 40px;
-                                height: 30px;
-                                text-align: center;
-                                background-color: #fff;
-                                background-image: none;
-                                border: 1px solid #ccc;
-                                border-radius: 4px;
-                                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-                                color: #555;
-                                font-size: 14px;
-                            }
-
-                            .PaginationMain button {
-                                margin: -5px 0 0 0;
-                            }
-                        </style>
-
-                        <div class="memorials-pager">
-                            <div style="float:right ">
-                                <ul class="pagination pagination-sm m-t-none m-b-none">
-
-                                    <li class="disabled"><a aria-label="Previous" href="javascript:void(0)"><span aria-hidden="true">«上一页</span></a></li>
-                                    <li class="active"><a href="javascript:void(0)">1</a></li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=2&amp;NodeContenName=replayContet')" href="javascript:void(0)">2</a>
-                                    </li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=3&amp;NodeContenName=replayContet')" href="javascript:void(0)">3</a>
-                                    </li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=4&amp;NodeContenName=replayContet')" href="javascript:void(0)">4</a>
-                                    </li>
-                                    <li>
-                                        <a onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=5&amp;NodeContenName=replayContet')" href="javascript:void(0)">5</a>
-                                    </li>
-                                    <li>
-                                        <a aria-label="Next" onclick="GetAjaxDatareplayContet('/Remark/RemarkPage?MemorialHallID=6b3eae8e-808b-4653-a41b-7f77585cc850&amp;StopAddMain=False&amp;PageIndex=2&amp;NodeContenName=replayContet')" href="javascript:void(0)"><span aria-hidden="true">下一页»</span></a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
-
-
-                        <script type="text/javascript">
-                            var backdropLoading = {
-                                create: function (ele) {
-                                    var html = '<div class="backdropLoading" style="background-color:#000;background-color:rgba(0,0,0,.6);width:100%;height:100%;position:absolute;left:0;top:0;z-index:99999;">'
-                                        + '<div style="position:absolute;top:10px;left:0;color:#fff;font-size:18px;width:100%;text-align:center;">正在加载中...</div>'
-                                        + '<div style="position:absolute;bottom:10px;left:0;color:#fff;font-size:18px;width:100%;text-align:center;">正在加载中...</div></div>';
-                                    ele = ele ? ele : 'body';
-                                    $(ele).css({ 'position': 'relative' }).append(html);
-                                },
-                                remove: function (ele) {
-                                    ele = ele ? ele : 'body';
-                                    $('.backdropLoading', ele).remove();
-                                }
-                            };
-
-                            function GetSubmitUrlreplayContet(formIdName) {
-                                var form = $("#" + formIdName);
-                                var PageUrlRule = "";
-                                if (PageUrlRule != "") {
-                                    PageUrlRule = PageUrlRule.replace("{PageIndex}", form.find("[name=PageIndex]").val());
-                                    location.href = PageUrlRule;
-                                }
-                            }
-
-                            function GetAjaxDatareplayContet(url) {
-                                moveEditor();        $.ajax({
-                                    type: "get",
-                                    url: url + "&_r=" + Math.random() * new Date().getTime(),
-                                    beforeSend: function () {
-                                        if ("times-list" == "") {
-                                            backdropLoading.create()
-                                        }
-                                        else {
-                                            backdropLoading.create('#times-list');
-                                        }
-                                    },
-                                    success: function (data) {
-                                        $("#replayContet").html(data);
-
-                                        if ("times-list" == "") {
-                                            backdropLoading.remove()
-                                        }
-                                        else {
-                                            backdropLoading.remove('#times-list');
-                                        }
-
-                                    },
-                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        alert("NetworkError:" + XMLHttpRequest.status + " " + XMLHttpRequest.statusText)
-                                        if ("times-list" == "") {
-                                            backdropLoading.remove()
-                                        }
-                                        else {
-                                            backdropLoading.remove('#times-list');
-                                        }
-                                    }
-                                })
-                            }
-                        </script>
-                    </div>
-
+                    </footer>
 
                 </div>
             </div>

@@ -88,6 +88,11 @@ class Comment extends \app\core\db\ActiveRecord
         return $this->hasOne(SysUser::className(), ['id'=>'from']);
     }
 
+    public function getToUser()
+    {
+        return $this->hasOne(SysUser::className(), ['id'=>'to']);
+    }
+
     public static function getByRes($res_name, $res_id, $limit=15, $thumb='45x45')
     {
         $query = self::find()->where(['status'=>self::STATUS_NORMAL])
@@ -104,7 +109,6 @@ class Comment extends \app\core\db\ActiveRecord
                     ->all();
 
 
-
         $ids = ArrayHelper::getColumn($list, 'id');
         $sons = self::find()->where(['status'=>self::STATUS_NORMAL])
                         ->andWhere(['res_name'=>$res_name, 'res_id'=>$res_id])
@@ -113,20 +117,22 @@ class Comment extends \app\core\db\ActiveRecord
         $son_result = [];
         foreach ($sons as $k => $v) {
             $tmp = $v->toArray();
-            $tmp['avatar'] = $v->fromUser->getAvatar($thumb);
+            $tmp['avatar'] = $v->fromUser->getAvatar($thumb, '/static/images/default.png');
             $tmp['date'] = date('Y-m-d H:i', $v->created_at);
             $tmp['username'] = $v->fromUser->username;
+            if ($v->to) {
+//                $tmp['toavatar'] = $v->toUser->getAvatar($thumb, '/static/images/default.png');
+                $tmp['tousername'] = $v->toUser->username;
+            }
             $son_result[] = $tmp;
         }
 
-
         $sons = ArrayHelper::group($son_result, 'pid');
-
 
         $result = [];
         foreach ($list as $k => $v) {
             $tmp = $v->toArray();
-            $tmp['avatar'] = $v->fromUser->getAvatar($thumb);
+            $tmp['avatar'] = $v->fromUser->getAvatar($thumb,'/static/images/default.png');
             $tmp['date'] = date('Y-m-d H:i', $v->created_at);
             $tmp['username'] = $v->fromUser->username;
             if (isset($sons[$v->id])) {

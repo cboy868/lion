@@ -20,7 +20,7 @@ class BootstrapAsset extends AssetBundle
         'js/bootstrap.min.js'
     ];
     public $depends = [
-        'app\modules\memorial\assets\JqueryAsset'
+        'yii\web\JqueryAsset'
     ];
 
 }

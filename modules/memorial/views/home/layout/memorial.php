@@ -1,7 +1,15 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\modules\user\models\Track;
+use app\modules\memorial\models\Memorial;
+
 \app\modules\memorial\assets\HallAsset::register($this);
+
+//$memorial = Memorial::findOne(Yii::$app->request->get('id'));
+//if (!Yii::$app->user->isGuest && $memorial->user_id != Yii::$app->user->id) {
+//    Track::create(Track::RES_MEMORIAL, $memorial->id);
+//}
 ?>
 
 <?php $this->beginPage() ?>

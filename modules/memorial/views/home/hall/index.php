@@ -2,9 +2,6 @@
 use yii\helpers\Url;
 use app\modules\user\models\Track;
 $this->params['current_nav'] = 'index';
-if ($memorial->user_id != Yii::$app->user->id) {
-    Track::create(Track::RES_MEMORIAL, $memorial->id);
-}
 ?>
 <div class="container memorial-container">
     <!--这里加内容-->

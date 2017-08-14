@@ -7,6 +7,7 @@ use yii\web\AssetBundle;
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
+ * @name 暂时不用，使用系统中的
  */
 class JqueryAsset extends AssetBundle
 {

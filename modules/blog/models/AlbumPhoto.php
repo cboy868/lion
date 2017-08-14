@@ -56,6 +56,8 @@ class AlbumPhoto extends Attachment
         $model->created_by = Yii::$app->user->id;
         $model->save();
 
+        Album::updateNum($model->album_id);
+
         return $event->sender->mid = $model->id;
     }
 

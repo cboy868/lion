@@ -41,7 +41,7 @@ class AlbumSearch extends Album
      */
     public function search($params)
     {
-        $query = Album::find();
+        $query = Album::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -73,6 +73,42 @@ class AlbumSearch extends Album
             ->andFilterWhere(['like', 'summary', $this->summary])
             ->andFilterWhere(['like', 'body', $this->body])
             ->andFilterWhere(['like', 'ip', $this->ip]);
+
+        return $dataProvider;
+    }
+
+    public function searchHome($params)
+    {
+        $query = Album::find()->orderBy('id desc');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 12,
+            ],
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'sort' => $this->sort,
+            'recommend' => $this->recommend,
+            'is_customer' => $this->is_customer,
+            'is_top' => $this->is_top,
+            'memorial_id' => $this->memorial_id,
+            'privacy' => $this->privacy,
+            'view_all' => $this->view_all,
+            'com_all' => $this->com_all,
+            'num' => $this->num,
+            'created_by' => $this->created_by,
+            'status' => $this->status,
+        ]);
+
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'body', $this->body]);
 
         return $dataProvider;
     }

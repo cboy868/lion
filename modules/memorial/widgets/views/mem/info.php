@@ -9,7 +9,7 @@
             <li><span>馆名：</span><?=$model->title?></li>
             <?php if ($model->deads): ?>
             <li>
-                <span>馆主</span><br>
+                <span>逝者</span><br>
                 <?php foreach ($model->deads as $dead):?>
                     <?=$dead->dead_name;?>(<?=$dead->birth?>~<?=$dead->fete?>) <br>
                 <?php endforeach;?>

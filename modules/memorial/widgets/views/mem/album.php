@@ -23,7 +23,7 @@ use yii\helpers\Url;
 <?php $this->beginBlock('memorial') ?>
 $(function(){
     var mySwiper = new Swiper ('.swiper-container', {
-        autoplay: 1000,
+        autoplay: 3000,
         autoHeight:true,
         direction: 'vertical',
         loop: true,

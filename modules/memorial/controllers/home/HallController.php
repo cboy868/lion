@@ -5,7 +5,8 @@ namespace app\modules\memorial\controllers\home;
 use app\core\helpers\ArrayHelper;
 use app\core\models\Comment;
 use app\modules\blog\models\Album;
-use app\modules\blog\models\AlbumPhoto;
+use app\modules\blog\models\AlbumPhotoSearch;
+use app\modules\blog\models\AlbumSearch;
 use app\modules\blog\models\Blog;
 use app\modules\cms\controllers\home\CommonController;
 use app\modules\memorial\models\Pray;
@@ -47,20 +48,12 @@ class HallController extends Controller
             ->orderBy('id desc')
             ->limit(10)->all();
 
-        //找几张照片
-        $albums = Album::find()->where(['memorial_id'=>$id,'privacy'=>Album::PRIVACY_PUBLIC])
-            ->orderBy('id desc')->limit(10)->all();
-        $albums_ids = ArrayHelper::getColumn($albums, 'id');
-        $photos = AlbumPhoto::find()->where(['album_id'=>$albums_ids, 'status'=>AlbumPhoto::STATUS_ACTIVE])
-            ->limit(10)->all();
-
         return $this->render('index',[
             'memorial' => $memorial,
             'deads' => $deads,
             'archives' => $archives,
             'miss' => $miss,
-            'msgs' => $msgs,
-            'photos' => $photos
+            'msgs' => $msgs
         ]);
     }
 
@@ -88,9 +81,39 @@ class HallController extends Controller
     /**
      * @音容笑貌
      */
-    public function actionAlbum()
+    public function actionAlbum($id)
     {
-        return $this->render('album');
+        $params = Yii::$app->request->queryParams;
+
+        $params['AlbumSearch']['memorial_id'] = $id;
+        $params['AlbumSearch']['privacy'] = Album::PRIVACY_PUBLIC;
+
+        $searchModel = new AlbumSearch();
+        $dataProvider = $searchModel->searchHome($params);
+
+        return $this->render('album', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+    public function actionPhotos($album_id)
+    {
+        $album = Album::findOne($album_id);
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['AlbumPhotoSearch']['album_id'] = $album_id;
+        $searchModel = new AlbumPhotoSearch();
+        $dataProvider = $searchModel->searchHome($params);
+
+        return $this->render('photos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'album' => $album,
+        ]);
+
     }
 
     /**
@@ -147,13 +170,25 @@ class HallController extends Controller
         ]);
     }
 
+
     /**
      * @name 微纪念
      */
-    public function actionMsg()
+    public function actionMsg($id)
     {
-        return $this->render('msg');
+        $memorial = $this->findModel($id);
+        $comment = new Comment();
+
+        //取评论
+        $comments = Comment::getByRes('memorial', $id, 15, '45x45');
+
+        return $this->render('msg',[
+//            'model' => $memorial,
+            'comment' => $comment,
+            'comments' => $comments
+        ]);
     }
+
 
     public function actionRecord()
     {

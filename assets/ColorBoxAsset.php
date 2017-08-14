@@ -25,6 +25,7 @@ class ColorBoxAsset extends AssetBundle
         'static/libs/colorbox/colorbox.css'
     ];
     public $depends = [
+        'yii\web\JqueryAsset',
         'app\assets\JqueryuiAsset',
     ];
 
