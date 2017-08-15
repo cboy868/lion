@@ -28,6 +28,8 @@ class Track extends \app\core\db\ActiveRecord
     const RES_NEWS = 'news';
     const RES_PROFILE = 'profile';
     const RES_ALBUM = 'album';
+    const RES_ARCHIVE = 'archive';
+    const RES_MISS = 'miss';
 
 
     public static function res($res_name = null)
@@ -127,7 +129,8 @@ class Track extends \app\core\db\ActiveRecord
             'm' => date('m'),
             'd' => date('d'),
             'w' => date('W'),
-            'h' => date('H')
+            'h' => date('H'),
+            'created_at' => time()
         ];
 
         $model = self::find()->where($filter)->one();

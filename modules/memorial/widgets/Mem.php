@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\memorial\widgets;
 
+use app\modules\blog\models\Blog;
 use app\modules\memorial\models\Memorial;
 use app\modules\blog\models\Album;
 use app\modules\blog\models\AlbumPhoto;
@@ -19,6 +20,8 @@ class Mem extends \yii\base\Widget
     public $method;
 
     public $limit = 10;
+
+    public $res_name;
     /**
      * Renders the widget.
      */
@@ -53,14 +56,40 @@ class Mem extends \yii\base\Widget
      */
     private function track()
     {
-        $tracks = Track::find()->where(['res_name'=>Track::RES_MEMORIAL, 'res_id'=>$this->mid])
+        $res_name = $this->res_name ? $this->res_name : Track::RES_MEMORIAL;
+        $tracks = Track::find()->where(['res_name'=>$res_name, 'res_id'=>$this->mid])
                     ->orderBy('id desc')
                     ->limit(18)
                     ->all();
 
-
         return $this->render('mem/track',[
             'tracks' => $tracks,
+            'memorial_id' => $this->mid
+        ]);
+    }
+
+    private function miss()
+    {
+        $list = Blog::find()->where(['res'=>Blog::RES_MISS, 'memorial_id'=>$this->mid])
+            ->orderBy('id desc')
+            ->limit(8)
+            ->all();
+
+        return $this->render('mem/miss',[
+            'list' => $list,
+            'memorial_id' => $this->mid
+        ]);
+    }
+
+    private function archive()
+    {
+        $list = Blog::find()->where(['res'=>Blog::RES_ARCHIVE, 'memorial_id'=>$this->mid])
+            ->orderBy('id desc')
+            ->limit(8)
+            ->all();
+
+        return $this->render('mem/archive',[
+            'list' => $list,
             'memorial_id' => $this->mid
         ]);
     }

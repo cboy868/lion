@@ -39,19 +39,10 @@ $this->params['current_nav'] = 'index';
                                         <div class="col-md-12 col-sm-12"><span>性别：</span><?=$v->genderText?></div>
                                     </div>
                                 </li>
-<!--                                <li>-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-md-12 col-sm-12">-->
-<!--                                            <span>籍贯：</span>-->
-<!--                                            暂无-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </li>-->
 
                                 <?php if($v->tomb):?>
                                 <li>
                                     <span>安葬位置：<?=$v->tomb->tomb_no?></span>
-
                                 </li>
                                 <?php endif;?>
                                 <li><span>网址：</span><?=\yii\helpers\Url::current([],true)?></li>
@@ -191,8 +182,8 @@ $this->params['current_nav'] = 'index';
                 <div class="blank"></div>
                 <div class="box">
                     <div class="bg-title">
-                        <div class="pull-left"><a class="bg-tit" href="#">祝福留言</a></div>
-                        <div class="pull-right"><a href="#">更多内容&gt;&gt;</a></div>
+                        <div class="pull-left"><a class="bg-tit" href="<?=Url::toRoute(['msg', 'id'=>$memorial->id])?>">祝福留言</a></div>
+                        <div class="pull-right"><a href="<?=Url::toRoute(['msg', 'id'=>$memorial->id])?>">更多内容&gt;&gt;</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="about-index da-info">

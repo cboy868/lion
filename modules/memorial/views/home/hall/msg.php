@@ -22,16 +22,15 @@ $this->registerCssFile($mem[1] . '/css/remark.css');
     <div class="row">
         <!---------------左边开始----------------->
         <div class="col-md-3 hidden-sm no-padding-right mb20">
-
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'info','mid'=>Yii::$app->request->get('id')])?>
-
             <div class="blank"></div>
-
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'album','mid'=>Yii::$app->request->get('id')])?>
-
+            <div class="blank"></div>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'miss','mid'=>Yii::$app->request->get('id')])?>
+            <div class="blank"></div>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'archive','mid'=>Yii::$app->request->get('id')])?>
             <div class="blank"></div>
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
-
         </div>
         <!---------------左边结束----------------->
 
@@ -194,7 +193,7 @@ $(function(){
         var pid = $(this).data('pid');
         var res_id = $(this).data('rid');
         var toname = $(this).data('toname');
-        var html = '<div style="background: #efefef;padding: 10px 5px;border-radius: 4px;">'
+        var html = '<div style="background: #efefef;padding: 10px 5px;border-radius: 4px;margin-bottom:5px;">'
     +'<textarea style="width: 100%;height:3em;" data-pid="'+pid
             +'" data-to="'+uid
             +'" data-rid="'+res_id
@@ -230,7 +229,6 @@ $(function(){
             }
 
         },'json');
-
 
     });
 

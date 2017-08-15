@@ -2,6 +2,7 @@
 
 namespace app\modules\blog\models;
 
+use app\modules\user\models\Track;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
@@ -153,5 +154,20 @@ class Blog extends \app\core\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id'=>'created_by']);
+    }
+    /**
+     * @name 脚印
+     */
+    public function track($res=Track::RES_BLOG)
+    {
+        if (Yii::$app->user->isGuest) {
+            return ;
+        }
+        if (Yii::$app->user->id == $this->created_by) {
+            return ;
+        }
+
+
+        Track::create($res, $this->id);
     }
 }

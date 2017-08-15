@@ -9,9 +9,10 @@ $this->registerCssFile($mem[1] . '/css/relist.css');
             <!-- 左边开始 -->
             <div class="col-md-3 hidden-sm no-padding-right mb20">
                 <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'info','mid'=>Yii::$app->request->get('id')])?>
-
                 <div class="blank"></div>
                 <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'album','mid'=>Yii::$app->request->get('id')])?>
+                <div class="blank"></div>
+                <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'miss','mid'=>Yii::$app->request->get('id')])?>
                 <div class="blank"></div>
                 <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
             </div>
@@ -29,7 +30,7 @@ $this->registerCssFile($mem[1] . '/css/relist.css');
                         <ul>
                             <?php foreach ($archives as $archive):?>
                             <li>
-                                <h4><a href="#"><?=$archive->title?></a></h4>
+                                <h4><a href="<?=\yii\helpers\Url::toRoute(['archive-view','id'=>$archive->memorial_id, 'bid'=>$archive->id])?>"><?=$archive->title?></a></h4>
                                 <div class="new-cont">
                                     <?=\app\core\helpers\Html::cutstr_html($archive->body, 200)?>
                                 </div>

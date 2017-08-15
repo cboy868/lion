@@ -11,10 +11,15 @@ $this->registerCssFile('/static/site/blog.css');
             <div class="blank"></div>
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'album','mid'=>Yii::$app->request->get('id')])?>
             <div class="blank"></div>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'miss','mid'=>Yii::$app->request->get('id')])?>
+            <div class="blank"></div>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'archive','mid'=>Yii::$app->request->get('id')])?>
+            <div class="blank"></div>
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
         </div>
         <!---------------左边结束----------------->
-        <!---------------分组右边开始----------------->
+
+        <!---------------右边开始----------------->
         <div class="col-md-9 mb20">
             <div class="box">
                 <h2 style="text-align: center">相册</h2>
@@ -59,10 +64,9 @@ $this->registerCssFile('/static/site/blog.css');
                         ]
                     ]);
                     ?>
-
                 </div>
             </footer>
         </div>
-        <!---------------分组右边结束----------------->
+        <!---------------右边结束----------------->
     </div>
 </div>

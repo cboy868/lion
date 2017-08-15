@@ -6,6 +6,12 @@ $this->registerCssFile('/static/site/blog.css');
 
 \app\assets\ColorBoxAsset::register($this);
 ?>
+
+<style>
+    h4{
+        overflow: hidden;
+    }
+</style>
 <div class="container memorial-container">
     <div class="row">
         <!---------------左边开始----------------->
@@ -14,10 +20,17 @@ $this->registerCssFile('/static/site/blog.css');
             <div class="blank"></div>
             <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'album','mid'=>$album->memorial_id])?>
             <div class="blank"></div>
-            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'miss','mid'=>$album->memorial_id])?>
+            <div class="blank"></div>
+            <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'archive','mid'=>$album->memorial_id])?>
+            <div class="blank"></div>
+            <?=\app\modules\memorial\widgets\Mem::widget([
+                'method'=>'track',
+                'res_name' => \app\modules\user\models\Track::RES_ALBUM,
+                'mid'=>$album->id])?>
         </div>
         <!---------------左边结束----------------->
-        <!---------------分组右边开始----------------->
+        <!---------------右边开始----------------->
         <div class="col-md-9 mb20">
             <div class="box">
                 <h2 style="text-align: center">相册</h2>
@@ -63,7 +76,7 @@ $this->registerCssFile('/static/site/blog.css');
                 </div>
             </footer>
         </div>
-        <!---------------分组右边结束----------------->
+        <!---------------右边结束----------------->
     </div>
 </div>
 <?php $this->beginBlock('cate') ?>

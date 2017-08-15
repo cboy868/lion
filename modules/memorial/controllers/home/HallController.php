@@ -10,6 +10,7 @@ use app\modules\blog\models\AlbumSearch;
 use app\modules\blog\models\Blog;
 use app\modules\cms\controllers\home\CommonController;
 use app\modules\memorial\models\Pray;
+use app\modules\user\models\Track;
 use yii;
 use app\modules\memorial\models\Memorial;
 use yii\web\NotFoundHttpException;
@@ -59,6 +60,9 @@ class HallController extends Controller
             ->orderBy('id desc')
             ->limit(10)->all();
 
+
+        $memorial->track();
+
         return $this->render('index',[
             'memorial' => $memorial,
             'deads' => $deads,
@@ -71,6 +75,7 @@ class HallController extends Controller
     public function actionMemorial($id)
     {
         $memorial = $this->findModel($id);
+        $memorial->track();
         return $this->render('memorial', ['memorial'=>$memorial]);
     }
 
@@ -82,6 +87,7 @@ class HallController extends Controller
     {
 
         $memorial = $this->findModel($id);
+        $memorial->track();
         $deads = $memorial->deads;
         return $this->render('life', [
             'deads' => $deads,
@@ -102,6 +108,9 @@ class HallController extends Controller
         $searchModel = new AlbumSearch();
         $dataProvider = $searchModel->searchHome($params);
 
+        $memorial = $this->findModel($id);
+        $memorial->track();
+
         return $this->render('album', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -112,6 +121,7 @@ class HallController extends Controller
     public function actionPhotos($album_id)
     {
         $album = Album::findOne($album_id);
+        $album->track();
 
         $params = Yii::$app->request->queryParams;
 
@@ -133,6 +143,7 @@ class HallController extends Controller
     public function actionArchive($id)
     {
         $memorial = $this->findModel($id);
+        $memorial->track();
 
         $params = Yii::$app->request->queryParams;
 
@@ -150,6 +161,26 @@ class HallController extends Controller
         ]);
     }
 
+    public function actionArchiveView($bid, $id)
+    {
+        $model = Blog::findOne($bid);
+        $model->track(Track::RES_ARCHIVE);
+
+        return $this->render('archive-view',[
+            'model' => $model
+        ]);
+    }
+
+    public function actionMissView($bid, $id)
+    {
+        $model = Blog::findOne($bid);
+        $model->track(Track::RES_MISS);
+
+        return $this->render('miss-view',[
+            'model' => $model
+        ]);
+    }
+
     /**
      * @name 生前作品
      */
@@ -164,6 +195,7 @@ class HallController extends Controller
     public function actionMiss($id)
     {
         $memorial = $this->findModel($id);
+        $memorial->track();
 
         $params = Yii::$app->request->queryParams;
 
@@ -193,6 +225,7 @@ class HallController extends Controller
         //取评论
         $comments = Comment::getByRes('memorial', $id, 15, '45x45');
 
+        $memorial->track();
         return $this->render('msg',[
 //            'model' => $memorial,
             'comment' => $comment,

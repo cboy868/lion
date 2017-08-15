@@ -5,6 +5,7 @@ namespace app\modules\memorial\models;
 use app\core\models\Attachment;
 use app\modules\grave\models\Dead;
 use app\modules\grave\models\Tomb;
+use app\modules\user\models\Track;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -201,6 +202,21 @@ class Memorial extends \app\core\db\ActiveRecord
     {
         return \app\core\models\Attachment::getById($this->thumb, $size, $default);
 
+    }
+
+    /**
+     * @name 脚印
+     */
+    public function track()
+    {
+        if (Yii::$app->user->isGuest) {
+            return ;
+        }
+        if (Yii::$app->user->id == $this->user_id) {
+            return ;
+        }
+
+        Track::create(Track::RES_MEMORIAL, $this->id);
     }
 
 }

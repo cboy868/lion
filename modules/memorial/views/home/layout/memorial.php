@@ -6,10 +6,6 @@ use app\modules\memorial\models\Memorial;
 
 \app\modules\memorial\assets\HallAsset::register($this);
 
-//$memorial = Memorial::findOne(Yii::$app->request->get('id'));
-//if (!Yii::$app->user->isGuest && $memorial->user_id != Yii::$app->user->id) {
-//    Track::create(Track::RES_MEMORIAL, $memorial->id);
-//}
 ?>
 
 <?php $this->beginPage() ?>
@@ -45,7 +41,8 @@ use app\modules\memorial\models\Memorial;
             </div>
             <div class="navbar-collapse collapse" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>"><?=g('cp_name')?>主页</a></li>
+                    <li><a href="<?=Url::toRoute(['/'])?>"><?=g('cp_name')?>主页</a></li>
+                    <li><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">纪念馆首页</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="display:block">
                     <li><a href="#"><i class="navIcon user"></i>登录</a></li>

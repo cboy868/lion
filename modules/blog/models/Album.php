@@ -2,6 +2,7 @@
 
 namespace app\modules\blog\models;
 
+use app\modules\user\models\Track;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -132,5 +133,17 @@ class Album extends \app\core\db\ActiveRecord
         $model->num = $count;
 
         return $model->save();
+    }
+
+    public function track()
+    {
+        if (Yii::$app->user->isGuest) {
+            return ;
+        }
+        if (Yii::$app->user->id == $this->created_by) {
+            return ;
+        }
+
+        Track::create(Track::RES_ALBUM, $this->id);
     }
 }

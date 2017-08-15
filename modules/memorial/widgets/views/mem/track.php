@@ -14,7 +14,7 @@
                         <?=$track->user->username?>
                     </a>
                 </p>
-                <span><?=date('m月d日', $track->created_at)?></span>
+                <span><?=$track->m?>月<?=$track->d?>日</span>
             </li>
             <?php endforeach;?>
         </ul>
