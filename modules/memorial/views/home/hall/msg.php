@@ -17,6 +17,9 @@ $this->registerCssFile($mem[1] . '/css/remark.css');
     .list-unstyled{
         margin-bottom:0;
     }
+    .p-cont{
+        padding:10px;
+    }
 </style>
 <div class="container memorial-container">
     <div class="row">

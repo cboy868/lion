@@ -40,7 +40,7 @@ class Category extends \app\core\models\Category
     public function rules()
     {
         return [
-            [['pid', 'level', 'sort', 'is_leaf', 'created_at', 'status', 'is_show'], 'integer'],
+            [['pid', 'level', 'sort', 'is_leaf', 'created_at', 'status', 'is_show', 'can_remote'], 'integer'],
             [['body', 'seo_description'], 'string'],
             [['name', 'type_id'], 'required'],
             [['code', 'name', 'seo_title', 'seo_keywords'], 'string', 'max' => 255],
@@ -68,6 +68,7 @@ class Category extends \app\core\models\Category
             'created_at' => '添加时间',
             'is_show' => '是否前台显示',
             'status' => '状态',
+            'can_remote' => '是否适用远程祭祀'
         ];
     }
 

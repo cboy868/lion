@@ -1,0 +1,194 @@
+.text-header {
+    text-align: center;
+}
+
+.text-header hr{
+    border-top: 3px solid #fff;
+    border-radius: 10px;
+    height: 20px;
+}
+
+.text-content .msg-list{
+    /*border-right: 1px solid #999;*/
+}
+
+.text-content .msg-box{
+    margin-top: 20px;
+    background: #fff;
+}
+.miss-list .msg-box{
+    border: 1px dashed #20748B;
+}
+.msg-list .msg-box{
+    background: #eee;
+}
+.text-content .msg{
+    padding: 15px 10px;
+    margin-bottom: 5px;
+    color: #666;
+}
+.text-content .msg h4{
+    margin-bottom: 8px;
+}
+.text-content .msg p{
+    text-indent: 2em;
+
+}
+.text-content .u-info{
+    font-size: 10px;
+    margin-right: 10px;
+    text-align: right;
+}
+.u-info .tool-open{
+    margin-left: 20px;
+
+}
+.text-content .u-text{
+    text-align: right;
+    margin-right: 10px;
+}
+.text-content .avatar img{
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+}
+
+.info{
+    text-align: center;
+    border-top: 5px solid #4f838f;
+    padding: 10px;
+    border-radius: 10px;
+    height: 750px;
+    border-right: 1px solid #4f838f;
+    border-left: 1px solid #4f838f;
+}
+.info .avatar img{
+    border-radius: 50%;
+}
+.info .h2{
+    font-size: 50px;
+    font-weight: bold;
+    margin: 10px 0px 20px 0px;
+    color:slategray;
+}
+.info .intro{
+    line-height: 2;
+    margin: 30px 0px 35px 0px;
+    height: 140px;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.info .intro p{
+    text-indent: 2em;
+}
+.tracks{
+    text-align: left;
+}
+.tracks img{
+    border-radius: 50%;
+    margin:5px;
+}
+
+div.aside-box{
+    padding: 3px;
+    height:760px;
+    overflow: hidden;
+}
+
+.remote{
+    border-radius: 15px 0 0 0;
+    margin-top: 50px;
+    border-top: 5px solid #4f838f;
+    padding:10px 0 0 10px;
+}
+.flower{
+    border-radius: 0 15px 0 0;
+    margin-top: 50px;
+    border-top: 5px solid #4f838f;
+    padding:10px 10px 0 0 ;
+}
+
+.remote a.thumb-box{
+    float: left;
+    padding-right: 10px;
+}
+.remote img{
+    width: 100%;
+    border-radius: 6px;
+}
+.remote .img-intro{
+    line-height: 2em ;
+    text-align: center;
+}
+
+.flower a.thumb-box{
+    float: left;
+    padding-right: 10px;
+}
+.flower img{
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+}
+.album{
+    margin: 20px auto;
+    padding: 20px 10px;
+}
+
+
+.swiper-slide img{
+    border: 2px solid #999;
+    border-radius: 10px;
+    width: 100%;
+    max-height: 300px;
+}
+.album-container{
+    background: rgba(255,255,255,0.95);
+    border-radius: 5px;
+    height: auto;
+    margin: 0 auto;
+    padding: 12px 18px 0 24px;
+    position: relative;
+    margin-top: 20p;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+.remote .video{
+    margin-top: 15px;
+    width: 45%;
+    float: left;
+    margin-right: 10px;
+}
+
+
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    /*background: #fff;*/
+    /*width: 60%;*/
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.text-content{
+    margin-bottom:50px;
+}

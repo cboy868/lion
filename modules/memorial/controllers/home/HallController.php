@@ -3,19 +3,27 @@
 namespace app\modules\memorial\controllers\home;
 
 use app\core\helpers\ArrayHelper;
+use app\core\helpers\Url;
 use app\core\models\Comment;
 use app\modules\blog\models\Album;
+use app\modules\blog\models\AlbumPhoto;
 use app\modules\blog\models\AlbumPhotoSearch;
 use app\modules\blog\models\AlbumSearch;
 use app\modules\blog\models\Blog;
 use app\modules\cms\controllers\home\CommonController;
+use app\modules\grave\models\Order;
 use app\modules\memorial\models\Pray;
+use app\modules\shop\models\Category;
+use app\modules\shop\models\Goods;
+use app\modules\shop\models\Sku;
 use app\modules\user\models\Track;
+use app\modules\wechat\models\User;
 use yii;
 use app\modules\memorial\models\Memorial;
 use yii\web\NotFoundHttpException;
 use app\modules\blog\models\BlogSearch;
 
+use Endroid\QrCode\QrCode;
 class HallController extends Controller
 {
     public function actions()
@@ -32,6 +40,8 @@ class HallController extends Controller
 
     public function actionIndex($id)
     {
+
+
         $memorial = $this->findModel($id);
         $deads = $memorial->deads;
 
@@ -72,11 +82,49 @@ class HallController extends Controller
         ]);
     }
 
+
     public function actionMemorial($id)
     {
         $memorial = $this->findModel($id);
         $memorial->track();
-        return $this->render('memorial', ['memorial'=>$memorial]);
+
+        $tracks = Track::find()->where(['res_name'=>Track::RES_MEMORIAL, 'res_id'=>$id])
+            ->orderBy('id desc')
+            ->limit(20)
+            ->all();
+
+
+        $albums = Album::find()->where(['memorial_id'=>$id,'privacy'=>Album::PRIVACY_PUBLIC])
+            ->orderBy('id desc')->limit(10)->all();
+        $albums_ids = ArrayHelper::getColumn($albums, 'id');
+        $photos = AlbumPhoto::find()->where(['album_id'=>$albums_ids, 'status'=>AlbumPhoto::STATUS_ACTIVE])
+            ->limit(10)->all();
+
+
+        $miss = Blog::find()->where(['res'=>Blog::RES_MISS, 'memorial_id'=>$id])
+            ->orderBy('id desc')
+            ->limit(8)
+            ->all();
+
+        //祝福
+        $msgs = Comment::find()->where(['res_name'=>'memorial', 'res_id'=>$id, 'pid'=>0])
+            ->orderBy('id desc')
+            ->limit(10)->all();
+
+        //点烛献花
+        $prays = Pray::find()->where(['memorial_id'=>$id])->orderBy('id desc')
+            ->limit(10)
+            ->all();
+
+        return $this->render('memorial', [
+            'memorial'=>$memorial,
+            'tracks' => $tracks,
+            'photos' => $photos,
+            'miss' => $miss,
+            'msgs' => $msgs,
+            'prays' => $prays,
+            'comment' => new Comment()
+        ]);
     }
 
     /**
@@ -279,6 +327,90 @@ class HallController extends Controller
         } else {
             return $this->json(null, '祝福留言失败,请重试或联系管理员', 0);
         }
+    }
+
+    public function actionCandleFlower($id)
+    {
+        $model = new Pray();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->id;
+            $model->memorial_id = $id;
+
+            if ($model->save() !== false) {
+                return $this->json();
+            } else {
+                return $this->json(null, '祝福提交失败', 0);
+            }
+        }
+
+        $types = $this->module->params['memorial_types'];
+
+        return $this->renderAjax('candle-flower',[
+            'model' => $model,
+            'types' => $types
+        ]);
+    }
+
+    public function actionRemote($mid)
+    {
+
+        $goods = Goods::find()->where(['status'=>Goods::STATUS_ACTIVE,'can_remote'=>1])->all();
+        $cids = ArrayHelper::getColumn($goods, 'category_id');
+        $cates = Category::find()->where(['id'=>$cids])->all();
+        $goods = ArrayHelper::index($goods, 'id', 'category_id');
+
+        return $this->renderAjax('remote',[
+            'goods' => $goods,
+            'cates' => $cates,
+            'memorial_id' => $mid
+        ]);
+    }
+
+    public function actionQrGoods($id, $sku_id, $num)
+    {
+
+        $memorial = $this->findModel($id);
+
+        $proid = $memorial->tomb_id .'.'.$sku_id . '.' .$num;
+
+
+        $url = Url::toRoute(['order', 'proid'=>$proid], false);
+
+        $qrCode = new QrCode($url);
+
+        header('Content-Type: '.$qrCode->getContentType());
+
+        echo $qrCode->writeString();
+    }
+
+    //proid由 tomb_id, sku_id num数量组成
+
+    /**
+     * @param $proid
+     * 微信扫码回调此方法生成订单
+     */
+    public function actionOrder($proid)
+    {
+        $pd = explode('_', $proid);
+
+        $tomb_id = $pd[0];
+        $sku_id = $pd[1];
+        $sku = Sku::findOne($sku_id);
+
+        $openid = '';
+
+        $wuser = User::findOne($openid);
+
+        $extra = [
+            'type' => Order::TYPE_TOMB,
+            'tid' => $tomb_id,
+            'num' => $pd[2]
+        ];
+
+        $sku->order($wuser->user_id, $extra, $res_name='', $res_id=0);
+
+        //接下来使用统一下单接口
     }
 
 

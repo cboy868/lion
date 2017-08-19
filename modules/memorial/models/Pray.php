@@ -32,7 +32,8 @@ class Pray extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'memorial_id', 'type'], 'required'],
+            [['user_id', 'memorial_id','msg'], 'required'],
+            [['type'],'required','message'=>'请选择一件礼物'],
             [['user_id', 'memorial_id', 'order_id', 'created_at'], 'integer'],
             [['msg'], 'string'],
             [['type'], 'string', 'max' => 200],
@@ -77,5 +78,10 @@ class Pray extends \app\core\db\ActiveRecord
                             ->all();
 
         return $list;
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(), ['id'=>'user_id']);
     }
 }

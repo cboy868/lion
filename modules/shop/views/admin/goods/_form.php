@@ -182,6 +182,10 @@ border-color:#337ab7;
             </div>
             <?php endif ?>
 
+    <?= $form->field($model, 'can_remote')->radioList([0=>'否', 1=>'是'])->label('是否适用远程祭祀') ?>
+
+    <?= $form->field($model, 'days')->textInput() ?>
+
 	<div class="form-group">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-info btn-lg', 'style'=>'margin: 20px 0;width: 200px;']) ?>
     </div>

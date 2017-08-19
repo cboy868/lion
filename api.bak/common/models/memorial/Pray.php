@@ -34,7 +34,7 @@ class Pray extends \api\common\models\ActiveRecord
         return [
             [['user_id', 'memorial_id', 'type'], 'required'],
             [['user_id', 'memorial_id', 'order_id', 'created_at'], 'integer'],
-            [['msg'], 'string'],
+            [['msg'], 'string','max' => 100, 'min'=>2],
             [['type'], 'string', 'max' => 200],
         ];
     }
@@ -61,7 +61,7 @@ class Pray extends \api\common\models\ActiveRecord
             'user_id' => 'User ID',
             'memorial_id' => 'Memorial ID',
             'type' => '纪念类型',
-            'msg' => '留言',
+            'msg' => '消息',
             'order_id' => '订单',
             'created_at' => '添加时间',
         ];

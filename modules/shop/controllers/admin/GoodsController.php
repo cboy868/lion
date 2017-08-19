@@ -300,6 +300,7 @@ class GoodsController extends BackController
         $datas = ArrayHelper::arrCombin($avs);
 
         $model->loadDefaultValues();
+        $model->can_remote = $cate->can_remote;
         return $this->render('create', [
                 'cate' => $cate,
                 'model' => $model,

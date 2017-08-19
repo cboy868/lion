@@ -41,8 +41,30 @@ use app\modules\memorial\models\Memorial;
             </div>
             <div class="navbar-collapse collapse" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?=Url::toRoute(['/'])?>"><?=g('cp_name')?>主页</a></li>
-                    <li><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">纪念馆首页</a></li>
+                    <?php
+                    $current_nav = isset($this->params['current_nav']) ? $this->params['current_nav'] : '';
+                    $id = Yii::$app->request->get('id');
+                    ?>
+                    <li><a href="<?=Url::toRoute(['/'])?>"><?=g('cp_name')?>门户</a></li>
+
+                    <li><a href="<?=Url::toRoute(['/'])?>">纪念馆主页</a></li>
+
+                    <li class="<?php if($current_nav=='index'):?>active<?php endif;?>">
+                        <a class="" key="" href="<?=Url::toRoute(['/memorial/home/hall/index', 'id'=>$id])?>">首页</a></li>
+                    <li class="<?php if($current_nav=='memorial'):?>active<?php endif;?>">
+                        <a class="" href="<?=Url::toRoute(['/memorial/home/hall/memorial', 'id'=>$id])?>">纪念馆</a></li>
+                    <li class="<?php if($current_nav=='life'):?>active<?php endif;?>">
+                        <a class="" href="<?=Url::toRoute(['/memorial/home/hall/life', 'id'=>$id])?>">生平简介</a></li>
+                    <li class="<?php if($current_nav=='album'):?>active<?php endif;?>">
+                        <a class="" href="<?=Url::toRoute(['/memorial/home/hall/album', 'id'=>$id])?>">音容笑貌</a></li>
+                    <li class="<?php if($current_nav=='archive'):?>active<?php endif;?>">
+                        <a class="" href="<?=Url::toRoute(['/memorial/home/hall/archive', 'id'=>$id])?>">档案资料</a></li>
+                    <li class="<?php if($current_nav=='miss'):?>active<?php endif;?>">
+                        <a class="" href="<?=Url::toRoute(['/memorial/home/hall/miss', 'id'=>$id])?>">追忆文章</a></li>
+                    <li class="<?php if($current_nav=='msg'):?>active<?php endif;?>">
+                        <a class="" href="<?=Url::toRoute(['/memorial/home/hall/msg', 'id'=>$id])?>">美好祝福</a></li>
+                    <li class="<?php if($current_nav=='record'):?>active<?php endif;?>">
+                        <a class="" href="<?=Url::toRoute(['/memorial/home/hall/record', 'id'=>$id])?>">祭祀记录</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="display:block">
                     <li><a href="#"><i class="navIcon user"></i>登录</a></li>
@@ -76,6 +98,11 @@ use app\modules\memorial\models\Memorial;
 </div>
 
 <div id="ink-hook"></div>
+<div class="container">
+    <div class="row" style="height: 40px;background: #fff;overflow: hidden;position: relative;">
+    </div>
+</div>
+<!--
 <div class="container" style="margin-top:100px;">
     <div class="row">
         <div class="menu-list">
@@ -104,6 +131,7 @@ use app\modules\memorial\models\Memorial;
         </div>
     </div>
 </div>
+-->
 <?=$content?>
 
 

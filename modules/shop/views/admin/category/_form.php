@@ -32,6 +32,8 @@ use app\core\helpers\ArrayHelper;
 
     <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'can_remote')->radioList([0=>'否', 1=>'是'])->label('是否适用远程祭祀') ?>
+
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
