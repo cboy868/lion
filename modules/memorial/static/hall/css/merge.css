@@ -1,4 +1,62 @@
 /*覆盖bootcss*/
+.menu-list{ height:42px; margin:auto; background:#4e4746; position:relative; border-radius:5px 5px 0 0; overflow:hidden;}
+.menu-list li{float:left; height:42px; line-height:42px; text-align:center; padding:0 !important;}
+.menu-list li a{color:#fff; display:block; text-decoration:none; padding:0 10px;}
+.menu-list li a:hover, .menu-list li.active a{background-color:#9e3a31;; color:#FF0;}
+.menu-list li.active a{color:#FFF;}
 .navbar{
 	min-height: auto;
+}
+.text-header {
+	text-align: center;
+}
+.text-header hr{
+	border-top: 3px solid #fff;
+	border-radius: 10px;
+	height: 20px;
+}
+
+.text-content .msg-list{
+	/*border-right: 1px solid #999;*/
+}
+
+.text-content .msg-box{
+	margin-top: 20px;
+	background: #fff;
+}
+.miss-list .msg-box{
+	border: 1px dashed #20748B;
+}
+.msg-list .msg-box{
+	background: #eee;
+}
+.text-content .msg{
+	padding: 15px 10px;
+	margin-bottom: 5px;
+	color: #666;
+}
+.text-content .msg h4{
+	margin-bottom: 8px;
+}
+.text-content .msg p{
+	text-indent: 2em;
+
+}
+.text-content .u-info{
+	font-size: 10px;
+	margin-right: 10px;
+	text-align: right;
+}
+.u-info .tool-open{
+	margin-left: 20px;
+
+}
+.text-content .u-text{
+	text-align: right;
+	margin-right: 10px;
+}
+.text-content .avatar img{
+	height: 36px;
+	width: 36px;
+	border-radius: 50%;
 }

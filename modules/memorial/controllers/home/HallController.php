@@ -12,16 +12,20 @@ use app\modules\blog\models\AlbumSearch;
 use app\modules\blog\models\Blog;
 use app\modules\cms\controllers\home\CommonController;
 use app\modules\grave\models\Order;
+use app\modules\memorial\models\OrderForm;
 use app\modules\memorial\models\Pray;
 use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
 use app\modules\shop\models\Sku;
 use app\modules\user\models\Track;
 use app\modules\wechat\models\User;
+use EasyWeChat\Payment\Payment;
 use yii;
 use app\modules\memorial\models\Memorial;
 use yii\web\NotFoundHttpException;
 use app\modules\blog\models\BlogSearch;
+use EasyWeChat\Foundation\Application;
+use EasyWeChat\Payment\Order as WechatOrder;
 
 use Endroid\QrCode\QrCode;
 class HallController extends Controller
@@ -332,10 +336,10 @@ class HallController extends Controller
     public function actionCandleFlower($id)
     {
         $model = new Pray();
+        $model->memorial_id = $id;
 
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->id;
-            $model->memorial_id = $id;
 
             if ($model->save() !== false) {
                 return $this->json();
@@ -367,15 +371,48 @@ class HallController extends Controller
         ]);
     }
 
-    public function actionQrGoods($id, $sku_id, $num)
+    /**
+     * @name 设置购买参数
+     */
+    public function actionSet($mid, $gid)
+    {
+        $goods = Goods::findOne($gid);
+        $set = new OrderForm();
+        $set->use_time = date('Y-m-d', strtotime('+1 day'));
+        return $this->renderAjax('set',[
+            'goods' => $goods,
+            'model' => $set,
+            'memorial_id' => $mid
+        ]);
+    }
+
+    public function actionQrGoods($id, $sku_id, $num, $use_time)
     {
 
         $memorial = $this->findModel($id);
 
-        $proid = $memorial->tomb_id .'.'.$sku_id . '.' .$num;
+        $proid = $memorial->tomb_id .'.'.$sku_id . '.' .$num . '.' . $use_time;
 
 
-        $url = Url::toRoute(['order', 'proid'=>$proid], false);
+        $wechat_cfg = Yii::$app->params['wechat']['wx'];
+
+        $oAttr = [
+            'product_id' =>$proid,
+            'appid' => 'wxc90847ac1a02b8a3',//$wechat_cfg['appid'],
+            'mch_id' => '1458026302',
+            'time_stamp' => time(),
+            'nonce_str' => uniqid(),
+        ];
+        $key = '923556';
+
+        $sign = \EasyWeChat\Payment\generate_sign($oAttr, $key);
+
+        $oAttr['sign'] = $sign;
+
+
+
+        $url = Payment::SCHEME_PATH .'?'. http_build_query($oAttr);
+
 
         $qrCode = new QrCode($url);
 
@@ -392,24 +429,107 @@ class HallController extends Controller
      */
     public function actionOrder($proid)
     {
-        $pd = explode('_', $proid);
+//        $pd = explode('_', $proid);
+//
+//        $tomb_id = $pd[0];
+//        $sku_id = $pd[1];
+//        $num = $pd[2];
+//        $use_time = $pd[3];
+//
+//        $sku = Sku::findOne($sku_id);
+//
+//        $openid = '';
+//
+//        $wuser = User::findOne($openid);
+//
+//        $extra = [
+//            'type' => Order::TYPE_TOMB,
+//            'tid' => $tomb_id,
+//            'num' => $pd[2],
+//            'use_time' => $pd[3]
+//        ];
+//
+//        $oinfo = $sku->order($wuser->user_id, $extra);
 
-        $tomb_id = $pd[0];
-        $sku_id = $pd[1];
-        $sku = Sku::findOne($sku_id);
+        $oAttr = [
+            'a' =>1,
+            'b' => 2,
+            'c' => 'abc'
+        ];
+        $key = 1;
 
-        $openid = '';
+        $sign = \EasyWeChat\Payment\generate_sign($oAttr, $key);
 
-        $wuser = User::findOne($openid);
+        $url = Payment::SCHEME_PATH;//
 
-        $extra = [
-            'type' => Order::TYPE_TOMB,
-            'tid' => $tomb_id,
-            'num' => $pd[2]
+
+//        weixin：//wxpay/bizpayurl?sign=XXXXX&appid=XXXXX&mch_id=XXXXX&product_id=XXXXXX&time_stamp=XXXXXX&nonce_str=XXXXX
+
+
+
+        $arr = [
+            'sign' => $sign,
+            'appid' => 1,
+            'mch_id' => 2,
+            'product_id' =>12,
+            'time_stamp' => time(),
+            'nonce_str' =>uniqid()
         ];
 
-        $sku->order($wuser->user_id, $extra, $res_name='', $res_id=0);
+        $url = $url .'?'. http_build_query($arr);
+        echo $url;die;
 
+        echo $sign;
+        die;
+
+
+        $options = [
+            // 前面的appid什么的也得保留哦
+            'app_id' => 'xxxx',
+            // ...
+            // payment
+            'payment' => [
+                'merchant_id'        => 'your-mch-id',
+                'key'                => 'key-for-signature',
+                'cert_path'          => 'path/to/your/cert.pem', // XXX: 绝对路径！！！！
+                'key_path'           => 'path/to/your/key',      // XXX: 绝对路径！！！！
+                'notify_url'         => '默认的订单回调地址',       // 你也可以在下单时单独设置来想覆盖它
+                // 'device_info'     => '013467007045764',
+                // 'sub_app_id'      => '',
+                // 'sub_merchant_id' => '',
+                // ...
+            ],
+        ];
+        $app = new Application($options);
+
+        $userService = $app->user;
+
+
+        $payment = $app->payment;
+
+        $attributes = [
+            'trade_type'       => 'JSAPI', // JSAPI，NATIVE，APP...
+            'body'             => 'iPad mini 16G 白色',
+            'detail'           => 'iPad mini 16G 白色',
+            'out_trade_no'     => '1217752501201407033233368018',
+            'total_fee'        => 5388, // 单位：分
+            'notify_url'       => 'http://xxx.com/order-notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'openid'           => '当前用户的 openid', // trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识，
+            // ...
+        ];
+
+        $order = new WechatOrder($attributes);
+
+
+
+
+
+
+
+        $result = $payment->prepare($order);
+        if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
+            $prepayId = $result->prepay_id;
+        }
         //接下来使用统一下单接口
     }
 

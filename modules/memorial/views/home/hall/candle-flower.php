@@ -59,13 +59,20 @@ $(function(){
         $('.input-type').val(type);
     });
 
-    $('.1sbtn-save').click(function (e) {
+    $('.btn-save').click(function (e) {
         e.preventDefault();
+        var type = $(this).closest('form').find('.input-type').val();
+
+        if (type == '') {
+            alert('您好，请先选择一个小礼物');
+            return;
+        }
 
         var data = $(this).closest('form').serialize();
 
         $.post('<?=Url::toRoute(['candle-flower','id'=>$model->memorial_id])?>',data,function (xhr) {
             if (xhr.status) {
+                alert('您好，您的祝福已成功');
                 location.reload();
                 //$('#modalAdd').modal('hide');
             } else {

@@ -10,6 +10,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 \app\assets\SwiperAsset::register($this);
 \app\assets\ModalAsset::register($this);
 \app\assets\FontawesomeAsset::register($this);
+\app\assets\JqueryuiAsset::register($this);
 ?>
 <style>
     .uinfo{
@@ -38,6 +39,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
         color:#666;
         font-size:12px;
     }
+
 </style>
 <div class="container memorial-container">
     <?php
@@ -66,105 +68,113 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
     Modal::end();
     ?>
     <div class="row">
-        <div class="col-md-3 aside-box">
-            <div class="remote">
-                <ul class="media-list">
-                    <li class="video">
-                        <a href="#">
-                            <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                        </a>
-                        <div class="img-intro">远程祭祀的一些描述 </div>
-                        <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                    </li>
-                    <li class="video">
-                        <a href="#">
-                            <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                        </a>
-                        <div class="img-intro">远程祭祀的一些描述 </div>
-                        <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                    </li>
-                    <li class="video">
-                        <a href="#">
-                            <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                        </a>
-                        <div class="img-intro">远程祭祀的一些描述 </div>
-                        <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                    </li>
-                    <li class="video">
-                        <a href="#">
-                            <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                        </a>
-                        <div class="img-intro">远程祭祀的一些描述 </div>
-                        <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                    </li>
-                    <li class="video">
-                        <a href="#">
-                            <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                        </a>
-                        <div class="img-intro">远程祭祀的一些描述 </div>
-                        <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                    </li>
-                    <li class="video">
-                        <a href="#">
-                            <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                        </a>
-                        <div class="img-intro">远程祭祀的一些描述 </div>
-                        <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                    </li>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-8 info pull-right">
 
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="col-md-6 info">
-
-            <div class="avatar">
-                <img width="180" height="180" src="<?=$memorial->getThumbImg('160x160')?>" alt="">
-            </div>
-            <h2 class="h2"><?=$memorial->title?></h2>
-
-            <?php if ($memorial->deads):?>
-                <?php foreach ($memorial->deads as $v):?>
-                    <div class="personal-info-time">
-                      <span class="dead"><?=$v->dead_name?></span>  出生：<?=$v->birth?>
-                        <span class="death-time">离世：<?=$v->fete?></span>
+                    <div class="avatar">
+                        <img width="180" height="180" src="<?=$memorial->getThumbImg('160x160')?>" alt="">
                     </div>
-                <?php endforeach;?>
-            <?php endif;?>
-            <hr>
+                    <h2 class="h2"><?=$memorial->title?></h2>
 
-            <div class="intro">
-                <?=$memorial->intro?>
+                    <?php if ($memorial->deads):?>
+                        <?php foreach ($memorial->deads as $v):?>
+                            <div class="personal-info-time">
+                                <span class="dead"><?=$v->dead_name?></span>  出生：<?=$v->birth?>
+                                <span class="death-time">离世：<?=$v->fete?></span>
+                            </div>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                    <hr>
+
+                    <div class="intro">
+                        <?=$memorial->intro?>
+                    </div>
+                    <div class="btns">
+
+                        <a href="<?=Url::toRoute(['remote','mid'=>$memorial->id])?>"
+                           class="modalEditButton btn btn-default pull-left"
+                           data-loading-text="页面加载中, 请稍后..."
+                           onclick="return false"
+                        >远程祭祀</a>
+
+                        <a href="<?=Url::to(['candle-flower', 'id'=>$memorial->id])?>"
+                           class="modalAddButton btn btn-default pull-right"
+                           data-loading-text="页面加载中, 请稍后..."
+                           onclick="return false"
+                        >点烛献花</a>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <hr>
+                    <div class="tracks">
+                        <?php foreach ($tracks as $track):?>
+                            <a href="javascript:void(0)">
+                                <img src="<?=$track->user->getAvatar('46x46')?>" width="40" height="40" title="<?=$track->user->username?>">
+                            </a>
+                        <?php endforeach;?>
+                    </div>
+
+                </div>
+                <div class="col-md-4 aside-box pull-left">
+                    <div class="remote">
+                        <ul class="media-list">
+                            <li class="video">
+                                <a href="#">
+                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
+                                </a>
+                                <div class="img-intro">远程祭祀的一些描述 </div>
+                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
+                            </li>
+                            <li class="video">
+                                <a href="#">
+                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
+                                </a>
+                                <div class="img-intro">远程祭祀的一些描述 </div>
+                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
+                            </li>
+                            <li class="video">
+                                <a href="#">
+                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
+                                </a>
+                                <div class="img-intro">远程祭祀的一些描述 </div>
+                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
+                            </li>
+                            <li class="video">
+                                <a href="#">
+                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
+                                </a>
+                                <div class="img-intro">远程祭祀的一些描述 </div>
+                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
+                            </li>
+                            <li class="video">
+                                <a href="#">
+                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
+                                </a>
+                                <div class="img-intro">远程祭祀的一些描述 </div>
+                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
+                            </li>
+                            <li class="video">
+                                <a href="#">
+                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
+                                </a>
+                                <div class="img-intro">远程祭祀的一些描述 </div>
+                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
-            <div class="btns">
-
-                <a href="<?=Url::toRoute(['remote','mid'=>$memorial->id])?>"
-                   class="modalEditButton btn btn-default pull-left"
-                   data-loading-text="页面加载中, 请稍后..."
-                   onclick="return false"
-                >远程祭祀</a>
-
-                <a href="<?=Url::to(['candle-flower', 'id'=>$memorial->id])?>" class="btn btn-default pull-right modalAddButton"
-                   data-loading-text="页面加载中, 请稍后..." onclick="return false"
-                >点烛献花</a>
-                <div class="clearfix"></div>
-            </div>
-            <hr>
-            <div class="tracks">
-                <?php foreach ($tracks as $track):?>
-                <a href="javascript:void(0)">
-                    <img src="<?=$track->user->getAvatar('46x46')?>" width="40" height="40" title="<?=$track->user->username?>">
-                </a>
-                <?php endforeach;?>
-            </div>
-
         </div>
+
+
         <div class="col-md-3 aside-box">
             <div class="flower">
                 <ul class="media-list pray">
                     <?php
                     $cfg = $this->context->module->params['memorial_types'];
-
                     ?>
                     <?php foreach ($prays as $pray):?>
                     <li class="media">

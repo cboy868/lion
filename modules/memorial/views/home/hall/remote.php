@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
+\app\assets\ModalAsset::register($this);
 ?>
 <style>
 
@@ -77,10 +79,10 @@ use yii\helpers\Url;
     .goods-container{
         background: #fff;
     }
-    .btns{
+    .s-btns{
         margin:5px 5px 5px auto;
     }
-    .btns a{
+    .s-btns a{
         position: absolute;
         bottom: 10px;
         right: 10px;
@@ -94,7 +96,18 @@ use yii\helpers\Url;
 
 </style>
 <div class="goods-container">
+    <?php
+    Modal::begin([
+        'header' => '购买参数设置',
+        'closeButton' =>false,
+        'id' => 'modalSet',
+        'clientOptions' => ['backdrop' => 'static', 'show' => false],
+    ]) ;
 
+    echo '<div id="setContent"></div>';
+
+    Modal::end();
+    ?>
     <div class="row goods-box">
         <div class="col-md-12">
             <div class="note">
@@ -143,29 +156,13 @@ use yii\helpers\Url;
                                         <p>原价: <span><?=$g->original_price?></span></p>
                                         <p>现价: <span><?=$g->price?></span></p>
                                         <p>时间: <span><?=$g->days?>天</span></p>
-                                        <?php if (count($g->sku)>1):?>
-                                        <p>规格:
-                                            <select class="sku_id">
-                                                <?php foreach ($g->sku as $sku):?>
-                                                <option value="<?=$sku->id?>"><?=$sku->name?></option>
-                                                <?php endforeach;?>
-                                            </select>
-                                        </p>
-                                        <?php else:?>
-                                            <input type="hidden" value="<?=$g->sku[0]->id?>" class="sku_id">
-                                        <?php endif;?>
-                                        <p>
-                                            数量:
-                                            <span>
-                                                <input type="number" style="width: 50px;" value="1" class="num">
-                                            </span>
-                                        </p>
                                     </div>
-                                    <div class="btns">
-                                        <a tabindex="0" class="btn btn-xs btn-danger pull-right s2"
+                                    <div class="s-btns">
+                                        <a href="<?=Url::toRoute(['set','mid'=>$memorial_id,'gid'=>$g->id])?>"
+                                           class="btn btn-xs btn-danger pull-right modalSetButton"
                                            role="button"
-                                           data-toggle="popover"
-                                           data-trigger="focus"
+                                           data-loading-text="加载中, 请稍后..."
+                                           onclick="return false"
                                            data-sku_id=<?=$g->id?>
                                            >购买</a>
                                     </div>
@@ -184,18 +181,16 @@ use yii\helpers\Url;
 </div>
 <?php $this->beginBlock('cate') ?>
 $(function(){
-    $('.s2').popover({
-        title:'微信扫码支付',
-        content:function(){
 
-            var sku_id = $(this).closest('.item').find('.sku_id').val();
-            var num = $(this).closest('.item').find('.num').val();
-            var url = "<?=Url::toRoute(['qr-goods','id'=>$memorial_id])?>&sku_id="+sku_id+"&num="+num;
-            return '<img src="'+url+'" alt="扫码支付" style="width:160px; height: 160px;">';
-        },
-        html: 'true',
+    $('.modalSetButton').click(function(e){
+        e.preventDefault();
+        var btn = $(this).button('loading');
+        $('#modalSet').find('#setContent')
+            .load($(this).attr('href'),function(){
+                $('#modalSet').modal('show');
+                btn.button('reset');
+            });
     });
-
 })
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>
