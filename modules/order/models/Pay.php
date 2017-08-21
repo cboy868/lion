@@ -29,6 +29,7 @@ class Pay extends \app\core\db\ActiveRecord
 {
     const STATUS_NORMAL = 1;
     const STATUS_DEL = -1;
+    const STATUS_FAIL = -2;//用户支付失败
 
     const METHOD_UNKNOWN = 0;
     const METHOS_CASH = 1;

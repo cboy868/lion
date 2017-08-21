@@ -507,7 +507,36 @@ class HallController extends Controller
 
     public function actionNotify()
     {
+        $option = $this->getOptions();
 
+        $app = new Application($option);
+
+        $response = $app->payment->handleNotify(function($notify, $successful){
+            // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
+
+
+            $pay = Pay::find()->where(['order_no'=>$notify->out_trade_no])->one();
+
+
+            if (!$pay) { // 支付记录不存在
+                return 'Order not exist.'; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
+            }
+            // 如果订单存在
+            // 检查订单是否已经更新过支付状态
+            if ($pay->pay_result == Pay::RESULT_FINISH) {
+                return true; // 已经支付成功了就不再更新了
+            }
+            // 用户是否支付成功
+            if ($successful) {
+                $pay->pay(Pay::METHOD_WECHAT, $notify->total_fee);
+            } else { // 用户支付失败
+                $pay->status = Pay::STATUS_FAIL;
+                $pay->save();
+            }
+            return true; // 返回处理完成
+        });
+
+        return $response;
     }
 
 
