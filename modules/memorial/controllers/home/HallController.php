@@ -47,7 +47,7 @@ class HallController extends Controller
     public function beforeAction($action) {
 
         $currentaction = $action->id;
-        $novalidactions = ['order'];
+        $novalidactions = ['order','notify'];
 
         if(in_array($currentaction,$novalidactions)) {
 
