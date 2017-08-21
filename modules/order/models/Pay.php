@@ -245,7 +245,7 @@ class Pay extends \app\core\db\ActiveRecord
 
     // }
 
-    public function pay($pay_method, $pay_price)
+    public function pay($pay_method, $pay_price, $trade_no=0)
     {
 
         if ($this->status == self::STATUS_DEL || $this->pay_result != self::RESULT_INIT) {
@@ -256,20 +256,17 @@ class Pay extends \app\core\db\ActiveRecord
         $this->total_pay  = $pay_price;
         $this->paid_at    = date('Y-m-d H:i:s');
         $this->pay_result = self::RESULT_FINISH;
+        $this->trade_no = $trade_no;
 
         if (!$this->save()) {
             return false;
         }
-
-        Yii::error($this);
 
         if ($this->total_fee > $this->total_pay) {
             $progress = 1;
         } else {
             $progress = 2;
         }
-
-        Yii::error($progress);
 
         $event = new PayEvent(['progress' => $progress == 1 ? Order::PRO_PART : Order::PRO_PAY]);
         

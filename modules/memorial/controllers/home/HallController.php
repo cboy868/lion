@@ -514,14 +514,12 @@ class HallController extends Controller
         $response = $app->payment->handleNotify(function($notify, $successful){
             // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
 
-Yii::error($notify);
             $pay = Pay::find()->where(['order_no'=>$notify->out_trade_no])->one();
 
 
             if (!$pay) { // 支付记录不存在
                 return 'Order not exist.'; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
             }
-            Yii::error($pay);
             // 如果订单存在
             // 检查订单是否已经更新过支付状态
             if ($pay->pay_result == Pay::RESULT_FINISH) {
@@ -529,7 +527,8 @@ Yii::error($notify);
             }
             // 用户是否支付成功
             if ($successful) {
-                $pay->pay(Pay::METHOD_WECHAT, $notify->total_fee);
+                $pay->on(Pay::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
+                $pay->pay(Pay::METHOD_WECHAT, $notify->total_fee, $notify->transaction_id);
             } else { // 用户支付失败
                 $pay->status = Pay::STATUS_FAIL;
                 $pay->save();
