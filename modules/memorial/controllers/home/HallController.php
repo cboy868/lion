@@ -424,6 +424,8 @@ class HallController extends Controller
 
         $payment = $app->payment;
 
+        Yii::error($payment, __METHOD__);
+
         $payment->handleScanNotify(function($pro_id,$openid) use ($payment){
             $arr = explode('.', $pro_id);
             $sku_id = $arr[1];
@@ -438,7 +440,7 @@ class HallController extends Controller
             $oInfo = $sku->order($tomb->user_id, $extra);
             if (!$oInfo) {
                 Yii::error($pro_id.'订单创建失败',__METHOD__);
-                return;
+                return false;
             }
             $rel = $oInfo['rel'];
             $order = $oInfo['order'];
