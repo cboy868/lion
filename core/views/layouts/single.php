@@ -17,7 +17,7 @@ AdminAsset::register($this);
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <?=Html::csrfMetaTags()?>
         
-        <title><?=Html::encode($this->title)?> 后台管理</title>
+        <title><?=Html::encode($this->title)?></title>
         <?php $this->head()?>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -73,8 +73,7 @@ AdminAsset::register($this);
                     <!-- #section:basics/navbar.layout.brand -->
                     <a href="#" class="navbar-brand">
                         <small>
-                            <i class="fa fa-leaf"></i>
-                            <?=Html::encode($this->title)?> 卓迅网络管理中心
+                            <?=Html::encode($this->title)?>
                         </small>
                     </a>
 

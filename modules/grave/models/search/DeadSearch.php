@@ -43,7 +43,7 @@ class DeadSearch extends Dead
     public function search($params)
     {
 
-        $query = Dead::find();
+        $query = Dead::find()->andWhere(['<>', 'tomb_id', 0]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -80,7 +80,6 @@ class DeadSearch extends Dead
                 'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
             ]);
         }
-
         $query->andFilterWhere(['like', 'dead_name', trim($this->dead_name)])
             ->andFilterWhere(['like', 'second_name', $this->second_name])
             ->andFilterWhere(['like', 'dead_title', $this->dead_title])

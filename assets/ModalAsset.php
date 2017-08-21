@@ -18,7 +18,7 @@ class ModalAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $js = [
-        'static/site/site.js'
+//        'static/site/site.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

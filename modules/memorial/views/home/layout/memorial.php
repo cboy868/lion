@@ -3,7 +3,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\modules\user\models\Track;
 use app\modules\memorial\models\Memorial;
-
 \app\modules\memorial\assets\HallAsset::register($this);
 
 ?>
@@ -69,10 +68,24 @@ use app\modules\memorial\models\Memorial;
                         -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="display:block">
-                    <li><a href="#"><i class="navIcon user"></i>登录</a></li>
-                    <li><a href="#"><i class="navIcon register"></i>注册</a></li>
+
+                    <?php if (Yii::$app->user->isGuest):?>
+                    <li><a href="<?=Url::toRoute(['/member/default/login'])?>"><i class="navIcon user"></i>登录</a></li>
+                    <li><a href="<?=Url::toRoute(['/member/default/reg'])?>"><i class="navIcon register"></i>注册</a></li>
+                    <?php else:?>
+                        <li><a href="<?=Url::toRoute(['/member'])?>"><i class="navIcon user"></i>个人中心</a></li>
+                        <li>
+                            <a href="<?=Url::toRoute(['/member/default/logout'])?>" data-method="post">
+                                <i class="ace-icon fa fa-power-off"></i>
+                                安全退出
+                            </a>
+                            </li>
+                    <?php endif;?>
                     <li class="dropdown">
-                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="http://www.5201000.com/Memorial/TT000000069#">
+                        <a aria-expanded="false" aria-haspopup="true"
+                           role="button" data-toggle="dropdown"
+                           class="dropdown-toggle"
+                           href="#">
                             <i class="navIcon snav"></i>网站导航 <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">

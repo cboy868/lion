@@ -24,7 +24,9 @@ class HallAsset extends AssetBundle
     ];
 
     public $depends = [
-        'app\modules\memorial\assets\BootstrapAsset'
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapPluginAsset'
+//        'app\modules\memorial\assets\BootstrapAsset'
     ];
 
 }

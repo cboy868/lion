@@ -63,6 +63,9 @@ class ForgetForm extends Model
         if ($this->validate()) {
 
             $user = $this->getUser();
+            if (!$user) {
+                return false;
+            }
 
             $token = new Token;
             $token->code = Yii::$app->security->generateRandomString();
@@ -71,8 +74,10 @@ class ForgetForm extends Model
 
             if ($token->save()) {
                 $url = Url::toRoute(['/member/user/default/token', 'code'=>$token->code], true);
-                $mailer = Yii::$app->mailer->compose('@app/core/views/mail/html');
-                $mailer->setTo($this->email)->setSubject('某某某公司找回密码')->setHtmlBody($this->note($url));
+
+                $mailer = Yii::$app->mailer->compose('@app/core/views/mail/layout', ['content'=>$this->note($url)]);
+
+                $mailer->setTo($this->email)->setSubject('某某某公司找回密码');
                 if ($mailer->send()) {
                     return $token;
                 };

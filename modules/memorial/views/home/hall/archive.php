@@ -1,5 +1,5 @@
 <?php
-$this->params['current_nav'] = 'achive';
+$this->params['current_nav'] = 'archive';
 $mem = Yii::$app->getAssetManager()->publish(Yii::getAlias('@app/modules/memorial/static/hall'));
 $this->registerCssFile($mem[1] . '/css/relist.css');
 ?>

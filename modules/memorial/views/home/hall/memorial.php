@@ -257,6 +257,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                 <a href="<?=Url::toRoute(['msg','id'=>$memorial->id])?>" target="_blank">更多祝福</a>
             </div>
 
+            <?php if (!Yii::$app->user->isGuest):?>
             <div class="msg-form">
                 <?php $form = ActiveForm::begin(); ?>
 
@@ -286,6 +287,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 
                 <?php ActiveForm::end(); ?>
             </div>
+            <?php endif;?>
 
 
 

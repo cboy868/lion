@@ -50,15 +50,20 @@ class DefaultController extends \app\core\web\MemberController
      */
     public function actionForget()
     {
+        $this->layout = "@app/core/views/layouts/single.php";
         $model = new ForgetForm();
-        if ($model->load(Yii::$app->request->post()) && $model->create()) {
-            Yii::$app->getSession()->setFlash('success', '已发送修改密码连接至您的邮箱，请及时修改');
-            return $this->goBack();
-        } else {
-            return $this->render('forget', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->create()) {
+                Yii::$app->getSession()->setFlash('success', '已发送修改密码连接至您的邮箱，请及时修改');
+            } else {
+                Yii::$app->getSession()->setFlash('error', '邮箱不存在，请重试');
+            }
+
         }
+        return $this->render('forget', [
+            'model' => $model,
+        ]);
     }
 
     // public function actionSuccess()
@@ -76,6 +81,7 @@ class DefaultController extends \app\core\web\MemberController
      */
     public function actionConfirm($code)
     {
+        $this->layout = "@app/core/views/layouts/single.php";
         $model = Token::find()->where(['code'=>$code, 'type'=>Token::TYPE_REGISTER])->one();
 
         if (!$model) {
@@ -95,7 +101,7 @@ class DefaultController extends \app\core\web\MemberController
             $outerTransaction->commit();
 
             return $this->redirect(['/member/default/login']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new NotFoundHttpException($e->getMessage(), 1);
             $outerTransaction->rollBack();
         }
@@ -107,6 +113,7 @@ class DefaultController extends \app\core\web\MemberController
      */
     public function actionToken($code)
     {
+        $this->layout = "@app/core/views/layouts/single.php";
         $model = Token::find()->where(['code'=>$code, 'type'=>Token::TYPE_RESET])->one();
 
         //不能为空
