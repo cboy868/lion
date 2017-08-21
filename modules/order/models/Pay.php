@@ -261,11 +261,15 @@ class Pay extends \app\core\db\ActiveRecord
             return false;
         }
 
+        Yii::error($this);
+
         if ($this->total_fee > $this->total_pay) {
             $progress = 1;
         } else {
             $progress = 2;
         }
+
+        Yii::error($progress);
 
         $event = new PayEvent(['progress' => $progress == 1 ? Order::PRO_PART : Order::PRO_PAY]);
         
