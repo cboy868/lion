@@ -147,7 +147,6 @@ class Payment
                 'prepay_id' => strval($prepayId),
                 'result_code' => 'SUCCESS',
             ];
-            \Yii::error($response, __METHOD__);
             $response['sign'] = generate_sign($response, $this->merchant->key);
         } catch (\Exception $e) {
             $response = [

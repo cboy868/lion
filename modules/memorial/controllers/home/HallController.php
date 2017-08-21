@@ -438,8 +438,6 @@ class HallController extends Controller
 
         $payment = $app->payment;
 
-        Yii::error($payment, __METHOD__);
-
         $payment->handleScanNotify(function($pro_id,$openid) use ($payment){
             $arr = explode('.', $pro_id);
             $sku_id = $arr[1];
@@ -475,6 +473,8 @@ class HallController extends Controller
             ];
             $order = new WechatOrder($attr);
             $result = $payment->prepare($order);
+
+Yii::error($result);
             if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
                 return $result->prepay_id;
             }
