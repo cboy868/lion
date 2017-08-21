@@ -1,5 +1,4 @@
 <?php
-
 $setting = require(__DIR__ . '/setting.php');
 $thumb = require(__DIR__ . '/thumb.php');
 $goods = require(__DIR__ . '/goods.php');
@@ -29,6 +28,13 @@ $params = [
             'appid' => 'wxa49d94dde698d291',
             'appsecret' => 'db9f2d31ee80a622568d7f6eab3649c8',
             'token' => 'lion',
+        ],
+        'payment' => [
+            'merchant_id'   => '1487057712',
+            'key'           => '886296',
+//            'cert_path'     => Yii::getAlias('@app/web/static/cert/apiclient_cert.pem'),//'path/to/your/cert.pem', // XXX: 绝对路径！！！！
+//            'key_path'      => Yii::getAlias('@app/web/static/cert/apiclient_key.pem'),//'path/to/your/key',      // XXX: 绝对路径！！！！
+            'notify_url'    => '默认的订单回调地址',       // 你也可以在下单时单独设置来想覆盖它
         ]
     ],
     'sms' => [

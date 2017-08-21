@@ -12,8 +12,10 @@ use app\modules\blog\models\AlbumSearch;
 use app\modules\blog\models\Blog;
 use app\modules\cms\controllers\home\CommonController;
 use app\modules\grave\models\Order;
+use app\modules\grave\models\Tomb;
 use app\modules\memorial\models\OrderForm;
 use app\modules\memorial\models\Pray;
+use app\modules\order\models\Pay;
 use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
 use app\modules\shop\models\Sku;
@@ -393,26 +395,13 @@ class HallController extends Controller
 
         $proid = $memorial->tomb_id .'.'.$sku_id . '.' .$num . '.' . $use_time;
 
+        $option = $this->getOptions();
 
-        $wechat_cfg = Yii::$app->params['wechat']['wx'];
+        $app = new Application($option);
 
-        $oAttr = [
-            'product_id' =>$proid,
-            'appid' => 'wxc90847ac1a02b8a3',//$wechat_cfg['appid'],
-            'mch_id' => '1458026302',
-            'time_stamp' => time(),
-            'nonce_str' => uniqid(),
-        ];
-        $key = '923556';
+        $payment = $app->payment;
 
-        $sign = \EasyWeChat\Payment\generate_sign($oAttr, $key);
-
-        $oAttr['sign'] = $sign;
-
-
-
-        $url = Payment::SCHEME_PATH .'?'. http_build_query($oAttr);
-
+        $url = $payment->scheme($proid);
 
         $qrCode = new QrCode($url);
 
@@ -427,110 +416,80 @@ class HallController extends Controller
      * @param $proid
      * 微信扫码回调此方法生成订单
      */
-    public function actionOrder($proid)
+    public function actionOrder()
     {
-//        $pd = explode('_', $proid);
-//
-//        $tomb_id = $pd[0];
-//        $sku_id = $pd[1];
-//        $num = $pd[2];
-//        $use_time = $pd[3];
-//
-//        $sku = Sku::findOne($sku_id);
-//
-//        $openid = '';
-//
-//        $wuser = User::findOne($openid);
-//
-//        $extra = [
-//            'type' => Order::TYPE_TOMB,
-//            'tid' => $tomb_id,
-//            'num' => $pd[2],
-//            'use_time' => $pd[3]
-//        ];
-//
-//        $oinfo = $sku->order($wuser->user_id, $extra);
+        $option = $this->getOptions();
 
-        $oAttr = [
-            'a' =>1,
-            'b' => 2,
-            'c' => 'abc'
-        ];
-        $key = 1;
-
-        $sign = \EasyWeChat\Payment\generate_sign($oAttr, $key);
-
-        $url = Payment::SCHEME_PATH;//
-
-
-//        weixin：//wxpay/bizpayurl?sign=XXXXX&appid=XXXXX&mch_id=XXXXX&product_id=XXXXXX&time_stamp=XXXXXX&nonce_str=XXXXX
-
-
-
-        $arr = [
-            'sign' => $sign,
-            'appid' => 1,
-            'mch_id' => 2,
-            'product_id' =>12,
-            'time_stamp' => time(),
-            'nonce_str' =>uniqid()
-        ];
-
-        $url = $url .'?'. http_build_query($arr);
-        echo $url;die;
-
-        echo $sign;
-        die;
-
-
-        $options = [
-            // 前面的appid什么的也得保留哦
-            'app_id' => 'xxxx',
-            // ...
-            // payment
-            'payment' => [
-                'merchant_id'        => 'your-mch-id',
-                'key'                => 'key-for-signature',
-                'cert_path'          => 'path/to/your/cert.pem', // XXX: 绝对路径！！！！
-                'key_path'           => 'path/to/your/key',      // XXX: 绝对路径！！！！
-                'notify_url'         => '默认的订单回调地址',       // 你也可以在下单时单独设置来想覆盖它
-                // 'device_info'     => '013467007045764',
-                // 'sub_app_id'      => '',
-                // 'sub_merchant_id' => '',
-                // ...
-            ],
-        ];
-        $app = new Application($options);
-
-        $userService = $app->user;
-
+        $app = new Application($option);
 
         $payment = $app->payment;
 
-        $attributes = [
-            'trade_type'       => 'JSAPI', // JSAPI，NATIVE，APP...
-            'body'             => 'iPad mini 16G 白色',
-            'detail'           => 'iPad mini 16G 白色',
-            'out_trade_no'     => '1217752501201407033233368018',
-            'total_fee'        => 5388, // 单位：分
-            'notify_url'       => 'http://xxx.com/order-notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
-            'openid'           => '当前用户的 openid', // trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识，
-            // ...
+        $payment->handleScanNotify(function($pro_id,$openid) use ($payment){
+            $arr = explode('.', $pro_id);
+            $sku_id = $arr[1];
+            $sku = Sku::findOne($sku_id);
+            $extra = [
+                'tid' => $arr[0],
+                'num' => $arr[2],
+                'use_time' => $arr[3]
+            ];
+            $tomb = Tomb::findOne($arr[0]);
+
+            $oInfo = $sku->order($tomb->user_id, $extra);
+            if (!$oInfo) {
+                Yii::error($pro_id.'订单创建失败',__METHOD__);
+                return;
+            }
+            $rel = $oInfo['rel'];
+            $order = $oInfo['order'];
+
+            $pay = Pay::create($order);
+
+            if (!$pay) {
+                Yii::error('订单'.$order->id.'创建支付记录失败',__METHOD__);
+                return false;
+            }
+            $attr = [
+                'trade_type' => 'NATIVE',
+                'body' => $rel->title,
+                'detail' => $rel->title,
+                'out_trade_no'     => $pay->order_no,
+                'total_fee'        => $order->price,
+                'openid'           => $openid
+            ];
+            $order = new WechatOrder($attr);
+            $result = $payment->prepare($order);
+            if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
+                return $result->prepay_id;
+            }
+        });
+    }
+    private function getOptions()
+    {
+        $params  = Yii::$app->getModule('wechat')->params;
+
+        $options = [
+            'debug'  => $params['debug'],
+            'log' => $params['log'],
+            'app_id' => $params['wx']['appid'],
+            'secret' => $params['wx']['appsecret'],
+            'token' => $params['wx']['token'],
+            'payment' => [
+                'merchant_id'        => $params['payment']['merchant_id'],
+                'key'                => $params['payment']['key'],
+                'cert_path'          => $params['payment']['cert_path'], // XXX: 绝对路径！！！！
+                'key_path'           => $params['payment']['key_path'],      // XXX: 绝对路径！！！！
+                'notify_url'         => $params['payment']['notify_url'],       // 你也可以在下单时单独设置来想覆盖它
+            ],
         ];
 
-        $order = new WechatOrder($attributes);
 
+        return $options;
+    }
 
+    public function actionNotify()
+    {
 
-
-
-
-
-        $result = $payment->prepare($order);
-        if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
-            $prepayId = $result->prepay_id;
-        }
-        //接下来使用统一下单接口
     }
 
 
@@ -547,6 +506,7 @@ class HallController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 
 
 
