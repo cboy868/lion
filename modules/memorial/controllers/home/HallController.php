@@ -438,7 +438,7 @@ class HallController extends Controller
 
         $payment = $app->payment;
 
-        return $payment->handleScanNotify(function($pro_id,$openid) use ($payment){
+        $response = $payment->handleScanNotify(function($pro_id,$openid) use ($payment){
             $arr = explode('.', $pro_id);
             $sku_id = $arr[1];
             $sku = Sku::findOne($sku_id);
@@ -480,6 +480,8 @@ class HallController extends Controller
 
             return false;
         });
+
+        $response->send();
 
     }
     private function getOptions()
