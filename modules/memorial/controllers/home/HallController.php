@@ -474,8 +474,9 @@ class HallController extends Controller
             $order = new WechatOrder($attr);
             $result = $payment->prepare($order);
 
-Yii::error($result);
             if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
+                Yii::error($result,__METHOD__);
+                Yii::error($result->prepay_id,__METHOD__);
                 return $result->prepay_id;
             }
         });
