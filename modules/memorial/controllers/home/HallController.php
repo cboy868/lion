@@ -470,7 +470,7 @@ class HallController extends Controller
                 'body' => $rel->title,
                 'detail' => $rel->title,
                 'out_trade_no'     => $pay->order_no,
-                'total_fee'        => $order->price,
+                'total_fee'        => $order->price * 100,
                 'openid'           => $openid
             ];
             $order = new WechatOrder($attr);
