@@ -139,6 +139,7 @@ class Payment
 
         try {
             $prepayId = call_user_func_array($callback, [$notify->get('product_id'), $notify->get('openid'), $notify]);
+            \Yii::error($prepayId, __METHOD__);
             $response = [
                 'return_code' => 'SUCCESS',
                 'appid' => $this->merchant->app_id,
