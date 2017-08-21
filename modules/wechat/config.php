@@ -19,7 +19,7 @@ return [
         ],
         'payment' => [
             'merchant_id'        => '1487057712',
-            'key'                => '886296',
+            'key'                => 'ba8c8eef2ce4a75eb264485baabbf6ae',
             'cert_path'     => Yii::getAlias('@app/web/static/cert/apiclient_cert.pem'),//'path/to/your/cert.pem', // XXX: 绝对路径！！！！
             'key_path'      => Yii::getAlias('@app/web/static/cert/apiclient_key.pem'),//'path/to/your/key',
             'notify_url'    => Url::toRoute('/memorial/home/hall/notify')
