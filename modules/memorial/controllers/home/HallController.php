@@ -44,6 +44,20 @@ class HallController extends Controller
         ];
     }
 
+    public function beforeAction($action) {
+
+        $currentaction = $action->id;
+        $novalidactions = ['order'];
+
+        if(in_array($currentaction,$novalidactions)) {
+
+            $action->controller->enableCsrfValidation = false;
+
+        }
+        parent::beforeAction($action);
+        return true;
+    }
+
     public function actionIndex($id)
     {
 
