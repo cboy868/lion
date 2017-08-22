@@ -87,8 +87,6 @@ class Remote extends \app\core\db\ActiveRecord
     {
         $rel = OrderRel::findOne($order_rel_id);
         $goods = $rel->goods;
-        Yii::error($rel);
-        Yii::error($goods);
 
         $memorial = Memorial::find()->where(['tomb_id'=>$rel->tid])->one();
 
@@ -104,16 +102,12 @@ class Remote extends \app\core\db\ActiveRecord
             'price' => $rel->price,
         ];
 
-        Yii::error($data);
-
         $model = new self();
         $model->load($data, '');
 
         if ($model->save() !== false) {
             return $model;
         }
-
-        Yii::error($model->getErrors());
 
         return false;
     }

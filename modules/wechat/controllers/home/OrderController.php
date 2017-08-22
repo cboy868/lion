@@ -117,7 +117,6 @@ class OrderController extends \app\core\web\HomeController
 
             $pay = Pay::find()->where(['order_no'=>$notify->out_trade_no])->one();
 
-
             if (!$pay) { // 支付记录不存在
                 return 'Order not exist.'; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
             }

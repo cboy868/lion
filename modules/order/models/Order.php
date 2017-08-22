@@ -86,7 +86,7 @@ class Order extends \app\core\db\ActiveRecord
         }
 
         //如果支付完成,发任务
-        if ($event->progress ==  self::PRO_PAY || $event->progress == self::PRO_OK) {
+        if ($event->progress == self::PRO_PAY || $event->progress == self::PRO_OK) {
             if ($this->tid) {
                 \app\modules\grave\models\Tomb::afterPay($this->tid, $this->id);
                 \app\modules\task\models\Task::create($this->id, 'tomb', $this->tid);
@@ -98,7 +98,6 @@ class Order extends \app\core\db\ActiveRecord
             //判断是否是纪念馆的远程祭祀
             if ($this->type == self::TYPE_MEMORIAL) {
                 foreach ($this->rels as $k => $rel) {
-                    Yii::error($rel,__METHOD__);
                     Remote::create($rel->id);
                 }
 
