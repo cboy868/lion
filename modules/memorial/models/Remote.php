@@ -28,6 +28,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class Remote extends \app\core\db\ActiveRecord
 {
+
+    const STATUS_PAY = 1;//支付完成
+    const STATUS_OK = 2;//视频上传完成
+
     /**
      * @inheritdoc
      */
