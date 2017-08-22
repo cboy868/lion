@@ -38,7 +38,7 @@ use yii\helpers\Url;
     </div>
 
     <?php ActiveForm::end(); ?>
-
+<div class="clearfix"></div>
 </div>
 
 
@@ -67,7 +67,7 @@ $(function(){
         var num = $('.gnum').val();
         var sku_id = $('.sku_id').val();
         var use_time = $('.use_time').val();
-        var src = "<?=Url::toRoute(['qr-goods','id'=>$memorial_id])?>&num="+num+"&sku_id="+sku_id+"&use_time="+use_time;
+        var src = "<?=Url::toRoute(['/wechat/home/order/qr-goods','tomb_id'=>$memorial->tomb_id])?>&num="+num+"&sku_id="+sku_id+"&use_time="+use_time;
         $('.img-code').attr('src', src);
     }
 
