@@ -92,14 +92,25 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                     </div>
                     <div class="btns">
 
+                        <?php if ($memorial->tomb_id):?>
                         <a href="<?=Url::toRoute(['remote','mid'=>$memorial->id])?>"
-                           class="modalEditButton btn btn-default pull-left"
+                           class="modalEditButton btn btn-default pull-left btn-danger"
                            data-loading-text="页面加载中, 请稍后..."
                            onclick="return false"
                         >远程祭祀</a>
+                        <?php else:?>
+                            <a href="javascript:;"
+                               class="btn btn-default pull-left notomb"
+                               role="button"
+                               data-toggle="popover"
+                               data-trigger="focus"
+                               title="远程祭祀提示"
+                               data-content="您好，只有安葬在本园的逝者所属纪念馆才有远程祭祀业务,如有特殊情况，请联系客服,谢谢您的使用"
+                            >远程祭祀</a>
+                        <?php endif;?>
 
                         <a href="<?=Url::to(['candle-flower', 'id'=>$memorial->id])?>"
-                           class="modalAddButton btn btn-default pull-right"
+                           class="modalAddButton btn btn-success pull-right"
                            data-loading-text="页面加载中, 请稍后..."
                            onclick="return false"
                         >点烛献花</a>
@@ -331,51 +342,11 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 
 <?php $this->beginBlock('cate') ?>
 
-    (function(){
-        function move(obj, speed){
-            var first = obj.children().eq(0);
-            first.slideUp(speed, function() {
-                obj.append(this);
-                $(this).show();
-            });
 
-        }
-        function scroll(obj, json){
-            var speed = json.speed || 1000,
-                interval = json.interval || 5000,
-                toStop = json.toStop || false,
-                timer = null;
-
-            if(toStop){
-                obj.hover(function(){
-                    clearInterval(timer);
-                },function(){
-                    autoPlay();
-                });
-            }
-
-            function autoPlay(){
-                timer = setInterval(function(){
-                    if (obj.is(':visible')) {
-                        move(obj, speed);
-                    }
-                }, interval);
-            }
-            autoPlay();
-
-        }
-        (!jQuery.autoScroll)&&(jQuery.autoScroll = scroll);
-    })();
 $(function(){
 
+    $('.notomb').popover();
 
-    $('ul.pray').each(function () {
-        $.autoScroll($(this), {
-            speed : 1000,
-            interval : 1000,
-            toStop : true //鼠标移入停止滚动 默认为 false
-        });
-    });
 
     $('.msg-send').click(function(e){
         e.preventDefault();

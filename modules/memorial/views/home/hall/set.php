@@ -26,6 +26,8 @@ use yii\helpers\Url;
                 'value'=>date("Y-m-d",strtotime('+1 day')),
                 'class' => 'form-control use_time'
         ]) ?>
+
+        <?= $form->field($model, 'note')->textArea(['class'=>'form-control gnote']) ?>
     </div>
 
     <div class="col-md-6">
@@ -33,7 +35,8 @@ use yii\helpers\Url;
         <img src="/static/images/loading.gif" alt="扫码支付" style="width:100%;" class="img-code">
     </div>
 
-    <div class="form-group">
+
+    <div class="form-group col-md-12">
             <?=  Html::submitButton('取 消', ['class' => 'btn btn-success closeModal']) ?>
     </div>
 
@@ -55,7 +58,7 @@ $(function(){
 
     initCode();
 
-    $('.gnum,.sku_id,.use_time').change(function (e) {
+    $('.gnum,.sku_id,.use_time,.gnote').change(function (e) {
         e.preventDefault();
 
         initCode();
@@ -67,7 +70,9 @@ $(function(){
         var num = $('.gnum').val();
         var sku_id = $('.sku_id').val();
         var use_time = $('.use_time').val();
-        var src = "<?=Url::toRoute(['/wechat/home/order/qr-goods','tomb_id'=>$memorial->tomb_id])?>&num="+num+"&sku_id="+sku_id+"&use_time="+use_time;
+        var note = $('.gnote').val();
+        var src = "<?=Url::toRoute(['/wechat/home/order/qr-goods','tomb_id'=>$memorial->tomb_id])?>&num="+
+num+"&sku_id="+sku_id+"&use_time="+use_time+"&note="+note;
         $('.img-code').attr('src', src);
     }
 

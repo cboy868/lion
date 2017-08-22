@@ -16,10 +16,16 @@ class OrderController extends \app\core\web\HomeController
     public $enableCsrfValidation = false; //这是一定要的，否则接收不到微信的post数据
 
 
-    public function actionQrGoods($tomb_id, $sku_id, $num, $use_time)
+    /**
+     * @param $tomb_id
+     * @param $sku_id
+     * @param $num
+     * @param $use_time
+     * @name 生成商品二维码
+     */
+    public function actionQrGoods($tomb_id, $sku_id, $num, $use_time, $note)
     {
-
-        $proid = $tomb_id .'.'.$sku_id . '.' .$num . '.' . $use_time;
+        $proid = $tomb_id .'.'.$sku_id . '.' .$num . '.' . $use_time . '.' . $note;
 
         if (!$tomb_id) {
             $qrCode = new QrCode('此纪念馆未关联墓位,不能办理远程祭祀业务');
@@ -54,13 +60,14 @@ class OrderController extends \app\core\web\HomeController
         $payment = $app->payment;
 
         $response = $payment->handleScanNotify(function($pro_id,$openid) use ($payment){
-            $arr = explode('.', $pro_id);
+            $arr = explode('.', $pro_id, 5);
             $sku_id = $arr[1];
             $sku = Sku::findOne($sku_id);
             $extra = [
                 'tid' => $arr[0],
                 'num' => $arr[2],
-                'use_time' => $arr[3]
+                'use_time' => $arr[3],
+                'note' => $arr[4]
             ];
             $tomb = Tomb::findOne($arr[0]);
 
@@ -122,7 +129,7 @@ class OrderController extends \app\core\web\HomeController
             // 用户是否支付成功
             if ($successful) {
                 $pay->on(Pay::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
-                $pay->pay(Pay::METHOD_WECHAT, $notify->total_fee, $notify->transaction_id);
+                $pay->pay(Pay::METHOD_WECHAT, $notify->total_fee/100, $notify->transaction_id);
             } else { // 用户支付失败
                 $pay->status = Pay::STATUS_FAIL;
                 $pay->save();
@@ -131,10 +138,13 @@ class OrderController extends \app\core\web\HomeController
         });
 
         $response->send();
-
     }
 
 
+    /**
+     * @return array
+     * @todo 多商户时  这里如何设置
+     */
     private function getOptions()
     {
         $params  = Yii::$app->getModule('wechat')->params;
