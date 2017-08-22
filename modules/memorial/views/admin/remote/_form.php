@@ -1,7 +1,7 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\memorial\models\Remote */
@@ -19,10 +19,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'video')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'thumb')->textInput() ?>
-
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
-
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

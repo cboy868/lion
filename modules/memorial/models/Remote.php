@@ -2,7 +2,10 @@
 
 namespace app\modules\memorial\models;
 
+use app\modules\grave\models\Tomb;
 use app\modules\order\models\OrderRel;
+use app\modules\shop\models\Goods;
+use app\modules\shop\models\Sku;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -110,5 +113,43 @@ class Remote extends \app\core\db\ActiveRecord
         }
 
         return false;
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(),['id' => 'tomb_id']);
+    }
+
+    public function getSku()
+    {
+        return $this->hasOne(Sku::className(), ['id' => 'sku_id']);
+    }
+
+    public function getMemorial()
+    {
+        return $this->hasOne(Memorial::className(), ['id' => 'memorial_id']);
+    }
+
+    public function getOrderRel()
+    {
+        return $this->hasOne(OrderRel::className(), ['id'=>'order_rel_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\app\modules\user\models\User::className(), ['id'=>'user_id']);
+    }
+
+    public function getGoods()
+    {
+        $rel = $this->orderRel;
+
+        return Goods::findOne($rel->goods_id);
+    }
+
+    public function saveAttach($info)
+    {
+        $this->thumb = $info['mid'];
+        return $this->save();
     }
 }

@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\memorial\models\Remote */
 
 $this->title = ' ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Remotes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '远程祭祀记录', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '修改';
 ?>
 
 <div class="page-content">

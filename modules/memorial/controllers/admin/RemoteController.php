@@ -26,6 +26,26 @@ class RemoteController extends BackController
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'pl-upload' => [
+                'class' => 'app\core\web\PluploadAction',
+            ],
+        ];
+    }
+
+    public function saveAttach($info)
+    {
+        $remote = Remote::findOne($info['res_id']);
+
+        if (!$remote) {
+            return null;
+        }
+
+        return $remote->saveAttach($info);
+    }
+
     /**
      * Lists all Remote models.
      * @return mixed
@@ -66,6 +86,19 @@ class RemoteController extends BackController
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionVideo($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->renderAjax('video', [
                 'model' => $model,
             ]);
         }
