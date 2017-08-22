@@ -17,5 +17,6 @@ Yii::$app->params['cur_nav'] = 'memorial_index';
         <a href="<?=Url::toRoute(['miss', 'id'=>$id])?>" class="list-group-item <?php if($cur=='miss')echo'active';?>">追思文章</a>
         <a href="<?=Url::toRoute(['album', 'id'=>$id])?>" class="list-group-item <?php if($cur=='album')echo'active';?>">回忆相册</a>
         <a href="<?=Url::toRoute(['msg', 'id'=>$id])?>" class="list-group-item <?php if($cur=='msg')echo'active';?>">祝福管理</a>
+        <a href="<?=Url::toRoute(['remote', 'id'=>$id])?>" class="list-group-item <?php if($cur=='remote')echo'active';?>">远程祭祀</a>
     </div>
 </div>

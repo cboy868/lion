@@ -10,6 +10,8 @@ use app\modules\blog\models\AlbumSearch;
 use app\modules\blog\models\Blog;
 use app\modules\blog\models\BlogSearch;
 use app\modules\grave\models\Dead;
+use app\modules\memorial\models\Remote;
+use app\modules\memorial\models\RemoteSearch;
 use yii;
 use app\modules\memorial\models\Memorial;
 use app\modules\memorial\models\MemorialSearch;
@@ -472,6 +474,34 @@ class DefaultController extends \app\core\web\MemberController
             'model' => $memorial,
             'comment' => $comment,
             'comments' => $comments
+        ]);
+    }
+
+    public function actionRemote($id)
+    {
+        $searchModel = new RemoteSearch();
+        $params = Yii::$app->request->queryParams;
+
+        $params['RemoteSearch']['memorial_id'] = $id;
+        $dataProvider = $searchModel->search($params);
+
+        $memorial = $this->findModel($id);
+
+        return $this->render('remote', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'memorial' => $memorial
+        ]);
+    }
+
+    public function actionRemoteVideo($id, $remote_id)
+    {
+        $remote = Remote::findOne($remote_id);
+        $memorial = $this->findModel($id);
+
+        return $this->render('remote-video', [
+            'remote' => $remote,
+            'memorial' => $memorial
         ]);
     }
 
