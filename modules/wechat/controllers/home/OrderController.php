@@ -23,9 +23,9 @@ class OrderController extends \app\core\web\HomeController
      * @param $use_time
      * @name 生成商品二维码
      */
-    public function actionQrGoods($tomb_id, $sku_id, $num, $use_time, $note)
+    public function actionQrGoods($tomb_id, $sku_id, $num, $use_time, $note, $type)
     {
-        $proid = $tomb_id .'.'.$sku_id . '.' .$num . '.' . $use_time . '.' . $note;
+        $proid = $tomb_id .'.'.$sku_id . '.' .$num . '.' . $use_time . '.' . $type.'.'.$note;
 
         if (!$tomb_id) {
             $qrCode = new QrCode('此纪念馆未关联墓位,不能办理远程祭祀业务');
@@ -60,14 +60,15 @@ class OrderController extends \app\core\web\HomeController
         $payment = $app->payment;
 
         $response = $payment->handleScanNotify(function($pro_id,$openid) use ($payment){
-            $arr = explode('.', $pro_id, 5);
+            $arr = explode('.', $pro_id, 6);
             $sku_id = $arr[1];
             $sku = Sku::findOne($sku_id);
             $extra = [
                 'tid' => $arr[0],
                 'num' => $arr[2],
                 'use_time' => $arr[3],
-                'note' => $arr[4]
+                'type' => $arr[4],
+                'note' => $arr[5]
             ];
             $tomb = Tomb::findOne($arr[0]);
 
@@ -103,7 +104,6 @@ class OrderController extends \app\core\web\HomeController
         });
 
         $response->send();
-
     }
 
     public function actionNotify()

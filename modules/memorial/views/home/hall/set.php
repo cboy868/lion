@@ -72,7 +72,7 @@ $(function(){
         var use_time = $('.use_time').val();
         var note = $('.gnote').val();
         var src = "<?=Url::toRoute(['/wechat/home/order/qr-goods','tomb_id'=>$memorial->tomb_id])?>&num="+
-num+"&sku_id="+sku_id+"&use_time="+use_time+"&note="+note;
+num+"&sku_id="+sku_id+"&use_time="+use_time+"&note="+note+'&type=8';
         $('.img-code').attr('src', src);
     }
 

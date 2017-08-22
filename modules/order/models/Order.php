@@ -3,6 +3,7 @@
 namespace app\modules\order\models;
 
 use app\modules\grave\models\Tomb;
+use app\modules\memorial\models\Remote;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\shop\models\Cart;
@@ -35,6 +36,7 @@ class Order extends \app\core\db\ActiveRecord
     const PRO_OK   = 8; //订单完成，服务最终完成
 
     const TYPE_GOODS = 1;
+    const TYPE_MEMORIAL = 8;
 
 
     // const EVENT_AFTER_PAY= 'afterPay'; //支付完成会一些例如短信、任务之类的东西由系统自动发出
@@ -92,6 +94,15 @@ class Order extends \app\core\db\ActiveRecord
                 \app\modules\task\models\Task::create($this->id);
             }
 
+
+            //判断是否是纪念馆的远程祭祀
+            if ($this->type == self::TYPE_MEMORIAL) {
+                foreach ($this->rels as $k => $rel) {
+                    Remote::create($rel->id);
+                }
+
+            }
+
             $gconfig = Yii::$app->params['goods'];
 
             foreach ($this->rels as $k => $rel) {
@@ -100,7 +111,6 @@ class Order extends \app\core\db\ActiveRecord
                 }
             }
         }
-
 
         OrderLog::create($this->id);
     }

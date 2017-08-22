@@ -2,6 +2,7 @@
 
 namespace app\modules\order\models;
 
+use app\modules\grave\models\Tomb;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User;
@@ -248,6 +249,11 @@ class OrderRel extends \app\core\db\ActiveRecord
     public function getGoods()
     {
         return $this->hasOne(Goods::className(),['id'=>'goods_id']);
+    }
+
+    public function getTomb()
+    {
+        return $this->hasOne(Tomb::className(), ['id'=>'tid']);
     }
 
 }
