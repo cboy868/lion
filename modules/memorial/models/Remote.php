@@ -39,7 +39,7 @@ class Remote extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['memorial_id', 'tomb_id', 'user_id', 'sku_id', 'order_rel_id', 'start', 'end', 'price', 'created_at'], 'required'],
+            [['memorial_id', 'tomb_id', 'user_id', 'sku_id', 'order_rel_id', 'start', 'end', 'price'], 'required'],
             [['memorial_id', 'tomb_id', 'user_id', 'sku_id', 'order_rel_id', 'thumb', 'status', 'created_at'], 'integer'],
             [['start', 'end'], 'safe'],
             [['note'], 'string'],
