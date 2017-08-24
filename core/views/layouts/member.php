@@ -186,16 +186,9 @@ MemberAsset::register($this);
                     </a>
                     <b class="arrow"></b>
                     <ul class="submenu">
-                        <li class="<?php if($cur_nav == 'memorial_index')echo'active';?>" rel="">
-                            <a href="#">
-                                墓位续费
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-
-                        <li class="" rel="">
-                            <a href="#">
-                                瓷像碑文
+                        <li class="<?php if($cur_nav == 'tomb_index')echo'active';?>" rel="">
+                            <a href="<?=Url::toRoute(['/grave/member/tomb/index'])?>">
+                                购买的墓位
                             </a>
                             <b class="arrow"></b>
                         </li>

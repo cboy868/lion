@@ -7,8 +7,11 @@ use app\core\widgets\GridView;
 use app\assets\Tabletree;
 use yii\bootstrap\Modal;
 
-$this->params['breadcrumbs'][] = '个人中心首页';
 Yii::$app->params['cur_nav'] = 'memorial_index';
+
+$this->title = '我创建的纪念馆';
+$this->params['breadcrumbs'][] = ['label' => '个人中心首页', 'url' => ['/member']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
     .nc{margin-right: 10px;}

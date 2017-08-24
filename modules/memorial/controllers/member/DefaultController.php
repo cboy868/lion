@@ -545,9 +545,13 @@ class DefaultController extends \app\core\web\MemberController
     protected function findModel($id)
     {
         if (($model = Memorial::findOne($id)) !== null) {
+
+            if ($model->user_id != Yii::$app->user->id) {
+                throw new yii\web\NotAcceptableHttpException('操作错误');
+            }
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('页面未找到.');
         }
     }
 }

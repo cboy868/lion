@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             </style>
-            <?=$this->render('left-menu', ['cur'=>'dead', 'model'=>$model])?>
+            <?=$this->render('left-menu', ['cur'=>'deads', 'model'=>$model])?>
 
             <div class="col-xs-10 memorial-index">
                 <?= \app\core\widgets\Alert::widget();?>
@@ -59,16 +59,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h1>修改逝者资料
 
                         <small>
+                            <?php if ($model->status < \app\modules\grave\models\Tomb::STATUS_PAYOK):?>
                             <div class="pull-right nc">
                                 <a href="<?=Url::to(['create-dead', 'id'=>$model->id])?>" class='btn btn-danger btn-sm modalAddButton'
                                    data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>添加逝者</a>
                             </div>
+                            <?php endif;?>
                         </small>
                     </h1>
-
                 </div>
-
-
                     <div class="row row-sm">
                         <div class="panel-body">
                             <section class="panel panel-default">
@@ -87,6 +86,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body wrapper-sm padder-v">
                                     <div class="tab-content">
                                         <?php foreach ($deads as $k=>$dead):?>
+
+                                            <?php $canEdit = $dead->is_ins ? false : true; ?>
                                         <div id="d_<?=$k?>" class="tab-pane fade <?php if($k==0)echo'active in'?>">
                                             <?php $form = ActiveForm::begin(); ?>
                                             <div class="form-group field-dead-dead_name required">
@@ -108,9 +109,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="help-block"></div>
                                             </div>
 
-                                            <?= $form->field($dead, "[$k]dead_name")->textInput(['maxlength' => true]) ?>
+                                            <?= $form->field($dead, "[$k]dead_name")
+                                                ->textInput(['maxlength' => true,'disabled'=>!$canEdit]) ?>
 
-                                            <?= $form->field($dead, "[$k]second_name")->textInput()->label('别名') ?>
+                                            <?= $form->field($dead, "[$k]second_name")->textInput(['disabled'=>!$canEdit])
+                                                ->label('别名') ?>
 
                                             <?php
                                             if ($dead->dead_title && !in_array($dead->dead_title, $dead_titles)) {
@@ -119,16 +122,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                             ?>
                                             <?= $form->field($dead, "[$k]dead_title")->dropDownList($dead_titles,[
                                                 'class'=>'selize-rel'
+                                                ,'disabled'=>!$canEdit
                                             ])->hint('如无选项 请直接输入'); ?>
 
 
-                                            <?= $form->field($dead, "[$k]birth")->textInput(['maxlength' => true, 'dt'=>'true', 'dt-year'=>'true', 'dt-month'=>'true']) ?>
+                                            <?= $form->field($dead, "[$k]birth")
+                                                ->textInput(['maxlength' => true,
+                                                    'dt'=>'true', 'dt-year'=>'true',
+                                                    'dt-month'=>'true',
+                                                    'disabled'=>!$canEdit
+                                                ]) ?>
 
-                                            <?= $form->field($dead, "[$k]fete")->textInput(['maxlength' => true,'dt'=>'true','dt-year'=>'true', 'dt-month'=>'true'])->label('去逝日期') ?>
+                                            <?= $form->field($dead, "[$k]fete")
+                                                ->textInput(['maxlength' => true,
+                                                    'dt'=>'true','dt-year'=>'true',
+                                                    'dt-month'=>'true',
+                                                    'disabled'=>!$canEdit
+                                                ])->label('去逝日期') ?>
 
-                                            <?= $form->field($dead, "[$k]gender")->radioList([1=>'男',2=>'女']) ?>
+                                            <?= $form->field($dead, "[$k]gender")->radioList([1=>'男',2=>'女'],['disabled'=>!$canEdit]) ?>
 
-                                            <?= $form->field($dead, "[$k]age")->textInput() ?>
+                                            <?= $form->field($dead, "[$k]age")->textInput(['disabled'=>!$canEdit]) ?>
 
                                             <?= $form->field($dead, "[$k]birth_place")->textarea(['rows'=>3]) ?>
 

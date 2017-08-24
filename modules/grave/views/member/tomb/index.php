@@ -7,8 +7,11 @@ use app\core\widgets\GridView;
 use app\assets\Tabletree;
 use yii\bootstrap\Modal;
 
-$this->params['breadcrumbs'][] = '个人中心首页';
-Yii::$app->params['cur_nav'] = 'memorial_index';
+
+Yii::$app->params['cur_nav'] = 'tomb_index';
+$this->title = '购买的墓位';
+$this->params['breadcrumbs'][] = ['label' => '个人中心首页', 'url' => ['/member']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
     .nc{margin-right: 10px;}
@@ -73,7 +76,7 @@ Yii::$app->params['cur_nav'] = 'memorial_index';
                                             </a>
                                         </li>
                                         <li>墓位状态：<span class="text-success"><?=$model->statusText?></span></li>
-                                        <li>购买时间：<?=date('Y-m-d H:i', $model->sale_time)?></li>
+                                        <li>购买时间：<?=$model->sale_time?></li>
                                     </ul>
                                 </td>
                                 <td>
@@ -102,7 +105,7 @@ Yii::$app->params['cur_nav'] = 'memorial_index';
 
                                     <div class="btn-group text-right">
                                         <p>
-                                            <a href="<?=Url::toRoute(['/memorial/member/default/update', 'id'=>$model->id])?>" class="btn btn-sm btn-info">
+                                            <a href="<?=Url::toRoute(['/grave/member/tomb/tomb', 'id'=>$model->id])?>" class="btn btn-sm btn-info">
                                                 <span class="fa fa-user"></span> 管理
                                             </a>
                                         </p>

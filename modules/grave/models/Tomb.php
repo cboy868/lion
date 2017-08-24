@@ -260,6 +260,14 @@ class Tomb extends \app\core\db\ActiveRecord
         return $this->hasOne(\app\modules\memorial\models\Memorial::className(),['tomb_id'=>'id']);
     }
 
+    /**
+     * @name 取瓷像
+     */
+    public function getPortrait()
+    {
+        return $this->hasMany(Portrait::className(),['tomb_id'=>'id'])->where(['<>','status',self::STATUS_DELETE]);
+    }
+
     public function getCustomer()
     {
         return $this->hasOne(\app\modules\grave\models\Customer::className(),['id'=>'customer_id']);
