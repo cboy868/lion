@@ -126,5 +126,45 @@ class TombSearch extends Tomb
         return $tomb_id;
     }
 
+    public function searchMember($params)
+    {
+        $query = Tomb::find()->where(['<>','grave_tomb.status',Tomb::STATUS_DELETE]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->orderBy('row asc, col asc'),
+            'pagination' => [
+                'pageSize' => 15,
+            ],
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'grave_tomb.id' => $this->id,
+            'grave_id' => $this->grave_id,
+            'row' => $this->row,
+            'col' => $this->col,
+            'hole' => $this->hole,
+            'price' => $this->price,
+            'cost' => $this->cost,
+            'area_total' => $this->area_total,
+            'area_use' => $this->area_use,
+            'user_id' => $this->user_id,
+            'agent_id' => $this->agent_id,
+            'agency_id' => $this->agency_id,
+            'grave_tomb.guide_id' => $this->guide_id,
+            'sale_time' => $this->sale_time,
+            'grave_tomb.status' => $this->status,
+        ]);
+
+        $query->andFilterWhere(['like', 'special', $this->special])
+            ->andFilterWhere(['like', 'tomb_no', $this->tomb_no])
+            ->andFilterWhere(['like', 'note', $this->note]);
+
+        return $dataProvider;
+    }
+
 
 }

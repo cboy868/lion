@@ -7,7 +7,6 @@ use app\core\widgets\GridView;
 use app\assets\Tabletree;
 use yii\bootstrap\Modal;
 
-
 $this->params['breadcrumbs'][] = '个人中心首页';
 Yii::$app->params['cur_nav'] = 'memorial_index';
 ?>
@@ -27,7 +26,6 @@ Yii::$app->params['cur_nav'] = 'memorial_index';
                     </div>
                 </small>
             </h1>
-
         </div><!-- /.page-header -->
 
         <div class="row">
@@ -126,18 +124,5 @@ Yii::$app->params['cur_nav'] = 'memorial_index';
             </div>
         </div>
 
-
-
-
     </div><!-- /.page-content-area -->
 </div>
-
-
-<?php $this->beginBlock('tree') ?>
-$(function(){
-
-
-})
-<?php $this->endBlock() ?>
-<?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>
-
