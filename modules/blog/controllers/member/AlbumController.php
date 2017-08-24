@@ -201,6 +201,22 @@ class AlbumController extends MemberController
         return $this->redirect(['index']);
     }
 
+    public function actionSetAlbumCover($id)
+    {
+        $photo = AlbumPhoto::findOne($id);
+        $album = Album::findOne($photo->album_id);
+        $album->thumb = $id;
+        $album->save();
+        return $this->redirect(['photos', 'id'=>$album->id]);
+    }
+
+    public function actionDelPhoto($id)
+    {
+        $photo = AlbumPhoto::findOne($id);
+        $photo->delete();
+        return $this->redirect(['photos', 'id'=>$photo->album_id]);
+    }
+
     /**
      * Finds the Album model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

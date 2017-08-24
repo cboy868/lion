@@ -28,7 +28,7 @@ use yii\web\NotFoundHttpException;
 use app\modules\blog\models\BlogSearch;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order as WechatOrder;
-
+use yii\web\NotAcceptableHttpException;
 use Endroid\QrCode\QrCode;
 class HallController extends Controller
 {
@@ -50,18 +50,22 @@ class HallController extends Controller
         $novalidactions = ['order','notify'];
 
         if(in_array($currentaction,$novalidactions)) {
-
             $action->controller->enableCsrfValidation = false;
-
         }
+
+        $memorial = $this->findModel(Yii::$app->request->get('id'));
+
+
+        if ($memorial->privacy == Memorial::PRIVACY_PRIVATE && $memorial->user_id != Yii::$app->user->id) {
+            throw new NotAcceptableHttpException('此馆非公开，您无权查看');
+        }
+
         parent::beforeAction($action);
         return true;
     }
 
     public function actionIndex($id)
     {
-
-
         $memorial = $this->findModel($id);
         $deads = $memorial->deads;
 
@@ -232,6 +236,11 @@ class HallController extends Controller
     public function actionArchiveView($bid, $id)
     {
         $model = Blog::findOne($bid);
+
+        if ($model->privacy == Blog::PRIVACY_PRIVATE) {
+            throw new NotAcceptableHttpException('此文章非公开，您无权查看');
+        }
+
         $model->track(Track::RES_ARCHIVE);
 
         return $this->render('archive-view',[
@@ -243,6 +252,10 @@ class HallController extends Controller
     {
         $model = Blog::findOne($bid);
         $model->track(Track::RES_MISS);
+
+        if ($model->privacy == Blog::PRIVACY_PRIVATE) {
+            throw new NotAcceptableHttpException('此文章非公开，您无权查看');
+        }
 
         return $this->render('miss-view',[
             'model' => $model

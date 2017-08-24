@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="caption wrapper-lg">
                             <h2 class="post-title">
-                                <a href="#">
+                                <a href="<?=Url::toRoute(['/memorial/home/hall/archive-view', 'id'=>$model->id, 'bid'=>$post->id])?>" target="_blank">
                                 <?=$post->title?>
                                 </a>
                             </h2>

@@ -40,6 +40,22 @@ class Remote extends \app\core\db\ActiveRecord
         return '{{%memorial_remote}}';
     }
 
+    public static function status($status = null)
+    {
+        $s = [
+            self::STATUS_DEL => '删除',
+            self::STATUS_NORMAL => '支付完成，待上传照片',
+            self::STATUS_OK => '祭祀完成'
+
+        ];
+
+        if ($status === null) {
+            return $s;
+        }
+
+        return $s[$status];
+    }
+
     /**
      * @inheritdoc
      */
