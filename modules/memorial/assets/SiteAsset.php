@@ -13,25 +13,14 @@ class SiteAsset extends AssetBundle
 	public $sourcePath = '@app/modules/memorial/static/site';
 
     public $css = [
-        'css/slideshow.css',
         'css/main.css',
-        'css/index.css',
-        'css/index-respone.css',
-        'css/LoginPanel.css',
-        'css/zebra_dialog_flat.css',
-        'css/login.css',
-        'css/share_style0_24.css',
-        'css/slide_share.css'
     ];
     public $js = [
-        'js/hm.js',
-        'js/zebra_dialog.js',
-        'js/Command.js',
-        'js/DataEx.js'
+        'js/index.js'
     ];
 
     public $depends = [
-        'app\modules\memorial\assets\BootstrapAsset'
+        'yii\bootstrap\BootstrapPluginAsset'
     ];
 
 }

@@ -6,8 +6,8 @@ use yii\widgets\Breadcrumbs;
 
 \app\assets\ColorBoxAsset::register($this);
 
-$this->title = '修改纪念馆基本信息';
-$this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
+$this->title = '瓷像信息';
+$this->params['breadcrumbs'][] = ['label' => '墓位信息', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <th>确认人</th>
                             <td>
                                 <?php if ($portrait->photo_confirm):?>
-                                    <?=$portrait->confirm->username?>
+                                    <?=$portrait->confirmUser->username?>
                                 <?php else:?>
                                     瓷像未确认
                                 <?php endif;?>
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <div class="pull-left">
-                                    <h5>修改后</h5>
+                                    <h5>修改图</h5>
                                     <div class="gt_con">
                                         <p class="pull-left">
                                             <a href="<?=$portrait->getProcessedImg()?>" class="artimg">
@@ -96,13 +96,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td>
 
+
                                 <p>
-                                    <?php if ($portrait->status >= \app\modules\grave\models\Portrait::STATUS_CONFIRM):?>
-                                <p>已确认</p>
-                                <?php else:?>
-                                    <a href="<?=Url::toRoute(['confirm-portrait','id'=>$portrait->id])?>"
-                                       class="confirmPortrait btn btn-success btn-lg">确 认</a>
-                                <?php endif?>
+                                    <?=$portrait->statusText?>
+                                    <?php if ($portrait->status == \app\modules\grave\models\Portrait::STATUS_CONFIRM):?>
+                                        <a href="<?=Url::toRoute(['confirm-portrait','id'=>$portrait->id])?>"
+                                           class="confirmPortrait btn btn-success btn-lg">确 认</a>
+                                    <?php endif?>
                                 </p>
                             </td>
                         </tr>

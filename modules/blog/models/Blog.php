@@ -33,8 +33,9 @@ use app\modules\user\models\User;
  */
 class Blog extends \app\core\db\ActiveRecord
 {
-    const PRIVACY_PRIVATE = 2;
-    const PRIVACY_PUBLIC = 1;
+    const PRIVACY_PUBLIC = 0;//公开
+    const PRIVACY_FRIENDS = 1;
+    const PRIVACY_PRIVATE = 2;//私有
 
     const TYPE_TEXT = 1;//'文字 ';
     const TYPE_VIDEO = 2;// '视频';
@@ -58,7 +59,8 @@ class Blog extends \app\core\db\ActiveRecord
     {
         $p = [
             self::PRIVACY_PUBLIC => '公开',
-            self::PRIVACY_PRIVATE=> '私密'
+            self::PRIVACY_PRIVATE=> '私密',
+            self::PRIVACY_FRIENDS => '好友'
         ];
 
         if ($privacy === null) {

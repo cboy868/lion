@@ -28,6 +28,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Remote extends \app\core\db\ActiveRecord
 {
+    const PRIVACY_PUBLIC = 0;
+    const PRIVACY_FRIENDS = 1;
+    const PRIVACY_PRIVATE = 2;
 
     const STATUS_PAY = 1;//支付完成
     const STATUS_OK = 2;//视频上传完成
@@ -63,7 +66,7 @@ class Remote extends \app\core\db\ActiveRecord
     {
         return [
             [['memorial_id', 'tomb_id', 'user_id', 'sku_id', 'order_rel_id', 'start', 'end', 'price'], 'required'],
-            [['memorial_id', 'tomb_id', 'user_id', 'sku_id', 'order_rel_id', 'thumb', 'status', 'created_at'], 'integer'],
+            [['memorial_id', 'tomb_id', 'user_id', 'sku_id', 'order_rel_id', 'thumb', 'status', 'created_at','privacy'], 'integer'],
             [['start', 'end'], 'safe'],
             [['note'], 'string'],
             [['price'], 'number'],
@@ -123,6 +126,7 @@ class Remote extends \app\core\db\ActiveRecord
             'end' => date('Y-m-d', strtotime('+'.$goods->days . ' days', strtotime($rel->use_time))),
             'note' => $rel->note,
             'price' => $rel->price,
+            'privacy' => $memorial->privacy
         ];
 
         $model = new self();
@@ -165,6 +169,11 @@ class Remote extends \app\core\db\ActiveRecord
         $rel = $this->orderRel;
 
         return Goods::findOne($rel->goods_id);
+    }
+
+    public function getGoodsSkuName()
+    {
+        return $this->goods->name == $this->sku->name ? $this->goods->name : $this->goods->name . $this->sku->name;
     }
 
     public function saveAttach($info)

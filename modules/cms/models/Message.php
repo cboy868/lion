@@ -3,6 +3,7 @@
 namespace app\modules\cms\models;
 
 use app\modules\grave\models\Tomb;
+use app\modules\shop\models\Goods;
 use Yii;
 use app\modules\user\models\User;
 use yii\behaviors\TimestampBehavior;
@@ -101,7 +102,6 @@ class Message extends \app\core\db\ActiveRecord
         if ($this->res_name == 'tomb') {
             return $this->hasOne(Tomb::className(), ['id'=>'res_id']);
         }
-
     }
 
     public function getUser()

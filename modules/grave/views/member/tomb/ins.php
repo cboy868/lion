@@ -5,8 +5,8 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 
-$this->title = '修改纪念馆基本信息';
-$this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
+$this->title = '碑文信息';
+$this->params['breadcrumbs'][] = ['label' => '墓位信息', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

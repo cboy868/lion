@@ -15,6 +15,8 @@ use app\modules\grave\models\Order;
 use app\modules\grave\models\Tomb;
 use app\modules\memorial\models\OrderForm;
 use app\modules\memorial\models\Pray;
+use app\modules\memorial\models\Remote;
+use app\modules\memorial\models\RemoteSearch;
 use app\modules\order\models\Pay;
 use app\modules\shop\models\Category;
 use app\modules\shop\models\Goods;
@@ -53,11 +55,12 @@ class HallController extends Controller
             $action->controller->enableCsrfValidation = false;
         }
 
-        $memorial = $this->findModel(Yii::$app->request->get('id'));
+        if (Yii::$app->request->get('id')) {
+            $memorial = $this->findModel(Yii::$app->request->get('id'));
 
-
-        if ($memorial->privacy == Memorial::PRIVACY_PRIVATE && $memorial->user_id != Yii::$app->user->id) {
-            throw new NotAcceptableHttpException('此馆非公开，您无权查看');
+            if ($memorial->privacy == Memorial::PRIVACY_PRIVATE && $memorial->user_id != Yii::$app->user->id) {
+                throw new NotAcceptableHttpException('此馆非公开，您无权查看');
+            }
         }
 
         parent::beforeAction($action);
@@ -140,6 +143,11 @@ class HallController extends Controller
             ->limit(10)
             ->all();
 
+        $remotes = Remote::find()->where(['memorial_id'=>$id])
+                                 ->orderBy('id desc')
+                                ->limit(10)
+                                ->all();
+
         return $this->render('memorial', [
             'memorial'=>$memorial,
             'tracks' => $tracks,
@@ -147,7 +155,8 @@ class HallController extends Controller
             'miss' => $miss,
             'msgs' => $msgs,
             'prays' => $prays,
-            'comment' => new Comment()
+            'comment' => new Comment(),
+            'remotes' => $remotes
         ]);
     }
 
@@ -385,9 +394,8 @@ class HallController extends Controller
         ]);
     }
 
-    public function actionRemote($mid)
+    public function actionRemote($id)
     {
-
         $goods = Goods::find()->where(['status'=>Goods::STATUS_ACTIVE,'can_remote'=>1])->all();
         $cids = ArrayHelper::getColumn($goods, 'category_id');
         $cates = Category::find()->where(['id'=>$cids])->all();
@@ -396,30 +404,41 @@ class HallController extends Controller
         return $this->renderAjax('remote',[
             'goods' => $goods,
             'cates' => $cates,
-            'memorial_id' => $mid
+            'memorial_id' => $id
         ]);
     }
 
     /**
      * @name 设置购买参数
      */
-    public function actionSet($mid, $gid)
+    public function actionSet($id, $gid)
     {
         $goods = Goods::findOne($gid);
         $set = new OrderForm();
         $set->use_time = date('Y-m-d', strtotime('+1 day'));
-        $memorial = $this->findModel($mid);
+        $memorial = $this->findModel($id);
         return $this->renderAjax('set',[
             'goods' => $goods,
             'model' => $set,
             'memorial' => $memorial,
-            'memorial_id' => $mid
+            'memorial_id' => $id
         ]);
     }
 
-    public function actionRecord()
+    public function actionRecord($id)
     {
-        return $this->render('record');
+
+        $params = Yii::$app->request->queryParams;
+
+        $params['RemoteSearch']['memorial_id']=$id;
+
+        $searchModel = new RemoteSearch();
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('record', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     protected function findModel($id)

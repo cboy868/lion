@@ -109,6 +109,34 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <span class="fa fa-user"></span> 管理
                                             </a>
                                         </p>
+                                        <?php if (isset($model->ins) && !$model->ins->is_confirm):?>
+                                        <p>
+                                            <a href="<?=Url::toRoute(['/grave/member/tomb/ins', 'id'=>$model->id])?>" class="btn btn-sm btn-danger">
+                                                <span class="fa fa-check"></span> 碑文待确认
+                                            </a>
+                                        </p>
+                                        <?php endif;?>
+
+                                        <?php
+                                            $flg = false;
+                                            if (isset($model->portrait)){
+                                                foreach ($model->portrait as $v){
+                                                    if (!$v->confirm_by){
+                                                        $flg = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+                                            if ($flg):
+                                        ?>
+
+                                        <p>
+                                            <a href="<?=Url::toRoute(['/grave/member/tomb/portrait', 'id'=>$model->id])?>" class="btn btn-sm btn-danger">
+                                                <span class="fa fa-check"></span> 瓷像待确认
+                                            </a>
+                                        </p>
+                                        <?php endif;?>
                                     </div>
 
                                 </td>

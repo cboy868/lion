@@ -15,6 +15,8 @@ Yii::$app->params['cur_nav'] = 'memorial_index';
         <a href="<?=Url::toRoute(['ins', 'id'=>$id])?>" class="list-group-item <?php if($cur=='ins')echo'active';?>">碑文</a>
         <a href="<?=Url::toRoute(['portrait', 'id'=>$id])?>" class="list-group-item <?php if($cur=='portrait')echo'active';?>">瓷像</a>
         <a href="<?=Url::toRoute(['goods', 'id'=>$id])?>" class="list-group-item <?php if($cur=='goods')echo'active';?>">已购商品</a>
+        <!--
         <a href="<?=Url::toRoute(['bury', 'id'=>$id])?>" class="list-group-item <?php if($cur=='bury')echo'active';?>">安葬</a>
+        -->
     </div>
 </div>

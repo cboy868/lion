@@ -93,7 +93,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                     <div class="btns">
 
                         <?php if ($memorial->tomb_id):?>
-                        <a href="<?=Url::toRoute(['remote','mid'=>$memorial->id])?>"
+                        <a href="<?=Url::toRoute(['remote','id'=>$memorial->id])?>"
                            class="modalEditButton btn btn-default pull-left btn-danger"
                            data-loading-text="页面加载中, 请稍后..."
                            onclick="return false"
@@ -130,49 +130,17 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                 <div class="col-md-4 aside-box pull-left">
                     <div class="remote">
                         <ul class="media-list">
+                            <?php foreach ($remotes as $v):?>
                             <li class="video">
                                 <a href="#">
-                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
+                                    <img src="<?=$v->getThumbImg('380x265')?>" alt="">
                                 </a>
-                                <div class="img-intro">远程祭祀的一些描述 </div>
-                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
+                                <div class="img-intro"><?=$v->note?></div>
+                                <div class="uinfo">--<?=$v->user->username;?>
+                                    <br>
+                                    于 <i><?=date('Y-m-d H:i', $v->created_at)?></i></div>
                             </li>
-                            <li class="video">
-                                <a href="#">
-                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                                </a>
-                                <div class="img-intro">远程祭祀的一些描述 </div>
-                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                            </li>
-                            <li class="video">
-                                <a href="#">
-                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                                </a>
-                                <div class="img-intro">远程祭祀的一些描述 </div>
-                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                            </li>
-                            <li class="video">
-                                <a href="#">
-                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                                </a>
-                                <div class="img-intro">远程祭祀的一些描述 </div>
-                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                            </li>
-                            <li class="video">
-                                <a href="#">
-                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                                </a>
-                                <div class="img-intro">远程祭祀的一些描述 </div>
-                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                            </li>
-                            <li class="video">
-                                <a href="#">
-                                    <img src="http://lion.ibagou.com/upload/image/thumb/201708/380x265@1502867489472.jpeg" alt="">
-                                </a>
-                                <div class="img-intro">远程祭祀的一些描述 </div>
-                                <div class="uinfo">--张三 于 <i>2017-06-01</i></div>
-                            </li>
-
+                            <?php endforeach;?>
                         </ul>
                     </div>
                     <div class="clearfix"></div>

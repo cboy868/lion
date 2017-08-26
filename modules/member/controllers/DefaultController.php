@@ -2,6 +2,9 @@
 
 namespace app\modules\member\controllers;
 
+use app\modules\blog\models\Blog;
+use app\modules\grave\models\Tomb;
+use app\modules\memorial\models\Memorial;
 use yii;
 use app\core\helpers\Url;
 use yii\filters\AccessControl;
@@ -31,7 +34,20 @@ class DefaultController extends \app\core\web\MemberController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $uid = Yii::$app->user->id;
+
+        $tomb = Tomb::find()->where([
+            'user_id'=>$uid,
+            ])->andWhere(['<>', 'status', Tomb::STATUS_DELETE])->all();
+
+        $memorial = Memorial::find()->where(['user_id'=>$uid])
+                            ->andWhere(['status'=>Memorial::STATUS_ACTIVE])
+                            ->all();
+
+        return $this->render('index',[
+            'tomb' => $tomb,
+            'memorial' => $memorial,
+        ]);
     }
 
     public function actionLogin()
@@ -55,6 +71,10 @@ class DefaultController extends \app\core\web\MemberController
 
     public function actionReg()
     {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $this->layout = "@app/core/views/layouts/single.php";
         $model = new RegisterForm();
 

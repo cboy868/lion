@@ -145,7 +145,7 @@ class TombController extends \app\core\web\MemberController
         $model->confirm_by = Yii::$app->user->id;
         $model->confirm_at = date('Y-m-d');
         $model->photo_confirm = $model->photo_processed;
-        $model->status = Portrait::STATUS_CONFIRM;
+        $model->status = Portrait::STATUS_MAKE;
 
         $model->save();
 

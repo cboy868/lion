@@ -158,7 +158,7 @@ use yii\bootstrap\Modal;
                                         <p>时间: <span><?=$g->days?>天</span></p>
                                     </div>
                                     <div class="s-btns">
-                                        <a href="<?=Url::toRoute(['set','mid'=>$memorial_id,'gid'=>$g->id])?>"
+                                        <a href="<?=Url::toRoute(['set','id'=>$memorial_id,'gid'=>$g->id])?>"
                                            class="btn btn-xs btn-danger pull-right modalSetButton"
                                            role="button"
                                            data-loading-text="加载中, 请稍后..."

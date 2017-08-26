@@ -10,8 +10,8 @@ use yii\bootstrap\Modal;
 \app\assets\PluploadAssets::register($this);
 
 
-$this->title = '修改纪念馆基本信息';
-$this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
+$this->title = '使用人信息';
+$this->params['breadcrumbs'][] = ['label' => '墓位信息', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

@@ -28,7 +28,8 @@ class Comment extends \app\core\db\ActiveRecord
     const STATUS_DELETE = -1;//删除
     const STATUS_PUBLISH = 2;//发布
 
-    const PRIVACY_PUBLIC = 1;//公开
+    const PRIVACY_PUBLIC = 0;//公开
+    const PRIVACY_FRIENDS = 1;
     const PRIVACY_PRIVATE = 2;//私有,悄悄话
 
     /**
@@ -81,6 +82,27 @@ class Comment extends \app\core\db\ActiveRecord
                 ]
             ]
         ];
+    }
+
+    public static function privacys($privacy =null)
+    {
+        $p = [
+            self::PRIVACY_PUBLIC => '公开',
+            self::PRIVACY_PRIVATE=> '私密',
+            self::PRIVACY_FRIENDS => '好友'
+        ];
+
+        if ($privacy === null) {
+            return $p;
+        }
+
+        return $p[$privacy];
+    }
+
+
+    public function getPrivacyText()
+    {
+        return static::privacys($this->privacy);
     }
 
     public function getFromUser()

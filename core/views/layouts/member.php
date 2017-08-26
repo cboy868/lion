@@ -67,6 +67,20 @@ MemberAsset::register($this);
             <div class="navbar-buttons navbar-header pull-right" role="navigation">
                 <ul class="nav ace-nav">
 
+
+                    <li class="blue">
+                        <a href="<?=Url::toRoute(['/'])?>" target="_blank">
+                            网站首页
+                        </a>
+                    </li>
+
+                    <li class="green">
+                        <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
+                            纪念馆主页
+                        </a>
+                    </li>
+
+
                     <!-- #section:basics/navbar.user_menu -->
                     <li class="light-blue">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -78,6 +92,8 @@ MemberAsset::register($this);
 
                             <i class="ace-icon fa fa-caret-down"></i>
                         </a>
+
+
 
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li>
@@ -158,14 +174,14 @@ MemberAsset::register($this);
                             </a>
                             <b class="arrow"></b>
                         </li>
-
+<!--
                         <li class="" rel="">
                             <a href="#">
                                 我的关注
                             </a>
                             <b class="arrow"></b>
                         </li>
-
+-->
                         <li class="<?php if($cur_nav == 'memorial_create')echo'active';?>" rel="">
                             <a href="<?=Url::toRoute(['/memorial/member/default/create'])?>">
                                 创建新馆
@@ -198,7 +214,7 @@ MemberAsset::register($this);
                 <li class="p-menu hsub">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa fa-shopping-cart"></i>
-                        <span class="menu-text">资料管理</span>
+                        <span class="menu-text">博客管理</span>
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
                     <b class="arrow"></b>

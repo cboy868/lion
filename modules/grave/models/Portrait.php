@@ -130,6 +130,11 @@ class Portrait extends \app\core\db\ActiveRecord
         return $this->hasOne(User::className(),['id'=>'user_id']);
     }
 
+    public function getConfirmUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'confirm_by']);
+    }
+
     public function getGuide()
     {
         return $this->hasOne(User::className(),['id'=>'guide_id']);

@@ -42,7 +42,7 @@ class RemoteSearch extends Remote
      */
     public function search($params)
     {
-        $query = Remote::find();
+        $query = Remote::find()->where(['<>', 'status', Remote::STATUS_DELETE])->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

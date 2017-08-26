@@ -30,9 +30,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Album extends \app\core\db\ActiveRecord
 {
+    const PRIVACY_PUBLIC = 0;
+    const PRIVACY_FRIENDS = 1;
     const PRIVACY_PRIVATE = 2;
-    const PRIVACY_PUBLIC = 1;
-
 
     /**
      * @inheritdoc
@@ -53,7 +53,8 @@ class Album extends \app\core\db\ActiveRecord
     {
         $p = [
             self::PRIVACY_PUBLIC => '公开',
-            self::PRIVACY_PRIVATE=> '私密'
+            self::PRIVACY_PRIVATE=> '私密',
+            self::PRIVACY_FRIENDS => '好友'
         ];
 
         if ($privacy === null) {
