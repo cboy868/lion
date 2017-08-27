@@ -46,7 +46,7 @@ use app\modules\memorial\models\Memorial;
                     ?>
                     <li><a href="<?=Url::toRoute(['/'])?>"><?=g('cp_name')?>门户</a></li>
 
-                    <li><a href="<?=Url::toRoute(['/'])?>">纪念馆主页</a></li>
+                    <li><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">纪念馆主页</a></li>
 
                     <!--
                     <li class="<?php if($current_nav=='index'):?>active<?php endif;?>">

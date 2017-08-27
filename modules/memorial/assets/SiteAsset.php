@@ -14,6 +14,7 @@ class SiteAsset extends AssetBundle
 
     public $css = [
         'css/main.css',
+        'css/index.css',
     ];
     public $js = [
         'js/index.js'

@@ -60,7 +60,31 @@ use yii\helpers\Url;
 </div>
 
 <div class="blank"></div>
-
+<div class="navbar navbar-waheaven">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".waheaven-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse waheaven-collapse collapse" role="navigation">
+                <?php $cnav = isset($this->params['current_nav']) ? $this->params['current_nav'] : ''?>
+                <ul id="toolbarIndex" class="nav navbar-nav">
+                    <li class="<?php if($cnav == 'index')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">首页</a></li>
+                    <li class="<?php if($cnav == 'memorial')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/memorial'])?>">纪念馆</a></li>
+<!--                    <li><a href="--><?//=Url::toRoute(['/memorial/home/site/days'])?><!--">生忌</a></li>-->
+                    <li class="<?php if($cnav == 'miss')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/miss'])?>">追思文章</a></li>
+                    <li class="<?php if($cnav == 'msg')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/msg'])?>">祭祀祝福</a></li>
+                    <li class="<?php if($cnav == 'album')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/album'])?>">音容笑貌</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <?=$content?>
 
 <div class="mainfooter zx-footer">

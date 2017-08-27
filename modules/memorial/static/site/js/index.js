@@ -4,12 +4,11 @@
  */
 
 $(function(){
-    $('#zsList').scrollList({scrollNum:2});
-    $('#loveList').scrollList({scrollNum:1,viewNum:2,delayTime:5000});
-    $('#visitList').roll(4000);
-    $('#mailList').roll(4200);
-    $('#onlineList').roll(4000);
-    //$('.person').sline({showController:false});
+    // $('#zsList').scrollList({scrollNum:2});
+    // $('#loveList').scrollList({scrollNum:1,viewNum:2,delayTime:5000});
+    // $('#visitList').roll(4000);
+    // $('#msgList').roll(4200);
+    // $('#onlineList').roll(4000);
 });
 
 $.fn.extend({
@@ -49,7 +48,7 @@ $.fn.extend({
                 iItems = iShow.children('li'),
                 prev = $(".prev", obj).css('opacity',0.6),
                 next = $(".next", obj).css('opacity',0.6),
-                itemWidth = iItems.eq(0).outerWidth(true);
+                itemWidth = iItems.eq(0).outerWidth(true),
                 mLen = 0,
                 cLen = 0;
 

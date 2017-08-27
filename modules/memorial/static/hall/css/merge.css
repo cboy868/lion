@@ -7,17 +7,18 @@
 .navbar{
 	min-height: auto;
 }
+/*
 .text-header {
 	text-align: center;
 }
 .text-header hr{
-	border-top: 3px solid #fff;
-	border-radius: 10px;
-	height: 20px;
+	border-top: 2px solid #abc;
+	border-radius: 5px;
+	height: 10px;
 }
 
 .text-content .msg-list{
-	/*border-right: 1px solid #999;*/
+	border-right: 1px solid #999;
 }
 
 .text-content .msg-box{
@@ -25,7 +26,8 @@
 	background: #fff;
 }
 .miss-list .msg-box{
-	border: 1px dashed #20748B;
+	border-bottom: 1px dashed #cde;
+	padding-bottom:5px;
 }
 .msg-list .msg-box{
 	background: #eee;
@@ -60,3 +62,4 @@
 	width: 36px;
 	border-radius: 50%;
 }
+*/

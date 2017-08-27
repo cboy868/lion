@@ -3,9 +3,9 @@
 }
 
 .text-header hr{
-    border-top: 3px solid #fff;
-    border-radius: 10px;
-    height: 20px;
+    border-top: 2px solid #abc;
+    border-radius: 5px;
+    height: 10px;
 }
 
 .text-content .msg-list{
@@ -17,7 +17,8 @@
     background: #fff;
 }
 .miss-list .msg-box{
-    border: 1px dashed #20748B;
+    border-bottom: 1px dashed #cde;
+    padding-bottom:5px;
 }
 .msg-list .msg-box{
     background: #eee;
@@ -40,7 +41,7 @@
     text-align: right;
 }
 .u-info .tool-open{
-    margin-left: 20px;
+    margin-left: 10px;
 
 }
 .text-content .u-text{
@@ -55,12 +56,12 @@
 
 .info{
     text-align: center;
-    border-top: 5px solid #4f838f;
+    border-top: 3px solid #abc;
     padding: 10px;
     border-radius: 10px;
     height: 750px;
-    border-right: 1px solid #4f838f;
-    border-left: 1px solid #4f838f;
+    border-right: 1px solid #abc;
+    border-left: 1px solid #abc;
 }
 .info .avatar img{
     border-radius: 50%;
@@ -99,13 +100,13 @@ div.aside-box{
 .remote{
     border-radius: 15px 0 0 0;
     margin-top: 50px;
-    border-top: 5px solid #4f838f;
+    border-top: 3px solid #abc;
     padding:10px 0 0 10px;
 }
 .flower{
     border-radius: 0 15px 0 0;
     margin-top: 50px;
-    border-top: 5px solid #4f838f;
+    border-top: 3px solid #abc;
     padding:10px 10px 0 0 ;
 }
 
@@ -150,9 +151,7 @@ div.aside-box{
     margin: 0 auto;
     padding: 12px 18px 0 24px;
     position: relative;
-    margin-top: 20p;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    /*margin-top: 20px;*/
 }
 
 .remote .video{

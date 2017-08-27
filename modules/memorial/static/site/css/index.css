@@ -114,8 +114,8 @@ a:hover, a:focus{color:#24a378;}
 .online-list ul li{border-bottom:1px dotted #e5e5e5;clear:both;padding-bottom:15px;margin-bottom:18px;overflow:hidden;line-height:22px;}
 .online-list ul li p{color:#aaa;font-size:12px;}
 
-.prev{cursor:pointer;width:22px;height:50px;position:absolute;left:0px;top:50%;margin-top:-25px;background:url('../images/sprite.png') left top no-repeat;border-radius:0 4px 4px 0;display:none;}
-.next{cursor:pointer;width:22px;height:50px;position:absolute;right:0px;top:50%;margin-top:-25px;background:url('../images/sprite.png') right top no-repeat;border-radius:4px 0 0 4px;display:none;}
+/*.prev{cursor:pointer;width:22px;height:50px;position:absolute;left:0px;top:50%;margin-top:-25px;background:url('../images/sprite.png') left top no-repeat;border-radius:0 4px 4px 0;display:none;}*/
+/*.next{cursor:pointer;width:22px;height:50px;position:absolute;right:0px;top:50%;margin-top:-25px;background:url('../images/sprite.png') right top no-repeat;border-radius:4px 0 0 4px;display:none;}*/
 
 .person-list{padding-left:0;padding-right:0;padding-top:18px;}
 .person-list .tab-pane{overflow:hidden;}
@@ -262,10 +262,10 @@ a:hover, a:focus{color:#24a378;}
 /* 时光留影 */
 .times-list{}
 .times-list dl{background-color:#FFF;overflow:hidden;}
-.times-list dt{height:260px;position:relative;background-color:#aaa;}
+.times-list dt{height:260px;position:relative;}
 .times-list dt a{display:block;height:100%;}
-.times-list dt a img{position:absolute;top:50%;left:50%;margin-top:-86px;margin-left:-86px;}
-.times-list dd{border:1px solid #c7dfd7;border-top:none;padding:5px;}
+.times-list dt a img{max-width:100%;max-height:100%;}
+.times-list dd{padding:5px;}
 .times-list dd ul{list-style:none;margin:0;overflow:hidden;padding:0;}
 .times-list dd ul li{float:left;padding:5px;}
 .times-list dd ul li.con{width:197px;overflow:hidden;height:50px;}

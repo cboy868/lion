@@ -112,4 +112,41 @@ class AlbumSearch extends Album
 
         return $dataProvider;
     }
+
+    public function searchMemorial($params)
+    {
+        $query = Album::find()->orderBy('id desc');
+        $query->where(['<>', 'memorial_id', 0]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 16,
+            ],
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'sort' => $this->sort,
+            'recommend' => $this->recommend,
+            'is_customer' => $this->is_customer,
+            'is_top' => $this->is_top,
+            'memorial_id' => $this->memorial_id,
+            'privacy' => $this->privacy,
+            'view_all' => $this->view_all,
+            'com_all' => $this->com_all,
+            'num' => $this->num,
+            'created_by' => $this->created_by,
+            'status' => $this->status,
+        ]);
+
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'body', $this->body]);
+
+        return $dataProvider;
+    }
 }

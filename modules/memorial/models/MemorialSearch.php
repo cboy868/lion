@@ -45,6 +45,9 @@ class MemorialSearch extends Memorial
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 12,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

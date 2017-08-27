@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+$this->params['current_nav'] = 'index';
 ?>
 <style>
     .popover-content img{
@@ -13,7 +14,7 @@ use yii\helpers\Url;
             <div class="row">
                 <div class="col-md-12">
                     <div class="tab-box white-bg">
-                        <ul class="nav nav-tabs tabs-zx" role="tablist">
+                        <ul class="nav nav-tabs tabs-waheaven" role="tablist">
                             <li class="active"><a data-toggle="tab"><h4>最新纪念馆</h4></a></li>
                         </ul>
                         <div class="tab-content person-list">
@@ -40,11 +41,11 @@ use yii\helpers\Url;
                 <div class="col-md-6 ">
                     <!-- 在线讣告{ -->
                     <div class="tab-box white-bg">
-                        <ul class="nav nav-tabs tabs-zx" role="tablist">
+                        <ul class="nav nav-tabs tabs-waheaven" role="tablist">
                             <li class="active"><a data-toggle="tab"><h4>最新祭祀</h4></a></li>
                         </ul>
                         <div class="online-list">
-                            <ul id="onlineList">
+                            <ul id="remoteList">
                                 <?php foreach ($remotes as $v):?>
                                 <li>
                                     <div class="col-md-4 no-padding-left">
@@ -69,7 +70,7 @@ use yii\helpers\Url;
                 <div class="col-md-6 no-padding-left">
                     <!-- 今日忌日 & 今日生日{ -->
                     <div class="tab-box white-bg">
-                        <ul class="nav nav-tabs tabs-zx" role="tablist">
+                        <ul class="nav nav-tabs tabs-waheaven" role="tablist">
                             <li class="active"><a href="#tb" data-toggle="tab"><h4>今日生辰</h4></a></li>
                             <li><a href="#tf" data-toggle="tab"><h4>今日忌日</h4></a></li>
                         </ul>
@@ -112,10 +113,10 @@ use yii\helpers\Url;
             <div class="row">
                 <div class="col-md-12">
                     <div class="tab-box white-bg">
-                        <ul class="nav nav-tabs tabs-zx" role="tablist">
+                        <ul class="nav nav-tabs tabs-waheaven" role="tablist">
                             <li class="active"><a href="#zqAlbums" data-toggle="tab"><h4>音容笑貌</h4></a></li>
                         </ul>
-                        <div class="albums">
+                        <div class="albums-list">
                             <ul>
                                 <?php foreach ($albums as $v):?>
                                 <li>
@@ -136,12 +137,12 @@ use yii\helpers\Url;
         <div class="col-md-3">
                 <!-- 时空信箱{ -->
                 <div class="tab-box white-bg">
-                    <ul class="nav nav-tabs tabs-zx" role="tablist">
+                    <ul class="nav nav-tabs tabs-waheaven" role="tablist">
                         <li class="active"><a data-toggle="tab"><h4>美好祝福</h4></a></li>
                     </ul>
                     <div class="tab-content mail-list">
                         <div role="tabpanel" class="tab-pane fade in active">
-                            <ul id="mailList">
+                            <ul id="msgList">
                                 <?php foreach ($msgs as $msg):?>
                                 <li>
                                     <div class="user-avatar">
@@ -150,8 +151,8 @@ use yii\helpers\Url;
                                             <p><?=$msg->fromUser->username?></p>
                                         </a>
                                     </div>
-                                    <a target="_blank" href="/Memorial/RemarkIndex/990048843.html">
-                                        <div class="popover z-popover right">
+                                    <a target="_blank" href="#">
+                                        <div class="popover tt-popover right">
                                             <div class="arrow"></div>
                                             <div class="popover-content">
                                                 <?=$msg->content?>
@@ -169,7 +170,7 @@ use yii\helpers\Url;
                 <div class="blank"></div>
                 <!-- 最新纪念文章{ -->
                 <div class="tab-box white-bg">
-                    <ul class="nav nav-tabs tabs-zx" role="tablist">
+                    <ul class="nav nav-tabs tabs-waheaven" role="tablist">
                         <li class="active"><a data-toggle="tab"><h4>最新纪念文章</h4></a></li>
                     </ul>
                     <div class="tab-content tab-list article-tab-list">
@@ -192,3 +193,11 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
+<?php $this->beginBlock('cate') ?>
+$(function(){
+    $('#msgList').roll(4200);
+    $('#remoteList').roll(4000);
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>
+

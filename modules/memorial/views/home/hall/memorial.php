@@ -113,7 +113,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                            class="modalAddButton btn btn-success pull-right"
                            data-loading-text="页面加载中, 请稍后..."
                            onclick="return false"
-                        >点烛献花</a>
+                        >小礼品</a>
 
                         <div class="clearfix"></div>
                     </div>
@@ -151,7 +151,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 
         <div class="col-md-3 aside-box">
             <div class="flower">
-                <ul class="media-list pray">
+                <ul class="media-list pray" id="msgList">
                     <?php
                     $cfg = $this->context->module->params['memorial_types'];
                     ?>
@@ -173,14 +173,36 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                     </li>
                     <?php endforeach;?>
                 </ul>
-
-
             </div>
         </div>
-
     </div>
 </div>
-
+<?php if ($photos):?>
+    <div class="blank"></div>
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 300px;
+            margin: 20px auto;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            width: 60%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
 <div class="container album-container">
     <div class="row">
 
@@ -190,7 +212,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                 <div class="swiper-wrapper">
                     <?php foreach ($photos as $photo):?>
                     <div class="swiper-slide" style="height:300px;width:300px;">
-                        <img src="<?=$photo->getThumb()?>" alt="">
+                        <img src="<?=$photo->getThumb()?>">
                     </div>
                     <?php endforeach;?>
                 </div>
@@ -203,6 +225,8 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 
     </div>
 </div>
+<?php endif;?>
+<div class="blank"></div>
 <div class="container memorial-container">
     <div class="row text-content"  id="msg-start">
         <div class="col-md-12 text-header">
@@ -310,11 +334,11 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 
 <?php $this->beginBlock('cate') ?>
 
-
 $(function(){
 
     $('.notomb').popover();
 
+    $('#msgList').roll(4200);
 
     $('.msg-send').click(function(e){
         e.preventDefault();
@@ -336,6 +360,16 @@ $(function(){
             }
         },'json');
 
+    });
+
+    var swiper = new Swiper('.swiper-container', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        autoplay : 10000,
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 30
     });
 
 })

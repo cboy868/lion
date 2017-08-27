@@ -2,7 +2,9 @@
 
 namespace app\modules\blog\models;
 
+use app\modules\memorial\models\Memorial;
 use app\modules\user\models\Track;
+use app\modules\user\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -146,5 +148,15 @@ class Album extends \app\core\db\ActiveRecord
         }
 
         Track::create(Track::RES_ALBUM, $this->id);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'created_by']);
+    }
+
+    public function getMemorial()
+    {
+        return $this->hasOne(Memorial::className(),['id'=>'memorial_id']);
     }
 }

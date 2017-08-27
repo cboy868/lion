@@ -20,7 +20,7 @@ class HallAsset extends AssetBundle
         'css/import.css'
     ];
     public $js = [
-
+        'js/index.js'
     ];
 
     public $depends = [

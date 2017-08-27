@@ -46,7 +46,7 @@ $this->registerCssFile($mem[1] . '/css/remark.css');
                 </div>
                 <div class="blank"></div>
 
-                <div class="box" style="background: #fff;padding:0">
+                <div class="box" style="background: #fff;padding:0;border:none">
                     <?php $form = ActiveForm::begin(); ?>
 
                     <?=$form->field($comment,'res_name')->hiddenInput(['value'=>'memorial'])->label(false)?>
