@@ -37,11 +37,25 @@ use yii\helpers\Url;
                 <p><?=$type['title']?></p>
             </a>
         <?php endforeach;?>
-        <?= $form->field($model, 'type')->hiddenInput(['class'=>'input-type'])->label(false)?>
+        <?= $form->field($model, 'type')->hiddenInput(['class'=>'input-type type-content'])->label(false)
+            ->error(['class'=>'help-block type-block'])?>
 
     </div>
 
-    <?= $form->field($model, 'msg')->textarea(['maxlength' => true,'minlength' => true,'style'=>'height:200px;width:100%;'])->label(false) ?>
+    <?= $form->field($model,'msg')->widget('app\core\widgets\Ueditor\Ueditor',[
+        'option' =>['res_name'=>'blog', 'use'=>'ue'],
+        'value'=>$model->msg,
+        'class'=>'content',
+        'jsOptions' => [
+            'initialFrameHeight'=>300,
+            'toolbars' => [
+                [
+                    'undo', 'redo', 'simpleupload','emotion'
+                ],
+            ]
+        ]
+    ])->label(false)->error(['class'=>'help-block content-error']);
+    ?>
 
     <div class="form-group" style="text-align: right">
         <?=  Html::submitButton(' 取 消 ', [
@@ -56,7 +70,11 @@ use yii\helpers\Url;
 
 
 </div>
-
+<style>
+    .edui-default{
+        z-index: 1051 !important;
+    }
+</style>
 <?php $this->beginBlock('cate') ?>
 $(function(){
 
@@ -68,12 +86,26 @@ $(function(){
         $('.input-type').val(type);
     });
 
+    $('.typesel').click(function(){
+        if ($('.type-content').val()){
+            $('.type-block').text('').css({'color':'green'});
+        }
+    });
+
+
     $('.btn-save').click(function (e) {
         e.preventDefault();
         var type = $(this).closest('form').find('.input-type').val();
 
+        if (!editor_pray_msg.hasContents()){
+            $('.content-error').text('请填写祝福内容').css({'color':'red'});
+        }
+
         if (type == '') {
-            alert('您好，请先选择一个小礼物');
+            $('.type-block').text('您好，请先选择一个小礼物').css({'color':'red'});
+        }
+
+        if (!editor_pray_msg.hasContents() || type==''){
             return;
         }
 
@@ -81,7 +113,7 @@ $(function(){
 
         $.post('<?=Url::toRoute(['candle-flower','id'=>$model->memorial_id])?>',data,function (xhr) {
             if (xhr.status) {
-                alert('您好，您的祝福已成功');
+                alert('祝福留言成功');
                 location.reload();
                 //$('#modalAdd').modal('hide');
             } else {

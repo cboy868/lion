@@ -22,7 +22,7 @@ use app\core\helpers\Html;
     <hr>
     <ul class="list-unstyled blog">
         <?php foreach ($list as $v):?>
-            <li><a href="<?=Url::toRoute(['archive-view', 'id'=>$v->id])?>"><?=Html::cutstr_html($v->title, 10)?></a></li>
+            <li><a href="<?=Url::toRoute(['archive-view', 'id'=>$memorial_id,'bid'=>$v->id])?>"><?=Html::cutstr_html($v->title, 10)?></a></li>
         <?php  endforeach;?>
     </ul>
 </div>

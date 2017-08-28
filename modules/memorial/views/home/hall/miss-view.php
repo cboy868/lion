@@ -29,7 +29,7 @@ $this->params['current_nav'] = 'achive';
                 <ul class="breadcrumb">
                     当前位置:
                     <li><a href="<?=\yii\helpers\Url::toRoute(['index', 'id'=>$model->memorial_id])?>">首页</a></li>
-                    <li><a href="<?=\yii\helpers\Url::toRoute(['archive', 'id'=>$model->memorial_id])?>">档案</a></li>
+                    <li><a href="<?=\yii\helpers\Url::toRoute(['archive', 'id'=>$model->memorial_id])?>">追忆</a></li>
                     <li class="active"><?=$model->title?></li>
                 </ul>
                 <div class="box">

@@ -11,6 +11,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 \app\assets\ModalAsset::register($this);
 \app\assets\FontawesomeAsset::register($this);
 \app\assets\JqueryuiAsset::register($this);
+\app\core\widgets\Ueditor\UAsset::register($this);
 ?>
 <style>
     .uinfo{
@@ -343,8 +344,7 @@ $(function(){
     $('.msg-send').click(function(e){
         e.preventDefault();
 
-        var content = editor_comment_content.getContent();
-        if (content == ''){
+        if (!editor_comment_content.hasContents()){
             alert('请填写祝福内容');
             return;
         }

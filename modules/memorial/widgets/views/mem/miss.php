@@ -21,7 +21,7 @@ use app\core\helpers\Html;
     </div>
     <ul class="list-unstyled blog">
         <?php foreach ($list as $v):?>
-        <li><a href="<?=Url::toRoute(['miss-view', 'id'=>$v->id])?>"><?=Html::cutstr_html($v->title, 10)?></a></li>
+        <li><a href="<?=Url::toRoute(['miss-view', 'id'=>$memorial_id,'bid'=>$v->id])?>"><?=Html::cutstr_html($v->title, 10)?></a></li>
         <?php  endforeach;?>
     </ul>
 </div>

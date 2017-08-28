@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use app\modules\user\models\Track;
 use app\modules\memorial\models\Memorial;
 \app\modules\memorial\assets\HallAsset::register($this);
-
+$memorial = Memorial::findOne(Yii::$app->request->get('id'));
 ?>
 
 <?php $this->beginPage() ?>
@@ -113,13 +113,15 @@ use app\modules\memorial\models\Memorial;
 </div>
 
 <div id="ink-hook"></div>
-<!--
 <div class="container">
-    <div class="row" style="height: 40px;background: #fff;overflow: hidden;position: relative;">
+    <div class="bt-top">
+        <div class="jng-info">
+            <h1><?=$memorial->title?></h1>
+        </div>
     </div>
 </div>
--->
-<div class="container" style="margin-top:100px;">
+
+<div class="container">
     <div class="row">
         <div class="menu-list">
             <ul id="toolbar" class="list-unstyled">

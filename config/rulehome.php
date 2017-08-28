@@ -34,10 +34,6 @@ return [
     'grave/<id:\d+>.html' => 'grave/home/default/view',
     'tomb/<id:\d+>.html' => 'grave/home/default/tomb',
 
-    'panel.html' => 'memorial/home/default/panel',
-    'memorial.html' => 'memorial/home/default/index',
-    'remote.html' => 'memorial/home/default/remote',
-    'memorial/<id:\d+>.html' => 'memorial/home/default/view',
 
 
     'about.html' => 'cms/home/about/index',
@@ -83,17 +79,31 @@ return [
     'wechat' => 'wechat/home/default/index',
 
 
-
-
     //最新纪念馆部分
-    'mem/<id:\d+>.html' => 'memorial/home/hall/index',
 
 
+//    'panel.html' => 'memorial/home/default/panel',
+//    'memorial.html' => 'memorial/home/default/index',
+//    'remote.html' => 'memorial/home/default/remote',
+//    'memorial/<id:\d+>.html' => 'memorial/home/default/view',
+    //聚合部分
+    'memorial.html' => 'memorial/home/site/index',
+    'memorial/album.html' => 'memorial/home/site/album',
+    'memorial/miss.html' => 'memorial/home/site/miss',
+    'memorial/mem.html' => 'memorial/home/site/memorial',
 
+    //分馆部分
+    'memorial/<id:\d+>.html' => 'memorial/home/hall/index',
+    'memorial/mem/<id:\d+>.html' => 'memorial/home/hall/memorial',
+    'memorial/life/<id:\d+>.html' => 'memorial/home/hall/life',
+    'memorial/album/<id:\d+>.html' => 'memorial/home/hall/album',
+    'memorial/miss/<id:\d+>.html' => 'memorial/home/hall/miss',
+    'memorial/archive/<id:\d+>.html' => 'memorial/home/hall/archive',
+    'memorial/msg/<id:\d+>.html' => 'memorial/home/hall/msg',
+    'memorial/remote/<id:\d+>.html' => 'memorial/home/hall/record',
 
-
-
-
+    'memorial/miss/<id:\d+>/<bid:\d+>.html' => 'memorial/home/hall/miss-view',
+    'memorial/archive/<id:\d+>/<bid:\d+>.html' => 'memorial/home/hall/archive-view',
 
 
 
