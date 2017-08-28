@@ -7,10 +7,20 @@ $this->params['current_nav'] = 'index';
         max-width:100%;
     }
 </style>
+<div class="container indexBanner">
+    <div class="row">
+        <div class="col-md-12">
+            <a target="_blank" href="#">
+                <img src="/static/images/memorial/memorial_memorial.png" width="100%">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="blank"></div>
 <div class="container">
     <!-- left{ -->
     <div class="row">
-        <div class="col-md-9 nopadding">
+        <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12">
                     <div class="tab-box white-bg">
@@ -48,7 +58,7 @@ $this->params['current_nav'] = 'index';
                             <ul id="remoteList">
                                 <?php foreach ($remotes as $v):?>
                                 <li>
-                                    <div class="col-md-4 no-padding-left">
+                                    <div class="col-md-4">
                                         <a href="#">
                                             <img alt="<?=$v->goodsSkuName?>" class="img-responsive" src="<?=$v->goods->cover?>">
                                         </a>
@@ -67,7 +77,7 @@ $this->params['current_nav'] = 'index';
                     </div>
                     <!-- }在线讣告 -->
                 </div>
-                <div class="col-md-6 no-padding-left">
+                <div class="col-md-6">
                     <!-- 今日忌日 & 今日生日{ -->
                     <div class="tab-box white-bg">
                         <ul class="nav nav-tabs tabs-waheaven" role="tablist">
@@ -194,9 +204,11 @@ $this->params['current_nav'] = 'index';
     </div>
 </div>
 <?php $this->beginBlock('cate') ?>
+
 $(function(){
     $('#msgList').roll(4200);
     $('#remoteList').roll(4000);
+
 })
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>

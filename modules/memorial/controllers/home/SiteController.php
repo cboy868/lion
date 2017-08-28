@@ -131,22 +131,6 @@ class SiteController extends Controller
     }
 
 
-    /**
-     * @name 祝福
-     * 1 留言
-     * 2 送礼物
-     * 3 远程祭祀
-     */
-    public function actionMsg()
-    {
-        //取评论
-        $comments = Comment::getByRes('memorial',null, 15, '45x45');
-
-        return $this->render('msg',[
-            'comments' => $comments
-        ]);
-    }
-
     public function actionDays()
     {
         return $this->render('days');

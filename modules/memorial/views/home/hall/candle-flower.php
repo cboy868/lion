@@ -8,6 +8,7 @@ use yii\helpers\Url;
         width:80px;
         height:80px;
         margin:10px;
+        margin-bottom:0;
     }
     .pics a.active img{
         border: 1px solid #4f838f;
@@ -18,6 +19,13 @@ use yii\helpers\Url;
     .btns button{
         width:100px;
     }
+    a.typesel{
+        display: inline-block;
+    }
+    a.typesel p{
+        text-align: center;
+        color: #999;
+    }
 </style>
 <div class="">
 
@@ -26,6 +34,7 @@ use yii\helpers\Url;
         <?php foreach ($types as $key => $type):?>
             <a class="typesel" href="#" data-tid="<?=$key?>">
                 <img src="<?=$type['cover']?>" title="<?=$type['title']?>">
+                <p><?=$type['title']?></p>
             </a>
         <?php endforeach;?>
         <?= $form->field($model, 'type')->hiddenInput(['class'=>'input-type'])->label(false)?>

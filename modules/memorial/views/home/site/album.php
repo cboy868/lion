@@ -5,15 +5,30 @@ $this->params['current_nav'] = 'album';
 ?>
 <div class="container">
     <div class="waheaven-banner">
-        <img alt="" src="" width="1300">
+        <img src="/static/images/memorial/memorial_album.png" width="100%">
 
         <div class="info">
-            <h2 class="text-center">时光流影 生命相册</h2>
+            <h2 class="text-center">音容笑貌 时光记忆</h2>
             <p>
-                留住最美的瞬间，写下真心的话语，记录美好的回忆，寄托思念的天堂。
-                真正做到让爱与思念没有距离、生命的故事永久流传。
+                最美的曾经，瞬间便是永远，记录美好的回忆，寄托深深的思念。
+                爱与思在时光中永恒，生命故事永久流传。
             </p>
             <div class="blank"></div>
+        </div>
+    </div>
+    <div class="blank"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="sort-inner">
+                <ul>
+                    <li class="pull-right">
+                        <form method="get" >
+                            <input name="AlbumSearch[title]" value="<?=$searchModel->title?>" placeholder="相册名称">
+                            <button>搜索</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="blank"></div>

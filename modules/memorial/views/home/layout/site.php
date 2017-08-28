@@ -38,85 +38,55 @@ use yii\helpers\Url;
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand hidden-md hidden-lg" href="/">
-                    <img src="/Resource/Images/v2_top_logo.gif" alt="孝爱网" />
+                    <img src="<?=g('logo')?>" alt="<?=g('cp_name')?>" />
                 </a>
             </div>
             <div class="navbar-collapse collapse" role="navigation">
+                <?php $cnav = isset($this->params['current_nav']) ? $this->params['current_nav'] : ''?>
                 <ul class="nav navbar-nav">
-                    <li class=""><a href="/">主页</a></li>
+                    <li class=""><a href="/">门户主页</a></li>
+                    <li class="<?php if($cnav == 'index')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">首页</a></li>
+                    <li class="<?php if($cnav == 'memorial')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/memorial'])?>">纪念馆</a></li>
+                    <!--                    <li><a href="--><?//=Url::toRoute(['/memorial/home/site/days'])?><!--">生忌</a></li>-->
+                    <li class="<?php if($cnav == 'miss')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/miss'])?>">追思文章</a></li>
+                    <li class="<?php if($cnav == 'album')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/album'])?>">音容笑貌</a></li>
                 </ul>
+                <?php if (Yii::$app->user->isGuest):?>
                 <ul class="nav navbar-nav navbar-right" style="display:block">
                     <li><a href="<?=Url::toRoute(['/member/default/login'])?>"><i class="navIcon user"></i>登录</a></li>
                     <li><a href="<?=Url::toRoute(['/member/default/reg'])?>"><i class="navIcon register"></i>注册</a></li>
                 </ul>
-                <ul class="list-inline jlg-user" style="display:none">
+                <?php else:?>
+                <ul class="list-inline jlg-user">
                     <li><a href="#"><p title="进入我的博客中心"></p></a></li>
                     <li><a href="/member"><p><strong>进入个人中心</strong></p></a></li>
-                    <li><a href="/Account/LoginOut"><p>退出</p></a></li>
+                    <li><a href="<?=Url::toRoute(['/member/default/logout'])?>" data-method="post" class="logout"><p>退出</p></a></li>
                 </ul>
+                <?php endif;?>
             </div>
         </div>
     </div>
 </div>
 
 <div class="blank"></div>
-<div class="navbar navbar-waheaven">
-    <div class="container">
-        <div class="row">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".waheaven-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse waheaven-collapse collapse" role="navigation">
-                <?php $cnav = isset($this->params['current_nav']) ? $this->params['current_nav'] : ''?>
-                <ul id="toolbarIndex" class="nav navbar-nav">
-                    <li class="<?php if($cnav == 'index')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">首页</a></li>
-                    <li class="<?php if($cnav == 'memorial')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/memorial'])?>">纪念馆</a></li>
-<!--                    <li><a href="--><?//=Url::toRoute(['/memorial/home/site/days'])?><!--">生忌</a></li>-->
-                    <li class="<?php if($cnav == 'miss')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/miss'])?>">追思文章</a></li>
-                    <li class="<?php if($cnav == 'msg')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/msg'])?>">祭祀祝福</a></li>
-                    <li class="<?php if($cnav == 'album')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/album'])?>">音容笑貌</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+
 <?=$content?>
 
 <div class="mainfooter zx-footer">
     <div class="container">
-        <div class="">
-            <div class="col-md-10">
-                <div class="row">
-                    <ul class="list-inline">
-                        <li><a href="#">关于我们</a></li>
-                        <li><a href="#">联系我们</a></li>
-                    </ul>
-
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="row attention">
-                    <div class="col-md-12 col-sm-4 col-xs-4">
-                        <img width="150" src="/static/images/ma1.jpg" />
-                        <p>关注微信平台</p>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <p>
+                    <?=g("reserved")?> <?=g('beian')?>
+                </p>
             </div>
         </div>
     </div>
 </div>
-
 <?php $this->beginBlock('tree') ?>
 
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>
-
-
 
 <?php $this->endBody() ?>
 </body>

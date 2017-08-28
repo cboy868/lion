@@ -117,6 +117,7 @@ class Comment extends \app\core\db\ActiveRecord
 
     public static function getByRes($res_name, $res_id, $limit=15, $thumb='45x45')
     {
+
         $query = self::find()->where(['status'=>self::STATUS_NORMAL])
                             ->andWhere(['res_name'=>$res_name, 'res_id'=>$res_id])
                             ->andWhere(['pid'=>0]);

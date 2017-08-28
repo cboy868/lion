@@ -3,34 +3,35 @@ use yii\helpers\Url;
 use app\core\helpers\Html;
 
 $this->params['current_nav'] = 'miss';
+\app\modules\memorial\assets\MansoryAsset::register($this);
 ?>
 <div class="container">
     <div class="waheaven-banner">
-        <img src="/resource/images/index/img320(3).jpg">
+        <img src="/static/images/memorial/memorial_miss.png" width="100%">
         <div class="info">
-            <h2 class="text-center">专属网络思念空间</h2>
-            <p>个人纪念馆，能让往生者的一生故事得以完整的留存，给后人留下宝贵的精神遗产。使家属无论随时随地都可以通过网络来祭拜往生者，传递思念之情，真正做到让爱与思念没有距离、生命的故事永久流传。</p>
-            <div class="blank"></div>
-            <p class="text-center"><a href="/MemberCenter/Memorial/Add"><button class="btn btn-warning btn-lg">免费创建纪念馆</button></a></p>
+            <h2 class="text-center">当思念化为文字，我们不再遥远</h2>
+            <p>文字留存，传递思念之情，让爱与思念永恒传递，生命故事永久流传。</p>
         </div>
     </div>
     <div class="blank"></div>
     <div class="sort-inner">
         <ul>
             <li class="pull-right">
-                <form method="get" action="/Article">
-                    <input name="keyword" placeholder="深情感文标题"><button>搜索</button>
+                <form method="get"">
+                    <input name="BlogSearch[res]" value="<?=\app\modules\blog\models\Blog::RES_MISS?>" type="hidden">
+                    <input name="BlogSearch[title]" value="<?=$searchModel->title?>" placeholder="深情感文标题">
+                    <button>搜索</button>
                 </form>
             </li>
         </ul>
     </div>
     <div class="blank"></div>
-    <div class="article-list" style="position: relative;">
+    <div class="article-list" style="position: relative;" id="masonry">
         <?php
         $models = $dataProvider->getModels();
         foreach ($models as $model):
         ?>
-        <dl>
+        <dl class="man-box">
             <dt>
                 <a target="_blank" href="<?=Url::toRoute(['/memorial/home/hall/miss-view','id'=>$model->memorial_id,'bid'=>$model->id])?>">
                     <h4><?=$model->title?></h4>
@@ -72,3 +73,28 @@ $this->params['current_nav'] = 'miss';
         ?>
     </div>
 </div>
+
+
+
+<?php $this->beginBlock('cate') ?>
+$(function(){
+    $("#masonry").mpmansory(
+        {
+            childrenClass: 'man-box', // default is a div
+            columnClasses: '', //add classes to items
+            breakpoints:{
+                lg: 4,
+                md: 6,
+                sm: 6,
+                xs: 12
+            },
+            distributeBy: { order: false, height: false, attr: 'data-order', attrOrder: 'asc' },
+            onload: function (items) {
+                //make somthing with items
+            }
+        }
+    );
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>
+

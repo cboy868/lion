@@ -1,5 +1,0 @@
-<div id="footer"><p>广东佛山亿合门窗厂   |   广东亿合门窗科技有限公司  |  公司地址：广东省佛山市南海区狮山镇博爱东路118号亿合工业园 </p><p><a href="http://www.miitbeian.gov.cn/" title="备案号：粤ICP备12050731号" target="_blank" rel="nofollow">备案号：粤ICP备12050731号</a>  |  联 系电话：400-830-8889 |   邮箱: EHE@yihedoors.com <a href="/rss" target="_blank">
-            <img src="/images/rss_icon.gif"></a> <a href="/rss/feed.xml" target="_blank"><img src="/images/xml_icon.gif"></a>
-        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-            document.write(unescape("%3Cspan id='cnzz_stat_icon_1256387928'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1256387928' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1256387928"><a href="http://www.cnzz.com/stat/website.php?web_id=1256387928" target="_blank" title="站长统计">站长统计</a></span><script src=" http://s11.cnzz.com/z_stat.php?id=1256387928" type="text/javascript"></script><script src="http://c.cnzz.com/core.php?web_id=1256387928&amp;t=z" charset="utf-8" type="text/javascript"></script></p>
-</div>

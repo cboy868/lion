@@ -8,21 +8,19 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class SiteAsset extends AssetBundle
+class MansoryAsset extends AssetBundle
 {
-	public $sourcePath = '@app/modules/memorial/static/site';
+	public $sourcePath = '@app/modules/memorial/static/libs/mp-mansory';
 
     public $css = [
-        'css/main.css',
-        'css/index.css',
+//        'css/index.css',
     ];
     public $js = [
-        'js/index.js',
+        'mp.mansory.min.js',
     ];
 
     public $depends = [
         'yii\bootstrap\BootstrapPluginAsset',
-        'yii\web\YiiAsset'//这个只用到了他的post退出功能
     ];
 
 }
