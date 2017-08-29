@@ -10,14 +10,15 @@ use yii\web\AssetBundle;
  */
 class SiteAsset extends AssetBundle
 {
-	public $sourcePath = '@app/modules/memorial/static/site';
+	public $sourcePath = '@app/modules/memorial/static';
 
     public $css = [
-        'css/main.css',
-        'css/index.css',
+        'site/css/main.css',
+        'site/css/index.css',
+        'hall/memorial/ink/common.css',
     ];
     public $js = [
-        'js/index.js',
+        'site/js/index.js',
     ];
 
     public $depends = [

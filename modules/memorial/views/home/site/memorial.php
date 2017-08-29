@@ -2,15 +2,17 @@
 use yii\helpers\Url;
 $this->params['current_nav'] = 'memorial';
 ?>
-<div class="container bannerAndLogin">
-    <a href="#" >
-        <img src="/static/images/memorial/memorial_banner.png" width="100%">
-    </a>
-</div>
 
-<div class="blank"></div>
 
-<div class="container">
+<div class="container main-container">
+    <div class="row">
+        <div class="col-md-12"
+            <a href="#" >
+                <img src="/static/images/memorial/memorial_banner.png" width="100%">
+            </a>
+        </div>
+    </div>
+    <div class="blank"></div>
     <div class="row">
         <div class="col-md-12">
             <div class="sort-inner">

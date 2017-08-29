@@ -32,7 +32,7 @@ class Pray extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'memorial_id','msg'], 'required'],
+            [['user_id', 'memorial_id'], 'required'],
             [['type'],'required','message'=>'请选择一件礼物'],
             [['user_id', 'memorial_id', 'order_id', 'created_at'], 'integer'],
             [['msg'], 'string'],

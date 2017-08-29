@@ -5,7 +5,7 @@ use app\core\helpers\Html;
 $this->params['current_nav'] = 'miss';
 \app\modules\memorial\assets\MansoryAsset::register($this);
 ?>
-<div class="container">
+<div class="container main-container">
     <div class="waheaven-banner">
         <img src="/static/images/memorial/memorial_miss.png" width="100%">
         <div class="info">

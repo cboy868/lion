@@ -84,6 +84,7 @@ class MemorialController extends Controller
         $pray->type = $post['type'];
         $pray->user_id = $post['uid'];
 
+
         return $pray->save();
     }
 

@@ -3,7 +3,7 @@ use yii\helpers\Url;
 
 $this->params['current_nav'] = 'album';
 ?>
-<div class="container">
+<div class="container main-container">
     <div class="waheaven-banner">
         <img src="/static/images/memorial/memorial_album.png" width="100%">
 

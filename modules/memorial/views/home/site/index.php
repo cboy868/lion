@@ -7,7 +7,7 @@ $this->params['current_nav'] = 'index';
         max-width:100%;
     }
 </style>
-<div class="container indexBanner">
+<div class="container main-container">
     <div class="row">
         <div class="col-md-12">
             <a target="_blank" href="#">
@@ -15,9 +15,7 @@ $this->params['current_nav'] = 'index';
             </a>
         </div>
     </div>
-</div>
-<div class="blank"></div>
-<div class="container">
+    <div class="blank"></div>
     <!-- left{ -->
     <div class="row">
         <div class="col-md-9">

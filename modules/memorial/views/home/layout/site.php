@@ -67,10 +67,17 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-
+<style>
+    .main-container{
+        height: auto;
+        margin: 0 auto;
+        padding: 12px 18px 0 24px;
+        background: rgba(255,255,255,0.95);
+        position: relative;
+    }
+</style>
 <div class="blank"></div>
-
-<?=$content?>
+    <?=$content?>
 
 <div class="mainfooter zx-footer">
     <div class="container">

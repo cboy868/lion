@@ -10,17 +10,17 @@ use yii\web\AssetBundle;
  */
 class HallAsset extends AssetBundle
 {
-	public $sourcePath = '@app/modules/memorial/static/hall';
+	public $sourcePath = '@app/modules/memorial/static';
 
     public $css = [
-    	'css/zx.css',
-        'css/memorial.css',
-        'css/merge.css',
-        'memorial/ink/common.css',
-        'css/import.css'
+    	'hall/css/zx.css',
+        'hall/css/memorial.css',
+        'hall/css/merge.css',
+        'hall/memorial/ink/common.css',
+        'hall/css/import.css'
     ];
     public $js = [
-        'js/index.js'
+        'hall/js/index.js'
     ];
 
     public $depends = [
