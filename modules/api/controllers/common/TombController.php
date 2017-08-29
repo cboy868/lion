@@ -4,6 +4,7 @@ namespace app\modules\api\controllers\common;
 use app\modules\api\models\common\Goods;
 use app\modules\api\models\common\Grave;
 use app\modules\api\models\common\Tomb;
+use app\modules\api\models\common\User;
 use Yii;
 use yii\rest\ActiveController;
 use app\modules\shop\models\Category;
@@ -14,6 +15,7 @@ use yii\helpers\ArrayHelper;
 use yii\filters\Cors;
 use app\modules\api\models\common\Cart;
 use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 /**
  * Site controller
  */
@@ -147,6 +149,48 @@ class TombController extends Controller
 
         return $tombs;
 
+    }
+
+
+
+
+    public function actionPreBuy()
+    {
+        $post = Yii::$app->request->post();
+        $user = User::findOne($post['uid']);
+
+
+        $tomb = $this->findModel($post['tomb_id']);
+
+        $tomb->status = Tomb::STATUS_PRE;
+        if ($user->isStaff()) {
+            $tomb->guide_id = $user->id;
+        } else {
+            $tomb->user_id = $user->id;
+        }
+
+        if ($tomb->save() !== false) {
+            return true;
+        }
+
+        return ['errno'=>1, 'error'=>'预定失败，请联系管理员'];
+    }
+
+    public function actionUnPre()
+    {
+        $post = Yii::$app->request->post();
+
+        $tomb = $this->findModel($post['tomb_id']);
+
+        $tomb->status = Tomb::STATUS_EMPTY;
+        $tomb->guide_id = null;
+        $tomb->user_id = null;
+
+        if ($tomb->save() !== false) {
+            return true;
+        }
+
+        return ['errno'=>1, 'error'=>'取消预定失败，请联系管理员'];
     }
 
     protected function findModel($id)
