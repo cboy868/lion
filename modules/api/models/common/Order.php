@@ -43,5 +43,21 @@ class Order extends \app\modules\order\models\Order
         ];
     }
 
+    public function fields()
+    {
+
+        $fields = parent::fields();
+        $other = [
+            'add_date' => function($model){
+                return date('Y-m-d H:i:s', $model->created_at);
+            },
+        ];
+
+        $fields = array_merge($fields, $other);
+
+        return $fields;
+
+    }
+
 
 }
