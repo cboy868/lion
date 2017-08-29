@@ -2,6 +2,8 @@
 namespace app\modules\api\controllers\common;
 
 use app\modules\api\models\common\Goods;
+use app\modules\api\models\common\Grave;
+use app\modules\api\models\common\Tomb;
 use Yii;
 use yii\rest\ActiveController;
 use app\modules\shop\models\Category;
@@ -109,6 +111,29 @@ class TombController extends Controller
 //
 //        $config = Yii::$app->getModule('grave')->params['goods'];
 //    }
+
+    public function actionPre()
+    {
+        $get = Yii::$app->request->get();
+
+        $grave = Grave::find()->where(['like','name', $get['grave']])
+                ->andWhere(['status'=>Grave::STATUS_SALE])
+                ->asArray()
+                ->all();
+
+        $gids = ArrayHelper::getColumn($grave, 'id');
+
+        $class = $this->modelClass;
+        $tombs = $class::find()->where(['grave_id'=>$gids])
+                                ->andFilterWhere(['row'=>$get['row']])
+                                ->andFilterWhere(['col'=>$get['col']])
+                                ->andWhere(['status'=>Tomb::STATUS_EMPTY])
+                                ->asArray()
+                                ->all();
+
+        return $tombs;
+
+    }
 
     protected function findModel($id)
     {

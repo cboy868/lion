@@ -69,7 +69,7 @@ class GraveController extends Controller
         $model = new MsgForm();
         $model->username = $uinfo->username;
         $model->email = $uinfo->email;
-        $model->title = '墓区预定';
+        $model->title = '墓区预约';
         $model->res_id = $grave_id;
         $model->res_name = 'grave';
         $model->mobile = $uinfo->mobile;
