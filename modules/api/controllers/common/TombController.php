@@ -135,6 +135,20 @@ class TombController extends Controller
 
     }
 
+    public function actionPres()
+    {
+        $uid = Yii::$app->request->get('uid');
+
+        $class = $this->modelClass;
+        $tombs = $class::find()->where(['user_id'=>$uid])
+            ->andWhere(['status'=>Tomb::STATUS_PRE])
+            ->asArray()
+            ->all();
+
+        return $tombs;
+
+    }
+
     protected function findModel($id)
     {
         $class = $this->modelClass;
