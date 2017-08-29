@@ -11,6 +11,7 @@ use app\modules\api\models\common\Cart;
 use app\modules\api\models\common\Sku;
 use app\modules\api\models\common\Order;
 use yii\filters\Cors;
+use yii\data\ActiveDataProvider;
 /**
  * Site controller
  */
@@ -36,8 +37,45 @@ class OrderController extends Controller
         $actions = parent::actions();  
         // 禁用""index,delete" 和 "create" 操作  
         unset($actions['delete'], $actions['create'], $actions['view']);
-          
-        return $actions;  
+
+
+        $actions['index']['prepareDataProvider'] = [$this, '_index'];
+        return $actions;
+    }
+
+    public function _index()
+    {
+        $params = Yii::$app->request->queryParams;
+
+        $modelClass = $this->modelClass;
+
+        $query = $modelClass::find()->orderBy('id desc');
+
+        if (!isset($params['user_id'])) {
+            return ['errno'=>1, 'error'=>'不合法的用户id'];
+        }
+
+
+        $query->andWhere(['user_id'=>$params['user_id']]);
+
+        if (isset($params['status'])) {
+            $query->andWhere(['status'=>$params['status']]);
+        } else {
+            $query->andWhere(['<>', 'status', $modelClass::STATUS_DELETE]);
+        }
+
+
+
+
+        $pageSize = 10;
+        if (isset($params['pageSize'])) {
+            $pageSize = $params['pageSize'];
+        }
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => new Pagination(['pageSize'=>$pageSize])
+        ]);
     }
 
     public function actionDel()

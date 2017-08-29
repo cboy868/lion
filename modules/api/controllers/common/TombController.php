@@ -152,8 +152,6 @@ class TombController extends Controller
     }
 
 
-
-
     public function actionPreBuy()
     {
         $post = Yii::$app->request->post();

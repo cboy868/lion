@@ -43,7 +43,7 @@ class Post extends \app\modules\cms\models\Post
             // 字段名为"email", 对应的属性名为"email_address"
             //参数 cover-size=50x50&
             'cover' => function($model){
-                $size = Yii::$app->request->get('cover-size');
+                $size = \Yii::$app->request->get('cover-size');
                 if ($size) {
                     return self::$base_url . $model->getCover($size);
                 }
