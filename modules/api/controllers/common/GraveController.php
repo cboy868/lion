@@ -73,7 +73,11 @@ class GraveController extends Controller
         $model->res_id = $grave_id;
         $model->res_name = 'grave';
         $model->mobile = $uinfo->mobile;
-        return $model->create();
+        if ($model->create() !== false){
+            return true;
+        }
+        return $model->getErrors();
+        return ['errno'=>1,'error'=>'预定失败'];
     }
 
 }
