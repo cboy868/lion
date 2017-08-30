@@ -69,6 +69,7 @@ class UserForm extends Model
 
             $this->password = $this->password ? $this->password : '999999';
             $user->setPassword($this->password);
+            $user->mobile = $this->mobile;
             $user->generateAuthKey();
             $user->is_staff = User::STAFF_NO;
             $user->status = User::STATUS_ACTIVE;
