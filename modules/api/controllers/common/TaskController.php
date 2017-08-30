@@ -3,6 +3,7 @@ namespace app\modules\api\controllers\common;
 
 use app\modules\api\models\common\Goods;
 use app\modules\api\models\common\Grave;
+use app\modules\api\models\common\Task;
 use app\modules\api\models\common\Tomb;
 use app\modules\api\models\common\User;
 use Yii;
@@ -61,6 +62,20 @@ class TaskController extends Controller
             'query' => $query,
             'pagination' => new Pagination(['pageSize'=>$pageSize])
         ]);
+    }
+
+    public function actionFinish()
+    {
+        $id = Yii::$app->request->post('id');
+
+        $model = $this->findModel($id);
+        $model->status = Task::STATUS_FINISH;
+
+        if ($model->save() !== false) {
+            return true;
+        }
+
+        return ['errno'=>1, 'error'=>'更新数据失败，请联系管理员'];
     }
 
 
