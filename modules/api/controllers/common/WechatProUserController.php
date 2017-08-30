@@ -209,8 +209,8 @@ class WechatProUserController extends Controller
             'mini_program' => [
                 'app_id'   => 'wxddc8ada25ff73f9e',
                 'secret'   => 'f29ab7ad6001d56bc6b7f9e991afb3e5',
-                'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
-                'aes_key'  => 'component-aes-key'
+//                'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
+//                'aes_key'  => 'component-aes-key'
             ],
             'debug'  => true,
             'log' => [
