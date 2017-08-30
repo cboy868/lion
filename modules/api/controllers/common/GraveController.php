@@ -66,6 +66,10 @@ class GraveController extends Controller
             return ['errno'=>1,'error'=>'用户未找到，请先绑定'];
         }
 
+        if (!$uinfo->mobile) {
+            return ['errno'=>1,'error'=>'填写电话号码，或到个人中心补全电话'];
+        }
+
         $model = new MsgForm();
         $model->username = $uinfo->username;
         $model->email = $uinfo->email;
@@ -76,7 +80,6 @@ class GraveController extends Controller
         if ($model->create() !== false){
             return true;
         }
-        return $model->getErrors();
         return ['errno'=>1,'error'=>'预定失败'];
     }
 
