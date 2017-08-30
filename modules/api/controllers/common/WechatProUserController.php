@@ -161,7 +161,11 @@ class WechatProUserController extends Controller
 
         $sessionKey = $miniProgram->sns->getSessionKey($code);
 
+
+        return ['session'=>$sessionKey,'iv'=>$iv, 'encrypt'=>$encrypt];
+
         $data = $miniProgram->encryptor->decryptData($sessionKey, $iv, $encrypt);
+
 
         p($data);die;
 
