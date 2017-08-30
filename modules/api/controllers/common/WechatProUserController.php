@@ -161,7 +161,6 @@ class WechatProUserController extends Controller
         return $miniProgram->encryptor->decryptData($sessionKey['session_key'], $iv, $encrypt);
     }
 
-
 //    public function actionAdd()
 //    {
 //        $post = Yii::$app->request->post();
