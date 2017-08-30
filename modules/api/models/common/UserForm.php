@@ -15,6 +15,7 @@ class UserForm extends Model
     public $email;
     public $password;
     public $repassword;
+    public $mobile;
 
     /**
      * @inheritdoc
@@ -36,7 +37,9 @@ class UserForm extends Model
             // ['password', 'required'],
             ['password', 'string', 'min' => 6],
 
-            ['repassword', 'compare', 'compareAttribute'=>'password']
+            ['repassword', 'compare', 'compareAttribute'=>'password'],
+
+            [['mobile'], 'safe']
 
         ];
     }
