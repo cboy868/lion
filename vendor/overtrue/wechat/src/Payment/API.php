@@ -21,7 +21,10 @@
 
 namespace EasyWeChat\Payment;
 
+use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\FilesystemCache;
 use EasyWeChat\Core\AbstractAPI;
+use EasyWeChat\Core\Exception;
 use EasyWeChat\Support\Collection;
 use EasyWeChat\Support\XML;
 use Psr\Http\Message\ResponseInterface;
@@ -45,6 +48,20 @@ class API extends AbstractAPI
      */
     protected $sandboxEnabled = false;
 
+    /**
+     * Sandbox sign key.
+     *
+     * @var string
+     */
+    protected $sandboxSignKey;
+
+    /**
+     * Cache.
+     *
+     * @var Cache
+     */
+    protected $cache;
+
     const API_HOST = 'https://api.mch.weixin.qq.com';
 
     // api
@@ -60,6 +77,7 @@ class API extends AbstractAPI
 
     const API_URL_SHORTEN = 'https://api.mch.weixin.qq.com/tools/shorturl';
     const API_AUTH_CODE_TO_OPENID = 'https://api.mch.weixin.qq.com/tools/authcodetoopenid';
+    const API_SANDBOX_SIGN_KEY = 'https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey';
 
     // order id types.
     const TRANSACTION_ID = 'transaction_id';
@@ -76,11 +94,13 @@ class API extends AbstractAPI
     /**
      * API constructor.
      *
-     * @param \EasyWeChat\Payment\Merchant $merchant
+     * @param \EasyWeChat\Payment\Merchant   $merchant
+     * @param \EasyWeChat\Payment\Cache|null $cache
      */
-    public function __construct(Merchant $merchant)
+    public function __construct(Merchant $merchant, Cache $cache = null)
     {
         $this->merchant = $merchant;
+        $this->cache = $cache;
     }
 
     /**
@@ -190,13 +210,15 @@ class API extends AbstractAPI
      * Make a refund request.
      *
      * @param string $orderNo
+     * @param string $refundNo
      * @param float  $totalFee
      * @param float  $refundFee
      * @param string $opUserId
      * @param string $type
      * @param string $refundAccount
+     * @param string $refundReason
      *
-     * @return \EasyWeChat\Support\Collection
+     * @return Collection
      */
     public function refund(
         $orderNo,
@@ -205,7 +227,8 @@ class API extends AbstractAPI
         $refundFee = null,
         $opUserId = null,
         $type = self::OUT_TRADE_NO,
-        $refundAccount = 'REFUND_SOURCE_UNSETTLED_FUNDS'
+        $refundAccount = 'REFUND_SOURCE_UNSETTLED_FUNDS',
+        $refundReason = ''
         ) {
         $params = [
             $type => $orderNo,
@@ -214,6 +237,7 @@ class API extends AbstractAPI
             'refund_fee' => $refundFee ?: $totalFee,
             'refund_fee_type' => $this->merchant->fee_type,
             'refund_account' => $refundAccount,
+            'refund_desc' => $refundReason,
             'op_user_id' => $opUserId ?: $this->merchant->merchant_id,
         ];
 
@@ -224,12 +248,14 @@ class API extends AbstractAPI
      * Refund by transaction id.
      *
      * @param string $orderNo
+     * @param string $refundNo
      * @param float  $totalFee
      * @param float  $refundFee
      * @param string $opUserId
      * @param string $refundAccount
+     * @param string $refundReason
      *
-     * @return \EasyWeChat\Support\Collection
+     * @return Collection
      */
     public function refundByTransactionId(
         $orderNo,
@@ -237,9 +263,10 @@ class API extends AbstractAPI
         $totalFee,
         $refundFee = null,
         $opUserId = null,
-        $refundAccount = 'REFUND_SOURCE_UNSETTLED_FUNDS'
+        $refundAccount = 'REFUND_SOURCE_UNSETTLED_FUNDS',
+        $refundReason = ''
         ) {
-        return $this->refund($orderNo, $refundNo, $totalFee, $refundFee, $opUserId, self::TRANSACTION_ID, $refundAccount);
+        return $this->refund($orderNo, $refundNo, $totalFee, $refundFee, $opUserId, self::TRANSACTION_ID, $refundAccount, $refundReason);
     }
 
     /**
@@ -419,7 +446,8 @@ class API extends AbstractAPI
         $params['device_info'] = $this->merchant->device_info;
         $params['nonce_str'] = uniqid();
         $params = array_filter($params);
-        $params['sign'] = generate_sign($params, $this->merchant->key, 'md5');
+
+        $params['sign'] = generate_sign($params, $this->getSignkey($api), 'md5');
 
         $options = array_merge([
             'body' => XML::build($params),
@@ -428,6 +456,18 @@ class API extends AbstractAPI
         $response = $this->getHttp()->request($api, $method, $options);
 
         return $returnResponse ? $response : $this->parseResponse($response);
+    }
+
+    /**
+     * Return key to sign.
+     *
+     * @param string $api
+     *
+     * @return string
+     */
+    protected function getSignkey($api)
+    {
+        return $this->sandboxEnabled && $api !== self::API_SANDBOX_SIGN_KEY ? $this->getSandboxSignKey() : $this->merchant->key;
     }
 
     /**
@@ -474,6 +514,51 @@ class API extends AbstractAPI
      */
     protected function wrapApi($resource)
     {
-        return self::API_HOST.($this->sandboxEnabled ? '/sandbox' : '').$resource;
+        return self::API_HOST.($this->sandboxEnabled ? '/sandboxnew' : '').$resource;
+    }
+
+    /**
+     * Get sandbox sign key.
+     *
+     * @return string
+     */
+    protected function getSandboxSignKey()
+    {
+        if ($this->sandboxSignKey) {
+            return $this->sandboxSignKey;
+        }
+
+        // Try to get sandbox_signkey from cache
+        $cacheKey = 'sandbox_signkey.'.$this->merchant->merchant_id.$this->merchant->sub_merchant_id;
+
+        /** @var \Doctrine\Common\Cache\Cache $cache */
+        $cache = $this->getCache();
+
+        $this->sandboxSignKey = $cache->fetch($cacheKey);
+
+        if (!$this->sandboxSignKey) {
+            // Try to acquire a new sandbox_signkey from WeChat
+            $result = $this->request(self::API_SANDBOX_SIGN_KEY, []);
+
+            if ($result->return_code === 'SUCCESS') {
+                $cache->save($cacheKey, $result->sandbox_signkey, 24 * 3600);
+
+                return $this->sandboxSignKey = $result->sandbox_signkey;
+            }
+
+            throw new Exception($result->return_msg);
+        }
+
+        return $this->sandboxSignKey;
+    }
+
+    /**
+     * Return the cache manager.
+     *
+     * @return \Doctrine\Common\Cache\Cache
+     */
+    public function getCache()
+    {
+        return $this->cache ?: $this->cache = new FilesystemCache(sys_get_temp_dir());
     }
 }

@@ -163,6 +163,8 @@ class WechatProUserController extends Controller
 
         $data = $miniProgram->encryptor->decryptData($sessionKey, $iv, $encrypt);
 
+        p($data);die;
+
         return $data;
 
     }
