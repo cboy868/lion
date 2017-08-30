@@ -37,7 +37,7 @@ class TaskController extends Controller
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->orderBy('id desc');
+        $query = $modelClass::find()->orderBy('res_id asc, status asc');
 
         if (!isset($params['uid'])) {
             return ['errno'=>1, 'error'=>'不合法的用户id'];
