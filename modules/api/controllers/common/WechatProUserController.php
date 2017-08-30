@@ -155,7 +155,15 @@ class WechatProUserController extends Controller
         $iv = $post['iv'];
         $encrypt = $post['encrypt'];
 
-        return $post;
+        $app = $this->initMiniProgram();
+
+        $miniProgram = $app->mini_program;
+
+        $sessionKey = $miniProgram->sns->getSessionKey($code);
+
+        $data = $miniProgram->encryptor->decryptData($sessionKey, $iv, $encrypt);
+
+        return $data;
 
     }
 
