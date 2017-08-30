@@ -62,12 +62,14 @@ class GraveController extends Controller
         $grave_id = $post['gid'];
         $uinfo = User::findOne($user_id);
 
+        $mobile = $post['mobile'] ? $post['mobile'] : $uinfo->mobile;
+
         if (!$uinfo) {
             return ['errno'=>1,'error'=>'用户未找到，请先绑定'];
         }
 
-        if (!$uinfo->mobile) {
-            return ['errno'=>1,'error'=>'填写电话号码，或到个人中心补全电话'];
+        if (!$mobile) {
+            return ['errno'=>1,'error'=>'请填写电话号码，或到个人中心补全电话'];
         }
 
         $model = new MsgForm();
@@ -76,7 +78,7 @@ class GraveController extends Controller
         $model->title = '墓区预约';
         $model->res_id = $grave_id;
         $model->res_name = 'grave';
-        $model->mobile = $uinfo->mobile;
+        $model->mobile = $mobile;
         if ($model->create() !== false){
             return true;
         }
