@@ -147,6 +147,18 @@ class WechatProUserController extends Controller
         return $uInfo;
     }
 
+    public function actionMiniProgramMobile()
+    {
+        $post = Yii::$app->request->post();
+
+        $code = $post['code'];
+        $iv = $post['iv'];
+        $encrypt = $post['encrypt'];
+
+        return $post;
+
+    }
+
 
 //    public function actionAdd()
 //    {
