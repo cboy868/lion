@@ -155,21 +155,19 @@ class WechatProUserController extends Controller
         $iv = $post['iv'];
         $encrypt = $post['encrypt'];
 
+        Yii::error($post);
+
         $app = $this->initMiniProgram();
 
         $miniProgram = $app->mini_program;
 
         $sessionKey = $miniProgram->sns->getSessionKey($code);
+        Yii::error($sessionKey);
 
-
-//        return ['session'=>$sessionKey,'iv'=>$iv, 'encrypt'=>$encrypt];
 
         $data = $miniProgram->encryptor->decryptData($sessionKey['session_key'], $iv, $encrypt);
-
-
-
+Yii::error($data);
         return $data;
-
     }
 
 
