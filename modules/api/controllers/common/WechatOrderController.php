@@ -3,6 +3,7 @@ namespace app\modules\api\controllers\common;
 
 use app\modules\api\models\common\Order;
 use app\modules\order\models\Pay;
+use function EasyWeChat\Payment\generate_sign;
 use Yii;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order as WechatOrder;
@@ -72,6 +73,18 @@ class WechatOrderController extends Controller
 
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
 
+            $response = [
+                'appid' => $options['app_id'],
+                'prepayId' => $result->prepay_id,
+                'timeStamp' => time(),
+                'nonceStr' => uniqid(),
+            ];
+
+
+            $sign = generate_sign($response, $options['payment']['key']);
+
+
+            return $sign;
             return [
                 'appid' => $options['app_id'],
                 'prepayId' => $result->prepay_id,
