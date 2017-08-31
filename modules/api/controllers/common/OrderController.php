@@ -108,7 +108,7 @@ class OrderController extends Controller
         $order_data = $order->toArray();
         $order_data['created_date'] = date('Y-m-d H:i', $order_data['created_at']);
         $order_data['pay_type'] = $pay_type;
-        $order_data['progress'] = $order->pro;
+        $order_data['pro'] = $order->pro;
 
         $rels_data = [];
         foreach ($rels as $k => $v) {
