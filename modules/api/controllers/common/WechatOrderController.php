@@ -82,6 +82,10 @@ class WechatOrderController extends Controller
 
             ksort($response);
 
+            $response['key'] = $options['payment']['key'];
+
+            return $response;
+
             $sign = strtoupper(call_user_func_array('MD5', [urldecode(http_build_query($response))]));
 
 
