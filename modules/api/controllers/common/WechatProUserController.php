@@ -136,6 +136,8 @@ class WechatProUserController extends Controller
             $umodel->save();
         }
 
+        p($umodel);die;
+
         return $umodel;
 //        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
     }
