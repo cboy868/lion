@@ -15,8 +15,8 @@ return [
             'token' => '7JPN8xArTFbvBgIjHXaDZdnwf3tQeY2c',
         ],
         'miniProgram'=> [
-            'appid' => 'wx6b31b3c15e5f1b85',
-            'appsecret' => '65931a81bde1c9f92e8bd4fea3e5822a',
+            'appid' => 'wxddc8ada25ff73f9e',
+            'appsecret' => 'f29ab7ad6001d56bc6b7f9e991afb3e5',
         ],
         'payment' => [
             'merchant_id'        => '1487057712',
