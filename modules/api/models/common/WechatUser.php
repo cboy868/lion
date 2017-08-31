@@ -12,6 +12,7 @@ use api\common\models\ActiveRecord;
 
 class WechatUser extends \app\modules\wechat\models\User
 {
+    public $is_staff;
     /**
      * @return array
      * 参数 expand=user
@@ -28,7 +29,8 @@ class WechatUser extends \app\modules\wechat\models\User
     public function getIsStaff()
     {
         if ($this->sysUser) {
-            return $this->sysUser->is_staff ? true : false;
+            $this->is_staff = $this->sysUser->is_staff ? true : false;
+            return $this->is_staff;
         }
 
         return false;
