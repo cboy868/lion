@@ -11,6 +11,7 @@ use EasyWeChat\Payment\Order as WechatOrder;
  */
 class WechatOrderController extends Controller
 {
+    public $modelClass = 'app\modules\api\models\common\Order';
 
     public function behaviors() {
         return parent::behaviors();
