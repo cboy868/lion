@@ -51,7 +51,7 @@ class WechatOrderController extends Controller
         $pay = Pay::create($order);
 
         $attr = [
-            'trade_type' => 'NATIVE',
+            'trade_type' => 'JSAPI',
             'body' => $body . '等',
             'detail' => $detail,
             'out_trade_no'     => $pay->order_no,
