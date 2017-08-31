@@ -73,7 +73,7 @@ class WechatOrderController extends Controller
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
 
             $response = [
-                'appid' => $options['app_id'],
+                'appId' => $options['app_id'],
                 'package' => 'prepay_id='.$result->prepay_id,
                 'timeStamp' => time(),
                 'nonceStr' => uniqid(),
