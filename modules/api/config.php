@@ -23,7 +23,7 @@ return [
             'key'                => 'ba8c8eef2ce4a75eb264485baabbf6ae',
             'cert_path'     => Yii::getAlias('@app/web/static/cert/apiclient_cert.pem'),//'path/to/your/cert.pem', // XXX: 绝对路径！！！！
             'key_path'      => Yii::getAlias('@app/web/static/cert/apiclient_key.pem'),//'path/to/your/key',
-            'notify_url'    => Url::toRoute('/wechat/home/order/notify', true)
+            'notify_url'    => 'http://lion.ibagou.com/wechat/home/order/notify'
         ],
 
     ]
