@@ -86,7 +86,6 @@ class WechatOrderController extends Controller
     private function getMiniOptions()
     {
         $params = $this->module->params;
-        p($params);die;
 
         $options = [
             'debug'  => $params['debug'],
