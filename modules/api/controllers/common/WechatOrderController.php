@@ -69,7 +69,6 @@ class WechatOrderController extends Controller
 
         $result = $payment->prepare($order);
 
-        return $result;
 
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
 
@@ -81,7 +80,7 @@ class WechatOrderController extends Controller
             ];
         }
 
-        return ['errno'=>1, 'error'=>'统一支付失败,请联系管理员'];
+        return ['errno'=>1, 'error'=>$result->err_code_des];
     }
 
 
