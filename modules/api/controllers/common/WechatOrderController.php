@@ -85,7 +85,8 @@ class WechatOrderController extends Controller
 
     private function getMiniOptions()
     {
-        $params  = Yii::$app->getModule('wechat')->params;
+        $params = $this->module->params;
+        p($params);die;
 
         $options = [
             'debug'  => $params['debug'],

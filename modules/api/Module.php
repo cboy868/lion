@@ -12,6 +12,7 @@ class Module extends \app\core\base\Module
     {
         parent::init();
 
+        \Yii::configure($this, require(__DIR__ . '/config.php'));
 
 //        $a = Yii::createObject([
 //            'class' => 'yii\rest\UrlRule',
