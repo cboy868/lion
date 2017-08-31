@@ -72,6 +72,8 @@ class WechatOrderController extends Controller
 
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
 
+
+
             $response = [
                 'appId' => $options['app_id'],
                 'package' => 'prepay_id='.$result->prepay_id,
@@ -80,10 +82,29 @@ class WechatOrderController extends Controller
                 'signType' =>'MD5'
             ];
 
-            $sign = generate_sign($response, $options['payment']['key']);
+            ksort($response);
+            $sign_str = urldecode(http_build_query($response) . '&key='.$options['payment']['key']);
+
+
+
+            $sign = strtoupper(call_user_func_array('MD5', [$sign_str]));
 
             return [
-                'appId' => $options['app_id'],
+                'sign_str' => $sign_str,
+                'sign' => $sign
+            ];
+
+//            return [
+//                'self' => $sign,
+//                'sign' => generate_sign($response, $options['payment']['key'])
+//            ];
+////
+//            $sign = strtoupper(call_user_func_array('MD5', [nt']['key'])]));
+//            return strtoupper(call_user_func_array($encryptMethod, [urldecode(http_build_query($attributes))]));
+
+//            $sign = generate_sign($response, $options['payment']['key']);
+
+            return [
                 'package' => $response['package'],
                 'timeStamp' => (string)(time()),
                 'nonceStr' => uniqid(),
