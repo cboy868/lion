@@ -87,7 +87,7 @@ class WechatOrderController extends Controller
             return [
                 'appid' => $options['app_id'],
                 'package' => $response['package'],
-                'timeStamp' => time(),
+                'timeStamp' => (string)(time()),
                 'nonceStr' => uniqid(),
                 'signType' => 'MD5',
                 'paySign' => $sign,
