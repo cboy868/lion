@@ -24,4 +24,13 @@ class WechatUser extends \app\modules\wechat\models\User
             },
         ];
     }
+
+    public function getIsStaff()
+    {
+        if ($this->sysUser) {
+            return $this->sysUser->is_staff ? true : false;
+        }
+
+        return false;
+    }
 }
