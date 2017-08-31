@@ -59,10 +59,7 @@ class WechatOrderController extends Controller
             'openid'           => $openId
         ];
 
-        return $attr;
-
         $options = $this->getMiniOptions();
-
 
         $app = new Application($options);
 
