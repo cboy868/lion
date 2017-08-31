@@ -82,7 +82,7 @@ class WechatOrderController extends Controller
 
             ksort($response);
 
-            $response['key'] = $options['payment']['key'];
+            array_push($response, $options['payment']['key'])
 
             return $response;
 
