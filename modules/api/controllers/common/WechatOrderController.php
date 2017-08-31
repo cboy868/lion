@@ -96,7 +96,6 @@ class WechatOrderController extends Controller
 //            $sign = generate_sign($response, $options['payment']['key']);
 
             return [
-                'appid' => $options['app_id'],
                 'package' => $response['package'],
                 'timeStamp' => (string)(time()),
                 'nonceStr' => uniqid(),
