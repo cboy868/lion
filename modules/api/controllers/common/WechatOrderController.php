@@ -83,11 +83,11 @@ class WechatOrderController extends Controller
             ];
 
             ksort($response);
-            $sign_str = urldecode(http_build_query($response) . '&key='.$options['payment']['key']);
+            $sign_str = http_build_query($response) . '&key='.$options['payment']['key'];
 
 
 
-            $sign = strtoupper(call_user_func_array('MD5', [$sign_str]));
+            $sign = strtoupper(md5($sign_str));
 
             return [
                 'sign_str' => $sign_str,
