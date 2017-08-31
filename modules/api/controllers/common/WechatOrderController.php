@@ -69,6 +69,8 @@ class WechatOrderController extends Controller
 
         $result = $payment->prepare($order);
 
+        return $result;
+
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
 
             return [
