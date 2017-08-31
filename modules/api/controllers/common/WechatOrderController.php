@@ -85,11 +85,11 @@ class WechatOrderController extends Controller
 
             $sign = strtoupper(call_user_func_array('MD5', [$sign_str]));
 
-            return [
-                'self' => $sign,
-                'sign' => generate_sign($response, $options['payment']['key'])
-            ];
-//
+//            return [
+//                'self' => $sign,
+//                'sign' => generate_sign($response, $options['payment']['key'])
+//            ];
+////
 //            $sign = strtoupper(call_user_func_array('MD5', [nt']['key'])]));
 //            return strtoupper(call_user_func_array($encryptMethod, [urldecode(http_build_query($attributes))]));
 
