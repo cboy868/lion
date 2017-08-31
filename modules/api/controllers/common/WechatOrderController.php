@@ -81,20 +81,20 @@ class WechatOrderController extends Controller
             ];
 
             ksort($response);
-            $str = urldecode(http_build_query($response) . '&key='.$options['payment']['key']);
-            return $str;
+            $sign_str = urldecode(http_build_query($response) . '&key='.$options['payment']['key']);
+
+            $sign = strtoupper(call_user_func_array('MD5', [$sign_str]));
 //
 //            $sign = strtoupper(call_user_func_array('MD5', [nt']['key'])]));
+//            return strtoupper(call_user_func_array($encryptMethod, [urldecode(http_build_query($attributes))]));
 
-
-            $sign = generate_sign($response, $options['payment']['key']);
+//            $sign = generate_sign($response, $options['payment']['key']);
 
             return [
                 'appid' => $options['app_id'],
                 'package' => $response['package'],
                 'timeStamp' => (string)(time()),
                 'nonceStr' => uniqid(),
-                'signType' => 'MD5',
                 'paySign' => $sign,
             ];
         }
