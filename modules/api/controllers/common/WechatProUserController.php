@@ -135,11 +135,7 @@ class WechatProUserController extends Controller
             $umodel->headimgurl = $udata['avatarUrl'];
             $umodel->save();
         }
-
-
-
-
-        return $umodel->toArray();
+        return ['umodal'=>$umodel, 'expand'=>['is_staff'=>$umodel->isStaff]];
 //        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
     }
 
