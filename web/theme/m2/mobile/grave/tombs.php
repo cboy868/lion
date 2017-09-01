@@ -17,8 +17,6 @@ $this->title="已购买的墓位";
 
 <?php $this->beginBlock('memorial') ?>
     var wid="<?=Yii::$app->request->get('wid')?>";
-console.dir(wid);
-return;
     var uid = '<?=$wechat['user_id']?>';
     $(function(){
         var app = new Vue({
