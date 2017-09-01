@@ -27,7 +27,7 @@ $focus =focus(2, 5, '425x300');
         中绑定或创建系统账号
     </div>
 
-        <?else:?>
+        <?php else:?>
         <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
             <a href="<?=Url::toRoute(['/grave/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
                 <div class="weui-grid__icon">
