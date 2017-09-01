@@ -7,7 +7,7 @@ $wid = Yii::$app->request->get('wid');
 
     <div class="weui-cells">
         <form class="avatar-form" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="uid" value="<?=$wechat['user_id']?>" />
+            <input type="hidden" name="uid" value="<?=isset($wechat['user_id'])?$wechat['user_id']:0?>" />
             <!--
             <a class="weui-cell weui-cell_access avatar-btn" href="#" @click="avatar">
             -->

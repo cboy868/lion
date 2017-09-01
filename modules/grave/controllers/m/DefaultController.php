@@ -35,8 +35,6 @@ class DefaultController extends \app\core\web\MController
 
             $this->uid = $this->wechat_user->user_id;
 
-            echo $this->uid;die;
-
             if ($session->has('wechat.sys_user')) {
                 $this->sys_user = $session->get('wechat.sys_user');
             }
