@@ -183,9 +183,6 @@ class DefaultController extends \app\core\web\MController
             return $this->redirect(['tomb', 'id'=>$model->id, 'wid'=>$this->wid]);
         }
 
-
-        echo 'abc';die;
-
         return $this->render('tombs',[
             'wechat' => ArrayHelper::toArray($this->wechat_user)
         ]);
