@@ -28,8 +28,11 @@ class DefaultController extends \app\core\web\MController
 
     public function actionIndex($wid)
     {
+        $wechat = $this->wechat_user;
+
+        p($wechat);die;
         return $this->render('index', [
-            'wechat' => ArrayHelper::toArray($this->wechat_user)
+            'wechat' => ArrayHelper::toArray($wechat)
         ]);
     }
 
