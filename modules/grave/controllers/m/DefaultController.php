@@ -30,7 +30,7 @@ class DefaultController extends \app\core\web\MController
 
 
             if (!$this->wechat_user->user_id) {
-                return $this->redirect(['/m']);
+                return $this->redirect(['/m','wid'=>$this->wid]);
             }
 
             $this->uid = $this->wechat_user->user_id;
@@ -184,7 +184,7 @@ class DefaultController extends \app\core\web\MController
         }
 
         return $this->render('tombs',[
-            //'wechat' => ArrayHelper::toArray($this->wechat_user)
+            'wechat' => ArrayHelper::toArray($this->wechat_user)
         ]);
     }
 
