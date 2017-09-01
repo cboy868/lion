@@ -184,7 +184,7 @@ class DefaultController extends \app\core\web\MController
         }
 
         return $this->render('tombs',[
-            'wechat' => ArrayHelper::toArray($this->wechat_user)
+            //'wechat' => ArrayHelper::toArray($this->wechat_user)
         ]);
     }
 
