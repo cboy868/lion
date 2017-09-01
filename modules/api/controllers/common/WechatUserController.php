@@ -9,7 +9,7 @@ use EasyWeChat\Foundation\Application;
 /**
  * Site controller
  */
-class WechatUserController extends Controller
+class WechatUserController extends WechatController
 {
     public $modelClass = 'app\modules\api\models\common\WechatUser';
 
@@ -135,24 +135,6 @@ class WechatUserController extends Controller
         return $post;
     }
 
-    public function initMiniProgram()
-    {
-        $options = [
-            'mini_program' => [
-                'app_id'   => 'wxddc8ada25ff73f9e',
-                'secret'   => 'f29ab7ad6001d56bc6b7f9e991afb3e5',
-                'token'    => 'pNxLA9w6dR4D15PbYjnyezSMWriEJvsV',
-                'aes_key'  => 'component-aes-key'
-            ],
-            'debug'  => true,
-            'log' => [
-                'level'      => 'trace',
-                'permission' => 0777,
-                'file'       => '/tmp/easywechat.log',
-            ]
-        ];
 
-        return new Application($options);
-    }
 
 }

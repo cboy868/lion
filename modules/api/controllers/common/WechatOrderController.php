@@ -10,7 +10,7 @@ use EasyWeChat\Payment\Order as WechatOrder;
 /**
  * Site controller
  */
-class WechatOrderController extends Controller
+class WechatOrderController extends WechatController
 {
     public $modelClass = 'app\modules\api\models\common\Order';
 
@@ -50,8 +50,10 @@ class WechatOrderController extends Controller
 
         $pay = Pay::create($order);
 
+        $params = Yii::$app->params['wechat'];
+
         $attr = [
-            'trade_type' => 'JSAPI',
+            'trade_type' => $params['miniProgram']['trade_type'],
             'body' => $body . '等',
             'detail' => $detail,
             'out_trade_no'     => $pay->order_no,
@@ -59,9 +61,8 @@ class WechatOrderController extends Controller
             'openid'           => $openId
         ];
 
-        $options = $this->getMiniOptions();
 
-        $app = new Application($options);
+        $app = $this->initMiniProgramPay();
 
         $order = new WechatOrder($attr);
 
@@ -72,15 +73,16 @@ class WechatOrderController extends Controller
 
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
 
+
             $response = [
-                'appId' => $options['app_id'],
+                'appId' => $params['miniProgram']['appid'],
                 'package' => 'prepay_id='.$result->prepay_id,
                 'timeStamp' => time(),
                 'nonceStr' => uniqid(),
                 'signType' =>'MD5'
             ];
 
-            $sign = generate_sign($response, $options['payment']['key']);
+            $sign = generate_sign($response, $params['payment']['key']);
 
             return [
                 'package' => $response['package'],
@@ -92,28 +94,4 @@ class WechatOrderController extends Controller
 
         return ['errno'=>1, 'error'=>$result->err_code_des];
     }
-
-
-    private function getMiniOptions()
-    {
-        $params = $this->module->params;
-
-        $options = [
-            'debug'  => $params['debug'],
-            'log' => $params['log'],
-            'app_id' => $params['miniProgram']['appid'],
-            'secret' => $params['miniProgram']['appsecret'],
-//            'token' => $params['wx']['token'],
-            'payment' => [
-                'merchant_id'        => $params['payment']['merchant_id'],
-                'key'                => $params['payment']['key'],
-                'cert_path'          => $params['payment']['cert_path'], // XXX: 绝对路径！！！！
-                'key_path'           => $params['payment']['key_path'],      // XXX: 绝对路径！！！！
-                'notify_url'         => $params['payment']['notify_url'],       // 你也可以在下单时单独设置来想覆盖它
-            ],
-        ];
-
-        return $options;
-    }
-
 }

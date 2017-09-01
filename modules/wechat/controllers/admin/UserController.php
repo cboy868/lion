@@ -74,7 +74,14 @@ class UserController extends Controller
         //最开始 应该先清空表
         $userService = $this->app->user;
 
-        Yii::$app->db->createCommand()->truncateTable(User::tableName())->execute();
+        //把小程序的也清空了
+        //Yii::$app->db->createCommand()->truncateTable(User::tableName())->execute();
+        //只把公众号的删除便可
+        Yii::$app->db->createCommand()
+            ->delete(User::tableName(),[
+                'type' => User::TYPE_ZHONG,
+            ])
+            ->execute();
 
         $next=null;
         $time = time();
