@@ -50,7 +50,7 @@ class WechatOrderController extends WechatController
 
         $pay = Pay::create($order);
 
-        $params = Yii::$app->getModule('wechat')->params['wechat'];
+        $params = Yii::$app->getModule('wechat')->params;
 
         $attr = [
             'trade_type' => $params['miniProgram']['trade_type'],
