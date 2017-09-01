@@ -20,6 +20,9 @@ return [
         'miniProgram'=> [
             'appid' => 'wxddc8ada25ff73f9e',
             'appsecret' => 'f29ab7ad6001d56bc6b7f9e991afb3e5',
+            'token'    => '开启消息推送再说',
+            'aes_key'  => '开启消息推送再说',
+            'trade_type' => 'JSAPI'
         ],
         'payment' => [
             'merchant_id'        => '1487057712',
