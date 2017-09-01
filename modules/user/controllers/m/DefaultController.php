@@ -17,7 +17,17 @@ class DefaultController extends \app\core\web\MController
 
             $wechat_user = $session->get('wechat.wechat_user');
 
+            Yii::error('----------------');
+            Yii::error($wechat_user);
+            Yii::error('----------------');
+
             $this->wechat_user = WechatUser::findOne($wechat_user->id);
+
+
+            Yii::error('----*********');
+            Yii::error($wechat_user->id);
+            Yii::error($this->wechat_user);
+            Yii::error('-----******--');
             if ($session->has('wechat.sys_user')) {
                 $this->sys_user = $session->get('wechat.sys_user');
             }
