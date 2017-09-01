@@ -30,8 +30,6 @@ class DefaultController extends \app\core\web\MController
     {
         $wechat = $this->wechat_user;
 
-        p($wechat);die;
-
         return $this->render('index', [
             'wechat' => ArrayHelper::toArray($wechat)
         ]);

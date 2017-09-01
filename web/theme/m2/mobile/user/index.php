@@ -140,7 +140,7 @@ $focus =focus(2, 5, '425x300');
 
 
 <?php $this->beginBlock('news') ?>
-    var user_id = "<?=$wechat['user_id']?>";
+    var user_id = "<?=isset($wechat['user_id'])?$wechat['user_id']:0?>";
     var demo = new Vue({
         el: '#news-box',
         data: {
