@@ -40,6 +40,7 @@ class UserController extends Controller
         $searchModel = new UserSearch();
         $params = Yii::$app->request->queryParams;
         $params['UserSearch']['tagid'] = $tagid;
+        $params['UserSearch']['type'] = User::TYPE_ZHONG;
 
         $dataProvider = $searchModel->search($params);
 

@@ -19,7 +19,7 @@ $focus =focus(2, 5, '425x300');
         <div class="swiper-pagination"></div>
     </div>
 
-    <?php if (!$wechat['user_id']): ?>
+    <?php if (!isset($wechat['user_id']) || !$wechat['user_id']): ?>
     <div class="weui-panel__hd">办理业务之前请在
         <a href="<?=Url::toRoute(['/user/m/default/profile', 'wid'=>$wid])?>">
         <strong>个人设置</strong>
