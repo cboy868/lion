@@ -26,42 +26,42 @@ $focus =focus(2, 5, '425x300');
         </a>
         中绑定或创建系统账号
     </div>
-    <?php endif;?>
 
-    <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
-        <a href="<?=Url::toRoute(['/grave/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/static/images/icons/realition.png" alt="业务办理">
-            </div>
-            <p class="weui-grid__label">业务办理</p>
-        </a>
-        <a href="<?=Url::toRoute(['/memorial/m/default/apply', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/memorial.png" alt="申请建馆">
-            </div>
-            <p class="weui-grid__label">申请建馆</p>
-        </a>
-        <!--
-        <a href="#" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/article.png" alt="投诉建议">
-            </div>
-            <p class="weui-grid__label">投诉建议</p>
-        </a>
-        -->
-        <a href="<?=Url::toRoute(['/order/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="订单记录">
-            </div>
-            <p class="weui-grid__label">订单记录</p>
-        </a>
-        <a href="<?=Url::toRoute(['/grave/m/default/renew', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/xufei.png" alt="续维护费">
-            </div>
-            <p class="weui-grid__label">续维护费</p>
-        </a>
-        <!--
+        <?else:?>
+        <div class="weui-grids whitebg" style="margin-top:5px; padding-top:0px;">
+            <a href="<?=Url::toRoute(['/grave/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
+                <div class="weui-grid__icon">
+                    <img src="/static/images/icons/realition.png" alt="业务办理">
+                </div>
+                <p class="weui-grid__label">业务办理</p>
+            </a>
+            <a href="<?=Url::toRoute(['/memorial/m/default/apply', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
+                <div class="weui-grid__icon">
+                    <img src="/theme/m2/static/mobile/images/icons/memorial.png" alt="申请建馆">
+                </div>
+                <p class="weui-grid__label">申请建馆</p>
+            </a>
+            <!--
+            <a href="#" class="weui-grid js_grid" data-id="button">
+                <div class="weui-grid__icon">
+                    <img src="/theme/m2/static/mobile/images/icons/article.png" alt="投诉建议">
+                </div>
+                <p class="weui-grid__label">投诉建议</p>
+            </a>
+            -->
+            <a href="<?=Url::toRoute(['/order/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
+                <div class="weui-grid__icon">
+                    <img src="/theme/m2/static/mobile/images/icons/order_list.png" alt="订单记录">
+                </div>
+                <p class="weui-grid__label">订单记录</p>
+            </a>
+            <a href="<?=Url::toRoute(['/grave/m/default/renew', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
+                <div class="weui-grid__icon">
+                    <img src="/theme/m2/static/mobile/images/icons/xufei.png" alt="续维护费">
+                </div>
+                <p class="weui-grid__label">续维护费</p>
+            </a>
+            <!--
 
         <a href="<?=Url::toRoute(['/grave/m/default/repair', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
             <div class="weui-grid__icon">
@@ -71,19 +71,22 @@ $focus =focus(2, 5, '425x300');
         </a>
                 -->
 
-        <a href="<?=Url::toRoute(['/grave/m/default/tombs', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/static/images/icons/archive.png" alt="墓位档案">
-            </div>
-            <p class="weui-grid__label">墓位档案</p>
-        </a>
-        <a href="<?=Url::toRoute(['/user/m/default/profile', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
-            <div class="weui-grid__icon">
-                <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">
-            </div>
-            <p class="weui-grid__label">个人设置</p>
-        </a>
-    </div>
+            <a href="<?=Url::toRoute(['/grave/m/default/tombs', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
+                <div class="weui-grid__icon">
+                    <img src="/static/images/icons/archive.png" alt="墓位档案">
+                </div>
+                <p class="weui-grid__label">墓位档案</p>
+            </a>
+            <a href="<?=Url::toRoute(['/user/m/default/profile', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
+                <div class="weui-grid__icon">
+                    <img src="/theme/m2/static/mobile/images/icons/user.png" alt="个人资料">
+                </div>
+                <p class="weui-grid__label">个人设置</p>
+            </a>
+        </div>
+    <?php endif;?>
+
+
     <!--banner 结束-->
     <div class="page__bd">
         <div class="weui-panel weui-panel_access">
