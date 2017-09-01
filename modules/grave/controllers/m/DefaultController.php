@@ -176,6 +176,8 @@ class DefaultController extends \app\core\web\MController
 //            return $this->redirect(['/m/user','wid'=>Yii::$app->request->get('wid')]);
 //        }
 
+        p($this->wid);die;
+
         if ($query->count() == 1) {
             $model = $query->one();
             return $this->redirect(['tomb', 'id'=>$model->id, 'wid'=>$this->wid]);
