@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\m;
 
+use app\core\helpers\Url;
 use yii;
 use app\modules\grave\models\Ins;
 use app\modules\grave\models\Order;
@@ -173,6 +174,9 @@ class DefaultController extends \app\core\web\MController
         $query = Tomb::find()->where(['user_id'=>$this->uid]);
 
         if ($query->count() == 0) {
+
+            echo Url::toRoute(['/m/user','wid'=>$this->wid]);
+            die;
             return $this->redirect(['/m/user','wid'=>$this->wid]);
         }
 
