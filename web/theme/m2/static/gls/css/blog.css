@@ -1,0 +1,117 @@
+/* tit2 */
+.tit2 span{
+    /*background-image: url(../img/blog/blog_txt_group.png);*/
+}
+.tit2 span.txta{
+	background-position: 0 0;
+}
+.tit2 span.txtb{
+	background-position: 0 -20px;
+}
+.tit2 span.txtc{
+	background-position: 0 -40px;
+}
+.tit2 span.txtd{
+	background-position: 0 -60px;
+}
+.tit2 span.txte{
+	background-position: 0 -80px;
+}
+.tit2 span.txtf{
+	background-position: 0 -100px;
+}
+.tit2 span.txtg{
+	background-position: 0 -120px;
+}
+.blog ul li.even{
+	background-color: #eae7e2;
+}
+
+/* 推荐视频 */
+.rec,
+.blog_last{
+	width: 1158px;
+	margin:17px auto 0;
+	overflow: hidden;
+}
+.blog .rec h2.tit2,
+.blog .blog_last h2.tit2{
+	background-image: url(../img/blog/rec_video_titbg.jpg);
+}
+.blog .rec .det,
+.blog .blog_last .det{
+	background: url(../img/global/line4_bg.jpg) 13px 0 no-repeat #fff;
+}
+.blog .det{
+	padding: 15px;
+}
+.blog .aside .det{
+	padding: 13px 15px 15px;
+}
+
+/* blog-slider */
+.blog_slider,
+.blog_slider li{
+	height: 478px;
+}
+.blog_slider ul li{
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+}
+.blog_slider ul li h3{
+	width: 645px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	color: #fff;
+	background:url(../img/global/opacity04.png);
+	line-height: 3em;
+	font-size: 22px;
+	text-indent: 1em;
+	font-weight: normal;
+}
+.blog_slider .btns{
+	width: 470px;
+}
+.blog_slider .btns a{
+	display: block;
+	width: 216px;
+	height: 138px;
+	margin: 0 17px 17px 0;
+	float: left;
+	border: 5px solid #e4e4e4;
+}
+.blog_slider .btns a.active{
+	border-color: #da7905;
+}
+/* 年度精华 */
+.year ul.news_list{
+	display: none;
+}
+
+/* 博客列表 */
+.blog-list dl { width:220px; min-height:130px; padding:0 30px; background: url(../img/blog/blog_list_line.png) no-repeat right center; color:#4c4b4b; font-size:14px; text-align:left; float:left; }
+.blog-list dl.last{background: none;}
+.blog-list dt { font-weight:bold; line-height:2;color: #6b4e2e;}
+.blog-list dd { float:left; position: relative; width:72px; height:24px; line-height:24px; white-space:nowrap; overflow:hidden; color: #6b4e2e;}
+.blog-list dd a { color:#6b4e2e;}
+
+.blog_last table.ptab{
+	padding: 10px 20px;
+}
+.blog_last table.ptab input.staff{
+	border: 1px solid #ccc;
+	line-height: 14px;
+}
+.highlight{
+	background: #ccc;
+	border-radius: 4px;
+}
+.blog-list dd:hover{
+	display: block;
+}
+.blog-list .icon-delete{
+	display: none;
+}

@@ -1,0 +1,45 @@
+/* tit1 */
+.contact .tit1 span{
+	background-image: url(../img/contact/contact_tit.png);
+}
+
+/* det */
+.contact .det {
+    background: url("../img/global/line_bg.jpg") no-repeat scroll 0 0 #fffaee;
+    padding: 20px;
+}
+
+.contact .det h3{
+	height: 219px;
+	background: url(../img/contact/contact_big.png) no-repeat;
+	text-indent: -9999px;
+	margin-top: 15px;
+}
+
+/* 百度地图 */
+.iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+.iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+.skin_img.shadow img{width: 1200px; height:300px; }
+
+/* 详细 */
+.contact .det .bor ul{
+	margin: 20px 0;
+}
+.contact .det .bor ul li{
+	font-size: 16px;
+	line-height: 2em;
+	background-color: #f8f8f8;
+	padding: 0 200px;
+	margin-bottom: 1px;
+}
+.contact .det .bor .qr{
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 20px;
+	right: 170px;
+}
+.contact .det .bor .qr img{
+	width: 100%;
+	height: 100%;
+}

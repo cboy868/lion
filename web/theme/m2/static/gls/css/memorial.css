@@ -1,0 +1,120 @@
+.memorial .container{
+	overflow: hidden;
+}
+/* tit2 */
+.tit2 span{
+    /*background-image: url(../img/memorial/memorial_txt_group.png);*/
+}
+.tit2 span.txta{
+	background-position: 0 0;
+}
+.tit2 span.txtb{
+	background-position: 0 -20px;
+}
+.tit2 span.txtc{
+	background-position: 0 -40px;
+}
+.tit2 span.txtd{
+	background-position: 0 -60px;
+}
+.tit2 span.txte{
+	background-position: 0 -80px;
+}
+.tit2 span.txtf{
+	background-position: 0 -100px;
+}
+.tit2 span.txtg{
+	background-position: 0 -120px;
+}
+.tit2 span.txth{
+	background-position: 0 -140px;
+}
+.memorial ul li.even{
+	background-color: #eae7e2;
+}
+
+/* 大家庭文集 */
+.memorial .det{
+	padding: 0 15px 15px;
+}
+.corpus ul.news_list{
+	padding: 20px 0;
+}
+/* 祭祀购买记录 */
+.memorial .record_tit{
+	border-bottom:1px solid #edebec;
+	height:45px;
+	padding-top: 20px;
+}
+.memorial .record_tit h3{
+	float:left;
+	width:200px;
+	line-height:45px;
+	color:#972c2e;
+	font-size:14px;
+	text-align:center;
+}
+
+.memorial .record_con .record_li{
+	overflow:hidden;
+	height:123px;
+	border-bottom:1px dashed #e5e5e5;
+	-moz-transition: .8s;
+	-webkit-transition: .8s;
+	transition: .8s;
+}
+.memorial .record_con .record_li:hover{
+	background:#fefaeb;
+}
+.memorial .record_con div.even{
+	background:#f7f7f7;
+}
+.memorial .record_con .record_li div.items{
+	width:200px;
+	float:left;
+	padding-top:22px;
+	
+}
+.memorial .record_con .record_li .items_user a.userimg{
+	display:block;
+	width:58px;
+	height:58px;
+	padding:1px 1px 4px 1px;
+	background:url(../img/memorial/round_smallbg.gif) no-repeat;
+	margin-left:69px;
+}
+.memorial .record_con .record_li .items_user a.userimg img{
+	border-radius:29px;
+}
+.memorial .record_con .record_li div.items a.memorialimg,
+.memorial .record_con .record_li div.items a.goodsimg{
+	display:block;
+	width:59px;
+	height:59px;
+}
+.memorial .record_con .record_li div.items a.memorialimg{
+	border:4px solid #eee;
+	margin-left:66px;
+}
+.memorial .record_con .record_li div.items a.goodsimg{
+	margin:4px 0 0 70px;
+}
+.memorial .record_con .record_li div.items p,
+.memorial .record_con .record_li div.items p a{
+	color:#8f2022;
+	font-size:14px;
+}
+.memorial .record_con .record_li .items_user p{
+	line-height:30px;
+}
+.memorial .record_con .record_li .items_memorial p{
+	line-height:23px;
+}
+.memorial .record_con .record_li .items_goods p{
+	line-height:28px;
+}
+.memorial .record_con .record_li .items_date p{
+	line-height:40px;
+}
+
+

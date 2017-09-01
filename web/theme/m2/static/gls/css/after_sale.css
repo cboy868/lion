@@ -1,0 +1,156 @@
+/* tit1 */
+.tit1 span{
+    background-image: url(../img/after_sale/after_txt_group.png);
+}
+.tit1 span.txta{
+	background-position: 0 0;
+}
+.tit1 span.txtb{
+	background-position: 0 -24px;
+}
+.tit1 span.txtc{
+	background-position: 0 -48px;
+}
+.tit1 span.txtd{
+	background-position: 0 -72px;
+}
+.tit1 span.txte{
+	background-position: 0 -96px;
+}
+.tit1 span.txtf{
+	background-position: 0 -120px;
+}
+
+.after_sale .process,
+.after_sale .special,
+.after_sale .hot,
+.after_sale .image,
+.after_sale .op{
+	margin-bottom: 15px;
+}
+
+/* 购墓流程 */
+.after_sale .det{
+	background: url(../img/global/line_bg.jpg) no-repeat #fff;
+	padding:20px; 
+}
+.after_sale .det .bor{
+	background-color: #f9faf5;
+}
+.after_sale .process .det .bor a,
+.after_sale .process .det .bor span.arrow{
+	display: block;
+	float: left;
+}
+.after_sale .process .det .bor a{
+	_width: 111px;
+	_height: 140px;
+	*width: 111px;
+	*height: 140px;
+}
+.after_sale .process .det .bor a div.round{
+	width: 111px;
+	height: 111px;
+	overflow: hidden;
+}
+.after_sale .process .det .bor a div.txt div.round_small{
+	width: 29px;
+	line-height: 29px;
+	text-align: center;
+	color: #fff;
+	background: url(../img/after_sale/round_small.gif) no-repeat;
+}
+.after_sale .process .det .bor a div.txt h3.right{
+	color: #664c2c;
+	font-size: 16px;
+	line-height: 29px;
+}
+.after_sale .process .det .bor span.arrow{
+	width: 32px;
+	padding: 60px 28px;
+	background: url(../img/after_sale/j_03.gif) center center no-repeat;
+	-moz-transition: .3s;
+	-webkit-transition: .3s;
+	transition: .3s;
+}
+
+/* 专题 */
+.after_sale .special .set_lastli ul li{
+	width: 143px;
+	float: left;
+	border: 1px solid #6b5030;
+	background: #fff;
+	border-radius: 0 0 6px 6px;
+	margin:0 16px 0 0;
+}
+.after_sale .special .set_lastli ul li a{
+	display: block;
+}
+.after_sale .special .set_lastli ul li a.pic{
+	height: 97px;
+	overflow: hidden;
+}
+.after_sale .special .set_lastli ul li a.pic img{
+	margin: 5px;
+}
+.after_sale .special .set_lastli ul li a.tit{
+	background: #6b5030;
+	color: #fff;
+	text-align: center;
+	line-height: 28px;
+}
+.after_sale .special .set_lastli ul li.last{
+	margin-right: 0;
+}
+
+/* 热销 */
+.flower_list{
+	display: none;
+}
+
+
+/* 选择礼仪师 */
+.select_guide .det ul{
+	padding: 21px 0 0 48px;
+}
+
+/* op */
+.op{
+	height: 147px;
+	overflow: hidden;
+	padding: 13px 0 13px 13px;
+	background: #fafcef;
+	margin-top: 10px;
+}
+.op a{
+	display: block;
+	float: left;
+	text-indent: -9999px;
+	margin-right: 15px;
+	background-repeat: no-repeat;
+	background-image: url(../img/after_sale/op_btn.png);
+	width: 380px;
+	height: 147px;
+	-moz-transition: .3s;
+	-webkit-transition: .3s;
+	transition: .3s;
+}
+.op a.btn1{
+	background-position: 0 0;
+}
+.op a.btn2{
+	background-position: -380px 0;
+}
+.op a.btn3{
+	background-position: -760px 0;
+}
+.op a.btn1:hover{
+	background-position: 0 -147px;
+}
+.op a.btn2:hover{
+	background-position: -380px -147px;
+}
+.op a.btn3:hover{
+	background-position: -760px -147px;
+}
+
