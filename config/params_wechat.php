@@ -1,5 +1,8 @@
 <?php
-use app\core\helpers\Url;
+use yii\helpers\Url;
+
+echo dirname(__DIR__) ;die;
+
 return [
     'wechat' =>[
         'debug'  => true,

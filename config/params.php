@@ -2,7 +2,6 @@
 $setting = require(__DIR__ . '/setting.php');
 $thumb = require(__DIR__ . '/thumb.php');
 $goods = require(__DIR__ . '/params_goods.php');
-$wechat = require(__DIR__ . '/params_wechat.php');
 $params = [
     'version' =>'20170620 1.0',
     'adminEmail' => 'cboy868@163.com',
@@ -75,7 +74,7 @@ $params = [
 
 ];
 
-return \yii\helpers\ArrayHelper::merge($setting, $params, $thumb, $goods,$wechat);
+return \yii\helpers\ArrayHelper::merge($setting, $params, $thumb, $goods);
 
 
 

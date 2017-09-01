@@ -27,7 +27,8 @@ class WechatController extends Controller
      */
     protected function initMiniProgram()
     {
-        $wechatCfg = Yii::$app->params['wechat'];
+
+        $wechatCfg = Yii::$app->getModule('wechat')->params;
         $options = [
             'mini_program' => [
                 'app_id'   => $wechatCfg['miniProgram']['appid'],
@@ -38,13 +39,13 @@ class WechatController extends Controller
             'debug'  => $wechatCfg['debug'],
             'log' => $wechatCfg['log']
         ];
-
+        return new Application($options);
 
     }
 
     protected function initMiniProgramPay()
     {
-        $wechatCfg = Yii::$app->params['wechat'];
+        $wechatCfg = Yii::$app->getModule('wechat')->params;
 
         $options = [
             'debug'  => $wechatCfg['debug'],

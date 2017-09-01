@@ -13,6 +13,9 @@ $config = [
         'grave' => [
             'class' => 'app\modules\grave\Module',
         ],
+        'wechat' => [
+            'class' => 'app\modules\wechat\Module',
+        ],
     ],
     'components' => [
         'db' => require(__DIR__ . '/../db.php'),
