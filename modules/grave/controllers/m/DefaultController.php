@@ -173,6 +173,8 @@ class DefaultController extends \app\core\web\MController
     {
         $query = Tomb::find()->where(['user_id'=>$this->uid]);
 
+
+        p($query->count());die;
         if ($query->count() == 0) {
 
             echo Url::toRoute(['/m/user','wid'=>$this->wid]);
