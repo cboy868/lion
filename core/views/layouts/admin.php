@@ -85,15 +85,23 @@ AdminAsset::register($this);
                             </a>
                         </li>
 
-                        <li class="green">
-                            <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
-                                工作台
-                            </a>
-                        </li>
+
 
                         <li class="dark">
                             <a href="http://screen.ibagou.com:8080/?rows=4" target="_blank">
                                 微信大屏
+                            </a>
+                        </li>
+
+                        <li class="dark2">
+                            <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
+                                纪念馆
+                            </a>
+                        </li>
+
+                        <li class="green">
+                            <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
+                                工作台
                             </a>
                         </li>
 
