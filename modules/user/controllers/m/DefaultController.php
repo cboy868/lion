@@ -30,10 +30,6 @@ class DefaultController extends \app\core\web\MController
     {
         $wechat = $this->wechat_user;
 
-        Yii::error('--------------------------------------');
-        Yii::error($wechat);
-        Yii::error('--------------------------------------');
-
         return $this->render('index', [
             'wechat' => ArrayHelper::toArray($wechat)
         ]);
