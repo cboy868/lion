@@ -1620,7 +1620,7 @@ protected function _putfonts()
 		$this->fonts[$k]['n'] = $this->n+1;
 		$type = $font['type'];
 		$name = $font['name'];
-		if($font['subsetted'])
+		if(isset($font['subsetted']))
 			$name = 'AAAAAA+'.$name;
 		if($type=='Core')
 		{

@@ -68,7 +68,7 @@ class Fpdf extends PDF_Chinese
 				'content' => iconv('UTF-8', 'GBK', $v['content']),
 				'x' => $v['x'] + $err_x,
 				'y' => $v['y'] + $err_y,
-				'font' => $v['font'] ? $v['font'] : $font
+				'font' => isset($v['font']) ? $v['font'] : $font
 			];
         }
 
