@@ -56,6 +56,11 @@ class MController extends \app\core\web\Controller
         $oauth = $this->app->oauth;
         $session = Yii::$app->getSession();
 
+        Yii::error($session->has('wechat.wechat_user'));
+        Yii::error($session->get('wechat.wechat_user'));
+        $session->remove('wechat.wechat_user');
+        Yii::error($session->has('wechat.wechat_user'));
+        Yii::error($session->get('wechat.wechat_user'));
         if (!$session->has('wechat.wechat_user')) {
 
             $session['target_url'] = Url::current();
