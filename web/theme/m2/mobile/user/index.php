@@ -86,7 +86,6 @@ $focus =focus(2, 5, '425x300');
         </div>
     <?php endif;?>
 
-
     <!--banner 结束-->
     <div class="page__bd">
         <div class="weui-panel weui-panel_access">
