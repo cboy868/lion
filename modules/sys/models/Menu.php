@@ -53,7 +53,7 @@ class Menu extends \app\core\models\Category
     /**
      * @title 取出所有菜单列表
      */
-    public static function getList()
+    public static function getList($condition=[])
     {
         $catch = Yii::$app->cache;
 //        $catch->delete('admin_menu');
@@ -61,7 +61,7 @@ class Menu extends \app\core\models\Category
         if ($catch->get('admin_menu_' . $uid) !== false) {
             return $catch->get('admin_menu' . $uid);
         } else {
-            $menus = self::authMenu();
+            $menus = self::authMenu($condition);
             foreach ($menus as $k => &$v) {
                 if (empty($v['auth_name'])) {
                     continue;
@@ -170,5 +170,33 @@ class Menu extends \app\core\models\Category
             'ico' => '大图标'
             // 'method' => '方法'
         ];
+    }
+
+    public static function getSiblingsMenus($auth)
+    {
+        $model = self::find()->where(['auth_name'=>$auth])->one();
+
+        if (!$model) {
+            return [];
+        }
+
+        if ($model->pid == 0) {
+            return [];
+        }
+
+        $menus = self::authMenu(['pid'=>$model->pid]);
+
+
+        foreach ($menus as $k => &$v) {
+            if (empty($v['auth_name'])) {
+                unset($menus[$k]);
+                continue;
+            }
+            $auth_name = substr_replace($v['auth_name'], '/admin', strpos($v['auth_name'], '/'), 0);
+            $v['url'] = Url::toRoute(['/'.$auth_name]);
+        }unset($v);
+
+
+        return $menus;
     }
 }

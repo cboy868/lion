@@ -8,10 +8,9 @@ use app\modules\sys\models\Menu;
 
 $menu = Menu::getList();
 
-
 $current_menu = isset($this->params['current_menu']) ? $this->params['current_menu'] : getFullAction();
 
-
+//$siblingMenus = Menu::getSiblingsMenus($current_menu);
 
 AdminAsset::register($this);
 ?>
@@ -544,7 +543,7 @@ echo Breadcrumbs::widget([
                 </div>
                 <style>
                     .page-content{
-                        margin-right:50px;
+                        /*margin-right:50px;*/
                     }
                     .main-short-btn{
                         padding: 1px 5px;
@@ -579,13 +578,6 @@ echo Breadcrumbs::widget([
                 <?=$content?>
                 <!-- /.page-content -->
                 <div class="main-right-slid" style="width:60px; position: fixed;bottom:100px;right: 0;">
-                    <a href="/admin/task/default/index.html" target="_blank" class="btn btn-default main-short-btn">
-                        <img src="/upload/image/201705/1496199232117.png" class="fa-app">
-                        任务列表            </a>
-                    <a href="/admin/client/default/index.html" target="_blank" class="btn btn-default main-short-btn">
-                        <img src="/upload/image/201705/1496199193266.png" class="fa-app">
-                        客户关系            </a>
-
                     <a href="javascript:;" target="_blank" class="btn btn-default main-short-btn gotop" style="display: none">
                         <img src="/static/images/icons/up.png" class="fa-app">
                         Top

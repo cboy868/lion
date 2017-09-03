@@ -19,7 +19,7 @@ use app\core\models\Attachment;
  * @property string $create_time
  * @property string $update_time
  */
-class Focus extends \yii\db\ActiveRecord
+class Focus extends \app\core\db\ActiveRecord
 {
 
     const STATUS_ACTIVE = 1;
