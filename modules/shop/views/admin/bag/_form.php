@@ -5,9 +5,8 @@ use yii\widgets\ActiveForm;;
 USE app\core\widgets\Ueditor;
 use app\core\widgets\Webup\Webup;
 use app\modules\shop\models\Category;
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\Bag */
-/* @var $form yii\widgets\ActiveForm */
+
+$this->params['current_menu'] = 'shop/bag/index';
 ?>
 
 <div class="bag-form">

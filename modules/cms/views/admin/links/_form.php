@@ -3,9 +3,6 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Links */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="links-form">

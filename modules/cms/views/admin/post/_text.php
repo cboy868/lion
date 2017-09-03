@@ -52,10 +52,10 @@ use app\modules\cms\models\Post;
         [
             'class' => 'yii\grid\ActionColumn',
             'header'=>'操作',
-            'template' => '{update} {delete} {view} {update-lg}',
+            'template' => '{update} {delete} {update-lg}',
             'visibleButtons' =>[
                 'update' =>Yii::$app->user->can('cms/post/update'),
-                'view' =>Yii::$app->user->can('cms/post/view'),
+//                'view' =>Yii::$app->user->can('cms/post/view'),
                 'delete' =>Yii::$app->user->can('cms/post/delete'),
                 'update-lg' =>Yii::$app->user->can('cms/post/update-lg'),
             ],
@@ -68,10 +68,10 @@ use app\modules\cms\models\Post;
                     }
                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑', 'class'=>$class] );
                 },
-                'view' => function($url, $model, $key) use ($mid) {
-                    $url = Url::toRoute(['view', 'id'=>$model->id, 'mid'=>$mid]);
-                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看'] );
-                },
+//                'view' => function($url, $model, $key) use ($mid) {
+//                    $url = Url::toRoute(['view', 'id'=>$model->id, 'mid'=>$mid]);
+//                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '查看'] );
+//                },
                 'delete' => function($url, $model, $key) use ($mid) {
                     $url = Url::toRoute(['delete', 'id'=>$model->id, 'mid'=>$mid]);
                     return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );

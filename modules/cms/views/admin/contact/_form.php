@@ -3,9 +3,7 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 use yii\captcha\Captcha;
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Contact */
-/* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="contact-form">

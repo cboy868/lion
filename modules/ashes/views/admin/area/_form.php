@@ -2,10 +2,6 @@
 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\ashes\models\Area */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="area-form">

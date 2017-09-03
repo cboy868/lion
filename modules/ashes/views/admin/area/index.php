@@ -8,6 +8,8 @@ use yii\helpers\Url;
 $this->title = '架区管理';
 $this->params['breadcrumbs'][] = $this->title;
 \app\assets\Tabletree::register($this);
+
+$this->params['current_menu'] = 'ashes/default/index';
 ?>
 
 <div class="page-content">

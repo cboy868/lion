@@ -13,7 +13,7 @@ use app\core\widgets\GridView;
 // $this->params['breadcrumbs'][] = $this->title;
 
 
-
+$this->params['current_menu'] = 'cms/post/index';
 
 
 $this->title = ' ' . ' ' . $mInfo->module;

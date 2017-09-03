@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Links */
+$this->params['current_menu'] = 'cms/link/index';
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Links', 'url' => ['index']];

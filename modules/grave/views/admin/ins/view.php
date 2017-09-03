@@ -4,8 +4,9 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\Ins */
+
+$this->params['current_menu'] = 'grave/ins/index';
+
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => '碑文列表', 'url' => ['index']];

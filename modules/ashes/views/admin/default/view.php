@@ -11,6 +11,8 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => '柜子', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->id . '号柜操作记录';
 
+$this->params['current_menu'] = 'ashes/default/index';
+
 \app\assets\JqueryuiAsset::register($this);
 ?>
 

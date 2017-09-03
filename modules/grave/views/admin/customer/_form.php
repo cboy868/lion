@@ -3,6 +3,7 @@
 use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$this->params['current_menu'] = 'grave/customer/index';
 ?>
 
 <div class="customer-form">

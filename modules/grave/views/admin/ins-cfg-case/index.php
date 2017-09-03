@@ -14,6 +14,7 @@ $this->title = '配置项管理';
 $this->params['breadcrumbs'][] = ['label' => '配置首页', 'url' => ['/grave/admin/ins-cfg/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->params['current_menu'] = 'grave/ins-cfg/index';
 
 ?>
 

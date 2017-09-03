@@ -4,6 +4,8 @@ use app\core\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use app\modules\cms\models\Post;
+$this->params['current_menu'] = 'cms/post/index';
+
 $this->title = ' ' . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => $module->title, 'url' => ['index', 'mid'=>$module->id]];
 $this->params['breadcrumbs'][] = '修改';

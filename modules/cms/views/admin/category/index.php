@@ -5,6 +5,8 @@ use app\core\helpers\Url;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 
+$this->params['current_menu'] = 'cms/post/index';
+
 $this->title = $module->title . ' 模块分类管理';
 $this->params['breadcrumbs'][] = ['label' => '模块管理', 'url' => ['/mod/admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;

@@ -7,6 +7,8 @@ use yii\bootstrap\Modal;
 $this->title = '模块管理';
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->params['current_menu'] = 'cms/post/index';
+
 ?>
 <style>
     td img{

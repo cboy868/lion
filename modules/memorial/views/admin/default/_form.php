@@ -2,7 +2,7 @@
 
 use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
-
+$this->params['current_menu'] = 'memorial/default/index';
 ?>
 
 <div class="memorial-form">

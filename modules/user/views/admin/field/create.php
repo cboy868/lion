@@ -4,8 +4,6 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\user\models\UserField */
 
 $this->title = '添加用户附加字段';
 $this->params['breadcrumbs'][] = ['label' => '列表', 'url' => ['index']];

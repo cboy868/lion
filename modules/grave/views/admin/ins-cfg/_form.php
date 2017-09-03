@@ -3,9 +3,8 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\InsCfg */
-/* @var $form yii\widgets\ActiveForm */
+
+
 ?>
 
 <div class="ins-cfg-form">

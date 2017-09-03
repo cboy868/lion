@@ -8,8 +8,8 @@ use yii\bootstrap\Modal;
 use app\modules\order\models\Order;
 use app\modules\order\models\Delay;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\order\models\Order */
+
+$this->params['current_menu'] = 'order/default/index';
 
 $this->title = $model->id . '号订单明细';
 $this->params['breadcrumbs'][] = ['label' => '订单列表', 'url' => ['index']];

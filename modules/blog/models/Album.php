@@ -111,6 +111,7 @@ class Album extends \app\core\db\ActiveRecord
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
             'status' => 'Status',
+            'privacyText' => '查看权限'
         ];
     }
 

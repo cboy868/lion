@@ -9,7 +9,9 @@ use app\modules\sys\models\Menu;
 $menu = Menu::getList();
 
 
-$current_menu = getFullAction();
+$current_menu = isset($this->params['current_menu']) ? $this->params['current_menu'] : getFullAction();
+
+
 
 AdminAsset::register($this);
 ?>
@@ -540,11 +542,59 @@ echo Breadcrumbs::widget([
 
                     <!-- /section:basics/content.searchbox -->
                 </div>
+                <style>
+                    .page-content{
+                        margin-right:50px;
+                    }
+                    .main-short-btn{
+                        padding: 1px 5px;
+                        font-size: 6px;
+                        font-weight: 400;
+                        margin-bottom: 1px;
+                    }
+                    .main-short-btn .fa-app{
+                        margin-bottom: 1px;
+                        height:auto;
+                        width:48px;
+                    }
+                    .gotop{
+                        /*display: none;*/
+                    }
+                    .fa-app{
+                        display: block;
+                        margin-bottom: 5px;
+                    }
+                    /*.btn img{*/
+                        /*height: 48px;*/
+                    /*}*/
+                    .widget-main .btn-default{
+                        border-radius: 5px;
+                        margin: 5px;
+                        width: 78px;
+                    }
+
+                </style>
 
                 <!-- /section:basics/content.breadcrumbs -->
                 <?=$content?>
                 <!-- /.page-content -->
+                <div class="main-right-slid" style="width:60px; position: fixed;bottom:100px;right: 0;">
+                    <a href="/admin/task/default/index.html" target="_blank" class="btn btn-default main-short-btn">
+                        <img src="/upload/image/201705/1496199232117.png" class="fa-app">
+                        任务列表            </a>
+                    <a href="/admin/client/default/index.html" target="_blank" class="btn btn-default main-short-btn">
+                        <img src="/upload/image/201705/1496199193266.png" class="fa-app">
+                        客户关系            </a>
+
+                    <a href="javascript:;" target="_blank" class="btn btn-default main-short-btn gotop" style="display: none">
+                        <img src="/static/images/icons/up.png" class="fa-app">
+                        Top
+                    </a>
+                </div>
+
             </div><!-- /.main-content -->
+
+
 
 
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
@@ -562,7 +612,24 @@ echo Breadcrumbs::widget([
 <?php $this->beginBlock('menu') ?>
 $(function(){
     $('.submenu>.active').parents('.p-menu').addClass('active open');
-})
+    gotop();
+    $(window).scroll(function(){
+        gotop();
+    });
+    $(".main-right-slid .gotop").click(function(){
+        $('html,body').animate({'scrollTop':0},500);
+    });
+});
+
+    function gotop()
+    {
+        if($(window).scrollTop()>120){
+            $(".main-right-slid .gotop").fadeIn();
+        }
+        else{
+            $(".main-right-slid .gotop").fadeOut();
+        }
+    }
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>
 

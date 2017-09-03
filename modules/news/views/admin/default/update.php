@@ -3,6 +3,8 @@
 use app\core\helpers\Html;
 use yii\helpers\Url;
 
+$this->params['current_menu'] = 'news/default/index';
+
 $this->title = ' ' . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => '新闻资讯管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = '修改';

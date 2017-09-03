@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\Customer */
+$this->params['current_menu'] = 'grave/customer/index';
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => '客户列表', 'url' => ['index']];

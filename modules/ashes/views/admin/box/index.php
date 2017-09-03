@@ -9,6 +9,7 @@ use yii\bootstrap\Modal;
 $this->title = '柜子管理';
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->params['current_menu'] = 'ashes/default/index';
 
 ?>
 
@@ -65,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete} {view}',
+                'template' => '{update} {delete}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑',

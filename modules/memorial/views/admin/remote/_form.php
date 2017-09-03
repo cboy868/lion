@@ -3,9 +3,9 @@
 use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\memorial\models\Remote */
-/* @var $form yii\widgets\ActiveForm */
+
+$this->params['current_menu'] = 'memorial/remote/index';
+
 ?>
 
 <div class="remote-form">

@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\order\models\Order */
+$this->params['current_menu'] = 'order/default/index';
 
 $this->title = ' ' . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => '订单列表', 'url' => ['index']];

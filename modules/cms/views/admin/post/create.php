@@ -4,8 +4,8 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Post */
+$this->params['current_menu'] = 'cms/post/index';
+
 
 $this->title = '添加' . $module->title . '文章';
 $this->params['breadcrumbs'][] = ['label' => $module->title . '模块', 'url' => ['index','mid'=>$module->id]];

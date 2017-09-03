@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\order\models\Refund */
+$this->params['current_menu'] = 'order/refund/index';
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Refunds', 'url' => ['index']];

@@ -13,9 +13,7 @@ ColorBoxAsset::register($this);
 use app\assets\PluploaduiAssets;
 PluploaduiAssets::register($this);
 
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\Portrait */
+$this->params['current_menu'] = 'grave/portrait/index';
 
 $this->title = '瓷像详情';
 $this->params['breadcrumbs'][] = ['label' => '瓷像管理', 'url' => ['index']];

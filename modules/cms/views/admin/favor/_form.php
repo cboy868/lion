@@ -3,9 +3,9 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Favor */
-/* @var $form yii\widgets\ActiveForm */
+$this->params['current_menu'] = 'cms/favor/index';
+
+
 ?>
 
 <div class="favor-form">

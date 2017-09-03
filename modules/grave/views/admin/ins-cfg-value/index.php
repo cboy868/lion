@@ -5,13 +5,11 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\search\InsCfgValue */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '配置项';
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->params['current_menu'] = 'grave/ins-cfg/index';
 
 ?>
 

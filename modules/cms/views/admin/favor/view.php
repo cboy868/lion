@@ -4,9 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Favor */
-
+$this->params['current_menu'] = 'cms/favor/index';
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Favors', 'url' => ['index']];
 ?>

@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\news\models\News */
+$this->params['current_menu'] = 'news/default/index';
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => '新闻资讯管理', 'url' => ['index']];

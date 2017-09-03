@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'visibleButtons' =>[
-                    'view' =>Yii::$app->user->can('sms/email/view'),
+                    'view' =>false,
                     'update' =>Yii::$app->user->can('sms/email/update'),
                     'delete' =>Yii::$app->user->can('sms/email/delete'),
                 ],

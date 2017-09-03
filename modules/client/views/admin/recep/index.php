@@ -5,10 +5,8 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\client\models\ReceptionSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
+$this->params['current_menu'] = 'client/default/index';
 
 $this->title = $client->name . '的联系记录';
 $this->params['breadcrumbs'][] = ['label' => '客户列表', 'url' => ['/client/admin/default/index']];

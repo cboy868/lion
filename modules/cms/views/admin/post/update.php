@@ -3,7 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
-
+$this->params['current_menu'] = 'cms/post/index';
 
 $this->title = '修改' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => $module->title . '模块', 'url' => ['index','mid'=>$module->id]];

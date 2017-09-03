@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Task */
+$this->params['current_menu'] = 'task/default/index';
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => '任务列表', 'url' => ['index']];

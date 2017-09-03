@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Contact */
+$this->params['current_menu'] = 'cms/contact/index';
 
 $this->title = $model->email;
 $this->params['breadcrumbs'][] = ['label' => '详细信息', 'url' => ['index']];

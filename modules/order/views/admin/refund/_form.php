@@ -3,9 +3,7 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\order\models\Refund */
-/* @var $form yii\widgets\ActiveForm */
+$this->params['current_menu'] = 'order/refund/index';
 ?>
 
 <div class="refund-form">

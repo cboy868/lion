@@ -3,9 +3,7 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\order\models\Delay */
-/* @var $form yii\widgets\ActiveForm */
+$this->params['current_menu'] = 'order/delay/index';
 ?>
 
 <div class="delay-form">

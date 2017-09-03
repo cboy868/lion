@@ -3,9 +3,8 @@
 
 use app\core\helpers\Url;
 use yii\bootstrap\Modal;
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\Attr */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->params['current_menu'] = 'shop/type/index';
 
 $this->title = $type->title.'规格管理';
 $this->params['breadcrumbs'][] = ['label' => '类型列表', 'url' => ['index']];

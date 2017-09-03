@@ -250,7 +250,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
             // 'intro:ntext',
             [
                 'headerOptions' => ["data-breakpoints"=>"all"],
-                'label' => 'intro',
+                'label' => '商品介绍',
                 'value' => function($model){
                     return $model->intro;
                 },

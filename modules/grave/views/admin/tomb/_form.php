@@ -3,7 +3,7 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 use app\modules\grave\models\Grave;
-
+$this->params['current_menu'] = 'grave/tomb/index';
 ?>
 
 <div class="tomb-form">

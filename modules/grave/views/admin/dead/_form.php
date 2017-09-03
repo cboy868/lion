@@ -4,6 +4,8 @@ use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 \app\assets\DateTimeAsset::register($this);
 \app\assets\ExtAsset::register($this);
+
+$this->params['current_menu'] = 'grave/dead/index';
 ?>
 
 <div class="dead-form">

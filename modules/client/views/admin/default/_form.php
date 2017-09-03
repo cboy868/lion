@@ -7,9 +7,7 @@ use app\core\helpers\ArrayHelper;
 use app\core\widgets\Area\Select;
 use kartik\select2\Select2;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\client\models\Client */
-/* @var $form yii\widgets\ActiveForm */
+$this->params['current_menu'] = 'client/default/index';
 
 $users = \app\modules\user\models\User::staffs();
 $agents =\app\modules\user\models\User::agents();

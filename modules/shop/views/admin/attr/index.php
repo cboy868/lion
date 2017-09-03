@@ -4,9 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\Attr */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+$this->params['current_menu'] = 'shop/type/index';
 
 $this->title = '属性管理';
 $this->params['breadcrumbs'][] = $this->title;

@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\memorial\models\Remote */
 
-$this->title = 'Create Remote';
+$this->title = '新建远程祭祀';
 $this->params['breadcrumbs'][] = ['label' => '远程祭祀记录', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

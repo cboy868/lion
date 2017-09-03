@@ -2,6 +2,7 @@
 
 namespace app\modules\blog\controllers\admin;
 
+use app\modules\blog\models\AlbumSearch;
 use Yii;
 use app\modules\blog\models\Blog;
 use app\modules\blog\models\BlogSearch;
@@ -47,7 +48,13 @@ class DefaultController extends BackController
      */
     public function actionAlbum()
     {
-        return $this->render('album');
+        $searchModel = new AlbumSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('album', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

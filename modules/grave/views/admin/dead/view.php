@@ -4,8 +4,8 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\Dead */
+$this->params['current_menu'] = 'grave/dead/index';
+
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => '使用人管理', 'url' => ['index']];

@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'visibleButtons' =>[
                     'update' =>Yii::$app->user->can('user/field/update'),
-                    'view' =>Yii::$app->user->can('user/field/view'),
+                    'view' =>false,
                     'delete' =>Yii::$app->user->can('user/field/delete'),
                 ],
             ],

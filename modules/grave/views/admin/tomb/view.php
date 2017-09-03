@@ -10,6 +10,7 @@ use app\core\helpers\Url;
 \app\assets\ExtAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $model app\modules\grave\models\Tomb */
+$this->params['current_menu'] = 'grave/tomb/index';
 
 $this->title = $model->tomb_no;
 $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']];

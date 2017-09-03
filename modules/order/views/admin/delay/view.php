@@ -7,6 +7,8 @@ use app\core\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\order\models\Delay */
 
+$this->params['current_menu'] = 'order/delay/index';
+
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Delays', 'url' => ['index']];
 ?>

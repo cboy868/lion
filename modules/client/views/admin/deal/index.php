@@ -5,9 +5,7 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\client\models\DealSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+$this->params['current_menu'] = 'client/default/index';
 
 $this->title = 'Deals';
 $this->params['breadcrumbs'][] = $this->title;

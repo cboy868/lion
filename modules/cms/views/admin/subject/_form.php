@@ -2,10 +2,7 @@
 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\cms\models\Subject */
-/* @var $form yii\widgets\ActiveForm */
+$this->params['current_menu'] = 'cms/subject/index';
 ?>
 
 <div class="subject-form">

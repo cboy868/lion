@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\Bag */
+$this->params['current_menu'] = 'shop/bag/index';
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => '打包品列表', 'url' => ['index']];

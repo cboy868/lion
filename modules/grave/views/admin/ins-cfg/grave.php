@@ -6,9 +6,7 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\search\InsCfg */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+$this->params['current_menu'] = 'grave/ins-cfg/index';
 
 $this->title = '碑文墓区样式配置';
 $this->params['breadcrumbs'][] = ['label' => '配置总表', 'url' => ['index']];
