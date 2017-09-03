@@ -51,6 +51,7 @@ $this->params['current_nav'] = 'index';
                     </div>
                     <?php endforeach;?>
                 </div>
+            <div class="clearfix"></div>
         </div>
         <div class="col-md-6">
             <div class="row">

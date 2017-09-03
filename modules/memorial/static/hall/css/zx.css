@@ -365,15 +365,15 @@ a:active, a:hover, a:focus{text-decoration:none;-moz-outline:none;outline:none;i
 /*.xp_link_text p a{ color:#333333; text-decoration:none;}*/
 /*.xp_link_text p a:hover{ color:#000000; text-decoration:underline;}*/
 
-/*.xp-huiyuan{ width:100%; height:auto; margin:auto; display:table; padding-top:8px;}*/
-/*.xp-huiyuan ul{ padding:0px; margin:0px; list-style:none;}*/
-/*.xp-huiyuan li{ width:75px; text-align:center; float:left; margin:6px 8px 0 0;}*/
-/*.xp-huiyuan li:hover{ background:#EFEFEF;}*/
-/*.xp-huiyuan li img{width:75px; border:1px solid #ffffff; border-radius:5px;}*/
-/*.xp-huiyuan li p{font-size:12px;text-align:center;}*/
-/*.xp-huiyuan li p a{color:#333333; text-decoration:none;line-height:24px;}*/
-/*.xp-huiyuan li p a:hover{ color:#FF6600; text-decoration:underline;}*/
-/*.xp-huiyuan li span{ height:20px; font-size:12px; text-align:center; color:#999;}*/
+.xp-huiyuan{ width:100%; height:auto; margin:auto; display:table; padding-top:8px;}
+.xp-huiyuan ul{ padding:0px; margin:0px; list-style:none;}
+.xp-huiyuan li{ width:75px; text-align:center; float:left; margin:6px 8px 0 0;}
+.xp-huiyuan li:hover{ background:#EFEFEF;}
+.xp-huiyuan li img{width:75px; border:1px solid #ffffff; border-radius:5px;}
+.xp-huiyuan li p{font-size:12px;text-align:center;}
+.xp-huiyuan li p a{color:#333333; text-decoration:none;line-height:24px;}
+.xp-huiyuan li p a:hover{ color:#FF6600; text-decoration:underline;}
+.xp-huiyuan li span{ height:20px; font-size:12px; text-align:center; color:#999;}
 
 /*******************右边结束***********************/
 

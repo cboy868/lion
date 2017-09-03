@@ -52,6 +52,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format'=>'image'
             ],
+            [
+                'label' => '纪念馆名',
+                'value' => function($model){
+                    return Html::a($model->title, Url::toRoute(['/memorial/home/hall/index', 'id'=>$model->id]),['target'=>'_blank']);
+                },
+                'format' => 'raw'
+            ],
             'title',
             // 'intro:ntext',
 //            'privacy',
@@ -66,13 +73,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
 
-                'template' => '{update} {delete} {apply}',
+                'template' => '{update} {delete} {view} {apply} ',
                 'buttons' => [
                     'apply' => function($url, $model, $key){
                         if ($model->status == \app\modules\memorial\models\Memorial::STATUS_APPLY) {
-                            return Html::a('<font color="green"> 审核通过</font>', $url, ['title' => '审核通过', 'class'=>'top'] );
+                            return Html::a('<font color="green"> 通过</font>', $url, ['title' => '通过审核', 'class'=>'top'] );
                         }
                     },
+                    'view' => function($url, $model, $key){
+                        return Html::a('查看', Url::toRoute(['/memorial/home/hall/index', 'id'=>$model->id]), ['target'=>'_blank']);
+                    }
                 ],
                 'headerOptions' => ['width' => '190',"data-type"=>"html"]
             ]
