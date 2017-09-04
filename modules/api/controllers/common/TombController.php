@@ -157,8 +157,11 @@ class TombController extends Controller
         $post = Yii::$app->request->post();
         $user = User::findOne($post['uid']);
 
-
         $tomb = $this->findModel($post['tomb_id']);
+
+        if ($tomb->status != Tomb::STATUS_EMPTY) {
+            return ['errno'=>1, 'error'=>'墓位不存在，或已非闲置墓位'];
+        }
 
         $tomb->status = Tomb::STATUS_PRE;
         if ($user->isStaff()) {
