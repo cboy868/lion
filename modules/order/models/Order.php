@@ -224,7 +224,9 @@ class Order extends \app\core\db\ActiveRecord
 
     public function getRels()
     {
-        return $this->hasMany(OrderRel::className(), ['order_id' => 'id'])->orderBy('price desc');
+        return $this->hasMany(OrderRel::className(), ['order_id' => 'id'])
+            ->andWhere(['status'=>OrderRel::STATUS_NORMAL])
+            ->orderBy('price desc');
     }
 
     // public function getUser()
