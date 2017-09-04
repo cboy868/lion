@@ -168,6 +168,9 @@ class Order extends \app\core\db\ActiveRecord
         $this->price = $this->origin_price = OrderRel::find()
                                             ->where(['status'=>OrderRel::STATUS_NORMAL, 'order_id'=>$this->id])
                                             ->sum('price');
+        if (count($this->rels)==0) {
+            $this->status = Order::STATUS_DELETE;
+        }
 
         $this->save();
         OrderLog::create($this->id);
