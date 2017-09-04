@@ -140,12 +140,18 @@ class TombController extends Controller
     public function actionPres()
     {
         $uid = Yii::$app->request->get('uid');
-
         $class = $this->modelClass;
-        $tombs = $class::find()->where(['user_id'=>$uid])
-            ->andWhere(['status'=>Tomb::STATUS_PRE])
-            ->asArray()
-            ->all();
+        $user = User::findOne($uid);
+
+        if ($user->isStaff()) {
+            $query = $class::find()->where(['guide_id'=>$uid]);
+        } else {
+            $query = $class::find()->where(['user_id'=>$uid]);
+        }
+
+        $tombs = $query->andWhere(['status'=>Tomb::STATUS_PRE])
+                        ->asArray()
+                        ->all();
 
         return $tombs;
 
