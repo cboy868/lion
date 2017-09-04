@@ -3,6 +3,7 @@
 namespace app\modules\api\models\common;
 
 use Yii;
+use app\core\models\Attachment;
 /**
  *
  */
@@ -15,7 +16,8 @@ class Focus extends \app\modules\focus\models\Focus
 
         $other = [
             'cover' => function($model){
-                return self::$base_url . $model->image;
+                $size = Yii::$app->request->get('coverSize');
+                return self::$base_url . Attachment::getBySrc($model->image, $size);
             }
 
         ];
