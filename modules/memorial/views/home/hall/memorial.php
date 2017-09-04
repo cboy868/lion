@@ -71,7 +71,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
     <div class="row">
         <div class="col-md-9">
             <div class="row">
-                <div class="col-md-8 info pull-right">
+                <div class="col-md-8 col-sm-12 col-xs-12 info pull-right">
 
                     <div class="avatar">
                         <img width="180" height="180" src="<?=$memorial->getThumbImg('160x160')?>" alt="">
@@ -128,7 +128,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                     </div>
 
                 </div>
-                <div class="col-md-4 aside-box pull-left">
+                <div class="col-md-4 col-sm-12 col-xs-12 aside-box pull-left">
                     <div class="remote">
                         <ul class="media-list">
                             <?php foreach ($remotes as $v):?>
