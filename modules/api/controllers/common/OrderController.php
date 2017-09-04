@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\api\controllers\common;
 
+use app\modules\order\models\OrderRel;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -81,11 +82,26 @@ class OrderController extends Controller
     public function actionDel()
     {
         $post = Yii::$app->request->post();
-        $order_id = $post['order_id'];
-
         $order = Order::findOne($post['order_id']);
         $order->status = Order::STATUS_DELETE;
-        return $order->save();
+        if ($order->save() !== false) {
+            return true;
+        }
+
+        return ['error'=>'删除失败', 'errno'=>1];
+    }
+
+    public function actionDelRelOrder()
+    {
+        $post = Yii::$app->request->post();
+        $rel = OrderRel::findOne($post['rel_id']);
+        $rel->status = Order::STATUS_DELETE;
+        if ($rel->save() !== false) {
+            $rel->order->updatePrice();
+            return true;
+        }
+
+        return ['error'=>'删除失败', 'errno'=>1];
     }
 
     /**
