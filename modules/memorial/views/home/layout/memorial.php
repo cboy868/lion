@@ -44,8 +44,9 @@ $memorial = Memorial::findOne(Yii::$app->request->get('id'));
                     $current_nav = isset($this->params['current_nav']) ? $this->params['current_nav'] : '';
                     $id = Yii::$app->request->get('id');
                     ?>
+                    <!--
                     <li><a href="<?=Url::toRoute(['/'])?>"><?=g('cp_name')?>门户</a></li>
-
+-->
                     <li><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">纪念馆主页</a></li>
 
                     <!--

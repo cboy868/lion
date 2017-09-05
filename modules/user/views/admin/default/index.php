@@ -56,11 +56,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
 
                 // You can choose to render your own GridView separately
-//                echo \kartik\grid\GridView::widget([
-//                    'dataProvider' => $dataProvider,
-//                    'filterModel' => $searchModel,
-//                    'columns' => $gridColumns
-//                ]);
+                echo \kartik\grid\GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'columns' => $gridColumns
+                ]);
 
                 ?>
             </div>

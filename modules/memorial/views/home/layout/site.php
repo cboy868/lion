@@ -44,7 +44,9 @@ use yii\helpers\Url;
             <div class="navbar-collapse collapse" role="navigation">
                 <?php $cnav = isset($this->params['current_nav']) ? $this->params['current_nav'] : ''?>
                 <ul class="nav navbar-nav">
+                    <!--
                     <li class=""><a href="/">门户主页</a></li>
+                    -->
                     <li class="<?php if($cnav == 'index')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/index'])?>">首页</a></li>
                     <li class="<?php if($cnav == 'memorial')echo 'active'?>"><a href="<?=Url::toRoute(['/memorial/home/site/memorial'])?>">纪念馆</a></li>
                     <!--                    <li><a href="--><?//=Url::toRoute(['/memorial/home/site/days'])?><!--">生忌</a></li>-->
