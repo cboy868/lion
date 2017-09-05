@@ -577,12 +577,14 @@ echo Breadcrumbs::widget([
                 <!-- /section:basics/content.breadcrumbs -->
                 <?=$content?>
                 <!-- /.page-content -->
+                <!--
                 <div class="main-right-slid" style="width:60px; position: fixed;bottom:100px;right: 0;">
                     <a href="javascript:;" target="_blank" class="btn btn-default main-short-btn gotop" style="display: none">
                         <img src="/static/images/icons/up.png" class="fa-app">
                         Top
                     </a>
                 </div>
+                -->
 
             </div><!-- /.main-content -->
 
@@ -604,24 +606,24 @@ echo Breadcrumbs::widget([
 <?php $this->beginBlock('menu') ?>
 $(function(){
     $('.submenu>.active').parents('.p-menu').addClass('active open');
-    gotop();
-    $(window).scroll(function(){
-        gotop();
-    });
-    $(".main-right-slid .gotop").click(function(){
-        $('html,body').animate({'scrollTop':0},500);
-    });
+//    gotop();
+//    $(window).scroll(function(){
+//        gotop();
+//    });
+//    $(".main-right-slid .gotop").click(function(){
+//        $('html,body').animate({'scrollTop':0},500);
+//    });
 });
 
-    function gotop()
-    {
-        if($(window).scrollTop()>120){
-            $(".main-right-slid .gotop").fadeIn();
-        }
-        else{
-            $(".main-right-slid .gotop").fadeOut();
-        }
-    }
+//    function gotop()
+//    {
+//        if($(window).scrollTop()>120){
+//            $(".main-right-slid .gotop").fadeIn();
+//        }
+//        else{
+//            $(".main-right-slid .gotop").fadeOut();
+//        }
+//    }
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>
 
