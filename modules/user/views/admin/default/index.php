@@ -56,11 +56,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
 
                 // You can choose to render your own GridView separately
-                echo \kartik\grid\GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'columns' => $gridColumns
-                ]);
+//                echo \kartik\grid\GridView::widget([
+//                    'dataProvider' => $dataProvider,
+//                    'filterModel' => $searchModel,
+//                    'columns' => $gridColumns
+//                ]);
 
                 ?>
             </div>
@@ -122,39 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
         // 'filterModel' => $searchModel,
         'id' => 'grid',
         'showFooter' => true,  //设置显示最下面的footer
-        'columns' => [
-            [
-                'class'=>yii\grid\CheckboxColumn::className(),
-                'name'=>'id',  //设置每行数据的复选框属性
-                'headerOptions' => ['width'=>'30', "data-type"=>"html"],
-                'footer' => Yii::$app->user->can('user/default/batch-del') ? '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
-                    '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>' : '',
-                'footerOptions' => ['colspan' => 6, 'class'=>'deltd'],  //设置删除按钮垮列显示；
-            ],
-//            'id',
-            [
-                'label' => '账号',
-                'value' => function($model){
-                    return Html::img($model->getAvatar('36x36', '/static/images/avatar.png')) . $model->username;
-                },
-                'format' => 'raw'
-            ],
-            'mobile',
-            'email:email',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'visibleButtons' =>[
-                    'update' =>Yii::$app->user->can('user/default/update'),
-                    'view' =>Yii::$app->user->can('user/default/view'),
-                    'delete' =>Yii::$app->user->can('user/default/delete'),
-                ],
-
-            ],
-        ],
+        'columns' => $gridColumns
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
