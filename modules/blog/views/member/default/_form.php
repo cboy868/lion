@@ -4,6 +4,8 @@ use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\core\models\Attachment;
 use yii\helpers\Url;
+
+\app\assets\TagAsset::register($this);
 ?>
 
 <div class="blog-form">
@@ -61,6 +63,7 @@ use yii\helpers\Url;
                 ]
             ])->label('内容');
             ?>
+            <?= $form->field($model, 'tags')->textInput(['id'=>'inputTagator', 'value'=>$tags])->hint('多关键词，请用半角逗号分隔') ?>
             <?= $form->field($model, 'privacy')->radioList(\app\modules\blog\models\Blog::privacys())->label('是否公开') ?>
             <?= $form->field($model, 'type')->hiddenInput()->label(false) ?>
 
@@ -78,9 +81,21 @@ use yii\helpers\Url;
 </div>
 <?php $this->beginBlock('tree') ?>
 $(function(){
-LN.plupload();
-
+    LN.plupload();
+    tag();
 })
+function tag()
+{
+    if ($('#inputTagator').data('tagator') === undefined) {
+        $('#inputTagator').tagator({
+        autocomplete: []
+        });
+        $('#activate_tagator').val('销毁 tagator');
+    } else {
+        $('#inputTagator').tagator('destroy');
+        $('#activate_tagator').val('激活 tagator');
+    }
+}
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>
 

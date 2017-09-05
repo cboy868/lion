@@ -47,6 +47,8 @@ class Blog extends \app\core\db\ActiveRecord
     const STATUS_VRIFY = 0;//待审核
     const STATUS_NOVRIFY = -2;//审核未通过
 
+    public $tags;
+
     /**
      * @inheritdoc
      */
@@ -113,7 +115,7 @@ class Blog extends \app\core\db\ActiveRecord
                 'created_by', 'created_at', 'updated_at', 'status','res'], 'integer'],
             [['publish_at'], 'safe'],
             [['title', 'video'], 'string', 'max' => 255],
-            [['ip'], 'string', 'max' => 200],
+            [['ip', 'tags'], 'string', 'max' => 200],
         ];
     }
 
@@ -144,7 +146,8 @@ class Blog extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'updated_at' => '更新时间',
             'status' => '状态',
-            'privacy_Text' =>'隐私'
+            'privacy_Text' =>'隐私',
+            'tags' => '标签/关键词',
         ];
     }
 

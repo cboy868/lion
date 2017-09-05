@@ -12,7 +12,7 @@
         "irc": "irc://irc.freenode.net/yii",
         "source": "https://github.com/yiisoft/yii2"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.5",
@@ -29,7 +29,7 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-krajee-base": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
-        "kartik-v/yii2-dialog": "*"
+        "kartik-v/yii2-dialog": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

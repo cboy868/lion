@@ -2,6 +2,7 @@
 
 namespace app\modules\blog\controllers\member;
 
+use app\core\models\TagRel;
 use app\core\web\MemberController;
 use app\modules\memorial\models\Memorial;
 use Yii;
@@ -112,7 +113,11 @@ class DefaultController extends MemberController
                 $model->res = Blog::RES_MISS;
             }
 
+
             if ($model->save() !== false) {
+                if ($model->tags) {
+                    $this->tagCreate($model->tags, $model->id);
+                }
                 Yii::$app->session->setFlash('success', '添加博客成功');
             } else {
                 Yii::$app->session->setFlash('error', '添加博客失败,请重试或联系管理员');
@@ -127,8 +132,16 @@ class DefaultController extends MemberController
         $model->privacy = Blog::PRIVACY_PUBLIC;
         return $this->renderAjax('create', [
             'model' => $model,
-            'memorials' => ArrayHelper::map($memorials, 'id', 'title')
+            'memorials' => ArrayHelper::map($memorials, 'id', 'title'),
+            'tags' => ''
         ]);
+    }
+
+    private function tagCreate($str, $id)
+    {
+        $str = str_replace('，', ',', $str);
+        $tags = explode(',', $str);
+        TagRel::addTagRel($tags, 'blog', $id);
     }
 
     /**
@@ -145,12 +158,15 @@ class DefaultController extends MemberController
             return $this->redirect(['index']);
         }
 
-
         $memorials = Memorial::find()->where(['user_id'=>$this->homeuid])->all();
+
+        $tags = TagRel::getTagsByRes('blog', $id);
+        $tags = implode(',', ArrayHelper::getColumn($tags, 'tag_name')) ;
 
         return $this->renderAjax('update', [
             'model' => $model,
-            'memorials' => ArrayHelper::map($memorials, 'id', 'title')
+            'memorials' => ArrayHelper::map($memorials, 'id', 'title'),
+            'tags' => $tags
         ]);
 
     }

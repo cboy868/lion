@@ -5,7 +5,8 @@
 			<div class="col-xs-12 blog-create">
 				<?= $this->render('_form', [
 			        'model' => $model,
-                    'memorials' => $memorials
+                    'memorials' => $memorials,
+                    'tags' => ''
 			    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->
