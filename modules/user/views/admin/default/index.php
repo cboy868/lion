@@ -4,6 +4,8 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use kartik\export\ExportMenu;
+
 \app\assets\JqueryFormAsset::register($this);
 $this->title = '用户列表';
 $this->params['breadcrumbs'][] = $this->title;
@@ -34,6 +36,36 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- /.page-header -->
 
         <div class="row">
+
+
+            <div class="col-xs-12">
+                <?php
+
+                $gridColumns = [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'id',
+                    'username',
+                    'status',
+                    ['class' => 'yii\grid\ActionColumn'],
+                ];
+
+                // Renders a export dropdown menu
+                echo ExportMenu::widget([
+                    'dataProvider'  => $dataProvider,
+                    'columns' => $gridColumns
+                ]);
+
+                // You can choose to render your own GridView separately
+//                echo \kartik\grid\GridView::widget([
+//                    'dataProvider' => $dataProvider,
+//                    'filterModel' => $searchModel,
+//                    'columns' => $gridColumns
+//                ]);
+
+                ?>
+            </div>
+
+
             <div class="col-xs-12">
                 <?=\app\core\widgets\Alert::widget()?>
             </div>

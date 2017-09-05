@@ -86,7 +86,7 @@ class Goods extends \app\core\db\ActiveRecord
             'name' => '商品名称',
             'thumb' => '商品封面',
             'intro' => '介绍',
-            'skill' => '烹饪技巧',
+            'skill' => '附加',
             'unit' => '单位',
             'price' => '价格',//现价,活动,微信价之类
             'original_price' => '原价',

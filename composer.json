@@ -24,7 +24,12 @@
         "kartik-v/yii2-widget-select2": "@dev",
         "izyue/yii2-alipay": "*",
         "kartik-v/yii2-popover-x": "*",
-        "endroid/qrcode": "^2.3"
+        "endroid/qrcode": "^2.3",
+        "kartik-v/yii2-export": "@dev",
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-krajee-base": "@dev",
+        "kartik-v/yii2-mpdf": "dev-master",
+        "kartik-v/yii2-dialog": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

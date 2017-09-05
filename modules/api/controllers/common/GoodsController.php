@@ -175,6 +175,7 @@ class GoodsController extends Controller
         $o_total = 0;
         $list = $query->all();
         foreach ($list as $k => $v) {
+            if (!isset($v->sku)){continue;}
             $total += $v->sku->price * $v->num;
             $o_total +=$v->sku->original_price * $v->num;
         }

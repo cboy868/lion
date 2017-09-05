@@ -8,7 +8,7 @@ use app\core\models\TagRel;
 use app\core\libs\Fpdf;
 use app\modules\shop\models\Sku;
 use yii;
-
+use kartik\export\ExportMenu;
 class DefaultController extends \app\core\web\BackController
 {
     public function actionIndex()
@@ -36,7 +36,7 @@ class DefaultController extends \app\core\web\BackController
 
     public function actionExcel()
     {
-        \app\core\libs\PHPExcel::export();
+        //\app\core\libs\PHPExcel::export();
     }
 
 

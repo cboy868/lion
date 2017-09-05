@@ -73,6 +73,9 @@ return [
     'ashes' => [
         'class' => 'app\modules\ashes\Module',
     ],
+    'gridview' =>  [
+        'class' => '\kartik\grid\Module'
+    ]
 
 
 ];
