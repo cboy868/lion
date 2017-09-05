@@ -38,32 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
 
 
-            <div class="col-xs-12">
-                <?php
 
-                $gridColumns = [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'id',
-                    'username',
-                    'status',
-                    ['class' => 'yii\grid\ActionColumn'],
-                ];
-
-                // Renders a export dropdown menu
-                echo ExportMenu::widget([
-                    'dataProvider'  => $dataProvider,
-                    'columns' => $gridColumns
-                ]);
-
-                // You can choose to render your own GridView separately
-//                echo \kartik\grid\GridView::widget([
-//                    'dataProvider' => $dataProvider,
-//                    'filterModel' => $searchModel,
-//                    'columns' => $gridColumns
-//                ]);
-
-                ?>
-            </div>
 
 
             <div class="col-xs-12">
@@ -116,6 +91,50 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                 </div>
+
+
+                    <?php
+                    $gridColumns = [
+                        [
+                            'class'=>yii\grid\CheckboxColumn::className(),
+                            'name'=>'id',  //设置每行数据的复选框属性
+                            'headerOptions' => ['width'=>'30', "data-type"=>"html"],
+                            'footer' => Yii::$app->user->can('user/default/batch-del') ? '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
+                                '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>' : '',
+                            'footerOptions' => ['colspan' => 6, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+                        ],
+//            'id',
+                        [
+                            'label' => '账号',
+                            'value' => function($model){
+                                return Html::img($model->getAvatar('36x36', '/static/images/avatar.png')) . $model->username;
+                            },
+                            'format' => 'raw'
+                        ],
+                        'mobile',
+                        'email:email',
+                        // 'status',
+                        // 'created_at',
+                        // 'updated_at',
+
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'visibleButtons' =>[
+                                'update' =>Yii::$app->user->can('user/default/update'),
+                                'view' =>Yii::$app->user->can('user/default/view'),
+                                'delete' =>Yii::$app->user->can('user/default/delete'),
+                            ],
+
+                        ],
+                    ];
+
+                    // Renders a export dropdown menu
+                    echo ExportMenu::widget([
+                        'dataProvider'  => $dataProvider,
+                        'columns' => $gridColumns
+                    ]);
+                    ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
