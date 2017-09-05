@@ -29,7 +29,7 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-krajee-base": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
-        "kartik-v/yii2-dialog": "@dev"
+        "kartik-v/yii2-dialog": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

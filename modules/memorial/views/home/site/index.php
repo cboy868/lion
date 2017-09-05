@@ -204,7 +204,7 @@ $this->params['current_nav'] = 'index';
 <?php $this->beginBlock('cate') ?>
 
 $(function(){
-    $('#msgList').roll(28200);
+    $('#msgList').roll(4200);
     $('#remoteList').roll(4000);
 
 })
