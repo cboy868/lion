@@ -154,6 +154,10 @@ class DefaultController extends MemberController
     {
         $model = $this->findModel($id);
 
+        if ($model->memorial_id) {
+            $model->res = Blog::RES_MISS;
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
