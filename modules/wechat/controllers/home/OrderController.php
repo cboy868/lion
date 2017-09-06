@@ -132,7 +132,13 @@ class OrderController extends \app\core\web\HomeController
             // 用户是否支付成功
             if ($successful) {
                 $pay->on(Pay::EVENT_AFTER_PAY, [$pay->order, 'afterPay']);
+                $pay->on(Pay::EVENT_AFTER_PAY, [\app\modules\analysis\models\Settlement::className(), 'create'], ['pay'=>$pay]);
                 $pay->pay(Pay::METHOD_WECHAT, $notify->total_fee/100, $notify->transaction_id);
+
+                if ($pay->order->type == 5) {
+                    $pay->on(Pay::EVENT_AFTER_PAY, [\app\modules\grave\models\Ins::className(), 'afterPay']);
+                }
+
             } else { // 用户支付失败
                 $pay->status = Pay::STATUS_FAIL;
                 $pay->save();

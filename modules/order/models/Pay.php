@@ -261,6 +261,9 @@ class Pay extends \app\core\db\ActiveRecord
         $this->trade_no = $trade_no;
 
         if (!$this->save()) {
+            Yii::error($this->getErrors());
+
+
             return false;
         }
 

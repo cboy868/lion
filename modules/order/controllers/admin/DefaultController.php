@@ -90,6 +90,7 @@ class DefaultController extends BackController
                 }
                 
                 $pay->pay($v, $post['price'][$k]);
+
             }
 
             return $this->redirect(['view', 'id'=>$order->id]);
