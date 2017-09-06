@@ -47,7 +47,6 @@ $this->registerCssFile('/static/site/blog.css');
                         </div>
                     <?php endforeach;?>
                 </div>
-
             </div>
 
             <footer class="panel-footer">

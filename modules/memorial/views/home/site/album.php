@@ -40,7 +40,7 @@ $this->params['current_nav'] = 'album';
         <div class="col-md-3" data-type="img">
             <dl>
                 <dt style="">
-                    <a target="_blank"href="">
+                    <a target="_blank" href="<?=Url::toRoute(['/memorial/home/hall/photos', 'album_id'=>$model->id, 'id'=>$model->memorial_id])?>">
                         <img src="<?=$model->getCover('260x250')?>">
                     </a>
                 </dt>
@@ -54,7 +54,6 @@ $this->params['current_nav'] = 'album';
                     </ul>
                     <div style="height:25px" class="dd-footer">
                         <span style="float:left"><?=date('Y-m-d', $model->created_at)?></span>
-
                     </div>
                 </dd>
             </dl>
