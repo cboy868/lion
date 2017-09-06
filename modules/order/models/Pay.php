@@ -247,7 +247,7 @@ class Pay extends \app\core\db\ActiveRecord
 
     // }
 
-    public function pay($pay_method, $pay_price, $trade_no=0)
+    public function pay($pay_method, $pay_price, $trade_no='')
     {
 
         if ($this->status == self::STATUS_DEL || $this->pay_result != self::RESULT_INIT) {
