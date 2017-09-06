@@ -149,7 +149,7 @@ use yii\bootstrap\Modal;
                                 <li class="item">
                                     <h2><?=$g->name?></h2>
                                     <div class="goods-cover">
-                                        <img src="/upload/image/thumb/201708/160x160@1502261497577.jpeg" alt="">
+                                        <img src="<?=$g->getThumb('160x160')?>" alt="">
                                     </div>
 
                                     <div class="goods-intro">
