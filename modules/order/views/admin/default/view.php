@@ -183,7 +183,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </thead>
                 <tbody>
 
-                    <?php foreach ($model->pays as $pay): ?>
+                    <?php foreach ($model->pays as $pay):
+                        if (!$pay->result) continue;
+                        ?>
                      <tr>
                       <td><?=$pay->total_pay?></td>
                      <td><?=$pay->method?></td>
