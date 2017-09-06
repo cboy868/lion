@@ -31,7 +31,7 @@ $this->params['current_nav'] = 'index';
                                     <?php foreach ($memorials as $v):?>
                                     <li>
                                         <a target="_blank" href="<?=Url::toRoute(['/memorial/home/hall/index', 'id'=>$v->id])?>">
-                                            <img alt="<?=$v->title?>" src="<?=$v->cover?>">
+                                            <img alt="<?=$v->title?>" src="<?=$v->getCover('120x145')?>">
                                             <p class="ellipsis"><?=$v->title?></p>
                                         </a>
                                     </li>
