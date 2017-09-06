@@ -129,12 +129,15 @@ class Remote extends \app\core\db\ActiveRecord
             'privacy' => $memorial->privacy
         ];
 
+
         $model = new self();
         $model->load($data, '');
 
         if ($model->save() !== false) {
             return $model;
         }
+
+        Yii::error($model->getErrors(),__METHOD__);
 
         return false;
     }
