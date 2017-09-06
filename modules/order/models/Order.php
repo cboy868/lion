@@ -98,7 +98,6 @@ class Order extends \app\core\db\ActiveRecord
             //判断是否是纪念馆的远程祭祀
             if ($this->type == self::TYPE_MEMORIAL) {
                 foreach ($this->rels as $k => $rel) {
-                    Yii::error($rel, __METHOD__);
                     Remote::create($rel->id);
                 }
 

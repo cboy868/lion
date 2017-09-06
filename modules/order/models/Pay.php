@@ -160,7 +160,7 @@ class Pay extends \app\core\db\ActiveRecord
             $pay->pay_method = self::METHOD_UNKNOWN;
             $pay->user_id = $order->user_id;
             $pay->op_id = Yii::$app->user->id;
-        } else if($pay->total_fee != $remainder){
+        } else if($pay->total_fee != $order->price){
             $pay->order_no = $order_no;
         }
         $pay->total_fee = $remainder;
@@ -261,9 +261,6 @@ class Pay extends \app\core\db\ActiveRecord
         $this->trade_no = $trade_no;
 
         if (!$this->save()) {
-            Yii::error($this->getErrors());
-
-
             return false;
         }
 

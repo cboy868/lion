@@ -32,21 +32,18 @@ use yii\helpers\Url;
 
     <div class="col-md-6">
         <h2 style="text-align: center;font-weight: 700;color: #39a;margin:0">微信扫码支付</h2>
-        <img src="/static/images/loading.gif" alt="扫码支付" style="width:100%;" class="img-code">
+        <img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="扫码支付" style="width:100%;" class="img-code">
     </div>
 
 
     <div class="form-group col-md-12">
-            <?=  Html::submitButton('取 消', ['class' => 'btn btn-success closeModal']) ?>
+        <?=  Html::submitButton('取 消', ['class' => 'btn btn-success closeModal']) ?>
+        <?=  Html::submitButton('扫码支付', ['class' => 'btn btn-danger scanpay', 'type'=>'button']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 <div class="clearfix"></div>
 </div>
-
-
-
-
 
 
 <?php $this->beginBlock('cate') ?>
@@ -56,14 +53,27 @@ $(function(){
         $('#modalSet').modal('hide');
     });
 
-    initCode();
+
 
     $('.gnum,.sku_id,.use_time,.gnote').change(function (e) {
         e.preventDefault();
+        removeCode();
+        //initCode();
+    });
 
+    $('.gnum,.sku_id,.use_time,.gnote').focus(function (e) {
+        e.preventDefault();
+        removeCode();
+    });
+
+    $('.scanpay').click(function(e){
+        e.preventDefault();
         initCode();
     });
 
+    function removeCode(){
+        $('.img-code').attr('src', 'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==');
+    }
 
     function initCode(){
 
