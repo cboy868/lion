@@ -10,6 +10,7 @@ $config = [
     'timeZone'=>'Asia/Chongqing',
     'bootstrap' => ['log'],
     'defaultRoute' => 'home',
+    'vendorPath' => __DIR__ . '/../../framework/vendor',
     'modules' => require(__DIR__ . '/modules.php'),
     'on beforeRequest' => function($event) {
         \yii\base\Event::on(\yii\db\BaseActiveRecord::className(), \yii\db\BaseActiveRecord::EVENT_AFTER_INSERT, ['app\core\base\OpLog', 'write']);
