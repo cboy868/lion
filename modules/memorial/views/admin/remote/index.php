@@ -118,10 +118,18 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete}',
+                'template' => '{update} {delete} {finish}',
                 'visibleButtons' =>[
                     'update' =>Yii::$app->user->can('memorial/remote/update'),
                     'delete' =>Yii::$app->user->can('memorial/remote/delete'),
+                    'finish' =>Yii::$app->user->can('memorial/remote/delete'),
+                ],
+                'buttons' => [
+                    'finish' => function($url, $model, $key){
+                        if ($model->status == \app\modules\memorial\models\Remote::STATUS_PAY) {
+                            return Html::a('<font color="green"> 完成</font>', $url, ['title' => '完成'] );
+                        }
+                    },
                 ],
                 'headerOptions' => ['width' => '240',"data-type"=>"html"]
             ]

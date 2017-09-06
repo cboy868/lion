@@ -136,6 +136,14 @@ class RemoteController extends BackController
         return $this->redirect(['index']);
     }
 
+    public function actionFinish($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = Remote::STATUS_OK;
+        $model->save();
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Remote model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

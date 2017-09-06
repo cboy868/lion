@@ -68,6 +68,20 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
 
     Modal::end();
     ?>
+
+
+    <?php
+    Modal::begin([
+        'header' => '祭祀视频',
+        'id' => 'modalView',
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+        'size' => 'modal-lg'
+    ]) ;
+
+    echo '<div id="viewContent"></div>';
+
+    Modal::end();
+    ?>
     <div class="row">
         <div class="col-md-9">
             <div class="row">
@@ -128,18 +142,36 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                     </div>
 
                 </div>
+                <style>
+                    .video{
+                        position: relative;
+                    }
+                    .handle{
+                        position: absolute;
+                        right:5px;
+                        top:5px;
+                    }
+
+
+                </style>
                 <div class="col-md-4 col-sm-12 col-xs-12 aside-box pull-left">
                     <div class="remote">
                         <ul class="media-list">
                             <?php foreach ($remotes as $v):?>
                             <li class="video">
-                                <a href="#">
+                                <a href="javascript:;" class="">
                                     <img src="<?=$v->goods->getCover('380x265')?>" alt="">
                                 </a>
                                 <div class="img-intro"><?=$v->note?></div>
                                 <div class="uinfo">--<?=$v->user->username;?>
                                     <br>
-                                    于 <i><?=date('Y-m-d H:i', $v->created_at)?></i></div>
+                                    于 <i><?=date('Y-m-d H:i', $v->created_at)?></i>
+                                </div>
+                                <?php if ($v->status == 2):?>
+                                    <a href="<?=Url::toRoute(['video', 'remote_id'=>$v->id])?>" class="handle modalViewButton">
+                                        <img src="/static/images/video.png" alt="" style="width: 30px;">
+                                    </a>
+                                <?php endif;?>
                             </li>
                             <?php endforeach;?>
                         </ul>

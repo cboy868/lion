@@ -441,6 +441,16 @@ class HallController extends Controller
         ]);
     }
 
+    /**
+     * @param $remote_id
+     * @name 祭祀视频
+     */
+    public function actionVideo($remote_id)
+    {
+        $model = Remote::findOne($remote_id);
+        return $this->renderAjax('video', ['model'=>$model]);
+    }
+
     protected function findModel($id)
     {
         if (($model = Memorial::findOne($id)) !== null) {

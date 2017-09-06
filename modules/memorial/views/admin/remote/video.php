@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 <div class="remote-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'video')->textInput(['maxlength' => true])->hint('推荐mp4格式') ?>
+    <?= $form->field($model, 'video')->textInput(['maxlength' => true])->hint('请使用mp4,或flv格式') ?>
 
     <div class="form-group">
         <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-sm pull-right']) ?>

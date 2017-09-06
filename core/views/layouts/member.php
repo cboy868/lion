@@ -162,7 +162,7 @@ MemberAsset::register($this);
                 </li>
                 <li class="p-menu hsub">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa fa-shopping-cart"></i>
+                        <i class="menu-icon fa fa fa-mortar-board"></i>
                         <span class="menu-text">纪念馆管理</span>
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
@@ -196,7 +196,7 @@ MemberAsset::register($this);
 <!--                <li class="my-blog"><a target="_blank" href="--><?//=Url::toRoute(['/blog/member/default/index'])?><!--">我的日志</a>-->
                 <li class="p-menu hsub">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa fa-shopping-cart"></i>
+                        <i class="menu-icon fa fa fa-bar-chart"></i>
                         <span class="menu-text">业务管理</span>
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
@@ -213,7 +213,7 @@ MemberAsset::register($this);
 
                 <li class="p-menu hsub">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa fa-shopping-cart"></i>
+                        <i class="menu-icon fa fa fa-th-large"></i>
                         <span class="menu-text">博客管理</span>
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
