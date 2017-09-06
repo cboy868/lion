@@ -53,6 +53,8 @@ $(function(){
         $('#modalSet').modal('hide');
     });
 
+    LN.dtInit();
+
 
 
     $('.gnum,.sku_id,.use_time,.gnote').change(function (e) {

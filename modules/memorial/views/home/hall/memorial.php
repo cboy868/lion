@@ -47,7 +47,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
     Modal::begin([
         'header' => '点烛献花',
         'id' => 'modalAdd',
-        'clientOptions' => ['backdrop' => 'static', 'show' => false],
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
         'size' => 'modal-lg'
     ]) ;
 
@@ -60,7 +60,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
     Modal::begin([
         'header' => '远程祭祀',
         'id' => 'modalEdit',
-        'clientOptions' => ['backdrop' => 'static', 'show' => false],
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
         'size' => 'modal-lg'
     ]) ;
 
