@@ -162,7 +162,7 @@ $this->params['current_nav'] = 'index';
                                     <a target="_blank" href="#">
                                         <div class="popover tt-popover right">
                                             <div class="arrow"></div>
-                                            <div class="popover-content">
+                                            <div class="popover-content" style="overflow:hidden;">
                                                 <?=$msg->content?>
                                             </div>
                                         </div>
