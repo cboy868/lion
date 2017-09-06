@@ -109,6 +109,7 @@ class Focus extends \app\core\db\ActiveRecord
         $list = self::find()->where(['category_id'=>$category, 'status'=>self::STATUS_ACTIVE])
                             ->limit($rows)
                             ->orderBy('sort asc')
+                            ->indexBy('id')
 //                            ->asArray()
                             ->all();
         $result = [];
