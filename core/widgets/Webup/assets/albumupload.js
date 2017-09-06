@@ -323,8 +323,7 @@ $(function() {
                     $prgress.css('display', 'block');
                 } else if ( cur === 'complete' ) {
                     $li.append( '<span class="success"></span>' );
-                    var reload = $('#uploader .reload').val();
-                    if (reload)  location.reload();
+
                 }
 
                 $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
@@ -586,6 +585,11 @@ $(function() {
 
             $('#'+file.id).find('.mid').val(response.data.mid);
 
+        });
+
+        uploader.on( 'uploadFinished', function( file, response ) {
+            var reload = $('#uploader .reload').val();
+            if (reload)  location.reload();
         });
 
         $info.on( 'click', '.retry', function() {
