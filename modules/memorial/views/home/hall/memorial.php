@@ -134,7 +134,7 @@ $this->registerCssFile($mem[1] . '/css/mindex.css');
                             <?php foreach ($remotes as $v):?>
                             <li class="video">
                                 <a href="#">
-                                    <img src="<?=$v->getThumbImg('380x265')?>" alt="">
+                                    <img src="<?=$v->goods->getCover('380x265')?>" alt="">
                                 </a>
                                 <div class="img-intro"><?=$v->note?></div>
                                 <div class="uinfo">--<?=$v->user->username;?>
