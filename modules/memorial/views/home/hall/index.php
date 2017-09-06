@@ -228,38 +228,8 @@ $this->params['current_nav'] = 'index';
                 </div>
 -->
                 <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'album','mid'=>Yii::$app->request->get('id')])?>
-
                 <div class="blank"></div>
-                <div class="box">
-                    <div class="side-title">
-                        <a class="tit" href="javascript:void(0)">祭奠记录</a>
-                        <a class="more" href="#">更多祭奠记录&gt;&gt;</a></div>
-                    <div class="scoll-up">
-                        <ul class="list-unstyled">
-                            <li class="">
-                                <p>
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=581180" href="javascript:void(0)">狄国老</a>
-                                    敬献了普通香
-                                </p>
-                                <span>敬献时间：2017-01-07 01:52</span>
-                            </li>
-                            <li class="">
-                                <p>
-                                    <a data-toggle="modal" data-target=".user-info-dialog" data-url="/MemberInfo?id=886146" href="javascript:void(0)">151*****097</a>
-                                    敬献了白蜡烛
-                                </p>
-                                <span>敬献时间：2016-12-21 02:11</span>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div class="side-tips">
-                    <span>
-                        温馨提示：请为您已经逝去的亲朋好友点一柱香
-                        献一束花，让他们在天堂永不孤单。
-                    </span>
-                    </div>
-                </div>
+                <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'remote','mid'=>Yii::$app->request->get('id')])?>
                 <div class="blank"></div>
                 <?=\app\modules\memorial\widgets\Mem::widget(['method'=>'track','mid'=>Yii::$app->request->get('id')])?>
             </div>
