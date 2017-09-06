@@ -31,7 +31,6 @@ $this->registerCssFile('/static/site/blog.css');
                         <?php echo Areaup::widget(['options'=>[
                             'res_name'=>'album',
                             'auto' => false,
-                            'reload'=> false,
                             'album_id'=>$album->id,
                             'server' => Url::toRoute('album-upload')
                         ]]);
