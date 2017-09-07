@@ -67,6 +67,34 @@ class PHPExcel extends \PHPExcel
 
 	}
 
+
+//	public static function exportDataProvider($dataProvider, $title=null)
+//    {
+//
+//        $models = $dataProvider->getModels();
+//        if (!$models) return ;
+//
+//        $objPHPExcel = new PHPExcel();
+//
+//        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+//            ->setLastModifiedBy("Maarten Balliauw")
+//            ->setTitle("Office 2007 XLSX Test Document")
+//            ->setSubject("Office 2007 XLSX Test Document")
+//            ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+//            ->setKeywords("office 2007 openxml php")
+//            ->setCategory("Test result file");
+//
+//
+//        foreach ($models as $k => $v) {
+//            $objPHPExcel->setActiveSheetIndex(0)
+//                ->setCellValue('A1', 'Hello');
+//        }
+//
+//
+//
+//
+//    }
+
 	/**
 	 * @name 导入
 	 */

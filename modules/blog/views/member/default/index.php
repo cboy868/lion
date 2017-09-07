@@ -12,7 +12,6 @@ $this->title = '博客管理';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerCssFile('/static/site/blog.css');
 \app\assets\ExtAsset::register($this);
-\app\assets\PluploadAssets::register($this);
 \app\core\widgets\Ueditor\UAsset::register($this);
 
 Yii::$app->params['cur_nav'] = 'blog_index';
@@ -25,34 +24,33 @@ Yii::$app->params['cur_nav'] = 'blog_index';
 
 
             <h1>
-                <a href="<?=Url::to(['create'])?>" class='btn btn-danger btn-sm modalAddButton'
-                   data-loading-text="页面加载中, 请稍后..." onclick="return false"><i class="fa fa-plus"></i>写博客</a>
+                <a href="<?=Url::to(['create'])?>" class='btn btn-danger btn-sm'><i class="fa fa-plus"></i>写博客</a>
             </h1>
         </div><!-- /.page-header -->
         <?php
-        Modal::begin([
-            'header' => '写博客',
-            'id' => 'modalAdd',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false],
-            'size' => 'modal-lg'
-        ]) ;
-
-        echo '<div id="modalContent"></div>';
-
-        Modal::end();
+//        Modal::begin([
+//            'header' => '写博客',
+//            'id' => 'modalAdd',
+//            'clientOptions' => ['backdrop' => 'static', 'show' => false],
+//            'size' => 'modal-lg'
+//        ]) ;
+//
+//        echo '<div id="modalContent"></div>';
+//
+//        Modal::end();
         ?>
 
         <?php
-        Modal::begin([
-            'header' => '编辑博客',
-            'id' => 'modalEdit',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false],
-            'size' => 'modal-lg'
-        ]) ;
-
-        echo '<div id="editContent"></div>';
-
-        Modal::end();
+//        Modal::begin([
+//            'header' => '编辑博客',
+//            'id' => 'modalEdit',
+//            'clientOptions' => ['backdrop' => 'static', 'show' => false],
+//            'size' => 'modal-lg'
+//        ]) ;
+//
+//        echo '<div id="editContent"></div>';
+//
+//        Modal::end();
         ?>
 
         <?php
@@ -124,8 +122,7 @@ Yii::$app->params['cur_nav'] = 'blog_index';
                                     <?= Html::a('查看', ['view', 'id'=>$post->id],
                                         ['class'=>'modalViewButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );?>
                                     <i class="fa fa-pencil icon-muted"></i>
-                                    <?= Html::a('修改', ['update', 'id'=>$post->id],
-                                        ['class'=>'modalEditButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"] );?>
+                                    <?= Html::a('修改', ['update', 'id'=>$post->id]);?>
                                     <i class="fa fa-trash-o icon-muted"></i>
 
                                     <?= Html::a('删除',['delete', 'id'=>$post->id], [

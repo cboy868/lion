@@ -192,8 +192,6 @@ MemberAsset::register($this);
                     </ul>
                 </li>
 
-
-<!--                <li class="my-blog"><a target="_blank" href="--><?//=Url::toRoute(['/blog/member/default/index'])?><!--">我的日志</a>-->
                 <li class="p-menu hsub">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa fa-bar-chart"></i>

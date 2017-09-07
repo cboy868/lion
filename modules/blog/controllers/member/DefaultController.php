@@ -130,7 +130,7 @@ class DefaultController extends MemberController
 
         $model->type = Blog::TYPE_TEXT;
         $model->privacy = Blog::PRIVACY_PUBLIC;
-        return $this->renderAjax('create', [
+        return $this->render('create', [
             'model' => $model,
             'memorials' => ArrayHelper::map($memorials, 'id', 'title'),
             'tags' => ''
@@ -167,7 +167,7 @@ class DefaultController extends MemberController
         $tags = TagRel::getTagsByRes('blog', $id);
         $tags = implode(',', ArrayHelper::getColumn($tags, 'tag_name')) ;
 
-        return $this->renderAjax('update', [
+        return $this->render('update', [
             'model' => $model,
             'memorials' => ArrayHelper::map($memorials, 'id', 'title'),
             'tags' => $tags

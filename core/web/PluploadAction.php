@@ -25,7 +25,7 @@ class PluploadAction extends Action
     }
 
     /**
-     * @name 图片上传,用于百度的webupload插件
+     * @name 图片上传
      */
     public function upload()
     {

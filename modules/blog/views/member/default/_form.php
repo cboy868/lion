@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\core\models\Attachment;
 use yii\helpers\Url;
+\app\assets\PluploadAssets::register($this);
 
 \app\assets\TagAsset::register($this);
 ?>

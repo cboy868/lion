@@ -7,6 +7,7 @@ namespace app\modules\test\controllers\admin;
 use app\core\models\TagRel;
 use app\core\libs\Fpdf;
 use app\modules\shop\models\Sku;
+use app\modules\user\models\UserSearch;
 use yii;
 use kartik\export\ExportMenu;
 class DefaultController extends \app\core\web\BackController
@@ -36,7 +37,7 @@ class DefaultController extends \app\core\web\BackController
 
     public function actionExcel()
     {
-        //\app\core\libs\PHPExcel::export();
+        \app\core\libs\PHPExcel::export();
     }
 
 
@@ -169,5 +170,26 @@ STR;
     public function actionCard()
     {
         \app\modules\grave\models\Card::initCard(5, 21);
+    }
+
+    public function actionUser()
+    {
+        $searchModel = new UserSearch();
+
+        $params = Yii::$app->request->queryParams;
+        if (isset($params['is_staff'])) {
+            $params['UserSearch']['is_staff'] = $params['is_staff'];
+        }
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('user', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionEl()
+    {
+
     }
 }
