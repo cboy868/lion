@@ -116,10 +116,54 @@ class TombController extends BackController
 
         $dataProvider = $searchModel->search($params);
 
+        if (isset($params['excel']) && $params['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function excel($dp)
+    {
+
+        $columns = [
+            'tomb_no',
+            [
+                'label' => '墓区',
+                'value' => function($model) {
+                    return $model->grave->name;
+                }
+            ],
+            'hole',
+            'price',
+            'user.username',
+            'customer.name',
+            ['label'=>'客户',  'attribute' => 'customer_name',  'value' => 'customer.name' ],//<=====加入这句
+            'agent.username',
+//                         'agency_id',
+            'guide.username',
+            // 'sale_time',
+            'mnt_by',
+            [
+                'label' => '销售状态',
+                'value' => function($model){
+                    if ($model->user_id) {
+                        return $model->statusText . '('.$model->user->username.')';
+                    }
+                    return $model->getStatusText();
+                }
+            ],
+        ];
+
+        $options = [
+            'title'=>'墓位',
+            'filename'=>'tomb',
+            'pageTitle'=>'墓位'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
     /**
      * Lists all Tomb models.

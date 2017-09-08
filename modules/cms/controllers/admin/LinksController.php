@@ -37,10 +37,31 @@ class LinksController extends BackController
         $searchModel = new LinksSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function excel($dp)
+    {
+
+        $columns = [
+            'name',
+            'link:url',
+            'intro:ntext',
+            'created_at:datetime'
+        ];
+
+        $options = [
+            'title'=>'连接',
+            'filename'=>'link',
+            'pageTitle'=>'连接列表'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

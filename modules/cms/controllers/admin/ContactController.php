@@ -52,10 +52,33 @@ class ContactController extends BackController
         $searchModel = new ContactSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function excel($dp)
+    {
+
+        $columns = [
+            'email:email',
+            'ip',
+            'note:ntext',
+             'intro:ntext',
+            'created_at:datetime',
+        ];
+
+        $options = [
+            'title'=>'需求提交',
+            'filename'=>'contact',
+            'pageTitle'=>'网站联系我们信息表'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

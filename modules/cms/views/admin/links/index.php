@@ -85,9 +85,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' =>'image'
             ],
-            // 'intro:ntext',
+             'intro:ntext',
             // 'status',
-            // 'created_at',
+             'created_at:datetime',
 
             [   
                 'class' => 'yii\grid\ActionColumn',

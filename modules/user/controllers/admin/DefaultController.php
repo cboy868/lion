@@ -52,10 +52,26 @@ class DefaultController extends BackController
         }
         $dataProvider = $searchModel->search($params);
 
+        if (isset($params['excel']) && $params['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function excel($dp)
+    {
+
+        $columns = ['username','mobile', 'email','created_at:datetime'];
+        $options = [
+            'title'=>'账号',
+            'filename'=>'user',
+            'pageTitle'=>'账号表'
+        ];
+        \app\core\libs\Export::export($dp,$columns, $options);
     }
 
     /**

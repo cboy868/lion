@@ -39,40 +39,51 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="col-xs-12">
                 <div class="search-box search-outline">
-                    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+                    <?php  echo $this->render('_search', ['model' => $searchModel,'dataProvider'=>$dataProvider]); ?>
                 </div>
                 <?php
-                $gridColumns = [
-                    'id',
-                    'username',
-                    'created_at',
-                    'status',
-                    ['class' => 'yii\grid\ActionColumn'],
-                ];
+//                $gridColumns = [
+//                    'id',
+//                    'username',
+//                    [
+//                        'label' => '账号',
+//                        'value' => function($model){
+//                            return Html::img($model->getAvatar('36x36', '/static/images/avatar.png')) . $model->username;
+//                        },
+//                        'format' => 'raw'
+//                    ],
+//                    'created_at',
+//                    'status',
+//                    ['class' => 'yii\grid\ActionColumn'],
+//                ];
+//
+//
+//
+//
+//
+//                echo \app\core\widgets\Export\ExportMenu::widget([
+//                    'dataProvider' => $dataProvider,
+//                    'columns' => $gridColumns,
+////                    'showConfirmAlert' =>false,
+//                    'options' => ['title' => '用户数据导出'],
+//                    'exportConfig' => [
+//                        \kartik\export\ExportMenu::FORMAT_TEXT => false,
+//                        \kartik\export\ExportMenu::FORMAT_HTML => false,
+//                        \kartik\export\ExportMenu::FORMAT_PDF => false,
+//                        \kartik\export\ExportMenu::FORMAT_EXCEL => [
+//                            'label' => 'Excel 95 +',
+//                            'iconOptions' => ['class' => 'text-success'],
+//                            'linkOptions' => [],
+//                            'options' => ['title' => '用户数据'],
+//                            'alertMsg' => 'The EXCEL 95+ (xls) export file will be generated',
+//                            'mime' => 'application/vnd.ms-excel',
+//                            'extension' => 'xls',
+//                            'writer' => 'Excel5'
+//                        ],
+//                    ]
+//                ])
 
-
-
-
-
-                echo \kartik\export\ExportMenu::widget([
-                    'dataProvider' => $dataProvider,
-                    'columns' => $gridColumns,
-                    'options' => ['title' => '用户数据导出'],
-                    'exportConfig' => [
-                        \kartik\export\ExportMenu::FORMAT_TEXT => false,
-                        \kartik\export\ExportMenu::FORMAT_PDF => false,
-                        \kartik\export\ExportMenu::FORMAT_EXCEL => [
-                            'label' => 'Excel 95 +',
-                            'iconOptions' => ['class' => 'text-success'],
-                            'linkOptions' => [],
-                            'options' => ['title' => '用户数据'],
-                            'alertMsg' => 'The EXCEL 95+ (xls) export file will be generated',
-                            'mime' => 'application/vnd.ms-excel',
-                            'extension' => 'xls',
-                            'writer' => 'Excel5'
-                        ],
-                    ]
-                ]) ?>
+                ?>
             </div>
 
             <div class="col-xs-12 user-index">

@@ -37,10 +37,99 @@ class DefaultController extends BackController
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+//        p($dataProvider->getPagination()->getPageSize());die;
+
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function excel($dp)
+    {
+
+        $columns = [
+            'name',
+            'genderText',
+            'mobile',
+            'from',
+            [
+                'label' => '接待员',
+                'value' => function($model){
+                    if (!$model->guide_id) {
+                        return '';
+                    }
+                    return $model->guide->username;
+                },
+            ],
+            [
+                'label' => '座机',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    return $model->telephone;
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '年龄',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    return $model->age;
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '业务员',
+                'value' => function($model){
+                    if (!$model->agent_id) {
+                        return '';
+                    }
+                    return $model->agent->username;
+                },
+                'headerOptions' => ["data-breakpoints"=>"all"],
+            ],
+            [
+                'label' => '简述',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    return $model->note;
+                },
+                'format' => 'raw'
+            ],
+
+            [
+                'label' => '地址',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    $addr = \app\core\models\Area::getText($model->province_id, $model->city_id, $model->zone_id);
+                    $re = $addr .' '. $model->address;
+                    return $re;
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '添加人',
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'value' => function($model){
+                    if (!$model->created_by) {
+                        return '';
+                    }
+                    return $model->op->username;
+                },
+                'format' => 'raw'
+            ],
+        ];
+
+        $options = [
+            'title'=>'客户来访记录',
+            'filename'=>'client',
+            'pageTitle'=>'客户关系表'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

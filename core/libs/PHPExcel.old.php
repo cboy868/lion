@@ -4,24 +4,14 @@ namespace app\core\libs;
 
 require(\Yii::getAlias('@app/core/libs/PHPExcel-1.8/Classes/PHPExcel.php'));
 
-use yii\base\InvalidConfigException;
-use yii\grid\SerialColumn;
-use yii;
-use yii\i18n\Formatter;
-use PHPExcel_Style_Fill;
-use PHPExcel_Style_Alignment;
-use yii\data\ActiveDataProvider;
-use yii\db\ActiveQueryInterface;
-use yii\data\ArrayDataProvider;
-use yii\base\Model;
-use yii\helpers\Inflector;
-use yii\grid\DataColumn;
-
 /**
 * 
 */
 class PHPExcel extends \PHPExcel
 {
+    /**
+     * @name 导出
+     */
 
 	/**
 	 * @name 导出
@@ -84,6 +74,8 @@ class PHPExcel extends \PHPExcel
 	 */
 	public static function import($excel_file)
 	{
+
+
 
 		$reader = \PHPExcel_IOFactory::createReader('Excel2007'); //设置以Excel5格式(Excel97-2003工作簿)
 //		$PHPExcel = $reader->load(\Yii::getALias('@app/core/libs/01simple.xlsx')); // 载入excel文件

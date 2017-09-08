@@ -182,14 +182,26 @@ STR;
         }
         $dataProvider = $searchModel->search($params);
 
+        if (isset($params['excel']) && $params['excel']){
+            return $this->el($dataProvider, ['title'=>'abc','filename'=>'user','pageTitle'=>'pagetitles']);
+        }
+
         return $this->render('user', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionEl()
+    public function el($dataProvider, $options)
     {
+        \app\core\libs\PHPExcel::export($dataProvider,['id', 'username','created_at:datetime',
 
+            [
+                'label'=>'abc',
+                'value' => function($model){
+                    return $model->username;
+                }
+            ]
+            ], $options);
     }
 }

@@ -12,7 +12,7 @@
         "irc": "irc://irc.freenode.net/yii",
         "source": "https://github.com/yiisoft/yii2"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.5",
@@ -24,8 +24,7 @@
         "kartik-v/yii2-widget-select2": "@dev",
         "izyue/yii2-alipay": "*",
         "kartik-v/yii2-popover-x": "*",
-        "endroid/qrcode": "^2.3",
-        "kartik-v/yii2-export": "@dev"
+        "endroid/qrcode": "^2.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

@@ -18,7 +18,7 @@ class MessageSearch extends MessageModel
     public function rules()
     {
         return [
-            [['id', 'goods_id', 'status', 'created_at'], 'integer'],
+            [['id', 'res_id', 'status', 'created_at'], 'integer'],
             [['title', 'term', 'company', 'username', 'mobile', 'email', 'qq', 'skype', 'intro'], 'safe'],
         ];
     }
@@ -54,7 +54,7 @@ class MessageSearch extends MessageModel
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'goods_id' => $this->goods_id,
+            'res_id' => $this->res_id,
             'term' => $this->term,
             'status' => $this->status,
             'created_at' => $this->created_at,

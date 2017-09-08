@@ -36,10 +36,71 @@ class MessageController extends BackController
         $searchModel = new MessageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function excel($dp)
+    {
+
+        $columns = [
+            'title',
+            'username',
+            'mobile',
+            [
+                'headerOptions' => ["data-type"=>"html"],
+                'label' => 'Email',
+                'value' => function($model){
+                    return $model->email;
+                },
+                'format' => 'email'
+            ],
+            [
+                'headerOptions' => ["data-type"=>"html"],
+                'label' => '处理人',
+                'value' => function($model){
+                    if ($model->op_id) {
+                        return $model->user->username;
+                    }
+
+                    return '';
+                },
+            ],
+            [
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'label' => 'QQ',
+                'value' => function($model){
+                    return $model->qq;
+                },
+            ],
+            [
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'label' => 'Skype',
+                'value' => function($model){
+                    return $model->skype;
+                },
+            ],
+            [
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'label' => '主内容',
+                'value' => function($model){
+                    return $model->intro;
+                },
+                'format' => 'raw'
+            ],
+        ];
+
+        $options = [
+            'title'=>'留言',
+            'filename'=>'message',
+            'pageTitle'=>'留言'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**
