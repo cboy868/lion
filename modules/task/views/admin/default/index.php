@@ -124,8 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
         font-weight:700;
     }
     tr.overdue{
-        background:#FDBCC9;
-        color:white;
+        color:red;
     }
 </style>
 

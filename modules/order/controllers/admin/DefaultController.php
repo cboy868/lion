@@ -41,10 +41,42 @@ class DefaultController extends BackController
         $searchModel = new OrderSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function excel($dp)
+    {
+        $columns = [
+            'user.username',
+            'price',
+            'origin_price',
+            // 'type',
+            // 'progress',
+            [
+                'label'=> '支付进度',
+                'value' => function($data){
+                    return Order::pro($data->progress);
+                }
+            ],
+            // 'note:ntext',
+            'created_at:datetime',
+            // 'updated_at',
+            // 'status',
+        ];
+
+        $options = [
+            'title'=>'订单',
+            'filename'=>'order',
+            'pageTitle'=>'订单'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

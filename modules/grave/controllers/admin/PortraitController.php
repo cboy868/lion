@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 use app\modules\grave\models\Portrait;
 use app\modules\grave\models\search\PortraitSearch;
@@ -64,10 +65,72 @@ class PortraitController extends BackController
         $searchModel = new PortraitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function excel($dp)
+    {
+
+        $columns = [
+            'tomb.tomb_no',
+            'title',
+//             [
+//                 'label' => '瓷像',
+//                 'value' => function($model){
+//                     return $model->sku->getName();
+//                 }
+//             ],
+            [
+                'label' => '使用人',
+                'value' => function($model) {
+                    $dead = $model->getDeads();
+                    return implode(ArrayHelper::getColumn($dead, 'dead_name'),',');
+                }
+            ],
+
+            [
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'label' => '导购',
+                'value' => function($model){
+                    return $model->guide->username;
+                },
+                'format' => 'ntext'
+            ],
+
+            [
+                'headerOptions' => ["data-breakpoints"=>"all"],
+                'label' => '备注',
+                'value' => function($model){
+                    return $model->note;
+                },
+                'format' => 'ntext'
+            ],
+
+            [
+                'headerOptions' => ["data-type"=>"html"],
+                'label' => '瓷像状态',
+                'value' => function($model){
+                    return '<span class="status-text">' . $model->statusText . '</span>';
+                },
+                'format' => 'raw',
+                'options' => ['class'=>'abc']
+            ],
+            'use_at:date',
+            'statusText',
+        ];
+
+        $options = [
+            'title'=>'瓷像',
+            'filename'=>'portrait',
+            'pageTitle'=>'瓷像'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

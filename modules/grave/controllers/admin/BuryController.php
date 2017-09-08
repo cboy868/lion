@@ -42,10 +42,40 @@ class BuryController extends BackController
         $searchModel = new BurySearch();
         $dataProvider = $searchModel->search($params);
 
+        if (isset($params['excel']) && $params['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function excel($dp)
+    {
+
+        $columns = [
+            'tomb.tomb_no',
+            'user.username',
+            'dead_name',
+            // 'dead_num',
+            // 'bury_type',
+            'pre_bury_date',
+            'bury_date',
+            'bury_time',
+            'buser.username',
+            // 'bury_order',
+            'note:ntext',
+            'created_at:datetime',
+        ];
+
+        $options = [
+            'title'=>'安葬记录',
+            'filename'=>'bury',
+            'pageTitle'=>'安葬记录'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**
@@ -62,10 +92,42 @@ class BuryController extends BackController
 
         $dataProvider = $searchModel->search($params);
 
+        if (isset($params['excel']) && $params['excel']){
+            return $this->preExcel($dataProvider);
+        }
+
         return $this->render('pre', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function preExcel($dp)
+    {
+
+        $columns = [
+            'tomb.tomb_no',
+            'user.username',
+            'dead_name',
+            // 'dead_num',
+            // 'bury_type',
+            [
+                'label' => '预葬日期',
+                'value' => function($model){
+                    return substr($model->pre_bury_date, 0, 10);
+                }
+            ],
+            // 'bury_order',
+            'note:ntext',
+            'created_at:datetime',
+        ];
+
+        $options = [
+            'title'=>'预葬记录',
+            'filename'=>'prebury',
+            'pageTitle'=>'预葬记录'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

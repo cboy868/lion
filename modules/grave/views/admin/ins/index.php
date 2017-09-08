@@ -56,6 +56,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw'
 
             ],
+            [
+                'label' => '碑',
+                'value' => function($model){
+                    return $model->goods->name;
+                }
+            ],
             'guide.username',
 //            'op.username',
             'user.username',

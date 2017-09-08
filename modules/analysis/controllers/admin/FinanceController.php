@@ -52,11 +52,39 @@ class FinanceController extends BackController
 
         $dataProvider = $searchModel->search($params);
 
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'get' => Yii::$app->request->get(),
         ]);
+    }
+
+    private function excel($dp)
+    {
+        $columns = [
+            'order_id',
+            'op.username',
+            // 'guide_id',
+            // 'agent_id',
+            'typeLabel',
+            'payType',
+            'price',
+            'intro:ntext',
+            'pay_time',
+            'settle_time',
+            'created_at:datetime',
+        ];
+
+        $options = [
+            'title'=>'订单统计',
+            'filename'=>'finance',
+            'pageTitle'=>'订单统计'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

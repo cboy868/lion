@@ -62,7 +62,7 @@ class ContactController extends BackController
         ]);
     }
 
-    public function excel($dp)
+    private function excel($dp)
     {
 
         $columns = [

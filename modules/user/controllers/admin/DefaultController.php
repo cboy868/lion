@@ -62,7 +62,7 @@ class DefaultController extends BackController
         ]);
     }
 
-    public function excel($dp)
+    private function excel($dp)
     {
 
         $columns = ['username','mobile', 'email','created_at:datetime'];

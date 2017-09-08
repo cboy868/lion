@@ -34,15 +34,38 @@ class DefaultController extends BackController
     {
         $searchModel = new TaskSearch();
         $params = Yii::$app->request->queryParams;
-        // $params['TaskSearch']['res_name'] = 'common';
-        // $params['TaskSearch']['res_id'] = 0;
 
         $dataProvider = $searchModel->search($params);
 
+        if (isset($params['excel']) && $params['excel']){
+            return $this->excel($dataProvider);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function excel($dp)
+    {
+
+        $columns = [
+            'info.name',
+            'user.username',
+            'op.username',
+            'title',
+            'content:ntext',
+            'pre_finish:date',
+            'finish',
+            'statusText',
+        ];
+
+        $options = [
+            'title'=>'任务',
+            'filename'=>'task',
+            'pageTitle'=>'任务'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

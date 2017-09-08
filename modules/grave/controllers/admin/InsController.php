@@ -35,11 +35,69 @@ class InsController extends BackController
     {
         $searchModel = new InsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function excel($dp)
+    {
+
+        $columns = [
+            [
+                'label' =>'墓位号',
+                'value' => function($model) {
+                    return $model->tomb->tomb_no;
+                },
+                'format' => 'raw'
+            ],
+            [
+                'label' => '碑',
+                'value' => function($model){
+                    return $model->goods->name;
+                }
+            ],
+            'guide.username',
+            'user.username',
+            [
+                'label' => '碑型',
+                'value' => function($model){
+                    return $model->shape == 'v' ? '竖' : '横';
+                }
+            ],
+            [
+                'label' => '是否繁体',
+                'value' => function($model){
+                    $ar = [0=>'否', 1=>'是'];
+                    return $ar[$model->is_tc];
+                }
+            ],
+            'small_num',
+            'big_num',
+            [
+                'label' => '已确认',
+                'value' => function($model){
+                    return $model->is_confirm ? '是' : '<font color="red">否</font>';
+                },
+                'format' => 'raw'
+            ],
+            'confirm_date',
+            'confirm.username',
+            'pre_finish',
+             'finish_at',
+            'paintTxt',
+        ];
+
+        $options = [
+            'title'=>'碑文',
+            'filename'=>'ins',
+            'pageTitle'=>'碑文'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

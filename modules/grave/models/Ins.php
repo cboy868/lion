@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\modules\shop\models\Goods;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
@@ -237,7 +238,7 @@ class Ins extends \app\core\db\ActiveRecord
             [['guide_id', 'user_id', 'tomb_id', 'pre_finish'], 'required'],
             [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 
             'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at', 'type',
-            'big_num','small_num','new_big_num', 'new_small_num', 'changed'], 'integer'],
+            'big_num','small_num','new_big_num', 'new_small_num', 'changed', 'goods_id'], 'integer'],
             [['content', 'note'], 'string'],
             [['confirm_date', 'pre_finish', 'finish_at'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
@@ -315,6 +316,11 @@ class Ins extends \app\core\db\ActiveRecord
     public function getOp()
     {
         return $this->hasOne(\app\modules\user\models\User::className(),['id'=>'op_id']);
+    }
+
+    public function getGoods()
+    {
+        return $this->hasOne(Goods::className(),['id'=>'goods_id']);
     }
 
     /**

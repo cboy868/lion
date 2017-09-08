@@ -41,10 +41,68 @@ class CarRecordController extends BackController
         $params['CarRecordSearch']['status'] = [CarRecord::STATUS_NORMAL, CarRecord::STATUS_COMPLETE];
         $dataProvider = $searchModel->search($params);
 
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function excel($dp)
+    {
+
+        $columns = [
+            [
+                'label' => '墓位',
+                'format' => 'raw',
+                'value' => function($model){
+                return $model->tomb->tomb_no;
+                }
+            ],
+            [
+                'label' => '车辆',
+                'value' => function($model){
+                    return $model->car ? $model->car->code : '';
+                }
+            ],
+            [
+                'label' => '司机',
+                'value' => function($model){
+                    return $model->driver ? $model->driver->username : '';
+                }
+            ],
+            'use_date',
+            'use_time',
+            'end_time',
+            'contact_user',
+            'contact_mobile',
+            'user_num',
+            [
+                'label' => '接盒地点',
+                'value' => function($model) {
+                    return $model->address ? $model->address->title : '';
+                }
+            ],
+            'addr:ntext',
+            'note:ntext',
+            [
+                'label' => '车辆类型',
+                'value' => function($model){
+                    return $model->carType;
+                }
+            ],
+            'created_at:datetime',
+        ];
+
+        $options = [
+            'title'=>'派车记录',
+            'filename'=>'carrecord',
+            'pageTitle'=>'派车记录'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**

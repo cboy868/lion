@@ -36,12 +36,72 @@ class DeadController extends BackController
         $searchModel = new DeadSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
+        if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
+            return $this->excel($dataProvider);
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function excel($dp)
+    {
+
+        $columns = [
+            [
+                'label' => '墓位号',
+                'value' => function($model){
+                    return $model->tomb->tomb_no;
+                },
+                'format'=>'raw'
+            ],
+            'dead_name',
+            [
+                'label' => '账号',
+                'value' => function($model){
+                    return $model->user->username;
+                }
+            ],
+            [
+                'label' => '纪念馆名',
+                'value' => function($model){
+                    if (!isset($model->memorial)) {return '';}
+                    return $model->memorial->title;
+                },
+                'format' => 'raw'
+            ],
+            // 'second_name',
+             'dead_title',
+            // 'serial',
+            // 'gender',
+             'birth_place',
+            'birth',
+            'fete',
+            // 'is_alive',
+            // 'is_adult',
+            // 'age',
+            // 'follow_id',
+            // 'desc:ntext',
+            // 'is_ins',
+            // 'bone_type',
+            // 'bone_box',
+            [
+                'label' => '预葬日期',
+                'value' => function($model){
+                    return date('Y-m-d', strtotime($model->pre_bury));
+                }
+            ],
+            'bury',
+        ];
+
+        $options = [
+            'title'=>'使用人',
+            'filename'=>'deads',
+            'pageTitle'=>'使用人'
+        ];
+        \app\core\libs\Export::export($dp, $columns, $options);
     }
 
     /**
