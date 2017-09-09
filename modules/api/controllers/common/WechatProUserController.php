@@ -56,7 +56,7 @@ class WechatProUserController extends WechatController
         $wecheat_user->user_id = $user->id;
 
 
-        if ($wecheat_user->save !== false) {
+        if ($wecheat_user->save() !== false) {
             return $wecheat_user;
         }
         return ['errno'=>1, 'error'=>'用户绑定失败,请联系管理员'];
