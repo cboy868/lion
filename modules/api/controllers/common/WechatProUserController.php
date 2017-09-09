@@ -40,7 +40,7 @@ class WechatProUserController extends WechatController
         $user = User::findByUsername($post['uname']);
 
         if (!$user) {
-            return ['errno'=>1, 'error'=>'用户名或密码不正确，请重试'];
+            return ['errno'=>1, 'error'=>'用户名或密码不正确，请重试1'];
         }
 
         if (!$user->validatePassword($post['passwd'])) {
