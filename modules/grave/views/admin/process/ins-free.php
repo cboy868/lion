@@ -67,7 +67,7 @@ PluploadAssets::register($this);
             <!-- Nav tabs -->
 
 
-            <ul class="nav nav-tabs col-xs-6">
+            <ul class="nav nav-tabs col-xs-12">
                 <li class="sel-type" rel="3">
                     <a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
                 </li>
@@ -75,160 +75,200 @@ PluploadAssets::register($this);
                     <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
                 </li>
                 <li class="active sel-type" rel="1">
-                    <a href="<?=Url::current(['type'=>2])?>">手工碑文</a>
+                    <a href="<?=Url::current(['type'=>2])?>">手写碑文</a>
                 </li>
+
+
             </ul>
 
-            <!-- Tab panes -->
-            <div class="row" role="">
-                <?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'form-horizontal']]); ?>
-                <!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
-                <div class="col-xs-12">
-                    <div id="select-ins" class="collapse">
+            <?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'form-horizontal']]); ?>
+            <div class="row">
 
-                        <div class="row-fluid ">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">&nbsp;
-                                    碑前文 <span style="font-size:11px;color:red;">此功能只适用于常规碑文，如果碑文排版过于特殊，请使用图片上传方式保存碑文</span>
-                                </div>
-                                <div class="panel-body front_images">
-                                    <?php foreach ($cases['front_cases'] as $case): ?>
-                                        <div style="float:left;" class="ins_image">
-                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
-                                            <div class="caption">
-                                                <h5><?=$case['note']?>
-                                                    <span class="sel_style">
-
-								        	<?php if ($case['id'] == $cases['front_current_case_id']): ?>
-                                                (<i class="red fa fa-check fa-2"></i>)
-                                            <?php endif ?>
-								        	</span>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    <?php endforeach ?>
-                                </div>
-                            </div>
-                        </div><!-- PAGE CONTENT ENDS -->
-
-                        <div class="row-fluid">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">&nbsp;
-                                    碑后文
-                                </div>
-                                <div class="panel-body back_images">
-                                    <?php foreach ($cases['back_cases'] as $case): ?>
-                                        <div style="float:left;">
-                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
-                                            <div class="caption">
-                                                <h5><?=$case['note']?>
-                                                    <span class="sel_style">
-										        	<?php if ($case['id'] == $cases['back_current_case_id']): ?>
-                                                        (<i class="red fa fa-check fa-2"></i>)
-                                                    <?php endif ?>
-										        </span>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    <?php endforeach ?>
-
-                                </div>
-
-                            </div>
-                        </div><!-- PAGE CONTENT ENDS -->
-
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-
-                <div class="col-xs-12">
-                    <div class="panel panel-default ">
-                        <div class="panel-heading">&nbsp;
-                            <span>
-				          		<a  href="javascript:;" class="" data-toggle="collapse" data-target="#select-ins">
-	                              选择碑文样式
-	                            </a>
-				          	</span>
+                <div class="col-md-12">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" style="text-align: center;">
+                        <li role="presentation" class="active">
+                            <a href="#front" aria-controls="front" role="tab" data-toggle="tab">碑前文</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#back" aria-controls="back" role="tab" data-toggle="tab">碑后文</a>
+                        </li>
+                        <li class="pull-right" style="margin-top:8px;">
                             <?php if(!$model['is_stand']):?>
                                 <span class="pull-right">繁体简体
-	                                <select name="is_tc" id="is_tc">
-	                                    <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
-	                                    <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
-	                                </select>
-	                            </span>
-
+                                    <select name="is_tc" id="is_tc">
+                                        <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
+                                        <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
+                                    </select>
+                                </span>
                                 <span class="pull-right">字体
-	                                <select name="font_style" id="font_style">
-	                                    <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
-	                                    <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
-	                                    <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
-	                                </select>
-	                            </span>
+                                    <select name="font_style" id="font_style">
+                                        <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
+                                        <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
+                                        <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
+                                    </select>
+                                </span>
                             <?php else:?>
                                 <input type="hidden" name="is_tc" value="<?=$model->is_tc?>"/>
                                 <input type="hidden" name="font" value="<?=$model->font?>"/>
                             <?php endif;?>
+                        </li>
+                    </ul>
 
-                            <span class="pull-right">碑后文字&nbsp;
-					            <select name="text" id="selectback">
-					                <option>点此更换碑后文</option>
-                                    <?php foreach ($back_word as $v): ?>
-                                        <option value="<?=$v?>"><?=$v?></option>
-                                    <?php endforeach ?>
-                                    <option value="">空</option>
-					            </select>
-				            </span>
-                        </div>
 
-                        <div id="front_prices" style="display:none;"></div>
-                        <div id="back_prices" style="display:none;"></div>
-
-                        <div id="canvas" style="border:1px dashed grey;width:662px;">
-                            <div style="font-size:14px;width:100%;padding: 10px;">
-                                <fieldset style="float:left;">
-                                    <div id="toolsOptions">
-                                        <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
-                                        <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
-                                        <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
-                                        <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
-                                        <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
-                                    </div>
-
-                                </fieldset>
-                                <div style="clear:both;"></div>
-                            </div>
-                            <canvas id="myCanvas" style="border-top:1px dashed grey;" height="660" width="660"></canvas>
-                        </div>
-
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">修改碑文内容</div>
-                                        <div class="panel-body btn-group-vertical">
-                                            <button type="button" class="btn btn-default" id="edit_front" data-toggle="modal" data-target="#ins_front">
-                                                修改正面
-                                            </button>
-                                            <button type="button" class="btn btn-default" id="edit_back" data-toggle="modal" data-target="#ins_back">
-                                                修改背面
-                                            </button>
-
-                                        </div>
-                                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="front">
+                            <div class="panel panel-default ">
+                                <div class="panel-heading" style="text-align: right">&nbsp;
+                                    <button type="button" class="btn btn-default" id="edit_front" data-toggle="modal" data-target="#ins_front">
+                                        修改原文字
+                                    </button>
                                 </div>
-                                <div class="col-xs-10">
+                                <div class="panel-body">
+
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12">
+                                        <div class="col-md-8">
+                                            <div id="canvas" style="border:1px dashed grey;width:662px;float:left;">
+                                                <div style="font-size:14px;width:100%;padding: 10px;">
+                                                    <fieldset style="float:left;">
+                                                        <div id="toolsOptions">
+                                                            <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
+                                                        </div>
 
+                                                    </fieldset>
+                                                    <div style="clear:both;"></div>
+                                                </div>
+                                                <canvas id="frontCanvas" style="border-top:1px dashed grey;" height="660" width="660"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body front_images" style="height:705px;overflow-y: auto">
+                                                    <?php foreach ($cases['front_cases'] as $case): ?>
+                                                        <div style="float:left;" class="ins_image">
+                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
+                                                            <div class="caption">
+                                                                <h5><?=$case['note']?>
+                                                                    <span class="sel_style">
 
+                                                                    <?php if ($case['id'] == $cases['front_current_case_id']): ?>
+                                                                        (<i class="red fa fa-check fa-2"></i>)
+                                                                    <?php endif ?>
+                                                                    </span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="front_prices" style="display:none;"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="back">
+                            <div class="panel panel-default ">
+                                <div class="panel-heading" style="text-align: right">&nbsp;
+                                    <span class="pull-right">
+                                        <select name="text" id="selectback" class="form-control">
+                                            <option>点此快速更换碑后文</option>
+                                            <?php foreach ($back_word as $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                            <?php endforeach ?>
+                                            <option value="">空</option>
+                                        </select>
+                                    </span>
+
+                                    <span>
+                                        <button type="button" class="btn btn-default" id="edit_back" data-toggle="modal" data-target="#ins_back">
+                                            修改内容
+                                        </button>
+                                    </span>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div id="canvas" style="border:1px dashed grey;width:662px;">
+                                                <div style="font-size:14px;width:100%;padding: 10px;">
+                                                    <fieldset style="float:left;">
+                                                        <div id="toolsOptions">
+                                                            <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
+                                                        </div>
+
+                                                    </fieldset>
+                                                    <div style="clear:both;"></div>
+                                                </div>
+                                                <canvas id="backCanvas" style="border-top:1px dashed grey;" height="660" width="660"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body back_images">
+                                                    <?php foreach ($cases['back_cases'] as $case): ?>
+                                                        <div style="float:left;">
+                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
+                                                            <div class="caption">
+                                                                <h5><?=$case['note']?>
+                                                                    <span class="sel_style">
+                                                        <?php if ($case['id'] == $cases['back_current_case_id']): ?>
+                                                            (<i class="red fa fa-check fa-2"></i>)
+                                                        <?php endif ?>
+                                                    </span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach ?>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div id="back_prices" style="display:none;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Tab panes -->
+            <div class="row" role="">
+
+                <!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
+                <div class="col-xs-12">
+                </div>
+                <div class="clearfix"></div>
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">明细</div>
@@ -458,10 +498,11 @@ PluploadAssets::register($this);
                         </div>
                     </div>
                     <!-- </form> -->
-                    <?php ActiveForm::end(); ?>
-                    <hr />
+
                 </div><!--auto row-->
             </div>
+            <?php ActiveForm::end(); ?>
+            <hr />
 
         <?php else: ?>
 
@@ -683,7 +724,7 @@ PluploadAssets::register($this);
         if(isNaN(case_id)) return ;
         $.post(url, data, function(xhr){
             if(xhr.status){
-            var ctx = LN.insCanvas('#myCanvas');
+            var ctx = LN.insCanvas('#frontCanvas');
             ctx.setData(xhr.data);
             } else {
 

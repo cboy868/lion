@@ -107,6 +107,10 @@ class Image extends \yii\imagine\Image {
         $config = self::getConfig($res);
 
         //水印
+        if (!isset($config['water_image'])) {
+            return;
+        }
+
         $watermark = $config['water_image'];
         $watermark = Yii::getAlias('@app/web' . $watermark);
         if (!is_file($watermark)) {
