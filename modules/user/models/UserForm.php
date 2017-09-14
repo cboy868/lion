@@ -15,6 +15,7 @@ class UserForm extends Model
     public $password;
     public $repassword;
     public $is_staff;
+    public $mobile;
 
     /**
      * @inheritdoc
@@ -33,6 +34,8 @@ class UserForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\modules\user\models\User', 'message' => '此邮箱已被使用'],
 
+            ['mobile', 'string', 'max' => 12],
+
             ['is_staff', 'required'],
 
             // ['password', 'required'],
@@ -50,7 +53,8 @@ class UserForm extends Model
         'email' => '邮箱',
         'password' => '注册密码',
         'repassword' => '再次输入密码',
-        'is_staff' => '用户类别'
+        'is_staff' => '用户类别',
+        'mobile' => '手机'
       );
     }
 

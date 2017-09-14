@@ -547,6 +547,9 @@ class InsProcess extends Ins
         $cfg_info = $this->getCfg($cfgcase_id);
 
         $cfg_info = $this->combinCfgIns($cfg_info, $ins_info, $cfg->shape, array($case->width, $case->height), $is_front);
+
+        p($cfg_info);die;
+
         $cfg_info = $this->inverseAlign($cfg_info);
 
 
@@ -570,6 +573,40 @@ class InsProcess extends Ins
             return ['data'=>$newdata, 'size'=>[$case->width, $case->height], 'is_front'=>$is_front];
         }
         return ['data'=>$cfg_info, 'size'=>[$case->width, $case->height], 'is_front'=>$is_front];
+    }
+
+
+    public function getFreeCfgIns($cfgcase_id)
+    {
+
+        $case = InsCfgCase::findOne($cfgcase_id);
+        $cfg = InsCfg::findOne($case->cfg_id);
+        $is_front = $cfg->is_front;
+
+
+        switch ($is_front) {
+            case 0:
+                $ins_info = $this->getBackContent();
+                if (empty($ins_info['main']['content'][0])) {
+                    return ['data'=>[], 'size'=>[$case->width, $case->height], 'is_front'=>$is_front];
+                }
+                break;
+            case 1:
+                $ins_info = $this->getFrontContent();
+                break;
+            case 2:
+                $ins_info = $this->getCoverContent();
+                break;
+            default:
+                break;
+        }
+
+
+        $cfg_info = $this->getCfg($cfgcase_id);
+
+        $cfg_info = $this->combinCfgIns($cfg_info, $ins_info, $cfg->shape, array($case->width, $case->height), $is_front);
+
+        return $cfg_info;
     }
 
 
@@ -1335,7 +1372,7 @@ class InsProcess extends Ins
         $ins->shape = self::getInsGoodsShape($sku->goods->id);
         $ins->user_id = $tomb->user_id;
         $ins->guide_id = $tomb->guide_id;
-        $ins->pre_finish = '0000-00-00';
+        $ins->pre_finish = null;
         return $ins->save();
     }
 

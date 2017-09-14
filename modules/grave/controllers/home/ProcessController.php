@@ -20,6 +20,30 @@ class ProcessController extends \app\core\web\HomeController
 		parent::init();
 	}
 
+    public function actionFreeSel()
+    {
+
+        $query = Yii::$app->request->get();
+
+        $model = Process::insProcess();
+
+        $num = $model->deadCount();
+
+        if ($num==0) {
+            $this->json(null, '请填写逝者信息');
+        }
+
+        $model->handleIns();
+
+
+        $info = $model->getFreeCfgIns($query['case_id']);
+
+
+        return $this->json($info, null, 1);
+
+    }
+
+
     public function actionSel()
     {
 
@@ -65,6 +89,8 @@ class ProcessController extends \app\core\web\HomeController
 
         return $this->json('/'.$pre_path, null, 1);
     }
+
+
 
 
     /**

@@ -139,7 +139,6 @@ class DefaultController extends BackController
     {
         $model = new UserForm();
 
-
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $outerTransaction = Yii::$app->db->beginTransaction();
@@ -157,7 +156,7 @@ class DefaultController extends BackController
 
             return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }

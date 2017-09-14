@@ -208,7 +208,7 @@ class ProcessController extends BackController
                         if (!$model->is_alive) {
                             $model->is_ins = Dead::INS_YES;
                         } else {
-                            $model->pre_bury = Process::DT_NULL;
+                            $model->pre_bury = null;
                             //如果修改 那是不是原来的预葬和派车都要删除? 手动删除可能更保险
                         }
 
@@ -282,6 +282,9 @@ class ProcessController extends BackController
         $type = $req->get('type');
         $model->type = isset($type) ? $type : $model->type;
 
+
+        $model->setScenario('handleIns');
+
         if ($model->load($req->post())) {
 
             $model->guide_id = $tomb->guide_id;
@@ -320,7 +323,7 @@ class ProcessController extends BackController
         }
 
 
-        $model->pre_finish = $model->pre_finish == '0000-00-00' ? '' : $model->pre_finish;
+        $model->pre_finish = $model->pre_finish == null ? '' : $model->pre_finish;
 
         $ins_data = [
             'model' => $model,
@@ -339,6 +342,16 @@ class ProcessController extends BackController
             $ins_info = $model->insInfo();
 
             return $this->render('ins-auto',array_merge($ins_data, [
+                'back_word' => $ins_cfg['back_word'],
+                'ins_info' => $ins_info,
+                'dead_list' => $model->deads(),
+                'cases' => $cases,
+                'is_god' => false,
+            ]));
+        } else {
+            $ins_info = $model->insInfo();
+
+            return $this->render('ins-free',array_merge($ins_data, [
                 'back_word' => $ins_cfg['back_word'],
                 'ins_info' => $ins_info,
                 'dead_list' => $model->deads(),

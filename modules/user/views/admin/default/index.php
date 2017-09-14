@@ -2,8 +2,9 @@
 
 use app\core\helpers\Html;
 use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use yii\bootstrap\Modal;
+
 \app\assets\JqueryFormAsset::register($this);
 $this->title = '用户列表';
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,7 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <small>
 
                     <?php if (Yii::$app->user->can('user/default/create')):?>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'],
+                            [
+                                'class' => 'btn btn-primary btn-sm new-menu modalAddButton',
+                                'data-loading-text'=>"页面加载中, 请稍后...",
+                                'onclick'=>"return false"
+                            ]) ?>
                     <?php endif;?>
 
                     <?php  //echo  Html::a('<i class="fa fa-trash"></i> 清除不活跃用户', ['drop'], [
@@ -32,6 +38,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
+        <?php
+        Modal::begin([
+            'header' => '新增',
+            'id' => 'modalAdd',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false, 'keyboard'=>false]
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="modalContent"></div>';
+
+        Modal::end();
+        ?>
 
         <div class="row">
             <div class="col-xs-12">
@@ -66,8 +85,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <a href="<?=Url::toRoute(['index','is_staff'=>0])?>" aria-expanded="true">客户</a>
                                 </li>
 
-                                <li style="float: right;">
 
+                                <!--
+                                <li class="pull-right">
                                     <form enctype="multipart/form-data" method="post" action="<?=Url::toRoute(['import'])?>" class="cover-form form-inline">
                                         <div class="form-group " style="margin:0px;">
                                             <input type="file" class="form-control input-sm up-excel" name="users" value="" style="">
@@ -76,6 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </form>
 
                                 </li>
+                                -->
 
                             </ul>
 

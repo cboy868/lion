@@ -235,7 +235,8 @@ class Ins extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['guide_id', 'user_id', 'tomb_id', 'pre_finish'], 'required'],
+            [['guide_id', 'user_id', 'tomb_id'], 'required'],
+            [['pre_finish'], 'required', 'on'=>'handleIns'],
             [['guide_id', 'user_id', 'tomb_id', 'op_id', 'is_tc', 'final_tc', 'font', 'is_confirm', 'confirm_by', 
             'version', 'paint', 'is_stand', 'status', 'updated_at', 'created_at', 'type',
             'big_num','small_num','new_big_num', 'new_small_num', 'changed', 'goods_id'], 'integer'],

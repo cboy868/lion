@@ -18,6 +18,8 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->hint('默认密码:999999') ?>
 
     <?= $form->field($model, 'repassword')->passwordInput(['maxlength' => true]) ?>

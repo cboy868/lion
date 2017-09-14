@@ -45,6 +45,11 @@ $this->params['current_nav'] = 'index';
 
             <div class="blank"></div>
             <div class="row">
+                <!--
+                <div class="col-md-12">
+                    <iframe src="http://screen.ibagou.com:8080/" frameborder="0" style="width:100%;height:750px;"></iframe>
+                </div>
+                -->
 
                 <div class="col-md-6 ">
                     <!-- 在线讣告{ -->
@@ -76,6 +81,7 @@ $this->params['current_nav'] = 'index';
                     <!-- }在线讣告 -->
                 </div>
                 <div class="col-md-6">
+
                     <!-- 今日忌日 & 今日生日{ -->
                     <div class="tab-box white-bg">
                         <ul class="nav nav-tabs tabs-waheaven" role="tablist">
