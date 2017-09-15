@@ -71,6 +71,9 @@ PluploadAssets::register($this);
 		  <li role="presentation" class="sel-type" rel="1">
 		  		<a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
 		  </li>
+            <li class="sel-type" rel="1">
+                <a href="<?=Url::current(['type'=>2])?>">手写碑文</a>
+            </li>
 		  
 		</ul>
 

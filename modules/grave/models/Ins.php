@@ -193,7 +193,7 @@ class Ins extends \app\core\db\ActiveRecord
             return null;
         }
 
-        $cfg = json_decode($tpl_cfg);
+        $cfg = json_decode($tpl_cfg, true);
 
         return $cfg[$pos];
     }

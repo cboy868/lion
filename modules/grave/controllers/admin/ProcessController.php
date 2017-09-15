@@ -287,13 +287,16 @@ class ProcessController extends BackController
 
         if ($model->load($req->post())) {
 
+
+
+
             $model->guide_id = $tomb->guide_id;
             $model->user_id = $tomb->user_id;
 
 
             $saveMethod = $model->type == InsProcess::TYPE_IMG ? 'imgSave' : 'autoSave';
 
-            if ($model->$saveMethod()) {
+            if ($model->freeSave()) {
 
                 $note = '大字%s小字%s刻字费%s颜料费%s繁体字费%s';
 

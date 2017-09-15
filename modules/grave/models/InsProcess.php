@@ -379,6 +379,58 @@ class InsProcess extends Ins
 
 
 
+
+    public function freeSave()
+    {
+        $post = Yii::$app->request->post();
+
+        $this->handleIns();
+        $this->type = self::TYPE_AUTO;
+
+        $front_case = $post['front_case'];
+        $back_case  = $post['back_case'];
+        $cover_case = $post['cover_case'];
+
+
+        $this->tpl_cfg = json_encode([
+            'front' => $front_case,
+            'back'  => $back_case,
+            'cover' => $cover_case
+        ]);
+
+        $this->content = json_encode([
+            'front' => $this->combinDbData($front_case),
+            'back'  => $this->combinDbData($back_case),
+            // 'cover' => $this->combinDbData($cover_case),
+        ]);
+
+        $str = str_pad($this->tomb_id, 8, "0", STR_PAD_LEFT);
+        $path = '/upload/ins/' . substr($str,0,2).'/'.substr($str,2,3).'/'.substr($str,5);
+
+
+        $img = (array)json_decode($this->img);
+
+
+        if ($post['front-canvas-img']) {
+            $front_img_info = Upload::base64($post['front-canvas-img'], $path.'/'.$this->tomb_id.'front.png', $res="ins",  $this->id);
+            $img['front'] =  $front_img_info['mid'];
+        }
+
+        if ($post['back-canvas-img']) {
+            $back_img_info = Upload::base64($post['back-canvas-img'], $path.'/'.$this->tomb_id.'back.png', $res="ins", $this->id);
+            $img['back'] = $back_img_info['mid'];
+        }
+
+        $this->img = json_encode($img);
+
+        $this->changed = 0;
+        $this->op_id = Yii::$app->user->id;
+
+        return $this->save();
+    }
+
+
+
     public function autoSave()
     {
 
@@ -548,11 +600,7 @@ class InsProcess extends Ins
 
         $cfg_info = $this->combinCfgIns($cfg_info, $ins_info, $cfg->shape, array($case->width, $case->height), $is_front);
 
-        p($cfg_info);die;
-
         $cfg_info = $this->inverseAlign($cfg_info);
-
-
 
         //碑型
         $shape = $cfg_info[0]['shape'];

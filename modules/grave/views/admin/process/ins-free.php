@@ -109,7 +109,7 @@ PluploadAssets::register($this);
                                     </select>
                                 </span>
                             <?php else:?>
-                                <input type="hidden" name="is_tc" value="<?=$model->is_tc?>"/>
+                                <input type="hidden" name="is_tc" id="is_tc" value="<?=$model->is_tc?>"/>
                                 <input type="hidden" name="font" value="<?=$model->font?>"/>
                             <?php endif;?>
                         </li>
@@ -119,156 +119,131 @@ PluploadAssets::register($this);
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="front">
-                            <div class="panel panel-default ">
-                                <div class="panel-heading" style="text-align: right">&nbsp;
-                                    <button type="button" class="btn btn-default" id="edit_front" data-toggle="modal" data-target="#ins_front">
-                                        修改原文字
-                                    </button>
-                                </div>
-                                <div class="panel-body">
-
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div id="canvas" style="border:1px dashed grey;width:662px;float:left;">
-                                                <div style="font-size:14px;width:100%;padding: 10px;">
-                                                    <fieldset style="float:left;">
-                                                        <div id="toolsOptions">
-                                                            <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
-                                                        </div>
-
-                                                    </fieldset>
-                                                    <div style="clear:both;"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="canvas" style="border:1px dashed grey;width:702px;float:left;">
+                                        <div style="font-size:14px;width:100%;padding: 10px;">
+                                            <fieldset style="float:left;">
+                                                <div id="toolsOptions">
+                                                    <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-default"
+                                                            id="edit_front"
+                                                            data-toggle="modal"
+                                                            data-target="#ins_front"
+                                                            data-keyboard=false
+                                                            data-backdrop="static"
+                                                    >
+                                                        修改碑文
+                                                    </button>
                                                 </div>
-                                                <canvas id="frontCanvas" style="border-top:1px dashed grey;" height="660" width="660"></canvas>
-                                            </div>
+
+                                            </fieldset>
+                                            <div style="clear:both;"></div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="panel panel-default">
-                                                <div class="panel-body front_images" style="height:705px;overflow-y: auto">
-                                                    <?php foreach ($cases['front_cases'] as $case): ?>
-                                                        <div style="float:left;" class="ins_image">
-                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
-                                                            <div class="caption">
-                                                                <h5><?=$case['note']?>
-                                                                    <span class="sel_style">
+                                        <canvas id="frontCanvas" style="border-top:1px dashed grey;" height="700" width="700"></canvas>
+                                        <input type="hidden" name="front-canvas-img" class="front-canvas-img" >
+                                        <img src="" alt="" id="abcde">
+                                    </div>
+                                    <div class="" style="margin-left:730px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body front_images" style="height:785px;overflow-y: auto">
+                                                <?php foreach ($cases['front_cases'] as $case): ?>
+                                                    <div style="float:left;" class="ins_image">
+                                                        <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
+                                                        <div class="caption">
+                                                            <h5><?=$case['note']?>
+                                                                <span class="sel_style">
 
-                                                                    <?php if ($case['id'] == $cases['front_current_case_id']): ?>
-                                                                        (<i class="red fa fa-check fa-2"></i>)
-                                                                    <?php endif ?>
-                                                                    </span>
-                                                                </h5>
-                                                            </div>
+                                                                <?php if ($case['id'] == $cases['front_current_case_id']): ?>
+                                                                    (<i class="red fa fa-check fa-2"></i>)
+                                                                <?php endif ?>
+                                                                </span>
+                                                            </h5>
                                                         </div>
-                                                    <?php endforeach ?>
-                                                </div>
+                                                    </div>
+                                                <?php endforeach ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="front_prices" style="display:none;"></div>
                                 </div>
-
                             </div>
+                            <div id="front_prices" style="display:none;"></div>
+
                         </div>
                         <div role="tabpanel" class="tab-pane" id="back">
-                            <div class="panel panel-default ">
-                                <div class="panel-heading" style="text-align: right">&nbsp;
-                                    <span class="pull-right">
-                                        <select name="text" id="selectback" class="form-control">
-                                            <option>点此快速更换碑后文</option>
-                                            <?php foreach ($back_word as $v): ?>
-                                                <option value="<?=$v?>"><?=$v?></option>
-                                            <?php endforeach ?>
-                                            <option value="">空</option>
-                                        </select>
-                                    </span>
-
-                                    <span>
-                                        <button type="button" class="btn btn-default" id="edit_back" data-toggle="modal" data-target="#ins_back">
-                                            修改内容
-                                        </button>
-                                    </span>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div id="canvas" style="border:1px dashed grey;width:662px;">
-                                                <div style="font-size:14px;width:100%;padding: 10px;">
-                                                    <fieldset style="float:left;">
-                                                        <div id="toolsOptions">
-                                                            <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
-                                                            <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
-                                                        </div>
-
-                                                    </fieldset>
-                                                    <div style="clear:both;"></div>
-                                                </div>
-                                                <canvas id="backCanvas" style="border-top:1px dashed grey;" height="660" width="660"></canvas>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="panel panel-default">
-                                                <div class="panel-body back_images">
-                                                    <?php foreach ($cases['back_cases'] as $case): ?>
-                                                        <div style="float:left;">
-                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
-                                                            <div class="caption">
-                                                                <h5><?=$case['note']?>
-                                                                    <span class="sel_style">
-                                                        <?php if ($case['id'] == $cases['back_current_case_id']): ?>
-                                                            (<i class="red fa fa-check fa-2"></i>)
-                                                        <?php endif ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="canvas" style="border:1px dashed grey;width:702px;float: left;">
+                                        <div style="font-size:14px;width:100%;padding: 10px;">
+                                            <fieldset style="float:left;">
+                                                <div id="toolsOptions">
+                                                    <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-default"
+                                                            id="edit_back"
+                                                            data-toggle="modal"
+                                                            data-target="#ins_back"
+                                                            data-keyboard=false
+                                                            data-backdrop="static"
+                                                    >
+                                                        修改碑文
+                                                    </button>&nbsp;
+                                                    <span class="pull-right">
+                                                        <select name="text" id="selectback" class="form-control">
+                                                            <option>点此快速更换碑后文</option>
+                                                            <?php foreach ($back_word as $v): ?>
+                                                                <option value="<?=$v?>"><?=$v?></option>
+                                                            <?php endforeach ?>
+                                                            <option value="">空</option>
+                                                        </select>
                                                     </span>
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach ?>
-
                                                 </div>
+
+                                            </fieldset>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                        <canvas id="backCanvas" style="border-top:1px dashed grey;" height="700" width="700"></canvas>
+                                        <input type="hidden" name="back-canvas-img" class="back-canvas-img">
+                                    </div>
+                                    <div style="margin-left:730px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body back_images" style="height:785px;overflow-y: auto">
+                                                <?php foreach ($cases['back_cases'] as $case): ?>
+                                                    <div style="float:left;">
+                                                        <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
+                                                        <div class="caption">
+                                                            <h5><?=$case['note']?>
+                                                                <span class="sel_style">
+                                                    <?php if ($case['id'] == $cases['back_current_case_id']): ?>
+                                                        (<i class="red fa fa-check fa-2"></i>)
+                                                    <?php endif ?>
+                                                </span>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach ?>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="back_prices" style="display:none;"></div>
                             </div>
                         </div>
+                        <div id="back_prices" style="display:none;"></div>
                     </div>
                 </div>
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <!-- Tab panes -->
             <div class="row" role="">
-
-                <!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
-                <div class="col-xs-12">
-                </div>
-                <div class="clearfix"></div>
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">明细</div>
@@ -327,9 +302,16 @@ PluploadAssets::register($this);
                     </div>
                 </div>
                 <!-- Button trigger modal -->
+
+
+                <style>
+                    .modal .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+                        padding: 2px;
+                    }
+                </style>
                 <!-- Modal -->
                 <div class="modal fade" id="ins_front" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -431,6 +413,27 @@ PluploadAssets::register($this);
                                         <?php endif;?>
                                     <?php endforeach ?>
                                 </div>
+                                <div class="attach panel panel-default cbox">
+                                    <div class="panel-heading">
+                                        附加内容
+                                        <button type="button" class="btn btn-info add-attach btn-xs"> 加 一 行 </button>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-noborder front-line">
+                                            <?php if(isset($front['attach'])):?>
+                                            <?php foreach ($back['main']['content'] as $key => $bk): ?>
+                                                <tr class="main-line">
+                                                    <td><input name="front[attach][content][]" value="<?=$bk?>" type="text" class="form-control input-sm"></td>
+                                                    <td><label for=""><input type="checkbox" name="front[attach][is_big][]">大字</label></td>
+                                                    <td colspan="2">
+                                                        <button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                            <?php endif;?>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
@@ -440,9 +443,10 @@ PluploadAssets::register($this);
                     </div>
                 </div>
 
+
                 <div class="modal fade" id="ins_back" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content cbox">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-title" id="myModalLabel">修改碑后文</h4>
@@ -454,13 +458,7 @@ PluploadAssets::register($this);
                                             <td>正文</td>
                                             <td><input name="back[main][content][]" value="<?=$bk?>" type="text" class="form-control input-sm"></td>
                                             <td  colspan="2">
-                                                <eq name="key" value="0">
-                                                    <button type="button" class="btn btn-default add-line"> 添 加 </button>
-                                                </eq>
-
-                                                <neq name="key" value="0">
-                                                    <button type="button" class="btn btn-default del-line"> 删 除 </button>
-                                                </neq>
+                                                <button type="button" class="btn btn-default btn-xs del-line"> 删 除 </button>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>
@@ -468,6 +466,7 @@ PluploadAssets::register($this);
                                 <!-- <a href="#" target="_blank">碑文范例</a> -->
                             </div>
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-default add-back"> 添 加 一 行 </button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
                                 <button type="button" class="btn btn-primary back-edit-save"> 保 存 </button>
                             </div>
@@ -529,7 +528,6 @@ PluploadAssets::register($this);
             <td>正文</td>
             <td><input name="back[main][content][]" class="form-control input-sm input"></td>
             <td  colspan="2">
-                <button type="button" class="btn btn-default add-line"> 添 加 </button>
                 <button type="button" class="btn btn-default del-line"> 删 除 </button>
             </td>
         </tr>
@@ -541,40 +539,63 @@ PluploadAssets::register($this);
 <?php $this->beginBlock('up') ?>
     $(function(){
 
-        getImage('front_selected');
-
-    })
-
-
-
-    var fee = eval('(' + '<?=json_encode($fee)?>'+ ')');
-    $(function(){
         var changed = "<?=$model->changed?>";
         var insContainer = $('#ins-container');
         var selIns = insContainer.find('.sel');
-
-        $('.btn-dis').click(function(e){
-            e.preventDefault();
-            var rel = $(this).attr('rel');
-            $('.'+rel).toggle();
-        });
-
-        $(".image").click(function(e) {
-            e.preventDefault();
-            var title = $(this).attr('title');
-            $(".artimg").colorbox({
-                rel: 'artimg',
-                maxWidth:'600px',
-                maxHeight:'700px',
-                next:'',
-                previous:'',
-                close:'',
-                current:""
-            });
-        });
+        var fee = eval('(' + '<?=json_encode($fee)?>'+ ')');
 
         auto(changed);
 
+        //碑前文的附加
+        $('body').on('click','.add-attach',function(){
+            var html = '<tr class="main-line">' +
+                '<td><input name="front[attach][content][]" type="text" class="form-control input-sm"></td>'+
+                '<td><label for=""><input type="checkbox" name="front[attach][is_big][]">大字</label></td>'+
+                '<td  colspan="2">'+
+                    '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
+                    '</td>'+
+                '</tr>';
+
+            $(this).closest('.cbox').find('table').append(html);
+        });
+
+        //碑后文内容
+        $('body').on('click','.add-back',function(){
+            var html = '<tr class="main-line">' +
+                            '<td>正文</td>' +
+                            '<td><input name="back[main][content][]" type="text" class="form-control input-sm"></td>'+
+                            '<td  colspan="2">'+
+                            '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
+                            '</td>'+
+                        '</tr>';
+
+            $(this).closest('.cbox').find('table').append(html);
+        });
+
+        $('body').on('click','.del-line',function(){
+            $(this).parents('tr').remove();
+        })
+
+        getImage('front_selected');
+        getImage('back_selected');
+
+
+        selIns.click(function(e){
+            e.preventDefault();
+            var driect = $(this).attr('rel');
+            var cla = driect + '_selected';
+            //调整样式
+            $(this).parents('.panel-body').find('.sel_style').html('');
+            $(this).parent().find('.sel_style').html('(<i class="red fa fa-check fa-2"></i>)');
+
+            //选择标识
+            $(this).closest('.' + driect + '_images').find('img').removeClass(cla);
+            $(this).addClass(cla);
+
+            searchCaseId();
+            getImage(cla);
+            getPrice();
+        });
 
         $('.modifyNote').click(function(){
             var url = '{:U("record/addnote")}';
@@ -609,27 +630,6 @@ PluploadAssets::register($this);
             return false;
         });
 
-
-
-        selIns.click(function(e){
-            e.preventDefault();
-            var driect = $(this).attr('rel');
-            var cla = driect + '_selected';
-            //调整样式
-            $(this).parents('.panel-body').find('.sel_style').html('');
-            $(this).parent().find('.sel_style').html('(<i class="red fa fa-check fa-2"></i>)');
-
-            //选择标识
-            $(this).closest('.' + driect + '_images').find('img').removeClass(cla);
-            $(this).addClass(cla);
-
-            searchCaseId();
-            getImage(cla);
-            getPrice();
-
-        });
-
-
         $('.paint', insContainer).change(function(){
             getPrice();
             if ($(this).val() == 4) {
@@ -655,46 +655,38 @@ PluploadAssets::register($this);
             var str = $(this).val();
             var arr = str.split(',');
             $('.back-line .main-line').remove();
+
+            var tr = $('<tr class="main-line">'+
+                        '<td>正文</td>'+
+                        '<td><input name="back[main][content][]" value="" class="form-control input-sm input"></td>'+
+                        '<td  colspan="2">'+
+                        '<button type="button" class="btn btn-default btn-xs del-line"> 删 除 </button>'+
+                        '</td>'+
+                        '</tr>');
+
+
             for(k in arr){
-                var tr = $('#backclone tr').clone();
+                var tr = tr.clone();
                 tr.find('input').val(arr[k]);
-                if (k==0) {
-                    tr.find('button.del-line').hide();
-                } else {
-                    tr.find('button.add-line').hide();
-                };
                 $('.back-line').append(tr);
             }
             getImage('back_selected');
             getPrice();
         });
 
-        $('#font_style', insContainer).change(function(){
-            getImage('front_selected');
-            getImage('back_selected');
-            getPrice();
-        });
+//        $('#font_style', insContainer).change(function(){
+//            getImage('front_selected');
+//            getImage('back_selected');
+//            getPrice();
+//        });
+//
 
-        // 简繁体切换
+//        // 简繁体切换
         $('#is_tc', insContainer).change(function() {
             getImage('front_selected');
             getImage('back_selected');
             getPrice();
         });
-
-
-        $('body').on('click','.add-line',function(){
-            var obj = $(this).parents('tr');
-            var line_obj = obj.clone();
-            line_obj.find('button').removeClass('add-line').addClass('del-line').html('删 除');
-            line_obj.find('input').val('');
-            $('.back-line').append(line_obj);
-        });
-        $('body').on('click','.del-line',function(){
-            $(this).parents('tr').remove();
-        })
-
-
 
         $('.dt_pre_finished ').change(function(){
             var ur = "{$urgent}";
@@ -706,137 +698,154 @@ PluploadAssets::register($this);
         $('#big_new, #small_new').change(function(){
             calFee();
         });
-    })
 
+        $('.btn-dis').click(function(e){
+            e.preventDefault();
+            var rel = $(this).attr('rel');
+            $('.'+rel).toggle();
+        })
 
-    function getImage(cla){
-        var case_id = $('.'+cla).attr('case_id');
-        var driect = $('.'+cla).attr('rel');
-        var tomb_id = $('input[name=tomb_id]').val();
-        var data = $('#auto-ins-form').serialize();
-        var url = "<?=Url::toRoute(['/grave/home/process/free-sel', 'tomb_id'=>$get['tomb_id']])?>";
+        function getImage(cla){
+            var case_id = $('.'+cla).attr('case_id');
+            var driect = $('.'+cla).attr('rel');
+            var tomb_id = $('input[name=tomb_id]').val();
+            var data = $('#auto-ins-form').serialize();
+            var url = "<?=Url::toRoute(['/grave/home/process/free-sel', 'tomb_id'=>$get['tomb_id']])?>";
+            var tc = parseInt($('#is_tc').val());
 
-        if (url.indexOf('?') >= 0) {
-            url += '&case_id=' + case_id;
-        } else {
-            url += '?case_id=' + case_id;
-        }
-        if(isNaN(case_id)) return ;
-        $.post(url, data, function(xhr){
-            if(xhr.status){
-            var ctx = LN.insCanvas('#frontCanvas');
-            ctx.setData(xhr.data);
+    if (url.indexOf('?') >= 0) {
+                url += '&case_id=' + case_id;
             } else {
-
+                url += '?case_id=' + case_id;
             }
-        },'json');
-    }
+            if(isNaN(case_id)) return ;
 
-    //取价格
-    function getPrice($type){
+            $.post(url, data, function(xhr){
+                if(xhr.status){
+                    if (cla == 'front_selected') {
+                        var ctx = LN.insCanvas('#frontCanvas');
+                        ctx.setData({data:xhr.data,tc:tc,direction:'front'});
+                    }
 
-        var front_case = $('.front_selected').attr('case_id');
-        var back_case = $('.back_selected').attr('case_id');
-
-        var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
-        var data = $('#auto-ins-form').serialize();
-        var date = +new Date();
-
-
-        var cache = $('.cache');
-
-        $.post(
-            url + '?timstr=' + date + '&front_case='+front_case + '&back_case='+back_case,
-            data,
-            function(json) {
-                if(json.status) {
-                    var data = json.data;
+                    if (cla == 'back_selected') {
+                        var ctx = LN.insCanvas('#backCanvas');
+                        ctx.setData({data:xhr.data,tc:tc,direction:'back'});
+                    }
 
 
-                    $('.front_big_count').html(data.front.big);
-                    $('.front_small_count').html(data.front.small);
-                    $('.front_letter_price').html(data.front.letter_big_price + data.front.letter_small_price);
-                    $('.front_paint_price').html(data.front.paint_big_price + data.front.paint_small_price);
+                } else {
 
-
-                    $('.back_big_count').html(data.back.big);
-                    $('.back_small_count').html(data.back.small);
-                    $('.back_letter_price').html(data.back.letter_big_price + data.letter_small_price);
-                    $('.back_paint_price').html(data.back.paint_big_price + data.paint_small_price);
-
-                    $('#letter_price').val(data.total.letter_big_price + data.total.letter_small_price);
-                    $('#paint_price').val(data.total.paint_big_price + data.total.paint_small_price);
-                    $('#big_new').val(data.total.big);
-                    $('#small_new').val(data.total.small);
-                    $('#tc_price').val(data.tc_fee);
                 }
-
             },'json');
-    }
-
-    function calFee()
-    {
-        var big = $('#big_new').val();
-        var small = $('#small_new').val();
-        var paint = $('.paint').val();
-
-        var letter = parseInt(big) * fee.letter.big[paint] + parseInt(small) * fee.letter.small[paint];
-        var paint = parseInt(big) * fee.paint.big[paint] + parseInt(small) * fee.paint.small[paint];
-
-
-        if (!isNaN(letter) && !isNaN(paint)) {
-            $('#letter_price').val(letter);
-            $('#paint_price').val(paint);
         }
 
-    }
+        //取价格
+        function getPrice($type){
+
+            var front_case = $('.front_selected').attr('case_id');
+            var back_case = $('.back_selected').attr('case_id');
+
+            var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
+            var data = $('#auto-ins-form').serialize();
+            var date = +new Date();
 
 
-    function searchCaseId(){
-        $('input[name=front_case]').val($('.front_selected').attr('case_id'));
-        $('input[name=back_case]').val($('.back_selected').attr('case_id'));
-        $('input[name=cover_case]').val($('.cover_selected').attr('case_id'));
-    }
+            var cache = $('.cache');
 
-    function urgent(){
-        var curVal = new Date($('input[name="ins[dt_pre_finished]"]').val());
-        var curTime = Date.parse(curVal);
-        var dt_tmp = new Date();
-        var dt = new Date(dt_tmp.getTime()+60*60*24*3*1000);
-        var dt_str = dt.toLocaleDateString();
-        var is_second = $('.is_second').val();
-        if(is_second) return ;
-        if (curTime < dt_tmp.getTime()+60*60*24*2*1000) {
-            $('.remind').html(dt_str);
-            $('.mnMsg').show();
-        } else {
-            $('.mnMsg').hide();
+            $.post(
+                url + '?timstr=' + date + '&front_case='+front_case + '&back_case='+back_case,
+                data,
+                function(json) {
+                    if(json.status) {
+                        var data = json.data;
+
+
+                        $('.front_big_count').html(data.front.big);
+                        $('.front_small_count').html(data.front.small);
+                        $('.front_letter_price').html(data.front.letter_big_price + data.front.letter_small_price);
+                        $('.front_paint_price').html(data.front.paint_big_price + data.front.paint_small_price);
+
+
+                        $('.back_big_count').html(data.back.big);
+                        $('.back_small_count').html(data.back.small);
+                        $('.back_letter_price').html(data.back.letter_big_price + data.letter_small_price);
+                        $('.back_paint_price').html(data.back.paint_big_price + data.paint_small_price);
+
+                        $('#letter_price').val(data.total.letter_big_price + data.total.letter_small_price);
+                        $('#paint_price').val(data.total.paint_big_price + data.total.paint_small_price);
+                        $('#big_new').val(data.total.big);
+                        $('#small_new').val(data.total.small);
+                        $('#tc_price').val(data.tc_fee);
+                    }
+
+                },'json');
         }
-    }
 
-    function auto(changed){
+        function calFee()
+        {
+            var big = $('#big_new').val();
+            var small = $('#small_new').val();
+            var paint = $('.paint').val();
 
-        searchCaseId();
+            var letter = parseInt(big) * fee.letter.big[paint] + parseInt(small) * fee.letter.small[paint];
+            var paint = parseInt(big) * fee.paint.big[paint] + parseInt(small) * fee.paint.small[paint];
 
-        if (changed == 1) {
-            getImage('front_selected');
-            getImage('back_selected');
-            //getImage('cover_selected');
-        } else {
-            //如果没有图片，就取新图片
-            if ($('.front_img').attr('src') == '#'){
+
+            if (!isNaN(letter) && !isNaN(paint)) {
+                $('#letter_price').val(letter);
+                $('#paint_price').val(paint);
+            }
+
+        }
+
+
+        function searchCaseId(){
+            $('input[name=front_case]').val($('.front_selected').attr('case_id'));
+            $('input[name=back_case]').val($('.back_selected').attr('case_id'));
+            $('input[name=cover_case]').val($('.cover_selected').attr('case_id'));
+        }
+
+        function urgent(){
+            var curVal = new Date($('input[name="ins[dt_pre_finished]"]').val());
+            var curTime = Date.parse(curVal);
+            var dt_tmp = new Date();
+            var dt = new Date(dt_tmp.getTime()+60*60*24*3*1000);
+            var dt_str = dt.toLocaleDateString();
+            var is_second = $('.is_second').val();
+            if(is_second) return ;
+            if (curTime < dt_tmp.getTime()+60*60*24*2*1000) {
+                $('.remind').html(dt_str);
+                $('.mnMsg').show();
+            } else {
+                $('.mnMsg').hide();
+            }
+        }
+
+        function auto(changed){
+
+            searchCaseId();
+
+            if (changed == 1) {
                 getImage('front_selected');
-            }
-            if ($('.back_img').attr('src') == '#'){
                 getImage('back_selected');
-            }
-            if ($('.cover_img').attr('src') == '#'){
                 //getImage('cover_selected');
+            } else {
+                //如果没有图片，就取新图片
+                if ($('.front_img').attr('src') == '#'){
+                    getImage('front_selected');
+                }
+                if ($('.back_img').attr('src') == '#'){
+                    getImage('back_selected');
+                }
+                if ($('.cover_img').attr('src') == '#'){
+                    //getImage('cover_selected');
+                }
             }
+            //如果还没取价格，则新取
+            getPrice();
         }
-        //如果还没取价格，则新取
-        getPrice();
-    }
+
+    })
 
 
     <?php $this->endBlock() ?>

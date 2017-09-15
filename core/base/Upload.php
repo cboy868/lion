@@ -319,6 +319,58 @@ class Upload extends Component{
         return $up->getInfo();
     }
 
+
+    public static function base64($base64, $path, $res="common", $res_id=null)
+    {
+        $base64_body = substr(strstr($base64,','),1);
+        $img= base64_decode($base64_body );
+
+        $up = new self;
+
+        $up->res = $res;
+        $up->res_id = $res_id;
+
+
+
+        $up->path = dirname($path);
+        $up->fileName = basename($path);
+        $up->ext = 'png';
+        $up->title = basename($path);
+        $up->size = strlen($img)/1024;
+
+
+
+        $filePath = \Yii::getAlias('@app/web' . $path);
+
+        // 目录
+        if (!is_dir(dirname($filePath))) {
+            @mkdir(dirname($filePath), 0777, true) or die(dirname($filePath) . ' no permission to write');
+        }
+
+        file_put_contents($filePath, $img);
+
+
+        $info = [
+            'path' => $up->path,
+            'fileName' => $up->fileName,
+            'ext'  => $up->ext,
+            'res' => $up->res,
+            'title' => $up->title,
+            'filePath' => $path,
+            'use' => $up->use ? $up->use : null,
+            'res_id' => $up->res_id ? $up->res_id : null
+        ];
+
+
+        $event = new UploadEvent($info);
+
+        $up->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+        $up->trigger(self::EVENT_AFTER_UPLOAD, $event);
+
+        return $up->getInfo();
+
+    }
+
     protected static function getImageInfo($img) {
         $imageInfo = getimagesize($img);
         if ($imageInfo !== false) {
