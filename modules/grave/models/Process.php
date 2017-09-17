@@ -215,8 +215,20 @@ class Process extends \yii\base\Model
         return $ins;
     }
 
-    
 
+    public static function insPro()
+    {
+        $ins = InsPro::find()->where(['tomb_id'=>self::$tomb_id])
+            ->andWhere(['status'=>Dead::STATUS_NORMAL])
+            ->one();
+
+        if (!$ins) {
+            $ins = new InsPro();
+            $ins->tomb_id = self::$tomb_id;
+        }
+
+        return $ins;
+    }
 
 
 

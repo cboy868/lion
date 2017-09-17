@@ -263,10 +263,14 @@ class ProcessController extends BackController
 
 
 
+
+
+
+
     protected function ins()
     {
         $tomb = Process::tomb();
-        $model = Process::insProcess();
+        $model = Process::insPro();
         $deads = $model->deads();
 
         if (!$deads) {
@@ -286,9 +290,6 @@ class ProcessController extends BackController
         $model->setScenario('handleIns');
 
         if ($model->load($req->post())) {
-
-
-
 
             $model->guide_id = $tomb->guide_id;
             $model->user_id = $tomb->user_id;
@@ -352,8 +353,12 @@ class ProcessController extends BackController
                 'is_god' => false,
             ]));
         } else {
-            $ins_info = $model->insInfo();
+            $ins_info = $model->info();
 
+
+//            p($cases);die;
+
+//            p($ins_info);die;
             return $this->render('ins-free',array_merge($ins_data, [
                 'back_word' => $ins_cfg['back_word'],
                 'ins_info' => $ins_info,

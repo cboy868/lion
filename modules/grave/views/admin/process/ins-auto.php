@@ -215,10 +215,12 @@ PluploadAssets::register($this);
 									<div class="panel panel-default">
 									  <div class="panel-heading">修改碑文内容</div>
 									  <div class="panel-body btn-group-vertical">
-									    <button type="button" class="btn btn-default" id="edit_front" data-toggle="modal" data-target="#ins_front">
+									    <button type="button" class="btn btn-default" id="edit_front"
+                                                data-toggle="modal" data-target="#ins_front">
 										  修改正面
 										</button>
-										<button type="button" class="btn btn-default" id="edit_back" data-toggle="modal" data-target="#ins_back">
+										<button type="button" class="btn btn-default" id="edit_back"
+                                                data-toggle="modal" data-target="#ins_back">
 										  修改背面
 										</button>
 										

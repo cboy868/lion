@@ -39,7 +39,6 @@ LN.insCanvas = function(id){
 
     $('.tools_download').click(download);
 
-
     /**
      * 函数部分
      */
@@ -100,7 +99,7 @@ LN.insCanvas = function(id){
             draggable:draggable,
             strokeStyle: '#555',
             strokeWidth: 2,
-            x: parseInt(angle.x1), y: parseInt(angle.y1),
+            x: parseInt(angle.x1)+18, y: parseInt(angle.y1)+45,
             width: width,
             height: height,
             cornerRadius: 5,
@@ -121,16 +120,16 @@ LN.insCanvas = function(id){
         }
 
         words = translate(words, is_tc);
+        var label = lIndex;
 
 
         var lineHeight = 1.1;
-        var snapToAmount = 20;
+        var snapToAmount = 10;
         // var height = direction == 'v' ? (parseInt(fontSize) * words.length * lineHeight)/2 : fontSize/2;
 
         var height = 0;
         var evtX = 0;
         var evtY = 0;
-
         var currentY = parseInt(y) + parseInt(height);
         ctx.drawText({
             ayer:true,
@@ -170,14 +169,18 @@ LN.insCanvas = function(id){
             mouseup:function(layer){
                 if (layer.eventX == evtX && layer.eventY == evtY) {
                     ctx.setLayer('myText'+lIndex, {
-                        text: vAndH($('canvas').measureText('myText'+lIndex).text),
+                        text: vAndH(ctx.measureText('myText'+lIndex).text),
                     })
                         .drawLayers();
                 }
             },
             dragstop:function(layer){
+
                 if (layer.eventX > 560 && layer.eventY>560) {
                     ctx.removeLayer('myText'+lIndex);
+                    $('.'+label+'con').val('');
+                } else {
+                    $('.'+label).val(layer.x + '_' + layer.y+'_'+fontSize);
                 }
             },
             updateDragX: function (layer, x) {
@@ -189,6 +192,7 @@ LN.insCanvas = function(id){
         });
 
     }
+
 
     function nearest(value, n) {
         return Math.round(value / n) * n;
@@ -222,10 +226,10 @@ LN.insCanvas = function(id){
         dlLink.download = fileName;
         dlLink.href = imgURL;
         dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
-
         document.body.appendChild(dlLink);
         dlLink.click();
         document.body.removeChild(dlLink);
+
     }
     
     function generalImgInput(name) {
@@ -270,7 +274,26 @@ LN.insCanvas = function(id){
         return str;
     }
 
+    function border() {
 
+        ctx.drawRect({
+            layer:true,
+            name:'angle'+lIndex,
+            strokeStyle: '#555',
+            strokeWidth: 2,
+            x: 2, y: 2,
+            width: 696,
+            height: 696,
+            cornerRadius: 5,
+            fromCenter: false,
+            cursors: {
+                mouseover: 'pointer',
+                mousedown: 'pointer',
+                mouseup: 'pointer'
+            },
+        });
+        lIndex++;
+    }
 
 
     function setData(data) {
@@ -278,7 +301,7 @@ LN.insCanvas = function(id){
         ctx.clearCanvas();
         ctx.removeLayers();
         drawTrash();
-        writeAngle({x1:2,y1:2,x2:698,y2:698},false);
+        border();
         batchWords(data.data, data.tc);
         generalImgInput(data.direction);
 

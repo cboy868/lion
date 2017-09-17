@@ -48,6 +48,7 @@ PluploadAssets::register($this);
         $tomb = Tomb::findOne(Yii::$app->request->get('tomb_id'));
         $back = $ins_info['back'];
         $front = $ins_info['front'];
+        $attach = isset($ins_info['attach']) ? $ins_info['attach'] : [];
         ?>
         <?php if ($tomb->hasIns()): ?>
             <div class="panel panel-default">
@@ -125,11 +126,8 @@ PluploadAssets::register($this);
                                         <div style="font-size:14px;width:100%;padding: 10px;">
                                             <fieldset style="float:left;">
                                                 <div id="toolsOptions">
-                                                    <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_trash" type="button">清空</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_download" type="button">下载</button>&nbsp;&nbsp;&nbsp;
                                                     <button type="button" class="btn btn-default"
                                                             id="edit_front"
                                                             data-toggle="modal"
@@ -138,6 +136,15 @@ PluploadAssets::register($this);
                                                             data-backdrop="static"
                                                     >
                                                         修改碑文
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-default"
+                                                            data-toggle="modal"
+                                                            data-target="#ins_front_attach"
+                                                            data-keyboard=false
+                                                            data-backdrop="static"
+                                                    >
+                                                        附加内容
                                                     </button>
                                                 </div>
 
@@ -181,11 +188,8 @@ PluploadAssets::register($this);
                                         <div style="font-size:14px;width:100%;padding: 10px;">
                                             <fieldset style="float:left;">
                                                 <div id="toolsOptions">
-                                                    <button class="words" data-size="55">T</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="words" data-size="20">t</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="tools_trash">清空</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="tools_save">保存</button>&nbsp;&nbsp;&nbsp;
-                                                    <button class="tools_download">下载</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_trash" type="button">清空</button>&nbsp;&nbsp;&nbsp;
+                                                    <button class="tools_download" type="button">下载</button>&nbsp;&nbsp;&nbsp;
                                                     <button type="button" class="btn btn-default"
                                                             id="edit_back"
                                                             data-toggle="modal"
@@ -195,6 +199,14 @@ PluploadAssets::register($this);
                                                     >
                                                         修改碑文
                                                     </button>&nbsp;
+                                                    <button type="button" class="btn btn-default"
+                                                            data-toggle="modal"
+                                                            data-target="#ins_back_attach"
+                                                            data-keyboard=false
+                                                            data-backdrop="static"
+                                                    >
+                                                        附加内容
+                                                    </button>
                                                     <span class="pull-right">
                                                         <select name="text" id="selectback" class="form-control">
                                                             <option>点此快速更换碑后文</option>
@@ -324,45 +336,84 @@ PluploadAssets::register($this);
                                         <table class="table">
                                             <tr>
                                                 <td>标签一</td>
-                                                <td><input type="text" name="front[born][content]" class="form-control input-sm" value="<?=isset($front['born'][0]['content']) ? $front['born'][0]['content'] : ''?>"></td>
+                                                <td>
+                                                    <input type="text" name="front[born][content]" class="form-control input-sm born0con"
+                                                           value="<?=isset($front['born'][0]['content']) ? $front['born'][0]['content'] : ''?>">
+
+                                                    <input type="hidden" name="front[born][pos]" value="<?=isset($front['born'][0]['pos']) ? $front['born'][0]['pos'] : ''?>"
+                                                           class="form-control input-sm born0">
+
+                                                </td>
                                             </tr>
 
                                             <tr>
                                                 <td>标签二</td>
-                                                <td><input type="text" name="front[die][content]" class="form-control input-sm" value="<?=isset($front['die'][0]['content']) ? $front['die'][0]['content'] : ''?>"></td>
+                                                <td><input type="text" name="front[die][content]" class="form-control input-sm die0con"
+                                                           value="<?=isset($front['die'][0]['content']) ? $front['die'][0]['content'] : ''?>">
+                                                    <input type="hidden" name="front[die][pos]" value="<?=isset($front['die'][0]['pos']) ? $front['die'][0]['pos'] : ''?>"
+                                                           class="form-control input-sm die0">
+                                                </td>
                                             </tr>
 
 
                                             <tr>
                                                 <td>尊称</td>
-                                                <td><input type="text" name="front[honorific][content]" class="form-control input-sm" value="<?=isset($front['honorific'][0]['content']) ? $front['honorific'][0]['content'] : ''?>"></td>
+                                                <td><input type="text" name="front[honorific][content]" class="form-control input-sm honorific0con"
+                                                           value="<?=isset($front['honorific'][0]['content']) ? $front['honorific'][0]['content'] : ''?>">
+                                                    <input type="hidden" name="front[honorific][pos]" value="<?=isset($front['honorific'][0]['pos']) ? $front['honorific'][0]['pos'] : ''?>"
+                                                           class="form-control input-sm honorific0">
+                                                </td>
                                             </tr>
 
                                             <tr>
                                                 <td>之墓</td>
-                                                <td><input name="front[tail][content]" type="text" class="form-control input-sm" value="<?=isset($front['tail'][0]['content']) ? $front['tail'][0]['content'] : ''?>"></td>
+                                                <td>
+                                                    <input name="front[tail][content]" type="text" class="form-control input-sm tail0con"
+                                                           value="<?=isset($front['tail'][0]['content']) ? $front['tail'][0]['content'] : ''?>">
+                                                    <input type="hidden" name="front[tail][pos]" value="<?=isset($front['tail'][0]['pos']) ? $front['tail'][0]['pos'] : ''?>"
+                                                           class="form-control input-sm tail0">
+                                                </td>
                                             </tr>
 
                                             <tr>
-                                                <td>落款</td><td><input type="text" name="front[inscribe][content]" class="form-control input-sm" value="<?= isset($front['inscribe'][0]['content']) ? $front['inscribe'][0]['content'] : '' ?>"></td>
+                                                <td>落款</td><td>
+                                                    <input type="text" name="front[inscribe][content]" class="form-control input-sm inscribe0con"
+                                                                      value="<?= isset($front['inscribe'][0]['content']) ? $front['inscribe'][0]['content'] : '' ?>">
+                                                    <input type="hidden" name="front[inscribe][pos]" value="<?= isset($front['inscribe'][0]['pos']) ? $front['inscribe'][0]['pos'] : '' ?>"
+                                                           class="form-control input-sm inscribe0">
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm" value="<?=isset($front['inscribe_date'][0]['content']) ? $front['inscribe_date'][0]['content'] : ''?>"></td>
+                                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm inscribe_date0con"
+                                                                        value="<?=isset($front['inscribe_date'][0]['content']) ? $front['inscribe_date'][0]['content'] : ''?>">
+                                                    <input type="hidden" name="front[inscribe_date][pos]" value="<?=isset($front['inscribe_date'][0]['pos']) ? $front['inscribe_date'][0]['pos'] : ''?>"
+                                                           class="form-control input-sm inscribe_date0">
+                                                </td>
                                             </tr>
 
                                             <tr>
-                                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>"></td>
-                                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>"></td>
+                                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm agelabel1con"
+                                                                        value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>">
+                                                    <input type="hidden" name="front[agelabel1][pos]" value="<?=isset($front['agelabel1'][0]['pos']) ? $front['agelabel1'][0]['pos'] : ''?>"
+                                                           class="form-control input-sm agelabel1">
+                                                </td>
+                                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm agelabel2con"
+                                                                         value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>">
+                                                    <input type="hidden" name="front[agelabel2][pos]" value="<?=isset($front['agelabel2'][0]['pos']) ? $front['agelabel2'][0]['pos'] : ''?>"
+                                                           class="form-control input-sm agelabel2">
+                                                </td>
                                             </tr>
 
-                                            <tr>
-                                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>"></td>
-                                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>"></td>
-                                            </tr>
                                             <tr>
                                                 <?php if($is_god):?>
                                                     <td>圣名标签</td>
-                                                    <td><input type="text" name="front[second_name_label][content]" class="form-control input-sm" value="<?=isset($front['second_name_label'][0]['content']) ? $front['second_name_label'][0]['content'] : ''?>"></td>
+                                                    <td>
+                                                        <input type="text" name="front[second_name_label][content]" class="form-control input-sm second_name_label0con"
+                                                               value="<?=isset($front['second_name_label'][0]['content']) ? $front['second_name_label'][0]['content'] : ''?>">
+
+                                                        <input type="hidden" name="front[second_name_label][pos]" value="<?=isset($front['second_name_label'][0]['pos']) ? $front['second_name_label'][0]['pos'] : ''?>"
+                                                               class="form-control input-sm second_name_label0">
+                                                    </td>
                                                 <?php endif;?>
                                             </tr>
                                         </table>
@@ -384,55 +435,63 @@ PluploadAssets::register($this);
                                                     <input type="hidden" name="dead[<?=$key?>][name][is_die]"  value="<?=$vo['name']['is_die']?>" />
                                                     <tr>
                                                         <td>称谓</td>
-                                                        <td><input type="text" name="dead[<?=$key?>][title][content]" class="form-control input-sm" value="<?=$vo['title']['content']?>" /></td>
+                                                        <td>
+                                                            <input type="text" name="dead[<?=$key?>][title][content]" class="form-control input-sm title<?=$key?>con"
+                                                                   value="<?=$vo['title']['content']?>" />
+                                                            <input type="hidden" name="dead[<?=$key?>][title][pos]" value="<?=$vo['title']['pos']?>"
+                                                                   class="form-control title<?=$key?>">
+                                                        </td>
                                                         <td>姓名</td>
-                                                        <td><input type="text" name="dead[<?=$key?>][name][content]" class="form-control input-sm" value="<?=$vo['name']['content']?>" /></td>
+                                                        <td><input type="text" name="dead[<?=$key?>][name][content]" class="form-control input-sm name<?=$key?>con"
+                                                                   value="<?=$vo['name']['content']?>" />
+                                                            <input type="hidden" name="dead[<?=$key?>][name][pos]" value="<?=$vo['name']['pos']?>"
+                                                                   class="form-control name<?=$key?>">
+                                                        </td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>生日</td>
-                                                        <td><input name="dead[<?=$key?>][birth][content]" value="<?=$vo['birth']['content']?>"  type="text" class="form-control input-sm"></td>
+                                                        <td><input name="dead[<?=$key?>][birth][content]"
+                                                                   value="<?=$vo['birth']['content']?>"  type="text" class="form-control input-sm birth<?=$key?>con">
+                                                            <input type="hidden" name="dead[<?=$key?>][birth][pos]" value="<?=$vo['birth']['pos']?>" class="form-control birth<?=$key?>">
+                                                        </td>
+                                                        <!--
                                                         <td>携子</td>
-                                                        <td><input name="dead[<?=$key?>][follow][content]" value="" type="text" class="form-control input-sm"></td>
+                                                        <td><input name="dead[<?=$key?>][follow][content]" value="" type="text" class="form-control input-sm follow<?=$key?>con">
+                                                            <input type="hidden" name="dead[<?=$key?>][follow][pos]" class="form-control follow<?=$key?>">
+                                                        </td>
+                                                        -->
                                                     </tr>
 
                                                     <?php if($dead_list[$key]['is_alive']==0):?>
                                                         <tr>
-                                                            <td>祭日</td><td><input name="dead[<?=$key?>][fete][content]" value="<?=$vo['fete']['content']?>"  type="text" class="form-control input-sm"></td>
-                                                            <td>享年</td><td><input name="dead[<?=$key?>][age][content]" value="<?=$vo['age']['content']?>" type="text" class="form-control input-sm"></td>
+                                                            <td>祭日</td><td>
+                                                                <input name="dead[<?=$key?>][fete][content]" value="<?=$vo['fete']['content']?>"
+                                                                       type="text" class="form-control input-sm fete<?=$key?>con">
+                                                                <input type="hidden" name="dead[<?=$key?>][fete][pos]" value="<?=$vo['fete']['pos']?>" class="form-control fete<?=$key?>">
+                                                            </td>
+                                                            <td>享年</td><td>
+                                                                <input name="dead[<?=$key?>][age][content]" value="<?=$vo['age']['content']?>"
+                                                                       type="text" class="form-control input-sm age<?=$key?>con">
+                                                                <input type="hidden" name="dead[<?=$key?>][age][pos]" value="<?=$vo['age']['pos']?>" class="form-control age<?=$key?>">
+                                                            </td>
                                                         </tr>
                                                     <?php endif;?>
-                                                    <notempty name="is_god">
+                                                    <?php if($is_god):?>
                                                         <tr>
                                                             <td>圣名</td>
-                                                            <td><input  name="dead[<?=$key?>][second_name][content]" value="<?=$vo['second_name']['content']?>" type="text" class="form-control input-sm"></td>
+                                                            <td>
+                                                                <input  name="dead[<?=$key?>][second_name][content]" value="<?=$vo['second_name']['content']?>"
+                                                                        type="text" class="form-control input-sm second_name<?=$key?>con">
+                                                                <input type="hidden" name="dead[<?=$key?>][second_name][pos]" value="<?=$vo['second_name']['pos']?>"
+                                                                       class="form-control second_name<?=$key?>">
+                                                            </td>
                                                         </tr>
-                                                    </notempty>
+                                                    <?php endif;?>
                                                 </table>
                                             </div>
                                         <?php endif;?>
                                     <?php endforeach ?>
-                                </div>
-                                <div class="attach panel panel-default cbox">
-                                    <div class="panel-heading">
-                                        附加内容
-                                        <button type="button" class="btn btn-info add-attach btn-xs"> 加 一 行 </button>
-                                    </div>
-                                    <div class="panel-body">
-                                        <table class="table table-noborder front-line">
-                                            <?php if(isset($front['attach'])):?>
-                                            <?php foreach ($back['main']['content'] as $key => $bk): ?>
-                                                <tr class="main-line">
-                                                    <td><input name="front[attach][content][]" value="<?=$bk?>" type="text" class="form-control input-sm"></td>
-                                                    <td><label for=""><input type="checkbox" name="front[attach][is_big][]">大字</label></td>
-                                                    <td colspan="2">
-                                                        <button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                            <?php endif;?>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -451,12 +510,19 @@ PluploadAssets::register($this);
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-title" id="myModalLabel">修改碑后文</h4>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body backmain">
                                 <table class="table table-noborder back-line">
                                     <?php foreach ($back['main']['content'] as $key => $bk): ?>
                                         <tr class="main-line">
                                             <td>正文</td>
-                                            <td><input name="back[main][content][]" value="<?=$bk?>" type="text" class="form-control input-sm"></td>
+                                            <td>
+
+                                                <input name="back[main][content][]" value="<?=$bk?>" type="text" class="form-control input-sm main<?=$key?>con">
+                                                <input type="hidden" name="back[main][pos][]"
+                                                       value="<?=isset($back['main']['pos'][$key])?$back['main']['pos'][$key]:''?>"
+                                                       class="form-control main<?=$key?>">
+
+                                            </td>
                                             <td  colspan="2">
                                                 <button type="button" class="btn btn-default btn-xs del-line"> 删 除 </button>
                                             </td>
@@ -469,6 +535,88 @@ PluploadAssets::register($this);
                                 <button type="button" class="btn btn-default add-back"> 添 加 一 行 </button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
                                 <button type="button" class="btn btn-primary back-edit-save"> 保 存 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="ins_front_attach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content cbox">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">碑前文附加字段</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-noborder back-line">
+                                    <?php if(isset($attach['front'])):?>
+                                        <?php foreach ($attach['front'] as $key => $bk):$index=0; ?>
+                                            <tr class="main-line">
+                                                <td>
+                                                    <input name="attach[front][<?=$index?>][content]" value="<?=$bk['content']?>"
+                                                           type="text" class="form-control input-sm attach_front<?=$index?>con">
+
+                                                    <input type="hidden" name="attach[front][<?=$index?>][pos]"
+                                                           value="<?=isset($bk['pos'])?$bk['pos']:''?>"
+                                                           class="form-control attach_front<?=$index?>">
+                                                </td>
+                                                <td><label for="">
+                                                        <input type="checkbox" name="attach[front][<?=$index?>][is_big]"
+                                                               value="1" <?php if(isset($bk['is_big'])){echo "checked";}?>>大字</label></td>
+                                                <td colspan="2">
+                                                    <button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>
+                                                </td>
+                                            </tr>
+                                            <?php $index++;endforeach ?>
+                                    <?php endif;?>
+                                </table>
+                                <!-- <a href="#" target="_blank">碑文范例</a> -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default add-front-attach"> 添 加 一 行 </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
+                                <button type="button" class="btn btn-primary front-attach-save"> 保 存 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="ins_back_attach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content cbox">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">碑后文附加字段</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-noborder back-line">
+                                    <?php if(isset($attach['front'])):?>
+                                        <?php foreach ($attach['front'] as $key => $bk):$index=0; ?>
+                                            <tr class="main-line">
+                                                <td>
+                                                    <input name="attach[back][<?=$index?>][content]" value="<?=$bk['content']?>"
+                                                           type="text" class="form-control input-sm attach_back<?=$index?>con">
+
+                                                    <input type="hidden" name="attach[back][<?=$index?>][pos]"
+                                                           value="<?=isset($bk['pos'])?$bk['pos']:''?>"
+                                                           class="form-control attach_back<?=$index?>">
+                                                </td>
+                                                <td><label for=""><input type="checkbox" name="attach[back][<?=$index?>][is_big]"
+                                                                         value="1" <?php if(isset($bk['is_big'])){echo "checked";}?>
+                                                        >大字</label></td>
+                                                <td colspan="2">
+                                                    <button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>
+                                                </td>
+                                            </tr>
+                                            <?php $index++;endforeach ?>
+                                    <?php endif;?>
+                                </table>
+                                <!-- <a href="#" target="_blank">碑文范例</a> -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default add-back-attach"> 添 加 一 行 </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
+                                <button type="button" class="btn btn-primary back-attach-save"> 保 存 </button>
                             </div>
                         </div>
                     </div>
@@ -546,11 +694,16 @@ PluploadAssets::register($this);
 
         auto(changed);
 
+
         //碑前文的附加
-        $('body').on('click','.add-attach',function(){
+        $('body').on('click','.add-front-attach',function(){
+            var num = $('.main-line',$(this).closest('.cbox')).size();
             var html = '<tr class="main-line">' +
-                '<td><input name="front[attach][content][]" type="text" class="form-control input-sm"></td>'+
-                '<td><label for=""><input type="checkbox" name="front[attach][is_big][]">大字</label></td>'+
+                '<td><input name="attach[front]['+num+'][content]" type="text" class="form-control input-sm attach_front'+num+'con">'+
+                '<input type="hidden" name="attach[front]['+num+'][pos]" class="form-control attach_front'+num+'">'+
+
+                '</td>'+
+                '<td><label for=""><input type="checkbox" name="attach[front]['+num+'][is_big]">大字</label></td>'+
                 '<td  colspan="2">'+
                     '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
                     '</td>'+
@@ -561,9 +714,13 @@ PluploadAssets::register($this);
 
         //碑后文内容
         $('body').on('click','.add-back',function(){
+            var num = $('.main-line',$(this).closest('.cbox')).size();
+
             var html = '<tr class="main-line">' +
                             '<td>正文</td>' +
-                            '<td><input name="back[main][content][]" type="text" class="form-control input-sm"></td>'+
+                            '<td><input name="back[main][content]['+num+']" type="text" class="form-control input-sm main'+num+'con">'+
+                            '<input type="hidden" name="back[main][pos]['+num+']" class="form-control main'+num+'">'+
+                            '</td>'+
                             '<td  colspan="2">'+
                             '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
                             '</td>'+
@@ -571,6 +728,23 @@ PluploadAssets::register($this);
 
             $(this).closest('.cbox').find('table').append(html);
         });
+
+        //碑后文的附加
+        $('body').on('click','.add-back-attach',function(){
+            var num = $('.main-line',$(this).closest('.cbox')).size();
+            var html = '<tr class="main-line">' +
+                '<td><input name="attach[back]['+num+'][content]" type="text" class="form-control input-sm attach_front'+num+'con">'+
+                '<input type="hidden" name="attach[front]['+num+'][pos]" class="form-control attach_back'+num+'">'+
+                '</td>'+
+                '<td><label for=""><input type="checkbox" name="attach[back]['+num+'][is_big]">大字</label></td>'+
+                '<td  colspan="2">'+
+                '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
+                '</td>'+
+                '</tr>';
+
+            $(this).closest('.cbox').find('table').append(html);
+        });
+
 
         $('body').on('click','.del-line',function(){
             $(this).parents('tr').remove();
@@ -651,24 +825,38 @@ PluploadAssets::register($this);
             $('#ins_back').modal('hide');
         });
 
+        $('.front-attach-save', insContainer).click(function(){
+            getImage('front_selected');
+            getPrice();
+            $('#ins_front_attach').modal('hide');
+        });
+
+        $('.back-attach-save', insContainer).click(function(){
+            getImage('back_selected');
+            getPrice();
+            $('#ins_back_attach').modal('hide');
+        });
+
+
         $('#selectback', insContainer).change(function(){
             var str = $(this).val();
             var arr = str.split(',');
-            $('.back-line .main-line').remove();
+            $('.backmain .back-line .main-line').remove();
 
-            var tr = $('<tr class="main-line">'+
-                        '<td>正文</td>'+
-                        '<td><input name="back[main][content][]" value="" class="form-control input-sm input"></td>'+
-                        '<td  colspan="2">'+
-                        '<button type="button" class="btn btn-default btn-xs del-line"> 删 除 </button>'+
-                        '</td>'+
-                        '</tr>');
 
 
             for(k in arr){
-                var tr = tr.clone();
-                tr.find('input').val(arr[k]);
-                $('.back-line').append(tr);
+                var tr = '<tr class="main-line">' +
+                    '<td>正文</td>' +
+                    '<td><input name="back[main][content]['+k+']" value="'+arr[k]+'" type="text" class="form-control input-sm main'+k+'con">'+
+                        '<input type="hidden" name="back[main][pos]['+k+']" class="form-control main'+k+'">'+
+                        '</td>'+
+                    '<td  colspan="2">'+
+                        '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
+                        '</td>'+
+                    '</tr>';
+
+                $('.backmain .back-line').append(tr);
             }
             getImage('back_selected');
             getPrice();
@@ -710,10 +898,10 @@ PluploadAssets::register($this);
             var driect = $('.'+cla).attr('rel');
             var tomb_id = $('input[name=tomb_id]').val();
             var data = $('#auto-ins-form').serialize();
-            var url = "<?=Url::toRoute(['/grave/home/process/free-sel', 'tomb_id'=>$get['tomb_id']])?>";
+            var url = "<?=Url::toRoute(['/grave/home/ins/free-sel', 'tomb_id'=>$get['tomb_id']])?>";
             var tc = parseInt($('#is_tc').val());
 
-    if (url.indexOf('?') >= 0) {
+        if (url.indexOf('?') >= 0) {
                 url += '&case_id=' + case_id;
             } else {
                 url += '?case_id=' + case_id;
@@ -721,6 +909,8 @@ PluploadAssets::register($this);
             if(isNaN(case_id)) return ;
 
             $.post(url, data, function(xhr){
+
+    console.dir(xhr);
                 if(xhr.status){
                     if (cla == 'front_selected') {
                         var ctx = LN.insCanvas('#frontCanvas');

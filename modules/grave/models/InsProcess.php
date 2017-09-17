@@ -59,7 +59,7 @@ class InsProcess extends Ins
 
 
     public function getFrontContent(){
-        
+
         $content = $this->ins_info['front'];
 
 
@@ -102,6 +102,11 @@ class InsProcess extends Ins
             $content['fete'][$k]['content'] = isset($content['fete'][$k]['content']) ? $this->getRelDate($content['fete'][$k]['content'], 1) : '';
             $content['age'][$k]['content']  = isset($content['age'][$k]['content']) ? self::numberToChar($content['age'][$k]['content'], true, $this->is_tc) : '';
         }unset($v);
+
+
+        if (isset($this->ins_info['attach']['front'])) {
+            $content['attach'] = $this->ins_info['attach']['front'];
+        }
 
         return $content;
     }
@@ -226,7 +231,6 @@ class InsProcess extends Ins
         // $cover_info = $data['cover'];
         $dead  = $data['dead'];
 
-
         $keys = array('title', 'name', 'birth', 'age', 'fete', 'second_name', 'follow');
         $dead_info = array();
         foreach ($dead as $k=>$v) {
@@ -239,6 +243,7 @@ class InsProcess extends Ins
 
         $this->ins_info['front'] = $info;
         $this->ins_info['back']  = $back_info;
+        $this->ins_info['attach'] = isset($data['attach']) ? $data['attach'] : [];
         // $this->ins_info['cover'] = $cover_info;
 
 
@@ -494,7 +499,7 @@ class InsProcess extends Ins
     }
 
     /**
-     * 
+     *
      * 取碑文整体信息
      */
     public function insInfo(){
@@ -652,7 +657,7 @@ class InsProcess extends Ins
 
         $cfg_info = $this->getCfg($cfgcase_id);
 
-        $cfg_info = $this->combinCfgIns($cfg_info, $ins_info, $cfg->shape, array($case->width, $case->height), $is_front);
+        $cfg_info = $this->combinFreeIns($cfg_info, $ins_info, $cfg->shape, array($case->width, $case->height), $is_front);
 
         return $cfg_info;
     }
@@ -745,9 +750,131 @@ class InsProcess extends Ins
         return $new_cfg_data;
     }
 
-    public function combinCfgIns($cfg_info, $ins_info, $shape, $size=NULL, $is_front=0)
+    public function combinFreeIns($cfg_info, $ins_info, $shape, $size=NULL, $is_front=0)
     {
 
+        $new_cfg = [];
+
+        if (array_key_exists('main', $cfg_info)){
+            if ($shape == 'v') {
+                $ins_info['main']['content']= array_reverse($ins_info['main']['content']);
+            }
+
+
+            foreach ($cfg_info as $k=>$v) {
+                if ($k == 'main') {
+                    $v[0]['text'] = $ins_info['main']['content'];
+                    $new_cfg[$k] = $v[0];
+                } else {
+                    $v = $v[0];
+                    $v['text'] = isset($ins_info[$k]['content']) ? $ins_info[$k]['content'] : '';
+                    $new_cfg[$k] = $v;
+                }
+            };
+            $new_cfg = $this->calPosition($new_cfg, $size, $is_front, $shape);
+        } else {
+            $tmp_info = array();
+            $tins_info = $ins_info;
+
+            foreach ($cfg_info as $k=>$v){
+                foreach ($v as $key => $val){
+
+                    if (!isset($tins_info[$k])) {
+                        continue;
+                    }
+
+                    $d = array_values($tins_info[$k]);
+
+                    $val['text'] = isset($d[$key]['content'])? $d[$key]['content'] : '';
+
+                    if (empty($d[$key]['content']) && in_array($k, array('die', 'born', 'honorific', 'second_name_label'))){
+                        $val['text'] = $d[0]['content'];
+                    }
+
+                    if ($k == 'name') {
+                        $val['is_die'] = isset($d[$key]['is_die']) ? $d[$key]['is_die'] : 0;
+                    }
+
+                    $tmp_info[$k][$key] = $val;
+                }
+            }
+
+        }
+
+
+        $label_num = isset($cfg_info['born']) ? count($cfg_info['born']) : 0;
+
+        if ($label_num > 1) {
+            foreach ($tmp_info as $k=>&$v){
+                foreach ($v as $key=>&$val){
+                    switch ($k){
+                        case 'die':
+                        case 'born':
+                            if (empty($tmp_info['birth'][$key]['text'])){
+                                unset($tmp_info[$k][$key]);
+                            }
+                            break;
+                        case 'title':
+                            if (empty($tmp_info['name'][$key]['text'])){
+                                unset($tmp_info[$k][$key]);
+                            }
+                    }
+                }unset($val);
+            }unset($v);
+        } else if ($label_num ==1){
+
+            //永安习惯 有生日就要把die标签显示出来
+            //处理 die 标签
+            $flag = true;
+            foreach ($tmp_info['birth'] as $key=>$val){
+                if (empty($tmp_info['birth'][$key]['text'])){
+                    continue;
+                }
+                $flag = false;
+            }
+            if ($flag) unset($tmp_info['die']);
+
+            //处理 born 标签
+            $flag = true;
+            foreach ($tmp_info['birth'] as $key=>$val){
+                if (empty($tmp_info['birth'][$key]['text'])){
+                    continue;
+                }
+                $flag = false;
+            }
+            if ($flag) unset($tmp_info['born']);
+        }
+
+
+        if (isset($tmp_info)) {
+            //处理圣名标签
+            if (isset($tmp_info['second_name_label']) && !empty($tmp_info['second_name_label'])) {
+                foreach ($tmp_info['second_name_label'] as $k => $v) {
+                    if (empty($tmp_info['second_name'][$k]['text'])){
+                        unset($tmp_info['second_name_label'][$k]);
+                    }
+                }
+            }
+
+            foreach ($tmp_info as $k=>$v){
+                if ($k == 'name') {
+                    foreach ($v as $kk=>$vv) {
+                        if ($vv['is_die']) {
+                            $new_cfg['angle'.$k.$kk] = $this->angle($vv);
+                        }
+                    }
+                }
+                foreach ($v as $kson=>$val){
+                    $new_cfg[$k.$kson] = $val;
+                }
+            }
+        }
+
+        return $new_cfg;
+    }
+
+    public function combinCfgIns($cfg_info, $ins_info, $shape, $size=NULL, $is_front=0)
+    {
         $new_cfg = [];
 
         if (array_key_exists('main', $cfg_info)){
@@ -765,6 +892,8 @@ class InsProcess extends Ins
                     $new_cfg[] = $v;
                 }
             };
+
+
             $new_cfg = $this->calPosition($new_cfg, $size, $is_front, $shape);
         } else {
             $tmp_info = array();
@@ -791,7 +920,6 @@ class InsProcess extends Ins
                     $tmp_info[$k][$key] = $val;
                 }
             }
-
         }
 //        $label_num = count($cfg_info['die']);
         $label_num = isset($cfg_info['born']) ? count($cfg_info['born']) : 0;
@@ -838,8 +966,6 @@ class InsProcess extends Ins
 
         }
 
-
-
         if (isset($tmp_info)) {
             //处理圣名标签
             if (isset($tmp_info['second_name_label']) && !empty($tmp_info['second_name_label'])) {
@@ -863,8 +989,6 @@ class InsProcess extends Ins
                 }
             }
         }
-
-        
 
         return $new_cfg;
     }
@@ -939,10 +1063,11 @@ class InsProcess extends Ins
 
         $new_ins = array();
         foreach ($main_info['text'] as $k=>$v){
-            $new_ins[$k] = $main_info;
-            $new_ins[$k][$direct] = $boundary + ($main_info['size'] + $step) * $k;
-            $new_ins[$k]['text']=$main_info['text'][$k];
+            $new_ins['main'.$k] = $main_info;
+            $new_ins['main'.$k][$direct] = $boundary + ($main_info['size'] + $step) * $k;
+            $new_ins['main'.$k]['text']=$main_info['text'][$k];
         }
+
         return array_merge($ins_info, $new_ins);
     }
 
