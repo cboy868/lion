@@ -151,7 +151,8 @@ $(function(){
         var that = this;
         $.post(url, {id:id,_csrf:csrf},function(xhr){
             if (xhr.status) {
-                $(that).closest('.portrait-box').remove();
+                //$(that).closest('.portrait-box').remove();
+                location.reload();
             } else {
                 alert(xhr.info);
             }

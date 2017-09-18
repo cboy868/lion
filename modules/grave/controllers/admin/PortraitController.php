@@ -3,6 +3,7 @@
 namespace app\modules\grave\controllers\admin;
 
 use app\core\helpers\ArrayHelper;
+use app\modules\order\models\OrderRel;
 use Yii;
 use app\modules\grave\models\Portrait;
 use app\modules\grave\models\search\PortraitSearch;
@@ -206,6 +207,13 @@ class PortraitController extends BackController
         $model = $this->findModel($post['id']);
         $model->status = Portrait::STATUS_DELETE;
         if ($model->save()) {
+            $order_rel = OrderRel::findOne($model->order_rel_id);
+            if ($order_rel) {
+                $order_rel->status = OrderRel::STATUS_DELETE;
+                $order_rel->save();
+                $order_rel->order->updatePrice();
+            }
+
             return $this->json();
         }
 
