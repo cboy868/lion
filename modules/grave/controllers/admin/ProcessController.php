@@ -284,7 +284,7 @@ class ProcessController extends BackController
 
         $req = Yii::$app->request;
 
-        $type = $req->get('type');
+        $type = $req->get('type') ? $req->get('type') : $model->type;
 //        $model->type = isset($type) ? $type : $model->type;
 
 
@@ -296,9 +296,14 @@ class ProcessController extends BackController
             $model->user_id = $tomb->user_id;
 
 
-            $saveMethod = $model->type == InsProcess::TYPE_IMG ? 'imgSave' : 'autoSave';
+            $saveMethod = 'imgSave';
+            if ($type == InsProcess::TYPE_FREE) {
+                $saveMethod = 'freeSave';
+            } else if ($type == InsProcess::TYPE_AUTO) {
+                $saveMethod = 'autoSave';
+            }
 
-            if ($model->freeSave()) {
+            if ($model->$saveMethod()) {
 
                 $note = '大字%s小字%s刻字费%s颜料费%s繁体字费%s';
 
@@ -314,7 +319,7 @@ class ProcessController extends BackController
                 $goods_id = $this->module->params['goods']['id']['insword'];
                 $goods = Goods::findOne($goods_id);
 
-                $goods->order($model->user_id, $insData);
+                $a = $goods->order($model->user_id, $insData);
 
                 return $this->next();
             }
@@ -355,6 +360,7 @@ class ProcessController extends BackController
             ]));
         } else {
             $ins_info = $model->insInfo();
+
             return $this->render('ins-free',array_merge($ins_data, [
                 'back_word' => $ins_cfg['back_word'],
                 'ins_info' => $ins_info,

@@ -134,12 +134,14 @@ class Order extends \app\core\db\ActiveRecord
     public static function createGoods($user_id, $goods, $extra=[])
     {
         try {
+
             $order = self::getValidOrder($user_id, $extra);
 
             $rel = OrderRel::createGoods($order, $goods, $extra);
 
             $order->updatePrice();
         } catch (\Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
             return false;
         }
 

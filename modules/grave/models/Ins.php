@@ -129,13 +129,14 @@ class Ins extends \app\core\db\ActiveRecord
     public function getFront($size=null)
     {
         $img = (array)json_decode($this->img);
-        return Attachment::getById($img['front'], $size);
+        return isset($img['front']) ? Attachment::getById($img['front'], $size) : '';
     }
 
     public function getBack($size=null)
     {
         $img = (array)json_decode($this->img);
-        return Attachment::getById($img['back'], $size);
+
+        return isset($img['back']) ? Attachment::getById($img['back'], $size) : '';
     }
 
     public function getImg($position = 'front', $default='#')

@@ -122,7 +122,8 @@ class OrderRel extends \app\core\db\ActiveRecord
     public static function createGoods($order, $goods, $data)
     {
 
-        $model = OrderRel::hasRel($order->id, $goods->id, 0, $order->user_id);
+        $type = isset($data['type']) ? $data['type'] : 1;
+        $model = OrderRel::hasRel($order->id, $goods->id, 0, $order->user_id, $type);
 
         if (!$model) {
             $model = new OrderRel;
@@ -192,7 +193,8 @@ class OrderRel extends \app\core\db\ActiveRecord
 
     public static function hasRel($order_id, $goods_id, $sku_id, $user_id, $type=1)
     {
-        return self::find()->where(['order_id'=>$order_id])
+
+         return self::find()->where(['order_id'=>$order_id])
                              ->andWhere(['goods_id'=>$goods_id])
                              ->andWhere(['sku_id'=>$sku_id])
                              ->andWhere(['user_id'=> $user_id])

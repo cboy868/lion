@@ -64,6 +64,7 @@ class InsPro extends Ins
         $post = Yii::$app->request->post();
 
         $this->handleIns();
+        $this->type = InsProcess::TYPE_FREE;
 
         $front_case = $post['front_case'];
         $back_case  = $post['back_case'];
@@ -1191,12 +1192,10 @@ class InsPro extends Ins
      */
     public function insInfo(){
 
-        if ($this->type === self::TYPE_IMG) {
-            return $this;
-        }
         $ins_info = (array)json_decode($this->content, true);
 
         if (!isset($ins_info['front']) || empty($ins_info['front'])) {
+
             $this->initFront();
             $this->initBack();
         } else {
@@ -1215,6 +1214,7 @@ class InsPro extends Ins
             $this->ins_info = $ins_info;
             $this->ins_info['front'] = $data;
         }
+
 
         return $this->ins_info;
     }
