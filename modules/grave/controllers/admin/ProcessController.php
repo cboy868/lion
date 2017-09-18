@@ -319,7 +319,7 @@ class ProcessController extends BackController
                 $goods_id = $this->module->params['goods']['id']['insword'];
                 $goods = Goods::findOne($goods_id);
 
-                $a = $goods->order($model->user_id, $insData);
+                $goods->order($model->user_id, $insData);
 
                 return $this->next();
             }
