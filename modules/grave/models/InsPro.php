@@ -64,7 +64,6 @@ class InsPro extends Ins
         $post = Yii::$app->request->post();
 
         $this->handleIns();
-        $this->type = self::TYPE_AUTO;
 
         $front_case = $post['front_case'];
         $back_case  = $post['back_case'];
@@ -291,9 +290,6 @@ class InsPro extends Ins
                 break;
         }
 
-
-
-
         $cfg_info = $this->getCfg($cfgcase_id);
 
         $cfg_info = $this->combinFreeIns($cfg_info, $ins_info, $cfg->shape, array($case->width, $case->height), $is_front);
@@ -409,7 +405,7 @@ class InsPro extends Ins
                         'text' => $v['content'],
                         'size' => isset($v['is_big']) ? 58 : 18,
                     ];
-                    if (isset($v['pos'])) {
+                    if (isset($v['pos']) && strpos($v['pos'], '_')) {
                         $pos = explode('_', $v['pos']);
                         $v = [
                                 'x' => $pos[0],
@@ -460,7 +456,7 @@ class InsPro extends Ins
                         'text' => $v['content'],
                         'size' => $size
                     ];
-                    if (isset($v['pos'])) {
+                    if (isset($v['pos']) && strpos($v['pos'], '_')) {
                         $pos = explode('_', $v['pos']);
                         $v = [
                             'x' => $pos[0],
@@ -1156,6 +1152,7 @@ class InsPro extends Ins
 
         $this->font = $data['font_style'];
         $this->is_tc = $data['is_tc'];
+        $this->type = $data['type'];
 
         $front_info = $data['front'];
         $back_info  = $data['back'];
@@ -1182,7 +1179,7 @@ class InsPro extends Ins
             'dt_pre_mn'     => $data['InsPro']['pre_finish'],
             'font'    => $this->font,
             'note'          => trim($data['InsPro']['note']),
-            'type'          => 1
+            'type'          => $this->type
         );
         $this->ins_info = $add + $this->ins_info;
 
@@ -1192,7 +1189,7 @@ class InsPro extends Ins
      *
      * 取碑文整体信息
      */
-    public function info(){
+    public function insInfo(){
 
         if ($this->type === self::TYPE_IMG) {
             return $this;

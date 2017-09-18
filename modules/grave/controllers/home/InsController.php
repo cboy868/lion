@@ -47,7 +47,7 @@ class InsController extends \app\core\web\HomeController
 
     	$query = Yii::$app->request->get();
 
-    	$model = Process::insProcess();
+    	$model = Process::insPro();
 
     	$num = $model->deadCount();
 
@@ -90,30 +90,31 @@ class InsController extends \app\core\web\HomeController
 
 
 
-
     /**
      * @name ajax取价格
      */
     public function actionPrice($tomb_id, $front_case, $back_case)
     {
-        $model = Process::insProcess();
+        $model = Process::insPro();
 
         $model->handleIns();
 
         $front_data = $model->combinDbData($front_case);
         $back_data  = $model->combinDbData($back_case);
 
-        $front_case = InsCfgCase::findOne($front_case);
-        $back_case = InsCfgCase::findOne($back_case);
+//        $front_case = InsCfgCase::findOne($front_case);
+//        $back_case = InsCfgCase::findOne($back_case);
 
+        $attach = Yii::$app->request->post('attach');
 
 
         $front_num = self::fontNum($front_data, $front_case);
         $back_num  = self::fontNum($back_data, $back_case);
+        $attach_num = self::attachNum($attach);
 
         $total_num = [
-            'big' => $front_num['big'] + $back_num['big'] - $model->big_num,
-            'small' => $front_num['small'] + $back_num['small'] - $model->small_num
+            'big' => $front_num['big'] + $back_num['big'] + $attach_num['big'] - $model->big_num,
+            'small' => $front_num['small'] + $back_num['small'] + $attach_num['small'] - $model->small_num
         ];
 
         $front_price = self::calPrice($front_num);
@@ -132,11 +133,38 @@ class InsController extends \app\core\web\HomeController
     }
 
 
+    public static function attachNum($data)
+    {
+
+        $count = [
+            'big' => 0,
+            'small' => 0
+        ];
+        if (isset($data['front']) && is_array($data['front'])){
+            foreach ($data['front'] as $v) {
+                $is_big = isset($v['is_big']) ? 'big' : 'small';
+                $count[$is_big] += self::getFontNum($v['content']);
+            }
+        }
+
+        if (isset($data['back']) && is_array($data['back'])){
+            foreach ($data['back'] as $v) {
+                $is_big = isset($v['is_big']) ? 'big' : 'small';
+                $count[$is_big] += self::getFontNum($v['content']);
+            }
+        }
+
+
+        return $count;
+
+    }
 
     public static function fontNum($data, $case_id)
     {
-        $model = Process::insProcess();
+
+        $model = Process::insPro();
         $cfg_info = $model->getCfg($case_id);
+
         $count = [
             0 => 0,
             1 => 0
@@ -146,6 +174,7 @@ class InsController extends \app\core\web\HomeController
             'big' => 0,
             'small' => 0
         ];
+
         if (array_key_exists('main', $data)){
             
             foreach ($data as $k=>$v) {
@@ -155,7 +184,6 @@ class InsController extends \app\core\web\HomeController
                         if (!isset($cfg_info[$k])) {
                             continue;
                         }
-
                         $count[$cfg_info[$k][0]['is_big']] += self::getFontNum($val);
                     }
                 } else {
@@ -190,6 +218,8 @@ class InsController extends \app\core\web\HomeController
         }
 
 
+
+
         return $result;
     }
 
@@ -200,7 +230,7 @@ class InsController extends \app\core\web\HomeController
         $post = Yii::$app->request->post();
 
         $is_tc = $post['is_tc'];
-        $paint = $post['InsProcess']['paint'];
+        $paint = $post['InsPro']['paint'];
 
         $fee = $this->module->params['ins']['fee'];
 
@@ -323,12 +353,13 @@ class InsController extends \app\core\web\HomeController
 
         return $result;
     }
-   
+
+
 
     public static function getFontNum($str, $flag = false)
     {
         $tmp = str_replace(array('.','&nbsp;',',','、',' ','，','－', '—', '-', '|', '｜'),'',$str);
-        $total = mb_strlen($tmp);
+        $total = strlen($tmp);
 
         if ($flag) {
             return mb_strlen($tmp, 'utf-8');

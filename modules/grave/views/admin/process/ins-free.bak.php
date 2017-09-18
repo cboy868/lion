@@ -29,7 +29,7 @@ PluploadAssets::register($this);
     {
         padding: 2px;
     }
-    /*.detail{display: none;}*/
+    .detail{display: none;}
     .insnote img{max-width: 100px;}
 </style>
 
@@ -86,22 +86,23 @@ PluploadAssets::register($this);
             <div class="row">
 
                 <div class="col-md-12">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">&nbsp;
-                            <span class="">
-                                <a  href="javascript:;" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#select-ins">
-                                    选择碑文样式
-                                </a>
-                            </span>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" style="text-align: center;">
+                        <li role="presentation" class="active">
+                            <a href="#front" aria-controls="front" role="tab" data-toggle="tab">碑前文</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#back" aria-controls="back" role="tab" data-toggle="tab">碑后文</a>
+                        </li>
+                        <li class="pull-right" style="margin-top:8px;">
                             <?php if(!$model['is_stand']):?>
-                                <span class="">繁体简体
+                                <span class="pull-right">繁体简体
                                     <select name="is_tc" id="is_tc">
                                         <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
                                         <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
                                     </select>
                                 </span>
-                                <span class="">字体
+                                <span class="pull-right">字体
                                     <select name="font_style" id="font_style">
                                         <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
                                         <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
@@ -112,64 +113,16 @@ PluploadAssets::register($this);
                                 <input type="hidden" name="is_tc" id="is_tc" value="<?=$model->is_tc?>"/>
                                 <input type="hidden" name="font" value="<?=$model->font?>"/>
                             <?php endif;?>
-                        </div>
-                        <div class="panel-body">
+                        </li>
+                    </ul>
+
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="front">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="select-ins" class="collapse">
-                                        <div class="row-fluid ">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">&nbsp;
-                                                    碑前文
-                                                </div>
-                                                <div class="panel-body front_images">
-                                                    <?php foreach ($cases['front_cases'] as $case): ?>
-                                                        <div style="float:left;" class="ins_image">
-                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
-                                                            <div class="caption">
-                                                                <h5><?=$case['note']?>
-                                                                    <span class="sel_style">
-                                                                    <?php if ($case['id'] == $cases['front_current_case_id']): ?>
-                                                                        (<i class="red fa fa-check fa-2"></i>)
-                                                                    <?php endif ?>
-                                                                    </span>
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach ?>
-                                                </div>
-                                            </div>
-                                        </div><!-- PAGE CONTENT ENDS -->
-
-                                        <div class="row-fluid">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">&nbsp;
-                                                    碑后文
-                                                </div>
-                                                <div class="panel-body back_images">
-                                                    <?php foreach ($cases['back_cases'] as $case): ?>
-                                                        <div style="float:left;">
-                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
-                                                            <div class="caption">
-                                                                <h5><?=$case['note']?>
-                                                                    <span class="sel_style">
-                                                                        <?php if ($case['id'] == $cases['back_current_case_id']): ?>
-                                                                            (<i class="red fa fa-check fa-2"></i>)
-                                                                        <?php endif ?>
-                                                                    </span>
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach ?>
-
-                                                </div>
-
-                                            </div>
-                                        </div><!-- PAGE CONTENT ENDS -->
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="canvas" style="border:1px solid #ccc;;width:702px;float:left;margin-right:20px;">
+                                    <div class="canvas" style="border:1px dashed grey;width:702px;float:left;">
                                         <div style="font-size:14px;width:100%;padding: 10px;">
                                             <fieldset style="float:left;">
                                                 <div id="toolsOptions">
@@ -198,12 +151,40 @@ PluploadAssets::register($this);
                                             </fieldset>
                                             <div style="clear:both;"></div>
                                         </div>
-                                        <canvas id="frontCanvas" height="700" width="700"></canvas>
+                                        <canvas id="frontCanvas" style="border-top:1px dashed grey;" height="700" width="700"></canvas>
                                         <input type="hidden" name="front-canvas-img" class="front-canvas-img" >
                                         <img src="" alt="" id="abcde">
                                     </div>
+                                    <div class="" style="margin-left:730px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body front_images" style="height:785px;overflow-y: auto">
+                                                <?php foreach ($cases['front_cases'] as $case): ?>
+                                                    <div style="float:left;" class="ins_image">
+                                                        <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
+                                                        <div class="caption">
+                                                            <h5><?=$case['note']?>
+                                                                <span class="sel_style">
 
-                                    <div class="canvas" style="border:1px solid #ccc;width:702px;float: left;">
+                                                                <?php if ($case['id'] == $cases['front_current_case_id']): ?>
+                                                                    (<i class="red fa fa-check fa-2"></i>)
+                                                                <?php endif ?>
+                                                                </span>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="front_prices" style="display:none;"></div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="back">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="canvas" style="border:1px dashed grey;width:702px;float: left;">
                                         <div style="font-size:14px;width:100%;padding: 10px;">
                                             <fieldset style="float:left;">
                                                 <div id="toolsOptions">
@@ -240,14 +221,34 @@ PluploadAssets::register($this);
                                             </fieldset>
                                             <div style="clear:both;"></div>
                                         </div>
-                                        <canvas id="backCanvas" height="700" width="700"></canvas>
+                                        <canvas id="backCanvas" style="border-top:1px dashed grey;" height="700" width="700"></canvas>
                                         <input type="hidden" name="back-canvas-img" class="back-canvas-img">
+                                    </div>
+                                    <div style="margin-left:730px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body back_images" style="height:785px;overflow-y: auto">
+                                                <?php foreach ($cases['back_cases'] as $case): ?>
+                                                    <div style="float:left;">
+                                                        <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
+                                                        <div class="caption">
+                                                            <h5><?=$case['note']?>
+                                                                <span class="sel_style">
+                                                    <?php if ($case['id'] == $cases['back_current_case_id']): ?>
+                                                        (<i class="red fa fa-check fa-2"></i>)
+                                                    <?php endif ?>
+                                                </span>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach ?>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="front_prices" style="display:none;"></div>
-                            <div id="back_prices" style="display:none;"></div>
                         </div>
+                        <div id="back_prices" style="display:none;"></div>
                     </div>
                 </div>
             </div>
@@ -257,7 +258,7 @@ PluploadAssets::register($this);
             <div class="row" role="">
                 <div class="col-xs-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">明细 <small style="color:red;">以下自动计算价格做为参考，请核对</small> </div>
+                        <div class="panel-heading">明细</div>
                         <div class="panel-body  form-horizontal row" role="form">
                             <?php
                             $form->fieldConfig['labelOptions']['class']='control-label col-sm-3';
@@ -316,7 +317,7 @@ PluploadAssets::register($this);
 
 
                 <style>
-                    .modal .table > thead > tr > th, .table > tbody > tr > th, .table > tbody > tr > td {
+                    .modal .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
                         padding: 2px;
                     }
                 </style>
@@ -325,17 +326,14 @@ PluploadAssets::register($this);
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-title" id="myModalLabel">修改碑正文</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">公共部分</div>
                                     <div class="panel-body">
-                                        <table class="table" style="margin-bottom: 5px;">
+                                        <table class="table">
                                             <tr>
                                                 <td>标签一</td>
                                                 <td>
@@ -433,7 +431,7 @@ PluploadAssets::register($this);
                                                 </a>
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-noborder detail detail-<?=$key?>" style="margin-bottom: 0;">
+                                                <table class="table table-noborder detail detail-<?=$key?>">
                                                     <input type="hidden" name="dead[<?=$key?>][name][is_die]"  value="<?=$vo['name']['is_die']?>" />
                                                     <tr>
                                                         <td>称谓</td>
@@ -551,8 +549,8 @@ PluploadAssets::register($this);
                             </div>
                             <div class="modal-body">
                                 <table class="table table-noborder back-line">
-                                    <?php if(isset($attach['front'])):$index=0;?>
-                                        <?php foreach ($attach['front'] as $key => $bk): ?>
+                                    <?php if(isset($attach['front'])):?>
+                                        <?php foreach ($attach['front'] as $key => $bk):$index=0; ?>
                                             <tr class="main-line">
                                                 <td>
                                                     <input name="attach[front][<?=$index?>][content]" value="<?=$bk['content']?>"
@@ -592,8 +590,8 @@ PluploadAssets::register($this);
                             </div>
                             <div class="modal-body">
                                 <table class="table table-noborder back-line">
-                                    <?php if(isset($attach['back'])):$index=0;?>
-                                        <?php foreach ($attach['back'] as $key => $bk): ?>
+                                    <?php if(isset($attach['front'])):?>
+                                        <?php foreach ($attach['front'] as $key => $bk):$index=0; ?>
                                             <tr class="main-line">
                                                 <td>
                                                     <input name="attach[back][<?=$index?>][content]" value="<?=$bk['content']?>"
@@ -912,6 +910,7 @@ PluploadAssets::register($this);
 
             $.post(url, data, function(xhr){
 
+    console.dir(xhr);
                 if(xhr.status){
                     if (cla == 'front_selected') {
                         var ctx = LN.insCanvas('#frontCanvas');
@@ -936,7 +935,7 @@ PluploadAssets::register($this);
             var front_case = $('.front_selected').attr('case_id');
             var back_case = $('.back_selected').attr('case_id');
 
-            var url = "<?=Url::toRoute(['/grave/home/ins/price', 'tomb_id'=>$get['tomb_id']])?>";
+            var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
             var data = $('#auto-ins-form').serialize();
             var date = +new Date();
 

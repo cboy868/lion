@@ -270,6 +270,7 @@ class ProcessController extends BackController
     protected function ins()
     {
         $tomb = Process::tomb();
+//        $model = Process::insProcess();
         $model = Process::insPro();
         $deads = $model->deads();
 
@@ -284,7 +285,7 @@ class ProcessController extends BackController
         $req = Yii::$app->request;
 
         $type = $req->get('type');
-        $model->type = isset($type) ? $type : $model->type;
+//        $model->type = isset($type) ? $type : $model->type;
 
 
         $model->setScenario('handleIns');
@@ -340,9 +341,9 @@ class ProcessController extends BackController
             'fee' => $fee
         ];
 
-        if ($model->type == InsProcess::TYPE_IMG) {
+        if ($type == InsProcess::TYPE_IMG) {
             return $this->render('ins-img',$ins_data);
-        } else if ($model->type == InsProcess::TYPE_AUTO){
+        } else if ($type == InsProcess::TYPE_AUTO){
             $ins_info = $model->insInfo();
 
             return $this->render('ins-auto',array_merge($ins_data, [
@@ -353,12 +354,7 @@ class ProcessController extends BackController
                 'is_god' => false,
             ]));
         } else {
-            $ins_info = $model->info();
-
-
-//            p($cases);die;
-
-//            p($ins_info);die;
+            $ins_info = $model->insInfo();
             return $this->render('ins-free',array_merge($ins_data, [
                 'back_word' => $ins_cfg['back_word'],
                 'ins_info' => $ins_info,

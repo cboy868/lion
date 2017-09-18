@@ -28,8 +28,11 @@ PluploadAssets::register($this);
     {
         padding: 2px;
     }
-    .detail{display: none;}
+    /*.detail{display: none;}*/
     .insnote img{max-width: 100px;}
+    .modal .table > thead > tr > th, .table > tbody > tr > th, .table > tbody > tr > td {
+        padding: 2px;
+    }
 </style>
 
 
@@ -215,12 +218,25 @@ PluploadAssets::register($this);
 									<div class="panel panel-default">
 									  <div class="panel-heading">修改碑文内容</div>
 									  <div class="panel-body btn-group-vertical">
-									    <button type="button" class="btn btn-default" id="edit_front"
-                                                data-toggle="modal" data-target="#ins_front">
+									    <button type="button" class="btn btn-default"
+                                                id="edit_front"
+                                                data-toggle="modal"
+                                                data-target="#ins_front"
+                                                data-keyboard=false
+                                                data-backdrop="static"
+                                        >
 										  修改正面
 										</button>
-										<button type="button" class="btn btn-default" id="edit_back"
-                                                data-toggle="modal" data-target="#ins_back">
+
+
+
+										<button type="button" class="btn btn-default"
+                                                id="edit_back"
+                                                data-toggle="modal"
+                                                data-target="#ins_back"
+                                                data-keyboard=false
+                                                data-backdrop="static"
+                                        >
 										  修改背面
 										</button>
 										
@@ -333,7 +349,7 @@ PluploadAssets::register($this);
 				<!-- Button trigger modal -->
 				<!-- Modal -->
 				<div class="modal fade" id="ins_front" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
+				  <div class="modal-dialog modal-lg">
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -343,7 +359,7 @@ PluploadAssets::register($this);
 				        	<div class="panel panel-default">
 							  <div class="panel-heading">公共部分</div>
 							  <div class="panel-body">
-							  	<table class="table">
+							  	<table class="table" style="margin-bottom: 5px;">
 							  		<tr>
 							  			<td>标签一</td>
 							  			<td><input type="text" name="front[born][content]" class="form-control input-sm" value="<?=isset($front['born'][0]['content']) ? $front['born'][0]['content'] : ''?>"></td>
@@ -402,7 +418,7 @@ PluploadAssets::register($this);
 		                                    </a>
 		                                </div>
 									  	<div class="panel-body">
-									  	<table class="table table-noborder detail detail-<?=$key?>">
+									  	<table class="table table-noborder detail detail-<?=$key?>" style="margin-bottom: 0;">
 		                                    <input type="hidden" name="dead[<?=$key?>][name][is_die]"  value="<?=$vo['name']['is_die']?>" />
 									  		<tr>
 									  			<td>称谓</td>
@@ -569,6 +585,9 @@ $(function(){
      });
 
      auto(changed);
+    <?php if ($model->type == 2): ?>
+        auto(true);
+    <?php endif;?>
 
 
     $('.modifyNote').click(function(){
@@ -709,7 +728,7 @@ function getImage(cla){
     var driect = $('.'+cla).attr('rel');
     var tomb_id = $('input[name=tomb_id]').val();
     var data = $('#auto-ins-form').serialize();
-    var url = "<?=Url::toRoute(['/grave/home/process/sel', 'tomb_id'=>$get['tomb_id']])?>";
+    var url = "<?=Url::toRoute(['/grave/home/ins/sel', 'tomb_id'=>$get['tomb_id']])?>";
 
     if (url.indexOf('?') >= 0) {
     	url += '&case_id=' + case_id;
@@ -737,7 +756,7 @@ function getPrice($type){
 	var front_case = $('.front_selected').attr('case_id');
 	var back_case = $('.back_selected').attr('case_id');
 
-    var url = "<?=Url::toRoute(['/grave/home/process/price', 'tomb_id'=>$get['tomb_id']])?>";
+    var url = "<?=Url::toRoute(['/grave/home/ins/price', 'tomb_id'=>$get['tomb_id']])?>";
     var data = $('#auto-ins-form').serialize();
     var date = +new Date();
 
