@@ -76,8 +76,8 @@ AdminAsset::register($this);
                 <div class="navbar-header pull-left">
                     <!-- #section:basics/navbar.layout.brand -->
                     <a href="#" class="navbar-brand">
+                        业务办理流程
                         <small>
-                            <i class="fa fa-leaf"></i>
                             <?=Html::encode($this->title)?>
                         </small>
                     </a>
