@@ -3,7 +3,7 @@
 namespace app\modules\grave\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%grave_ins_log}}".
  *
@@ -20,6 +20,10 @@ use Yii;
  */
 class InsLog extends \app\core\db\ActiveRecord
 {
+
+    const ACTION_CONFIRM = 'confirm';
+    const ACTION_TASK = 'task';
+    const ACTION_PAY = 'pay';
     /**
      * @inheritdoc
      */
@@ -28,13 +32,21 @@ class InsLog extends \app\core\db\ActiveRecord
         return '{{%grave_ins_log}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
+    }
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['ins_id', 'op_id', 'tomb_id', 'updated_at', 'created_at'], 'required'],
+            [['ins_id', 'op_id', 'tomb_id'], 'required'],
             [['ins_id', 'op_id', 'tomb_id', 'status', 'updated_at', 'created_at'], 'integer'],
             [['content'], 'string'],
             [['action'], 'string', 'max' => 100],
@@ -59,5 +71,21 @@ class InsLog extends \app\core\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_at' => 'Created At',
         ];
+    }
+
+    public static function log($ins,$user_id, $action,$front=null, $back=null)
+    {
+
+        $model = new self;
+
+        $model->ins_id = $ins->id;
+        $model->op_id = $user_id;
+        $model->tomb_id = $ins->tomb_id;
+        $model->action = $action;
+        $model->img = json_encode(['front'=>$front, 'back'=>$back]);
+        $model->content = $ins->content;
+
+        return $model->save();
+
     }
 }

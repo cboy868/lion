@@ -31,6 +31,9 @@ PluploadAssets::register($this);
     }
     /*.detail{display: none;}*/
     .insnote img{max-width: 100px;}
+    .blank{
+        margin-width:20px;
+    }
 </style>
 
 
@@ -67,20 +70,20 @@ PluploadAssets::register($this);
             </div>
             <!-- Nav tabs -->
 
+            <?php if (!$model->is_confirm):?>
+                <ul class="nav nav-tabs col-xs-12">
+                    <li class="sel-type" rel="3">
+                        <a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
+                    </li>
+                    <li class="sel-type" rel="1">
+                        <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
+                    </li>
+                    <li class="active sel-type" rel="1">
+                        <a href="<?=Url::current(['type'=>2])?>">手写碑文</a>
+                    </li>
 
-            <ul class="nav nav-tabs col-xs-12">
-                <li class="sel-type" rel="3">
-                    <a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
-                </li>
-                <li class="sel-type" rel="1">
-                    <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
-                </li>
-                <li class="active sel-type" rel="1">
-                    <a href="<?=Url::current(['type'=>2])?>">手写碑文</a>
-                </li>
-
-
-            </ul>
+                </ul>
+            <?php endif;?>
 
             <?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'form-horizontal']]); ?>
             <div class="row">
@@ -89,19 +92,19 @@ PluploadAssets::register($this);
 
                     <div class="panel panel-default">
                         <div class="panel-heading">&nbsp;
-                            <span class="">
-                                <a  href="javascript:;" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#select-ins">
+                            <span class="blank">
+                                <a  href="javascript:;" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#select-ins">
                                     选择碑文样式
                                 </a>
                             </span>
                             <?php if(!$model['is_stand']):?>
-                                <span class="">繁体简体
+                                <span class="blank">繁体简体
                                     <select name="is_tc" id="is_tc">
                                         <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
                                         <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
                                     </select>
                                 </span>
-                                <span class="">字体
+                                <span class="blank">字体
                                     <select name="font_style" id="font_style">
                                         <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
                                         <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
@@ -182,7 +185,7 @@ PluploadAssets::register($this);
                                                             data-keyboard=false
                                                             data-backdrop="static"
                                                     >
-                                                        修改碑文
+                                                        修改内容
                                                     </button>
 
                                                     <button type="button" class="btn btn-default"
@@ -216,7 +219,7 @@ PluploadAssets::register($this);
                                                             data-keyboard=false
                                                             data-backdrop="static"
                                                     >
-                                                        修改碑文
+                                                        修改内容
                                                     </button>&nbsp;
                                                     <button type="button" class="btn btn-default"
                                                             data-toggle="modal"
@@ -265,7 +268,7 @@ PluploadAssets::register($this);
 
                             ?>
                             <div class="col-xs-6">
-                                <?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%', 'class'=>'paint']) ?>
+                                <?= $form->field($model, 'paint')->dropDownList(Ins::paint(), ['style'=>'width:70%;padding: 6px 2px;', 'class'=>'paint']) ?>
                                 <?php //echo $form->field($model, 'new_font_num')->textInput(['style'=>'width:70%', 'id'=>'letter_num'])->label('总字数') ?>
                                 <?= $form->field($model, 'new_big_num')->textInput(['style'=>'width:70%', 'id'=>'big_new'])->label('大字') ?>
                                 <?= $form->field($model, 'new_small_num')->textInput(['style'=>'width:70%', 'id'=>'small_new'])->label('小字') ?>
@@ -642,7 +645,11 @@ PluploadAssets::register($this);
                     <div class="form-group">
                         <div class="col-sm-12" style="text-align:center;">
                             <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
-                            <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg  save-ins', 'style'=>'padding: 10px 36px']) ?>
+                            <?php if ($model->is_confirm): ?>
+                                <span class="btn btn-default btn-lg" type="button">碑文已确认，不可修改</span>
+                            <?php else:?>
+                                <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg  save-ins', 'style'=>'padding: 10px 36px']) ?>
+                            <?php endif;?>
                             <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>下一步</a>
                         </div>
                     </div>

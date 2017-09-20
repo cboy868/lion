@@ -79,9 +79,9 @@ class Info extends \app\core\models\Category
         return ArrayHelper::map($infos, 'id', 'name');
     }
 
-    public function getTimes()
+    public static function getTimes($time)
     {
-        $arr = explode(',', $this->msg_time);
+        $arr = explode(',', $time);
 
         $result = '';
         foreach ($arr as $k => $v) {
@@ -223,6 +223,7 @@ class Info extends \app\core\models\Category
                 }
 
                 $model->save();
+                $model->taskMsg();
                 unset($model);
             }
         }
@@ -247,4 +248,6 @@ class Info extends \app\core\models\Category
 
         return str_replace($replace['search'], $replace['replace'], $content);
     }
+
+
 }

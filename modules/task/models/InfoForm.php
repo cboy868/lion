@@ -33,6 +33,8 @@ class InfoForm extends Model
 
     public $msg_time;
 
+    public $task_time;
+
     public $pid;
     /**
      * @inheritdoc
@@ -44,7 +46,7 @@ class InfoForm extends Model
             [['trigger'], 'integer'],
             [['name', 'user', 'pid'], 'required'],
             [['name'], 'string', 'max' => 200],
-            [['user', 'default', 'msg_type', 'trigger', 'msg_time', 'pid'], 'safe'],
+            [['user', 'default', 'msg_type', 'trigger', 'msg_time', 'task_time', 'pid'], 'safe'],
         ];
     }
 
@@ -58,10 +60,13 @@ class InfoForm extends Model
             'name' => '任务名',
             'intro' => '介绍',
             'msg' => '消息内容',
+            'msg_time' => '提醒时间',
+            'task_time'=> '任务时间',
             'created_at' => '添加时间',
             'user' => '任务接收人',
             'default' => '直接处理人',
-            'pid' => '项目'
+            'pid' => '项目',
+            'msg_type' => '消息提醒类型'
         ];
     }
 
@@ -98,6 +103,7 @@ class InfoForm extends Model
             $info->intro = $this->intro;
             $info->msg_type = implode(',', $this->msg_type);
             $info->msg_time = $this->msg_time;
+            $info->task_time = $this->task_time;
             $info->trigger = $this->trigger;
 
             $connection = Yii::$app->db;
@@ -140,7 +146,6 @@ class InfoForm extends Model
             return $info;
         }
 
-
     }
 
 
@@ -156,6 +161,7 @@ class InfoForm extends Model
             $info->pid = $this->pid;
             $info->msg_type = implode(',', $this->msg_type);
             $info->msg_time = $this->msg_time;
+            $info->task_time = $this->task_time;
             $info->trigger = $this->trigger;
 
 
@@ -164,7 +170,6 @@ class InfoForm extends Model
             try {
 
                 $info->save();
-
 
                 foreach ($this->user as $u) {
                     $data[$u] = [

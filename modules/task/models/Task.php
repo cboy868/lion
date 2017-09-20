@@ -2,6 +2,8 @@
 
 namespace app\modules\task\models;
 
+use app\modules\grave\models\Ins;
+use app\modules\sys\models\Msg;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\user\models\User as SysUser;
@@ -12,6 +14,7 @@ use app\modules\order\models\Order;
 
 use app\modules\shop\models\Goods as ShopGoods;
 use app\modules\grave\models\Tomb;
+use yii\db\Exception;
 
 /**
  * This is the model class for table "{{%task}}".
@@ -277,6 +280,21 @@ class Task extends \app\core\db\ActiveRecord
     {
         $this->status = self::STATUS_FINISH;
         $this->finish = date('Y-m-d H:i:s');
+
+        $outerTransaction = Yii::$app->db->beginTransaction();
+        try {
+            $this->save();
+
+            if ($this->cate_id == 10) {
+                Ins::afterTask($this->res_id, $this->op_id);
+            }
+
+            $outerTransaction->commit();
+        } catch (\Exception $e) {
+
+            $outerTransaction->rollBack();
+        }
+
         return $this->save();
     }
 
@@ -299,6 +317,38 @@ class Task extends \app\core\db\ActiveRecord
             return $this->hasOne(Tomb::className(),['id'=>'res_id']);
         }
         return null;
+    }
+
+    public function taskMsg()
+    {
+        $msg = new Msg();
+        $info = $this->info;
+        $msg_time = $info->msg_time;
+
+        $msg_type = $info->msg_type;
+
+        $times = explode(',', trim($msg_time,','));
+        $types = explode(',', trim($msg_type,','));
+
+
+        $msg->user_id =$this->user_id;
+        $msg->msg = $this->content;
+        $msg->res_name = 'task';
+        $msg->res_id = $this->id;
+
+        if ($this->res_name == 'tomb') {
+            $msg->tid = $this->res_id;
+        }
+
+        foreach ($times as $time) {
+            foreach ($types as $type) {
+                $model = clone $msg;
+                $model->msg_time = date('Y-m-d H:i:s', strtotime('+'.$time.' day',strtotime($this->pre_finish)));
+                $model->msg_type = $type;
+                $model->save();
+            }
+        }
+
     }
 
 }

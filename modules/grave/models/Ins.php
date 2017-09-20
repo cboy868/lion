@@ -90,6 +90,31 @@ class Ins extends \app\core\db\ActiveRecord
         $this->confirm_by = $uid;
         $this->confirm_date = date('Y-m-d H:i:s');
         $this->is_confirm = self::CONFIRM_YES;
+        $this->version++;
+
+        //备份图片
+        $front = $this->getFront();
+        $back = $this->getBack();
+
+        $frontFile = Yii::getAlias('@app/web' . $front);
+        $backFile = Yii::getAlias('@app/web' . $back);
+
+        $attach = '/' . $uid . '_' . $this->version. '_'. date('YmdHis').'_';
+        if (file_exists($frontFile)) {
+            //确认人_版本_日期_原名
+            $frontDis = dirname($frontFile) . $attach . basename($frontFile);
+            @copy($frontFile, $frontDis);
+            $front = dirname(Yii::getAlias('@web' . $front)).$attach.basename($front);
+        }
+
+        if (file_exists($backFile)) {
+            $backDis = dirname($backFile) . $attach . basename($backFile);
+            @copy($backFile, $backDis);
+            $back = dirname(Yii::getAlias('@web' . $back)).$attach.basename($back);
+        }
+
+        InsLog::log($this,$uid,InsLog::ACTION_CONFIRM, $front, $back);
+
         return $this->save();
     }
 
@@ -361,7 +386,22 @@ class Ins extends \app\core\db\ActiveRecord
         $model->confirm_by = 0;
 
         return $model->save();
+    }
 
+
+    public static function afterTask($tomb_id, $uid)
+    {
+        $model = self::find()->where(['tomb_id'=>$tomb_id])->one();
+
+        $model->is_stand = 1;
+        $model->is_confirm = 0;
+        $model->confirm_date = null;
+        $model->confirm_by = 0;
+        $model->finish_at = date('Y-m-d H:i:s');
+
+        InsLog::log($model,$uid,InsLog::ACTION_TASK);
+
+        return $model->save();
     }
 
 

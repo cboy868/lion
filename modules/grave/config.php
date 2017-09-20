@@ -165,7 +165,7 @@ return [
             'position' =>  [
                 'front' => '正面',
                 'back' => '背面',
-                'plate' => '盖板'
+//                'plate' => '盖板'
             ],
             'inscribe' => [
                 '儿子'     =>  '孝子率全家叩立',

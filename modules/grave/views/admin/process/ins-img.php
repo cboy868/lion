@@ -64,18 +64,20 @@ PluploadAssets::register($this);
         <!-- Nav tabs -->
 
 
-		<ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
-			<li role="presentation" class="active sel-type" rel="3">
-			  	<a href="<?=Url::current(['type'=>0])?>">上传图片</a>
-			</li>
-		  <li role="presentation" class="sel-type" rel="1">
-		  		<a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
-		  </li>
-            <li class="sel-type" rel="1">
-                <a href="<?=Url::current(['type'=>2])?>">手写碑文</a>
-            </li>
-		  
-		</ul>
+            <?php if (!$model->is_confirm):?>
+                <ul class="nav nav-tabs col-xs-6" role="tablist" id="tabs">
+                    <li role="presentation" class="active sel-type" rel="3">
+                        <a href="<?=Url::current(['type'=>0])?>">上传图片</a>
+                    </li>
+                  <li role="presentation" class="sel-type" rel="1">
+                        <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
+                  </li>
+                    <li class="sel-type" rel="1">
+                        <a href="<?=Url::current(['type'=>2])?>">手写碑文</a>
+                    </li>
+
+                </ul>
+            <?php endif;?>
 
 		<!-- Tab panes -->
 			<div class="row" role="">
@@ -90,7 +92,7 @@ PluploadAssets::register($this);
 					  					<?php foreach ($pos as $k => $v): ?>
 							                <div class="col-xs-4 address-index">
 							                    <div class="panel panel-info">
-							                        <div class="dHandler panel-heading"><?=$pos[$k]?>信息 
+							                        <div class="dHandler panel-heading"><?=$pos[$k]?>信息
 							                            <button type="button" class="delit close" style="display:none;">
 							                               <span class="text-danger" aria-hidden="true"> <i class="fa fa-times"></i> </span>
 							                               <span class="sr-only">Close</span>
@@ -183,7 +185,11 @@ PluploadAssets::register($this);
 		         <div class="form-group">
 		            <div class="col-sm-12" style="text-align:center;">   
 		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>上一步</a>
-		                <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>
+                        <?php if ($model->is_confirm): ?>
+                            <span class="btn btn-default btn-lg" type="button">碑文已确认，不可修改</span>
+                        <?php else:?>
+                            <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>
+                        <?php endif;?>
 		                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>下一步</a>
 		            </div>
 		        </div>

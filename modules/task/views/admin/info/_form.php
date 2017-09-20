@@ -3,7 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\ArrayHelper;
 
-use app\core\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 use app\modules\user\models\User;
 use app\modules\task\models\Info;
 
@@ -42,104 +42,47 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <table class="table">
-        
-        <tr>
-            <th width="100px">
-                标题
-            </th>
-            <td>
-                <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(false) ?>
-            </td>
-        </tr>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]);?>
 
-        <?php if($model->pid):?>
-            <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
-        <?php else:?>
+    <?php if($model->pid):?>
+        <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
+    <?php else:?>
+        <?= $form->field($model, 'pid')->dropDownList(Info::getInfos(),['prompt'=>'请选择任务项目']) ?>
+    <?php endif;?>
 
-        <tr>
-            <th>
-                项目选择
-            </th>
-            <td>
-                <?= $form->field($model, 'pid')->dropDownList(Info::getInfos(),['prompt'=>'请选择任务项目'])->label(false) ?>
-            </td>
-        </tr>
-        <?php endif;?>
+    <?= $form->field($model, 'msg_type')->checkBoxList(Info::msgType())->hint('消息提醒类型，可多选') ?>
 
-        <tr>
-            <th>
-                提醒方式
-            </th>
-            <td>
-                <?= $form->field($model, 'msg_type')->checkBoxList(Info::msgType())->label(false)->hint('消息提醒类型，可多选') ?>
-            </td>
-        </tr>
-        <?php if($model->pid):?>
-        <tr>
-            <th>
-                提醒时间
-            </th>
-            <td>
-                <?= $form->field($model, 'msg_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])
-                    ->label(false)
-                    ->hint('<span style="color:green">atonce 马上, 0当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔;<br>如果值大于0，则为延后提醒,1表示延后1天，2个示延后2天,以此类推，任务完成时间相应延后到与消息时间相同</span>') ?>
-            </td>
-        </tr>
-        <?php endif;?>
-        <tr>
-            <th>
-                描述
-            </th>
-            <td>
-                <?= $form->field($model, 'intro')->textarea(['rows' => 6])->label(false) ?>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                消息内容 
-            </th>
-            <td>
-                <?php 
-                    $replace = $this->context->module->params['shortcut'];
-                 ?>
+    <?php if($model->pid):?>
+    <?= $form->field($model, 'task_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])
+        ->hint('<span style="color:green">atonce 马上, 0当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔;<br>
+如果值大于0，则为延后提醒,1表示延后1天，2个示延后2天,以此类推。</span>') ?>
 
-                 <div class="shortcut">插入参数
+    <?= $form->field($model, 'msg_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])
+        ->hint('<span style="color:green">atonce 马上, 0任务当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔;</span>') ?>
 
-                 <?php foreach ($replace as $k => $v): ?>
+    <?php endif;?>
 
-                     <a href="#" rel="<?=$k?>"><?=$v?></a>
-                 <?php endforeach ?>
-                </div>
-                <?= $form->field($model, 'msg')->textarea(['rows' => 6, 'class'=>'ctent form-control'])->label(false) ?>
-            </td>
-        </tr>
+    <?= $form->field($model, 'msg')->textarea(['rows' => 6, 'class'=>'ctent form-control']) ?>
+    <div class="shortcut">插入参数
+        <?php
+        $replace = $this->context->module->params['shortcut'];
+        ?>
+        <?php foreach ($replace as $k => $v): ?>
+            <a href="#" rel="<?=$k?>"><?=$v?></a>
+        <?php endforeach ?>
+    </div>
+    <?= $form->field($model, 'intro')->textarea(['rows' => 6]); ?>
 
-        <tr>
-            <th>
-                任务接收人
-            </th>
-            <td>
-                <?= $form->field($model, 'user')->checkBoxList(ArrayHelper::map($users, 'id', 'username'))->label(false) ?>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                任务处理人
-            </th>
-            <td>    
-                <?php if (isset($sels)): ?>
-                    <?= $form->field($model, 'default')->radioList($sels)->label(false) ?>
-                <?php else: ?>
-                    <?= $form->field($model, 'default')->radioList([])->label(false) ?>
-                <?php endif ?>
-                
-            </td>
-        </tr>
+    <?= $form->field($model, 'user')->checkBoxList(ArrayHelper::map($users, 'id', 'username'))?>
 
-    </table>
+    <?php if (isset($sels)): ?>
+        <?= $form->field($model, 'default')->radioList($sels) ?>
+    <?php else: ?>
+        <?= $form->field($model, 'default')->radioList([]) ?>
+    <?php endif ?>
 
-	<div class="form-group">
+
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
         </div>

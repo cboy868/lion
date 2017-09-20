@@ -8,7 +8,7 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = ' ' . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => '任务设置', 'url' => ['index', 'pid'=>$model->pid]];
-$this->params['breadcrumbs'][] = '修改';
+$this->params['breadcrumbs'][] = '修改任务设置';
 ?>
 
 <div class="page-content">

@@ -4,6 +4,7 @@ namespace app\modules\task\controllers\admin;
 
 use app\modules\order\models\OrderRel;
 use app\modules\task\models\ProForm;
+use app\modules\task\models\Task;
 use Yii;
 use app\modules\task\models\Info;
 use app\modules\task\models\InfoForm;
@@ -62,7 +63,6 @@ class InfoController extends BackController
      */
     public function actionProject()
     {
-
 //        $info = Info::findOne(14);
 //        $order_rel = OrderRel::findOne(27);
 //        $info->createTask($order_rel, 'goods', $order_rel->tid);
@@ -100,7 +100,6 @@ class InfoController extends BackController
         $request = Yii::$app->request;
         $model = new InfoForm();
         if ($model->load($request->post())) {
-
             $info =  $model->create();
             return $this->redirect(['index', 'pid' => $info->pid]);
         } else {
@@ -221,6 +220,7 @@ class InfoController extends BackController
         $form->msg = $model->msg;
         $form->default = $model->default->user_id;
         $form->msg_time = $model->msg_time;
+        $form->task_time = $model->task_time;
         $form->msg_type = explode(',', $model->msg_type);
         $form->trigger = $model->trigger;
         $form->pid = $model->pid;

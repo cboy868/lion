@@ -11,8 +11,7 @@ use app\core\helpers\ArrayHelper;
 use app\modules\shop\models\Category;
 
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Info */
+$this->params['current_menu'] = 'task/info/project';
 
 $this->title = '配置任务的触发条件';
 $this->params['breadcrumbs'][] = ['label' => '任务项目管理', 'url' => ['project']];

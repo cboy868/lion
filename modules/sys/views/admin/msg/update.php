@@ -1,10 +1,13 @@
 <?php
 
 use app\core\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
+/* @var $this yii\web\View */
+/* @var $model app\modules\sys\models\Msg */
 
 $this->title = ' ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Sends', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Msgs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
@@ -21,7 +24,7 @@ $this->params['breadcrumbs'][] = 'Update';
 		</div><!-- /.page-header -->
 
 		<div class="row">
-			<div class="col-xs-12 send-update">
+			<div class="col-xs-12 msg-update">
 				 <?= $this->render('_form', [
 				        'model' => $model,
 				    ]) ?>

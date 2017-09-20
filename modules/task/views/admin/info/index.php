@@ -6,6 +6,8 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use app\modules\task\models\Info;
 
+$this->params['current_menu'] = 'task/info/project';
+
 $this->title = '任务设置';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -42,7 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th>备注</th>
                         <th>消息内容</th>
                         <th>提醒方式</th>
-                        <th>提醒时间</th>
+                        <th>任务时间</th>
+                        <th>消息时间</th>
                         <th width="120">创建时间</th>
                         <th width="120"></th>
                     </tr>
@@ -56,9 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><?=$v->intro?></td>
                             <td><?=$v->msg?></td>
                             <td><?=$v->getMsgType()?></td>
-                            <td><?=$v->getTimes()?></td>
+                            <td><?=Info::getTimes($v->task_time)?></td>
+                            <td><?=Info::getTimes($v->msg_time)?></td>
                             <td><?=date('Y/m/d',$v['created_at'])?></td>
-
 
                             <td width="100">
                                 <?php if (Yii::$app->user->can('task/info/update')):?>

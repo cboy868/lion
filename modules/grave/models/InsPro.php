@@ -149,13 +149,13 @@ class InsPro extends Ins
 
         if ($post['front_img']) {
             $front_img = Yii::getAlias('@app/web' . substr($post['front_img'], 0, strpos($post['front_img'], '?')));
-            $front_img_info = Upload::upload($front_img, $path.'/'.$this->tomb_id.'front.png', 'ins', $this->id);
+            $front_img_info = Upload::upload($front_img, $path.'/'.$this->tomb_id.'_front.png', 'ins', $this->id);
             $img['front'] =  $front_img_info['mid'];
         }
 
         if ($post['back_img']) {
             $back_img = Yii::getAlias('@app/web' . substr($post['back_img'], 0, strpos($post['back_img'], '?')));
-            $back_img_info = Upload::upload($back_img, $path.'/'.$this->tomb_id.'back.png', 'ins', $this->id);
+            $back_img_info = Upload::upload($back_img, $path.'/'.$this->tomb_id.'_back.png', 'ins', $this->id);
             $img['back'] = $back_img_info['mid'];
         }
 
@@ -164,7 +164,9 @@ class InsPro extends Ins
         $this->changed = 0;
         $this->op_id = Yii::$app->user->id;
 
+
         return $this->save();
+
     }
 
     public function imgSave()

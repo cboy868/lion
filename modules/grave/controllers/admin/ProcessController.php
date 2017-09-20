@@ -270,7 +270,6 @@ class ProcessController extends BackController
     protected function ins()
     {
         $tomb = Process::tomb();
-//        $model = Process::insProcess();
         $model = Process::insPro();
         $deads = $model->deads();
 
@@ -284,7 +283,7 @@ class ProcessController extends BackController
 
         $req = Yii::$app->request;
 
-        $type = $req->get('type') ? $req->get('type') : $model->type;
+        $type = $req->get('type') !== null ? $req->get('type') : $model->type;
 //        $model->type = isset($type) ? $type : $model->type;
 
 
