@@ -5,6 +5,7 @@ use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\task\models\Info */
+$this->params['current_menu'] = 'task/info/project';
 
 $this->title = ' ' . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => '任务消息管理', 'url' => ['project']];

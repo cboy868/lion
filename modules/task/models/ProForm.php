@@ -45,7 +45,8 @@ class ProForm extends Model
         return [
             'name' => '任务名',
             'intro' => '介绍',
-            'pid' => '项目'
+            'pid' => '项目',
+            'trigger' => '触发方式'
         ];
     }
 

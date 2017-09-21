@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\modules\task\models\Task;
 use Yii;
 use app\modules\shop\models\Goods;
 use app\modules\grave\models\Tomb;
@@ -198,7 +199,6 @@ class Portrait extends \app\core\db\ActiveRecord
 
         }
 
-
         return true;
     }
 
@@ -249,6 +249,8 @@ class Portrait extends \app\core\db\ActiveRecord
         $this->status = self::STATUS_MAKE;
 
         if ($this->save()){
+
+            Task::createConfirm($this->order_rel_id, 'portrait', $this->id);
             return true;
         } else {
             return false;

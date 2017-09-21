@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\task\models\Info */
+$this->params['current_menu'] = 'task/info/project';
 
 $this->title = '添加任务设置';
 $this->params['breadcrumbs'][] = ['label' => '任务设置', 'url' => ['index', 'pid'=>Yii::$app->request->get('pid')]];

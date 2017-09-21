@@ -137,11 +137,26 @@ class Task extends \app\core\db\ActiveRecord
         return true;
     }
 
+    /**
+     * @param $order_id
+     * @param string $res_name
+     * @param int $res_id
+     * @name 支付时的任务
+     */
     public static function create($order_id, $res_name="common", $res_id=0)
     {
         self::createGoodsTask($order_id, $res_name, $res_id);
         self::createCategoryTask($order_id, $res_name, $res_id);
         self::createSpecialTask($order_id, $res_name, $res_id);
+    }
+
+    /**
+     * @name 确认时的任务
+     */
+    public static function createConfirm($order_rel_id, $res_name="common", $res_id=0)
+    {
+        self::createConfirmGoodsTask($order_rel_id, $res_name, $res_id);
+        self::createConfirmCategoryTask($order_rel_id, $res_name, $res_id);
     }
 
     /**
@@ -166,6 +181,56 @@ class Task extends \app\core\db\ActiveRecord
 
         }
 
+    }
+
+
+
+    public static function createConfirmGoodsTask($order_rel_id, $res_name="common", $res_id=0)
+    {
+
+        $rel = OrderRel::findOne($order_rel_id);
+
+        if ($rel->type == \app\modules\grave\models\OrderRel::TYPE_TOMB) {
+            return;
+        }
+
+        if ($rel->type == \app\modules\order\models\OrderRel::TYPE_SPECIAL_GOODS) {
+            return;
+        }
+
+        $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$rel->goods_id])->all();
+
+        if ($goods_rels) {
+            foreach ($goods_rels as $v) {
+                $info = $v->info;
+                if ($info->trigger != Info::TRIGGER_CONFIRM) continue;
+                $info->createTask($rel, $res_name, $res_id);
+            }
+        }
+    }
+
+    public static function createConfirmCategoryTask($order_rel_id, $res_name="common", $res_id=0)
+    {
+
+        $rel = OrderRel::findOne($order_rel_id);
+
+        if ($rel->type == \app\modules\grave\models\OrderRel::TYPE_TOMB) {
+            return;
+        }
+
+        if ($rel->type == \app\modules\order\models\OrderRel::TYPE_SPECIAL_GOODS) {
+            return;
+        }
+
+        $cate_rels = Goods::find()->where(['res_name'=>'category', 'res_id'=>$rel->category_id])->all();
+
+        if ($cate_rels) {
+            foreach ($cate_rels as $k => $v){
+                $info = $v->info;
+                if ($info->trigger != Info::TRIGGER_CONFIRM) continue;
+                $info->createTask($rel, $res_name, $res_id);
+            }
+        }
     }
 
     /**
@@ -195,22 +260,30 @@ class Task extends \app\core\db\ActiveRecord
         }
 
         $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$goods_ids['res_id']])
-            ->indexBy('res_id')->all();
+            ->all();
 
         if ($goods_rels) {
             foreach ($goods_ids['model'] as $k => $rel) {
-
-                if (!isset($goods_rels[$rel->goods_id])) {
-                    continue;
+                foreach ($goods_rels as $v) {
+                    $info = $v->info;
+                    if ($info->trigger != Info::TRIGGER_PAY) continue;
+                    $info->createTask($rel, $res_name, $res_id);
                 }
 
-                $goods = $goods_rels[$rel->goods_id];
-                $info = $goods->info;
+//                if (!isset($goods_rels[$rel->goods_id])) {
+//                    continue;
+//                }
 
-                $info->createTask($rel, $res_name, $res_id);
+//                $goods = $goods_rels[$rel->goods_id];
+//                $info = $goods->info;
+//
+//                $info->createTask($rel, $res_name, $res_id);
             }
         }
     }
+
+
+
 
     /**
      * @name 按分类添加任务
@@ -242,38 +315,45 @@ class Task extends \app\core\db\ActiveRecord
         if ($cate_rels) {
             foreach ($category_ids['model'] as $k => $rel) {
 
-                if (!isset($cate_rels[$rel->category_id])) {
-                    continue;
+                foreach ($cate_rels as $v) {
+                    $info = $v->info;
+                    if ($info->trigger != Info::TRIGGER_PAY) continue;
+                    $info->createTask($rel, $res_name, $res_id);
                 }
-                $cate = $cate_rels[$rel->category_id];
 
-                $info = $cate->info;
-                $info->createTask($rel, $res_name, $res_id);
+//                if (!isset($cate_rels[$rel->category_id])) {
+//                    continue;
+//                }
+//                $cate = $cate_rels[$rel->category_id];
+//
+//                $info = $cate->info;
+//
+//                $info->createTask($rel, $res_name, $res_id);
 
             }
         }
     }
 
-    public static function replace($rel, $content, $res_name='common', $res_id=0)
-    {
-
-        $replace = [
-            'search' => [
-                '{pre_finish}','{rel_note}', '{order_id}' , '{goods}'
-            ],
-            'replace' => [
-                $rel->use_time, $rel->note, $rel->order_id, $rel->title
-            ]
-        ];
-
-        if ($res_name == 'tomb') {
-            $tomb = Tomb::findOne($res_id);
-            $replace['search'][] = '{tomb_no}';
-            $replace['replace'][] = $tomb->tomb_no;
-        }
-
-        return str_replace($replace['search'], $replace['replace'], $content);
-    }
+//    public static function replace($rel, $content, $res_name='common', $res_id=0)
+//    {
+//
+//        $replace = [
+//            'search' => [
+//                '{pre_finish}','{rel_note}', '{order_id}' , '{goods}'
+//            ],
+//            'replace' => [
+//                $rel->use_time, $rel->note, $rel->order_id, $rel->title
+//            ]
+//        ];
+//
+//        if ($res_name == 'tomb') {
+//            $tomb = Tomb::findOne($res_id);
+//            $replace['search'][] = '{tomb_no}';
+//            $replace['replace'][] = $tomb->tomb_no;
+//        }
+//
+//        return str_replace($replace['search'], $replace['replace'], $content);
+//    }
 
 
     public function finish()
@@ -340,10 +420,14 @@ class Task extends \app\core\db\ActiveRecord
             $msg->tid = $this->res_id;
         }
 
-        foreach ($times as $time) {
-            foreach ($types as $type) {
+        foreach ($types as $type) {
+            foreach ($times as $time) {
                 $model = clone $msg;
-                $model->msg_time = date('Y-m-d H:i:s', strtotime('+'.$time.' day',strtotime($this->pre_finish)));
+                if ($time == 'atonce') {
+                    $model->msg_time = date('Y-m-d H:i:s');
+                } else if (is_numeric($time)) {
+                    $model->msg_time = date('Y-m-d H:i:s', strtotime('+'.$time.' day',strtotime($this->pre_finish)));
+                }
                 $model->msg_type = $type;
                 $model->save();
             }

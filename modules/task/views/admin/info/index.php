@@ -5,10 +5,11 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use app\modules\task\models\Info;
-
+use yii\bootstrap\Modal;
 $this->params['current_menu'] = 'task/info/project';
 
 $this->title = '任务设置';
+$this->params['breadcrumbs'][] = ['label' => '任务项目', 'url' => ['project']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -20,7 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <small>
                     <?php if (Yii::$app->user->can('task/info/create')):?>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create', 'pid'=>Yii::$app->request->get('pid')], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增',
+                            ['create', 'pid'=>Yii::$app->request->get('pid')], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                     <?php endif;?>
                 </small>
 
@@ -30,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </h1>
         </div><!-- /.page-header -->
+
+
 
         <div class="row">
             <div class="col-xs-12 info-index">

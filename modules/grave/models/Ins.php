@@ -3,6 +3,7 @@
 namespace app\modules\grave\models;
 
 use app\modules\shop\models\Goods;
+use app\modules\task\models\Task;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
@@ -115,6 +116,8 @@ class Ins extends \app\core\db\ActiveRecord
 
         InsLog::log($this,$uid,InsLog::ACTION_CONFIRM, $front, $back);
 
+        //todo:还要记得发任务
+        Task::createConfirm($this->order_rel_id, 'ins', $this->id);
         return $this->save();
     }
 

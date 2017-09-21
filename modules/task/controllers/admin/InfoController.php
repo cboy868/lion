@@ -126,7 +126,7 @@ class InfoController extends BackController
         } else {
             $model->trigger = Info::TRIGGER_PAY;
 
-            return $this->render('create-pro', [
+            return $this->renderAjax('create-pro', [
                 'model' => $model,
             ]);
         }
@@ -261,7 +261,7 @@ class InfoController extends BackController
         if ($form->load(Yii::$app->request->post()) && $form->update()) {
             return $this->redirect(['project']);
         } else {
-            return $this->render('update-pro', [
+            return $this->renderAjax('update-pro', [
                 'model' => $form,
             ]);
         }

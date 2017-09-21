@@ -5,6 +5,7 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use app\modules\task\models\Info;
+use yii\bootstrap\Modal;
 
 $this->title = '任务项目管理';
 $this->params['breadcrumbs'][] = $this->title;
@@ -18,11 +19,40 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <small>
                     <?php if (Yii::$app->user->can('task/info/create-pro')):?>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create-pro'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                        <a href="<?=Url::to(['create-pro'])?>" class='btn btn-default btn-sm modalAddButton'
+                           title="添加分类"
+                           data-loading-text="页面加载中, 请稍后..."
+                           onclick="return false"><i class="fa fa-plus fa-2x"></i> 添加项目</a>
                     <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
+        <?php
+        Modal::begin([
+            'header' => '添加',
+            'id' => 'modalAdd',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false]
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="modalContent"></div>';
+
+        Modal::end();
+        ?>
+
+        <?php
+        Modal::begin([
+            'header' => '编辑',
+            'id' => 'modalEdit',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false]
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="editContent"></div>';
+
+        Modal::end();
+        ?>
 
         <div class="row">
             <div class="col-xs-12 info-index">
@@ -56,7 +86,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <?php if (Yii::$app->user->can('task/info/update')):?>
                                     <?= Html::a('编辑', ['update-pro', 'id' => $v['id']],
-                                        ['class' => 'btn btn-info btn-xs', 'title'=>'编辑']
+                                        [
+                                            'class' => 'btn btn-info btn-xs modalEditButton',
+                                            'title'=>'编辑',
+                                            'data-loading-text'=>"页面加载中, 请稍后...",
+                                            'onclick'=>"return false"
+                                        ]
                                     ) ?>
                                 <?php endif;?>
 

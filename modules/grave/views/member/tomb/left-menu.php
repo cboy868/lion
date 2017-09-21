@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 
 $id = $model->id;
-Yii::$app->params['cur_nav'] = 'memorial_index';
+Yii::$app->params['cur_nav'] = 'tomb_index';
 ?>
 <div class="col-xs-2">
     <div>

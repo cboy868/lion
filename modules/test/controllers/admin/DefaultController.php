@@ -7,6 +7,7 @@ namespace app\modules\test\controllers\admin;
 use app\core\models\TagRel;
 use app\core\libs\Fpdf;
 use app\modules\shop\models\Sku;
+use app\modules\task\models\Task;
 use app\modules\user\models\UserSearch;
 use yii;
 use kartik\export\ExportMenu;
@@ -14,6 +15,10 @@ class DefaultController extends \app\core\web\BackController
 {
     public function actionIndex()
     {
+
+        Task::createConfirmGoodsTask(107, 'ins', '1');
+
+//        Task::createGoodsTask(26);
 
 
     	// \Yii::$app->mailer->compose('@app/modules/test/views/admin/default/index', ['conaaa' => '测试邮件内容'])
