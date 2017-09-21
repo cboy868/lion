@@ -671,7 +671,7 @@ $(function(){
 	$('body').on('click','.add-line',function(){
 		var obj = $(this).parents('tr');
 		var line_obj = obj.clone();
-		line_obj.find('button').removeClass('add-line').addClass('del-line').html('删 除');
+		//line_obj.find('button').removeClass('add-line').addClass('del-line').html('删 除');
 		line_obj.find('input').val('');
 		$('.back-line').append(line_obj);
 	});

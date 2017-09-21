@@ -9,7 +9,6 @@ use app\core\widgets\GridView;
 $this->title = '使用人管理';
 $this->params['breadcrumbs'][] = $this->title;
 
-
 ?>
 
 <div class="page-content">
@@ -83,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'view' =>Yii::$app->user->can('grave/dead/view'),
                     'delete' =>Yii::$app->user->can('grave/dead/delete'),
                 ],
-                ],
+            ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>
