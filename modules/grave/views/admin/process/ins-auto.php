@@ -546,8 +546,8 @@ $(function(){
          var title = $(this).attr('title');
          $(".artimg").colorbox({
              rel: 'artimg',
-             maxWidth:'600px',
-             maxHeight:'700px',
+             maxWidth:'800px',
+             maxHeight:'800px',
              next:'',
              previous:'',
              close:'',
