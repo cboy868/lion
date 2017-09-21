@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
+\app\assets\ColorBoxAsset::register($this);
 
 $this->title = '碑文信息';
 $this->params['breadcrumbs'][] = ['label' => '墓位信息', 'url' => ['index']];
@@ -66,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <p class="pull-left">
                                     <a href="<?=$ins->getBack()?>" class="artimg">
-                                        <img class="image" title="后碑文" width="180" src="<?=$ins->getFront()?>" alt="...">
+                                        <img class="image" title="后碑文" width="180" src="<?=$ins->getBack()?>" alt="...">
                                     </a>
                                 </p>
                             </div>
@@ -115,6 +116,20 @@ $this->params['breadcrumbs'][] = $this->title;
             if (!confirm('碑文确认后，工作人员将开始制作，请您一定要仔细核对')) {
                 return false;
             }
+        });
+
+        $(".image").click(function(e) {
+            e.preventDefault();
+            var title = $(this).attr('title');
+            $(".artimg").colorbox({
+                rel: 'artimg',
+                maxWidth:'600px',
+                maxHeight:'700px',
+                next:'',
+                previous:'',
+                close:'',
+                current:""
+            });
         });
     })
 <?php $this->endBlock() ?>
