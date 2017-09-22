@@ -13,7 +13,7 @@ class FreeDeadController extends Controller
 
     public function actions() {
         $actions = parent::actions();
-
+        unset($actions['delete'], $actions['create']);
         // 禁用""index,delete" 和 "create" 操作
 //        unset($actions['delete'], $actions['create'], $actions['view']);
 
