@@ -40,7 +40,7 @@ class FreeDead extends \app\core\db\ActiveRecord
         return [
             [['contact_user', 'contact_mobile', 'dead', 'note'], 'required'],
             [['free_id', 'is_confirm', 'op_user', 'status', 'created_at'], 'integer'],
-            [['confirm_at'], 'safe'],
+            [['confirm_at', 'user_id'], 'safe'],
             [['note'], 'string'],
             [['contact_user'], 'string', 'max' => 100],
             [['contact_mobile'], 'string', 'max' => 20],
@@ -78,6 +78,7 @@ class FreeDead extends \app\core\db\ActiveRecord
             'created_at' => '添加时间',
             'confirm_at' => '操作时间',
             'note' => '备注',
+            'user_id' => '办理人账号'
         ];
     }
 
