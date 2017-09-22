@@ -126,7 +126,6 @@ class WechatProUserController extends WechatController
 
         $udata = json_decode($params['udata'], true);
 
-
         $class = $this->modelClass;
 
         $umodel = $class::find()->where(['openid'=>$openid, 'type'=>1])->one();
@@ -140,7 +139,16 @@ class WechatProUserController extends WechatController
             $umodel->headimgurl = $udata['avatarUrl'];
             $umodel->save();
         }
-        return ['umodal'=>$umodel, 'expand'=>['is_staff'=>$umodel->isStaff]];
+
+        $expand = [];
+        if ($umodel->sysUser) {
+            $expand = [
+                'realname' => $umodel->sysUser->addition->real_name,
+                'mobile' => $umodel->sysUser->mobile
+            ];
+        }
+
+        return ['umodal'=>$umodel, 'expand'=>['is_staff'=>$umodel->isStaff]+$expand];
 //        $a = $miniProgram->encryptor->decryptData($data['session_key'], $post['iv'], $post['encryptedData']);
     }
 
