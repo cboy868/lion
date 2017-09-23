@@ -4,6 +4,7 @@ namespace app\modules\order\models;
 
 use app\modules\grave\models\Tomb;
 use app\modules\memorial\models\Remote;
+use app\modules\sys\models\Msg;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\shop\models\Cart;
@@ -83,10 +84,22 @@ class Order extends \app\core\db\ActiveRecord
             if ($this->tid) {
                 \app\modules\grave\models\Tomb::afterPay($this->tid, $this->id);
             }
+
+            Msg::create($this,
+                'order',
+                '您好，您的订单已支付部分，支付时间' . date('Y-m-d H:i'),
+                Msg::TYPE_WECHAT);
         }
 
         //如果支付完成,发任务
         if ($event->progress == self::PRO_PAY || $event->progress == self::PRO_OK) {
+
+
+            Msg::create($this,
+                'order',
+                '您好，您的订单已支付完成，支付时间' . date('Y-m-d H:i'),
+                Msg::TYPE_WECHAT);
+
             if ($this->tid) {
                 \app\modules\grave\models\Tomb::afterPay($this->tid, $this->id);
                 \app\modules\task\models\Task::create($this->id, 'tomb', $this->tid);
@@ -100,7 +113,6 @@ class Order extends \app\core\db\ActiveRecord
                 foreach ($this->rels as $k => $rel) {
                     Remote::create($rel->id);
                 }
-
             }
 
             $gconfig = Yii::$app->params['goods'];

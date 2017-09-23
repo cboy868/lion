@@ -100,4 +100,59 @@ class Msg extends \app\core\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id'=>'user_id']);
     }
+
+    public static function create($obj, $res_name,$msg, $msg_type=self::TYPE_SMS,$msg_time=null)
+    {
+        $model = new self();
+        $method = 'create' . ucfirst($res_name);
+
+        return $model->$method($obj,$msg, $msg_time, $msg_type);
+    }
+    public function createOrder($obj, $msg,$msg_time=null,$msg_type=self::TYPE_SMS)
+    {
+        $this->user_id = $obj->user_id;
+        $this->msg = $msg;
+        $this->msg_type = $msg_type;
+        $this->msg_time = $msg_time ? $msg_time : date('Y-m-d H:i:s');
+        $this->res_name = 'order';
+        $this->res_id = $obj->id;
+        $this->tid = $obj->tid;
+
+        if ($this->save()) {
+            return $this;
+        }
+
+        p($this->getErrors());die;
+        Yii::error($this->getErrors(), __METHOD__);
+
+        return false;
+
+    }
+
+
+
+
+
+    public static function create2($data)
+    {
+        $model = new self;
+
+        $model->user_id = $data['user_id'];
+        $model->msg = $data['msg'];
+        $model->msg_type = $data['msg_type'];
+        $model->msg_time = isset($data['msg_time']) ? $data['msg_time'] : date('Y-m-d H:i:s');
+        $model->res_name = $data['res_name'];
+        $model->res_id = $data['res_id'];
+        $model->tid = isset($data['tid']) ? $data['tid'] : 0;
+
+        if ($model->save()) {
+            return $model;
+        }
+
+        Yii::error($model->getErrors(), __METHOD__);
+
+        return false;
+
+
+    }
 }

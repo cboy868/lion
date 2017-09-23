@@ -20,9 +20,6 @@ LN.insCanvas = function(id){
 
     drawTrash();
 
-
-
-
     $('.words').click(function(e){
         var words = prompt("请输入文字");
         var size = $(this).data('size');
