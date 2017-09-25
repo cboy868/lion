@@ -142,6 +142,7 @@ class BagController extends BackController
                         $rel->num = $v;
                         $rel->unit_price = $sku[$k]->price;
                         $rel->price = $sku[$k]->price;
+                        $rel->goods_id = $sku[$k]->goods_id;
                         $rel->bag_id = $model->id;
                         $rel->save();
                         unset($rel);
@@ -151,6 +152,8 @@ class BagController extends BackController
 
                 return $this->redirect(['view', 'id' => $model->id]);
             } catch (\Exception $e) {
+                p($e->getMessage());die;
+                Yii::error($e->getMessage(),__METHOD__);
                 $outerTransaction->rollBack();
             }
         }

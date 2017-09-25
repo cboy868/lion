@@ -10,11 +10,8 @@ use app\assets\SelectAsset;
 
 use app\assets\ExtAsset;
 ExtAsset::register($this);
-
-// SelectAsset::register($this);
+$this->params['current_menu'] = 'shop/goods/index';
 \app\assets\TagAsset::register($this);
-// \wdteam\webuploader\Webuploader::widget(); 
-// PluploaduiAssets::register($this);
 ?>
 <style type="text/css">
 .pic div.thumbnail.active{

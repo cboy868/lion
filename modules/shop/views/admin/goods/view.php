@@ -9,8 +9,7 @@ use app\core\models\Attachment;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use app\modules\shop\models\Category;
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\Goods */
+$this->params['current_menu'] = 'shop/goods/index';
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']];
@@ -23,8 +22,6 @@ $this->params['breadcrumbs'][] = ['label' => '商品列表', 'url' => ['index']]
             <h1><?= Html::encode($this->title) ?>
                 <small>
                     详细信息查看
-
-
 
                     <a href="<?=Url::toRoute(['create', 'category_id'=>$model->category_id])?>" class="btn btn-info btn-sm">
                         <i class="fa fa-plus"></i> 继续添加本类商品

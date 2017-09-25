@@ -10,9 +10,6 @@ use app\modules\shop\models\Category;
 
 use app\assets\MustacheAsset;
 MustacheAsset::register($this);
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\Bag */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="bag-form">
@@ -40,7 +37,12 @@ MustacheAsset::register($this);
             
             <?php if (isset($model->rels)): ?>
                 <?php foreach ($model->rels as $k => $v): ?>
-                    <tr class="seltr" data-sku_id="<?=$v->sku_id?>" data-price="<?=$v->price?>" data-num="<?=$v->num?>" data-sku_name="<?=$v->sku->getName()?>">
+                    <tr class="seltr" data-sku_id="<?=$v->sku_id?>"
+                        data-price="<?=$v->price?>"
+                        data-num="<?=$v->num?>"
+                        data-sku_name="<?=$v->sku->getName()?>"
+                        data-gid = "<?=$v->sku->goods->id?>"
+                    >
                         <td><?=$v->sku->getName()?></td>
                         <td><input type="number" name="sku[<?=$v->sku_id?>]" class="form-control num" value="<?=$v->num?>"></td>
                         <td class="bprice"><?=$v->price?></td>

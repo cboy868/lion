@@ -22,9 +22,7 @@ $this->params['current_menu'] = 'shop/bag/index';
             }
         }
 
-        $trees = Category::selTree();
-        $trees[0] = '跨多分类';
-        ksort($trees);
+        $trees = [0=>'跨多分类']+Category::selTree();
      ?>
 
     <?= $form->field($model, 'category_id')->dropDownList($trees, ['options'=>$options]) ?>
