@@ -79,7 +79,7 @@ PluploadAssets::register($this);
                         <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
                     </li>
                     <li class="active sel-type" rel="1">
-                        <a href="<?=Url::current(['type'=>2])?>">手写碑文</a>
+                        <a href="<?=Url::current(['type'=>2])?>">自由碑文</a>
                     </li>
 
                 </ul>

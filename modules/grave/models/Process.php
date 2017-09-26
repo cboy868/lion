@@ -331,7 +331,7 @@ class Process extends \yii\base\Model
     {
         $tomb = self::tomb();
         if ($tomb->user_id) {
-            return Order::getOriOrder($tomb->user_id);
+            return Order::getOriOrder($tomb->user_id, ['tid'=>$tomb->id]);
         }
 
         return null;

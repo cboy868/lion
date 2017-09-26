@@ -8,6 +8,9 @@
 
 return [
     'admin/login.html' => 'admin/default/login',
+    'admin/pdf/<action:(.+)>'=> 'admin/pdf/<action>',
+
+
     'workbench'=> 'admin/default/workbench',
 # admin group
     'admin/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/admin/<controller>/<action>',

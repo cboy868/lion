@@ -12,6 +12,11 @@ class Fpdf extends PDF_Chinese
 {
 
 
+    function Header()
+    {
+
+    }
+
  //   $table = [
  //        [
  //            [10,10],//起始 x y

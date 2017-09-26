@@ -229,13 +229,27 @@ class Order extends \app\core\db\ActiveRecord
 
     public static function getOriOrder($user_id,$extra=[])
     {
-        $model = self::find()->where(['user_id'=>$user_id])
-                             ->andWhere(['status'=>self::STATUS_NORMAL])
-                             ->andWhere(['progress'=>self::PRO_INIT])
-                             ->one();
+
+        $query = self::find()->where(['user_id'=>$user_id])
+            ->andWhere(['status'=>self::STATUS_NORMAL])
+            ->andWhere(['progress'=>self::PRO_INIT]);
 
 
-        return $model;
+
+        if (isset($extra['tid'])) {
+            $query->andWhere(['tid'=>$extra['tid']]);
+        }
+
+
+        return $query->one();
+
+//        $model = self::find()->where(['user_id'=>$user_id])
+//                             ->andWhere(['status'=>self::STATUS_NORMAL])
+//                             ->andWhere(['progress'=>self::PRO_INIT])
+//                             ->one();
+//
+//
+//        return $model;
     }
 
 
