@@ -46,6 +46,9 @@ class Note extends \app\modules\shop\models\Note
         $query->andFilterWhere(['mid'=>Yii::$app->user->identity->mid]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

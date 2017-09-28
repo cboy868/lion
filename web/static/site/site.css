@@ -2,7 +2,22 @@ html,
 body {
     height: 100%;
 }
+.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #E1F4FA;
+}
+.table > thead > tr > th, .table > thead > tr > th > a{
+    background:#43A8E7;
+    border-bottom: 2px solid #bbe8f5;
+    color:white;
+}
 
+.table {
+    font-size:12px;
+}
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
 .wrap {
     min-height: 100%;
     height: auto;

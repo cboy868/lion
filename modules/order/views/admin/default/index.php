@@ -28,12 +28,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         'columns' => [
             'id',
+            [
+                'label' => '关联墓位',
+                'value' => function($model){
+                    return $model->tomb ? $model->tomb->tomb_no : '';
+                }
+            ],
             // 'wechat_uid',
             'user.username',
-            'price',
-            'origin_price',
+            'op.username',
+
             // 'type',
             // 'progress',
+
+            [
+                'label' => '项目',
+                'value' => function($model) {
+                    $rels = $model->rels;
+                    return implode('+', \yii\helpers\ArrayHelper::getColumn($rels, 'title'));
+                }
+            ],
+            'price',
+            'origin_price',
             [
                 'label'=> '支付进度',
                 'value' => function($data){

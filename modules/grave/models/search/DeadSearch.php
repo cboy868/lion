@@ -46,6 +46,9 @@ class DeadSearch extends Dead
         $query = Dead::find()->andWhere(['<>', 'tomb_id', 0]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

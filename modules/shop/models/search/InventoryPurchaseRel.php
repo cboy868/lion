@@ -48,6 +48,9 @@ class InventoryPurchaseRel extends InventoryPurchaseRelModel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
 

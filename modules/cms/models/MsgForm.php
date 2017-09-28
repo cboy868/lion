@@ -105,13 +105,9 @@ class MsgForm extends Model
                 $outerTransaction->rollBack();
                 return false;
             }
-
-            
         }
 
         return false;
-
-        
     }
    
 }

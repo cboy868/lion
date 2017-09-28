@@ -48,6 +48,9 @@ class Attr extends \app\modules\shop\models\Attr
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
 

@@ -270,6 +270,11 @@ class Order extends \app\core\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
+    public function getOp()
+    {
+        return $this->hasOne(User::className(), ['id' => 'op_id']);
+    }
+
     public function getPays()
     {
         return $this->hasMany(Pay::className(), ['order_id' => 'id'])->andWhere(['status'=>self::STATUS_NORMAL])->orderBy('id asc');
@@ -331,6 +336,8 @@ class Order extends \app\core\db\ActiveRecord
             'created_at' => '下单时间',
             'updated_at' => '最后一次更新',
             'status' => '状态',
+            'user.username'=>'购买人',
+            'op.username'=>'操作人'
         ];
     }
 

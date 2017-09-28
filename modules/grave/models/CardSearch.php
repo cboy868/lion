@@ -45,6 +45,9 @@ class CardSearch extends Card
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
         $query->andWhere([

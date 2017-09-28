@@ -44,6 +44,9 @@ class AttrVal extends \app\modules\shop\models\AttrVal
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
         $query->andFilterWhere(['attr_id'=>$id]);

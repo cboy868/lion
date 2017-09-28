@@ -54,6 +54,9 @@ class Cart extends CartModel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

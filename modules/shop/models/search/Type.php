@@ -45,6 +45,9 @@ class Type extends TypeModel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

@@ -45,7 +45,7 @@ class PostImageSearch extends PostImage
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy('sort asc'),
             'pagination' => [
-                'pageSize' => 18,
+                'pageSize' => 30,
             ],
         ]);
 
