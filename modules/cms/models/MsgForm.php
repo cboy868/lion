@@ -96,7 +96,6 @@ class MsgForm extends Model
                 $client->note = $this->title. ';' . $this->intro;
                 $client->save();
 
-                Msg::create($msg, 'yuYue','墓位预约', Msg::TYPE_WECHAT);
                 Msg::create($msg, 'yuYueNotice','墓位预约提醒', Msg::TYPE_WECHAT);
 
                 $outerTransaction->commit();

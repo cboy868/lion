@@ -118,8 +118,6 @@ class Msg extends \app\core\db\ActiveRecord
         $model = new self();
         $method = 'create' . ucfirst($res_name);
 
-        echo $method;die;
-
         return $model->$method($obj,$msg, $msg_time, $msg_type);
     }
     public function createOrder($obj, $msg,$msg_time=null,$msg_type=self::TYPE_SMS)
@@ -139,32 +137,35 @@ class Msg extends \app\core\db\ActiveRecord
         return false;
     }
 
-    public function createYuYue($obj,$msg,$msg_time=null,$msg_type=self::TYPE_SMS)
-    {
-        $this->user_id = $obj->user_id;
-        $this->msg = $msg;
-        $this->msg_type = $msg_type;
-        $this->msg_time = $msg_time ? $msg_time : date('Y-m-d H:i:s');
-        $this->res_name = 'yuyue';
-        $this->res_id = $obj->id;
-        $this->tid = $obj->tid;
+//    public function createYuYue($obj,$msg,$msg_time=null,$msg_type=self::TYPE_SMS)
+//    {
+//        $this->user_id = $obj->user_id;
+//        $this->msg = $msg;
+//        $this->msg_type = $msg_type;
+//        $this->msg_time = $msg_time ? $msg_time : date('Y-m-d H:i:s');
+//        $this->res_name = 'yuyue';
+//        $this->res_id = $obj->id;
+//        $this->tid = $obj->tid;
+//
+//        if ($this->save()) {
+//            return $this;
+//        }
+//        Yii::error($this->getErrors(), __METHOD__);
+//        return false;
+//    }
 
-        if ($this->save()) {
-            return $this;
-        }
-        Yii::error($this->getErrors(), __METHOD__);
-        return false;
-    }
-
+    /*
+     * todo user_id 需要确定
+     */
     public function createYuYueNotice($obj,$msg,$msg_time=null,$msg_type=self::TYPE_SMS)
     {
-        $this->user_id = $obj->user_id;
+        $this->user_id = 1;
         $this->msg = $msg;
         $this->msg_type = $msg_type;
         $this->msg_time = $msg_time ? $msg_time : date('Y-m-d H:i:s');
         $this->res_name = 'yuyue_notice';
         $this->res_id = $obj->id;
-        $this->tid = $obj->tid;
+        $this->tid =0;
 
         if ($this->save()) {
             return $this;
