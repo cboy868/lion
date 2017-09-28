@@ -199,12 +199,15 @@ class Msg extends \app\core\db\ActiveRecord
 
     public static function batch()
     {
+        Yii::error('one and one', __METHOD__);
+
+
         $msgs = self::find()->where(['status'=>self::STATUS_NORMAL])
             ->andWhere(['<=','msg_time', "date('Y-m-d H:i')"])
             ->all();
 
 
-        Yii::error('one and one');
+
         print_r('one and one');
 
         if (!$msgs) {
