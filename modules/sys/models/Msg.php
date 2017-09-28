@@ -204,7 +204,7 @@ class Msg extends \app\core\db\ActiveRecord
             ->all();
 
 
-        print_r('one and one');
+        Yii::error('one and one');
 
         if (!$msgs) {
             return ;
