@@ -9,16 +9,13 @@ namespace app\commands;
 
 use yii;
 use yii\console\Controller;
-
+use app\modules\sys\models\Msg;
 /**
- * This command echoes the first argument that you have entered.
  *
- * This command is provided as an example for you to learn how to create console commands.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
+ * @author wansq
  * @since 2.0
  */
-class HelloController extends Controller
+class MsgController extends Controller
 {
     /**
      * This command echoes what you have entered as the message.
@@ -29,9 +26,11 @@ class HelloController extends Controller
         echo $message . "\n";
     }
 
-    public function actionTest()
+
+    public function actionSend()
     {
-        echo 'sss';die;
+
+        Msg::batch();
     }
 
 }

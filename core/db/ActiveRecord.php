@@ -27,7 +27,6 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function init()
     {
         parent::init();
-        $tmp = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.'));
         self::$base_url = 'http://lion.ibagou.com';
 
     }

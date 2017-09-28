@@ -93,7 +93,7 @@ class Template extends Model
         $data['first'] = isset($data['first']) ? $data['first'] : self::$first[$tpl_id];
         $data['remark'] = isset($data['remark']) ? $data['remark'] : self::$first[$tpl_id];
 
-        $messageId = $notice->send([
+        return $notice->send([
             'touser' => $open_id,
             'template_id' => $tpl_id,
             'url' => 'http://lion.ibagou.com',

@@ -181,7 +181,25 @@ class Msg extends \app\core\db\ActiveRecord
                 return ;
             }
 
+            $data = $this->getData();
 
+            $result = Template::send($data, self::$wechatTpl[$this->res_name], $this->user_id);
+            
+        }
+    }
+
+    public static function batch()
+    {
+        $msgs = self::find()->where(['status'=>self::STATUS_NORMAL])
+            ->andWhere(['<=','msg_time', "date('Y-m-d H:i')"])
+            ->all();
+
+        if (!$msgs) {
+            return ;
+        }
+
+        foreach ($msgs as $msg) {
+            $msg->send();
         }
     }
 
@@ -237,6 +255,8 @@ class Msg extends \app\core\db\ActiveRecord
                 ];
 
         }
+
+        return $data;
     }
 
 

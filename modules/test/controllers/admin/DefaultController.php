@@ -18,6 +18,14 @@ use EasyWeChat\Foundation\Application;
 
 class DefaultController extends \app\core\web\BackController
 {
+
+    public function actionA()
+    {
+        Msg::batch();
+    }
+
+
+
     public function actionIndex()
     {
 

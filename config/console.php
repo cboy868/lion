@@ -10,6 +10,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
+    'modules' => require(__DIR__ . '/modules.php'),
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -25,6 +26,10 @@ $config = [
         'db' => $db,
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
+        ],
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            'scriptUrl' => 'http://lion.ibagou.com'
         ]
     ],
     'params' => $params,
