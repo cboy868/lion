@@ -223,12 +223,10 @@ STR;
     {
 
         $data = array(
-            "first"  => "恭喜您预约成功！",
             "keyword1"   => "2016-08-10",
             "keyword2"  => "张三",
             "keyword3"   => "园内",
             "keyword4"  => "选墓",
-            "remark" => "非常欢迎您的光临！",
         );
 
         Template::send($data, Template::TPL_YUYUE, 1);
