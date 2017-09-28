@@ -192,6 +192,8 @@ class Msg extends \app\core\db\ActiveRecord
                 $this->status = self::STATUS_FINISH;
                 $this->save();
             }
+
+            Yii::info($result);
         }
     }
 
@@ -200,6 +202,9 @@ class Msg extends \app\core\db\ActiveRecord
         $msgs = self::find()->where(['status'=>self::STATUS_NORMAL])
             ->andWhere(['<=','msg_time', "date('Y-m-d H:i')"])
             ->all();
+
+
+        print_r('one and one');
 
         if (!$msgs) {
             return ;
