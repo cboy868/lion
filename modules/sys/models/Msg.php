@@ -193,7 +193,6 @@ class Msg extends \app\core\db\ActiveRecord
                 $this->save();
             }
 
-            Yii::info($result);
         }
     }
 
