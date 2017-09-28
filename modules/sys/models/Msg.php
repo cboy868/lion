@@ -118,6 +118,8 @@ class Msg extends \app\core\db\ActiveRecord
         $model = new self();
         $method = 'create' . ucfirst($res_name);
 
+        echo $method;die;
+
         return $model->$method($obj,$msg, $msg_time, $msg_type);
     }
     public function createOrder($obj, $msg,$msg_time=null,$msg_type=self::TYPE_SMS)
