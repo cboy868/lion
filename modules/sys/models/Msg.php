@@ -3,6 +3,7 @@
 namespace app\modules\sys\models;
 
 use app\modules\cms\models\Message;
+use app\modules\grave\models\Grave;
 use app\modules\order\models\OrderRel;
 use app\modules\user\models\User;
 use app\modules\wechat\models\Template;
@@ -174,12 +175,30 @@ class Msg extends \app\core\db\ActiveRecord
                 break;
             case 'yuyue':
                 $model = Message::findOne($this->res_id);
+                $title = $model->title;
+                if ($model->res_name == 'grave') {
+                    $grave = Grave::findOne($model->res_id);
+                    $title .= ',墓区:'.$grave->name;
+                }
                 $data = [
-                    'keyword1' => $model->id,
+                    'keyword1' => $model->term,
                     'keyword2' => $model->username . '('.$model->mobile.')',
                     'keyword3' => '来园',
-                    'keyword4' => '看墓',
+                    'keyword4' => $title,
                 ];
+            case 'yuyue_notice':
+                $model = Message::findOne($this->res_id);
+                $title = $model->title;
+                if ($model->res_name == 'grave') {
+                    $grave = Grave::findOne($model->res_id);
+                    $title .= ',墓区:'.$grave->name;
+                }
+                $data = [
+                    'keyword1' => $model->username,
+                    'keyword2' => $model->mobile,
+                    'keyword3' => '预约时间'.$model->term,
+                ];
+
         }
     }
 

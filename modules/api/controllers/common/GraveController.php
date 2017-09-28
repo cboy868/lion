@@ -62,7 +62,6 @@ class GraveController extends Controller
         $grave_id = $post['gid'];
         $uinfo = User::findOne($user_id);
 
-        p($post);die;
 
         $mobile = $post['mobile'] ? $post['mobile'] : $uinfo->mobile;
 
@@ -81,6 +80,7 @@ class GraveController extends Controller
         $model->res_id = $grave_id;
         $model->res_name = 'grave';
         $model->mobile = $mobile;
+        $model->term = $post['date'];
         if ($model->create() !== false){
             return true;
         }
