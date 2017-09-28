@@ -184,7 +184,10 @@ class Msg extends \app\core\db\ActiveRecord
             $data = $this->getData();
 
             $result = Template::send($data, self::$wechatTpl[$this->res_name], $this->user_id);
-            
+
+            print_r($result);
+            die;
+
         }
     }
 
