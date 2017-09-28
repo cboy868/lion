@@ -11,6 +11,7 @@ use app\modules\shop\models\Sku;
 use app\modules\sys\models\Msg;
 use app\modules\task\models\Task;
 use app\modules\user\models\UserSearch;
+use app\modules\wechat\models\Template;
 use yii;
 use kartik\export\ExportMenu;
 use EasyWeChat\Foundation\Application;
@@ -220,9 +221,6 @@ STR;
 
     public function actionWechat()
     {
-        $options = $this->getOptions();
-        $app = new Application($options);
-        $notice = $app->notice;
 
         $data = array(
             "first"  => "恭喜您预约成功！",
@@ -233,13 +231,23 @@ STR;
             "remark" => "非常欢迎您的光临！",
         );
 
+        Template::send($data, Template::TPL_YUYUE, 1);
 
-        $messageId = $notice->send([
-            'touser' => 'ofYkL1rwpqdx4Ug6OvNhg5EbUTcw',
-            'template_id' => '-8kRYGW0y3OgnZMwGbxrsiJus3MPt_zvQJ1-NLAm3ts',
-            'url' => 'http://lion.ibagou.com',
-            'data' => $data
-        ]);
+
+//
+//        $options = $this->getOptions();
+//        $app = new Application($options);
+//        $notice = $app->notice;
+//
+//
+//
+//
+//        $messageId = $notice->send([
+//            'touser' => 'ofYkL1rwpqdx4Ug6OvNhg5EbUTcw',
+//            'template_id' => '-8kRYGW0y3OgnZMwGbxrsiJus3MPt_zvQJ1-NLAm3ts',
+//            'url' => 'http://lion.ibagou.com',
+//            'data' => $data
+//        ]);
     }
 
     private function getOptions()
