@@ -137,6 +137,40 @@ class Msg extends \app\core\db\ActiveRecord
         return false;
     }
 
+    public function createYuYue($obj,$msg,$msg_time=null,$msg_type=self::TYPE_SMS)
+    {
+        $this->user_id = $obj->user_id;
+        $this->msg = $msg;
+        $this->msg_type = $msg_type;
+        $this->msg_time = $msg_time ? $msg_time : date('Y-m-d H:i:s');
+        $this->res_name = 'yuyue';
+        $this->res_id = $obj->id;
+        $this->tid = $obj->tid;
+
+        if ($this->save()) {
+            return $this;
+        }
+        Yii::error($this->getErrors(), __METHOD__);
+        return false;
+    }
+
+    public function createYuYueNotice($obj,$msg,$msg_time=null,$msg_type=self::TYPE_SMS)
+    {
+        $this->user_id = $obj->user_id;
+        $this->msg = $msg;
+        $this->msg_type = $msg_type;
+        $this->msg_time = $msg_time ? $msg_time : date('Y-m-d H:i:s');
+        $this->res_name = 'yuyue_notice';
+        $this->res_id = $obj->id;
+        $this->tid = $obj->tid;
+
+        if ($this->save()) {
+            return $this;
+        }
+        Yii::error($this->getErrors(), __METHOD__);
+        return false;
+    }
+
     public function send()
     {
         if ($this->msg_type == self::TYPE_WECHAT) {

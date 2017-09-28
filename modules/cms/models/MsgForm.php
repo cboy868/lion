@@ -2,6 +2,7 @@
 
 namespace app\modules\cms\models;
 
+use app\modules\sys\models\Msg;
 use Yii;
 use yii\base\Model;
 use app\modules\cms\models\Message;
@@ -94,6 +95,9 @@ class MsgForm extends Model
                 $client->email = $this->email;
                 $client->note = $this->title. ';' . $this->intro;
                 $client->save();
+
+                Msg::create($msg, 'yuYue','墓位预约', Msg::TYPE_WECHAT);
+                Msg::create($msg, 'yuYueNotice','墓位预约提醒', Msg::TYPE_WECHAT);
 
                 $outerTransaction->commit();
                 return $msg;
