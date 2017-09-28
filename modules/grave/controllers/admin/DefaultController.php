@@ -67,6 +67,7 @@ class DefaultController extends BackController
 
         if ($id) {
             $model = $this->findModel($id);
+
             $data['model'] = $model;
             $data['tombs'] = Tomb::find()->where(['grave_id'=>$id])
                 ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])

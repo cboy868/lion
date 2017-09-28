@@ -101,7 +101,7 @@ $cur_free_id = Yii::$app->request->get('free_id');
                     }
                 }
             ],
-             'created_at',
+             'created_at:date',
              'note:ntext',
             // 'status',
 

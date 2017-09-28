@@ -106,6 +106,14 @@ AdminAsset::register($this);
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
 
+                        <li class="grey">
+                            <a href="<?=Url::toRoute(['/grave/admin/workbench/index'])?>"
+                               target="_blank"
+                               >
+                                返回工作台
+                            </a>
+                        </li>
+
                         <li class="green">
                             <a href="<?=Url::toRoute(['/grave/admin/mall/index', 'tomb_id'=>$tomb_id])?>" class="modalAddButton" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">
                                 购买商品

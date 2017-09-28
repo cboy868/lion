@@ -141,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <table id="w1" class="table table-striped table-bordered detail-view">
                             <tbody>
                             <tr><th width="100">墓区名</th><td><?=$model->name?></td>
-                                <td rowspan="6" width="300"><img src="<?=$model->getThumb('300x200')?>"></td>
+                                <td rowspan="6" width="300"><img src="<?=$model->getThumbImg('300x200')?>"></td>
                             </tr>
                             <tr><th>总面积</th><td><?=$model->area_totle;?></td></tr>
                             <tr><th>使用面积</th><td><?=$model->area_use;?></td></tr>

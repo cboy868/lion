@@ -13,6 +13,8 @@ use app\modules\task\models\Task;
 use app\modules\user\models\UserSearch;
 use yii;
 use kartik\export\ExportMenu;
+use EasyWeChat\Foundation\Application;
+
 class DefaultController extends \app\core\web\BackController
 {
     public function actionIndex()
@@ -214,5 +216,51 @@ STR;
                 }
             ]
             ], $options);
+    }
+
+    public function actionWechat()
+    {
+        $options = $this->getOptions();
+        $app = new Application($options);
+        $notice = $app->notice;
+
+        $data = array(
+            "first"  => "恭喜您预约成功！",
+            "keyword1"   => "2016-08-10",
+            "keyword2"  => "张三",
+            "keyword3"   => "园内",
+            "keyword4"  => "选墓",
+            "remark" => "非常欢迎您的光临！",
+        );
+
+
+        $messageId = $notice->send([
+            'touser' => 'ofYkL1rwpqdx4Ug6OvNhg5EbUTcw',
+            'template_id' => '-8kRYGW0y3OgnZMwGbxrsiJus3MPt_zvQJ1-NLAm3ts',
+            'url' => 'http://lion.ibagou.com',
+            'data' => $data
+        ]);
+    }
+
+    private function getOptions()
+    {
+        $params  = Yii::$app->getModule('wechat')->params;
+
+        $options = [
+            'debug'  => $params['debug'],
+            'log' => $params['log'],
+            'app_id' => $params['wx']['appid'],
+            'secret' => $params['wx']['appsecret'],
+            'token' => $params['wx']['token'],
+            'payment' => [
+                'merchant_id'        => $params['payment']['merchant_id'],
+                'key'                => $params['payment']['key'],
+                'cert_path'          => $params['payment']['cert_path'], // XXX: 绝对路径！！！！
+                'key_path'           => $params['payment']['key_path'],      // XXX: 绝对路径！！！！
+                'notify_url'         => $params['payment']['notify_url'],       // 你也可以在下单时单独设置来想覆盖它
+            ],
+        ];
+
+        return $options;
     }
 }
