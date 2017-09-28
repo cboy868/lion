@@ -32,6 +32,9 @@ class Msg extends \app\core\db\ActiveRecord
     const TYPE_WECHAT = 3;
 
 
+    const STATUS_FINISH = 2;
+
+
     public static $wechatTpl = [
         'order' => Template::TPL_ORDER,
         'task'  => Template::TPL_TASK,
@@ -185,9 +188,10 @@ class Msg extends \app\core\db\ActiveRecord
 
             $result = Template::send($data, self::$wechatTpl[$this->res_name], $this->user_id);
 
-            print_r($result);
-            die;
-
+            if ($result['errcode'] == 0) {
+                $this->status = self::STATUS_FINISH;
+                $this->save();
+            }
         }
     }
 
