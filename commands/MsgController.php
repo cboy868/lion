@@ -30,7 +30,6 @@ class MsgController extends Controller
     public function actionSend()
     {
         Yii::error('ac and a ', __METHOD__);
-        file_put_contents('/tmp/123', 'ona dn one');
         Msg::batch();
     }
 
