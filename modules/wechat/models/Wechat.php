@@ -115,4 +115,26 @@ class Wechat extends \app\core\db\ActiveRecord
     {
         $this->encodingaeskey = StringHelper::range(43);
     }
+
+    public static function options()
+    {
+        $params  = Yii::$app->getModule('wechat')->params;
+
+        $options = [
+            'debug'  => $params['debug'],
+            'log' => $params['log'],
+            'app_id' => $params['wx']['appid'],
+            'secret' => $params['wx']['appsecret'],
+            'token' => $params['wx']['token'],
+            'payment' => [
+                'merchant_id'        => $params['payment']['merchant_id'],
+                'key'                => $params['payment']['key'],
+                'cert_path'          => $params['payment']['cert_path'], // XXX: 绝对路径！！！！
+                'key_path'           => $params['payment']['key_path'],      // XXX: 绝对路径！！！！
+                'notify_url'         => $params['payment']['notify_url'],       // 你也可以在下单时单独设置来想覆盖它
+            ],
+        ];
+
+        return $options;
+    }
 }

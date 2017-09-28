@@ -2,7 +2,10 @@
 
 namespace app\modules\sys\models;
 
+use app\modules\cms\models\Message;
+use app\modules\order\models\OrderRel;
 use app\modules\user\models\User;
+use app\modules\wechat\models\Template;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -26,6 +29,14 @@ class Msg extends \app\core\db\ActiveRecord
     const TYPE_SMS = 1;
     const TYPE_EMAIL = 2;
     const TYPE_WECHAT = 3;
+
+
+    public static $wechatTpl = [
+        'order' => Template::TPL_ORDER,
+        'task'  => Template::TPL_TASK,
+        'yuyue'  => Template::TPL_YUYUE,
+        'yuyue_notice'  => Template::TPL_YUYUE_NOTICE
+    ];
 
     /**
      * @inheritdoc
@@ -121,38 +132,56 @@ class Msg extends \app\core\db\ActiveRecord
         if ($this->save()) {
             return $this;
         }
-
-        p($this->getErrors());die;
         Yii::error($this->getErrors(), __METHOD__);
-
         return false;
-
     }
 
-
-
-
-
-    public static function create2($data)
+    public function send()
     {
-        $model = new self;
+        if ($this->msg_type == self::TYPE_WECHAT) {
+            if (!isset(self::$wechatTpl[$this->res_name])) {
+                return ;
+            }
 
-        $model->user_id = $data['user_id'];
-        $model->msg = $data['msg'];
-        $model->msg_type = $data['msg_type'];
-        $model->msg_time = isset($data['msg_time']) ? $data['msg_time'] : date('Y-m-d H:i:s');
-        $model->res_name = $data['res_name'];
-        $model->res_id = $data['res_id'];
-        $model->tid = isset($data['tid']) ? $data['tid'] : 0;
 
-        if ($model->save()) {
-            return $model;
         }
-
-        Yii::error($model->getErrors(), __METHOD__);
-
-        return false;
-
-
     }
+
+    private function getData()
+    {
+        switch ($this->res_name) {
+            case 'order':
+                $rels = OrderRel::find()->where(['status'=>OrderRel::STATUS_NORMAL, 'order_id'=>$this->res_id])->all();
+                if (!$rels) {
+                    return false;
+                }
+                $str = '';
+                foreach ($rels as $v) {
+                    $str .= $v['title'] . ',';
+                }
+                $data = [
+                    'keyword1' => $this->res_id,
+                    'keyword2' => $str
+                ];
+                break;
+            case 'task':
+                $user = User::findOne($this->user_id);
+                $data = [
+                    'keyword1' => $user->username,
+                    'keyword2' => date('Y-m-d H:i'),
+                    'keyword3' => $this->msg
+                ];
+                break;
+            case 'yuyue':
+                $model = Message::findOne($this->res_id);
+                $data = [
+                    'keyword1' => $model->id,
+                    'keyword2' => $model->username . '('.$model->mobile.')',
+                    'keyword3' => '来园',
+                    'keyword4' => '看墓',
+                ];
+        }
+    }
+
+
 }

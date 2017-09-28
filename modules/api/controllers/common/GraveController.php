@@ -62,6 +62,8 @@ class GraveController extends Controller
         $grave_id = $post['gid'];
         $uinfo = User::findOne($user_id);
 
+        p($post);die;
+
         $mobile = $post['mobile'] ? $post['mobile'] : $uinfo->mobile;
 
         if (!$uinfo) {

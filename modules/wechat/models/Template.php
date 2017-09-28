@@ -24,9 +24,41 @@ use EasyWeChat\Foundation\Application;
  */
 class Template extends Model
 {
+
+    /**
+     * {{first.DATA}}
+     * 预约时间：{{keyword1.DATA}}
+     * 来访姓名：{{keyword2.DATA}}
+     * 来访地点：{{keyword3.DATA}}
+     * 来访事由：{{keyword4.DATA}}
+     * {{remark.DATA}}
+     */
     const TPL_YUYUE = '-8kRYGW0y3OgnZMwGbxrsiJus3MPt_zvQJ1-NLAm3ts';
+
+    /**
+     *  {{first.DATA}}
+     *   订单编号：{{keyword1.DATA}}
+     *   消费项目：{{keyword2.DATA}}
+     *   {{remark.DATA}}
+     */
     const TPL_ORDER = 'FJhx0MwkrDqoEIVIAFOqVoL94wWeUmTgR5tZeX5pJyI';
+
+    /**
+     * {{first.DATA}}
+     * 员工姓名：{{keyword1.DATA}}
+     * 提醒时间：{{keyword2.DATA}}
+     * 任务内容：{{keyword3.DATA}}
+     * {{remark.DATA}}
+     */
     const TPL_TASK  = 'Gho346qsaCjx9DaItz10HnHuFH1QqD5Ya9lueVOGvDc';
+
+    /**
+     *{{first.DATA}}
+     *预约人：{{keyword1.DATA}}
+     *预约手机：{{keyword2.DATA}}
+     *提交时间：{{keyword3.DATA}}
+     *{{remark.DATA}}
+     */
     const TPL_YUYUE_NOTICE = 'XfnPsfn4oHm9ZynQpbaorpNKcsYjmF7ikKQQq8pcITM';
 
     public static $first = [
@@ -46,11 +78,9 @@ class Template extends Model
 
     public static function send($data, $tpl_id, $user_id)
     {
-        $options = self::getOptions();
+        $options = Wechat::options();
         $app = new Application($options);
         $notice = $app->notice;
-
-
 
         $wechat = User::find()->where(['user_id'=>$user_id, 'type'=>0])->one();
 
@@ -60,12 +90,8 @@ class Template extends Model
 
         $open_id = $wechat->openid;
 
-
-
         $data['first'] = isset($data['first']) ? $data['first'] : self::$first[$tpl_id];
         $data['remark'] = isset($data['remark']) ? $data['remark'] : self::$first[$tpl_id];
-
-
 
         $messageId = $notice->send([
             'touser' => $open_id,
@@ -73,29 +99,6 @@ class Template extends Model
             'url' => 'http://lion.ibagou.com',
             'data' => $data
         ]);
-    }
-
-
-    private static function getOptions()
-    {
-        $params  = Yii::$app->getModule('wechat')->params;
-
-        $options = [
-            'debug'  => $params['debug'],
-            'log' => $params['log'],
-            'app_id' => $params['wx']['appid'],
-            'secret' => $params['wx']['appsecret'],
-            'token' => $params['wx']['token'],
-            'payment' => [
-                'merchant_id'        => $params['payment']['merchant_id'],
-                'key'                => $params['payment']['key'],
-                'cert_path'          => $params['payment']['cert_path'], // XXX: 绝对路径！！！！
-                'key_path'           => $params['payment']['key_path'],      // XXX: 绝对路径！！！！
-                'notify_url'         => $params['payment']['notify_url'],       // 你也可以在下单时单独设置来想覆盖它
-            ],
-        ];
-
-        return $options;
     }
 
 
