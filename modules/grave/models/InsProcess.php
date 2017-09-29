@@ -55,7 +55,7 @@ class InsProcess extends Ins
 
     public $ins_info;
 
-    public $shape = 'v';
+//    public $shape = 'v';
 
 
     public function getFrontContent(){
@@ -1546,6 +1546,7 @@ class InsProcess extends Ins
         $ins->user_id = $tomb->user_id;
         $ins->guide_id = $tomb->guide_id;
         $ins->pre_finish = null;
+
         return $ins->save();
     }
 
@@ -1554,9 +1555,7 @@ class InsProcess extends Ins
         $cnf = Yii::$app->controller->module->params['ins']['goods_attr'];
         $attr_id = $cnf['id'];
         $shape = $cnf['shape'];
-
-        $rel = AvRel::find()->where(['goods_id'=>$goods_id, 'attr_id'=>$attr_id])->asArray()->all();
-
+        $rel = AvRel::find()->where(['goods_id'=>$goods_id, 'attr_id'=>$attr_id])->asArray()->one();
         if (!$rel) {
             return null;
         }

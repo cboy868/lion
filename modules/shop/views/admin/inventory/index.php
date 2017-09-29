@@ -5,13 +5,8 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\Inventory */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Inventories';
+$this->title = '盘点记录';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -44,18 +39,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'goods_id',
             'sku_id',
             'record',
             'actual',
-            // 'op_id',
-            // 'op_date',
-            // 'diff_num',
-            // 'diff_amount',
-            // 'note:ntext',
+             'op_id',
+             'op_date',
+             'diff_num',
+             'diff_amount',
+             'note:ntext',
             // 'created_at',
             // 'status',
 

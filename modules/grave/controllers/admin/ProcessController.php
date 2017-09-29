@@ -325,6 +325,7 @@ class ProcessController extends BackController
 
         }
 
+
         $cases = $model->getInsCfgCases($model->shape);
 
         if (!$cases) {

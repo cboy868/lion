@@ -61,19 +61,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <div class="col-xs-12 inventory-storage-index">
+            <div class="col-xs-4 inventory-storage-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
-        // 'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'name',
-            'pos',
-            'op_name',
-            'mobile',
+            [
+                'label' => '仓库',
+                'value' => function($model) {
+                    return $model->name . '('.$model->pos.')';
+                }
+            ],
+            [
+                'label' => '管理员',
+                'value' => function($model) {
+                    return $model->op_name . '('.$model->mobile.')';
+                }
+            ],
             // 'thumb',
             // 'created_at',
             // 'status',

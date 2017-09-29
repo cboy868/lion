@@ -74,6 +74,44 @@ class InventoryPurchaseController extends BackController
         
     }
 
+    public function actionDetail()
+    {
+
+        $id = Yii::$app->request->get('id');
+
+        //record
+        $searchModel = new InventoryPurchaseSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['InventoryPurchase']['status'] = InventoryPurchase::STATUS_NORMAL;
+        $dataProvider = $searchModel->search($params);
+
+        if (!$id) {
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            //record rel
+            $rel_searchModel = new InventoryPurchaseRelSearch();
+            $rel_params = Yii::$app->request->queryParams;
+            $rel_params['InventoryPurchaseRel']['record_id'] = $id;
+            $rel_params['InventoryPurchaseRel']["status"] = InventoryPurchaseRel::STATUS_NORMAL;
+
+            $rel_dataProvider = $rel_searchModel->search($rel_params);
+
+            $record = $this->findModel($id);
+
+            return $this->renderAjax('detail', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'rel_dataProvider' => $rel_dataProvider,
+                'rel_searchModel' => $rel_searchModel,
+                'record' => $record
+            ]);
+        }
+
+    }
+
     /**
      * @name 退货记录
      */

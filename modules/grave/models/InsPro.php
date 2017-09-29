@@ -55,10 +55,6 @@ class InsPro extends Ins
 
     public $ins_info;
 
-    public $shape = 'v';
-
-
-
     public function freeSave()
     {
         $post = Yii::$app->request->post();
@@ -246,7 +242,8 @@ class InsPro extends Ins
         $cfg_info = $this->inverseAlign($cfg_info);
 
         //碑型
-        $shape = $cfg_info[0]['shape'];
+        $first = current($cfg_info);
+        $shape = $first['shape'];// $cfg_info[0]['shape'];
 
         //碑后文全重算一下
         if (($shape == 'v' && $is_front != 2) || ($shape=='h' && $is_front==0)){
@@ -503,6 +500,16 @@ class InsPro extends Ins
 
                     if ($k == 'name') {
                         $val['is_die'] = isset($d[$key]['is_die']) ? $d[$key]['is_die'] : 0;
+                    }
+
+
+
+                    if (!isset($tmp_info[$k])) {
+                        $tmp_info[$k] = [];
+                    }
+
+                    if (!isset($ins_keys[$key])) {
+                        $ins_keys[$key] = $ins_keys[0];
                     }
                     $tmp_info[$k][$ins_keys[$key]] = $val;
                 }
@@ -1082,7 +1089,9 @@ class InsPro extends Ins
 
     public function inverseAlign($data)
     {
-        $shape = $data[0]['shape'];
+        $first = current($data);
+        $shape = $first['shape'];
+
         $dire = $shape=='h' ? 'x' : 'y';
         foreach ($data as $k=>&$v){
             if (isset($v['direction']) && $v['direction'] == 1) {

@@ -18,7 +18,7 @@ class InsCanvasAsset extends AssetBundle
     public $baseUrl = '@web';
     public $js = [
         'https://cdnjs.cloudflare.com/ajax/libs/jcanvas/20.1.2/min/jcanvas.min.js',
-        'static/libs/insCanvas/canvas.min.js'
+        'static/libs/insCanvas/canvas.js'
     ];
     public $depends = [
         'app\assets\JqueryuiAsset',

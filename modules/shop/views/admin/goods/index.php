@@ -236,7 +236,7 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 // 'format'=> 'raw',
                 'value' => function($model){
                     $recommend = $model->recommend ? '<font color="#f00">(推荐商品)</font>' : '';
-                    return "<img src='".$model->getThumb('36x36')."'>" . $model->name . $recommend;
+                    return "<img src='".$model->getThumb('36x36')."'> " . $model->name . $recommend;
                 },
                 'format' => 'raw'
             ],
@@ -254,14 +254,14 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 'format' => 'raw'
             ],
              'skill:ntext',
-            // 'unit',
+             'unit',
             'price',
-            [
-                'label' => '是否推荐',
-                'value' => function($model){
-                    return $model->recommend ? '是': '否';
-                }
-            ],
+//            [
+//                'label' => '是否推荐',
+//                'value' => function($model){
+//                    return $model->recommend ? '是': '否';
+//                }
+//            ],
             // 'status',
              'created_at:datetime',
             // 'updated_at',

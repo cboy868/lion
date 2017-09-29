@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
             <div class="col-xs-8 inventory-purchase-view">
-                <table class="table">
+                <table class="table noborder">
                     <tr>
                         <th>供货商</th>
                         <td><?=$model->supplier->cp_name?></td>
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td width="180">商品首拼 <input type="text" style="width: 100px" class="sp"></td>
                         <td width="180">商品编码 <input type="text" style="width: 100px" class="bm"></td>
                         <td width="180">名称 <input type="text" style="width: 100px" class="gname"></td>
-                        <td colspan="2"></td>
+                        <td colspan="2">输入查找后回车</td>
                     </tr>
                 </table>
                 <div class="glist">

@@ -51,16 +51,16 @@ class Inventory extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'goods_id' => 'Goods ID',
-            'sku_id' => 'Sku ID',
-            'record' => 'Record',
-            'actual' => 'Actual',
-            'op_id' => 'Op ID',
-            'op_date' => 'Op Date',
-            'diff_num' => 'Diff Num',
-            'diff_amount' => 'Diff Amount',
-            'note' => 'Note',
-            'created_at' => 'Created At',
+            'goods_id' => '商品id',
+            'sku_id' => 'SkuID',
+            'record' => '记录',
+            'actual' => '实数',
+            'op_id' => '盘点人',
+            'op_date' => '盘点时间',
+            'diff_num' => '差额',
+            'diff_amount' => '相差金额',
+            'note' => '备注',
+            'created_at' => '添加时间',
             'status' => 'Status',
         ];
     }

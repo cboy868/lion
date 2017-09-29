@@ -7,8 +7,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\shop\models\Inventory */
 
-$this->title = 'Create Inventory';
-$this->params['breadcrumbs'][] = ['label' => 'Inventories', 'url' => ['index']];
+$this->title = '添加盘点';
+$this->params['breadcrumbs'][] = ['label' => '盘点记录', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
