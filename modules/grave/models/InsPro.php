@@ -242,6 +242,7 @@ class InsPro extends Ins
         $cfg_info = $this->inverseAlign($cfg_info);
 
         //碑型
+        reset($cfg_info);
         $first = current($cfg_info);
         $shape = $first['shape'];// $cfg_info[0]['shape'];
 
@@ -1089,6 +1090,7 @@ class InsPro extends Ins
 
     public function inverseAlign($data)
     {
+        reset($data);
         $first = current($data);
         $shape = $first['shape'];
 

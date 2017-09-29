@@ -1547,6 +1547,7 @@ class InsProcess extends Ins
         $ins->guide_id = $tomb->guide_id;
         $ins->pre_finish = null;
 
+
         return $ins->save();
     }
 
