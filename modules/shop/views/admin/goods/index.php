@@ -8,9 +8,6 @@ use yii\bootstrap\Modal;
 use app\assets\FootableAsset;
 use app\modules\shop\models\Category;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\Goods */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '商品列表';
 $this->params['breadcrumbs'][] = $this->title;
@@ -34,54 +31,54 @@ FootableAsset::register($this);
             </button>
 <?php endif;?>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">选择分类</h4>
-      </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">选择分类</h4>
+                  </div>
 
 
-        <form id="w0" action="<?=Url::toRoute(['create'])?>" method="get">
+                    <form id="w0" action="<?=Url::toRoute(['create'])?>" method="get">
 
-        <?php 
-        $category = Category::find()->asArray()->all();
-        $options = [];
-        foreach ($category as $k => $v) {
-            if (!$v['is_leaf']) {
-                $options[$v['id']]['disabled'] = true;
-            }
-        }
-         ?>
+                    <?php
+                    $category = Category::find()->asArray()->all();
+                    $options = [];
+                    foreach ($category as $k => $v) {
+                        if (!$v['is_leaf']) {
+                            $options[$v['id']]['disabled'] = true;
+                        }
+                    }
+                     ?>
 
-      <div class="modal-body">
-        <?=Html::dropDownList('category_id', null, Category::selTree(), ['class'=>'form-control', 'options' => $options])?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-        <button type="submit" class="btn btn-primary redcreate">OK</button>
-      </div>
-        </form>
-    </div>
-  </div>
-</div>
+                  <div class="modal-body">
+                    <?=Html::dropDownList('category_id', null, Category::selTree(), ['class'=>'form-control', 'options' => $options])?>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                    <button type="submit" class="btn btn-primary redcreate">OK</button>
+                  </div>
+                    </form>
+                </div>
+              </div>
+            </div>
 
 
-                <small>
-                    <?php if (Yii::$app->user->can('shop/bag/index')):?>
-                    <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/bag/index'])?>">
-                            <i class="fa fa-shopping-bag fa-2x"></i>  打包品管理</a>
-                    </div>
-                    <?php endif;?>
-                    <?php if (Yii::$app->user->can('shop/category/index')):?>
-                    <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/category/index'])?>">
-                            <i class="fa fa-sitemap fa-2x"></i>  商品分类管理</a>
-                    </div>
-                    <?php endif;?>
-                </small>
+            <small>
+                <?php if (Yii::$app->user->can('shop/bag/index')):?>
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/bag/index'])?>">
+                        <i class="fa fa-shopping-bag fa-2x"></i>  打包品管理</a>
+                </div>
+                <?php endif;?>
+                <?php if (Yii::$app->user->can('shop/category/index')):?>
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/shop/admin/category/index'])?>">
+                        <i class="fa fa-sitemap fa-2x"></i>  商品分类管理</a>
+                </div>
+                <?php endif;?>
+            </small>
             </h1>
         </div><!-- /.page-header -->
 
@@ -256,12 +253,17 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                 },
                 'format' => 'raw'
             ],
-            // 'skill:ntext',
+             'skill:ntext',
             // 'unit',
             'price',
-            // 'is_recommend',
+            [
+                'label' => '是否推荐',
+                'value' => function($model){
+                    return $model->recommend ? '是': '否';
+                }
+            ],
             // 'status',
-            // 'created_at',
+             'created_at:datetime',
             // 'updated_at',
 
             // [   'headerOptions' => ["data-type"=>"html"],

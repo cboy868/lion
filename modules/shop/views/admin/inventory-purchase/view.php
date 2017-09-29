@@ -8,11 +8,11 @@ app\assets\ValidateAsset::register($this);
 app\assets\MustacheAsset::register($this);
 app\assets\FormAsset::register($this);
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\InventoryPurchase */
+$this->params['current_menu'] = 'shop/inventory-purchase/index';
 
-$this->title = $model->supplier->cp_name;
+$this->title = $model->supplier->cp_name . '进货';
 $this->params['breadcrumbs'][] = ['label' => '进货管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
     .table{
@@ -23,19 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => '进货管理', 'url' => ['index']]
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="page-header">
-            <h1><?= Html::encode($this->title) ?>
-                <small>
-                    详细信息查看
-                    <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
-                    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger  btn-xs',
-                        'data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
-                </small>
-            </h1>
+            <h1><?= Html::encode($this->title) ?> 今日:<?=date('Y年m月d日')?></h1>
         </div><!-- /.page-header -->
 
         <div class="row">
@@ -98,7 +86,7 @@ $this->params['breadcrumbs'][] = ['label' => '进货管理', 'url' => ['index']]
         <td width="170">进货量 <input type="text" name="in[{{sku_id}}][num]" style="width: 100px" required class="num"></td>
         <td width="170">总&nbsp&nbsp&nbsp价 <input type="text" name="in[{{sku_id}}][total]" style="width: 100px" required class="total"></td>
         <td width="170">单&nbsp&nbsp&nbsp价 <input type="text" name="in[{{sku_id}}][unit_price]" style="width: 100px" required class="uprice"></td>
-        <td width="170">单&nbsp&nbsp&nbsp位 <input type="text" name="in[{{sku_id}}][unit]" style="width: 100px"></td>
+        <td width="170">单&nbsp&nbsp&nbsp位 <input type="text" name="in[{{sku_id}}][unit]" value="{{unit}}" style="width: 100px"></td>
         <td>建议零售价 <input type="text" name="in[{{sku_id}}][retail]" style="width: 100px"></td>
     </tr>
     <tr>
@@ -165,11 +153,13 @@ $(function(){
         var goods_id = item.data('gid');
         var sku_id = item.data('sku_id');
         var sku_name = item.data('name');
+        var unit = item.data('unit');
 
         goodsSelect[sku_id] = {
             'sku_id'   : sku_id,
             'sku_name' : sku_name,
-            'goods_id' : goods_id
+            'goods_id' : goods_id,
+            'unit'     : unit
         }
         updateSelected();
     }

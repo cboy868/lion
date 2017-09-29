@@ -71,7 +71,8 @@ class InventorySupplier extends \app\core\db\ActiveRecord
             'created_by' => '添加人',
             'created_at' => '添加时间',
             'statusText' => '状态',
-            'sexText' => '性别'
+            'sexText' => '性别',
+            'by.username'=> '添加人'
         ];
     }
 

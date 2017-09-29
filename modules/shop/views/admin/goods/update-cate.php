@@ -28,7 +28,10 @@ use app\modules\shop\models\Category;
 				?>
 				    <?php $form = ActiveForm::begin(); ?>
 
-				    <?= $form->field($model, 'category_id')->dropDownList(Category::selTree(), ['options'=>$options]) ?>
+				    <?= $form->field($model, 'category_id')
+                        ->dropDownList(Category::selTree(), ['options'=>$options])
+                        ->hint('在此修改分类，如不修改，直接点击保存按扭');
+                    ?>
 
 
 					<div class="form-group">

@@ -2,13 +2,11 @@
 
 use app\core\helpers\Html;
 use app\core\helpers\ArrayHelper;
-use app\core\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 use app\modules\shop\models\InventorySupplier;
 use kartik\select2\Select2;
-app\assets\ExtAsset::register($this);
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\InventoryPurchase */
-/* @var $form yii\widgets\ActiveForm */
+
+\app\assets\ExtAsset::register($this);
 ?>
 <style type="text/css">
     .cuser{
@@ -19,8 +17,8 @@ app\assets\ExtAsset::register($this);
 
     <?php $form = ActiveForm::begin(); ?>
     <?php 
-        $form->fieldConfig['template'] = '{label}<div class="col-sm-11">{input}{hint}{error}</div>';
-        $form->fieldConfig['labelOptions']['class'] = 'control-label col-sm-1';
+//        $form->fieldConfig['template'] = '{label}<div class="col-sm-11">{input}{hint}{error}</div>';
+//        $form->fieldConfig['labelOptions']['class'] = 'control-label col-sm-1';
      ?>
      <?php 
 
@@ -35,53 +33,73 @@ app\assets\ExtAsset::register($this);
 
      ?>
 
+    <table class="noborder table">
+        <tr>
+            <td>
+                <?= $form->field($model, 'supplier_id')->dropDownList($sup, ['prompt'=>'选择供应商', 'options'=>$options, 'class'=>'supplier form-control']) ?>
+            </td>
+            <td>
+                <?= $form->field($model, 'ct_name')->textInput(['maxlength' => true, 'class'=>'form-control ct_name']) ?>
 
-    <?= $form->field($model, 'supplier_id')->dropDownList($sup, ['style'=>'width:50%', 'prompt'=>'选择供应商', 'options'=>$options, 'class'=>'supplier form-control']) ?>
+            </td>
+            <td>
+                <?= $form->field($model, 'ct_mobile')->textInput(['maxlength' => true, 'class'=>'form-control ct_mobile']) ?>
+            </td>
+        </tr>
 
-    <?= $form->field($model, 'ct_name')->textInput(['maxlength' => true, 'style'=>'width:50%', 'class'=>'form-control ct_name']) ?>
+        <tr>
+            <td>
+                <?php
+                $users = \app\modules\user\models\User::staffs();
 
-    <?= $form->field($model, 'ct_mobile')->textInput(['maxlength' => true, 'style'=>'width:50%', 'class'=>'form-control ct_mobile']) ?>
-    <?php 
-        $users = \app\modules\user\models\User::staffs();
+                $options = [];
+                foreach ($users as $k => $v) {
+                    $options[$v['id']]['mobile'] = $v['mobile'];
+                    $options[$v['id']]['name'] = $v['username'];
+                }
+                ?>
 
-        $options = [];
-        foreach ($users as $k => $v) {
-            $options[$v['id']]['mobile'] = $v['mobile'];
-            $options[$v['id']]['name'] = $v['username'];
-        }
-     ?>
-     <?php 
-echo $form->field($model, 'checker_id')->widget(Select2::classname(), [
-    'data' => ArrayHelper::map($users, 'id', 'username'),
-    'options' => [
-        'placeholder' => '选择验收员',
-        'class' => 'cuser',
-        'options' => $options,
-    ],
-    'pluginOptions' => [
-        'allowClear' => true
-    ],
-])->label('验收员');
+                <?php
+                echo $form->field($model, 'checker_id')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map($users, 'id', 'username'),
+                    'options' => [
+                        'placeholder' => '选择验收员',
+                        'class' => 'cuser',
+                        'options' => $options,
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])->label('验收员');
 
-     ?>
-    <?= $form->field($model, 'checker_name')->hiddenInput(['maxlength' => true, 'class'=>'cname'])->label(false) ?>
+                ?>
+                <?= $form->field($model, 'checker_name')->hiddenInput(['maxlength' => true, 'class'=>'cname'])->label(false) ?>
 
-    <?= $form->field($model, 'total')->textInput(['maxlength' => true, 'style'=>'width:30%']) ?>
+            </td>
+            <td>
+                <?= $form->field($model, 'total')->textInput(['maxlength' => true,]) ?>
 
-    <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
+            </td>
+            <td>
+                <?= $form->field($model, 'supply_at')->textInput(['dt'=>'true',])->label('供货日期'); ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
+                <?= $form->field($model, 'op_id')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'supply_at')->textInput(['dt'=>'true', 'style'=>'width:30%'])->label('供货日期'); ?>
-
-    <?= $form->field($model, 'op_id')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'op_name')->hiddenInput(['maxlength' => true])->label(false) ?>
-
-	<div class="form-group">
-        <div class="col-sm-offset-2 col-sm-3">
-            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
-        </div>
-    </div>
-    
+                <?= $form->field($model, 'op_name')->hiddenInput(['maxlength' => true])->label(false) ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary']) ?>
+                </div>
+            </td>
+        </tr>
+    </table>
     <?php ActiveForm::end(); ?>
 
 </div>

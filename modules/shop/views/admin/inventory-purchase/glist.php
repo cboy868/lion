@@ -33,7 +33,8 @@ use yii\widgets\LinkPager;
                         <?=$sv->name?>(<?=$sv->num?>)
                         <a href="#" class="btn btn-primary btn-sm pull-right instor" 
                             data-sku_id="<?=$sv->id?>" 
-                            data-gid="<?=$v->id?>" 
+                            data-gid="<?=$v->id?>"
+                            data-unit="<?=$v->unit?>"
                             data-name="<?=$v->name . $sv->name?>">入库此规格</a>
                         </td>
                     </tr>
@@ -43,7 +44,8 @@ use yii\widgets\LinkPager;
                 <?=$v->sku[0]->name?>(<?=$v->num?>)
                 <a href="#" class="btn btn-primary pull-right instor btn-sm" 
                     data-sku_id="<?=$v->sku[0]->id?>" 
-                    data-gid="<?=$v->id?>" 
+                    data-gid="<?=$v->id?>"
+                    data-unit="<?=$v->unit?>"
                     data-name="<?=$v->name?>">入库此商品</a>
             <?php endif ?>
             </td>

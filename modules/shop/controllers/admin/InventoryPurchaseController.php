@@ -226,7 +226,7 @@ class InventoryPurchaseController extends BackController
         } else {
             $model->op_id = Yii::$app->user->id;
             $model->op_name = Yii::$app->user->identity->username;
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -246,7 +246,7 @@ class InventoryPurchaseController extends BackController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
