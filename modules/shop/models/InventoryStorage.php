@@ -68,4 +68,24 @@ class InventoryStorage extends \app\core\db\ActiveRecord
             'status' => '状态',
         ];
     }
+
+    public function add($goods_id, $sku_id, $num)
+    {
+
+        $rel = InventoryStorageRel::find()
+            ->where(['goods_id'=>$goods_id, 'sku_id'=>$sku_id,'status'=>InventoryStorageRel::STATUS_NORMAL])
+            ->one();
+        if (!$rel) {
+            $rel = new InventoryStorageRel();
+            $rel->goods_id = $goods_id;
+            $rel->sku_id = $sku_id;
+            $rel->total = $num;
+            $rel->storage_id = $this->id;
+        } else {
+            $rel->total += $num;
+        }
+
+        $rel->save();
+
+    }
 }

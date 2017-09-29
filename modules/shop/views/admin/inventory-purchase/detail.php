@@ -1,15 +1,7 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-use app\modules\shop\models\InventorySupplier;
-use yii\bootstrap\Modal;
-\app\assets\JqueryuiAsset::register($this);
-
-$this->title = '进货入库';
-$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <style type="text/css">
@@ -24,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-xs-12 inventory-purchase-rel-index">
 <?php if (isset($rel_dataProvider) && $rel_dataProvider->getModels()): ?>
     <div class="search-box search-outline">
-    <h3>进货明细</h3>
            <small>
                 供货商:<?=$record->supplier->cp_name;?>,
                 总金额:<?=$record->total?>

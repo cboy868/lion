@@ -3,7 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
-
+use \app\modules\shop\models\InventoryStorage;
 /* @var $this yii\web\View */
 /* @var $model app\modules\shop\models\search\InventoryStorage */
 /* @var $form yii\widgets\ActiveForm */
@@ -13,15 +13,12 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <?php // echo $form->field($model, 'mobile') ?>
-
-    <?php // echo $form->field($model, 'thumb') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
+    <?php
+    $form->action = Url::current(['id'=>Yii::$app->request->get('id')]);
+    $storage = InventoryStorage::find()->where(['status'=>InventoryStorage::STATUS_NORMAL])->all();
+    ?>
+    <?= $form->field($model, 'name')->dropDownList(\yii\helpers\ArrayHelper::map($storage, 'id', 'name'),
+        ['prompt'=>'不 限']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

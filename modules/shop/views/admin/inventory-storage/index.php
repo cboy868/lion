@@ -5,14 +5,10 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\shop\models\search\InventoryStorage */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use app\modules\shop\models\InventoryStorage;
 
 $this->title = '仓库列表';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 ?>
 
@@ -25,10 +21,53 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=  Html::a($this->title, ['index']) ?> 
             -->
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新增库房', ['create'], ['class' => 'btn btn-primary btn-sm modalAddButton',"data-loading-text"=>"页面加载中, 请稍后...", "onclick"=>"return false"]) ?>
+                    <?= Html::a('初始化', '#', ['class'=>
+                        'btn btn-sm btn-danger pull-right',
+                        'data-toggle'=>"modal",
+                        'data-target'=>"#myModal"
+                    ]) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">选择仓库
+
+                        </h4>
+                    </div>
+
+                    <form id="w0" action="<?=Url::toRoute(['sync'])?>" method="get">
+
+                        <?php
+                        $storages = InventoryStorage::find()->where(['status'=>InventoryStorage::STATUS_NORMAL])->all();
+                        $s = \yii\helpers\ArrayHelper::map($storages, 'id', 'name');
+                        ?>
+
+                        <div class="modal-body">
+                            <p style="color:green;">
+                                1、本功能会把所有已添加的商品中数量不为0人商品同步到所选仓库 <br>
+                                2、本功能会删除原有仓库中已有商品，请慎用。
+                                3、建议只在第一次使用系统时使用
+                            </p>
+
+                            <?=Html::dropDownList('storage', null, $s, ['class'=>'form-control'])?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                            <button type="submit" class="btn btn-primary redcreate">OK</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <?php 
             Modal::begin([
                 'header' => '新增',
@@ -61,7 +100,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
+            <?php if (isset($relDataProvider)):?>
             <div class="col-xs-4 inventory-storage-index">
+            <?php else:?>
+            <div class="col-xs-12 inventory-storage-index">
+            <?php endif;?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -87,11 +130,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete} {view}',
+                'template' => '{update} {delete} {index}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => '编辑','class'=>"modalEditButton", 'data-loading-text'=>"页面加载中, 请稍后...", 'onclick'=>"return false"] );
                     },
+                    'index' => function($url, $model, $key) {
+                        return Html::a('库存商品', $url, ['title' => '库存商品'] );
+                    }
                 ],
                'headerOptions' => ['width' => '240',"data-type"=>"html"]
             ]
@@ -99,6 +145,27 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
+
+            <?php if (isset($relDataProvider)):?>
+            <div class="col-xs-8">
+                <?= GridView::widget([
+                    'dataProvider' => $relDataProvider,
+                    'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
+                    // 'filterModel' => $searchModel,
+                    'columns' => [
+                        'storage.name',
+                        [
+                            'label' => '商品',
+                            'value' => function($model){
+                                return $model->sku->getFullName();
+                            }
+                        ],
+                        'total',
+                        'note:ntext',
+                    ],
+                ]); ?>
+            </div>
+            <?php endif;?>
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>

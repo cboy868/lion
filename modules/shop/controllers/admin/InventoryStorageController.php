@@ -2,13 +2,15 @@
 
 namespace app\modules\shop\controllers\admin;
 
+use app\modules\shop\models\Sku;
 use Yii;
 use app\modules\shop\models\InventoryStorage;
 use app\modules\shop\models\search\InventoryStorage as InventoryStorageSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\modules\shop\models\InventoryStorageRel;
+use app\modules\shop\models\search\InventoryStorageRel as InventoryStorageRelSearch;
 /**
  * InventoryStorageController implements the CRUD actions for InventoryStorage model.
  */
@@ -32,16 +34,51 @@ class InventoryStorageController extends BackController
      */
     public function actionIndex()
     {
+
+
+
         $searchModel = new InventoryStorageSearch();
         $params = Yii::$app->request->queryParams;
         $params['InventoryStorage']['status'] = InventoryStorage::STATUS_NORMAL;
         $dataProvider = $searchModel->search($params);
 
-
-        return $this->render('index', [
+        $data = [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+        ];
+
+        $id = Yii::$app->request->get('id');
+        if ($id) {
+            $params['InventoryStorageRelSearch']['storage_id'] = $id;
+            $relSearchModel = new InventoryStorageRelSearch();
+            $relDataProvider = $relSearchModel->search($params);
+            $data['relDataProvider'] = $relDataProvider;
+        }
+
+        return $this->render('index', $data);
+    }
+
+    /**
+     * @name 同步
+     */
+    public function actionSync($storage)
+    {
+        $skus = Sku::find()->where(['NOT', ['num' => null]])->asArray()->all();
+
+        $st = InventoryStorage::findOne($storage);
+
+        Yii::$app->db->createCommand()
+            ->delete(InventoryStorageRel::tableName(),[
+                'storage_id' => $storage,
+            ])
+            ->execute();
+
+        foreach ($skus as $v) {
+            $st->add($v['goods_id'], $v['id'], $v['num']);
+        }
+
+        return $this->redirect(['index', 'id'=>$storage]);
+
     }
 
     /**

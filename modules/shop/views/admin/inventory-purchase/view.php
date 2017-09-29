@@ -4,6 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
+use app\modules\shop\models\InventoryStorage;
 app\assets\ValidateAsset::register($this);
 app\assets\MustacheAsset::register($this);
 app\assets\FormAsset::register($this);
@@ -74,10 +75,13 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <script id="template" type="x-tmpl-mustache">
 
+<?php
 
+$storages = InventoryStorage::find()->where(['status'=>InventoryStorage::STATUS_NORMAL])->all();
+?>
 <table class="table table-bordered gdata">
     <tr>
-        <td colspan="5">
+        <td colspan="6">
             <h4 style="color:green" class="intit pull-left">{{sku_name}}<small></small></h4>
             <a href="#" class="btn btn-danger btn-sm box-del pull-right">删除</a>
         </td>
@@ -87,10 +91,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <td width="170">总&nbsp&nbsp&nbsp价 <input type="text" name="in[{{sku_id}}][total]" style="width: 100px" required class="total"></td>
         <td width="170">单&nbsp&nbsp&nbsp价 <input type="text" name="in[{{sku_id}}][unit_price]" style="width: 100px" required class="uprice"></td>
         <td width="170">单&nbsp&nbsp&nbsp位 <input type="text" name="in[{{sku_id}}][unit]" value="{{unit}}" style="width: 100px"></td>
-        <td>建议零售价 <input type="text" name="in[{{sku_id}}][retail]" style="width: 100px"></td>
+        <td width="220">建议零售价 <input type="text" name="in[{{sku_id}}][retail]" style="width: 100px"></td>
+        <td>库房
+            <select name="in[{{sku_id}}][storage]" required>
+            <?php foreach ($storages as $v): ?>
+                <option value="<?=$v['id']?>"><?=$v['name']?></option>
+            <?php endforeach;?>
+            </select>
+        </td>
     </tr>
     <tr>
-        <td colspan="5">
+        <td colspan="6">
             <input type="hidden" name="in[{{sku_id}}][goods_id]" class="goods_id" value="{{goods_id}}">
             <textarea name="in[{{sku_id}}][note]" placeholder="备注" rows="3" style="width:100%"></textarea>
             

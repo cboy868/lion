@@ -2,6 +2,7 @@
 
 namespace app\modules\shop\controllers\admin;
 
+use app\modules\shop\models\InventoryStorage;
 use Yii;
 use app\modules\shop\models\Goods;
 use app\modules\shop\models\Sku;
@@ -38,7 +39,7 @@ class InventoryPurchaseController extends BackController
     public function actionIndex()
     {
 
-        $id = Yii::$app->request->get('id');
+//        $id = Yii::$app->request->get('id');
 
         //record
         $searchModel = new InventoryPurchaseSearch();
@@ -46,69 +47,29 @@ class InventoryPurchaseController extends BackController
         $params['InventoryPurchase']['status'] = InventoryPurchase::STATUS_NORMAL;
         $dataProvider = $searchModel->search($params);
 
-        if (!$id) {
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        } else {
-            //record rel
-            $rel_searchModel = new InventoryPurchaseRelSearch();
-            $rel_params = Yii::$app->request->queryParams;
-            $rel_params['InventoryPurchaseRel']['record_id'] = $id;
-            $rel_params['InventoryPurchaseRel']["status"] = InventoryPurchaseRel::STATUS_NORMAL;
-
-            $rel_dataProvider = $rel_searchModel->search($rel_params);
-
-            $record = $this->findModel($id);
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'rel_dataProvider' => $rel_dataProvider,
-                'rel_searchModel' => $rel_searchModel,
-                'record' => $record
-            ]);
-        }
-
-        
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
-    public function actionDetail()
+    public function actionDetail($id)
     {
+        //record rel
+        $rel_searchModel = new InventoryPurchaseRelSearch();
+        $rel_params = Yii::$app->request->queryParams;
+        $rel_params['InventoryPurchaseRel']['record_id'] = $id;
+        $rel_params['InventoryPurchaseRel']["status"] = InventoryPurchaseRel::STATUS_NORMAL;
 
-        $id = Yii::$app->request->get('id');
+        $rel_dataProvider = $rel_searchModel->search($rel_params);
 
-        //record
-        $searchModel = new InventoryPurchaseSearch();
-        $params = Yii::$app->request->queryParams;
-        $params['InventoryPurchase']['status'] = InventoryPurchase::STATUS_NORMAL;
-        $dataProvider = $searchModel->search($params);
+        $record = $this->findModel($id);
 
-        if (!$id) {
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        } else {
-            //record rel
-            $rel_searchModel = new InventoryPurchaseRelSearch();
-            $rel_params = Yii::$app->request->queryParams;
-            $rel_params['InventoryPurchaseRel']['record_id'] = $id;
-            $rel_params['InventoryPurchaseRel']["status"] = InventoryPurchaseRel::STATUS_NORMAL;
-
-            $rel_dataProvider = $rel_searchModel->search($rel_params);
-
-            $record = $this->findModel($id);
-
-            return $this->renderAjax('detail', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'rel_dataProvider' => $rel_dataProvider,
-                'rel_searchModel' => $rel_searchModel,
-                'record' => $record
-            ]);
-        }
+        return $this->renderAjax('detail', [
+            'rel_dataProvider' => $rel_dataProvider,
+            'rel_searchModel' => $rel_searchModel,
+            'record' => $record
+        ]);
 
     }
 
@@ -216,6 +177,14 @@ class InventoryPurchaseController extends BackController
                     $rel->load($data, '');
                     $rel->save();
                     Sku::updateNum($k, $v['num']);
+
+
+                    $storage = InventoryStorage::findOne($v['storage']);
+                    if (!$storage) {
+                        throw new NotFoundHttpException('storage not found');
+                    }
+
+                    $storage->add($v['goods_id'], $k, $v['num']);
 
                     unset($rel);
                 }
