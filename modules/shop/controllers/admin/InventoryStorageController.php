@@ -34,9 +34,6 @@ class InventoryStorageController extends BackController
      */
     public function actionIndex()
     {
-
-
-
         $searchModel = new InventoryStorageSearch();
         $params = Yii::$app->request->queryParams;
         $params['InventoryStorage']['status'] = InventoryStorage::STATUS_NORMAL;
@@ -49,7 +46,7 @@ class InventoryStorageController extends BackController
 
         $id = Yii::$app->request->get('id');
         if ($id) {
-            $params['InventoryStorageRelSearch']['storage_id'] = $id;
+            $params['InventoryStorageRel']['storage_id'] = $id;
             $relSearchModel = new InventoryStorageRelSearch();
             $relDataProvider = $relSearchModel->search($params);
             $data['relDataProvider'] = $relDataProvider;
@@ -136,13 +133,48 @@ class InventoryStorageController extends BackController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
+
+        $post = Yii::$app->request->post();
+        $move_to_id = $post['storage'];
+        $id = $post['id'];
+        $current_id = $post['current_id'];
+
+
+        if (!$id) {
+            Yii::$app->session->setFlash('error', '删除失败，请刷新页面后再执行此操作');
+            return $this->redirect(['index', 'id'=>$current_id]);
+        }
+
+        if ($id == $current_id) {
+            $current_id = null;
+        }
+
+        //查看待删除的库中是否有库存
+        $rels = InventoryStorageRel::find()->where(['storage_id'=>$id])->one();
+
+        if ($rels) {
+            if (!$move_to_id) {
+                Yii::$app->session->setFlash('error', '删除失败，库中尚有库存，请先把现有库存转移到其它库');
+                return $this->redirect(['index', 'id'=>$current_id]);
+            }
+
+            Yii::$app->db->createCommand()
+                ->update(
+                    InventoryStorageRel::tableName(),
+                    ['storage_id' => $move_to_id],
+                    ['storage_id'=>$id])
+                ->execute();
+
+        }
+
         $model = $this->findModel($id);
         $model->status = InventoryStorage::STATUS_DEL;
         $model->save();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', '删除成功');
+        return $this->redirect(['index', 'id'=>$current_id]);
     }
 
     /**

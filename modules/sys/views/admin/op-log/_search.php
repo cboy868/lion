@@ -18,9 +18,7 @@ use yii\helpers\ArrayHelper;
         ->dropDownList(ArrayHelper::map(User::staffs(), 'id', 'username'),
             ['prompt'=>'选择操作人']) ?>
 
-
     <?= $form->field($model, 'table_name') ?>
-
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

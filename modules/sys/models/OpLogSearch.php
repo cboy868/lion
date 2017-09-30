@@ -41,7 +41,7 @@ class OpLogSearch extends OpLog
      */
     public function search($params)
     {
-        $query = OpLog::find();
+        $query = OpLog::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

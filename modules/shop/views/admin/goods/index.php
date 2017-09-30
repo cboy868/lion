@@ -99,7 +99,7 @@ FootableAsset::register($this);
 
         <?php 
             Modal::begin([
-                'header' => '添增',
+                'header' => '新增',
                 'id' => 'modalAdd',
                 'clientOptions' => ['backdrop' => 'static', 'show' => false]
                 // 'size' => 'modal'
@@ -309,7 +309,8 @@ $category_id = Yii::$app->getRequest()->get('category_id');
                             ['title' => $name, 'target'=>'_blank', 'class'=>'recommend'] );
                     },
                     'update' => function($url, $model, $key) {
-                        return Html::a('修改', Url::toRoute(['/shop/admin/goods/update-cate', 'id'=>$model->id]), ['title' => '修改', 'class'=>'modalEditButton'] );
+                        return Html::a('修改', Url::toRoute(['/shop/admin/goods/update-cate', 'id'=>$model->id]),
+                            ['title' => '修改', 'class'=>'modalEditButton'] );
                     },
 
                     'update-lg' => function($url, $model, $key) use($i18n_flag) {

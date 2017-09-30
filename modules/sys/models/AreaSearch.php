@@ -18,7 +18,7 @@ class AreaSearch extends Area
     public function rules()
     {
         return [
-            [['id', 'level', 'upid', 'list'], 'integer'],
+            [['id', 'level', 'pid', 'list'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -46,7 +46,7 @@ class AreaSearch extends Area
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => 50,
             ],
         ]);
 
@@ -57,7 +57,7 @@ class AreaSearch extends Area
         $query->andFilterWhere([
             'id' => $this->id,
             'level' => $this->level,
-            'upid' => $this->upid,
+            'pid' => $this->pid,
             'list' => $this->list,
         ]);
 

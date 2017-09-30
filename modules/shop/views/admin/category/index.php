@@ -7,10 +7,6 @@ use app\core\widgets\GridView;
 use app\assets\Tabletree;
 use yii\bootstrap\Modal;
 
-/* @var $this yii\web\View */
-/* @var $searchModel cms\models\CategorySearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 
 $this->title = '分类列表';
 $this->params['breadcrumbs'][] = $this->title;

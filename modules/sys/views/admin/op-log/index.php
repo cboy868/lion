@@ -49,9 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'route',
             'description:ntext',
             'created_at:datetime',
-
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

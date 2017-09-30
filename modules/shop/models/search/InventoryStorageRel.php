@@ -41,7 +41,7 @@ class InventoryStorageRel extends InventoryStorageRelModel
      */
     public function search($params)
     {
-        $query = InventoryStorageRelModel::find();
+        $query = InventoryStorageRelModel::find()->orderBy('total asc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,6 +59,7 @@ class InventoryStorageRel extends InventoryStorageRelModel
             'total' => $this->total,
             'created_at' => $this->created_at,
         ]);
+
 
         $query->andFilterWhere(['like', 'note', $this->note]);
 

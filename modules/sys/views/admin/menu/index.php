@@ -126,9 +126,17 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.page-content-area -->
 </div>
 
-<?php $this->beginBlock('auth') ?>  
+<?php $this->beginBlock('auth') ?>
 $(function(){
-    $("#menu-table").treetable({ expandable: true,initialState:'expanded' });
+    $("#menu-table").treetable({
+        expandable: true,
+        initialState:'expanded',
+        theme:'vsStyle',
+        clickableNodeNames:true,
+        stringCollapse:'关闭',
+        stringExpand:'展开',
+    });
+
 
     $('.sel-menu').change(function(){
         var panel = $(this).val();

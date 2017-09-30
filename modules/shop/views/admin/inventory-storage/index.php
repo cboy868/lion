@@ -37,9 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">选择仓库
-
-                        </h4>
+                        <h4 class="modal-title" id="myModalLabel">选择仓库</h4>
                     </div>
 
                     <form id="w0" action="<?=Url::toRoute(['sync'])?>" method="get">
@@ -52,15 +50,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="modal-body">
                             <p style="color:green;">
                                 1、本功能会把所有已添加的商品中数量不为0人商品同步到所选仓库 <br>
-                                2、本功能会删除原有仓库中已有商品，请慎用。
+                                2、本功能会删除原有仓库中已有商品，请慎用。<br>
                                 3、建议只在第一次使用系统时使用
                             </p>
 
                             <?=Html::dropDownList('storage', null, $s, ['class'=>'form-control'])?>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-                            <button type="submit" class="btn btn-primary redcreate">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary redcreate">确认</button>
                         </div>
                     </form>
                 </div>
@@ -94,10 +92,15 @@ $this->params['breadcrumbs'][] = $this->title;
             Modal::end();
         ?>
         <div class="row">
+
             <div class="col-xs-12">
                 <div class="search-box search-outline">
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
+            </div>
+
+            <div class="col-xs-12">
+                <?=\app\core\widgets\Alert::widget();?>
             </div>
 
             <?php if (isset($relDataProvider)):?>
@@ -137,6 +140,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'index' => function($url, $model, $key) {
                         return Html::a('库存商品', $url, ['title' => '库存商品'] );
+                    },
+                    'delete' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>',
+                            '#',
+                            [
+                                'title' => '删除库',
+                                'data-toggle'=>"modal",
+                                'data-target'=>"#delModal",
+                                'data-id'=> $model->id
+                            ]);
                     }
                 ],
                'headerOptions' => ['width' => '240',"data-type"=>"html"]
@@ -168,4 +181,49 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endif;?>
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
+
+        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">此库删除后，库中商品需转移到其它仓库，请选择</h4>
+                    </div>
+
+                    <form id="w0" action="<?=Url::toRoute(['delete'])?>" method="post">
+                        <?php
+                        $storages = InventoryStorage::find()->where(['status'=>InventoryStorage::STATUS_NORMAL])->all();
+                        $s = \yii\helpers\ArrayHelper::map($storages, 'id', 'name');
+                        ?>
+
+                        <div class="modal-body">
+                            <?=Html::dropDownList('storage', null, $s,
+                                ['class'=>'form-control selDel', 'prompt'=>'选择仓库'])?>
+                        </div>
+                        <input type="text" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>">
+                        <input type="text" name="id" class="oid">
+                        <input type="text" name="current_id" value="<?=Yii::$app->request->get('id')?>">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary redcreate">确认</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 </div>
+
+<?php $this->beginBlock('cate') ?>
+$(function () {
+    $('#delModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);//
+        var id = button.data('id');
+        var modal = $(this)
+        modal.find(".selDel option:selected").attr('selected',false);
+        modal.find(".selDel option").show();
+        modal.find(".selDel option[value='"+id+"']").hide();
+        modal.find('.oid').val(id);
+    })
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['cate'], \yii\web\View::POS_END); ?>

@@ -91,8 +91,6 @@ class Area extends \app\core\db\ActiveRecord
         return self::find()->where(['upid'=>$id])->asArray()->all();
     }
 
-
-
     
     public function getArea($pid,$cid,$zid){
 
