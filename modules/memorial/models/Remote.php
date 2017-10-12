@@ -184,4 +184,10 @@ class Remote extends \app\core\db\ActiveRecord
         $this->thumb = $info['mid'];
         return $this->save();
     }
+
+    public function saveVideo($info)
+    {
+        $this->video = $info['path'] . '/' . $info['fileName'];
+        return $this->save();
+    }
 }

@@ -1,35 +1,42 @@
 <?php
 
 use app\core\helpers\Html;
+use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\memorial\models\Memorial */
 
-$this->title = ' ' . ' ' . $model->title;
+$this->title = '修改纪念馆基本信息';
 $this->params['breadcrumbs'][] = ['label' => '纪念馆管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = '修改' . $model->title;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<style type="text/css">
+    .nc{margin-right: 10px;}
+</style>
 <div class="page-content">
-	<!-- /section:settings.box -->
-	<div class="page-content-area">
-		<div class="page-header">
-			<h1>
-				<?= Html::encode($this->title) ?>
-				<small>
-					修改详细信息
-				</small>
-			</h1>
-		</div><!-- /.page-header -->
+    <!-- /section:settings.box -->
+    <?= \app\core\widgets\Alert::widget()?>
+    <div class="page-content-area">
+        <div class="row">
+            <style>
+                .dead{
+                    float:left;
+                    width:170px;
+                }
+                .dead a,table a{
+                    color:#333;
+                }
+            </style>
 
-		<div class="row">
-			<div class="col-xs-12 memorial-update">
-				 <?= $this->render('_form', [
-				        'model' => $model,
-				    ]) ?>
-				<div class="hr hr-18 dotted hr-double"></div>
-			</div><!-- /.col -->
-		</div><!-- /.row -->
-	</div><!-- /.page-content-area -->
+            <?=$this->render('left-menu', ['cur'=>'base', 'model'=>$model])?>
+
+            <div class="col-xs-10 memorial-index">
+
+                <?= $this->render('_form', [
+                    'model' => $model,
+                ]) ?>
+                <div class="hr hr-18 dotted hr-double"></div>
+            </div>
+        </div>
+    </div><!-- /.page-content-area -->
 </div>

@@ -118,10 +118,11 @@ class Memorial extends \app\core\db\ActiveRecord
             'thumb' => '封面',
             'intro' => '馆介绍',
             'privacy' => '隐私',
+            'privacyText' => '隐私',
             'view_all' => '查看次数',
             'com_all' => '评论数',
             'tpl' => '模板',
-            'status' => '状态',
+            'statusText' => '状态',
             'updated_at' => '更新时间',
             'created_at' => '添加时间',
         ];

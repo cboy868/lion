@@ -10,6 +10,7 @@ $this->title = '远程祭祀记录';
 $this->params['breadcrumbs'][] = $this->title;
 
 \app\assets\PluploadAssets::register($this);
+\app\assets\PluploadVideoAssets::register($this);
 ?>
 
 <div class="page-content">
@@ -87,7 +88,29 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '视频地址',
                 'value' => function($model){
-                    return $model->video .' '. Html::a('编辑', ['video', 'id'=>$model->id], [
+                    $str = '';
+                    if ($model->video) {
+                        $str .= Html::a('观看视频',Url::toRoute('/'.$model->video), ['target'=>'_blank']) . ' ';
+                    }
+
+                    return $str . Html::a('上传视频', '#', [
+                            'id' => 'filePicker-' . $model->id . 'a',
+                            'class' => ' filelist-thumb videoPicker',
+                            'rid' => $model->id,
+                            'data-url'=>Url::toRoute('video-upload'),
+                            'data-res_name'=>"memorial",
+                            'data-use'=>"thumb"
+                        ]) . '<b class="percent"></b>';
+//                    return $str . Html::a('上传视频<b class="percent"></b>', '#', [
+//                            'id' => 'filePicker-' . $model->id . 'a',
+//                            'class' => 'thumbnail filelist-thumb videoPicker',
+//                            'rid' => $model->id,
+//                            'data-url'=>Url::toRoute('video-upload'),
+//                            'data-res_name'=>"memorial",
+//                            'data-use'=>"thumb"
+//                        ]);
+
+                    return $str . Html::a('上传视频', ['video', 'id'=>$model->id], [
                             'class'=> 'modalEditButton btn btn-xs'
                     ]);
                 },

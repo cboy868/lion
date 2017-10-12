@@ -47,6 +47,11 @@ $params = [
             'filePathFormat' => "/upload/file/{yyyy}{mm}/{time}{rand:3}"
         ]
     ],
+    'video' => [
+        'videoMaxSize'  => '34048000',
+        'videoAllowFiles' => [".mp4"],
+        'videoPathFormat' => "/upload/video/{yyyy}{mm}/{time}{rand:3}",
+    ],
     'image' => [
     	'common' => [
             'water' => 1,

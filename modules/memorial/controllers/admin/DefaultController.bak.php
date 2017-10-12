@@ -3,16 +3,16 @@
 namespace app\modules\memorial\controllers\admin;
 
 use Yii;
-use app\modules\memorial\models\Remote;
-use app\modules\memorial\models\RemoteSearch;
+use app\modules\memorial\models\Memorial;
+use app\modules\memorial\models\MemorialSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\core\base\Upload;
 /**
- * RemoteController implements the CRUD actions for Remote model.
+ * DefaultController implements the CRUD actions for Memorial model.
  */
-class RemoteController extends BackController
+class DefaultController extends BackController
 {
     public function behaviors()
     {
@@ -26,47 +26,14 @@ class RemoteController extends BackController
         ];
     }
 
-    public function actions()
-    {
-        return [
-            'pl-upload' => [
-                'class' => 'app\core\web\PluploadAction',
-            ],
-            'video-upload' => [
-                'class' => 'app\core\web\PluploadVideoAction',
-            ]
-        ];
-    }
-
-    public function saveAttach($info)
-    {
-        $remote = Remote::findOne($info['res_id']);
-
-        if (!$remote) {
-            return null;
-        }
-
-        return $remote->saveAttach($info);
-    }
-
-    public function saveVideo($info)
-    {
-        $remote = Remote::findOne($info['res_id']);
-
-        if (!$remote) {
-            return null;
-        }
-
-        return $remote->saveVideo($info);
-    }
-
     /**
-     * Lists all Remote models.
+     * Lists all Memorial models.
      * @return mixed
+     * @name 纪念馆列表
      */
     public function actionIndex()
     {
-        $searchModel = new RemoteSearch();
+        $searchModel = new MemorialSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -76,9 +43,10 @@ class RemoteController extends BackController
     }
 
     /**
-     * Displays a single Remote model.
+     * Displays a single Memorial model.
      * @param integer $id
      * @return mixed
+     * @name 详细
      */
     public function actionView($id)
     {
@@ -88,47 +56,57 @@ class RemoteController extends BackController
     }
 
     /**
-     * Creates a new Remote model.
+     * Creates a new Memorial model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @name 添加纪念馆
      */
     public function actionCreate()
     {
-        $model = new Remote();
+        $model = new Memorial();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->user_id =  Yii::$app->user->id;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
+
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
 
-    public function actionVideo($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->renderAjax('video', [
-                'model' => $model,
-            ]);
-        }
-    }
-
     /**
-     * Updates an existing Remote model.
+     * Updates an existing Memorial model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @name 修改
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
+        $thumb = $model->thumb;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $upload = Upload::getInstance($model, 'thumb', 'memorial');
+            if ($upload) {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $upload->save();
+
+                $info = $upload->getInfo();
+                $model->thumb = $info['mid'];
+            } else {
+                $model->thumb = $thumb;
+            }
+
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -138,10 +116,11 @@ class RemoteController extends BackController
     }
 
     /**
-     * Deletes an existing Remote model.
+     * Deletes an existing Memorial model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @name 删除
      */
     public function actionDelete($id)
     {
@@ -150,24 +129,25 @@ class RemoteController extends BackController
         return $this->redirect(['index']);
     }
 
-    public function actionFinish($id)
+    public function actionApply($id)
     {
         $model = $this->findModel($id);
-        $model->status = Remote::STATUS_OK;
+        $model->status = Memorial::STATUS_ACTIVE;
         $model->save();
+
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Remote model based on its primary key value.
+     * Finds the Memorial model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Remote the loaded model
+     * @return Memorial the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Remote::findOne($id)) !== null) {
+        if (($model = Memorial::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

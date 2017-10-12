@@ -17,8 +17,6 @@ $this->params['current_menu'] = 'memorial/remote/index';
 
     <?= $form->field($model, 'end')->textInput() ?>
 
-    <?= $form->field($model, 'video')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 
 	<div class="form-group">
