@@ -46,39 +46,6 @@ LN.vplupload = function(){
                         alert('最多只能上传'+imgNum+'个文件哦');
                         uploaderv[index].splice(imgNum, files.length-imgNum);
                     } 
-
-                    // plupload.each(files, function(file, i) {
-                    //     if (!file || !/image\//.test(file.type)) return; //确保文件是图片
-                    //         if (file.type == 'image/gif') {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
-                    //             var fr = new mOxie.FileReader();
-                    //             fr.onload = function () {
-                    //                 if (imgNum > 1) {
-                    //                     $('.filelist-patch').find('img').eq(i).attr('src', fr.result);
-                    //                 }
-                    //                 $(that).find('img').eq(i).attr('src', fr.result);
-                    //                 fr.destroy();
-                    //                 fr = null;
-                    //             }
-                    //             fr.readAsDataURL(file.getSource());
-                    //         } else {
-                    //             var preloader = new mOxie.Image();
-                    //             preloader.onload = function () {
-                    //                 preloader.downsize(404, 486);//先压缩一下要预览的图片,宽300，高300
-                    //                 var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
-                    //                 if (imgNum > 1) {
-                    //                     $('.filelist-patch').find('img').eq(i).attr('src', imgsrc);
-                    //                 } else {
-                    //                     $(that).find('img').eq(i).attr('src', imgsrc);
-                    //                 }
-                    //
-                    //                 preloader.destroy();
-                    //                 preloader = null;
-                    //             };
-                    //             preloader.load(file.getSource());
-                    //         }
-                    //
-                    // });
-
                     uploaderv[index].start();
                 },
 
@@ -88,6 +55,9 @@ LN.vplupload = function(){
 
                 FileUploaded: function(up, file, info) {
                     res = $.parseJSON(info.response);
+                    var a = '<a href="'+ res.web_url +'" target="_blank">预览视频12</a>';
+                    $('.preview'+res_id).html(a);
+
                 },
                 UploadComplete:function(up,file){
                     bt.button('reset');

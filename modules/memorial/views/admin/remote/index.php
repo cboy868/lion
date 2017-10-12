@@ -88,31 +88,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '视频地址',
                 'value' => function($model){
-                    $str = '';
+                    $str = '<span class="preview'.$model->id.'">';
                     if ($model->video) {
-                        $str .= Html::a('观看视频',Url::toRoute('/'.$model->video), ['target'=>'_blank']) . ' ';
+                        $str .= Html::a('预览视频',Url::toRoute('/'.$model->video), ['target'=>'_blank']) . ' ';
                     }
+                    $str .= '</span>';
 
                     return $str . Html::a('上传视频', '#', [
                             'id' => 'filePicker-' . $model->id . 'a',
-                            'class' => ' filelist-thumb videoPicker',
+                            'class' => ' filelist-thumb videoPicker btn btn-info btn-xs',
                             'rid' => $model->id,
                             'data-url'=>Url::toRoute('video-upload'),
                             'data-res_name'=>"memorial",
                             'data-use'=>"thumb"
                         ]) . Html::tag('b', '',['class'=>'percent'.$model->id]);
-//                    return $str . Html::a('上传视频<b class="percent"></b>', '#', [
-//                            'id' => 'filePicker-' . $model->id . 'a',
-//                            'class' => 'thumbnail filelist-thumb videoPicker',
-//                            'rid' => $model->id,
-//                            'data-url'=>Url::toRoute('video-upload'),
-//                            'data-res_name'=>"memorial",
-//                            'data-use'=>"thumb"
-//                        ]);
 
-                    return $str . Html::a('上传视频', ['video', 'id'=>$model->id], [
-                            'class'=> 'modalEditButton btn btn-xs'
-                    ]);
                 },
                 'format' => 'raw'
             ],
