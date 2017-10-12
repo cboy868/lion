@@ -38,6 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
         Modal::end();
         ?>
+        <style>
+            .preview{
+                clear: both;
+            }
+        </style>
 
         <div class="row">
             <div class="col-xs-12">
