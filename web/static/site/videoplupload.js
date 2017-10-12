@@ -50,7 +50,12 @@ LN.vplupload = function(){
                 },
 
                 UploadProgress: function(up, file) {
-                    $('.percent'+res_id).html('<span>' + file.percent + "%</span>");
+
+                    if (file.percent == 100) {
+                        $('.percent'+res_id).html('');
+                    } else {
+                        $('.percent'+res_id).html('<span>' + file.percent + "%</span>");
+                    }
                 },
 
                 FileUploaded: function(up, file, info) {

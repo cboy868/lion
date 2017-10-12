@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-url'=>Url::toRoute('video-upload'),
                             'data-res_name'=>"memorial",
                             'data-use'=>"thumb"
-                        ]) . Html::tag('b', '',['class'=>'percent'.$model->id]);
+                        ]) . Html::tag('b', '',['class'=>'percent'.$model->id]) . ' ';
 
 
                     $str .= '<span class="preview'.$model->id.'">';
