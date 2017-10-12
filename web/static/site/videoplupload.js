@@ -91,7 +91,7 @@ LN.vplupload = function(){
                 },
                 UploadComplete:function(up,file){
                     bt.button('reset');
-                    location.reload();
+                    //location.reload();
                 },
 
                 Error: function(up, err) {

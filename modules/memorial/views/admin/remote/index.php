@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-url'=>Url::toRoute('video-upload'),
                             'data-res_name'=>"memorial",
                             'data-use'=>"thumb"
-                        ]) . '<b class="percent<?=$model->id?>"></b>';
+                        ]) . Html::tag('b', '',['class'=>'percent'.$model->id]);
 //                    return $str . Html::a('上传视频<b class="percent"></b>', '#', [
 //                            'id' => 'filePicker-' . $model->id . 'a',
 //                            'class' => 'thumbnail filelist-thumb videoPicker',
