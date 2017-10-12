@@ -93,13 +93,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '视频地址',
                 'value' => function($model){
-                    $str = '<span class="preview'.$model->id.'">';
-                    if ($model->video) {
-                        $str .= Html::a('预览视频',Url::toRoute('/'.$model->video), ['target'=>'_blank']) . ' ';
-                    }
-                    $str .= '</span>';
+                    $str ='';
 
-                    return $str . Html::a('上传视频', '#', [
+                    $str .= Html::a('上传视频', '#', [
                             'id' => 'filePicker-' . $model->id . 'a',
                             'class' => ' filelist-thumb videoPicker btn btn-info btn-xs',
                             'rid' => $model->id,
@@ -107,6 +103,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-res_name'=>"memorial",
                             'data-use'=>"thumb"
                         ]) . Html::tag('b', '',['class'=>'percent'.$model->id]);
+
+
+                    $str .= '<span class="preview'.$model->id.'">';
+                    if ($model->video) {
+                        $str .= Html::a('预览视频',Url::toRoute('/'.$model->video), ['target'=>'_blank']) . ' ';
+                    }
+                    $str .= '</span>';
+
+                    return $str;
 
                 },
                 'format' => 'raw'

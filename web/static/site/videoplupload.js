@@ -55,7 +55,7 @@ LN.vplupload = function(){
 
                 FileUploaded: function(up, file, info) {
                     res = $.parseJSON(info.response);
-                    var a = '<a href="'+ res.web_url +'" target="_blank">预览视频12</a>';
+                    var a = '<a href="'+ res.web_url +'" target="_blank">预览视频</a>';
                     $('.preview'+res_id).html(a);
 
                 },
