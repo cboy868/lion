@@ -83,7 +83,7 @@ LN.vplupload = function(){
                 },
 
                 UploadProgress: function(up, file) {
-                    $('.percent').html('<span>' + file.percent + "%</span>");
+                    $('.percent'+res_id).html('<span>' + file.percent + "%</span>");
                 },
 
                 FileUploaded: function(up, file, info) {
