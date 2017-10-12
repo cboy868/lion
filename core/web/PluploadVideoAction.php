@@ -42,11 +42,6 @@ class PluploadVideoAction extends Action
             $upload = VideoUpload::getInstanceByName('file', $res_name, $res_id);
             $upload->use = $use ? $use : null;
 
-//            if ($this->type == 'news') {
-//                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\modules\news\models\NewsPhoto', 'db']);
-//            } else {
-//                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
-//            }
             $upload->save();
 
             $info = $upload->getInfo();
