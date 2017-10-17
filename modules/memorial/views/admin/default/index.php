@@ -9,8 +9,7 @@ use yii\bootstrap\Modal;
 
 Yii::$app->params['cur_nav'] = 'memorial_index';
 
-$this->title = '我创建的纪念馆';
-$this->params['breadcrumbs'][] = ['label' => '个人中心首页', 'url' => ['/member']];
+$this->title = '纪念馆管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
@@ -20,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="page-header">
-            <h1>我创建的纪念馆
+            <h1>纪念馆管理
 
                 <small>
                     <div class="pull-right nc">

@@ -72,6 +72,11 @@ return [
     ],
     'ashes' => [
         'class' => 'app\modules\ashes\Module',
+    ],
+
+
+    'approval' => [
+        'class' => 'app\modules\approval\Module',
     ]
 
 

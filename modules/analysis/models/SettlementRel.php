@@ -13,6 +13,7 @@ use app\modules\order\modls\Order;
 class SettlementRel extends \app\core\db\ActiveRecord
 {
 
+    const STATUS_CHECK = 2;
 
     public static function check($date = null)
     {
@@ -20,8 +21,8 @@ class SettlementRel extends \app\core\db\ActiveRecord
         Yii::$app->db->createCommand()
                         ->update(
                             self::tableName(),
-                            ['settle_time'=>$date],
-                            ['settle_time'=>self::DTNULL, 'status'=>self::STATUS_NORMAL]
+                            ['settle_time'=>$date, 'status'=>self::STATUS_CHECK],
+                            ['status'=>self::STATUS_NORMAL]
                         )->execute();
     }
 
@@ -47,7 +48,7 @@ class SettlementRel extends \app\core\db\ActiveRecord
         foreach ($rels as $k => $rel) {
             $res_name = $rel->type == 9 ? 'tomb' : 'goods';
             $nd = [
-                'category_id' => $rel->category_id,
+                'category_id' => $rel->category_id ? $rel->category_id : 0,
                 'goods_id'    => $rel->goods_id,
                 'sku_id'      => $rel->sku_id,
                 'ori_price'   => $rel->price,
@@ -79,7 +80,7 @@ class SettlementRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'op_id', 'category_id', 'goods_id', 'sku_id', 'ori_price', 'price', 'settle_time', 'settlement_id','num'], 'required'],
+            [['order_id', 'op_id', 'category_id', 'goods_id', 'sku_id', 'ori_price', 'price', 'settlement_id','num'], 'required'],
             [['order_id', 'op_id', 'guide_id', 'agent_id', 'category_id', 'goods_id', 'sku_id', 'type', 'year', 'month', 'week', 'day', 'status', 'created_at', 'updated_at', 'num'], 'integer'],
             [['ori_price', 'price'], 'number'],
             [['settle_time', 'pay_time'], 'safe'],

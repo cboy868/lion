@@ -694,8 +694,9 @@ PluploadAssets::register($this);
     <script src="/static/assets/js/colorbox/jquery.colorbox-min.js"></script> -->
 
 <?php $this->beginBlock('up') ?>
-    $(function(){
 
+    if (typeof LN == 'undefined') {LN = {}};
+    LN.insFree = function(){
         var changed = "<?=$model->changed?>";
         var insContainer = $('#ins-container');
         var selIns = insContainer.find('.sel');
@@ -714,8 +715,8 @@ PluploadAssets::register($this);
                 '</td>'+
                 '<td><label for=""><input type="checkbox" name="attach[front]['+num+'][is_big]">大字</label></td>'+
                 '<td  colspan="2">'+
-                    '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
-                    '</td>'+
+                '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
+                '</td>'+
                 '</tr>';
 
             $(this).closest('.cbox').find('table').append(html);
@@ -726,14 +727,14 @@ PluploadAssets::register($this);
             var num = $('.main-line',$(this).closest('.cbox')).size();
 
             var html = '<tr class="main-line">' +
-                            '<td>正文</td>' +
-                            '<td><input name="back[main][content]['+num+']" type="text" class="form-control input-sm main'+num+'con">'+
-                            '<input type="hidden" name="back[main][pos]['+num+']" class="form-control main'+num+'">'+
-                            '</td>'+
-                            '<td  colspan="2">'+
-                            '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
-                            '</td>'+
-                        '</tr>';
+                '<td>正文</td>' +
+                '<td><input name="back[main][content]['+num+']" type="text" class="form-control input-sm main'+num+'con">'+
+                '<input type="hidden" name="back[main][pos]['+num+']" class="form-control main'+num+'">'+
+                '</td>'+
+                '<td  colspan="2">'+
+                '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
+                '</td>'+
+                '</tr>';
 
             $(this).closest('.cbox').find('table').append(html);
         });
@@ -858,11 +859,11 @@ PluploadAssets::register($this);
                 var tr = '<tr class="main-line">' +
                     '<td>正文</td>' +
                     '<td><input name="back[main][content]['+k+']" value="'+arr[k]+'" type="text" class="form-control input-sm main'+k+'con">'+
-                        '<input type="hidden" name="back[main][pos]['+k+']" class="form-control main'+k+'">'+
-                        '</td>'+
+                    '<input type="hidden" name="back[main][pos]['+k+']" class="form-control main'+k+'">'+
+                    '</td>'+
                     '<td  colspan="2">'+
-                        '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
-                        '</td>'+
+                    '<button type="button" class="btn btn-default del-line btn-xs"> 删 除 </button>'+
+                    '</td>'+
                     '</tr>';
 
                 $('.backmain .back-line').append(tr);
@@ -910,26 +911,24 @@ PluploadAssets::register($this);
             var url = "<?=Url::toRoute(['/grave/home/ins/free-sel', 'tomb_id'=>$get['tomb_id']])?>";
             var tc = parseInt($('#is_tc').val());
 
-        if (url.indexOf('?') >= 0) {
+            if (url.indexOf('?') >= 0) {
                 url += '&case_id=' + case_id;
             } else {
                 url += '?case_id=' + case_id;
             }
             if(isNaN(case_id)) return ;
-
             $.post(url, data, function(xhr){
 
                 if(xhr.status){
                     if (cla == 'front_selected') {
-                        var ctx = LN.insCanvas('#frontCanvas');
+                        var ctx = LN.insCanvas('#frontCanvas', <?=$get['tomb_id']?>);
                         ctx.setData({data:xhr.data,tc:tc,direction:'front'});
                     }
 
                     if (cla == 'back_selected') {
-                        var ctx = LN.insCanvas('#backCanvas');
+                        var ctx = LN.insCanvas('#backCanvas', <?=$get['tomb_id']?>);
                         ctx.setData({data:xhr.data,tc:tc,direction:'back'});
                     }
-
 
                 } else {
 
@@ -938,7 +937,7 @@ PluploadAssets::register($this);
         }
 
         //取价格
-        function getPrice($type){
+        function getPrice(){
 
             var front_case = $('.front_selected').attr('case_id');
             var back_case = $('.back_selected').attr('case_id');
@@ -946,10 +945,7 @@ PluploadAssets::register($this);
             var url = "<?=Url::toRoute(['/grave/home/ins/price', 'tomb_id'=>$get['tomb_id']])?>";
             var data = $('#auto-ins-form').serialize();
             var date = +new Date();
-
-
             var cache = $('.cache');
-
             $.post(
                 url + '?timstr=' + date + '&front_case='+front_case + '&back_case='+back_case,
                 data,
@@ -1043,6 +1039,15 @@ PluploadAssets::register($this);
             getPrice();
         }
 
+
+
+        return {  // 法三：通过匿名函数返回值得到一系列接口函数集合对象，赋值给全局变量mylib（推荐）
+            getPrice: getPrice
+        };
+    }
+
+    $(function(){
+        LN.insFree();
     })
 
 

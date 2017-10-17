@@ -33,6 +33,7 @@ use app\modules\order\models\Pay;
  */
 class Settlement extends \app\core\db\ActiveRecord
 {
+    const STATUS_CHECK = 2;
 
     const TYPE_DINGJIN = 1;
     const TYPE_CHONG   = 2;
@@ -56,14 +57,15 @@ class Settlement extends \app\core\db\ActiveRecord
             $connection->createCommand()
                         ->update(
                             self::tableName(),
-                            ['settle_time'=>$date],
-                            ['settle_time'=>self::DTNULL, 'status'=>self::STATUS_NORMAL]
+                            ['settle_time'=>$date, 'status'=>self::STATUS_CHECK],
+                            ['status'=>self::STATUS_NORMAL]
                         )->execute();
             Pay::check($date);
             SettlementRel::check($date);
 
             $transaction->commit();
         } catch (\Exception $e) {
+            Yii::error($e->getMessage());
             $transaction->rollBack();
         }
 
@@ -121,7 +123,6 @@ class Settlement extends \app\core\db\ActiveRecord
                 $settle->load($v, '');
                 $settle->save();
 
-
                 if (in_array($v['type'], [self::TYPE_CHONGANDFULL, self::TYPE_FULL])) {
                     SettlementRel::create($order, $settle);
                 }
@@ -129,6 +130,7 @@ class Settlement extends \app\core\db\ActiveRecord
 
             $transaction->commit();
         } catch (\Exception $e) {
+            Yii::error($e->getMessage());
             $transaction->rollBack();
         }
     }
@@ -144,8 +146,6 @@ class Settlement extends \app\core\db\ActiveRecord
         $settles = self::find()->where(['order_id'=>$pay->order_id, 'status'=>self::STATUS_NORMAL])
                                ->all();
 
-
-
         $guide_id = 0;
         if (isset($order->tomb->guide_id)) {
             $guide_id = $order->tomb->guide_id;
@@ -160,7 +160,7 @@ class Settlement extends \app\core\db\ActiveRecord
             'month'    => date('m'),
             'week'     => date('W'),
             'day'      => date('d'),
-            'settle_time' => '0000-00-00 00:00:00',
+            'settle_time' => null,
             'order_id' => $order->id,
             'intro'    => $order->note,
             'created_at' => time(),
@@ -378,7 +378,7 @@ class Settlement extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'op_id', 'type', 'pay_type', 'price', 'settle_time'], 'required'],
+            [['order_id', 'op_id', 'type', 'pay_type', 'price'], 'required'],
             [['order_id', 'op_id', 'guide_id', 'agent_id', 'type', 'pay_type', 'year', 'month', 'week', 'day', 'quarter', 'status', 'created_at', 'updated_at'], 'integer'],
             [['price'], 'number'],
             [['settle_time', 'pay_time'], 'safe'],

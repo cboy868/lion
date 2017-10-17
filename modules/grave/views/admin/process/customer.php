@@ -195,7 +195,6 @@ $this->title="购墓流程"
                     <div class="form-group">
                         <div class="col-sm-12" style="text-align:center;">
                             <?=  Html::submitButton('保 存', ['class' => 'btn btn-warning btn-lg', 'style'=>'padding: 10px 36px']) ?>
-                            <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg" 'style'='padding: 10px 36px'>下一步</a>
                         </div>
                     </div>
 

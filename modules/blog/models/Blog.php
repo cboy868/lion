@@ -2,6 +2,7 @@
 
 namespace app\modules\blog\models;
 
+use app\modules\memorial\models\Memorial;
 use app\modules\user\models\Track;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -148,6 +149,7 @@ class Blog extends \app\core\db\ActiveRecord
             'status' => '状态',
             'privacy_Text' =>'隐私',
             'tags' => '标签/关键词',
+            'privacyText' => '是否公开'
         ];
     }
 
@@ -174,5 +176,14 @@ class Blog extends \app\core\db\ActiveRecord
 
 
         Track::create($res, $this->id);
+    }
+
+    public function getMemorial()
+    {
+        if (!$this->memorial_id) {
+            return false;
+        }
+
+        return $this->hasOne(Memorial::className(), ['id'=>'memorial_id']);
     }
 }

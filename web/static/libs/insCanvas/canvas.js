@@ -1,5 +1,5 @@
 if (typeof LN == 'undefined') {LN = {}};
-LN.insCanvas = function(id){
+LN.insCanvas = function(id, tomb_id){
     var x,y,endX,endY;
 
     var history =new Array();
@@ -12,8 +12,8 @@ LN.insCanvas = function(id){
     var defaultFontFamily = 'SimSun, sans-serif';
     var direction = 'v';
 
-    var fontTip =$("<textarea rows='3' cols='20' style='background:transparent;position:absolute;display:none;'></textarea>");
-    $("#container").append(fontTip);
+    // var fontTip =$("<textarea rows='3' cols='20' style='background:transparent;position:absolute;display:none;'></textarea>");
+    // $("#container").append(fontTip);
 
     var flag = false;
     var ctx=$(id);
@@ -176,6 +176,7 @@ LN.insCanvas = function(id){
                 if (layer.eventX > 560 && layer.eventY>560) {
                     ctx.removeLayer('myText'+lIndex);
                     $('.'+label+'con').val('');
+                    getPrice();
                 } else {
                     $('.'+label).val(layer.x + '_' + layer.y+'_'+fontSize);
                 }
@@ -292,16 +293,53 @@ LN.insCanvas = function(id){
         lIndex++;
     }
 
+    function getPrice(){//不会处理了，直接复制过来一份
+
+        var front_case = $('.front_selected').attr('case_id');
+        var back_case = $('.back_selected').attr('case_id');
+
+        var url = "/grave/home/ins/price?tomb_id="+tomb_id;
+        var data = $('#auto-ins-form').serialize();
+        var date = +new Date();
+
+        var cache = $('.cache');
+
+        $.post(
+            url + '?timstr=' + date + '&front_case='+front_case + '&back_case='+back_case,
+            data,
+            function(json) {
+                if(json.status) {
+                    var data = json.data;
+
+
+                    $('.front_big_count').html(data.front.big);
+                    $('.front_small_count').html(data.front.small);
+                    $('.front_letter_price').html(data.front.letter_big_price + data.front.letter_small_price);
+                    $('.front_paint_price').html(data.front.paint_big_price + data.front.paint_small_price);
+
+                    $('.back_big_count').html(data.back.big);
+                    $('.back_small_count').html(data.back.small);
+                    $('.back_letter_price').html(data.back.letter_big_price + data.letter_small_price);
+                    $('.back_paint_price').html(data.back.paint_big_price + data.paint_small_price);
+
+                    $('#letter_price').val(data.total.letter_big_price + data.total.letter_small_price);
+                    $('#paint_price').val(data.total.paint_big_price + data.total.paint_small_price);
+                    $('#big_new').val(data.total.big);
+                    $('#small_new').val(data.total.small);
+                    $('#tc_price').val(data.tc_fee);
+                }
+
+            },'json');
+    }
+
 
     function setData(data) {
-
         ctx.clearCanvas();
         ctx.removeLayers();
         drawTrash();
         border();
         batchWords(data.data, data.tc);
         generalImgInput(data.direction);
-
 
     }
 

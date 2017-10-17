@@ -35,7 +35,10 @@ class DefaultController extends BackController
     public function actionIndex()
     {
         $searchModel = new BlogSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $params = Yii::$app->request->queryParams;
+        $params['BlogSearch']['res'] = [Blog::RES_BLOG, Blog::RES_MISS];
+
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

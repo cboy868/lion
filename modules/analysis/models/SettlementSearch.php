@@ -42,8 +42,8 @@ class SettlementSearch extends Settlement
      */
     public function search($params)
     {
-        $query = Settlement::find()->where(['status'=>Settlement::STATUS_NORMAL]);
-        $query->andFilterWhere(['<>', 'settle_time', '0000-00-00 00:00:00']);
+        $query = Settlement::find()->where(['status'=>Settlement::STATUS_CHECK]);
+//        $query->andFilterWhere(['<>', 'settle_time', '0000-00-00 00:00:00']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -84,6 +84,15 @@ class DefaultController extends \app\core\web\BackController
         }
     }
 
+    public function actionApply($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = Memorial::STATUS_ACTIVE;
+        $model->save();
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * @param $id
      * @name 添加新逝者

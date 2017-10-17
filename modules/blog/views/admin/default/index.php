@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             'title',
-            'summary:ntext',
-            'thumb',
+//            'summary:ntext',
+//            'thumb',
             'video',
             // 'body:ntext',
             // 'sort',
@@ -39,7 +39,16 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'is_customer',
             // 'is_top',
             // 'type',
-            // 'memorial_id',
+             [
+                 'label' => '关联纪念馆',
+                 'value' => function($model) {
+                    return $model->memorial_id ?
+                        \yii\helpers\Html::a($model->memorial->title,
+                            ['/memorial/home/hall/index', 'id'=>$model->memorial_id],
+                            ['target'=>'_blank']) : '';
+                 },
+                 'format' => 'raw'
+             ],
              'privacyText',
              'view_all',
              'com_all',
