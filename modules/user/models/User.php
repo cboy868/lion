@@ -85,7 +85,8 @@ class User extends \app\core\models\User
             'created_at' => '添加时间',
             'updated_at' => '添加时间',
             'is_staff' => '是否是员工',
-            'category' => '办事处'
+            'category' => '办事处',
+            'cate.title' => '办事处'
         ];
     }
 

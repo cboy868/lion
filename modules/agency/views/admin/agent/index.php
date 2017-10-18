@@ -88,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'mobile',
             'email:email',
+            'cate.title',
             // 'status',
             // 'created_at',
             // 'updated_at',

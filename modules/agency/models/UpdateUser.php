@@ -3,10 +3,6 @@
 namespace app\modules\agency\models;
 
 use app\modules\user\models\User;
-use Yii;
-use yii\base\Model;
-use app\modules\user\models\Addition;
-use yii\web\NotFoundHttpException;
 
 /**
  * Signup form
@@ -30,6 +26,12 @@ class UpdateUser extends User
             ['status', 'default', 'value' => self::STATUS_REGISTER],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_REGISTER]],
         ];
+    }
+
+
+    public function getCate()
+    {
+        return $this->hasOne(Agency::className(), ['id'=>'category']);
     }
 
 }

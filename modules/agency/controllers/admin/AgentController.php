@@ -4,6 +4,7 @@ namespace app\modules\agency\controllers\admin;
 
 use app\core\base\Upload;
 use app\core\helpers\ArrayHelper;
+use app\modules\agency\models\SearchUser;
 use app\modules\agency\models\UpdateForm;
 use app\modules\agency\models\UpdateUser;
 use app\modules\sys\models\Menu;
@@ -46,10 +47,10 @@ class AgentController extends BackController
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new SearchUser();
 
         $params = Yii::$app->request->queryParams;
-        $params['UserSearch']['is_staff'] = User::STAFF_AGENT;
+        $params['SearchUser']['is_staff'] = User::STAFF_AGENT;
         $dataProvider = $searchModel->search($params);
 
         if (isset($params['excel']) && $params['excel']){
@@ -64,7 +65,6 @@ class AgentController extends BackController
 
     private function excel($dp)
     {
-
         $columns = ['username','mobile', 'email','created_at:datetime'];
         $options = [
             'title'=>'账号',
