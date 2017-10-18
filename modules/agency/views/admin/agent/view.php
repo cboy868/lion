@@ -4,11 +4,9 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\approval\models\ApprovalStep */
-
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Approval Steps', 'url' => ['index']];
+$this->params['current_menu'] = 'agency/default/index';
+$this->title = $model->username;
+$this->params['breadcrumbs'][] = ['label' => '业务员管理', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -31,21 +29,57 @@ $this->params['breadcrumbs'][] = ['label' => 'Approval Steps', 'url' => ['index'
         </div><!-- /.page-header -->
 
         <div class="row">
-            <div class="col-xs-10 approval-step-view">
-
+            <div class="col-xs-10 user-view">
+                    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'approval_id',
-            'step_name',
-            'step',
-            'approval_user',
-            'progress',
-            'note:ntext',
-            'created_at',
+            'username',
+            'email:email',
+            'created_at:date',
+            'updated_at:date',
         ],
     ]) ?>
+
+    <?php 
+
+    $field = [];
+
+    foreach ($attach as $k => $v) {
+        $field[] = $v['name'];
+    }
+
+        $attributes = [
+            'real_name',
+            [
+                'label' => '性别',
+                'value' => $addition->gender == 1 ? '女' : '男',
+            ],
+            'qq',
+            'birth',
+            'height',
+            'weight',
+            'address',
+            'hobby',
+            'native_place',
+            'intro',
+        ] + $field;
+
+        $attributes = array_merge($attributes, $field);
+
+
+     ?>
+
+    <?= DetailView::widget([
+        'model' => $addition,
+        'attributes' => $attributes
+    ]) ?>
+
+
+
+
+
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->

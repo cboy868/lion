@@ -6,7 +6,7 @@ use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 
 \app\assets\JqueryFormAsset::register($this);
-$this->title = '用户列表';
+$this->title = '业务员列表';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -63,45 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-xs-12 user-index">
-
-                <div class="widget-box transparent ui-sortable-handle" >
-
-                    <?php
-                    $is_staff = Yii::$app->request->get('is_staff');
-                    ?>
-                    <div class="widget-header" style="z-index: 0">
-                        <div class="no-border">
-                            <ul class="nav nav-tabs">
-                                <li class="<?php if ($is_staff === null): ?>active<?php endif ?>">
-                                    <a href="<?=Url::toRoute(['index'])?>" aria-expanded="true">全部</a>
-                                </li>
-                                <li class="<?php if ($is_staff == 1): ?>active<?php endif ?>">
-                                    <a href="<?=Url::toRoute(['index','is_staff'=>1])?>" aria-expanded="true">员工</a>
-                                </li>
-                                <li class="<?php if ($is_staff == 0 && $is_staff!==null): ?>active<?php endif ?>">
-                                    <a href="<?=Url::toRoute(['index','is_staff'=>0])?>" aria-expanded="true">客户</a>
-                                </li>
-
-
-                                <!--
-                                <li class="pull-right">
-                                    <form enctype="multipart/form-data" method="post" action="<?=Url::toRoute(['import'])?>" class="cover-form form-inline">
-                                        <div class="form-group " style="margin:0px;">
-                                            <input type="file" class="form-control input-sm up-excel" name="users" value="" style="">
-                                        </div>
-                                        <a href="#" class="btn btn-default">下载模板</a>
-                                    </form>
-
-                                </li>
-                                -->
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],

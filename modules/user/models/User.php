@@ -57,7 +57,7 @@ class User extends \app\core\models\User
         return [
             // [['username', 'email'], 'required'],
             [['username'], 'required'],//为了适应没有邮箱的人
-            [['status', 'created_at', 'updated_at', 'avatar', 'is_staff'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'avatar', 'is_staff', 'category'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['mobile',], 'string', 'max' => 15, 'min'=>8],
             [['auth_key'], 'string', 'max' => 32],
@@ -84,7 +84,8 @@ class User extends \app\core\models\User
             'mobile' => '联系方式',
             'created_at' => '添加时间',
             'updated_at' => '添加时间',
-            'is_staff' => '是否是员工'
+            'is_staff' => '是否是员工',
+            'category' => '办事处'
         ];
     }
 

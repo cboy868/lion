@@ -43,6 +43,17 @@ class DefaultController extends MemberController
         ]);
     }
 
+    public function actionPi()
+    {
+        $searchModel = new SearchApproval();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('pi', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Approval model.
      * @param integer $id
@@ -72,35 +83,40 @@ class DefaultController extends MemberController
                 $model->save();
 
                 $uploads = UploadedFile::getInstancesByName('attach');
-                $config_path = $this->module->params['attach_path'];
-                $path = Yii::getAlias('@app/web/' . $config_path);
-                $path = $path . '/' . date('Y/m');
+                if ($uploads) {
+                    $config_path = $this->module->params['attach_path'];
+                    $path = Yii::getAlias('@app/web/' . $config_path);
+                    $path = $path . '/' . date('Y/m');
 
-                if (!is_dir($path)) {
-                    @mkdir($path, 0777, true);
+                    if (!is_dir($path)) {
+                        @mkdir($path, 0777, true);
+                    }
+
+                    $attach = new ApprovalAttach();
+
+                    foreach ($uploads as $upload) {
+                        $file = uniqid().'.'.$upload->getExtension();
+                        $file_name = $path . '/' . $file;
+                        $upload->saveAs($file_name);
+
+                        $n_attach = clone $attach;
+                        $n_attach->approval_id = $model->id;
+                        $n_attach->title = $upload->getBaseName();
+                        $n_attach->url = Yii::getAlias('@web/'.$config_path.'/'.date('Y/m').'/'.$file);
+                        $n_attach->ext = $upload->getExtension();
+                        $n_attach->save();
+                    }
                 }
 
-                $attach = new ApprovalAttach();
-
-                foreach ($uploads as $upload) {
-                    $file = uniqid().'.'.$upload->getExtension();
-                    $file_name = $path . '/' . $file;
-                    $upload->saveAs($file_name);
-
-                    $n_attach = clone $attach;
-                    $n_attach->approval_id = $model->id;
-                    $n_attach->title = $upload->getBaseName();
-                    $n_attach->url = Yii::getAlias('@web/'.$config_path.'/'.date('Y/m').'/'.$file);
-                    $n_attach->ext = $upload->getExtension();
-                    $n_attach->save();
-                }
+                $model->generateStep();
 
                 $outerTransaction->commit();
 
                 return $this->redirect(['view', 'id' => $model->id]);
             } catch (\Exception $e) {
                 Yii::error($e->getMessage());
-                Yii::$app->session->setFlash('error',$e->getMessage());
+//                Yii::$app->session->setFlash('error',$e->getMessage());
+                Yii::$app->session->setFlash('error','数据处理错误，请联系管理员');
                 $outerTransaction->rollBack();
             }
         }
@@ -124,14 +140,54 @@ class DefaultController extends MemberController
         //已上传附件
         $attachs = ApprovalAttach::find()->where(['approval_id'=>$id])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-                'attachs' => $attachs
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $outerTransaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->progress = Approval::PRO_INIT;
+                $model->save();
+
+                $uploads = UploadedFile::getInstancesByName('attach');
+                if ($uploads) {
+                    $config_path = $this->module->params['attach_path'];
+                    $path = Yii::getAlias('@app/web/' . $config_path);
+                    $path = $path . '/' . date('Y/m');
+
+                    if (!is_dir($path)) {
+                        @mkdir($path, 0777, true);
+                    }
+
+                    $attach = new ApprovalAttach();
+
+                    foreach ($uploads as $upload) {
+                        $file = uniqid().'.'.$upload->getExtension();
+                        $file_name = $path . '/' . $file;
+                        $upload->saveAs($file_name);
+
+                        $n_attach = clone $attach;
+                        $n_attach->approval_id = $model->id;
+                        $n_attach->title = $upload->getBaseName();
+                        $n_attach->url = Yii::getAlias('@web/'.$config_path.'/'.date('Y/m').'/'.$file);
+                        $n_attach->ext = $upload->getExtension();
+                        $n_attach->save();
+                    }
+                }
+
+                if ($model->progress == Approval::PRO_BACK) {
+                    $model->generateStep();
+                }
+
+                $outerTransaction->commit();
+                return $this->redirect(['view', 'id' => $model->id]);
+            } catch (\Exception $e) {
+                Yii::error($e->getMessage());
+                Yii::$app->session->setFlash('error','数据处理错误，请联系管理员');
+                $outerTransaction->rollBack();
+            }
         }
+        return $this->render('update', [
+            'model' => $model,
+            'attachs' => $attachs
+        ]);
     }
 
     /**

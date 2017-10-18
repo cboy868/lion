@@ -73,6 +73,9 @@ return [
     'ashes' => [
         'class' => 'app\modules\ashes\Module',
     ],
+    'agency' => [
+        'class' => 'app\modules\agency\Module',
+    ],
 
 
     'approval' => [

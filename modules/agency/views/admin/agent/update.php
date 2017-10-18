@@ -4,11 +4,11 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\ActiveForm;
 
-$this->params['current_menu'] = 'user/default/index';
+$this->params['current_menu'] = 'agency/default/index';
 
 $this->title = ' ' . ' ' . $model->username;
-$this->params['breadcrumbs'][] = ['label' => '用户管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = '修改【' . $model->username .'】信息';
+$this->params['breadcrumbs'][] = ['label' => '业务员管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '修改【' . $model->username .'】的信息';
 ?>
 
 <div class="page-content">

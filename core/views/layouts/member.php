@@ -150,7 +150,7 @@ MemberAsset::register($this);
 
             <?php
 
-            $cur_nav = isset(Yii::$app->params['cur_nav']) ? Yii::$app->params['cur_nav'] : ''
+            $cur_nav = isset(Yii::$app->params['cur_nav']) ? Yii::$app->params['cur_nav'] : '';
             ?>
             <ul class="nav nav-list">
                 <li class="p-menu <?php if($cur_nav == 'member_index')echo'active';?>" rel="">
@@ -227,6 +227,29 @@ MemberAsset::register($this);
                         <li class="<?php if($cur_nav == 'album_index')echo'active';?>" rel="">
                             <a href="<?=Url::toRoute(['/blog/member/album/index'])?>">
                                 相册
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="p-menu hsub">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa fa-th-large"></i>
+                        <span class="menu-text">我的审批</span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="<?php if($cur_nav == 'approval_index')echo'active';?>" rel="">
+                            <a href="<?=Url::toRoute(['/approval/member/default/index'])?>">
+                                我提交的
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="<?php if($cur_nav == 'approval_pi')echo'active';?>" rel="">
+                            <a href="<?=Url::toRoute(['/approval/member/default/pi'])?>">
+                                待您审批
                             </a>
                             <b class="arrow"></b>
                         </li>

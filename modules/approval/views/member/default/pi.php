@@ -5,14 +5,10 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\approval\models\SearchApprovalStep */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Approval Steps';
+$this->title = '我的审批';
 $this->params['breadcrumbs'][] = $this->title;
 
-
+Yii::$app->params['cur_nav'] = 'approval_pi';
 ?>
 
 <div class="page-content">
@@ -20,37 +16,41 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
+                <small>
+                    <?=  Html::a('<i class="fa fa-plus"></i> 新建审批', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
+                </small>
             </h1>
         </div><!-- /.page-header -->
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+                    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
             </div>
 
-            <div class="col-xs-12 approval-step-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <div class="col-xs-12 approval-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'approval_id',
-            'step_name',
-            'step',
-            'approval_user',
-            // 'progress',
-            // 'note:ntext',
-            // 'created_at',
+//            'pid',
+            'process.title',
+            'title',
+            'total',
+             'yet_money',
+             'pay',
+             'intro:ntext',
+             'progress',
+             'nowstep',
+//             'status',
+//             'create_user',
+//             'eng_id',
+             'created_at:datetime',
+            // 'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

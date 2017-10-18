@@ -8,6 +8,7 @@ use app\core\widgets\GridView;
 $this->title = '我的审批';
 $this->params['breadcrumbs'][] = $this->title;
 
+Yii::$app->params['cur_nav'] = 'approval_index';
 ?>
 
 <div class="page-content">

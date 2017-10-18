@@ -49,8 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
              'intro:ntext',
              'progress',
              'nowstep',
+            [
+                'label' => '审批次数',
+                'value' => function($model){
+                    return '第' . $model->time .'次';
+                }
+            ],
 //             'status',
-             'create_user',
+             'user.username',
 //             'eng_id',
              'created_at:datetime',
             // 'updated_at',

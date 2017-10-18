@@ -2,25 +2,27 @@
 
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
-
+use app\modules\agency\models\Agency;
+\app\assets\ExtAsset::register($this);
+$cates = Agency::find()->where(['status'=>Agency::STATUS_NORMAL])->all();
+$cates = \yii\helpers\ArrayHelper::map($cates, 'id', 'title');
 ?>
 
 <div class="user-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-
-
     <div class="col-md-6">
     	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
     	<?= $form->field($addition, 'real_name')->textInput(['maxlength' => true]) ?>
     	<?= $form->field($addition, 'gender')->radioList(['1'=> '男', '2'=>'女']) ?>
-        <?= $form->field($addition, 'birth')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($addition, 'birth')->textInput(['maxlength' => true, 'dt'=>'true']) ?>
 
     </div>
 
     <div class="col-md-6">
-	    <?= $form->field($addition, 'height')->textInput(['maxlength' => true, 'placeholder'=>'单位:cm']) ?>
+        <?= $form->field($model, 'category')->dropDownList($cates, ['prompt'=>'请选择隶属办事处'])->label('办事处') ?>
+        <?= $form->field($addition, 'height')->textInput(['maxlength' => true, 'placeholder'=>'单位:cm']) ?>
 	    <?= $form->field($addition, 'weight')->textInput(['maxlength' => true, 'placeholder'=>'单位:kg']) ?>
 	    <?= $form->field($addition, 'qq')->textInput(['maxlength' => true]) ?>
     </div>
@@ -47,12 +49,15 @@ use app\core\widgets\ActiveForm;
 	    	<?php endif ?>
 	    <?php endforeach ?>
     </div>
-    
-	<div class="form-group">
-        <div class="col-sm-offset-5 col-sm-3">
-            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-2">
+                <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
+            </div>
         </div>
     </div>
+
     
     <?php ActiveForm::end(); ?>
 

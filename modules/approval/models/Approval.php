@@ -27,6 +27,17 @@ use yii\behaviors\TimestampBehavior;
  */
 class Approval extends \app\core\db\ActiveRecord
 {
+//-1打回，1未开始2审批中3审批完成4报销部分5报销完成6完成
+    const PRO_BACK = -1;
+    const PRO_INIT = 1;
+    const PRO_ING = 2;
+    const PRO_OK =3;
+    const PRO_CAM_PART = 4;
+    const PRO_CAM = 5;
+    const PRO_FINISH = 6;
+
+
+
     /**
      * @inheritdoc
      */
@@ -35,13 +46,37 @@ class Approval extends \app\core\db\ActiveRecord
         return '{{%approval}}';
     }
 
+    public static function pros($pro = null)
+    {
+        $p = [
+            self::PRO_BACK => '打回',
+            self::PRO_INIT => '初始化',
+            self::PRO_ING => '审批中',
+            self::PRO_OK => '审批完成',
+            self::PRO_CAM_PART => '报销部分',
+            self::PRO_CAM=> '报销完成',
+            self::PRO_FINISH => '完成'
+        ];
+
+        if ($pro!==null && isset($p[$pro])) {
+            return $p[$pro];
+        }
+
+        return $p;
+    }
+
+    public function getPro()
+    {
+        return self::pros($this->progress);
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pid', 'process_id', 'progress','create_user', 'nowstep', 'status', 'eng_id', 'created_at', 'updated_at'], 'integer'],
+            [['pid', 'process_id', 'progress','create_user', 'nowstep', 'status', 'eng_id', 'created_at', 'updated_at', 'time'], 'integer'],
             [['process_id', 'title', 'intro', 'create_user'], 'required'],
             [['total', 'yet_money', 'pay'], 'number'],
             [['intro'], 'string'],
@@ -75,12 +110,54 @@ class Approval extends \app\core\db\ActiveRecord
             'progress' => '审批状态',
             'nowstep' => '目前步骤',
             'status' => '状态',
-            'create_user' => '审批人',
+            'create_user' => '创建人',
+            'user.username'=>'创建人',
             'eng_id' => '工程id',
             'created_at' => '担审时间',
             'updated_at' => '修改时间',
-            'process.title' => '所属流程'
+            'process.title' => '所属流程',
+            'time' => '审批次数'
         ];
+    }
+
+    /**
+     * @name 生成step
+     */
+    public function generateStep($step=1)
+    {
+
+        $pro_step = ApprovalProcessStep::find()
+            ->where(['process_id'=>$this->process_id])
+            ->andWhere(['step'=>$step])
+            ->asArray()
+            ->one();
+
+        $astep = new ApprovalStep();
+        $astep->approval_id = $this->id;
+        $astep->progress = ApprovalStep::PRO_INIT;
+
+        $time = ApprovalStep::find()->where(['approval_id'=>$this->id,'step'=>$step])->max('time');
+        $time = $time+1;
+
+
+        if (strpos($pro_step['approval_user'], ',')) {
+            $sp = explode(',', $pro_step['approval_user']);
+            foreach ($sp as $v) {
+                $model = clone $astep;
+                $model->step = $pro_step['step'];
+                $model->step_name = $pro_step['step_name'];
+                $model->approval_user = $v;
+                $model->time = $time;
+                $model->save();
+            }
+        } else {
+            $model = clone $astep;
+            $model->step = $pro_step['step'];
+            $model->step_name = $pro_step['step_name'];
+            $model->approval_user = $pro_step['approval_user'];
+            $model->time = $time;
+            $model->save();
+        }
     }
 
     public function getProcess()
@@ -91,5 +168,10 @@ class Approval extends \app\core\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(),['id' => 'create_user']);
+    }
+
+    public function getSteps()
+    {
+        return $this->hasMany(ApprovalStep::className(), ['approval_id'=>'id'])->orderBy('time asc');
     }
 }

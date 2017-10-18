@@ -1,15 +1,16 @@
 <?php
 
-namespace app\modules\user\controllers\admin;
+namespace app\modules\agency\controllers\admin;
 
 use app\core\base\Upload;
 use app\core\helpers\ArrayHelper;
+use app\modules\agency\models\UpdateForm;
+use app\modules\agency\models\UpdateUser;
 use app\modules\sys\models\Menu;
 use app\modules\user\models\MenuRel;
-use app\modules\user\models\UserUpdate;
 use Yii;
 use app\modules\user\models\User;
-use app\modules\user\models\UserForm;
+use app\modules\agency\models\UserForm;
 use app\modules\user\models\UserField;
 use app\modules\user\models\Addition;
 use app\modules\user\models\UserSearch;
@@ -23,7 +24,7 @@ use app\modules\user\models\Log;
 /**
  * DefaultController implements the CRUD actions for User model.
  */
-class DefaultController extends BackController
+class AgentController extends BackController
 {
     public function behaviors()
     {
@@ -41,20 +42,14 @@ class DefaultController extends BackController
     /**
      * Lists all User models.
      * @return mixed
-     * @name 用户管理
+     * @name 业务员管理
      */
     public function actionIndex()
     {
         $searchModel = new UserSearch();
 
         $params = Yii::$app->request->queryParams;
-        if (isset($params['is_staff'])) {
-            $params['UserSearch']['is_staff'] = $params['is_staff'];
-        } else {
-            $params['UserSearch']['is_staff'] = [User::STAFF_NO, User::STAFF_YES];
-        }
-
-
+        $params['UserSearch']['is_staff'] = User::STAFF_AGENT;
         $dataProvider = $searchModel->search($params);
 
         if (isset($params['excel']) && $params['excel']){
@@ -161,6 +156,7 @@ class DefaultController extends BackController
 
             return $this->redirect(['index']);
         } else {
+            $model->is_staff = User::STAFF_AGENT;
             return $this->renderAjax('create', [
                 'model' => $model,
             ]);
@@ -181,7 +177,6 @@ class DefaultController extends BackController
 
         $addition = $this->findAddition($id);
 
-
         $attach = UserField::find()->asArray()->all();
 
         $post = Yii::$app->request->post();
@@ -195,8 +190,8 @@ class DefaultController extends BackController
                 $addition->save();
 
                 $outerTransaction->commit();
-            } catch (Exception $e) {
-                echo $e->getMessage();
+            } catch (\Exception $e) {
+                Yii::error($e->getMessage());
                 $outerTransaction->rollBack();
             }
 
@@ -210,58 +205,7 @@ class DefaultController extends BackController
         }
     }
 
-    /**
-     * @name 快捷按扭选择列表
-     */
-    public function actionButtons($group)
-    {
-        $menus = Menu::authMenu("`panel`='$group' AND `ico` is not null");
-        $sels = MenuRel::find()
-            ->where(['user_id'=>Yii::$app->user->id])
-            ->asArray()
-            ->all();
 
-        $sels = ArrayHelper::getColumn($sels, 'auth_name');
-
-        foreach ($menus as &$v) {
-            if (array_search($v['auth_name'], $sels) !== false) {
-                $v['st'] = true;
-            }
-        }unset($v);
-
-        return $this->renderAjax('buttons', ['buttons'=>$menus, 'sels'=>$sels, 'panel'=>$group]);
-    }
-
-    /**
-     * @return array
-     * @name 选择自己的快捷菜单
-     */
-    public function actionSelButton()
-    {
-        $post = Yii::$app->getRequest()->post();
-
-        $action = $post['action'];
-
-        $uid = Yii::$app->user->id;
-
-        $data = [
-            'user_id' => $uid,
-            'auth_name' => $post['auth'],
-            'panel' => $post['panel']
-        ];
-
-        if ($action == 'sel') {
-            $model = new MenuRel();
-            $model->load($data, '');
-            $model->ico = $post['ico'];
-            $model->name = $post['name'];
-            $model->save();
-        } else {
-            MenuRel::find()->where($data)->one()->delete();
-        }
-
-        return $this->json();
-    }
 
     /**
      * Deletes an existing User model.  
@@ -279,6 +223,10 @@ class DefaultController extends BackController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @return array
+     * @name 批量删除
+     */
     public function actionBatchDel()
     {
         $post = Yii::$app->request->post();
@@ -323,7 +271,7 @@ class DefaultController extends BackController
      */
     protected function findModel($id)
     {
-        if (($model = UserUpdate::findOne($id)) !== null) {
+        if (($model = UpdateUser::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

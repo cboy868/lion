@@ -10,7 +10,7 @@ $process = ApprovalProcess::process();
 
 $types = ArrayHelper::map($process, 'id', 'type');
 ?>
-
+<?=\app\core\widgets\Alert::widget()?>
 <div class="approval-form">
     <style>
         .attach{
@@ -52,7 +52,7 @@ $types = ArrayHelper::map($process, 'id', 'type');
     ?>
 
     <table class="table table-bordered">
-        <?php if (isset($attachs)):?>
+        <?php if (isset($attachs) && $attachs):?>
         <tr>
             <th style="text-align: center">已上传文件
                 <br>
