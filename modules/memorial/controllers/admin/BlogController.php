@@ -1,6 +1,5 @@
 <?php
-
-namespace app\modules\blog\controllers\admin;
+namespace app\modules\memorial\controllers\admin;
 
 use app\modules\blog\models\AlbumSearch;
 use Yii;
@@ -13,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * DefaultController implements the CRUD actions for Blog model.
  */
-class DefaultController extends BackController
+class BlogController extends BackController
 {
     public function behaviors()
     {
@@ -36,7 +35,7 @@ class DefaultController extends BackController
     {
         $searchModel = new BlogSearch();
         $params = Yii::$app->request->queryParams;
-        $params['BlogSearch']['res'] = [Blog::RES_BLOG, Blog::RES_MISS];
+        $params['BlogSearch']['res'] = [Blog::RES_MISS];
 
         $dataProvider = $searchModel->search($params);
 
@@ -106,18 +105,18 @@ class DefaultController extends BackController
 //     * @param integer $id
 //     * @return mixed
 //     */
-//    public function actionUpdate($id)
-//    {
-//        $model = $this->findModel($id);
-//
-//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//            return $this->redirect(['view', 'id' => $model->id]);
-//        } else {
-//            return $this->render('update', [
-//                'model' => $model,
-//            ]);
-//        }
-//    }
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
 
     /**
      * Deletes an existing Blog model.
