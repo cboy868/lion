@@ -4,11 +4,9 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\blog\models\Blog */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '博客管理', 'url' => ['index']];
 ?>
 
 <div class="page-content">
@@ -18,7 +16,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];
             <h1><?= Html::encode($this->title) ?>
                 <small>
                     详细信息查看
-                    <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
                     <?= Html::a('Delete', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger  btn-xs',
                         'data' => [
@@ -32,33 +29,31 @@ $this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];
 
         <div class="row">
             <div class="col-xs-10 blog-view">
-                    
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'summary:ntext',
-            'thumb',
-            'video',
-            'body:ntext',
-            'sort',
-            'recommend',
-            'is_customer',
-            'is_top',
-            'type',
-            'memorial_id',
-            'privacy',
-            'view_all',
-            'com_all',
-            'publish_at',
-            'created_by',
-            'ip',
-            'created_at',
-            'updated_at',
-            'status',
-        ],
-    ]) ?>
+
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                        'title',
+                        [
+                            'label' => '纪念馆',
+                            'value' =>function($model){
+                                return Html::a($model->memorial->title,
+                                    ['/memorial/home/hall/index', 'id'=>$model->memorial_id],
+                                    ['target'=>'_blank']
+                                );
+                            },
+                            'format' => 'raw'
+                        ],
+                        'privacyText',
+                        'view_all',
+                        'com_all',
+                        'user.username',
+                        'ip',
+                        'created_at:datetime',
+                        'summary:ntext',
+                        'body:raw',
+                    ],
+                ]) ?>
                 <div class="hr hr-18 dotted hr-double"></div>
             </div><!-- /.col -->
         </div><!-- /.row -->

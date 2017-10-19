@@ -3,12 +3,11 @@
 use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\blog\models\Blog */
+$this->params['current_menu'] = 'blog/default/index';
 
 $this->title = ' ' . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '博客管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '编辑';
 ?>
 
 <div class="page-content">

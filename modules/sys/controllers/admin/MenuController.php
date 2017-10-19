@@ -32,7 +32,6 @@ class MenuController extends \app\core\web\BackController
      */
     public function actionIndex()
     {
-
         $model = new Menu();
         return $this->render('index', [
             'model' => $model,
@@ -79,6 +78,7 @@ class MenuController extends \app\core\web\BackController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
+            $model->loadDefaultValues();
             return $this->renderAjax('create', [
                 'model' => $model,
             ]);
