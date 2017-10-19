@@ -131,6 +131,7 @@ class Dead extends \app\core\db\ActiveRecord
         return $this->hasOne(\app\modules\memorial\models\Memorial::className(),['id'=>'memorial_id']);
     }
 
+
     public static function alive($alive = null)
     {
         $as = [
@@ -238,7 +239,7 @@ class Dead extends \app\core\db\ActiveRecord
         $deads = self::find()->where(['status'=>self::STATUS_NORMAL, 'tomb_id'=>$tomb_id])
                              ->all();
         $unpre = [];
-        foreach ($variable as $dead) {
+        foreach ($deads as $dead) {
             if (!$dead->isPre && !$dead->is_alive) {
                 array_push($unpre, $dead);
             }

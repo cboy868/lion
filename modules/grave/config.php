@@ -94,6 +94,7 @@ return [
                 'insword' => 1,//碑文商品
                 'renew' => 3,//续费
                 'repair' => 4, //修碑文
+                'bury' => 8,//安葬费
                 //
             ],
 
@@ -283,8 +284,12 @@ return [
             'first_free' => true,//第一个20年是否赠送
             'goods_id' =>3,
             'percent' => 0.1
-        ]
-
+        ],
+        'deadSign' => [
+            'a' => "您是卓迅大家庭第 %s 位亲人  将安葬于%s",
+            'b' => "www.zhuo-xun.com 或百度搜索'卓迅网络'即可",
+            'c' => "网络作证,卓迅服务到永远"
+        ],
     ]
 
 ];

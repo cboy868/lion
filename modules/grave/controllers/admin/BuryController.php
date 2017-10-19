@@ -3,15 +3,17 @@
 namespace app\modules\grave\controllers\admin;
 
 use app\modules\grave\models\Card;
+use app\modules\grave\models\Dead;
 use app\modules\grave\models\OrderRel;
 use Yii;
 use app\modules\grave\models\Bury;
 use app\modules\grave\models\search\BurySearch;
 use app\core\web\BackController;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\grave\models\Tomb;
-
+use app\core\libs\Fpdf;
 /**
  * BuryController implements the CRUD actions for Bury model.
  */
@@ -128,6 +130,125 @@ class BuryController extends BackController
             'pageTitle'=>'预葬记录'
         ];
         \app\core\libs\Export::export($dp, $columns, $options);
+    }
+
+    /**
+     * @name 排序
+     */
+    public function actionSort($id)
+    {
+        $model = Bury::findOne($id);
+        $maxSort = Bury::find()->where(['status'=>Bury::STATUS_NORMAL])
+                            ->andWhere(['like', 'pre_bury_date', date('Y-m-d')])
+                            ->max('bury_order');
+
+        $maxSort = $maxSort ? $maxSort : 0;
+
+
+        $model->bury_order = $maxSort+1;
+
+        if ($model->save()) {
+            return $this->json(['sort'=>$model->bury_order]);
+        }
+
+        return $this->json(null, '排序失败,请联系管理员', 0);
+
+    }
+
+    /**
+     * @name 打印桌签
+     */
+    public function actionSign($id)
+    {
+        $bury = $this->findModel($id);
+        $dead_ids = explode(',',$bury->dead_id);
+
+        $deads = Dead::find()->where(['id'=>$dead_ids])->orderBy('serial asc')->all();
+
+        $num = '';
+        $content = [];
+        $top=0;
+        foreach ($deads as $k=>$dead) {
+            $sex = $dead->gender == 1 ? '先生' : '女士';
+            $num = $dead->serial.'、';
+            $top = 20 +$k*30;
+            $content[] = ['content'=>$dead->dead_name, "y" => $top,"x" => 40,"b" => true ,"font_size" => 68];
+            $content[] = ['content'=>$sex, "y" => $top+2,"x" => 130,"b" => true ,"font_size" => 48];
+        }
+        $num = trim($num, '、');
+
+        $tpl = $this->module->params['deadSign'];
+
+        $str = $tpl;
+        $str['a'] = sprintf($tpl['a'], $num, $bury->tomb->tomb_no);
+
+        $content = array_merge([
+            ["content" => $str['a'], "y" => $top+20,"x" => 30,"b" => true ,"font_size" => 18],
+            ["content" => $str['b'], "y" => $top+30,"x" => 40,"b" => false ,"font_size" => 18],
+            ["content" => $str['c'], "y" => $top+40,"x" => 60,"b" => false ,"font_size" => 18],
+        ],$content);
+
+        $result = Fpdf::content($content);
+
+        $pdf = new Fpdf('P','mm','A4');
+        $pdf->AddPage();
+        $pdf->AddGBFont('simkai','STXINWEI'); //这个一定要有，否则无法使用 $pdf->SetFont();
+
+        foreach($result as $v){
+            $pdf->setXY($v['x'],$v['y']);
+            $pdf->SetFont($v['font'],$v['b'],$v['font_size']);
+            $pdf->cell(10,10, $v['content']);
+        }
+
+        ob_end_clean();
+        $pdf->Output();
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     * @name 明日安葬逝者编号
+     */
+    public function actionSerial()//明日使用人排序
+    {
+        $pres = Bury::find()->where(['status'=>Bury::STATUS_NORMAL])
+                            ->andWhere(['like', 'pre_bury_date', date("Y-m-d",strtotime("+1 day"))])
+                            ->all();
+
+        if (!$pres) {
+            return '';
+        }
+
+        $dead_str = '';
+        foreach ($pres as $v){
+            $dead_str .= $v->dead_id .',';
+        }
+
+        $dead_ids = explode(',', $dead_str);
+        $deads = Dead::find()->where(['id'=>$dead_ids])
+                            ->andWhere(['serial'=>null])
+                            ->orderBy('id asc')
+                            ->all();
+        $max_serial = Dead::find()->where(['status'=>Dead::STATUS_NORMAL])->max('serial');
+
+        foreach ($deads as $dead) {
+            $dead->serial = ++$max_serial;
+            $dead->save();
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionNote($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['pre']);
+        } else {
+            return $this->renderAjax('note', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

@@ -10,7 +10,7 @@ use app\core\widgets\ActiveForm;
 	<!-- /section:settings.box -->
 	<div class="page-content-area">
 	<div class="row">
-	  <div class="col-lg-6">
+	  <div class="col-lg-12">
 
 	  	<?php $form = ActiveForm::begin(); ?>
 	    <div class="input-group">

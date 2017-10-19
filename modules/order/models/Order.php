@@ -38,6 +38,7 @@ class Order extends \app\core\db\ActiveRecord
 
     const TYPE_GOODS = 1;
     const TYPE_MEMORIAL = 8;
+    const TYPE_BURY = 7;//安葬费
 
 
     // const EVENT_AFTER_PAY= 'afterPay'; //支付完成会一些例如短信、任务之类的东西由系统自动发出
@@ -163,11 +164,13 @@ class Order extends \app\core\db\ActiveRecord
 
     public function getTotalPay()
     {
-        return Pay::find()->where([
+        $pay = Pay::find()->where([
             'order_id'  => $this->id, 
             'pay_result'=> Pay::RESULT_FINISH, 
             'status'    => Pay::STATUS_NORMAL
             ])->sum('total_pay');
+
+        return $pay ? $pay : '0.00';
     }
 
     public function getRemain()

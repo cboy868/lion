@@ -61,6 +61,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <iframe scrolling="no" frameborder="0" style="width:300px;height:335px;" src=""></iframe>
                             </td> -->
                         </tr>
+                        <?php if ($model->tid):?>
+                            <tr>
+                                <th>墓位号</th>
+                                <td>
+                                    <?php
+                                        echo Html::a($model->tomb->tomb_no,
+                                            ['/grave/admin/tomb/view', 'id'=>$model->tid],
+                                            ['target'=>'_blank'])
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php endif;?>
                         <tr>
                             <th>下单用户：</th>
                             <td colspan="3"><?=$model->user->username?></td>
@@ -72,6 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <th>订单原价：</th>
                             <td><?=$model->origin_price?> 元</td>
                         </tr>
+
+
                         <tr>
                             <th>应付款：</th>
                             <td colspan="3"><?=$model->price?> 元</td>

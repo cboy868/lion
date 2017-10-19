@@ -51,13 +51,13 @@ class BurySearch extends Bury
             return $dataProvider;
         }
 
+
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
             'dead_id' => $this->dead_id,
             'dead_num' => $this->dead_num,
             'bury_type' => $this->bury_type,
-            'pre_bury_date' => $this->pre_bury_date,
             'bury_date' => $this->bury_date,
             'bury_time' => $this->bury_time,
             'bury_user' => $this->bury_user,
@@ -67,11 +67,14 @@ class BurySearch extends Bury
             'status' => $this->status,
         ]);
 
-        $query->andWhere([
-            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)
-        ]);
+        if (isset($params['TombSearch'])) {
+            $query->andWhere([
+                'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)
+            ]);
+        }
 
         $query->andFilterWhere(['like', 'note', $this->note])
+            ->andFilterWhere(['like', 'pre_bury_date', $this->pre_bury_date])
                 ->andFilterWhere(['like', 'dead_name', $this->dead_name]);
 
         return $dataProvider;

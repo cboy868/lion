@@ -44,7 +44,8 @@ use yii\web\NotFoundHttpException;
 class Process extends \yii\base\Model
 {
 
-    const DT_NULL = '0000-00-00 00:00:00';
+//    const DT_NULL = '0000-00-00 00:00:00';
+    const DT_NULL = null;
     const D_NULL  = '0000-00-00';
 
     public static $tomb_id;

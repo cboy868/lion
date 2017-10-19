@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\order\models\Order;
 use app\modules\user\models\User;
 use Yii;
 use app\core\web\BackController;
@@ -598,10 +599,22 @@ class ProcessController extends BackController
                     $model->dead_id = $dead_id;
                     $model->dead_name = trim($dead_name, ',');
                     $model->dead_num = count($dead_ids);
+                    $model->bury_type = $model->generalType();
 
                     $model->bury_time = date('H:i:s', strtotime($model->pre_bury_date));
 
                     $model->save();
+
+
+                    $extData = [
+                        'tid' => $model->tomb_id,
+                        'type' => Order::TYPE_BURY
+                    ];
+
+                    $goods_id = $this->module->params['goods']['id']['bury'];
+                    $goods = Goods::findOne($goods_id);
+
+                    $goods->order($model->user_id, $extData);
 
 
                     if ($car_model->load($req->post()) && $car_model->car_type != 3) {
@@ -618,7 +631,7 @@ class ProcessController extends BackController
 
                 return $this->next();
             } catch (\Exception $e) {
-
+                Yii::error($e->getMessage());
                 $outerTransaction->rollBack();
             }
         }
@@ -667,8 +680,6 @@ class ProcessController extends BackController
         $model = Bury::findOne($id);
         $carRecord = CarRecord::find()->where(['bury_id'=>$id])->one();
 
-
-
         $dead_ids = explode(',', $model->dead_id);
         $deads = Dead::find()->where(['id'=>$dead_ids])->all();
 
@@ -676,10 +687,13 @@ class ProcessController extends BackController
             $dead->pre_bury = Process::DT_NULL;
             $dead->save();
         }
-        if ($model->del() && $carRecord->del()) {
+
+        if ($model->del() ) {
+            if ($carRecord) {
+                $carRecord->del();
+            }
             return $this->json();
         }
-
 
         return $this->json(null, '预葬记录删除失败', 0);
     }
@@ -703,6 +717,7 @@ class ProcessController extends BackController
         }
 
         $nst = $step+1;
+
         if (isset($steps[$nst])) {
             return $this->redirect(['index', 'step'=>$nst, 'tomb_id'=>$tomb_id]);
         }
@@ -730,7 +745,6 @@ class ProcessController extends BackController
     protected function end()
     {
         $order = Process::getOrder();
-
         return $this->redirect(['/order/admin/default/view', 'id'=>$order->id]);
     }
   

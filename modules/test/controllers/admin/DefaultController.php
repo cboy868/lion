@@ -87,7 +87,6 @@ STR;
         $pdf->AddGBFont('simkai','楷体_GB2312'); //这个一定要有，否则无法使用 $pdf->SetFont(); 
 
 
-
         foreach($arr['content'] as $v){
          $pdf->setXY($v['x'],$v['y']);
          $pdf->SetFont($v['font'],$v['b'],$v['font_size']); 

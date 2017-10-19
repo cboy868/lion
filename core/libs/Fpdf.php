@@ -94,7 +94,7 @@ class Fpdf extends PDF_Chinese
 	public static function bodyLn($body, $num, $start = [10,10], $height = 8, $font_size=12, $b='B', $font="simkai", $indent = 2)
 	{
 
-		$params = 
+//		$params =
 		$data = \app\core\helpers\StringHelper::mbStrSplit($body, $num, $indent);
 		$result = [];
 		$y = 0;
