@@ -22,6 +22,8 @@ use app\core\helpers\Url;
 
     <?= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'sort')->textInput(['maxlength' => true])->hint('值大的靠前') ?>
+
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>

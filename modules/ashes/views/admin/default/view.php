@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => '柜子', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->id . '号柜操作记录';
+$this->params['breadcrumbs'][] = $model->box_no . '号柜操作记录';
 
 $this->params['current_menu'] = 'ashes/default/index';
 
@@ -67,7 +67,6 @@ $this->params['current_menu'] = 'ashes/default/index';
                 <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
-                        'id',
                         'area.title',
                         'box_no',
                         'row',

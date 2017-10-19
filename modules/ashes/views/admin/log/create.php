@@ -4,8 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\ashes\models\Log */
+$this->params['current_menu'] = 'ashes/default/index';
 
 $this->title = '存盒';
 $this->params['breadcrumbs'][] = ['label' => '骨灰堂', 'url' => ['/ashes/admin/default/index']];

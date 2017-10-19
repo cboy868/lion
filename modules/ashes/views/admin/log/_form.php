@@ -3,9 +3,6 @@
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
 app\assets\ExtAsset::register($this);
-/* @var $this yii\web\View */
-/* @var $model app\modules\ashes\models\Log */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 <style>
     .hid .help-block{

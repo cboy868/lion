@@ -168,7 +168,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php
             $models = $dataProvider->getModels();
-            $result = ArrayHelper::index($models, 'id', 'row');
+
+            $res = ArrayHelper::index($models, 'id', 'area_id');
+
+
+
 
             ?>
             <div class="col-xs-10 grave-index">
@@ -188,6 +192,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="col-xs-12">
+                        <?php foreach ($res as $k=>$v):?>
+                            <?php $result = ArrayHelper::index($v, 'id', 'row');?>
+                            <h2><?=$boxes[$k]['title']?></h2>
                         <table class="table table-hover">
                             <tbody>
                             <?php foreach ($result as $k=>$models):?>
@@ -237,6 +244,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php endforeach;?>
                             </tbody>
                         </table>
+                        <?php endforeach;?>
                     </div>
 
                 </div>

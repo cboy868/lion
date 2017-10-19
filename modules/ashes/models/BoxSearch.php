@@ -40,12 +40,12 @@ class BoxSearch extends Box
      */
     public function search($params)
     {
-        $query = Box::find();
+        $query = Box::find()->andWhere(['status'=>[self::STATUS_EMPTY,self::STATUS_FULL]]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => 200,
             ],
         ]);
 
