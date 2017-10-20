@@ -53,6 +53,12 @@ function getYearPercent(year) {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
             series : [
                 {
                     name: '年销售占比',
