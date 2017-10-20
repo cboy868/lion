@@ -85,7 +85,7 @@ $focus =focus(2, 5, '425x300');
             </a>
             <a href="<?=Url::toRoute(['/analysis/m/default/index', 'wid'=>$wid])?>" class="weui-grid js_grid" data-id="button">
                 <div class="weui-grid__icon">
-                    <img src="/theme/m2/static/mobile/images/icons/statistics.png" alt="个人资料">
+                    <img src="/theme/m2/static/mobile/images/icons/statistics.png" alt="统计图表">
                 </div>
                 <p class="weui-grid__label">统计图表</p>
             </a>
