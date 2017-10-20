@@ -8,7 +8,9 @@
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
 ?>
-<div id="grave-status" style="height:300px;width:100%"></div>
+<div class="row">
+    <div id="grave-status" style="height:300px;width:100%" class="col-md-12"></div>
+</div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){

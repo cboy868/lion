@@ -14,7 +14,9 @@ app\assets\EchartsAsset::register($this);
         <?=\yii\helpers\Html::dropDownList('month',intval(date('Y')),years(6),['class'=>'selPercentYear'])?>
     </h4>
 </div>
-<div id="year-persent" style="height:400px;"></div>
+<div class="row">
+    <div id="year-persent" style="height:400px;" class="col-md-12"></div>
+</div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){

@@ -9,7 +9,6 @@ use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
 ?>
 <div class="row">
-
     <div id="client-year-person-persent" class="col-md-6" style="height:400px;"></div>
     <div id="client-year-recept-persent" class="col-md-6" style="height:400px;"></div>
 </div>
