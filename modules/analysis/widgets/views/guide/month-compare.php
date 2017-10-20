@@ -15,9 +15,7 @@ app\assets\EchartsAsset::register($this);
         <?=\yii\helpers\Html::dropDownList('month',intval(date('m')),months(),['class'=>'selMonthCompare'])?>
     </h4>
 </div>
-<div class="row">
     <div id="month-compare" style="height:400px;" class="col-md-12"></div>
-</div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){

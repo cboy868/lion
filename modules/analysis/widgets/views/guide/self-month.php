@@ -17,9 +17,7 @@ $guides = \app\modules\user\models\User::getGuides();
         <?=\yii\helpers\Html::dropDownList('guide',null,$guides,['class'=>'selGuide'])?>
     </h4>
 </div>
-<div class="row">
     <div id="self-month" style="height:400px;" class="col-md-12"></div>
-</div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){

@@ -8,9 +8,7 @@
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
 ?>
-<div class="row">
     <div id="main-num" style="width: 100%;height:400px;" class="col-md-12"></div>
-</div>
 <?php $this->beginBlock('foo') ?>
     $(function(){
         $.get('<?=Url::toRoute('/analysis/admin/tomb/sale-num')?>').done(function (data) {

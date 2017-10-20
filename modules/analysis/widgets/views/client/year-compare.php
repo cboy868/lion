@@ -8,9 +8,7 @@
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
 ?>
-<div class="row">
-    <div id="client-year-compare" style="height:400px;" class="col-md-12"></div>
-</div>
+<div id="client-year-compare" style="height:400px;" class="col-md-12"></div>
 
 <?php $this->beginBlock('per') ?>
 $(function(){
