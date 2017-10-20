@@ -42,7 +42,7 @@ $(function(){
                 }
             },
             grid: {
-                left: '10%',
+                left: '5%',
                 right: '4%',
                 bottom: '10%',
                 containLabel: true

@@ -53,7 +53,7 @@ $(function(){
                     }
                 },
                 grid: {
-                    left: '3%',
+                    left: '5%',
                     right: '4%',
                     bottom: '3%',
                     containLabel: true

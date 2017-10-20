@@ -40,7 +40,7 @@ app\assets\EchartsAsset::register($this);
                     trigger: 'axis'
                 },
                 grid: {
-                    left: '10%',
+                    left: '5%',
                     right: '10%',
                     bottom: '10%',
                     containLabel: true
