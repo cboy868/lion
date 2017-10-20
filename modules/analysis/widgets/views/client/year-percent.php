@@ -8,9 +8,10 @@
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
 ?>
-<div>
-    <div id="client-year-person-persent" style="height:400px;width:50%;float: left;"></div>
-    <div id="client-year-recept-persent" style="height:400px;width:50%;float: left;"></div>
+<div class="row">
+
+    <div id="client-year-person-persent" class="col-md-6" style="height:400px;"></div>
+    <div id="client-year-recept-persent" class="col-md-6" style="height:400px;"></div>
 </div>
 
 <?php $this->beginBlock('per') ?>
