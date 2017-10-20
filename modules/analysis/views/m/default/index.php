@@ -6,7 +6,7 @@ $this->title = '数据统计';
 
 <div class="page-content">
     <!-- /section:settings.box -->
-    <div class="page-content-area">
+    <div class="page-content-area" style="margin-bottom:50px;">
         <div class="page-header">
             <h1>数据统计</h1>
         </div><!-- /.page-header -->

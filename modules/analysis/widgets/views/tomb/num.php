@@ -15,7 +15,6 @@ app\assets\EchartsAsset::register($this);
     $(function(){
         $.get('<?=Url::toRoute('/analysis/admin/tomb/sale-num')?>').done(function (data) {
             var numChart = echarts.init(document.getElementById('main-num'), 'vintage');
-
             var colors = ['#5793f3', '#d14a61', '#675bba'];
             // 指定图表的配置项和数据
 

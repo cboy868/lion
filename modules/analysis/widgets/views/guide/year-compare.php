@@ -16,7 +16,7 @@ app\assets\EchartsAsset::register($this);
 </div>
 
 <div class="row">
-    <div id="year-compare" style="height:400px;" class="col-md-11 col-xs-8"></div>
+    <div id="year-compare" style="height:400px;" class="col-md-12"></div>
 </div>
 
 <?php $this->beginBlock('per') ?>

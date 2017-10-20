@@ -41,6 +41,12 @@ $(function(){
                     saveAsImage: {show: true}
                 }
             },
+grid: {
+left: '10%',
+right: '4%',
+bottom: '10%',
+containLabel: true
+},
             legend: {
                 data:['客户数','接待总量']
             },
