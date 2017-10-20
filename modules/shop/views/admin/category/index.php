@@ -51,7 +51,7 @@ Tabletree::register($this);
 
         <?php 
             Modal::begin([
-                'header' => '添增',
+                'header' => '添加',
                 'id' => 'modalAdd',
                 // 'size' => 'modal'
                 'clientOptions' => ['backdrop' => 'static', 'show' => false]

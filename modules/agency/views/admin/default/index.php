@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php
         Modal::begin([
-            'header' => '添增',
+            'header' => '添加',
             'id' => 'modalAdd',
             'clientOptions' => ['backdrop' => 'static', 'show' => false],
              'size' => 'modal-lg'

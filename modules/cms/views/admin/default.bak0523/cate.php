@@ -15,7 +15,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        添增
+                        添加
                     </div>
                     <div class="modal-body">
                         <div id="modalContent"></div>
