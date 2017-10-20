@@ -87,7 +87,7 @@ $focus =focus(2, 5, '425x300');
                 <div class="weui-grid__icon">
                     <img src="/theme/m2/static/mobile/images/icons/statistics.png" alt="统计图表">
                 </div>
-                <p class="weui-grid__label">统计图表</p>
+                <p class="weui-grid__label">统计示例</p>
             </a>
         </div>
     <?php endif;?>
