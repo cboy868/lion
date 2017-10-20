@@ -40,7 +40,10 @@ app\assets\EchartsAsset::register($this);
                     trigger: 'axis'
                 },
                 grid: {
-                    right: '10%'
+                    left: '10%',
+                    right: '10%',
+                    bottom: '10%',
+                    containLabel: true
                 },
                 toolbox: {
                     feature: {
