@@ -102,9 +102,8 @@ class TombController extends \app\core\web\BackController
         $statusLabel = Tomb::getSta();
 
         $result = [];
-        p($statusLabel);
-        p($data);die;
         foreach ($data as $k=>$v) {
+            if (!isset($statusLabel[$k])) continue;
             $result[] = [
                 'name' => $statusLabel[$k],
                 'value' => $v
