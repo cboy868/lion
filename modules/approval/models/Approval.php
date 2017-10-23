@@ -32,9 +32,9 @@ class Approval extends \app\core\db\ActiveRecord
     const PRO_INIT = 1;
     const PRO_ING = 2;
     const PRO_OK =3;
-    const PRO_CAM_PART = 4;
-    const PRO_CAM = 5;
-    const PRO_FINISH = 6;
+//    const PRO_CAM_PART = 4;
+//    const PRO_CAM = 5;
+//    const PRO_FINISH = 6;
 
 
 
@@ -52,10 +52,11 @@ class Approval extends \app\core\db\ActiveRecord
             self::PRO_BACK => '打回',
             self::PRO_INIT => '初始化',
             self::PRO_ING => '审批中',
+//            self::PRO_INIT => '审批中',
             self::PRO_OK => '审批完成',
-            self::PRO_CAM_PART => '报销部分',
-            self::PRO_CAM=> '报销完成',
-            self::PRO_FINISH => '完成'
+//            self::PRO_CAM_PART => '报销部分',
+//            self::PRO_CAM=> '报销完成',
+//            self::PRO_FINISH => '完成'
         ];
 
         if ($pro!==null && isset($p[$pro])) {
@@ -76,7 +77,8 @@ class Approval extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'process_id', 'progress','create_user', 'nowstep', 'status', 'eng_id', 'created_at', 'updated_at', 'time'], 'integer'],
+            [['pid', 'process_id', 'progress','create_user', 'nowstep',
+                'status', 'eng_id', 'created_at', 'updated_at', 'time'], 'integer'],
             [['process_id', 'title', 'intro', 'create_user'], 'required'],
             [['total', 'yet_money', 'pay'], 'number'],
             [['intro'], 'string'],
@@ -132,6 +134,10 @@ class Approval extends \app\core\db\ActiveRecord
             ->asArray()
             ->one();
 
+        if (!$pro_step) {
+            return ;
+        }
+
         $astep = new ApprovalStep();
         $astep->approval_id = $this->id;
         $astep->progress = ApprovalStep::PRO_INIT;
@@ -158,6 +164,19 @@ class Approval extends \app\core\db\ActiveRecord
             $model->time = $time;
             $model->save();
         }
+    }
+
+    public function next()
+    {
+        $this->nowstep = $this->nowstep + 1;
+        return $this->save();
+    }
+
+    public function pass($step)
+    {
+        $this->nowstep = $step;
+        $this->progress = self::PRO_OK;
+        return $this->save();
     }
 
     public function getProcess()

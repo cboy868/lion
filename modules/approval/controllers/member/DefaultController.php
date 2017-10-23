@@ -3,6 +3,8 @@
 namespace app\modules\approval\controllers\member;
 
 use app\modules\approval\models\ApprovalAttach;
+use app\modules\approval\models\ApprovalStep;
+use app\modules\approval\models\SearchApprovalStep;
 use Yii;
 use app\modules\approval\models\Approval;
 use app\modules\approval\models\SearchApproval;
@@ -35,7 +37,13 @@ class DefaultController extends MemberController
     public function actionIndex()
     {
         $searchModel = new SearchApproval();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $params = Yii::$app->request->queryParams;
+
+        if (isset($params['pro'])) {
+            $params['SearchApproval']['progress'] = $params['pro'];
+        }
+        $dataProvider = $searchModel->searchMember($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -45,13 +53,54 @@ class DefaultController extends MemberController
 
     public function actionPi()
     {
-        $searchModel = new SearchApproval();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new SearchApprovalStep();
+        $params = Yii::$app->request->queryParams;
+        $params['SearchApprovalStep']['approval_user'] = Yii::$app->user->id;
+        if (isset($params['pro'])) {
+            $params['SearchApprovalStep']['progress'] = $params['pro'];
+        }
+
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('pi', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionDeal($id, $pro)
+    {
+        $post = Yii::$app->request->post();
+
+        $model = ApprovalStep::findOne($id);
+
+        if ($model->load($post)) {
+            $model->progress=$pro;
+
+            if ($pro == -1) {
+
+            } else if ($pro == 2) {
+                $model->pass();
+            }
+            $model->save();
+            return $this->redirect(['pi']);
+        }
+
+        return $this->renderAjax('deal', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionBack($id)
+    {
+
+    }
+
+    public function actionPass($id)
+    {
+        $post = Yii::$app->request->post();
+
+
     }
 
     /**

@@ -12,6 +12,8 @@ use app\modules\approval\models\ApprovalStep;
  */
 class SearchApprovalStep extends ApprovalStep
 {
+
+    public $tit;
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class SearchApprovalStep extends ApprovalStep
     {
         return [
             [['id', 'approval_id', 'step', 'progress', 'created_at'], 'integer'],
-            [['step_name', 'approval_user', 'note'], 'safe'],
+            [['step_name', 'approval_user', 'note', 'tit'], 'safe'],
         ];
     }
 
@@ -41,7 +43,7 @@ class SearchApprovalStep extends ApprovalStep
      */
     public function search($params)
     {
-        $query = ApprovalStep::find();
+        $query = ApprovalStep::find()->joinWith('approval');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,13 +57,14 @@ class SearchApprovalStep extends ApprovalStep
             'id' => $this->id,
             'approval_id' => $this->approval_id,
             'step' => $this->step,
-            'progress' => $this->progress,
+            'approval_step.progress' => $this->progress,
             'created_at' => $this->created_at,
+            'approval_user' => $this->approval_user
         ]);
 
         $query->andFilterWhere(['like', 'step_name', $this->step_name])
-            ->andFilterWhere(['like', 'approval_user', $this->approval_user])
-            ->andFilterWhere(['like', 'note', $this->note]);
+            ->andFilterWhere(['like', 'note', $this->note])
+        ->andFilterWhere(['like', 'approval.title', $this->tit]);
 
         return $dataProvider;
     }

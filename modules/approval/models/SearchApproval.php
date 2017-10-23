@@ -42,7 +42,7 @@ class SearchApproval extends Approval
      */
     public function search($params)
     {
-        $query = Approval::find();
+        $query = Approval::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -70,6 +70,44 @@ class SearchApproval extends Approval
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'intro', $this->intro])
             ->andFilterWhere(['like', 'create_user', $this->create_user]);
+
+        return $dataProvider;
+    }
+
+    public function searchMember($params)
+    {
+        $query = Approval::find()->orderBy('id desc')->andWhere(['create_user'=>Yii::$app->user->id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 15,
+            ],
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'pid' => $this->pid,
+            'create_user' => $this->create_user,
+            'process_id' => $this->process_id,
+            'total' => $this->total,
+            'yet_money' => $this->yet_money,
+            'pay' => $this->pay,
+            'progress' => $this->progress,
+            'nowstep' => $this->nowstep,
+            'status' => $this->status,
+            'eng_id' => $this->eng_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ]);
+
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'intro', $this->intro]);
+//            ->andFilterWhere(['like', 'create_user', $this->create_user]);
 
         return $dataProvider;
     }

@@ -34,7 +34,7 @@ class ApprovalStep extends \app\core\db\ActiveRecord
     public static function pros($pro=null)
     {
         $p = [
-            self::PRO_INIT => '初始',
+            self::PRO_INIT => '待审批',
             self::PRO_BACK => '打回',
             self::PRO_OK => '通过'
         ];
@@ -91,6 +91,36 @@ class ApprovalStep extends \app\core\db\ActiveRecord
             'note' => '备注',
             'created_at' => '添加时间',
         ];
+    }
+
+    public function back()
+    {
+
+    }
+
+    public function pass()
+    {
+        $thisStep = self::find()->where(['<>', 'id', $this->id])
+                                ->andWhere(['step'=>$this->step])
+                                ->andWhere(['approval_id'=>$this->approval_id])
+                                ->andWhere(['progress'=>1])
+                                ->one();
+        if ($thisStep) {
+            return ;
+        }
+
+        $nextStep = $this->step + 1;
+        $nextPro = ApprovalProcessStep::find()->where(['process_id'=>$this->approval->process->id])
+                                            ->andWhere(['step'=>$nextStep])
+                                            ->one();
+
+        if (!$nextPro) {
+            return $this->approval->pass($this->step);
+            //不存在下一级，则整个流程直接通过
+        }
+
+        $this->approval->generateStep($nextStep);
+        $this->approval->next();
     }
 
     public function getApproval()

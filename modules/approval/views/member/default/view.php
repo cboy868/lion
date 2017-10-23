@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => '我的审批', 'url' => ['index']]
             <h1><?= Html::encode($this->title) ?>
                 <small>
                     详细信息查看
+                    <?php if ($model->progress == \app\modules\approval\models\Approval::PRO_BACK):?>
                     <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
                     <?= Html::a('Delete', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger  btn-xs',
@@ -26,6 +27,7 @@ $this->params['breadcrumbs'][] = ['label' => '我的审批', 'url' => ['index']]
                             'method' => 'post',
                         ],
                     ]) ?>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -47,7 +49,7 @@ $this->params['breadcrumbs'][] = ['label' => '我的审批', 'url' => ['index']]
                         <tr>
                             <th>总金额</th>
                             <td><?=$model->total?></td>
-                            <th>已付金额</th>
+                            <th>已结金额</th>
                             <td><?=$model->yet_money?></td>
                         </tr>
                     <?php endif;?>

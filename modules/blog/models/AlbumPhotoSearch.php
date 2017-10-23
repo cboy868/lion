@@ -41,7 +41,7 @@ class AlbumPhotoSearch extends AlbumPhoto
      */
     public function search($params)
     {
-        $query = AlbumPhoto::find();
+        $query = AlbumPhoto::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -79,7 +79,7 @@ class AlbumPhotoSearch extends AlbumPhoto
 
     public function searchHome($params)
     {
-        $query = AlbumPhoto::find();
+        $query = AlbumPhoto::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
