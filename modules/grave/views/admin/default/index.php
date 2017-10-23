@@ -216,7 +216,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-md-7 note">
                             <h2>园区概览</h2>
                             <hr>
-                            <p>本园区共有大区 <strong><?=$large_cnt?></strong> 处，子墓区 <strong><?=$small_cnt?></strong> 处,
+                            <p>本园区共有大区 <strong><?=$large_cnt?></strong> 处，直接墓区 <strong><?=$small_cnt?></strong> 处,
                                 墓位总计 <strong><?=$tomb_cnt?> </strong> 座,销售情况如右图
                             </p>
                             <p>更多详细情况，请点击左侧墓区列表</p>
