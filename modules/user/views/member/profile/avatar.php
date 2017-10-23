@@ -2,6 +2,9 @@
 use app\core\helpers\Url;
 use app\core\helpers\Html;
 use app\core\widgets\ActiveForm;
+
+$this->title = '修改头像';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
     input, select,textarea{
@@ -15,38 +18,43 @@ use app\core\widgets\ActiveForm;
         margin-bottom:10px;
     }
 </style>
-<div id="main-content">
-    <div class="setting">
-        <h2>个人设置</h2>
-        <!-- 个人设置导航 start -->
-        <div class="tab-header">
-            <ul class="tabs clearfix">
-                <li>
-                    <a href="<?=Url::toRoute(['/user/member/profile/index'])?>">个人设置</a>
-                </li>
-                <li class="curr">
-                    <a href="<?=Url::toRoute(['/user/member/profile/avatar'])?>">修改头像</a>
-                </li>
-                <li>
-                    <a href="<?=Url::toRoute(['/user/member/profile/passwd'])?>">修改密码</a>
-                </li>
-            </ul>
-        </div>
 
+<div class="page-content">
+    <!-- /section:settings.box -->
+    <div class="page-content-area">
 
+        <div class="row">
+            <div class="col-xs-12 user-index">
 
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="<?=Url::toRoute(['/user/member/profile/index'])?>">个人信息</a>
+                    </li>
+                    <li class="active">
+                        <a href="<?=Url::toRoute(['/user/member/profile/avatar'])?>">修改头像</a>
+                    </li>
+                    <li>
+                        <a href="<?=Url::toRoute(['/user/member/profile/passwd'])?>">修改密码</a>
+                    </li>
+                </ul>
 
-        <div class="setting-info">
-            <div class="tab-panel" id="tab-css">
-                <p id="swfContainer">
-                    本组件需要安装Flash Player后才可使用，请从<a href="http://www.adobe.com/go/getflashplayer">这里</a>下载安装。
-                </p>
-            </div>
-
-        </div>
-
-    </div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="profile">
+                        <div class="tab-panel" id="tab-css">
+                            <p id="swfContainer">
+                                本组件需要安装Flash Player后才可使用，请从<a href="http://www.adobe.com/go/getflashplayer">这里</a>下载安装。
+                            </p>
+                        </div>
+                        <div class="hr hr-18 dotted hr-double"></div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content-area -->
 </div>
+
 <script type="text/javascript" src="/static/libs/avatareditor/scripts/swfobject.js"></script>
 <script type="text/javascript" src="/static/libs/avatareditor/scripts/fullAvatarEditor.js"></script>
 

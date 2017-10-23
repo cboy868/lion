@@ -36,13 +36,9 @@ class ProfileController extends BackController
      */
     public function actionIndex()
     {
-        $model = $this->findModel();
-
+        $model = Yii::$app->user->identity;
         $addition = $this->findAddition();
-
         $attach = UserField::find()->asArray()->all();
-
-
         $post = Yii::$app->request->post();
 
 
@@ -52,8 +48,11 @@ class ProfileController extends BackController
                 $addition->load($post);
                 $addition->save();
 
+                $model->load($post);
+                $model->save();
+
                 $outerTransaction->commit();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 echo $e->getMessage();
                 $outerTransaction->rollBack();
             }

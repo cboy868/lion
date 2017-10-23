@@ -34,9 +34,9 @@ class ProfileController extends MemberController
         $model = Yii::$app->user->identity;
         $addition = $this->findAddition();
         $attach = UserField::find()->asArray()->all();
+        $post = Yii::$app->request->post();
 
-
-        if (Yii::$app->request->isPost) {
+        if ($addition->load($post)) {
             $post = Yii::$app->request->post();
             $outerTransaction = Yii::$app->db->beginTransaction();
             try {
@@ -54,11 +54,10 @@ class ProfileController extends MemberController
             return $this->redirect(['index']);
         }
 
-
         return $this->render('index', [
             'model'=>$model,
             'addition'=>$addition,
-            'attach'=>$attach
+            'attach'=>$attach,
         ]);
     }
     /**
@@ -95,7 +94,7 @@ class ProfileController extends MemberController
                 $model->save();
 
                 $outerTransaction->commit();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 echo $e->getMessage();
                 $outerTransaction->rollBack();
             }
@@ -126,8 +125,6 @@ class ProfileController extends MemberController
                 } else {
                     Yii::$app->getSession()->setFlash('error', '密码修改失败');
                 }
-
-
             }
         }
 
