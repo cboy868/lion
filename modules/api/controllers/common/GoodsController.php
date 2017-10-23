@@ -65,6 +65,7 @@ class GoodsController extends Controller
     {
     	$items = Category::find()->where(['status'=>Category::STATUS_ACTIVE])
                                     ->andWhere(['is_show'=>1])
+                                    ->andWhere(['is_leaf'=>1])
     								->select(['id', 'name'])
     								->all();
 
