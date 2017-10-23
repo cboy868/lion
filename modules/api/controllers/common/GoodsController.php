@@ -64,6 +64,7 @@ class GoodsController extends Controller
     public function actionCates()
     {
     	$items = Category::find()->where(['status'=>Category::STATUS_ACTIVE])
+                                    ->andWhere(['is_show'=>1])
     								->select(['id', 'name'])
     								->all();
 
