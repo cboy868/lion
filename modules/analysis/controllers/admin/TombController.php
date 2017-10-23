@@ -100,14 +100,18 @@ class TombController extends \app\core\web\BackController
     {
         $data = Grave::statusAnalysis($grave_id);
         $statusLabel = Tomb::getSta();
-        $result = [];
 
+        $result = [];
+        p($statusLabel);
+        p($data);die;
         foreach ($data as $k=>$v) {
             $result[] = [
                 'name' => $statusLabel[$k],
                 'value' => $v
             ];
         }
+//
+
 
         return $this->json($result, null, 1);
     }
