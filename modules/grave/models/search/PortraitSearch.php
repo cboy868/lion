@@ -12,14 +12,21 @@ use app\modules\grave\models\Portrait;
  */
 class PortraitSearch extends Portrait
 {
+
+    public $start;
+    public $end;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'guide_id', 'user_id', 'tomb_id', 'goods_id', 'order_id', 'order_rel_id', 'confrim_by', 'notice_id', 'type', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['title', 'dead_ids', 'photo_original', 'photo_processed', 'confirm_at', 'photo_confirm', 'use_at', 'up_at', 'note'], 'safe'],
+            [['id', 'guide_id', 'user_id', 'tomb_id', 'order_id',
+                'order_rel_id', 'notice_id', 'type', 'status', 'updated_at',
+                'created_at'], 'integer'],
+            [['title', 'dead_ids', 'photo_original', 'photo_processed', 'confirm_at',
+                'photo_confirm', 'use_at', 'up_at', 'note','start','end','confirm_by'], 'safe'],
         ];
     }
 
@@ -59,10 +66,10 @@ class PortraitSearch extends Portrait
             'id' => $this->id,
             'guide_id' => $this->guide_id,
             'user_id' => $this->user_id,
-            'goods_id' => $this->goods_id,
+//            'goods_id' => $this->goods_id,
             'order_id' => $this->order_id,
             'order_rel_id' => $this->order_rel_id,
-            'confrim_by' => $this->confrim_by,
+            'confrim_by' => $this->confirm_by,
             'confirm_at' => $this->confirm_at,
             'use_at' => $this->use_at,
             'up_at' => $this->up_at,
@@ -72,6 +79,17 @@ class PortraitSearch extends Portrait
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
         ]);
+
+        if ($this->start) {
+            $start = $this->start;
+            $query->andFilterWhere(['>=', 'use_at', $start]);
+        }
+
+        if ($this->end) {
+            $end = date('Y-m-d',strtotime('+1 day',strtotime($this->end)));
+            $query->andFilterWhere(['<=', 'use_at', $end]);
+        }
+
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'dead_ids', $this->dead_ids])

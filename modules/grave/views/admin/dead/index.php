@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '预葬日期',
                 'value' => function($model){
-                    return date('Y-m-d', strtotime($model->pre_bury));
+                    return $model->pre_bury ? date('Y-m-d', strtotime($model->pre_bury)) : '';
                 }
             ],
             'bury',

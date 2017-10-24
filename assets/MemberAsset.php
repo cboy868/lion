@@ -10,7 +10,8 @@ class MemberAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'static/ace/css/ace.css',
-        'static/ace/css/ace-skins.min.css'
+        'static/ace/css/ace-skins.min.css',
+        'static/site/site.css'
     ];
     public $js = [
         'static/ace/js/ace-extra.min.js',

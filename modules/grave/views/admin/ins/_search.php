@@ -4,9 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\InsSearch */
-/* @var $form yii\widgets\ActiveForm */
+\app\assets\ExtAsset::register($this);
 ?>
 
 <div class="ins-search">
@@ -16,6 +14,11 @@ use app\core\widgets\ActiveForm;
     <?=\app\modules\grave\widgets\TombSearch::widget(['form'=>$form])?>
 
     <?= $form->field($model, 'guide')->label('导购') ?>
+
+    <div style="display: inline-block">
+        <?= $form->field($model, 'start')->textInput(['dt'=>'true','dt-month'=>'true'])->label('预完成时间: ') ?> -
+        <?= $form->field($model, 'end')->textInput(['dt'=>'true','dt-month'=>'true'])->label(false) ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm',

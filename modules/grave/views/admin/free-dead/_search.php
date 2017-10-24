@@ -3,10 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\search\FreeDead */
-/* @var $form yii\widgets\ActiveForm */
+\app\assets\ExtAsset::register($this);
 ?>
 
 <div class="free-dead-search">
@@ -19,6 +16,11 @@ use app\core\widgets\ActiveForm;
     <?= $form->field($model, 'contact_user') ?>
 
     <?= $form->field($model, 'dead') ?>
+
+    <div style="display: inline-block">
+        <?= $form->field($model, 'start')->textInput(['dt'=>'true','dt-month'=>'true'])->label('下单时间: ') ?> -
+        <?= $form->field($model, 'end')->textInput(['dt'=>'true','dt-month'=>'true'])->label(false) ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

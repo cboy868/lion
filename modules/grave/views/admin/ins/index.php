@@ -5,10 +5,6 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\grave\models\InsSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = '碑文列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

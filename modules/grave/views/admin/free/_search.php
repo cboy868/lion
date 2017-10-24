@@ -4,9 +4,7 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\search\Free */
-/* @var $form yii\widgets\ActiveForm */
+\app\assets\ExtAsset::register($this);
 ?>
 
 <div class="free-search">
@@ -14,6 +12,11 @@ use app\core\widgets\ActiveForm;
     <?php $form = ActiveForm::searchBegin(); ?>
 
     <?= $form->field($model, 'title') ?>
+
+    <div style="display: inline-block">
+        <?= $form->field($model, 'start')->textInput(['dt'=>'true','dt-month'=>'true'])->label('添加时间: ') ?> -
+        <?= $form->field($model, 'end')->textInput(['dt'=>'true','dt-month'=>'true'])->label(false) ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

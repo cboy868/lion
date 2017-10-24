@@ -12,6 +12,10 @@ use app\modules\grave\models\Free as FreeModel;
  */
 class Free extends FreeModel
 {
+
+    public $start;
+    public $end;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +23,7 @@ class Free extends FreeModel
     {
         return [
             [['id', 'bury_type', 'max_num', 'status', 'created_at', 'op_id'], 'integer'],
-            [['title', 'bury_date', 'note', 'op_user', 'op_mobile', 'stage'], 'safe'],
+            [['title', 'bury_date', 'note', 'op_user', 'op_mobile', 'stage','start','end'], 'safe'],
         ];
     }
 
@@ -60,9 +64,18 @@ class Free extends FreeModel
             'bury_date' => $this->bury_date,
             'max_num' => $this->max_num,
             'status' => $this->status,
-            'created_at' => $this->created_at,
             'op_id' => $this->op_id,
         ]);
+
+        if ($this->start) {
+            $start = strtotime($this->start);
+            $query->andFilterWhere(['>', 'created_at', $start]);
+        }
+
+        if ($this->end) {
+            $end = strtotime('+1 day',strtotime($this->end));
+            $query->andFilterWhere(['<', 'created_at', $end]);
+        }
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'note', $this->note])

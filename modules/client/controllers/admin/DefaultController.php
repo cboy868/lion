@@ -37,8 +37,6 @@ class DefaultController extends BackController
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-//        p($dataProvider->getPagination()->getPageSize());die;
-
         if (isset(Yii::$app->request->queryParams['excel']) && Yii::$app->request->queryParams['excel']){
             return $this->excel($dataProvider);
         }

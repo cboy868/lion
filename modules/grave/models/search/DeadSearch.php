@@ -13,14 +13,19 @@ use app\modules\grave\models\search\TombSearch;
  */
 class DeadSearch extends Dead
 {
+    public $start;
+    public $end;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'tomb_id', 'memorial_id', 'serial', 'gender', 'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_type', 'bone_box', 'created_at', 'updated_at', 'status'], 'integer'],
-            [['dead_name', 'second_name', 'dead_title', 'birth_place', 'birth', 'fete', 'desc', 'pre_bury', 'bury'], 'safe'],
+            [['id', 'user_id', 'tomb_id', 'memorial_id', 'serial', 'gender',
+                'is_alive', 'is_adult', 'age', 'follow_id', 'is_ins', 'bone_type',
+                'bone_box', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['dead_name', 'second_name', 'dead_title', 'birth_place', 'birth',
+                'fete', 'desc', 'pre_bury', 'bury','start','end'], 'safe'],
         ];
     }
 
@@ -43,7 +48,7 @@ class DeadSearch extends Dead
     public function search($params)
     {
 
-        $query = Dead::find()->andWhere(['<>', 'tomb_id', 0]);
+        $query = Dead::find()->andWhere(['<>', 'tomb_id', 0])->orderBy('id desc');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -73,9 +78,18 @@ class DeadSearch extends Dead
             'pre_bury' => $this->pre_bury,
             'bury' => $this->bury,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             'status' => $this->status,
         ]);
+
+        if ($this->start) {
+            $start = strtotime($this->start);
+            $query->andFilterWhere(['>', 'created_at', $start]);
+        }
+
+        if ($this->end) {
+            $end = strtotime('+1 day',strtotime($this->end));
+            $query->andFilterWhere(['<', 'created_at', $end]);
+        }
 
 
         if ($params['TombSearch']['grave_id']) {

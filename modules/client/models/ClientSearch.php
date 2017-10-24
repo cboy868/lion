@@ -12,14 +12,19 @@ use app\modules\client\models\Client;
  */
 class ClientSearch extends Client
 {
+    public $start;
+    public $end;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'gender', 'age', 'user_id', 'province_id', 'city_id', 'zone_id', 'guide_id', 'come_from', 'agent_id', 'status', 'created_by', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'telephone', 'mobile', 'qq', 'wechat', 'address', 'note', 'relation'], 'safe'],
+            [['id', 'gender', 'age', 'user_id', 'province_id', 'city_id', 'zone_id',
+                'guide_id', 'come_from', 'agent_id', 'status', 'created_by', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'telephone', 'mobile', 'qq', 'wechat', 'address',
+                'note', 'relation','start','end'], 'safe'],
         ];
     }
 
@@ -34,7 +39,6 @@ class ClientSearch extends Client
 
     /**
      * Creates data provider instance with search query applied
-     *
      * @param array $params
      *
      * @return ActiveDataProvider
@@ -68,8 +72,18 @@ class ClientSearch extends Client
             'agent_id' => $this->agent_id,
             'status' => $this->status,
             'created_by' => $this->created_by,
-            'created_at' => $this->created_at,
         ]);
+
+
+        if ($this->start) {
+            $start = strtotime($this->start);
+            $query->andFilterWhere(['>', 'created_at', $start]);
+        }
+
+        if ($this->end) {
+            $end = strtotime('+1 day',strtotime($this->end));
+            $query->andFilterWhere(['<', 'created_at', $end]);
+        }
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'telephone', $this->telephone])

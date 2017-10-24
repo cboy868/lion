@@ -12,6 +12,8 @@ use app\modules\grave\models\Ins;
  */
 class InsSearch extends Ins
 {
+    public $start;
+    public $end;
 
     public $guide;
     /**
@@ -23,7 +25,8 @@ class InsSearch extends Ins
             [['id', 'guide_id', 'user_id', 'tomb_id', 'op_id', 'shape', 'is_tc', 'font', 'big_num',
                 'small_num', 'new_small_num', 'new_big_num', 'is_confirm', 'confirm_by', 'version',
                 'paint', 'is_stand', 'status', 'updated_at', 'created_at'], 'integer'],
-            [['position', 'content', 'img', 'confirm_date', 'pre_finish', 'finish_at', 'note', 'guide'], 'safe'],
+            [['position', 'content', 'img', 'confirm_date', 'pre_finish', 'finish_at',
+                'note', 'guide','start','end'], 'safe'],
             [['paint_price', 'letter_price', 'tc_price'], 'number'],
         ];
     }
@@ -71,7 +74,6 @@ class InsSearch extends Ins
             'is_confirm' => $this->is_confirm,
             'confirm_date' => $this->confirm_date,
             'confirm_by' => $this->confirm_by,
-            'pre_finish' => $this->pre_finish,
             'finish_at' => $this->finish_at,
             'version' => $this->version,
             'paint' => $this->paint,
@@ -81,6 +83,16 @@ class InsSearch extends Ins
             'tc_price' => $this->tc_price,
             'status' => $this->status,
         ]);
+
+        if ($this->start) {
+            $start = $this->start;
+            $query->andFilterWhere(['>=', 'pre_finish', $start]);
+        }
+
+        if ($this->end) {
+            $end = date('Y-m-d',strtotime('+1 day',strtotime($this->end)));
+            $query->andFilterWhere(['<=', 'pre_finish', $end]);
+        }
 
 
         if (isset($params['TombSearch']['grave_id']) && $params['TombSearch']['grave_id']) {

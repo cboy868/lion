@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                             <?= $form->field($dead, "[$k]gender")->radioList([1=>'男',2=>'女'],['disabled'=>!$canEdit]) ?>
 
-                                            <?= $form->field($dead, "[$k]age")->textInput(['disabled'=>!$canEdit]) ?>
+                                            <?= $form->field($dead, "[$k]age")->textInput(['disabled'=>$dead->age? !$canEdit : false]) ?>
 
                                             <?= $form->field($dead, "[$k]birth_place")->textarea(['rows'=>3]) ?>
 

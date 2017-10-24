@@ -118,6 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw'
             ],
+            'created_at:datetime',
 
             [
                 'header' => '操作',

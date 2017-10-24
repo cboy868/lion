@@ -14,6 +14,9 @@ class OrderSearch extends Order
 {
 
     public $uname;
+
+    public $start;
+    public $end;
     /**
      * @inheritdoc
      */
@@ -22,7 +25,7 @@ class OrderSearch extends Order
         return [
             [['id', 'wechat_uid', 'type', 'progress', 'created_at', 'updated_at', 'status'], 'integer'],
             [['price', 'origin_price'], 'number'],
-            [['note', 'uname'], 'safe'],
+            [['note', 'uname','start','end'], 'safe'],
         ];
     }
 
@@ -72,7 +75,52 @@ class OrderSearch extends Order
         ]);
 
 
+        if ($this->start) {
+            $start = strtotime($this->start);
+            $query->andFilterWhere(['>', '{{%order}}.created_at', $start]);
+        }
+
+        if ($this->end) {
+            $end = strtotime('+1 day',strtotime($this->end));
+            $query->andFilterWhere(['<', '{{%order}}.created_at', $end]);
+        }
+
+
         $query->andFilterWhere(['like', '{{%user}}.username', $this->uname]);
+        $query->andFilterWhere(['like', 'note', $this->note]);
+
+        return $dataProvider;
+    }
+
+    public function searchMember($params)
+    {
+        $query = Order::find()->orderBy('id desc');
+        $query->andWhere(['user_id'=>Yii::$app->user->id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
+
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            '{{%order}}.id' => $this->id,
+            'price' => $this->price,
+            'origin_price' => $this->origin_price,
+            'type' => $this->type,
+            'progress' => $this->progress,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'status' => $this->status
+        ]);
+
+
         $query->andFilterWhere(['like', 'note', $this->note]);
 
         return $dataProvider;

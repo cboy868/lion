@@ -17,6 +17,11 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'dead_name')->label('使用人姓名') ?>
 
+    <div style="display: inline-block">
+        <?= $form->field($model, 'start')->textInput(['dt'=>'true','dt-month'=>'true'])->label('添加时间: ') ?> -
+        <?= $form->field($model, 'end')->textInput(['dt'=>'true','dt-month'=>'true'])->label(false) ?>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm',
             'name'=>"excel", 'value'=>0]) ?>

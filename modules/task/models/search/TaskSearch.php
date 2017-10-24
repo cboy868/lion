@@ -12,6 +12,8 @@ use app\modules\task\models\Task;
  */
 class TaskSearch extends Task
 {
+    public $start;
+    public $end;
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class TaskSearch extends Task
     {
         return [
             [['id', 'cate_id', 'res_id', 'user_id', 'order_rel_id', 'op_id', 'status', 'created_at'], 'integer'],
-            [['res_name', 'title', 'content', 'pre_finish', 'finish'], 'safe'],
+            [['res_name', 'title', 'content', 'pre_finish', 'finish','start','end'], 'safe'],
         ];
     }
 
@@ -66,9 +68,18 @@ class TaskSearch extends Task
             'created_at' => $this->created_at,
         ]);
 
+        if ($this->start) {
+            $start = $this->start;
+            $query->andFilterWhere(['>=', 'pre_finish', $start]);
+        }
+
+        if ($this->end) {
+            $end = date('Y-m-d',strtotime('+1 day',strtotime($this->end)));
+            $query->andFilterWhere(['<=', 'pre_finish', $end]);
+        }
+
         $query->andFilterWhere(['like', 'res_name', $this->res_name])
             ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'pre_finish', $this->pre_finish])
             ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;

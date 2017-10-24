@@ -3,10 +3,7 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\client\models\ClientSearch */
-/* @var $form yii\widgets\ActiveForm */
+\app\assets\ExtAsset::register($this);
 ?>
 
 <div class="client-search">
@@ -19,6 +16,10 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'mobile') ?>
 
+    <div style="display: inline-block">
+    <?= $form->field($model, 'start')->textInput(['dt'=>'true','dt-month'=>'true'])->label('创建时间: ') ?> -
+    <?= $form->field($model, 'end')->textInput(['dt'=>'true','dt-month'=>'true'])->label(false) ?>
+    </div>
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm','name'=>"excel", 'value'=>0]) ?>
         <?= Html::a('<i class="fa fa-reply"></i>  重置',Url::toRoute(['index']),['class'=>'btn btn-danger btn-sm']);?>

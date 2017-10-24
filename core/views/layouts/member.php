@@ -206,6 +206,12 @@ MemberAsset::register($this);
                             </a>
                             <b class="arrow"></b>
                         </li>
+                        <li class="<?php if($cur_nav == 'order_index')echo'active';?>" rel="">
+                            <a href="<?=Url::toRoute(['/order/member/default/index'])?>">
+                                订单记录
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
                     </ul>
                 </li>
 
