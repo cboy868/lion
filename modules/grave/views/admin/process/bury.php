@@ -188,8 +188,8 @@ $tomb_id = Yii::$app->getRequest()->get('tomb_id');
                         <tr>
                             <th width="100">车辆类型：</th>
                             <?php
-                            p($records[$pre->id]);
-                            p($records[$pre->id]['car_type']);
+                            p($records[$b->id]);
+                            p($records[$b->id]['car_type']);
                             die;
                             ?>
 
