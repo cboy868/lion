@@ -80,6 +80,9 @@ $this->params['breadcrumbs'][] = $this->title;
 //                    $name = $model->goods->name == $model->sku->name ?
 //                        $model->goods->name : $model->goods->name . $model->sku->name;
 
+                    if (!$model->sku) {
+                        return '';
+                    }
                     $url = Url::toRoute(['/shop/admin/goods/view', 'id'=>$model->goods->id]);
 
                     return Html::a($model->sku->getName(), $url, ['target'=>'_blank']);
