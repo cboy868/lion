@@ -77,8 +77,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '所购商品',
                 'value' => function($model) {
-                    $name = $model->goods->name == $model->sku->name ?
-                        $model->goods->name : $model->goods->name . $model->sku->name;
+//                    $name = $model->goods->name == $model->sku->name ?
+//                        $model->goods->name : $model->goods->name . $model->sku->name;
 
                     $url = Url::toRoute(['/shop/admin/goods/view', 'id'=>$model->goods->id]);
 
