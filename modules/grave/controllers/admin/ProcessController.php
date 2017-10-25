@@ -576,6 +576,7 @@ class ProcessController extends BackController
 
         $deads = Process::dead();
         $carRecord = Process::carRecord();
+        p($carRecord);die;
         $car_model = $carRecord['model'];
         $req = Yii::$app->request;
         if ($req->isPost) {
