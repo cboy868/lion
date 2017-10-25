@@ -326,7 +326,7 @@ class ProcessController extends BackController
 
         }
 
-        p($model->shape);
+        var_dump($model->shape);
 
         $cases = $model->getInsCfgCases($model->shape);
 
