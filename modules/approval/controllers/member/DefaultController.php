@@ -78,7 +78,7 @@ class DefaultController extends MemberController
             $model->progress=$pro;
 
             if ($pro == -1) {
-
+                $model->back();
             } else if ($pro == 2) {
                 $model->pass();
             }
@@ -91,17 +91,22 @@ class DefaultController extends MemberController
         ]);
     }
 
-    public function actionBack($id)
+    public function actionDelAttach($id)
     {
+        $attach = ApprovalAttach::findOne($id);
 
+        if (!$attach) {
+            throw new NotFoundHttpException('资源不存在');
+        }
+
+        $attach->status = ApprovalAttach::STATUS_DELETE;
+        if ($attach->save()) {
+            return $this->json();
+        }
+
+        return $this->json(null, '附件删除失败', -1);
     }
 
-    public function actionPass($id)
-    {
-        $post = Yii::$app->request->post();
-
-
-    }
 
     /**
      * Displays a single Approval model.
@@ -110,8 +115,16 @@ class DefaultController extends MemberController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $nowstep = ApprovalStep::find()->where(['approval_id'=>$id])
+            ->andWhere(['step'=>$model->nowstep])
+            ->andWhere(['approval_user'=>Yii::$app->user->id])
+            ->andWhere(['progress'=>ApprovalStep::PRO_INIT])
+            ->one();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'nowstep' => $nowstep
         ]);
     }
 
@@ -188,11 +201,12 @@ class DefaultController extends MemberController
         $model = $this->findModel($id);
         //已上传附件
         $attachs = ApprovalAttach::find()->where(['approval_id'=>$id])->all();
+        $progress = $model->progress;
 
         if ($model->load(Yii::$app->request->post())) {
             $outerTransaction = Yii::$app->db->beginTransaction();
             try {
-                $model->progress = Approval::PRO_INIT;
+                $model->progress = Approval::PRO_ING;
                 $model->save();
 
                 $uploads = UploadedFile::getInstancesByName('attach');
@@ -221,7 +235,7 @@ class DefaultController extends MemberController
                     }
                 }
 
-                if ($model->progress == Approval::PRO_BACK) {
+                if ($progress == Approval::PRO_BACK) {
                     $model->generateStep();
                 }
 

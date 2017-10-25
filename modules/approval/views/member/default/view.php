@@ -3,14 +3,28 @@
 use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\approval\models\Approval */
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+use app\modules\approval\models\Approval;
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => '我的审批', 'url' => ['index']];
+$this->params['breadcrumbs'][] = '审批详情';
 ?>
-
+<style>
+    .attach{
+        margin-bottom:5px;
+    }
+    .attachfile{
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 3px;
+        margin-right: 10px;
+    }
+    .attachfile a{
+        margin-left: 10px;
+        font-size: 15px;
+    }
+</style>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -18,22 +32,57 @@ $this->params['breadcrumbs'][] = ['label' => '我的审批', 'url' => ['index']]
             <h1><?= Html::encode($this->title) ?>
                 <small>
                     详细信息查看
-                    <?php if ($model->progress == \app\modules\approval\models\Approval::PRO_BACK):?>
-                    <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
-                    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger  btn-xs',
-                        'data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+                    <?php if ($nowstep):?>
+                        <div class="pull-right" style="line-height:30px; margin-right:10px">
+                            <b style="color:green">
+                                <a href="<?=Url::toRoute(['deal', 'id'=>$nowstep->id, 'pro'=>2])?>"
+                                   class="modalEditButton btn btn-success"
+                                   data-loading-text="页面加载中, 请稍后..."
+                                   onclick="return false"
+                                >审批通过</a>
+                            </b>
+
+                            <b style="color:red">
+                                <a href="<?=Url::toRoute(['deal', 'id'=>$nowstep->id, 'pro'=>-1])?>"
+                                   class="modalAddButton btn btn-danger"
+                                   data-loading-text="页面加载中, 请稍后..."
+                                   onclick="return false"
+                                >打回</a>
+                            </b>
+                        </div>
                     <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
 
+        <?php
+        Modal::begin([
+            'header' => '打回备注',
+            'id' => 'modalAdd',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false]
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="modalContent"></div>';
+
+        Modal::end();
+        ?>
+
+        <?php
+        Modal::begin([
+            'header' => '通过备注',
+            'id' => 'modalEdit',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false]
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="editContent"></div>';
+
+        Modal::end();
+        ?>
+
         <div class="row">
-            <div class="col-xs-12 approval-view">
+            <div class="col-xs-8 approval-view">
                 <table class="table table-bordered table-hover table-striped">
                     <tr>
                         <th>所属流程</th>
@@ -45,7 +94,25 @@ $this->params['breadcrumbs'][] = ['label' => '我的审批', 'url' => ['index']]
                         <th>提交时间</th>
                         <td><?=date('Y-m-d H:i',$model->created_at)?></td>
                     </tr>
-                    <?php if ($model->total):?>
+                    <?php if ($model->attachs):?>
+                        <tr>
+                            <th>附件</th>
+                            <td colspan="7">
+                                <?php foreach ($model->attachs as $attach):?>
+                                    <span class="attachfile">
+                                        <?=Html::a($attach->title, [$attach->url],
+                                            ['download'=>$attach->title.'.'.$attach->ext])?>
+                                        <?php if($model->create_user == Yii::$app->user->id && $model->progress == Approval::PRO_BACK):?>
+                                        <a href="<?=Url::toRoute(['del-attach', 'id'=>$attach->id])?>"
+                                           class="delAttach" title="删除">x</a>
+                                        <?php endif;?>
+                                    </span>
+                                <?php endforeach;?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if ($model->total > 0):?>
                         <tr>
                             <th>总金额</th>
                             <td><?=$model->total?></td>
@@ -54,32 +121,61 @@ $this->params['breadcrumbs'][] = ['label' => '我的审批', 'url' => ['index']]
                         </tr>
                     <?php endif;?>
                     <tr style="text-align: center">
-                        <td colspan="8"><?=$model->title?></td>
-                    </tr>
-                    <tr style="text-align: center">
-                        <td colspan="8"><?=$model->intro?></td>
+                        <td colspan="8">
+                            <h3><?=$model->title?></h3>
+                            <div class="detail" style="text-align: left;">
+                                <?=$model->intro?>
+                            </div>
+                        </td>
                     </tr>
                 </table>
 
+
+                <div class="hr hr-18 dotted hr-double"></div>
+            </div><!-- /.col -->
+
+            <div class="col-md-4">
                 <?php $steps = $model->steps;?>
-                <table class="table table-bordered">
-                    <tr>
-                        <th>第n次审批</th>
-                        <th>步骤</th>
-                        <th>审批人</th>
-                        <th>审批状态</th>
+                <table class="table table-bordered table-striped table-hover">
+                    <tr style="text-align: center">
+                        <td colspan="4">审批历史</td>
                     </tr>
                     <?php foreach ($steps as $step):?>
+                        <?php if ($step->progress == 1) continue;?>
                         <tr>
-                            <td>第<?=$step->time?>次</td>
-                            <td><?=$step->step_name?></td>
-                            <td><?=$step->user->username?></td>
-                            <td><?=$step->pro?></td>
+                            <td>
+                                <?=$step->step_name . ' ' . $step->pro?>
+                                (<?=$step->user->username?> 于 <?=date('Y-m-d H:i', $model->created_at)?>)
+                                <?=$step->note?>
+                            </td>
                         </tr>
                     <?php endforeach;?>
                 </table>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </div><!-- /.col -->
+            </div>
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+
+
+<?php $this->beginBlock('tree') ?>
+    $(function(){
+        $('.delAttach').click(function(e){
+
+            if (!confirm('确定要删除此附件吗?')) {
+                return false;
+            }
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var that = this;
+            $.post(url, {}, function(xhr){
+                if(xhr.status) {
+                    $(that).closest('.attachfile').remove();
+                } else {
+                    alert(xhr.info);
+                }
+            },'json');
+
+        });
+    })
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['tree'], \yii\web\View::POS_END); ?>

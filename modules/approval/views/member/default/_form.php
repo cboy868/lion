@@ -4,7 +4,7 @@ use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\modules\approval\models\ApprovalProcess;
-
+use yii\helpers\Url;
 
 $process = ApprovalProcess::process();
 
@@ -61,7 +61,8 @@ $types = ArrayHelper::map($process, 'id', 'type');
             <td>
                 <?php foreach ($attachs as $attach):?>
                 <span class="attachfile"><?=Html::a($attach->title, [$attach->url],
-                        ['download'=>$attach->title.'.'.$attach->ext])?> <a href="#">x</a>
+                        ['download'=>$attach->title.'.'.$attach->ext])?>
+                    <a href="<?=Url::toRoute(['del-attach', 'id'=>$attach->id])?>" class="delAttach" title="删除">x</a>
                 </span>
                 <?php endforeach;?>
             </td>
@@ -95,6 +96,22 @@ $types = ArrayHelper::map($process, 'id', 'type');
 
         $('.m-process').change(function(){
             types();
+        });
+
+        $('.delAttach').click(function(e){
+            if (!confirm('确定要删除此附件吗?')) {
+                return false;
+            }
+            e.preventDefault();
+            var url = $(this).attr('href');
+            $.post(url, {}, function(xhr){
+                if(xhr.status) {
+                    $(that).closest('.attachfile').remove();
+                } else {
+                    alert(xhr.info);
+                }
+            },'json');
+
         });
     })
 

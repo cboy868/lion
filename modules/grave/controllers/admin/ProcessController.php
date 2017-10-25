@@ -326,8 +326,12 @@ class ProcessController extends BackController
 
         }
 
+        p($model->shape);
 
         $cases = $model->getInsCfgCases($model->shape);
+
+        p($cases);die;
+
 
         if (!$cases) {
             $model->type = InsProcess::TYPE_IMG;

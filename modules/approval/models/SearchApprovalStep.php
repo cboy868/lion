@@ -43,7 +43,7 @@ class SearchApprovalStep extends ApprovalStep
      */
     public function search($params)
     {
-        $query = ApprovalStep::find()->joinWith('approval');
+        $query = ApprovalStep::find()->joinWith('approval')->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

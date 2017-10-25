@@ -50,7 +50,7 @@ class Approval extends \app\core\db\ActiveRecord
     {
         $p = [
             self::PRO_BACK => '打回',
-            self::PRO_INIT => '初始化',
+//            self::PRO_INIT => '初始化',
             self::PRO_ING => '审批中',
 //            self::PRO_INIT => '审批中',
             self::PRO_OK => '审批完成',
@@ -192,5 +192,11 @@ class Approval extends \app\core\db\ActiveRecord
     public function getSteps()
     {
         return $this->hasMany(ApprovalStep::className(), ['approval_id'=>'id'])->orderBy('time asc');
+    }
+
+    public function getAttachs()
+    {
+        return $this->hasMany(ApprovalAttach::className(), ['approval_id'=>'id'])
+            ->andWhere(['status'=>ApprovalAttach::STATUS_NORMAL]);
     }
 }

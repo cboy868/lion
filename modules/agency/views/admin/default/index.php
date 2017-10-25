@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>
                 <small>
                     <a href="<?=Url::to(['create'])?>"
-                       class='btn btn-primary btn-sm modalAddButton' title="添加分类"
+                       class='btn btn-primary btn-sm modalAddButton' title="新增办事处"
                        data-loading-text="页面加载中, 请稍后..." onclick="return false">
                         <i class="fa fa-plus"></i>新增办事处
                     </a>

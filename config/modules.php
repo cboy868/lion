@@ -78,9 +78,12 @@ return [
     ],
 
 
+    //oa部分
     'approval' => [
         'class' => 'app\modules\approval\Module',
+    ],
+    'mess' => [
+        'class' => 'app\modules\mess\Module',
     ]
-
 
 ];
