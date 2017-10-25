@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     $url = Url::toRoute(['/shop/admin/goods/view', 'id'=>$model->goods->id]);
 
-                    return Html::a($name, $url, ['target'=>'_blank']);
+                    return Html::a($model->sku->getName(), $url, ['target'=>'_blank']);
                 },
                 'format' => 'raw'
             ],

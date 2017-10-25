@@ -170,25 +170,11 @@ $this->params['breadcrumbs'][] = $this->title;
             $models = $dataProvider->getModels();
 
             $res = ArrayHelper::index($models, 'id', 'area_id');
-
-
-
-
             ?>
             <div class="col-xs-10 grave-index">
                 <div class="rows">
                     <div class="col-xs-12">
-                        <?php if(Yii::$app->session->hasFlash('success')): ?>
-                            <div class="alert alert-success" style="word-break: break-all;word-wrap: break-word;">
-                                <?php echo Yii::$app->session->getFlash('success'); ?>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if(Yii::$app->session->hasFlash('error')): ?>
-                            <div class="alert alert-danger" style="word-break: break-all;word-wrap: break-word;">
-                                <?php echo Yii::$app->session->getFlash('error'); ?>
-                            </div>
-                        <?php endif; ?>
+                        <?=\app\core\widgets\Alert::widget();?>
                     </div>
 
                     <div class="col-xs-12">
@@ -215,7 +201,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?php endif?>
 
                                             <div class="btns">
-
 
                                                 <a href="<?=url(['view', 'box_id'=>$model->id])?>" class="view">
                                                     详细
