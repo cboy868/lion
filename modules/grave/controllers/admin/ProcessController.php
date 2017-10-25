@@ -326,17 +326,11 @@ class ProcessController extends BackController
 
         }
 
-        var_dump($model->shape);
-
         $cases = $model->getInsCfgCases($model->shape);
-
-        p($cases);die;
-
 
         if (!$cases) {
             $model->type = InsProcess::TYPE_IMG;
         }
-
 
         $model->pre_finish = $model->pre_finish == null ? '' : $model->pre_finish;
 
