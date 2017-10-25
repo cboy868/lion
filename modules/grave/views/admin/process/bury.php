@@ -187,7 +187,15 @@ $tomb_id = Yii::$app->getRequest()->get('tomb_id');
                         </tr>
                         <tr>
                             <th width="100">车辆类型：</th>
-                            <td width="150" class="text-info"><?=CarRecord::carType($records[$b->id]['car_type'])?></td>
+                            <td width="150" class="text-info">
+                                <?php
+
+                                if (isset($records[$b->id])) {
+                                    echo CarRecord::carType($records[$b->id]['car_type']);
+                                }
+
+                                ?>
+                            </td>
                             <th width="100">车辆时间：</th>
                             <td width="150" class="text-info"><?=$records[$b->id]['use_date']?></td>
                             <th width="100">联系人：</th>
