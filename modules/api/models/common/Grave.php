@@ -31,10 +31,12 @@ class Grave extends \app\modules\grave\models\Grave
 
                 $total = array_sum($cnt);
 
+                $yet = isset($cnt[\app\modules\grave\models\Tomb::STATUS_EMPTY]) ?
+                    $cnt[\app\modules\grave\models\Tomb::STATUS_EMPTY] : 0;
                 $data = [
                     'not' => isset($cnt[\app\modules\grave\models\Tomb::STATUS_EMPTY]) ?
                         $cnt[\app\modules\grave\models\Tomb::STATUS_EMPTY] : 0,
-                    'yet' => $total - $cnt[\app\modules\grave\models\Tomb::STATUS_EMPTY]
+                    'yet' => $total - $yet
                 ];
 
                 return $data;
