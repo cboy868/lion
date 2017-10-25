@@ -150,6 +150,11 @@ $tomb_id = Yii::$app->getRequest()->get('tomb_id');
                   <?php if (isset($records[$pre->id])): ?>
                   <tr>
                       <th width="100">车辆类型：</th>
+                      <?php
+                      p($records[$pre->id]);
+                      p($records[$pre->id]['car_type']);
+                      die;
+                      ?>
                       <td width="150" class="text-info"><?=CarRecord::carType($records[$pre->id]['car_type'])?></td>
                       <th width="100">车辆时间：</th>
                       <td width="150" class="text-info"><?=$records[$pre->id]['use_date']?></td>
