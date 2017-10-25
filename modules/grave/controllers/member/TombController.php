@@ -127,13 +127,12 @@ class TombController extends \app\core\web\MemberController
     {
         $model = Ins::findOne($id);
 
-        $model->confirm_by = Yii::$app->user->id;
-        $model->confirm_date = date('Y-m-d');
-        $model->is_confirm = Ins::CONFIRM_YES;
 
-        $model->save();
-
-        Yii::$app->session->setFlash('success', '碑文确认成功');
+        if ($model->confirm(Yii::$app->user->id)) {
+            Yii::$app->session->setFlash('success', '碑文确认成功');
+        } else {
+            Yii::$app->session->setFlash('error', '碑文确认失败');
+        }
 
         return $this->redirect(['ins', 'id'=>$model->tomb_id]);
     }

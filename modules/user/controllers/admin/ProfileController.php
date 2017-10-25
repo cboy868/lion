@@ -2,6 +2,7 @@
 
 namespace app\modules\user\controllers\admin;
 
+use app\modules\user\models\Log;
 use Yii;
 use app\modules\user\models\User;
 use app\modules\user\models\UserForm;
@@ -38,6 +39,19 @@ class ProfileController extends BackController
     {
         $model = Yii::$app->user->identity;
         $addition = $this->findAddition();
+
+        return $this->render('index',[
+            'model' => $model,
+            'addition' => $addition,
+            'log' => Log::getLast()
+        ]);
+    }
+
+
+    public function actionUpdate()
+    {
+        $model = Yii::$app->user->identity;
+        $addition = $this->findAddition();
         $attach = UserField::find()->asArray()->all();
         $post = Yii::$app->request->post();
 
@@ -57,20 +71,14 @@ class ProfileController extends BackController
                 $outerTransaction->rollBack();
             }
 
-            return $this->redirect(['index']);
+            return $this->redirect(['update']);
         } else {
-            return $this->render('index', [
+            return $this->render('update', [
                 'model' => $model,
                 'attach' => $attach,
                 'addition' => $addition,
             ]);
         }
-    }
-
-
-    public function actionUpdate($id)
-    {
-        
     }
 
     protected function findModel()

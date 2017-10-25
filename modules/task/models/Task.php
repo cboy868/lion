@@ -15,6 +15,7 @@ use app\modules\order\models\Order;
 use app\modules\shop\models\Goods as ShopGoods;
 use app\modules\grave\models\Tomb;
 use yii\db\Exception;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%task}}".
@@ -183,8 +184,6 @@ class Task extends \app\core\db\ActiveRecord
 
     }
 
-
-
     public static function createConfirmGoodsTask($order_rel_id, $res_name="common", $res_id=0)
     {
 
@@ -213,6 +212,7 @@ class Task extends \app\core\db\ActiveRecord
     {
 
         $rel = OrderRel::findOne($order_rel_id);
+
 
         if ($rel->type == \app\modules\grave\models\OrderRel::TYPE_TOMB) {
             return;
@@ -259,25 +259,21 @@ class Task extends \app\core\db\ActiveRecord
             return;
         }
 
-        $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$goods_ids['res_id']])
-            ->all();
+        $goods_rels = Goods::find()->where(['res_name'=>'goods', 'res_id'=>$goods_ids['res_id']])->all();
 
         if ($goods_rels) {
+            $gids = ArrayHelper::getColumn($goods_rels,'res_id');
+
             foreach ($goods_ids['model'] as $k => $rel) {
+
+                if (!in_array($rel->goods_id, $gids)) {continue;}
                 foreach ($goods_rels as $v) {
                     $info = $v->info;
                     if ($info->trigger != Info::TRIGGER_PAY) continue;
+
                     $info->createTask($rel, $res_name, $res_id);
                 }
 
-//                if (!isset($goods_rels[$rel->goods_id])) {
-//                    continue;
-//                }
-
-//                $goods = $goods_rels[$rel->goods_id];
-//                $info = $goods->info;
-//
-//                $info->createTask($rel, $res_name, $res_id);
             }
         }
     }
@@ -313,23 +309,15 @@ class Task extends \app\core\db\ActiveRecord
                                 ->indexBy('res_id')->all();
 
         if ($cate_rels) {
-            foreach ($category_ids['model'] as $k => $rel) {
+            $cids = ArrayHelper::getColumn($cate_rels,'res_id');
 
+            foreach ($category_ids['model'] as $k => $rel) {
+                if (!in_array($rel->goods_id, $cids)) {continue;}
                 foreach ($cate_rels as $v) {
                     $info = $v->info;
                     if ($info->trigger != Info::TRIGGER_PAY) continue;
                     $info->createTask($rel, $res_name, $res_id);
                 }
-
-//                if (!isset($cate_rels[$rel->category_id])) {
-//                    continue;
-//                }
-//                $cate = $cate_rels[$rel->category_id];
-//
-//                $info = $cate->info;
-//
-//                $info->createTask($rel, $res_name, $res_id);
-
             }
         }
     }

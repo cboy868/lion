@@ -13,164 +13,114 @@ $this->title = '个人中心';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-
 <div class="page-content">
-    <!-- /section:settings.box -->
     <div class="page-content-area">
-
         <div class="row">
-            <div class="col-xs-12 user-index">
+    <div class="col-sm-12">
+        <!-- user profile start -->
+                <!-- person panel nav -->
+                <ul class="nav nav-tabs padding-18">
+                    <li class="active">
+                        <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>">
+                            <i class="bigger-120 blue fa fa-user"></i>
+                            个人信息
+                        </a>
+                    </li>
 
-            	<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#profile" role="tab" data-toggle="tab">个人信息</a></li>
-  <li role="presentation"><a href="#avatar" role="tab" data-toggle="tab">修改头像</a></li>
-  <!-- <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
-  <li role="presentation"><a href="#settings" role="tab" data-toggle="tab">Settings</a></li> -->
-</ul>
+                    <li class="">
+                        <a href="<?=Url::toRoute(['/task/admin/profile/index'])?>">
+                            <i class="bigger-120 blue fa fa-file-text"></i>
+                            我的任务
+                        </a>
+                    </li>
+                </ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="profile">
-   	<div class="row">
-   		<?= $this->render('_form', [
-	        'model' => $model,
-	        'attach' => $attach,
-	    	  'addition' => $addition,
-	    ]) ?>
-   	</div>
-    <div class="hr hr-18 dotted hr-double"></div>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="avatar">
-    
-    <p id="swfContainer">
-        本组件需要安装Flash Player后才可使用，请从<a href="http://www.adobe.com/go/getflashplayer">这里</a>下载安装。
-    </p>
+                <!-- content -->
+                <div class="tab-content padding-12">
+                    <div class="tab-pane active">
 
-  </div>
-  <!-- <div role="tabpanel" class="tab-pane" id="messages">...</div>
-  <div role="tabpanel" class="tab-pane" id="settings">...</div> -->
+                        <!-- 提示信息 start -->
+                        <!-- 提示信息 end
+
+                        <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <a href="#" class="btn btn-success btn-xs radius4">
+                                    <i class="fa fa-edit"></i>
+                                    写笔记
+                                </a>
+                                <a href="#" class="btn btn-info btn-xs radius4">
+                                    <i class="fa fa-edit"></i>
+                                    写案例</a>
+                                <a href="#" class="btn btn-warning btn-xs radius4">
+                                    <i class="fa fa-edit"></i>
+                                    个人总结</a>
+                                <a href="#" class="btn btn-success btn-xs radius4">
+                                    <i class="fa fa-edit"></i>
+                                    提交审批
+                                </a>
+                                <a href="/admin/oagoods/addguide" class="btn btn-success btn-xs radius4">
+                                    <i class="fa fa-edit"></i>
+                                    申领物品</a>
+                                <a href="#" class="btn btn-default btn-xs radius4">
+                                    <i class="fa fa-edit"></i>
+                                    写请假条</a>
+                                <hr>
+                            </div>
+                        </div>
+-->
+                        <div class="row">
+                            <!-- 个人信息 -->
+                            <div class="col-xs-12 col-md-12 widget-container-span ui-sortable">
+                                <div class="widget-box">
+                                    <h3 class="header smaller lighter blue2">
+                                        <i class="fa fa-user"></i>
+                                        个人信息
+                                    </h3>
+
+                                    <table class="table noborder">
+                                        <tr>
+                                            <th>账号</th>
+                                            <td><?=$model->username?></td>
+                                            <td rowspan="6">
+                                                <img class="img-responsive thumbnail" src="<?=$model->getAvatar('121x121')?>">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>真实姓名</th>
+                                            <td><?=$addition->real_name?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>手机号</th>
+                                            <td><?=$model->mobile?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>邮箱</th>
+                                            <td><?=$model->email?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>上次登录时间</th>
+                                            <td><code><?=$log->login_date?></code></td>
+                                        </tr>
+                                        <tr>
+                                            <th>上次登录ip</th>
+                                            <td><code><?=$log->login_ip?></code></td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">
+                                                <a class="btn btn-info btn-xs radius4" target="_blank"
+                                                   href="<?=Url::toRoute(['/user/admin/profile/update'])?>">修改资料</a>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div><!-- /span --><!-- 第一个 -->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- content end -->
+    </div>
+        </div>
+    </div>
 </div>
-
-
-            	
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.page-content-area -->
-</div>
-<script type="text/javascript" src="/static/libs/avatareditor/scripts/swfobject.js"></script>
-<script type="text/javascript" src="/static/libs/avatareditor/scripts/fullAvatarEditor.js"></script>
-
-
-
-<?php $this->beginBlock('avatar') ?>  
-  $(function(){
-      swfobject.addDomLoadEvent(function () {
-        var callback = function (json) {
-        };
-        var swf1 = new fullAvatarEditor('swfContainer', 600, 700,{
-            id: 'swfContainer',
-            upload_url: "<?=Url::toRoute(['avatar'])?>",
-            avatar_sizes:'200*200|100*100',//150*150|100*100|45*45
-            avatar_sizes_desc : '150*150像素|100*100像素',//'150*150像素|100*100像素|45*45像素',
-        }, function(msg){
-            switch(msg.code)
-            {
-                case 5 : 
-                    if(msg.type == 0)
-                    {
-                        if(msg.content.avatarUrls) {
-                            $('#avatar-box').find('img').each(function(index, item){
-                                var $this = $(item); 
-                                $this.attr('src', msg.content.avatarUrls[index]);
-                            });
-                            alert("头像已成功保存");
-                        }
-                    }
-                break;
-            }
-        });
-    });
-  })
-<?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['avatar'], \yii\web\View::POS_END); ?> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //   swfobject.addDomLoadEvent(function () {
-    //           var swf = new fullAvatarEditor("swfContainer", {
-    //         id: 'swf',
-    //       upload_url: '/asp/Upload.asp',
-    //       src_upload:2
-    //     }, function (msg) {
-    //       switch(msg.code)
-    //       {
-    //         case 1 : alert("页面成功加载了组件！");break;
-    //         case 2 : alert("已成功加载默认指定的图片到编辑面板。");break;
-    //         case 3 :
-    //           if(msg.type == 0)
-    //           {
-    //             alert("摄像头已准备就绪且用户已允许使用。");
-    //           }
-    //           else if(msg.type == 1)
-    //           {
-    //             alert("摄像头已准备就绪但用户未允许使用！");
-    //           }
-    //           else
-    //           {
-    //             alert("摄像头被占用！");
-    //           }
-    //         break;
-    //         case 5 : 
-    //           if(msg.type == 0)
-    //           {
-    //             if(msg.content.sourceUrl)
-    //             {
-    //               alert("头像已成功保存至服务器，url为：\n" +　msg.content.sourceUrl);
-    //             }
-    //             alert("头像已成功保存至服务器，url为：\n" + msg.content.avatarUrls.join("\n"));
-    //           }
-    //         break;
-    //       }
-    //     }
-    //   );
-    //   document.getElementById("upload").onclick=function(){
-    //     swf.call("upload");
-    //   };
-    //       });
-    // var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    // document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5f036dd99455cb8adc9de73e2f052f72' type='text/javascript'%3E%3C/script%3E"));
-</script>

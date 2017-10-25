@@ -57,7 +57,8 @@ class OrderRel extends \app\modules\order\models\OrderRel
             'sku_name'      => $tomb->tomb_no,
             'num'           => 1,
             'note'          => isset($data['note']) ? $data['note'] : '',
-            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+//            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+            'use_time'      => isset($data['use_time']) ? $data['use_time'] : null,
         ];
 
         $model->load($data, '');

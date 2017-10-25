@@ -149,7 +149,8 @@ class OrderRel extends \app\core\db\ActiveRecord
             'num'           => $num,
             'tid'           => isset($data['tid']) ? $data['tid'] : 0,
             'note'          => isset($data['note']) ? $data['note'] : '',
-            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+//            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+            'use_time'      => isset($data['use_time']) ? $data['use_time'] : null,
             'type'          => isset($data['type']) ? $data['type'] : 1
         ];
 

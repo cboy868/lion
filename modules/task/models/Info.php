@@ -173,6 +173,65 @@ class Info extends \app\core\models\Category
      */
     public function createTask($order_rel, $res_name, $res_id)
     {
+
+
+        $items = $this->getDirectSon();
+
+        if (!$items) return ;
+
+        $common_data = [
+            'res_name' => $res_name,
+            'res_id' => $res_id,
+            'user_id' => 0,
+            'pre_finish' => $order_rel->use_time,
+            'order_rel_id' => $order_rel->id
+        ];
+
+        foreach ($items as $item) {
+
+            $content = $item->msg;
+            $content = self::replace($order_rel, $content, $res_name, $res_id);
+
+            $data = array_merge($common_data, [
+                'cate_id' =>$item->id,
+                'title'  => $item->name,
+                'op_id'  => $item->default->user_id,
+                'content' => $content,
+            ]);
+
+            $task_time = str_replace('，', ',', $item->task_time);
+            $tasks = explode(',', $task_time);
+
+            foreach ($tasks as $v) {
+                $model = new Task();
+
+                $model->load($data, '');
+
+                //这些是子任务的时间
+                //比如发个安葬任务，则提前两天有个清穴，提前一天有个清穴，当天有个清穴，这些都是要完成的任务，而不是提醒
+                if ($v == 'atonce') {//马上
+                    $model->pre_finish = date('Y-m-d H:i:s');
+                } else if ($v == 0) { //当天
+                    $model->pre_finish = $data['pre_finish'];
+                } else {
+                    $model->pre_finish = date('Y-m-d H:i:s', strtotime($data['pre_finish'] .' '. $v .' days'));
+                }
+
+                if ($model->pre_finish < date("Y-m-d")) {//如果任务时间小于今天，则不发了
+                    continue;
+                }
+
+                $model->save();
+
+                $model->taskMsg();
+
+                unset($model);
+            }
+        }
+    }
+
+    public function createTaskBak($order_rel, $res_name, $res_id)//2017 10 25 修改msg_time -> task_time
+    {
         $items = $this->getDirectSon();
 
         if (!$items) return ;
@@ -209,7 +268,7 @@ class Info extends \app\core\models\Category
                 //比如发个安葬任务，则提前两天有个清穴，提前一天有个清穴，当天有个清穴，这些都是要完成的任务，而不是提醒
                 if ($v == 'atonce') {//马上
                     $model->pre_finish = date('Y-m-d H:i:s');
-                } else if ($v == 0) { //当天
+//                } else if ($v == 0) { //当天
                 } else {
                     $model->pre_finish = date('Y-m-d H:i:s', strtotime($data['pre_finish'] .' '. $v .' days'));
                 }

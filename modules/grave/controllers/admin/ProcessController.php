@@ -237,9 +237,6 @@ class ProcessController extends BackController
                     echo $e->getMessage();
                     $outerTransaction->rollBack();
                 }
-
-
-                
             }
         }
 
@@ -261,11 +258,6 @@ class ProcessController extends BackController
                 'mnt_by' => $this->module->params['ins']['mnt_by'],
             ]);
     }
-
-
-
-
-
 
 
     protected function ins()
@@ -606,7 +598,8 @@ class ProcessController extends BackController
 
                     $extData = [
                         'tid' => $model->tomb_id,
-                        'type' => Order::TYPE_BURY
+                        'type' => Order::TYPE_BURY,
+                        'use_time' => $model->pre_bury_date
                     ];
 
                     $goods_id = $this->module->params['goods']['id']['bury'];

@@ -35,6 +35,7 @@ class DefaultController extends BackController
         $searchModel = new TaskSearch();
         $params = Yii::$app->request->queryParams;
 
+
         $dataProvider = $searchModel->search($params);
 
         if (isset($params['excel']) && $params['excel']){
