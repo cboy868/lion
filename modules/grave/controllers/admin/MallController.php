@@ -130,8 +130,6 @@ class MallController extends BackController
 
         $config = Yii::$app->getModule('grave')->params['goods']['cate'];
 
-//        $config = Yii::$app->params['goods']['cate'];
-
         $ins_cate = $config['ins'];
         $portrait_cate = $config['portrait'];
 

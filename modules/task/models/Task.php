@@ -412,9 +412,9 @@ class Task extends \app\core\db\ActiveRecord
             foreach ($times as $time) {
                 $model = clone $msg;
                 if ($time == 'atonce') {
-                    $model->msg_time = date('Y-m-d H:i:s');
+                    $model->msg_time = date('Y-m-d 06:00:00');
                 } else if (is_numeric($time)) {
-                    $model->msg_time = date('Y-m-d H:i:s', strtotime('+'.$time.' day',strtotime($this->pre_finish)));
+                    $model->msg_time = date('Y-m-d 06:00:00', strtotime('+'.$time.' day',strtotime($this->pre_finish)));
                 }
                 $model->msg_type = $type;
                 $model->save();

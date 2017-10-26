@@ -90,6 +90,7 @@ class OrderRel extends \app\modules\order\models\OrderRel
         return $this->hasOne(Tomb::className(), ['id'=>'tid']);
     }
 
+
     // public static function getInsOrderRel($tomb_id)
     // {
         

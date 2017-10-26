@@ -53,16 +53,16 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
     <?= $form->field($model, 'msg_type')->checkBoxList(Info::msgType())->hint('消息提醒类型，可多选') ?>
 
     <?php if($model->pid):?>
-    <?= $form->field($model, 'task_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])
+    <?= $form->field($model, 'task_time')->textarea(['rows' => 3, 'id'=>'inputTagator'])
         ->hint('<span style="color:green">atonce 马上, 0当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔;<br>
-如果值大于0，则为延后提醒,1表示延后1天，2个示延后2天,以此类推。</span>') ?>
+如果值大于0，则为延后提醒,1表示延后1天，2个示延后2天,以此类推,no 由商品天数决定,多用于祭祀商品 。</span>') ?>
 
-    <?= $form->field($model, 'msg_time')->textarea(['rows' => 6, 'id'=>'inputTagator'])
+    <?= $form->field($model, 'msg_time')->textarea(['rows' => 3, 'id'=>'inputTagator'])
         ->hint('<span style="color:green">atonce 马上, 0任务当天，-1提前1天,-2提前2天以此类推,多个提醒请用逗号分隔;</span>') ?>
 
     <?php endif;?>
 
-    <?= $form->field($model, 'msg')->textarea(['rows' => 6, 'class'=>'ctent form-control']) ?>
+    <?= $form->field($model, 'msg')->textarea(['rows' => 3, 'class'=>'ctent form-control']) ?>
     <div class="shortcut">插入参数
         <?php
         $replace = $this->context->module->params['shortcut'];
@@ -71,7 +71,7 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
             <a href="#" rel="<?=$k?>"><?=$v?></a>
         <?php endforeach ?>
     </div>
-    <?= $form->field($model, 'intro')->textarea(['rows' => 6]); ?>
+    <?= $form->field($model, 'intro')->textarea(['rows' => 3]); ?>
 
     <?= $form->field($model, 'user')->checkBoxList(ArrayHelper::map($users, 'id', 'username'))?>
 
@@ -83,7 +83,7 @@ $users = User::find()->where(['status' => User::STATUS_ACTIVE, 'is_staff'=>User:
 
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-3">
+        <div class=" col-sm-3">
             <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
         </div>
     </div>

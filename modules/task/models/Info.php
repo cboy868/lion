@@ -85,7 +85,9 @@ class Info extends \app\core\models\Category
 
         $result = '';
         foreach ($arr as $k => $v) {
-            if ($v == 'atonce') {
+            if ($v == 'no') {
+                $result .= '根据商品决定,';
+            } else if ($v == 'atonce') {
                 $result .= '马上,';
             } else if ($v < 0) {
                 $result .= '提前' . abs($v) . '天,';
@@ -187,6 +189,8 @@ class Info extends \app\core\models\Category
             'order_rel_id' => $order_rel->id
         ];
 
+        $goodsModel = $order_rel->goods;
+
         foreach ($items as $item) {
 
             $content = $item->msg;
@@ -209,7 +213,11 @@ class Info extends \app\core\models\Category
 
                 //这些是子任务的时间
                 //比如发个安葬任务，则提前两天有个清穴，提前一天有个清穴，当天有个清穴，这些都是要完成的任务，而不是提醒
-                if ($v == 'atonce') {//马上
+                if ($v == 'no') {
+                    if (!$goodsModel) {continue;}
+                    $days = $goodsModel->days;
+                    $model->pre_finish = date('Y-m-d H:i:s', strtotime($data['pre_finish'] .' +'. $days .' days'));
+                } else if ($v == 'atonce') {//马上
                     $model->pre_finish = date('Y-m-d H:i:s');
                 } else if ($v == 0) { //当天
                     $model->pre_finish = $data['pre_finish'];

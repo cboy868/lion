@@ -39,7 +39,8 @@ $this->params['breadcrumbs'][] = '配置任务的触发条件, 勾选或取消�
 			    	 ?>
 
 			    	 <?php 
-			    	 	$cates = Category::find()->where(['status'=>Category::STATUS_NORMAL])->all()
+			    	 	$cates = Category::find()->where(['status'=>Category::STATUS_NORMAL])
+                            ->andWhere(['is_leaf'=>1])->all()
 			    	  ?>
 
 				    <div class="panel panel-info">
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = '配置任务的触发条件, 勾选或取消�
 					    <?php foreach ($cates as $cate): ?>
 							<label><input type="checkbox" name="category" value="<?=$cate->id?>" <?php if (isset($model->res_id['category']) && in_array($cate->id, $model->res_id['category'])): ?>
 								checked="checked"
-							<?php endif ?>> <?=$cate->name?></label>
+							<?php endif ?>> <?=$cate->name?></label> &nbsp;&nbsp;
 						<?php endforeach ?>
 					  </div>
 					</div>
