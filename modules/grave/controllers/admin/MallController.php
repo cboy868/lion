@@ -228,7 +228,9 @@ class MallController extends BackController
             $data['customer'] = $customer;
         }
 
-        $graves = Grave::find()->where(['<>','status',Grave::STATUS_DELETE])->all();
+        $graves = Grave::find()->where(['<>','status',Grave::STATUS_DELETE])
+                                ->andWhere(['is_leaf'=>1])
+                                ->all();
         $graves = ArrayHelper::map($graves, 'id', 'name');
         $data['graves'] = $graves;
 
