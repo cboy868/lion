@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\grave\models\Customer;
 use Yii;
 use app\modules\grave\models\Grave;
 use app\modules\grave\models\Tomb;
@@ -602,6 +603,35 @@ class TombController extends BackController
         }
 
         return $this->render('repair',['model'=>$model, 'fee'=>$fee,'paint'=>$paint]);
+    }
+
+    public function actionInfo()
+    {
+        $post = Yii::$app->request->post();
+
+        if (!$post['grave'] || !$post['row'] || !$post['col']) {
+            return $this->json(null, '查找数据不完整', 0);
+        }
+
+        $tomb = Tomb::find()->where(['grave_id'=>$post['grave']])
+                            ->andWhere(['row'=>$post['row']])
+                            ->andWhere(['col'=>$post['col']])
+                            ->one();
+
+        if (!$tomb) {
+            return $this->json(null, '墓位不存在', 0);
+        }
+        $data = [];
+
+        if ($tomb->customer_id) {
+            $customer = Customer::findOne($tomb->customer_id);
+            $data['customer'] = $customer;
+        }
+
+        $data['tomb'] = $tomb;
+        $data['tombStatus'] = $tomb->getStatusText();
+
+        return $this->json($data, null, 1);
     }
 
     /**

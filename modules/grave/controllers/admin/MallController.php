@@ -2,6 +2,10 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\grave\models\Customer;
+use app\modules\grave\models\Grave;
+use app\modules\shop\models\Bag;
+use app\modules\user\models\User;
 use Yii;
 use app\modules\grave\models\Tomb;
 use app\modules\shop\models\Goods;
@@ -12,6 +16,9 @@ use app\modules\grave\models\InsProcess;
 use app\core\web\BackController;
 use app\modules\grave\models\Portrait;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+
 /**
  * GoodsController implements the CRUD actions for Goods model.
  */
@@ -89,7 +96,8 @@ class MallController extends BackController
     public function actionGoods($category_id=0, $name='')
     {
 
-        $query = Goods::find()->andWhere(['status'=>Goods::STATUS_NORMAL]);
+        $query = Goods::find()->andWhere(['status'=>Goods::STATUS_NORMAL])
+            ->andWhere(['is_show'=>1]);
 
         if ($category_id) {
             $query->andWhere(['category_id'=>$category_id]);
@@ -194,6 +202,143 @@ class MallController extends BackController
 
         }
         return $this->render('special-goods', ['tomb'=>$tomb, 'task'=>$taskCate]);
+    }
+
+    // 以下是商品部的一些东西
+
+    /**
+     * @name 商品部展示
+     */
+    public function actionShop($tomb_id=null)
+    {
+        $data = [];
+        if ($tomb_id) {
+            $tomb = Tomb::findOne($tomb_id);
+
+            if (!$tomb) {
+                throw new NotFoundHttpException('墓位不存在');
+            }
+
+            $grave = Grave::findOne($tomb->grave_id);
+
+
+            $customer = Customer::findOne($tomb->customer_id);
+            $data['tomb'] = $tomb;
+            $data['grave'] = $grave;
+            $data['customer'] = $customer;
+        }
+
+        $graves = Grave::find()->where(['<>','status',Grave::STATUS_DELETE])->all();
+        $graves = ArrayHelper::map($graves, 'id', 'name');
+        $data['graves'] = $graves;
+
+        $show_cates = Category::find()->where(['is_leaf'=>1,'status'=>Category::STATUS_NORMAL,'is_show'=>1])->all();
+        $show_cate_ids = ArrayHelper::getColumn($show_cates, 'id');
+        $show_goods = Goods::find()->where(['category_id'=>$show_cate_ids,'status'=>Goods::STATUS_NORMAL])
+                                    ->andWhere(['is_show'=>1])
+                                    ->all();
+
+        $staffs = User::staffs();
+        $staffs = ArrayHelper::map($staffs, 'id', 'username');
+
+        $goods = ArrayHelper::index($show_goods, 'id', 'category_id');
+
+
+        //礼包
+        $bags = Bag::find()->where(['status'=>Bag::STATUS_NORMAL])->all();
+
+        $data['goods'] = $goods;
+        $data['bags'] = $bags;
+        $data['staffs'] = $staffs;
+
+        return $this->render('shop',$data);
+    }
+
+    /**
+     * @name 商品部下单
+     */
+    public function actionOrder()
+    {
+        $post = Yii::$app->request->post();
+
+
+
+        $tomb_id = $post['tomb_id'];
+        $tomb = Tomb::findOne($tomb_id);
+
+        $op_id = $post['op_id'];
+//        $is_shop = $post['is_shop'];
+        $customer_name = $post['customer_name'];
+        $mobile = $post['mobile'];
+        $use_time = $post['use_time'];
+        $des = $post['des'];
+        $goods_info = (array) json_decode($post['goods_info']);
+        $bag_info = (array) json_decode($post['bag_info']);
+
+        if (!$goods_info && !$bag_info) {
+            return $this->redirect(['shop', 'tomb_id'=>$tomb_id]);
+        }
+
+
+        foreach($goods_info as &$info ) {
+            $info = (array) $info;
+        }unset($info);
+
+        foreach($bag_info as &$info ) {
+            $info = (array) $info;
+        }unset($info);
+
+        $config = Yii::$app->getModule('grave')->params['goods']['cate'];
+
+        $ins_cate = $config['ins'];
+        $portrait_cate = $config['portrait'];
+
+        foreach($goods_info as $sku_id=>$info) {
+
+            if ($info['num'] <= 0) {
+                continue;
+            }
+
+            $extra = array(
+                'num' => $info['num'],
+                'tid' => $tomb_id,
+                'op_id' => $op_id,
+                'use_time' => $use_time,
+                'order_note' => $des,
+            );
+            $sku = Sku::findOne($sku_id);
+            $order_info = $sku->order($tomb->user_id, $extra);
+
+            $rel = $order_info['rel'];
+            $goods = Goods::findOne($info['id']);
+
+            if ($ins_cate == $goods->category_id) {
+                InsProcess::insGoods($tomb_id, $sku, $rel);
+            }
+
+            if ($portrait_cate == $goods->category_id) {
+                Portrait::PortraitGoods($tomb_id, $sku, $rel);
+            }
+        }
+
+        foreach($bag_info as $bag_id=>$info) {
+
+            if ($info['num'] <= 0) {
+                continue;
+            }
+
+            $extra = array(
+                'num' => $info['num'],
+                'tid' => $tomb_id,
+                'op_id' => $op_id,
+                'use_time' => $use_time,
+                'order_note' => $des,
+            );
+            $bag = Bag::findOne($bag_id);
+            $order_info = $bag->order($tomb->user_id, $extra);
+        }
+
+        return $this->redirect(['/order/admin/default/view', 'id'=>$order_info['order']->id]);
     }
 
 

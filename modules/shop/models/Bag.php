@@ -2,6 +2,8 @@
 
 namespace app\modules\shop\models;
 
+use app\core\models\Attachment;
+use app\modules\order\models\Order;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -98,6 +100,14 @@ class Bag extends \app\core\db\ActiveRecord
         ];
     }
 
+    /**
+     * @name 下订单
+     */
+    public function order($user_id, $extra)
+    {
+        return Order::createBag($user_id, $this, $extra);
+    }
+
     public function getRels()
     {
         return $this->hasMany(BagRel::className(),['bag_id'=>'id'])->where(['status'=>self::STATUS_NORMAL]);
@@ -114,6 +124,11 @@ class Bag extends \app\core\db\ActiveRecord
             return null;
         }
         return $this->hasOne(Category::className(),['id'=>'category_id']);
+    }
+
+    public function getThumb($type = '')
+    {
+        return Attachment::getById($this->thumb, $type);
     }
 
 }

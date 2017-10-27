@@ -22,6 +22,7 @@ class Info extends \app\core\models\Category
 {
     const MSG_SMS = 1;
     const MSG_EMAIL = 2;
+    const MSG_WECHAT = 3;
 
     const TRIGGER_PAY = 1;
     const TRIGGER_CONFIRM = 2;
@@ -45,9 +46,9 @@ class Info extends \app\core\models\Category
     {
         $t = [
             self::MSG_SMS => '手机短信',
-            self::MSG_EMAIL => '邮件'
+            self::MSG_EMAIL => '邮件',
+            self::MSG_WECHAT => '微信'
         ];
-
 
         if ($type === null) {
             return $t;

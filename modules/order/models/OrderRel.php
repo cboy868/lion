@@ -36,6 +36,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     // const TYPE_SEAT = 2; //订桌
 
     const TYPE_GOODS = 1;//普通商品订单
+    const TYPE_BAG = 2;//套餐商品
     const TYPE_SPECIAL_GOODS = 11;//特殊商品
 
     const EVENT_AFTER_CREATE = 'afterCreate';
@@ -136,7 +137,7 @@ class OrderRel extends \app\core\db\ActiveRecord
 
         $da = [
             'user_id'    => $order->user_id,
-            'op_id'      => Yii::$app->user->id,
+            'op_id'      => isset($data['op_id']) ? $data['op_id'] : Yii::$app->user->id,
             'order_id'      => $order->id,
             'goods_id'      => $goods->id,
             'sku_id'        => 0,
@@ -152,6 +153,53 @@ class OrderRel extends \app\core\db\ActiveRecord
 //            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
             'use_time'      => isset($data['use_time']) ? $data['use_time'] : null,
             'type'          => isset($data['type']) ? $data['type'] : 1
+        ];
+
+
+        if (isset($data['price']) && $data['price']) {
+            $da['price'] = $da['price_unit'] = $data['price'];
+        }
+
+        $model->load($da, '');
+        $model->save();
+
+        return $model;
+    }
+
+
+    public static function createBag($order, $bag, $data)
+    {
+
+        $type = self::TYPE_BAG;
+        $model = OrderRel::hasRel($order->id, $bag->id, 0, $order->user_id, $type);
+
+        if (!$model) {
+            $model = new OrderRel;
+        }
+
+        $num = isset($data['num']) && $data['num']>0 ? $data['num'] : 1;
+
+
+        $title = $bag->title;
+
+        $da = [
+            'user_id'    => $order->user_id,
+            'op_id'      => isset($data['op_id']) ? $data['op_id'] : Yii::$app->user->id,
+            'order_id'      => $order->id,
+            'goods_id'      => $bag->id,
+            'sku_id'        => 0,
+            'category_id'   => $bag->category_id,
+            'title'         => $title,
+            'price_unit'    => $bag->price,
+            'original_price'=> $num * $bag->price,
+            'price'         => $num * $bag->price,
+            'sku_name'      => '',
+            'num'           => $num,
+            'tid'           => isset($data['tid']) ? $data['tid'] : 0,
+            'note'          => isset($data['note']) ? $data['note'] : '',
+//            'use_time'      => isset($data['use_time']) ? $data['use_time'] : date('Y-m-d H:i:s', strtotime('+3 day')),
+            'use_time'      => isset($data['use_time']) ? $data['use_time'] : null,
+            'type'          => $type
         ];
 
 

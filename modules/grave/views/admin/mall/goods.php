@@ -17,7 +17,7 @@ use yii\widgets\LinkPager;
                 >
                 <td>
                     <a href="#">
-                      <img class="media-object" src="<?=$goods->getThumb('50x50')?>" alt="..." width="50" height="50">
+                      <img class="media-object" style="border-radius:3px" src="<?=$goods->getThumb('50x50')?>" width="50" height="50">
                     </a>
                 </td>
                 <td>
@@ -26,13 +26,13 @@ use yii\widgets\LinkPager;
                          <p>
                             <select name="sku_id" class="form-control sku sku_id" style="max-width:120px;">
                                 <?php foreach ($goods->sku as $k => $sku): ?>
-                                    <option value="<?=$sku->id?>"><?=$sku->name?> <?=$sku->price?></option>
+                                    <option value="<?=$sku->id?>" data-price="<?=$sku->price?>"><?=$sku->name?></option>
                                 <?php endforeach ?>
                             </select>
                         </p>
                     <?php else: ?>
-                        <?=$goods->sku[0]->name?> <?=$goods->sku[0]->price?>
-                        <input name="sku_id" type="hidden" value="<?=$goods->sku[0]->id?>" class="sku_id" sku-name="<?=$goods->sku[0]->name?>"/>
+                        <input name="sku_id" type="hidden" value="<?=$goods->sku[0]->id?>" class="sku_id"
+                               sku-name="<?=$goods->sku[0]->name?>" data-price="<?=$goods->price?>"/>
                     <?php endif ?>
                 </td>
                 <td width="120">

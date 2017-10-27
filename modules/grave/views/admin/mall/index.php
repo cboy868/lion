@@ -71,11 +71,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <table class="table table-condensed table-hover">
                         <thead>
                             <tr>
-                                <th>封面</th>
                                 <th>商品名称</th>
                                 <th>数量</th>
-                                <th>单价</th>
-                                <th>总价</th>
+                                <th>单价/总价</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -98,14 +96,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 
             </form>
         </div>
+        <style>
+            .table>tbody>tr>td{
+                vertical-align:middle;
+            }
+        </style>
 <script id="template" type="x-tmpl-mustache">
 
-<tr class="gtr{{sku_id}}">
-    <td><img style="width:50px;height:50px;" class="img-rounded" src="{{ img }}"/></li>
-    <td><strong>{{ title }} {{sku_name}}</strong></td>
+<tr class="gtr{{sku_id}}" style="border-bottom:1px solid #eee;">
+    <td style="text-align:center;"><img style="width:50px;height:50px;border-radius:3px;" class="img-rounded" src="{{ img }}"/><br><strong>{{ title }} {{sku_name}}</strong></li>
     <td><code>{{ num }}个</code></td>
-    <td><span class="text-primary">¥{{ price }}</span></td>
-    <td><span class="text-danger">¥{{ totalPrice }}</span></td>
+    <td><span class="text-primary">¥{{ price }}/{{ totalPrice }}</span></td>
     <td><a class="del-goods btn btn-xs btn-danger" data-id="{{ sku_id }}" href="#">删除</a></td>
 </tr>
 
@@ -142,7 +143,6 @@ $(function(){
         e.preventDefault();
         var url = $(this).attr('href');
         $.get(url, function(xhr){
-            console.log(xhr);
             goodsListBox.html(xhr);
         }, 'html')
     })
@@ -241,10 +241,16 @@ $(function(){
         var goods_id = item.data('id');
         var num = parseInt(item.find('input.gnum').val());
 
-        var price = item.data('price');
-        var totalPrice = price*num;
+        //var price = item.data('price');
+
         var sku_id = item.find('.sku_id').val();
-        var sku_name = item.find('.sku_id').attr('sku-name');
+        var sku_name = item.find('.sku_id option:selected').text();
+        var price = item.find('.sku_id option:selected').data('price');
+        console.dir(price);
+
+        price = price ? price : item.find('.sku_id').data('price');
+        console.dir(price);
+        var totalPrice = price*num;
         goodsSelect[sku_id] = {
             'id'    : item.data('id'),
             'title' : item.data('title'),

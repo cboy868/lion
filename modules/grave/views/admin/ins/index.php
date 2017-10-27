@@ -50,7 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->tomb->tomb_no, ['/grave/admin/tomb/view', 'id'=>$model->tomb_id],['target'=>'_blank']);
                 },
                 'format' => 'raw'
-
             ],
             [
                 'label' => '碑',

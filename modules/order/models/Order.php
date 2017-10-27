@@ -161,6 +161,23 @@ class Order extends \app\core\db\ActiveRecord
         return ['order'=>$order, 'rel'=>$rel];
     }
 
+    public static function createBag($user_id, $bag, $extra=[])
+    {
+        try {
+
+            $order = self::getValidOrder($user_id, $extra);
+
+            $rel = OrderRel::createBag($order, $bag, $extra);
+
+            $order->updatePrice();
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            return false;
+        }
+
+        return ['order'=>$order, 'rel'=>$rel];
+    }
+
 
     public function getTotalPay()
     {
@@ -212,7 +229,7 @@ class Order extends \app\core\db\ActiveRecord
 
         if (!$model) {
             $model = new self();
-            $model->op_id = Yii::$app->user->id;
+            $model->op_id = isset($extra['op_id']) ? $extra['op_id'] : Yii::$app->user->id;
             $model->user_id = $user_id;
             $model->tid = isset($extra['tid']) ? $extra['tid'] : 0;
         }
