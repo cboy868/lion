@@ -19,7 +19,8 @@ class TombSearch extends Tomb
     public function rules()
     {
         return [
-            [['id', 'grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id', 'agent_id', 'agency_id', 'guide_id', 'thumb', 'created_at', 'status'], 'integer'],
+            [['id', 'grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id',
+                'agent_id', 'agency_id', 'guide_id', 'thumb', 'created_at', 'status'], 'integer'],
             [['special', 'tomb_no', 'sale_time', 'note', 'customer_name'], 'safe'],
             [['price', 'cost', 'area_total', 'area_use'], 'number'],
         ];
@@ -43,7 +44,8 @@ class TombSearch extends Tomb
      */
     public function search($params)
     {
-        $query = Tomb::find()->joinWith(['customer'])->where(['<>','grave_tomb.status',Tomb::STATUS_DELETE]);
+        $query = Tomb::find()->joinWith(['customer'])
+            ->where(['not in','grave_tomb.status',[Tomb::STATUS_DELETE,Tomb::STATUS_RETURN]]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy('row asc, col asc'),

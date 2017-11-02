@@ -132,6 +132,21 @@ class DefaultController extends BackController
         ]);
     }
 
+
+    /**
+     * @name 墓位退款
+     */
+    public function actionRefundTomb($tomb_id)
+    {
+        $orders = Order::find()->where(['tid'=>$tomb_id])
+            ->andWhere(['status'=>1])
+            ->all();
+
+        return $this->render('refund-tomb',[
+            'orders' => $orders
+        ]);
+    }
+
     /**
      * @param $id
      * @return string
@@ -139,14 +154,12 @@ class DefaultController extends BackController
      */
     public function actionRefund($id)
     {
-        $refund = new Refund();
         $model = $this->findModel($id);
+        $refund = new Refund();
 
         if ($refund->load(Yii::$app->request->post())) {
 
             $post = Yii::$app->request->post();
-
-
             $items = $post['item'];
 
             $total = 0;
@@ -193,8 +206,8 @@ class DefaultController extends BackController
                                  ->all();
 
 
-        foreach ($refunds as $k => $refund) {
-            $intro = (array)json_decode($refund->intro, true);
+        foreach ($refunds as $k => $refd) {
+            $intro = (array)json_decode($refd->intro, true);
             foreach ($intro as $item) {
                 if (array_key_exists($item['rel_id'], $rels)) {
                     if ($item['num'] >= $rels[$item['rel_id']]['num']) {
@@ -204,7 +217,7 @@ class DefaultController extends BackController
                     }
                 }
             }
-        }
+        };
 
         return $this->render('refund',[
             'model'=>$model,
@@ -212,7 +225,6 @@ class DefaultController extends BackController
             'rels' => $rels
             ]);
     }
-
 
 
     /**

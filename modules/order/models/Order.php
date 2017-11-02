@@ -35,6 +35,8 @@ class Order extends \app\core\db\ActiveRecord
     const PRO_DELAY= 3; //欠款
     const PRO_PAY  = 5; //支付完成
     const PRO_OK   = 8; //订单完成，服务最终完成
+    const PRO_REFUND = -2; //退款
+    const PRO_REFUND_PART = -1;
 
     const TYPE_GOODS = 1;
     const TYPE_MEMORIAL = 8;
@@ -393,7 +395,9 @@ class Order extends \app\core\db\ActiveRecord
             self::PRO_PART  => '支付部分',
             self::PRO_DELAY => '延期付款',
             self::PRO_PAY   => '支付完成',
-            self::PRO_OK    => '订单完成'
+            self::PRO_OK    => '订单完成',
+            self::PRO_REFUND=> '退款',
+            self::PRO_REFUND_PART => '部分退款'
         ];
 
         if (is_null($pro)) {
@@ -420,6 +424,26 @@ class Order extends \app\core\db\ActiveRecord
         } else {
             return $arr[$type];
         }
+    }
+
+    public function refund()
+    {
+        $rels = $this->rels;
+        $flag = false;
+        foreach ($rels as $v) {
+            if (!$v->is_refund) {
+                $flag = true;
+                break;
+            }
+        }
+
+        if ($flag) {
+            $this->progress = self::PRO_REFUND_PART;
+        } else {
+            $this->progress = self::PRO_REFUND;
+        }
+
+        return $this->save();
     }
 
     public function getTomb()

@@ -20,12 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 新增', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
-                </small>
+                <?=  Html::a($this->title, ['index']) ?>
             </h1>
         </div><!-- /.page-header -->
 
@@ -44,11 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-
-            'id',
-//            'guide_id',
-//            'user_id',
             'tomb.tomb_no',
+            'guide.username',
+            'user.username',
 //            'current_tomb_id',
             // 'refund_id',
              'ct_name',
@@ -58,8 +51,16 @@ $this->params['breadcrumbs'][] = $this->title;
              'reson:ntext',
              'price',
             // 'in_tomb_id',
+            [
+                'label' => '迁入墓位',
+                'value' => function($model) {
+                    if ($model->in_tomb_id) {
+                        return $model->inTomb->tomb_no;
+                    }
+                }
+            ],
              'note:ntext',
-            // 'status',
+             'type',
             // 'updated_at',
             // 'created_at',
 //            [

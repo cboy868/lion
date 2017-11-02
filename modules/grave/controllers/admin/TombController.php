@@ -110,9 +110,16 @@ class TombController extends BackController
     {
         $searchModel = new TombSearch();
         $params = Yii::$app->request->queryParams;
+
+        if (isset($params['grave_id'])) {
+            $params['TombSearch']['grave_id'] = $params['grave_id'];
+        }
+
+
         if (isset($params['status'])) {
             $params['TombSearch']['status'] = $params['status'];
         }
+
 
 
         $dataProvider = $searchModel->search($params);
@@ -605,7 +612,7 @@ class TombController extends BackController
         return $this->render('repair',['model'=>$model, 'fee'=>$fee,'paint'=>$paint]);
     }
 
-    public function actionInfo()
+    public function actionInfo($type=null)
     {
         $post = Yii::$app->request->post();
 
@@ -613,10 +620,16 @@ class TombController extends BackController
             return $this->json(null, '查找数据不完整', 0);
         }
 
-        $tomb = Tomb::find()->where(['grave_id'=>$post['grave']])
-                            ->andWhere(['row'=>$post['row']])
-                            ->andWhere(['col'=>$post['col']])
-                            ->one();
+        $query = Tomb::find()->where(['grave_id'=>$post['grave']])
+            ->andWhere(['row'=>$post['row']])
+            ->andWhere(['col'=>$post['col']]);
+
+        if ($type) {
+            $query->andWhere(['status' => $type]);
+        }
+
+
+        $tomb = $query->one();
 
         if (!$tomb) {
             return $this->json(null, '墓位不存在', 0);

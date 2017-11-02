@@ -108,6 +108,11 @@ class Refund extends \app\core\db\ActiveRecord
                 $rels = ArrayHelper::getColumn($intro, 'rel_id');
                 $connection->createCommand()->update(OrderRel::tableName(), ['is_refund' => 1], ['id'=>$rels])->execute();
             }
+
+            $order = Order::findOne($this->order_id);
+
+            $order->refund();
+
             $transaction->commit();
             return true;
         } catch (\Exception $e) {
@@ -143,7 +148,7 @@ class Refund extends \app\core\db\ActiveRecord
     {
         $this->progress = self::PRO_NOPASS;
         if ($this->save()) {
-            $this->trigger(self::EVENT_AFTER_NOPASS);
+            //$this->trigger(self::EVENT_AFTER_NOPASS);
             return true;
         }
         return false;
@@ -153,7 +158,8 @@ class Refund extends \app\core\db\ActiveRecord
     {
         $this->progress = self::PRO_OK;
         if ($this->save()) {
-            $this->trigger(self::EVENT_AFTER_FEEOK);
+            //$this->trigger(self::EVENT_AFTER_FEEOK);
+
             return true;
         }
         return false;

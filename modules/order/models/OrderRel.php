@@ -250,7 +250,6 @@ class OrderRel extends \app\core\db\ActiveRecord
                              ->andWhere(['status'=>self::STATUS_NORMAL])
                              ->andWhere(['type'=>$type])
                              ->one();
-
     }
 
     /**

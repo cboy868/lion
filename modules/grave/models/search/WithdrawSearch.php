@@ -42,7 +42,7 @@ class WithdrawSearch extends Withdraw
      */
     public function search($params)
     {
-        $query = Withdraw::find();
+        $query = Withdraw::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

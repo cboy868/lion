@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\modules\order\models\Refund;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\core\models\Attachment;
@@ -18,6 +19,7 @@ use app\modules\grave\models\Order;
  * @property integer $row
  * @property integer $col
  * @property string $special
+ * * @property string $mnt_by
  * @property string $tomb_no
  * @property integer $hole
  * @property string $price
@@ -28,6 +30,7 @@ use app\modules\grave\models\Order;
  * @property integer $customer_id
  * @property integer $agent_id
  * @property integer $agency_id
+ * @property integer $new_id
  * @property integer $guide_id
  * @property string $sale_time
  * @property string $note
@@ -91,7 +94,7 @@ class Tomb extends \app\core\db\ActiveRecord
     {
         return [
             [['grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id', 'agent_id', 'agency_id', 'guide_id', 'created_at', 'status'], 'integer'],
-            [['price', 'cost', 'area_total', 'area_use'], 'number'],
+            [['price', 'cost', 'area_total', 'area_use', 'new_id'], 'number'],
             [['sale_time', 'thumb'], 'safe'],
             [['note', 'mnt_by'], 'string'],
             [['grave_id', 'tomb_no', 'row', 'col'], 'required'],
@@ -131,7 +134,8 @@ class Tomb extends \app\core\db\ActiveRecord
             'customer.name' => '客户',
             'agent.username'=> '业务',
             'guide.username' => '导购',
-            'mnt_by' => '立碑人'
+            'mnt_by' => '立碑人',
+            'new_id' => '新墓位'
         ];
     }
 
@@ -207,8 +211,27 @@ class Tomb extends \app\core\db\ActiveRecord
 
         }
 
-
         return $this->save();
+    }
+
+    public function copy($tomb_id)
+    {
+        $otomb = self::findOne($tomb_id);
+        $ntomb = clone $otomb;
+        $ntomb->id = null;
+        $ntomb->isNewRecord = true;
+        $ntomb->user_id = null;
+        $ntomb->customer_id = null;
+        $ntomb->sale_time = null;
+        $ntomb->guide_id = null;
+        $ntomb->agency_id = null;
+        $ntomb->agent_id = null;
+        $ntomb->mnt_by = '';
+        $ntomb->note = '';
+        $ntomb->status = self::STATUS_EMPTY;
+        $ntomb->new_id = 0;
+        $ntomb->save();
+        return $ntomb;
     }
 
     public function getStatusText()
@@ -421,11 +444,10 @@ class Tomb extends \app\core\db\ActiveRecord
 
             $options['tombwithdraw'] = [];
             $tombwithdraw =& $options['tombwithdraw'];
-            $url = '/admin/tombwithdraw/add?tomb_id=' . $this->id . '&type=';
 
             $tombwithdraw[] = [
                 '退款',
-                '/admin/refund/add?tomb_id='.$this->id,
+                Url::toRoute(['/order/admin/default/refund','tomb_id'=>$this->id]),
                 'tomb-detail',
             ];
 
@@ -433,15 +455,16 @@ class Tomb extends \app\core\db\ActiveRecord
                 $tombwithdraw = [
                     [
                         '订金退墓',
-                         $url.'1',
+                        Url::toRoute(['/grave/admin/withdraw/create','tomb_id'=>$this->id,
+                            'type'=>Withdraw::TYPE_DING_REFUND]),
                          'ding_refund'
-
                     ],
-                    [
-                        '订金换墓',
-                         $url.'5',
-                         'ding_move'
-                    ]
+//                    [
+//                        '订金换墓',
+//                        Url::toRoute(['/grave/admin/withdraw/create','tomb_id'=>$this->id,
+//                            'type'=>Withdraw::TYPE_DING_CHANGE]),
+//                         'ding_move'
+//                    ]
                 ];
             }
 
@@ -449,14 +472,16 @@ class Tomb extends \app\core\db\ActiveRecord
                 $tombwithdraw = [
                     [
                         '全款退墓',
-                         $url.'2',
+                        Url::toRoute(['/grave/admin/withdraw/create','tomb_id'=>$this->id,
+                            'type'=>Withdraw::TYPE_ALL_REFUND]),
                          'tomb_refund'
                     ],
-                    [
-                        '退墓迁本园',
-                         $url.'3',
-                         'tomb_move'
-                    ]
+//                    [
+//                        '退墓迁本园',
+//                        Url::toRoute(['/grave/admin/withdraw/create','tomb_id'=>$this->id,
+//                            'type'=>Withdraw::TYPE_REFUND_IN]),
+//                         'tomb_move'
+//                    ]
 
                 ];
             }
@@ -474,27 +499,29 @@ class Tomb extends \app\core\db\ActiveRecord
                 ];
 
                 $tombwithdraw = [
+//                    [
+//                        '退墓迁本园',
+//                        Url::toRoute(['/grave/admin/withdraw/create','tomb_id'=>$this->id,
+//                            'type'=>Withdraw::TYPE_REFUND_IN]),
+//                         'tomb_move'
+//                    ],
                     [
-                        '退墓迁本园',
-                         $url.'3',
-                         'tomb_move'
-                    ],
-                    [
-                        '退墓迁出',
-                         $url.'4',
+                        '全款退墓',
+                        Url::toRoute(['/grave/admin/withdraw/create','tomb_id'=>$this->id,
+                            'type'=>Withdraw::TYPE_ALL_REFUND]),
                          'tomb_refund'
                     ]
                 ];
             }
         }
 
-        if ($this->status > self::STATUS_PAYOK && $this->status != self::STATUS_RETAIN) {
-            $options['careful'][] = [
-                '改墓',
-                Url::toRoute(['/grave/admin/tomb/renovate', 'id'=>$this->id]),
-                'modify'
-            ];
-        }
+//        if ($this->status > self::STATUS_PAYOK && $this->status != self::STATUS_RETAIN) {
+//            $options['careful'][] = [
+//                '改墓',
+//                Url::toRoute(['/grave/admin/tomb/renovate', 'id'=>$this->id]),
+//                'modify'
+//            ];
+//        }
 
         return $options;
     }

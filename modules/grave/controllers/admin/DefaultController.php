@@ -70,7 +70,7 @@ class DefaultController extends BackController
 
             $data['model'] = $model;
             $data['tombs'] = Tomb::find()->where(['grave_id'=>$id])
-                ->andWhere(['<>', 'status', Tomb::STATUS_DELETE])
+                ->andWhere(['not in', 'status', [Tomb::STATUS_DELETE,Tomb::STATUS_RETURN]])
                 ->orderBy('row asc,col asc')->all();
             $data['minCol'] = $model->minCol();
             $data['maxCol'] = $model->maxCol();

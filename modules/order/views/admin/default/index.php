@@ -76,7 +76,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
 
                     'refund' => function($url, $model, $key) {
-                        if ($model->progress >= Order::PRO_PART && $model->progress != Order::PRO_DELAY) {
+                        if (($model->progress >= Order::PRO_PART || $model->progress == Order::PRO_REFUND_PART)
+                            && $model->progress != Order::PRO_DELAY) {
                             return Html::a('退款', $url, ['title' => '退款处理','aria-label'=>"退款处理"] );
                         }
 

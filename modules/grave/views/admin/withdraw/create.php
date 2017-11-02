@@ -3,13 +3,18 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use app\modules\grave\models\Withdraw;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\Withdraw */
+$type = Yii::$app->request->get('type');
+$txt = Withdraw::types($type);
+$title = '墓位【'.$tomb->tomb_no.'】进行'.$txt.'操作';
 
-$this->title = '添加退墓记录';
-$this->params['breadcrumbs'][] = ['label' => 'Withdraws', 'url' => ['index']];
+$this->title = $title;
+$this->params['breadcrumbs'][] = ['label' => '退墓记录', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+
+
 ?>
 
 <div class="page-content">
@@ -30,6 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="col-xs-12 withdraw-create">
 				<?= $this->render('_form', [
 			        'model' => $model,
+                    'oprice' => $oprice,
+                    'graves' => $graves
 			    ]) ?>
 				<div class="hr hr-18 dotted hr-double"></div>
 			</div><!-- /.col -->

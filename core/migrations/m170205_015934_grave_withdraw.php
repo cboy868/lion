@@ -31,13 +31,16 @@ class m170205_015934_grave_withdraw extends Migration
             'created_at'=> $this->integer()->notNull()
         ], $tableOptions);
         //status
-        // const RETURN_DEPOSIT = 1;//订金退
-        // const RETURN_IN = 3; //退墓迁本园
-        // const RETURN_OUT = 5;//退墓迁出
 
-        // const RETURN_DEPOSIT_OK = 2;//订金退
-        // const RETURN_IN_OK = 4; //退墓迁本园
-        // const RETURN_OUT_OK = 6;//退墓迁出
+//        const TYPE_DING_REFUND = 1;//订金退墓
+//        const TYPE_DING_CHANGE = 3;//订金换墓
+//        const TYPE_ALL_REFUND = 5;//全款退墓
+//        const TYPE_REFUND_IN = 7;//退墓迁本园
+
+//        const TYPE_DING_REFUND_OK = 2;//订金退墓
+//        const TYPE_DING_CHANGE_OK = 4;//订金换墓
+//        const TYPE_ALL_REFUND_OK = 6;//全款退墓
+//        const TYPE_REFUND_IN_OK = 8;//退墓迁本园
 
     }
 
