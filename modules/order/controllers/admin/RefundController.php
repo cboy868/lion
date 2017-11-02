@@ -2,6 +2,8 @@
 
 namespace app\modules\order\controllers\admin;
 
+use app\core\helpers\ArrayHelper;
+use app\modules\order\models\OrderRel;
 use Yii;
 use app\modules\order\models\Refund;
 use app\modules\order\models\RefundSearch;
@@ -52,6 +54,19 @@ class RefundController extends BackController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $intro = json_decode($model->intro, true);
+        $rel_ids = ArrayHelper::getColumn($intro, 'rel_id');
+
+        $rel_tomb = OrderRel::find()->where(['type'=>9,'id'=>$rel_ids])->one();
+
+        if ($rel_tomb) {//退墓操作
+
+        }
+
+        p($rel_tomb);die;
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

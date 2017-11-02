@@ -65,11 +65,12 @@ class Refund extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'wechat_uid', 'progress', 'created_at', 'updated_at', 'status', 'op_id', 'user_id', 'tid'], 'integer'],
+            [['order_id', 'wechat_uid', 'progress', 'created_at',
+                'updated_at', 'status', 'op_id', 'user_id', 'tid'], 'integer'],
             [['fee'], 'number'],
             [['intro', 'note'], 'string'],
             [['checkout_at'], 'safe'],
-            [['fee'], 'required'],
+            [['fee','order_id'], 'required'],
         ];
     }
 

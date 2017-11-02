@@ -21,11 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
+                <?=  Html::a($this->title, ['index']) ?>
                 <small>
-                    <?=  Html::a('<i class="fa fa-plus"></i> 退款申请', ['create'], ['class' => 'btn btn-primary btn-sm new-menu']) ?>
                 </small>
             </h1>
         </div><!-- /.page-header -->

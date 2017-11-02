@@ -7,7 +7,7 @@ $this->params['current_menu'] = 'order/default/index';
 
 $this->title = ' ' . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => '订单列表', 'url' => ['index']];
-$this->params['breadcrumbs'][] = '退款';
+$this->params['breadcrumbs'][] = '订单退款';
 ?>
 
 <div class="page-content">
@@ -15,15 +15,15 @@ $this->params['breadcrumbs'][] = '退款';
 	<div class="page-content-area">
 		<div class="page-header">
 			<h1>
-				<?= Html::encode($this->title) ?>
+				<?= Html::encode($this->title) ?>号订单，退款处理
 				<small>
-					退款处理
+                    如果需要退墓，请在退墓手续中办理
 				</small>
 			</h1>
 		</div><!-- /.page-header -->
 
 		<div class="row">
-			<div class="col-xs-12 order-update">
+			<div class="col-xs-6 order-update">
 
 
 				<div class="order-form">
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = '退款';
 
 						<?php foreach ($rels as $k => $v): ?>
 							<?php if ($v['type'] == 9): ?>
-								<?php //continue; ?>
+								<?php continue; ?>
 							<?php endif ?>
 							<div style="margin-bottom:10px;">
 							  <label><?=$v->title?></label>

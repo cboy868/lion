@@ -2,6 +2,7 @@
 
 namespace app\modules\order\controllers\admin;
 
+use app\modules\grave\models\Tomb;
 use Yii;
 use app\modules\order\models\Order;
 use app\modules\order\models\OrderSearch;
@@ -138,12 +139,75 @@ class DefaultController extends BackController
      */
     public function actionRefundTomb($tomb_id)
     {
+        $tomb = Tomb::findOne($tomb_id);
         $orders = Order::find()->where(['tid'=>$tomb_id])
             ->andWhere(['status'=>1])
             ->all();
+        $refund = new Refund();
+
+
+        if ($refund->load(Yii::$app->request->post())) {
+
+            $post = Yii::$app->request->post();
+
+            $rel = $post['rel'];
+            if ($rel) {
+                $order = Order::findOne($refund->order_id);
+                $intro = [];
+                foreach ($rel as $k=>$v) {
+                    if (!$v) continue;
+
+                    $rel = OrderRel::findOne($k);
+
+                    $price = $rel->price_unit * $v;
+
+                    $intro[] = [
+                        'rel_id' => $k,
+                        'name' => $rel->title,
+                        'num' => $v,
+                        'price' => $price,
+                    ];
+                }
+                if (!$intro) {
+                    return $this->redirect(['refund-tomb', 'tomb_id'=>$tomb_id]);
+                }
+
+                $data = [
+                    'user_id' => $order->user_id,
+                    'intro'   => json_encode($intro),
+                    'op_id'   => Yii::$app->user->id,
+                    'tid'     => $tomb_id
+                ];
+
+                $refund->load($data, '');
+
+                if ($refund->save()) {
+                    Yii::$app->session->setFlash('success', '申请退款完成，待审批');
+                    return $this->redirect(['/order/admin/refund/index']);
+                }
+            }
+        }
+
+
+
+
+
+
+
+        $osel = [];
+        foreach ($orders as $order) {
+            $rels = $order->rels;
+            $osel[$order->id] = implode(',', ArrayHelper::getColumn($rels, 'title'));
+        }
+
+
+
 
         return $this->render('refund-tomb',[
-            'orders' => $orders
+            'orders' => $orders,
+            'tomb' => $tomb,
+            'refund' =>$refund,
+            'osel' => $osel
         ]);
     }
 
