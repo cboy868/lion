@@ -52,6 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </thead>
 
                             <?php foreach ($orders as $order):?>
+                                <div class="tr tr<?=$order->id?>" style="display: none;color:green;">
+                                    已收款金额: <span><?=$opay[$order->id]?></span>,已批准退款金额: <span><?=$orefund[$order->id]?></span>
+                                </div>
                                 <?php foreach ($order->rels as $rel):?>
                                     <?php if($rel->type==9) continue;?>
                                 <tr class="tr tr<?=$order->id?>" style="display: none;"
@@ -91,9 +94,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= $form->field($refund, 'note')->textarea(['rows' => 6]) ?>
 
-                    <?= $form->field($refund, 'order_id')->hiddenInput(['rows' => 6, 'class'=>'order_id'])->label(false) ?>
-
-
 					<div class="form-group">
 				        <div class="col-sm-3">
 				            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block submit-refund']) ?>
@@ -118,9 +118,9 @@ $(function() {
 
     $('.ordersel').change(function (e) {
         var oid = $(this).val();
-        $('tr.tr').hide().find('.gnum').val(0).find('.uprice').val(0);
-        $('tr.tr').find('.uprice').val(0);
-        $('tr.tr'+oid).show();
+        $('.tr').hide().find('.gnum').val(0).find('.uprice').val(0);
+        $('.tr').find('.uprice').val(0);
+        $('.tr'+oid).show();
         $('.order_id').val(oid);
     });
 

@@ -2,6 +2,7 @@
 
 namespace app\modules\order\models;
 
+use app\modules\analysis\models\Settlement;
 use Yii;
 use app\core\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
@@ -159,6 +160,8 @@ class Refund extends \app\core\db\ActiveRecord
     {
         $this->progress = self::PRO_OK;
         if ($this->save()) {
+
+            Settlement::refund($this);
             //$this->trigger(self::EVENT_AFTER_FEEOK);
 
             return true;
@@ -192,6 +195,16 @@ class Refund extends \app\core\db\ActiveRecord
         if ($insert) {//通过之后还要处理订单之类的东西
             //退款申请之后，加一些短信提醒之类的东西
         }
+    }
+
+    public function getOrder()
+    {
+        return $this->hasOne(Order::className(), ['id'=>'order_id']);
+    }
+
+    public function getRels()
+    {
+        return ArrayHelper::index(json_decode($this->intro, true), 'rel_id');
     }
 
     public function getPro()

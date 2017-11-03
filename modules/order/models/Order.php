@@ -192,6 +192,20 @@ class Order extends \app\core\db\ActiveRecord
         return $pay ? $pay : '0.00';
     }
 
+    public function getTotalRefund()
+    {
+        $refund = Refund::find()->where([
+            'order_id'  => $this->id,
+            'progress'  => [Refund::PRO_PASS, Refund::PRO_OK],
+            'status'    => Refund::STATUS_NORMAL
+        ])->sum('fee');
+
+
+        return $refund ? $refund : '0.00';
+    }
+
+
+
     public function getRemain()
     {
         return $this->price - $this->getTotalPay();

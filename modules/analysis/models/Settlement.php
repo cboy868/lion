@@ -212,6 +212,62 @@ class Settlement extends \app\core\db\ActiveRecord
         return $data;
     }
 
+
+
+    public static function refund($refund)
+    {
+
+        $order = $refund->order;
+
+        $guide_id = 0;
+        $agent_id = 0;
+        if (isset($order->tomb->guide_id)) {
+            $guide_id = $order->tomb->guide_id;
+            $agent_id = $order->tomb->agent_id;
+        }
+
+        $data = [
+            'op_id'    => Yii::$app->user->id,
+            'guide_id' => $guide_id,
+            'agent_id' => $agent_id,
+            'year'     => date('Y'),
+            'quarter'  => ceil((date('n'))/3),
+            'month'    => date('m'),
+            'week'     => date('W'),
+            'day'      => date('d'),
+            'settle_time' => null,
+            'order_id' => $order->id,
+            'intro'    => $refund->note,
+            'created_at' => time(),
+            'updated_at' => time(),
+            'pay_type' => 0,
+            'price'    => $refund->fee,
+            'type'     => self::TYPE_REFUND,
+            'pay_time' => date('Y-m-d H:i:s', $refund->created_at),
+        ];
+
+
+
+
+        $connection = Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+
+            $settle = new self;
+            $settle->load($data, '');
+            $settle->price = -$settle->price;
+            $settle->save();
+
+            SettlementRel::refund($refund, $settle);
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            $transaction->rollBack();
+        }
+
+    }
+
     // public static function create($order_id)
     // {
 

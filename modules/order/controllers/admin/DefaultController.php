@@ -142,15 +142,16 @@ class DefaultController extends BackController
         $tomb = Tomb::findOne($tomb_id);
         $orders = Order::find()->where(['tid'=>$tomb_id])
             ->andWhere(['status'=>1])
+            ->andWhere(['in','progress',[Order::PRO_OK,Order::PRO_PAY,Order::PRO_PART]])
             ->all();
         $refund = new Refund();
-
 
         if ($refund->load(Yii::$app->request->post())) {
 
             $post = Yii::$app->request->post();
 
             $rel = $post['rel'];
+            $uprice = $post['uprice'];
             if ($rel) {
                 $order = Order::findOne($refund->order_id);
                 $intro = [];
@@ -159,13 +160,11 @@ class DefaultController extends BackController
 
                     $rel = OrderRel::findOne($k);
 
-                    $price = $rel->price_unit * $v;
-
                     $intro[] = [
                         'rel_id' => $k,
                         'name' => $rel->title,
                         'num' => $v,
-                        'price' => $price,
+                        'price' => $uprice[$k],
                     ];
                 }
                 if (!$intro) {
@@ -188,26 +187,26 @@ class DefaultController extends BackController
             }
         }
 
-
-
-
-
-
+        //计算已支付总金额
 
         $osel = [];
+        $opay = [];
+        $orefund = [];
         foreach ($orders as $order) {
             $rels = $order->rels;
             $osel[$order->id] = implode(',', ArrayHelper::getColumn($rels, 'title'));
+            $opay[$order->id] = $order->totalPay;
+            $orefund[$order->id] = $order->totalRefund;
         }
-
-
 
 
         return $this->render('refund-tomb',[
             'orders' => $orders,
             'tomb' => $tomb,
             'refund' =>$refund,
-            'osel' => $osel
+            'osel' => $osel,
+            'opay' => $opay,
+            'orefund' => $orefund
         ]);
     }
 
@@ -217,6 +216,76 @@ class DefaultController extends BackController
      * @name 退款
      */
     public function actionRefund($id)
+    {
+
+        $order = $this->findModel($id);
+        $refund = new Refund();
+        $refund->order_id = $id;
+
+
+        if ($refund->load(Yii::$app->request->post())) {
+
+            $post = Yii::$app->request->post();
+
+            $rel = $post['rel'];
+            $uprice = $post['uprice'];
+            if ($rel) {
+                $intro = [];
+                foreach ($rel as $k=>$v) {
+                    if (!$v) continue;
+
+                    $rel = OrderRel::findOne($k);
+
+                    $intro[] = [
+                        'rel_id' => $k,
+                        'name' => $rel->title,
+                        'num' => $v,
+                        'price' => $uprice[$k],
+                    ];
+                }
+                if (!$intro) {
+                    return $this->redirect(['refund', 'order_id'=>$id]);
+                }
+
+                $data = [
+                    'user_id' => $order->user_id,
+                    'intro'   => json_encode($intro),
+                    'op_id'   => Yii::$app->user->id,
+                    'tid'     => $order->tid
+                ];
+
+                $refund->load($data, '');
+
+                if ($refund->save()) {
+                    Yii::$app->session->setFlash('success', '申请退款完成，待审批');
+                    return $this->redirect(['/order/admin/refund/index']);
+                }
+            }
+        }
+
+        //计算已支付总金额
+
+        $osel = [];
+        $opay = [];
+        $orefund = [];
+
+        $rels = $order->rels;
+        $osel[$order->id] = implode(',', ArrayHelper::getColumn($rels, 'title'));
+        $opay[$order->id] = $order->totalPay;
+        $orefund[$order->id] = $order->totalRefund;
+
+
+        return $this->render('refund',[
+            'refund' =>$refund,
+            'osel' => $osel,
+            'opay' => $opay,
+            'orefund' => $orefund,
+            'order' => $order
+        ]);
+    }
+
+
+    public function actionRefund1($id)
     {
         $model = $this->findModel($id);
         $refund = new Refund();

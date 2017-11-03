@@ -3,6 +3,7 @@
 namespace app\modules\order\controllers\admin;
 
 use app\core\helpers\ArrayHelper;
+use app\modules\analysis\models\SettlementRel;
 use app\modules\order\models\OrderRel;
 use Yii;
 use app\modules\order\models\Refund;
@@ -55,6 +56,11 @@ class RefundController extends BackController
     public function actionView($id)
     {
         $model = $this->findModel($id);
+
+        SettlementRel::refund($model);
+
+
+
 
         $intro = json_decode($model->intro, true);
         $rel_ids = ArrayHelper::getColumn($intro, 'rel_id');

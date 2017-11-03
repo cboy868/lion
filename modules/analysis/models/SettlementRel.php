@@ -2,6 +2,8 @@
 
 namespace app\modules\analysis\models;
 
+use app\core\helpers\ArrayHelper;
+use app\modules\order\models\OrderRel;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\order\modls\Order;
@@ -55,6 +57,46 @@ class SettlementRel extends \app\core\db\ActiveRecord
                 'price'       => $rel->price,
                 'res_name'    => $res_name,
                 'num'         => $rel->num
+            ];
+
+            $srel = new self;
+            $srel->load(array_merge($nd, $cdata), '');
+            $srel->save();
+        }
+
+        return true;
+
+    }
+
+    public static function refund($refund, $settlement)
+    {
+        $rels = $refund->rels;
+        $rids = ArrayHelper::getColumn($rels, 'rel_id');
+        $order_rels = OrderRel::find()->where(['id'=>$rids])->all();
+
+        $cdata = [
+            'order_id' => $refund->order_id,
+            'op_id'     => Yii::$app->user->id,
+            'settlement_id' => $settlement->id,
+            'settle_time'   => $settlement->settle_time,
+            'guide_id' => 0,
+            'agent_id' => 0,
+            'year'     => $settlement->year,
+            'month'    => $settlement->month,
+            'week'     => $settlement->week,
+            'day'      => $settlement->day,
+        ];
+
+        foreach ($order_rels as $k => $rel) {
+            $res_name = $rel->type == 9 ? 'tomb' : 'goods';
+            $nd = [
+                'category_id' => $rel->category_id ? $rel->category_id : 0,
+                'goods_id'    => $rel->goods_id,
+                'sku_id'      => $rel->sku_id,
+                'ori_price'   => $rel->price,
+                'price'       => -$rels[$rel->id]['price'],//$rel->price,
+                'res_name'    => $res_name,
+                'num'         => $rels[$rel->id]['num']
             ];
 
             $srel = new self;
