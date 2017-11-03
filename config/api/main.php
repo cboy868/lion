@@ -77,11 +77,11 @@ $config = [
                         'api/v1/wechat-pro-user',
                         'api/v1/free-dead'
                     ],
-                    # m group
-                    'm/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/m/<controller>/<action>',
-                    'm/<module:(.+)>/<controller:(.+)>.html'=> '<module>/m/<controller>/index',
-                    'm/<module:(.+)>.html'=> '<module>/m/default/index',
                 ],
+                # m group
+                'm/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/m/<controller>/<action>',
+                'm/<module:(.+)>/<controller:(.+)>.html'=> '<module>/m/<controller>/index',
+                'm/<module:(.+)>.html'=> '<module>/m/default/index',
             ],
         ],
 
