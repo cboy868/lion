@@ -7,12 +7,11 @@
  */
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
-echo 'ss';die;
 ?>
     <div id="main-num" style="width: 100%;height:400px;" class="col-md-12"></div>
 <?php $this->beginBlock('foo') ?>
     $(function(){
-        $.get('<?=Url::toRoute('/analysis/admin/tomb/sale-num')?>').done(function (data) {
+        $.get('<?=Url::toRoute('/analysis/home/tomb/sale-num')?>').done(function (data) {
             var numChart = echarts.init(document.getElementById('main-num'), 'vintage');
             var colors = ['#5793f3', '#d14a61', '#675bba'];
             // 指定图表的配置项和数据
