@@ -69,6 +69,8 @@ class MController extends \app\core\web\Controller
 
         $model = \app\modules\sys\models\Set::findOne('theme');
 
+        p($model);die;
+
         $this->view->theme->pathMap = [
             '@app/modules/m/views/default' => '@app/web/theme/' . $model->svalue . '/mobile/home',
             '@app/modules/m/views/layouts' => '@app/web/theme/' . $model->svalue . '/mobile/layouts',
