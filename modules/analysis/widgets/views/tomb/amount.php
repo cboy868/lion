@@ -11,7 +11,7 @@ app\assets\EchartsAsset::register($this);
     <div id="main-amount" style="width: 100%;height:400px;" class="col-md-12"></div>
 <?php $this->beginBlock('foo') ?>
     $(function(){
-        $.get('<?=Url::toRoute('/analysis/admin/tomb/sale-amount')?>').done(function (data) {
+        $.get('<?=Url::toRoute('/analysis/home/tomb/sale-amount')?>').done(function (data) {
             var amountChart = echarts.init(document.getElementById('main-amount'), 'vintage');
 
             var colors = ['#5793f3', '#d14a61', '#675bba'];

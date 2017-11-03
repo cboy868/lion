@@ -31,7 +31,7 @@ $(function(){
 
 function getYearPercent(year) {
     var myChart = echarts.init(document.getElementById('year-persent'), 'vintage');
-    $.get('<?=Url::toRoute('/analysis/admin/guide/year')?>?year='+year).done(function (data) {
+    $.get('<?=Url::toRoute('/analysis/home/guide/year')?>?year='+year).done(function (data) {
         var data = data.data;
         var result = [];
         for (var i in data){

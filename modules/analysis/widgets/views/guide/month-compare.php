@@ -30,7 +30,7 @@ $(function(){
 
     function getMonthCompare(month) {
         var myChart = echarts.init(document.getElementById('month-compare'), 'vintage');
-        $.get('<?=Url::toRoute('/analysis/admin/guide/month')?>?month='+month).done(function (data) {
+        $.get('<?=Url::toRoute('/analysis/home/guide/month')?>?month='+month).done(function (data) {
             var data = data.data;
             var name = [],value=[];
             for (var i in data){

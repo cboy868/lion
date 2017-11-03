@@ -13,7 +13,7 @@ app\assets\EchartsAsset::register($this);
 <?php $this->beginBlock('per') ?>
 $(function(){
     var myChart = echarts.init(document.getElementById('client-year-compare'), 'vintage');
-    $.get('<?=Url::toRoute('/analysis/admin/client/year')?>').done(function (data) {
+    $.get('<?=Url::toRoute('/analysis/home/client/year')?>').done(function (data) {
         var data = data.data;
         var name = [],person_value=[],recep_value=[];
         for (var i in data){

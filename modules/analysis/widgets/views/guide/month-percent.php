@@ -31,7 +31,7 @@ $(function(){
     
     function getMonthPersent(month) {
         var myChart = echarts.init(document.getElementById('month-persent'), 'vintage');
-        $.get('<?=Url::toRoute('/analysis/admin/guide/month')?>?month='+month).done(function (data) {
+        $.get('<?=Url::toRoute('/analysis/home/guide/month')?>?month='+month).done(function (data) {
             var data = data.data;
             var result = [];
             for (var i in data){

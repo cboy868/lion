@@ -33,7 +33,7 @@ $(function(){
 
 function getSelf(user){
     var myChart = echarts.init(document.getElementById('self-month'), 'vintage');
-    $.get('<?=Url::toRoute(['/analysis/admin/guide/self-month'])?>?guide_id='+user).done(function (data) {
+    $.get('<?=Url::toRoute(['/analysis/home/guide/self-month'])?>?guide_id='+user).done(function (data) {
         var data = data.data;
         var name = [],value=[];
         for (var i in data){

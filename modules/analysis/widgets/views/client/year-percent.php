@@ -15,7 +15,7 @@ app\assets\EchartsAsset::register($this);
 $(function(){
     var personChart = echarts.init(document.getElementById('client-year-person-persent'), 'vintage');
     var receptChart = echarts.init(document.getElementById('client-year-recept-persent'), 'vintage');
-    $.get('<?=Url::toRoute('/analysis/admin/client/year')?>').done(function (data) {
+    $.get('<?=Url::toRoute('/analysis/home/client/year')?>').done(function (data) {
         var data = data.data;
         var person_result = [],recept_result=[];
         var preson_total=0,recept_total=0;

@@ -31,7 +31,7 @@ $(function(){
 
     function getYearCompare(year) {
         var myChart = echarts.init(document.getElementById('year-compare'), 'vintage');
-        $.get('<?=Url::toRoute('/analysis/admin/guide/year')?>?year='+year).done(function (data) {
+        $.get('<?=Url::toRoute('/analysis/home/guide/year')?>?year='+year).done(function (data) {
             var data = data.data;
             var name = [],value=[];
             for (var i in data){

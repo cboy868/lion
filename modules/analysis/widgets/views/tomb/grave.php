@@ -13,7 +13,7 @@ app\assets\EchartsAsset::register($this);
 <?php $this->beginBlock('per') ?>
 $(function(){
     var myChart = echarts.init(document.getElementById('grave-status'), 'vintage');
-    $.get('<?=Url::toRoute(['/analysis/admin/tomb/grave-status', 'grave_id'=>$grave_id])?>').done(function (data) {
+    $.get('<?=Url::toRoute(['/analysis/home/tomb/grave-status', 'grave_id'=>$grave_id])?>').done(function (data) {
         myChart.setOption({
             title: {
                 text: '墓位销售情况',
