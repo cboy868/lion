@@ -7,6 +7,7 @@
  */
 use app\core\helpers\Url;
 app\assets\EchartsAsset::register($this);
+echo 'ss';die;
 ?>
     <div id="main-num" style="width: 100%;height:400px;" class="col-md-12"></div>
 <?php $this->beginBlock('foo') ?>

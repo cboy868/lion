@@ -51,7 +51,6 @@ class Analysis extends \yii\base\Widget
 
     private function tombNum()
     {
-        echo 'sss';die;
         return $this->render('tomb/num');
     }
 
