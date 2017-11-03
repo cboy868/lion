@@ -50,6 +50,12 @@ $config = [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => 'app\modules\sys\rbac\DbManager',
+            'cache' => [
+                'class'=>'yii\caching\FileCache'
+            ]
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
