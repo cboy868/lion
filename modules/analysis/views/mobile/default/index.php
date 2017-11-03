@@ -15,15 +15,9 @@ $this->title = '数据统计';
             </div><!-- /.col -->
         </div>
         <hr>
-        <div class="row">
-            <div class="col-xs-12 client-index">
-                <?=\app\modules\analysis\widgets\Analysis::widget(['name'=>'tombAmount'])?>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-        <hr>
 
-        
+
+
 
 
     </div><!-- /.page-content-area -->
