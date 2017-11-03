@@ -16,6 +16,9 @@ $config = [
         'wechat' => [
             'class' => 'app\modules\wechat\Module',
         ],
+        'analysis' => [
+            'class' => 'app\modules\analysis\Module',
+        ],
     ],
     'components' => [
         'db' => require(__DIR__ . '/../db.php'),
