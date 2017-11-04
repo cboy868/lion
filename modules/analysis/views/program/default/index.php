@@ -7,6 +7,9 @@ $this->title = '数据统计';
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area" style="margin-bottom:50px;">
+        <p style="color:green;">
+            以下为统计示例，正式应用时，只有领导层能看到此统计页面
+        </p>
         <h2>墓位销售情况统计</h2>
         <div class="row">
             <div class="col-xs-12 client-index">
