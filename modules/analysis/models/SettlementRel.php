@@ -108,6 +108,44 @@ class SettlementRel extends \app\core\db\ActiveRecord
 
     }
 
+    public static function refundTomb($withdraw, $settlement)
+    {
+
+        $tomb = $withdraw->tomb;
+
+        $order_rel = OrderRel::find()->where(['tid'=>$tomb->id,'type'=>9,'status'=>1])->one();
+
+        $cdata = [
+            'order_id' => isset($order_rel->order_id) ? $order_rel->order_id : 0,
+            'op_id'     => Yii::$app->user->id,
+            'settlement_id' => $settlement->id,
+            'settle_time'   => $settlement->settle_time,
+            'guide_id' => 0,
+            'agent_id' => 0,
+            'year'     => $settlement->year,
+            'month'    => $settlement->month,
+            'week'     => $settlement->week,
+            'day'      => $settlement->day,
+            'category_id' => $tomb->grave_id,
+            'goods_id'    => $tomb->id,
+            'sku_id'      => $tomb->id,
+            'ori_price'   => $tomb->price,
+            'price'       => $withdraw->price ? -$withdraw->price : 0,//$rel->price,
+            'res_name'    => 'tomb',
+            'num'         => 1
+        ];
+
+        $srel = new self;
+        $srel->load($cdata, '');
+        $srel->save();
+
+        Yii::error($srel->getErrors());
+
+
+        return true;
+
+    }
+
     /**
      * @inheritdoc
      */

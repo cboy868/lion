@@ -91,9 +91,9 @@ $config = [
                     ],
                 ],
                 # m group
-                'mobile/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/mobile/<controller>/<action>',
-                'mobile/<module:(.+)>/<controller:(.+)>.html'=> '<module>/mobile/<controller>/index',
-                'mobile/<module:(.+)>.html'=> '<module>/mobile/default/index',
+                'program/<module:(.+)>/<controller:(.+)>/<action:(.+)>.html'=> '<module>/program/<controller>/<action>',
+                'program/<module:(.+)>/<controller:(.+)>.html'=> '<module>/program/<controller>/index',
+                'program/<module:(.+)>.html'=> '<module>/program/default/index',
             ],
         ],
 

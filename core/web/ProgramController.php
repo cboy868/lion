@@ -6,11 +6,10 @@ use yii;
 /**
  * Default controller for the `wechat` module
  */
-class MobileController extends \app\core\web\Controller
+class ProgramController extends \app\core\web\Controller
 {
 
-	public $layout = "@app/core/views/layouts/mobile.php";
-//    public $layout = "@app/modules/home/views/layouts/home.php";
+	public $layout = "@app/core/views/layouts/program.php";
 
 
     public function init()
@@ -21,7 +20,7 @@ class MobileController extends \app\core\web\Controller
             Yii::$app->language = $session->get('language');
         }
 
-        \Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/']);
+        \Yii::$app->homeUrl = \yii\helpers\Url::toRoute(['/program']);
 //        $this->_theme();
     }
 

@@ -147,14 +147,16 @@ class Settlement extends \app\core\db\ActiveRecord
                                ->all();
 
         $guide_id = 0;
-        if (isset($order->tomb->guide_id)) {
+        $agent_id = 0;
+        if (isset($order->tomb)) {
             $guide_id = $order->tomb->guide_id;
+            $agent_id = $order->tomb->agent_id;
         }
 
         $cdata = [
             'op_id'    => Yii::$app->user->id,
             'guide_id' => $guide_id,
-            'agent_id' => 0,
+            'agent_id' => $agent_id,
             'year'     => date('Y'),
             'quarter'  => ceil((date('n'))/3),
             'month'    => date('m'),
@@ -208,7 +210,6 @@ class Settlement extends \app\core\db\ActiveRecord
             }
         }
 
-
         return $data;
     }
 
@@ -221,7 +222,7 @@ class Settlement extends \app\core\db\ActiveRecord
 
         $guide_id = 0;
         $agent_id = 0;
-        if (isset($order->tomb->guide_id)) {
+        if (isset($order->tomb)) {
             $guide_id = $order->tomb->guide_id;
             $agent_id = $order->tomb->agent_id;
         }
@@ -241,11 +242,10 @@ class Settlement extends \app\core\db\ActiveRecord
             'created_at' => time(),
             'updated_at' => time(),
             'pay_type' => 0,
-            'price'    => $refund->fee,
+            'price'    => -$refund->fee,
             'type'     => self::TYPE_REFUND,
             'pay_time' => date('Y-m-d H:i:s', $refund->created_at),
         ];
-
 
 
 
@@ -255,10 +255,55 @@ class Settlement extends \app\core\db\ActiveRecord
 
             $settle = new self;
             $settle->load($data, '');
-            $settle->price = -$settle->price;
             $settle->save();
 
             SettlementRel::refund($refund, $settle);
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            $transaction->rollBack();
+        }
+
+    }
+
+    public static function refundTomb($withdraw)
+    {
+
+        $tomb = $withdraw->tomb;
+
+        $guide_id = $tomb->guide_id;
+        $agent_id = $tomb->agent_id;
+
+        $data = [
+            'op_id'    => Yii::$app->user->id,
+            'guide_id' => $guide_id,
+            'agent_id' => $agent_id,
+            'year'     => date('Y'),
+            'quarter'  => ceil((date('n'))/3),
+            'month'    => date('m'),
+            'week'     => date('W'),
+            'day'      => date('d'),
+            'settle_time' => null,
+            'order_id' => 0,
+            'intro'    => $withdraw->note,
+            'created_at' => time(),
+            'updated_at' => time(),
+            'pay_type' => 0,
+            'price'    => -$withdraw->price,
+            'type'     => self::TYPE_REFUNDTOMB,
+            'pay_time' => date('Y-m-d H:i:s', $withdraw->created_at),
+        ];
+
+        $connection = Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+
+            $settle = new self;
+            $settle->load($data, '');
+            $settle->save();
+
+            SettlementRel::refundTomb($withdraw, $settle);
 
             $transaction->commit();
         } catch (\Exception $e) {

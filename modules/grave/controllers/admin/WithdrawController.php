@@ -78,15 +78,15 @@ class WithdrawController extends BackController
             try {
                 if ($model->price) {
                     $intro[] = [
-                        'rel_id' => $orel->id,
-                        'name' => $orel->title,
+                        'rel_id' => isset($orel->id) ? $orel->id : 0,
+                        'name' => isset($orel->title) ? $orel->title : 0,
                         'num' => 1,
                         'price' => $model->price,
                     ];
 
                     $data = [
                         'user_id' => $model->user_id,
-                        'order_id'=> $orel->order->id,
+                        'order_id'=> isset($orel->order_id) ? $orel->order_id : 0,
                         'intro'   => json_encode($intro),
                         'op_id'   => Yii::$app->user->id,
                         'fee'     => $model->price,
@@ -100,27 +100,29 @@ class WithdrawController extends BackController
                     $model->refund_id = $refund->id;
                 }
 
-                if ($model->in_tomb_id) {
-                    $inTomb = Tomb::findOne($model->in_tomb_id);
-                    $inTomb->user_id = $tomb->user_id;
-                    $inTomb->customer_id = $tomb->customer_id;
-                    $inTomb->status = $tomb->status;
-                    $inTomb->agent_id = $tomb->agent_id;
-                    $inTomb->guide_id = $tomb->guide_id;
-                    $inTomb->agency_id = $tomb->agency_id;
-                    $inTomb->sale_time = date('Y-m-d H:i:s');
-                    $inTomb->save();
+//                if ($model->in_tomb_id) {
+//                    $inTomb = Tomb::findOne($model->in_tomb_id);
+//                    $inTomb->user_id = $tomb->user_id;
+//                    $inTomb->customer_id = $tomb->customer_id;
+//                    $inTomb->status = $tomb->status;
+//                    $inTomb->agent_id = $tomb->agent_id;
+//                    $inTomb->guide_id = $tomb->guide_id;
+//                    $inTomb->agency_id = $tomb->agency_id;
+//                    $inTomb->sale_time = date('Y-m-d H:i:s');
+//                    $inTomb->save();
+//
+//                }
 
-                }
-
-                $newTomb = $tomb->copy($tomb_id);
-
-                $tomb->status = Tomb::STATUS_RETURN;
-                $tomb->new_id = $newTomb->id;
-                $tomb->save();
-
-                $model->current_tomb_id = $newTomb->id;
+//                $newTomb = $tomb->copy($tomb_id);
+//
+//                $tomb->status = Tomb::STATUS_RETURN;
+//                $tomb->new_id = $newTomb->id;
+//                $tomb->save();
+//
+//                $model->current_tomb_id = $newTomb->id;
                 $model->save();
+
+
 
                 $outerTransaction->commit();
             } catch (\Exception $e) {
@@ -148,6 +150,29 @@ class WithdrawController extends BackController
             'oprice' => isset($orel->price) ? $orel->price : 0,
             'graves' => $graves
         ]);
+    }
+
+
+
+    /**
+     * @name 退款审核
+     */
+    public function actionVerify($id, $v)
+    {
+        $model = $this->findModel($id);
+
+        $flag = 0;
+        if (in_array($v, [Withdraw::TYPE_ALL_REFUND_OK,Withdraw::TYPE_DING_REFUND_OK])) {
+            $flag = $model->verify($v);
+        } else if (in_array($v, [Withdraw::TYPE_ALL_REFUND_NO,Withdraw::TYPE_DING_REFUND_NO])) {
+            $flag = $model->noVerify($v);
+        }
+
+        if ($flag) {
+            Yii::$app->session->setFlash('success', '操作成功');
+        }
+
+        return $this->redirect(['index']);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\models;
 
+use app\modules\analysis\models\Settlement;
 use app\modules\user\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -38,6 +39,12 @@ class Withdraw extends \app\core\db\ActiveRecord
     const TYPE_ALL_REFUND_OK = 6;//全款退墓
     const TYPE_REFUND_IN_OK = 8;//退墓迁本园
 
+    const TYPE_DING_REFUND_NO = -2;//订金退墓
+    const TYPE_DING_CHANGE_NO = -4;//订金换墓
+    const TYPE_ALL_REFUND_NO = -6;//全款退墓
+    const TYPE_REFUND_IN_NO = -8;//退墓迁本园
+
+
 
     public static function types($type=null)
     {
@@ -47,10 +54,13 @@ class Withdraw extends \app\core\db\ActiveRecord
             self::TYPE_ALL_REFUND  => '全款退墓',
 //            self::TYPE_REFUND_IN   => '园内换墓',
 
-//            self::TYPE_DING_REFUND_OK => '订金退墓完成',
+            self::TYPE_DING_REFUND_OK => '订金退墓完成',
 //            self::TYPE_DING_CHANGE_OK => '订金换墓完成',
-//            self::TYPE_ALL_REFUND_OK  => '全款退墓完成',
+            self::TYPE_ALL_REFUND_OK  => '全款退墓完成',
 //            self::TYPE_REFUND_IN_OK   => '园内换墓完成',
+
+            self::TYPE_DING_REFUND_OK => '订金退墓未通过',
+            self::TYPE_ALL_REFUND_NO  => '全款退墓未通过',
         ];
 
         if ($type !== null && isset($t[$type])) {
@@ -125,6 +135,46 @@ class Withdraw extends \app\core\db\ActiveRecord
             'guide.username' => '导购员',
             'type' => '退墓类型'
         ];
+    }
+
+    public function verify($type)
+    {
+
+        $this->status = $type;
+        $tomb = $this->tomb;
+
+        $connection = Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            $newTomb = $tomb->copy($this->tomb_id);
+            $tomb->status = Tomb::STATUS_RETURN;
+            $tomb->new_id = $newTomb->id;
+            $tomb->save();
+
+
+            $this->current_tomb_id = $newTomb->id;
+            $this->save();
+
+            Settlement::refundTomb($this);
+
+            $transaction->commit();
+            return true;
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            return $e->getMessages();
+        }
+
+        return false;
+    }
+
+    public function noVerify($type)
+    {
+        $this->status = $type;
+        if ($this->save()) {
+            //$this->trigger(self::EVENT_AFTER_NOPASS);
+            return true;
+        }
+        return false;
     }
 
     public function getTomb()
