@@ -1,4 +1,9 @@
 <?php
+//admin 后台
+//home 前台
+//m 微信公众号页同
+//member 会员中心
+//program 小程序界面
 
 $params = require(__DIR__ . '/params.php');
 $mailer = require(__DIR__ . '/mailer.php');
