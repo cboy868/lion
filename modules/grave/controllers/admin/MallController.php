@@ -264,7 +264,6 @@ class MallController extends BackController
         $post = Yii::$app->request->post();
 
 
-
         $tomb_id = $post['tomb_id'];
         $tomb = Tomb::findOne($tomb_id);
 

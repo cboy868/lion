@@ -381,7 +381,7 @@ class Tomb extends \app\core\db\ActiveRecord
                 ],
                 [
                     '购买商品',
-                    Url::toRoute(['/grave/admin/mall/index', 'tomb_id'=>$this->id]),
+                    Url::toRoute(['/grave/admin/mall/shop', 'tomb_id'=>$this->id]),
                     'tomb-shop'
                 ],
                 [

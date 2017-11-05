@@ -87,7 +87,7 @@ class Settlement extends \app\core\db\ActiveRecord
             return $t;
         }
 
-        return $t[$type];
+        return isset($t[$type])? $t[$type] : '';
     }
 
     public function getPayType()

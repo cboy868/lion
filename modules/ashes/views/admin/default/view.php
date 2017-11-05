@@ -36,7 +36,6 @@ $this->params['current_menu'] = 'ashes/default/index';
         <div class="page-header">
             <h1><?= Html::encode($model->box_no) ?>号柜
                 <small>
-                    <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']) ?>
 
                     <?php if ($model->status == Box::STATUS_EMPTY):?>
                         <?= Html::a('Delete', ['delete', 'id' => $model->id], [

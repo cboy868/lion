@@ -176,6 +176,11 @@ class Portrait extends \app\core\db\ActiveRecord
     {
 
         $tomb = Tomb::findOne($tomb_id);
+
+        if (!$rel) {
+            return false;
+        }
+
         for ($i=0; $i < $rel->num; $i++) { 
             $portrait = self::find()->where(['tomb_id'=>$tomb_id])
                          ->andWhere(['sku_id'=>$sku->id])

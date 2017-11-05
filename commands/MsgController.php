@@ -29,7 +29,6 @@ class MsgController extends Controller
 
     public function actionSend()
     {
-        Yii::error('ac and a ', __METHOD__);
         Msg::batch();
     }
 
