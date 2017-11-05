@@ -33,11 +33,34 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
             <h1>一墓一档
                 <small>墓位详细信息
                     <?php if($model->status >1 &&$model->status < 9 ):?>
-                    <a class="btn btn-info btn-sm pull-right" href="<?=Url::toRoute(['/grave/admin/process/index', 'tomb_id'=>$model->id,'step'=>1])?>" target="_blank">办业务</a>
+                    <a class="btn btn-info btn-sm pull-right"
+                       href="<?=Url::toRoute(['/grave/admin/process/index', 'tomb_id'=>$model->id,'step'=>1])?>"
+                       target="_blank">办业务</a>
                     <?php endif;?>
+
+                    <a class="btn btn-info btn-sm pull-right modalEditButton"
+                       href="<?=Url::toRoute(['/grave/admin/tomb/card','tomb_id'=>$model->id])?>"
+                       target="_blank">打印墓证</a>
+
+
                 </small>
             </h1>
         </div>
+
+        <?php
+        Modal::begin([
+            'header' => '编辑',
+            'id' => 'modalEdit',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false],
+//            'size' => 'modal-lg'
+        ]) ;
+
+        echo '<div id="editContent"></div>';
+
+        Modal::end();
+        ?>
+
+
         <?php 
             Modal::begin([
                 'header' => '新增',

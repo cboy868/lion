@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use app\modules\admin\models\Pdf;
 use app\core\libs\Fpdf;
+use app\modules\grave\models\Card;
 use app\modules\grave\models\Tomb;
 use app\modules\order\models\Pay;
 use yii;
@@ -25,6 +26,15 @@ class PdfController extends \app\core\web\BackController
 	public function actionIndex($tomb_id, $order_id)
     {
         return $this->render('index');
+    }
+
+
+    /**
+     * @name 打印墓证
+     */
+    public function actionCard()
+    {
+        $info = Card::info(15);
     }
 
     public function actionPay($pay_id)

@@ -14,7 +14,7 @@ use app\modules\grave\models\Card;
 use app\modules\shop\models\Goods;
 use app\modules\grave\models\TombForm;
 use app\core\base\Upload;
-
+use app\core\libs\Fpdf;
 
 /**
  * TombController implements the CRUD actions for Tomb model.
@@ -52,6 +52,104 @@ class TombController extends BackController
 
         return $tomb->saveAttach($info);
     }
+
+
+    public function actionCard($tomb_id)
+    {
+        $info = Card::info($tomb_id);
+
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $info = [];
+            foreach ($post as $k => $v) {
+                if (in_array($k, ['dead', 'card_dates'])) {
+
+                    foreach ($v as $d) {
+                        if (isset($d['flg']) && $d['flg'] ==1) {
+                            $info[$k][] = $d['tit'];
+                        }
+                    }
+                }
+                if (isset($v['flg']) && $v['flg'] ==1) {
+                    $info[$k] = $v['tit'];
+                }
+            }
+            $pdf = new Fpdf('P','mm','A4');
+            $pdf->AddPage();
+            $pdf->AddGBFont('simkai','楷体_GB2312');
+
+            $result = $this->dealData($info);
+            $result = Fpdf::content($result);
+
+            foreach($result as $v){
+                $pdf->setXY($v['x'],$v['y']);
+                $pdf->SetFont($v['font'],$v['b'],$v['font_size']);
+                $pdf->cell(10,10, $v['content']);
+            }
+
+            ob_end_clean();
+            $pdf->Output();
+        }
+
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('card', ['info'=>$info, 'tomb_id'=>$tomb_id]);
+        } else {
+            return $this->error();
+        }
+
+    }
+
+    private function dealData($info)
+    {
+
+        $dead_result = $card_dates = [];
+        if (isset($info['dead'])){
+            foreach ($info['dead'] as $k => $dd) {
+                $dead_result[$k] = [
+                    'content' => $dd,
+                    'x'=>62,
+                    'y'=>19 + $k*13,
+                    'b'=>true,
+                    'font_size'=>15
+                ];
+            }
+        }
+
+        if (isset($info['card_dates'])){
+            foreach ($info['card_dates'] as $k => $dd) {
+                $card_dates[$k] = [
+                    'content' => $dd,
+                    'x'=>62,
+                    'y'=>72 + $k*11,
+                    'b'=>true,
+                    'font_size'=>15
+                ];
+            }
+        }
+
+        $cfg = [
+            'card_no'=>['x'=>122, 'y'=>4, 'b'=>true, 'font_size'=>15],
+            'tomb_no'=>['x'=>62, 'y'=>45, 'b'=>true, 'font_size'=>15],
+            'bury_date'=>['x'=>62, 'y'=>58, 'b'=>true, 'font_size'=>15],
+            'customer_name'=>['x'=>62, 'y'=>134, 'b'=>true, 'font_size'=>15],
+            'card_date'=>['x'=>62, 'y'=>154, 'b'=>true, 'font_size'=>15],
+            'price'=>['x'=>62, 'y'=>174, 'b'=>true, 'font_size'=>15]
+        ];
+
+        $result = [];
+        foreach ($info as $k=>$v) {
+            if (in_array($k, ['dead', 'card_dates'])) continue;
+            $result[$k] = [
+                'content'=>$v, 'x'=>$cfg[$k]['x'], 'y'=>$cfg[$k]['y'], 'b'=>true, 'font_size'=>15
+            ];
+        }
+
+        $result = array_merge($result, $dead_result, $card_dates);
+
+        return $result;
+    }
+
 
     /**
      * @return string

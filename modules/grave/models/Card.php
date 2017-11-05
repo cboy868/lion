@@ -2,10 +2,13 @@
 
 namespace app\modules\grave\models;
 
+use app\core\helpers\StringHelper;
 use app\modules\grave\models\Bury;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\modules\grave\models\CardRel;
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "{{%grave_card}}".
  *
@@ -64,6 +67,51 @@ class Card extends \app\core\db\ActiveRecord
                 'class' => TimestampBehavior::className(),
             ]
         ];
+    }
+
+    /**
+     * @name 墓证信息
+     * @desc 用于打印墓证
+     */
+    public static function info($tomb_id)
+    {
+        $model = self::findOne($tomb_id);
+        $rels = $model->rels;
+        $tomb = $model->tomb;
+        $deads = $tomb->deads;
+        $customer = $tomb->customer;
+        $bury = Bury::find()->where(['tomb_id'=>$tomb_id])
+                            ->andWhere(['status'=>Bury::STATUS_OK])
+                            ->orderBy('id asc')
+                            ->one();
+        $order_rel = OrderRel::find()->where([
+            'type'=>OrderRel::TYPE_TOMB,
+            'tid'=>$tomb_id,
+            'status'=>OrderRel::STATUS_NORMAL])->one();
+
+        $dead_names = ArrayHelper::getColumn($deads, 'dead_name');
+
+        $card_dates = [];
+        foreach ($rels as $v) {
+            $card_dates[] = $v['start'] .' - '. $v['end'];
+        }
+
+        $info = [
+            'card_no' => $model->id,
+            'tomb_no' => $tomb->tomb_no,
+            'deads' => $dead_names,
+            'bury_date' => isset($bury->bury_date)? $bury->bury_date : '',
+            'customer_name' => $customer->name,
+            'card_date' => $model->start,//发证日期
+            'card_dates' => $card_dates,
+            'price' => isset($order_rel->price) ? $order_rel->price : 0
+
+        ];
+
+        $info['price'] = "人民币".StringHelper::num2rmb($info['price'])."整";
+
+        return $info;
+
     }
 
     public function getBy()

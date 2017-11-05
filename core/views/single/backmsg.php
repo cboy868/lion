@@ -110,13 +110,12 @@ var wait = document.getElementById('wait'),href = "<?=$gotoUrl?>";
 var interval = setInterval(function(){  
         var time = --wait.innerHTML;  
         if(time <= 0) {  
-
-                if (href) {
-                   location.href = href;  
-                } else {
-                   history.go(-1);
-                }
-                clearInterval(interval);  
+            if (href) {
+               location.href = href;
+            } else {
+               history.go(-1);
+            }
+            clearInterval(interval);
         };  
 }, 1000);  
 })();  
