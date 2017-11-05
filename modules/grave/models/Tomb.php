@@ -379,22 +379,30 @@ class Tomb extends \app\core\db\ActiveRecord
                     Url::toRoute(['/grave/admin/tomb/view', 'id'=>$this->id]),
                     'tomb-detail'
                 ],
-                [
-                    '购买商品',
-                    Url::toRoute(['/grave/admin/mall/shop', 'tomb_id'=>$this->id]),
-                    'tomb-shop'
-                ],
-                [
-                    '特殊商品',
-                    '#',
-                    'special-goods'
-                ]
-                
             ],//一般操作
             
         ];
 
         $common =& $options['common'];
+
+        if (!in_array($this->status, [self::STATUS_RETURN,
+            self::STATUS_EMPTY,
+            self::STATUS_DELETE,
+            self::STATUS_RETAIN,
+            self::STATUS_PRE])) {
+            $common = array_merge($common,[
+                [
+                    '购买商品',
+                    Url::toRoute(['/grave/admin/mall/shop', 'tomb_id'=>$this->id]),
+                    'tomb-shop'
+                ]
+//                [
+//                    '特殊商品',
+//                    '#',
+//                    'special-goods'
+//                ]
+            ]);
+        }
 
         if ($this->status == self::STATUS_EMPTY) {
             $common = array_merge($common,[

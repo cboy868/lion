@@ -65,27 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{delete} {view} {refund}',
-                'visibleButtons' =>[
-                    'view' =>Yii::$app->user->can('order/default/view'),
-                    'delete' =>Yii::$app->user->can('order/default/delete'),
-                    'refund' =>Yii::$app->user->can('order/default/refund'),
-                ],
-                'buttons' => [
-                    'delete' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
-                    },
-
-                    'refund' => function($url, $model, $key) {
-                        if ($model->progress >= Order::PRO_PART && $model->progress != Order::PRO_DELAY) {
-                            return Html::a('退款', $url, ['title' => '退款处理','aria-label'=>"退款处理"] );
-                        }
-
-                        return '';
-                        
-                    },
-
-                ],
+                'template' => '{view} ',
                'headerOptions' => ['width' => '100',"data-type"=>"html"]
             ]
         ],

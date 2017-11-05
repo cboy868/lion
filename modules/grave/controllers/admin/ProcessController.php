@@ -71,6 +71,9 @@ class ProcessController extends BackController
      */
     public function actionIndex($step, $tomb_id)
     {
+        if ($step > 5) {
+            $step = 5;
+        }
         $this->layout = '@app/modules/grave/views/admin/process/layout';
     	$method = Process::$step[$step]['method'];
         // Process::$tomb_id = $tomb_id;

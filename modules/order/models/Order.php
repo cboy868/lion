@@ -139,6 +139,7 @@ class Order extends \app\core\db\ActiveRecord
             $order->updatePrice();
 
         } catch (\Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
             return false;
         }
 

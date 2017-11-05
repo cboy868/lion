@@ -310,6 +310,7 @@ class MallController extends BackController
             $sku = Sku::findOne($sku_id);
             $order_info = $sku->order($tomb->user_id, $extra);
 
+
             $rel = $order_info['rel'];
             $goods = Goods::findOne($info['id']);
 
