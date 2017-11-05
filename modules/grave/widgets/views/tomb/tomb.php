@@ -99,7 +99,7 @@ PluploadAssets::register($this);
                     <tr>
                         <th>纪念馆</th>
                         <td>
-                            <a target="_blank" href="<?=Url::toRoute(['/memorial/home/default/view', 'id'=>$tomb->memorial->id])?>">
+                            <a target="_blank" href="<?=Url::toRoute(['/memorial/home/hall/index', 'id'=>$tomb->memorial->id])?>">
                                 <?=$tomb->memorial->title?>
                             </a>
                             <!--
