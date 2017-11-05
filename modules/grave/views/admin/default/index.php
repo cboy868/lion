@@ -220,6 +220,78 @@ $this->params['breadcrumbs'][] = $this->title;
                                 墓位总计 <strong><?=$tomb_cnt?> </strong> 座,销售情况如右图
                             </p>
                             <p>更多详细情况，请点击左侧墓区列表</p>
+                            <table class="table table-bordered">
+                                <caption>所有墓区销售情况统计</caption>
+                                <tr>
+                                    <th>大区</th>
+                                    <th>闲置</th>
+                                    <th>预定</th>
+                                    <th>订金</th>
+                                    <th>全款</th>
+                                    <th>部分安葬</th>
+                                    <th>全部安葬</th>
+                                    <th>独葬</th>
+                                    <th>保留</th>
+                                </tr>
+
+                                <?php foreach ($cates as $cate):?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?=Url::toRoute(['/grave/admin/default/index', 'id'=>$cate['id']])?>">
+                                                <?=$cate['name']?>(总:<?=array_sum($total[$cate['id']])?>)
+                                            </a>
+                                        </td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_EMPTY]?></td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_PRE]?></td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_DEPOSIT]?></td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_PAYOK]?></td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_PART]?></td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_ALL]?></td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_SINGLE]?></td>
+                                        <td><?=$total[$cate['id']][Tomb::STATUS_RETAIN]?></td>
+                                    </tr>
+                                    <?php if (isset($cate['child'])):?>
+                                        <?php foreach ($cate['child'] as $child):?>
+                                            <tr>
+                                                <td>&nbsp;--
+
+                                                    <a href="<?=Url::toRoute(['/grave/admin/default/index', 'id'=>$child['id']])?>">
+                                                        <?=$child['name']?>(总:<?=array_sum($total[$child['id']])?>)
+                                                    </a>
+                                                </td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_EMPTY]?></td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_PRE]?></td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_DEPOSIT]?></td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_PAYOK]?></td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_PART]?></td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_ALL]?></td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_SINGLE]?></td>
+                                                <td><?=$total[$child['id']][Tomb::STATUS_RETAIN]?></td>
+                                            </tr>
+                                            <?php if (isset($child['child'])):?>
+                                                <?php foreach ($child['child'] as $v):?>
+                                                    <tr>
+                                                        <td>&nbsp;-- &nbsp; --
+                                                            <a href="<?=Url::toRoute(['/grave/admin/default/index', 'id'=>$v['id']])?>">
+                                                                <?=$v['name']?>(总:<?=array_sum($total[$v['id']])?>)
+                                                            </a>
+                                                        </td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_EMPTY]?></td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_PRE]?></td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_DEPOSIT]?></td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_PAYOK]?></td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_PART]?></td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_ALL]?></td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_SINGLE]?></td>
+                                                        <td><?=$total[$v['id']][Tomb::STATUS_RETAIN]?></td>
+                                                    </tr>
+                                                <?php endforeach;?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
+
+                                <?php endforeach;?>
+                            </table>
                         </div>
                         <div class="col-md-5">
                             <?=\app\modules\analysis\widgets\Analysis::widget([
@@ -227,6 +299,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ])?>
                         </div>
                     </div>
+
+
+
 
 
                 <?php endif;?>

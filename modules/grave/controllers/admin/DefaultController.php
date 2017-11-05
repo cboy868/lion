@@ -5,6 +5,7 @@ namespace app\modules\grave\controllers\admin;
 use app\core\models\Attachment;
 use app\core\models\AttachmentRel;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use app\modules\grave\models\Tomb;
 use app\modules\grave\models\Grave;
@@ -74,7 +75,75 @@ class DefaultController extends BackController
                 ->orderBy('row asc,col asc')->all();
             $data['minCol'] = $model->minCol();
             $data['maxCol'] = $model->maxCol();
+        } else {
+            $sta = Tomb::find()->where(['not in', 'status', [Tomb::STATUS_DELETE,Tomb::STATUS_RETURN]])
+                ->select(['grave_id', 'status', 'count(*) as cnt'])
+                ->groupBy('grave_id,status')
+                ->asArray()
+                ->all();
+
+            $total = [];
+            $cnt = 0;
+            foreach ($sta as $v) {
+                $cnt += $v['cnt'];
+                $total[$v['grave_id']] = $cnt;
+            };
+
+
+            $st = Tomb::getSta();
+            $sta = ArrayHelper::index($sta, 'status', 'grave_id');
+
+            $result = [];
+            foreach ($cates as $cate) {
+                if (isset($cate['child'])) {
+                    foreach ($cate['child'] as $child) {
+                        if (isset($child['child'])) {
+                            foreach ($child['child'] as $v){
+                                foreach ($st as $status => $staustxt) {
+                                    if (isset($sta[$v['id']][$status]['cnt'])) {
+                                        $result[$child['id']][$status] = isset($result[$child['id']][$status]) ?
+                                            $result[$child['id']][$status] + $sta[$v['id']][$status]['cnt'] : $sta[$v['id']][$status]['cnt'];
+                                        $result[$v['id']][$status] = $sta[$v['id']][$status]['cnt'];
+                                    } else {
+                                        $result[$child['id']][$status] = 0;
+                                        $result[$v['id']][$status] = 0;
+                                    }
+                                }
+                            }
+                        } else {
+
+                            foreach ($st as $status => $staustxt) {
+
+                                if (isset($sta[$child['id']][$status]['cnt'])) {
+                                    $result[$cate['id']][$status] = isset($result[$cate['id']][$status]) ?
+                                        $result[$cate['id']][$status] + $sta[$child['id']][$status]['cnt'] : $sta[$child['id']][$status]['cnt'];
+
+                                    $result[$child['id']][$status] = $sta[$child['id']][$status]['cnt'];
+                                } else {
+                                    $result[$cate['id']][$status] = 0;
+                                    $result[$child['id']][$status] = 0;
+                                }
+
+
+                            }
+                        }
+                    }
+                } else {
+
+                    foreach ($st as $status => $staustxt) {
+                        if (isset($sta[$cate['id']][$status]['cnt'])) {
+                            $result[$cate['id']][$status] = $sta[$cate['id']][$status]['cnt'];
+                        } else {
+                            $result[$cate['id']][$status] = 0;
+                        }
+
+                    }
+                }
+            }
+
+            $data['total'] = $result;
         }
+
         return $this->render('index', $data);
     }
 
