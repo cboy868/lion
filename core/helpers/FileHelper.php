@@ -6,7 +6,7 @@
  */
 
 namespace app\core\helpers;
-
+use yii\base\InvalidParamException;
 /**
  * File system helper
  *
@@ -41,7 +41,6 @@ class FileHelper extends \yii\helpers\BaseFileHelper
 	 */
 	public static function getThemes($dir, $url) {
 		$themes = self::findFiles($dir);
-
 
 		$result = [];
 		foreach ($themes as $k => $v) {

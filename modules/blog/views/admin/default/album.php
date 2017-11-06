@@ -63,8 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
                          'created_at:datetime',
                         // 'updated_at',
                         // 'status',
-
-                        ['class' => 'yii\grid\ActionColumn'],
                     ],
                 ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>
