@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['width'=>'30', "data-type"=>"html"],
                 'footer' => '<input type="checkbox" class="select-on-check-all" name="id_all" value="1"> '.
                     '<button href="#" class="btn btn-default btn-xs btn-delete">删除</button>',
-                'footerOptions' => ['colspan' => 7, 'class'=>'deltd'],  //设置删除按钮垮列显示；
+                'footerOptions' => ['colspan' => 8, 'class'=>'deltd'],  //设置删除按钮垮列显示；
             ],
             'title',
 //            [
