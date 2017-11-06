@@ -41,8 +41,7 @@ class MessageSearch extends MessageModel
      */
     public function search($params)
     {
-        $query = MessageModel::find()->orderBy('id desc');
-        $query->orderBy('term asc');
+        $query = MessageModel::find()->orderBy('id desc,term asc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
