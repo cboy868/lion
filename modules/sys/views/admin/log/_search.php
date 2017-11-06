@@ -15,7 +15,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'prefix') ?>
 
-    <?php // echo $form->field($model, 'message') ?>
+    <?= $form->field($model, 'level') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>
