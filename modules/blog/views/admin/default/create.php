@@ -4,8 +4,6 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\blog\models\Blog */
 
 $this->title = 'Create Blog';
 $this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];

@@ -176,6 +176,9 @@ class Remote extends \app\core\db\ActiveRecord
 
     public function getGoodsSkuName()
     {
+        if (!$this->goods || !$this->sku) {
+            return '';
+        }
         return $this->goods->name == $this->sku->name ? $this->goods->name : $this->goods->name . $this->sku->name;
     }
 
