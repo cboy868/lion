@@ -65,7 +65,7 @@ class Settlement extends \app\core\db\ActiveRecord
 
             $transaction->commit();
         } catch (\Exception $e) {
-            Yii::error($e->getMessage());
+            Yii::error($e->getMessage(), __METHOD__);
             $transaction->rollBack();
         }
 
@@ -130,7 +130,7 @@ class Settlement extends \app\core\db\ActiveRecord
 
             $transaction->commit();
         } catch (\Exception $e) {
-            Yii::error($e->getMessage());
+            Yii::error($e->getMessage(),__METHOD__);
             $transaction->rollBack();
         }
     }

@@ -53,7 +53,7 @@ class DefaultController extends \app\core\web\BackController
     {
 //        Yii::trace('abc', __METHOD__);
 //        Yii::info('info', __METHOD__);
-        Yii::error('error', __METHOD__);
+//        Yii::error('error', __METHOD__);
 //        Yii::warning('warning', __METHOD__);
     }
 

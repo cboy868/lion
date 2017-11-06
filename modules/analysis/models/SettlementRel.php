@@ -139,7 +139,7 @@ class SettlementRel extends \app\core\db\ActiveRecord
         $srel->load($cdata, '');
         $srel->save();
 
-        Yii::error($srel->getErrors());
+//        Yii::error($srel->getErrors());
 
 
         return true;

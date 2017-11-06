@@ -191,7 +191,7 @@ class AgentController extends BackController
 
                 $outerTransaction->commit();
             } catch (\Exception $e) {
-                Yii::error($e->getMessage());
+                Yii::error($e->getMessage(),__METHOD__);
                 $outerTransaction->rollBack();
             }
 
