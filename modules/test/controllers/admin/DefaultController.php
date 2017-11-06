@@ -4,6 +4,7 @@ namespace app\modules\test\controllers\admin;
 
 
 
+use app\core\helpers\Ip;
 use app\core\models\TagRel;
 use app\core\libs\Fpdf;
 use app\modules\order\models\Order;
@@ -18,6 +19,12 @@ use EasyWeChat\Foundation\Application;
 
 class DefaultController extends \app\core\web\BackController
 {
+
+    public function actionIp()
+    {
+        $a = Ip::area('140.207.54.79');
+        p($a);die;
+    }
 
     public function actionA()
     {

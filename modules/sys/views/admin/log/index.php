@@ -2,7 +2,7 @@
 
 use app\core\helpers\Html;
 use app\core\widgets\GridView;
-
+use app\core\libs\Ip\IpLocation;
 
 $this->title = '系统调试日志';
 $this->params['breadcrumbs'][] = $this->title;
@@ -41,7 +41,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'level',
             'category',
             'log_time:datetime',
-            'prefix:ntext',
+            'prefix',
+            [
+                'label' => 'prefix',
+                'value' => function($model){
+                    $arr = preg_split("/(\[|\])/",$model->prefix);
+
+                    $ip = new IpLocation();
+                    $ipresult =  $arr[1] ? $ip->getlocation($arr[1]) : '';
+
+                    if (!$ipresult) {
+                        return $model->prefix;
+                    } else {
+                        return $model->prefix . $ipresult['country']. $ipresult['area'];
+                    }
+                }
+            ],
             'message:ntext',
 
             [
