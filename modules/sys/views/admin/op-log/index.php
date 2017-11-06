@@ -4,11 +4,10 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
+use app\core\libs\Ip\IpLocation;
 
 $this->title = '系统操作日志';
 $this->params['breadcrumbs'][] = $this->title;
-
-
 ?>
 
 <div class="page-content">
@@ -48,6 +47,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'ac',
             'route',
             'description:ntext',
+            'ip',
+            [
+                'label' => 'IP地址',
+                'value' => function($model) {
+                    $ip = new IpLocation();
+                    $ipresult = $ip->getlocation($model->ip);
+
+                    if (!$ipresult) {
+                        return $model->ip;
+                    } else {
+                        return $model->ip . $ipresult['country']. $ipresult['area'];
+                    }
+                }
+            ],
             'created_at:datetime',
         ],
     ]); ?>

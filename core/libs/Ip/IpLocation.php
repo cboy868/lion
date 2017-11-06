@@ -43,6 +43,7 @@ class IpLocation {
         $this->fp = 0;
 
         $dir = Yii::getAlias('@app/core/libs/Ip/' . $filename);
+
         if (($this->fp = @fopen($dir, 'rb')) !== false) {
             $this->firstip = $this->getlong();
             $this->lastip = $this->getlong();

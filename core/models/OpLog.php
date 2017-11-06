@@ -56,7 +56,7 @@ class OpLog extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description','table_name'], 'string'],
+            [['description','table_name', 'ip'], 'string'],
             [['description','table_name', 'action'], 'required'],
             [['created_at', 'user_id'], 'integer'],
             [['route'], 'string', 'max' => 255],
@@ -88,6 +88,7 @@ class OpLog extends \app\core\db\ActiveRecord
             'user_id' => '用户名',
             'user.username' => '操作人',
             'table_name' => '表',
+            'ip' => 'IP地址',
             'ac' => '操作'
         ];
     }

@@ -55,13 +55,13 @@ class OpLog
         $tableName = $event->sender->tableSchema->name;
         $route = Url::to();
 
-        $ip = ip2long(Yii::$app->request->userIP);
+//        $ip = ip2long(Yii::$app->request->userIP);
         $data = [
             'table_name' => $tableName,
             'route' => $route,
             'description' => $desc,
             'user_id' => $userId,
-            'ip' => $ip,
+            'ip' => Yii::$app->request->userIP,
             'action' => $action
         ];
         $model = new \app\core\models\OpLog();
