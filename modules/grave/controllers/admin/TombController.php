@@ -343,7 +343,6 @@ class TombController extends BackController
             }
         }
 
-
         $searchModel = new TombSearch();
 
         return $this->renderAjax('search', ['model'=>$searchModel, 'tombs'=>$tombs]);
@@ -379,8 +378,6 @@ class TombController extends BackController
                                ->asArray()
                                ->all();
 
-
-                               
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $status = true;

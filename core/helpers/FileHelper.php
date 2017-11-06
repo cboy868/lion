@@ -16,7 +16,6 @@ use yii\base\InvalidParamException;
  */
 class FileHelper extends \yii\helpers\BaseFileHelper
 {
-
 	public static function findFiles($dir, $is_dir = true) {
 		$list = [];
 		$handle = @opendir($dir);
@@ -49,7 +48,6 @@ class FileHelper extends \yii\helpers\BaseFileHelper
 				continue ;
 			}
 			$screenshot = $dir . DIRECTORY_SEPARATOR . $v . DIRECTORY_SEPARATOR . 'screenshot.png';
-
 
 			$web_url = $url . DIRECTORY_SEPARATOR . $v . DIRECTORY_SEPARATOR . 'screenshot.png';
 

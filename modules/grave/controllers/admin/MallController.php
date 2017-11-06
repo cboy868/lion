@@ -175,7 +175,7 @@ class MallController extends BackController
     public function actionSpecialGoods($tomb_id)
     {
         $tomb = Tomb::findOne($tomb_id);
-        $taskCate = \app\modules\task\models\Info::find()->all();
+        $taskCate = \app\modules\task\models\Info::find()->where(['is_leaf'=>0])->all();
 
 
         if (Yii::$app->request->isPost) {
