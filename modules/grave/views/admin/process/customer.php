@@ -111,8 +111,6 @@ $this->title="购墓流程"
                                             勾选新增联系人，则为此账号增加新的联系人
                                         </p>
 
-
-
                                         <ul class="oldUser">
 
                                             <li>

@@ -50,13 +50,21 @@ class CardSearch extends Card
             ],
         ]);
 
-        $query->andWhere([
-            'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
-        ]);
+
+
+        if (isset($params['TombSearch']['grave_id']) && $params['TombSearch']['grave_id']) {
+            $query->andWhere([
+                'tomb_id' => \app\modules\grave\models\search\TombSearch::searchTomb($params)//$this->searchTomb($params),
+            ]);
+        }
+
+
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
+
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -67,6 +75,9 @@ class CardSearch extends Card
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+
+
 
         return $dataProvider;
     }

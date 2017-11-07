@@ -37,7 +37,7 @@ class Card extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tomb_id', 'start', 'end'], 'required'],
+            [['tomb_id', 'start', 'end', 'serial'], 'required'],
             [['tomb_id', 'total', 'created_by', 'created_at', 'updated_at'], 'integer'],
             [['start', 'end'], 'safe'],
         ];
@@ -57,6 +57,7 @@ class Card extends \app\core\db\ActiveRecord
             'created_by' => '添加人',
             'created_at' => '添加时间',
             'updated_at' => '修改时间',
+            'serial'     => '墓证号'
         ];
     }
 
@@ -75,13 +76,15 @@ class Card extends \app\core\db\ActiveRecord
      */
     public static function info($tomb_id)
     {
-        $model = self::findOne($tomb_id);
+        $model = self::find()->where(['tomb_id'=>$tomb_id])->one();
         $rels = $model->rels;
+
         $tomb = $model->tomb;
         $deads = $tomb->deads;
         $customer = $tomb->customer;
         $bury = Bury::find()->where(['tomb_id'=>$tomb_id])
                             ->andWhere(['status'=>Bury::STATUS_OK])
+                            ->andWhere(['<>', 'bury_date', 'null'])
                             ->orderBy('id asc')
                             ->one();
         $order_rel = OrderRel::find()->where([
@@ -97,10 +100,10 @@ class Card extends \app\core\db\ActiveRecord
         }
 
         $info = [
-            'card_no' => $model->id,
+            'card_no' => $model->serial,
             'tomb_no' => $tomb->tomb_no,
             'deads' => $dead_names,
-            'bury_date' => isset($bury->bury_date)? $bury->bury_date : '',
+            'bury_date' => isset($bury->bury_date)? date('Y-m-d', strtotime($bury->bury_date)) : '',
             'customer_name' => $customer->name,
             'card_date' => $model->start,//发证日期
             'card_dates' => $card_dates,
@@ -132,9 +135,12 @@ class Card extends \app\core\db\ActiveRecord
     public static function initCard($tomb_id, $order_rel_id)
     {
         $card = self::find()->where(['tomb_id'=>$tomb_id])->one();
+
         if ($card) {
            return CardRel::initRel($card, $order_rel_id);
         }
+
+
 
         $tomb_params = Yii::$app->getModule('grave')->params['tomb_card'];
         $start_type = $tomb_params['start'];
@@ -175,8 +181,10 @@ class Card extends \app\core\db\ActiveRecord
             'start' => $min_date,
             'end' => date('Y-m-d', strtotime('+'.$tomb_params['years'].' years', $time)),
             'total' => $tomb_params['years'],
-            'created_by' => Yii::$app->user->id
+            'created_by' => Yii::$app->user->id,
+            'serial' => date('Ymd') . str_pad($tomb_id, 5, '0', STR_PAD_LEFT )
         ];
+
         $card->load($data, '');
 
         if ($card->save() !== false) {

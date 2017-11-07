@@ -328,8 +328,8 @@ class BuryController extends BackController
     {
         $bury = Bury::findOne($id);
         $bury->status = Bury::STATUS_OK;
+        $bury->bury_date = date('Y-m-d');
         if ($bury->save()) {
-
 
             $params = Yii::$app->getModule('grave')->params['tomb_card'];
 
@@ -339,6 +339,7 @@ class BuryController extends BackController
                     ->andWhere(['goods_id'=>$params['goods_id']])
                     ->one();
                 $order_rel_id = isset($order_rel->id) ? $order_rel->id : 0;
+
 
                 Card::initCard($bury->tomb_id, $order_rel_id);
             }
