@@ -37,10 +37,5 @@
 			<img>rr.png</img>
 			<coordinate>263,50</coordinate>
 		</share>
-		<share>
-			<id>tianya</id>
-			<img>tianya.png</img>
-			<coordinate>101,85</coordinate>
-		</share>
 	</share_button>
 </ckplayer>
