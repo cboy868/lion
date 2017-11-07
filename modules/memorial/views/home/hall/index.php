@@ -11,7 +11,7 @@ $this->params['current_nav'] = 'index';
                 <ul class="nav nav-tabs sline" role="tablist">
                     <?php foreach ($deads as $k=>$v):?>
                     <li class="<?php if($k==0)echo"active";?>">
-                        <a href=".d<?=$k?>" data-toggle="tab"><?=$v->dead_name?></a>
+                        <a href="#d<?=$k?>" data-toggle="tab"><?=$v->dead_name?></a>
                     </li>
                     <?php endforeach;?>
                 </ul>
@@ -20,7 +20,7 @@ $this->params['current_nav'] = 'index';
         <div class="col-md-6 box">
                 <div class="tab-content person-content">
                     <?php foreach ($deads as $k=>$v):?>
-                    <div class="tab-pane fade d<?=$k?> <?php if($k==0)echo"active in";?>">
+                    <div id="d<?=$k?>" class="tab-pane fade <?php if($k==0)echo"active in";?>">
 
                         <div class="col-md-4 col-sm-4 text-center">
                             <img class="img-rounded img-responsive center-block" src="<?=$v->getAvatarImg('144x200')?>">
