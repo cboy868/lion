@@ -215,7 +215,8 @@ class BuryController extends BackController
                             ->all();
 
         if (!$pres) {
-            return '';
+            Yii::$app->session->setFlash('error', '明日没有待安葬的逝者');
+            return $this->redirect(Yii::$app->request->referrer);
         }
 
         $dead_str = '';
