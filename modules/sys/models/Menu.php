@@ -100,7 +100,7 @@ class Menu extends \app\core\models\Category
 
             $menus = [];
             if (count($pids) > 0) {
-                $parents = Menu::find()->where(['id'=>$pids])->asArray()->all();
+                $parents = Menu::find()->where(['id'=>$pids])->orderBy('sort desc')->asArray()->all();
                 $menus = array_merge($result_menu, $parents);
             }
         }
