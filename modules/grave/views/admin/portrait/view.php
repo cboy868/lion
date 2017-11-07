@@ -163,7 +163,7 @@ function upinit() {
             filters : {
                 max_file_size : '10mb',
                 mime_types: [
-                    {title : "Image files", extensions : "jpg,gif,png"},
+                    {title : "Image files", extensions : "image/jpg,image/jpeg,image/png"},
                     {title : "Zip files", extensions : "zip"}
                 ],
                 prevent_duplicates: true//不允许选择重复文件
@@ -177,8 +177,6 @@ function upinit() {
             init: {
                 PostInit: function() {},
                 FilesAdded: function(up, files) {
-
-
 
                 bt = $('#myButton').button('loading');
 

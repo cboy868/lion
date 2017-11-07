@@ -60,6 +60,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php echo $this->render('_presearch', ['model' => $searchModel]); ?>
                 </div>
             </div>
+            <div class="col-md-12">
+                <?=\app\core\widgets\Alert::widget()?>
+            </div>
             <?php
 
             $today = date('Y-m-d');
@@ -95,12 +98,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
 
-                <?php
-
-
-
-
-                ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],

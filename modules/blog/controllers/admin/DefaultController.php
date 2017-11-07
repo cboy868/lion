@@ -27,6 +27,18 @@ class DefaultController extends BackController
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'pl-upload' => [
+                'class' => 'app\core\web\PluploadAction',
+            ],
+            'ue-upload' => [
+                'class' => 'app\core\widgets\Ueditor\UploadAction',
+            ]
+        ];
+    }
+
     /**
      * Lists all Blog models.
      * @return mixed
