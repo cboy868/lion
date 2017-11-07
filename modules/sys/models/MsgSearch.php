@@ -41,7 +41,7 @@ class MsgSearch extends Msg
      */
     public function search($params)
     {
-        $query = Msg::find();
+        $query = Msg::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
