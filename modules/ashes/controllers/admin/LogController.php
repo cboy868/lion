@@ -113,7 +113,7 @@ class LogController extends BackController
             $box->status = Box::STATUS_EMPTY;
             $box->save();
 
-            return $this->redirect(['/ashes/admin/default/view', 'box_id'=>$box_id]);
+            return $this->redirect(['/ashes/admin/default/index']);
         }
 
         $log->out_time = date('Y-m-d H:i:s');
