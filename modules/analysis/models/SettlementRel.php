@@ -48,7 +48,20 @@ class SettlementRel extends \app\core\db\ActiveRecord
         $data = [];
 
         foreach ($rels as $k => $rel) {
-            $res_name = $rel->type == 9 ? 'tomb' : 'goods';
+
+            switch ($rel->type) {
+                case OrderRel::TYPE_GOODS : $res_name = 'goods';
+                break;
+                case OrderRel::TYPE_BAG : $res_name = 'bag';
+                break;
+                case OrderRel::TYPE_SPECIAL_GOODS : $res_name = 'special';
+                break;
+                case \app\modules\grave\models\OrderRel::TYPE_TOMB : $res_name = 'tomb';
+                break;
+                case OrderRel::TYPE_INS : $res_name = 'ins';
+                break;
+                default:$res_name = 'goods';
+            }
             $nd = [
                 'category_id' => $rel->category_id ? $rel->category_id : 0,
                 'goods_id'    => $rel->goods_id,

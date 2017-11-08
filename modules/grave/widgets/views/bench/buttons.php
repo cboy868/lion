@@ -47,15 +47,14 @@ use yii\bootstrap\Modal;
     <?php endif;?>
 </div>
 <?php foreach ($menus as $k=>$v):?>
+    <?php
+    if (!isset($panels[$k])) {
+        continue;
+    }
+    ?>
 <div class="widget-box transparent ui-sortable-handle" style="opacity: 1;">
     <div class="widget-header">
-        <?php
 
-        if (!isset($panels[$k])) {
-//            p($k);die;
-            continue;
-        }
-        ?>
         <h4 class="widget-title lighter"><i class="<?=$panels[$k]['icon']?>"></i> <?=$panels[$k]['name']?></h4>
         <!--
         <div class="widget-toolbar no-border">

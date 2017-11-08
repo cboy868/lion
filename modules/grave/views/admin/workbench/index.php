@@ -1,5 +1,4 @@
 <?php
-/* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\core\widgets\ActiveForm;
@@ -16,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <div class="page-content">
-    <!-- /section:settings.box -->
 
 <!-- Modal -->
 
@@ -25,17 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-6">
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'buttons'])?>
-
-
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 a">
                 <?=\app\modules\analysis\widgets\Analysis::widget(['name'=>'guideSelfMonth'])?>
 
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'task'])?>
 
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'client'])?>
-
-                <?php //echo \app\modules\grave\widgets\Bench::widget(['name'=>'post', 'mod'=>1, 'limit'=>20])?>
             </div>
 
         </div><!-- /.row -->

@@ -38,6 +38,7 @@ class OrderRel extends \app\core\db\ActiveRecord
     const TYPE_GOODS = 1;//普通商品订单
     const TYPE_BAG = 2;//套餐商品
     const TYPE_SPECIAL_GOODS = 11;//特殊商品
+    const TYPE_INS = 5;
 
     const EVENT_AFTER_CREATE = 'afterCreate';
 
