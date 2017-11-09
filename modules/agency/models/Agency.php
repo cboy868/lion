@@ -5,6 +5,8 @@ namespace app\modules\agency\models;
 use app\modules\user\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "{{%agency}}".
  *
@@ -83,6 +85,15 @@ class Agency extends \app\core\db\ActiveRecord
             'status' => '状态',
             'cate' => '隶属'
         ];
+    }
+
+    public static function sel()
+    {
+        $list = self::find()->where(['status'=>self::STATUS_NORMAL])->all();
+
+        $list = ArrayHelper::map($list, 'id', 'title');
+
+        return $list;
     }
 
     public function getLUser()

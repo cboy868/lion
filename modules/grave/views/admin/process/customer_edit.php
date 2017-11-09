@@ -2,6 +2,7 @@
 use app\core\widgets\ActiveForm;
 use app\core\helpers\Html;
 use app\core\helpers\Url;
+use app\modules\agency\models\Agency;
 // use app\assets\JqueryuiAsset;
 use app\core\widgets\Area\Select;
 
@@ -52,15 +53,36 @@ $this->title="购墓流程"
 
                     <table class="table table-condensed">
                         <tr>
-                        <?php 
+                        <?php
+                          $agency_disabled = $tomb->agency_id ? true : false;
                           $agent_disabled = $tomb->agent_id ? true : false;
                           $guide_disabled = $tomb->guide_id ? true : false;
                           $uname_disabled = $user->id ? true : false;
                           $customer_disabled = $model->id ? true : false;
                          ?>
                         <?php $form->fieldConfig['template'] = '{label}<div class="col-sm-8 ui-widget">{input}{hint}{error}</div>'; ?>
-                            <td><?= $form->field($tomb, 'agent_id')->dropDownList($agent,['class'=>'sel-ize','disabled'=>$agent_disabled])->label('***(<font color="red">*</font>)') ?></td>
-                            <td><?= $form->field($tomb, 'guide_id')->dropDownList($guide,['class'=>'sel-ize','disabled'=>$guide_disabled])->label("导购员(<font color='red'>*</font>)") ?></td>
+                            <td><?= $form->field($tomb, 'agency_id')
+                                    ->dropDownList(Agency::sel(),['class'=>'sel-ize','disabled'=>$agency_disabled, 'prompt'=>'请选择办事处'])
+                                    ->label('办事处(<font color="red">*</font>)')
+                                    ->hint('请选择办事处，不选择，则为市场部')
+                                ?>
+                            </td>
+                            <td><?= $form->field($tomb, 'agent_id')
+                                    ->dropDownList($agent,['class'=>'sel-ize','disabled'=>$agent_disabled,'prompt'=>'请选择'])
+                                    ->label('***(<font color="red">*</font>)') ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?= $form->field($tomb, 'guide_id')
+                                    ->dropDownList($guide,['class'=>'sel-ize','disabled'=>$guide_disabled])
+                                    ->label("导购员(<font color='red'>*</font>)") ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <hr>
+                            </td>
                         </tr>
                         <?php 
                             $form->fieldConfig['template'] = '{label}<div class="col-sm-8">{input}{hint}{error}</div>';

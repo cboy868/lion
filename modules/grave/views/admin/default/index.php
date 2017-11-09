@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                      <li class="<?php if (!$id) { echo 'active'; } ?>" >
                          <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
                             <i class="menu-icon fa fa-circle"></i>
-                            <span class="menu-text">所墓大区</span>
+                            <span class="menu-text">所有墓区</span>
                         </a>
                      </li>
                     <?php foreach ($cates as $key => $value): ?>
@@ -223,7 +223,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <table class="table table-bordered">
                                 <caption>所有墓区销售情况统计</caption>
                                 <tr>
-                                    <th>大区</th>
+                                    <th>墓区</th>
                                     <th>闲置</th>
                                     <th>预定</th>
                                     <th>订金</th>
