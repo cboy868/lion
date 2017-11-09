@@ -12,6 +12,8 @@ use app\modules\grave\models\Tomb;
 
 AdminAsset::register($this);
 
+$tomb_id = Yii::$app->request->get('tomb_id');
+$tomb = Tomb::findOne($tomb_id);
 ?>
 <?php $this->beginPage()?>
 
@@ -43,10 +45,10 @@ AdminAsset::register($this);
 
     <style type="text/css">
         .ace-nav>li {
-            line-height: 25px;
-            height: 25px;
-            margin-top: 10px;
-            margin-left: 10px;
+            /*line-height: 25px;*/
+            /*height: 25px;*/
+            /*margin-top: 10px;*/
+            /*margin-left: 10px;*/
         }
         .panel-heading {
             padding: 10px 10px;
@@ -75,36 +77,28 @@ AdminAsset::register($this);
                 <!-- /section:basics/sidebar.mobile.toggle -->
                 <div class="navbar-header pull-left">
                     <!-- #section:basics/navbar.layout.brand -->
-                    <a href="#" class="navbar-brand">
-                        业务办理流程
-                        <small>
-                            <?=Html::encode($this->title)?>
-                        </small>
+                    <a href="<?=Url::toRoute(['/grave/admin/tomb/view', 'id'=>$tomb_id])?>"
+                       class="navbar-brand"
+                       target="_blank"
+                    >
+                        【<?=Html::encode($tomb->tomb_no)?>】
+                        业务办理
                     </a>
-
-
-                    <!-- /section:basics/navbar.layout.brand -->
-
-                    <!-- #section:basics/navbar.toggle -->
-
-                    <!-- /section:basics/navbar.toggle -->
                 </div>
-
-                <!-- #section:basics/navbar.dropdown -->
-
-                <?php 
+                <?php
 
                     $goods = Yii::$app->params['goods'];
                     $portrait = $goods['cate']['portrait'];
                     $ins = $goods['cate']['ins'];
-                    $tomb_id = Yii::$app->request->get('tomb_id');
-
-                    $tomb = Tomb::findOne($tomb_id);
-
-
                  ?>
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
+
+                        <li class="blue">
+                            <a href="<?=Url::toRoute(['/grave/admin/default/index'])?>">
+                                返回墓区
+                            </a>
+                        </li>
 
                         <li class="grey">
                             <a href="<?=Url::toRoute(['/grave/admin/workbench/index'])?>"
@@ -134,11 +128,49 @@ AdminAsset::register($this);
                             </a>
                         </li> 
 
-                        <li class="grey">
-                            <a href="<?=Url::toRoute(['/grave/admin/tomb/view', 'id'=>$tomb_id])?>" target="_blank">
-                                一墓一档
+                        <li class="light-blue">
+                            <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                <img class="nav-user-photo" src="<?=Yii::$app->user->identity->getAvatar('40x40', '/static/images/default.png')?>" alt="Jason's Photo" />
+                                <span class="user-info">
+                                    <small>Welcome,</small>
+                                    <?=Yii::$app->user->identity->username?>
+                                </span>
+
+                                <i class="ace-icon fa fa-caret-down"></i>
                             </a>
-                        </li> 
+
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                                <!-- <li>
+                                    <a href="<?=Url::toRoute(['/admin/sys/default/index'])?>">
+                                        <i class="ace-icon fa fa-cog"></i>
+                                        网站设置
+                                    </a>
+                                </li> -->
+
+                                <li>
+                                    <a href="<?=Url::toRoute(['/member'])?>">
+                                        <i class="ace-icon fa fa-user"></i>
+                                        会员中心
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">
+                                        <i class="ace-icon fa fa-cog"></i>
+                                        个人设置
+                                    </a>
+                                </li>
+
+                                <li class="divider"></li>
+
+                                <li>
+                                    <a href="<?=Url::toRoute(['/admin/default/logout'])?>" data-method="post">
+                                        <i class="ace-icon fa fa-power-off"></i>
+                                        登出
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <!-- /section:basics/navbar.user_menu -->
                     </ul>
                 </div>

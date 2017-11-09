@@ -87,11 +87,15 @@ class Agency extends \app\core\db\ActiveRecord
         ];
     }
 
-    public static function sel()
+    public static function sel($flag=false)
     {
         $list = self::find()->where(['status'=>self::STATUS_NORMAL])->all();
 
         $list = ArrayHelper::map($list, 'id', 'title');
+
+        if ($flag) {
+            $list = ['0'=>'市场部'] + $list;
+        }
 
         return $list;
     }

@@ -148,15 +148,18 @@ class Settlement extends \app\core\db\ActiveRecord
 
         $guide_id = 0;
         $agent_id = 0;
+        $agency_id = 0;
         if (isset($order->tomb)) {
             $guide_id = $order->tomb->guide_id;
             $agent_id = $order->tomb->agent_id;
+            $agency_id = $order->tomb->agency_id;
         }
 
         $cdata = [
             'op_id'    => Yii::$app->user->id,
             'guide_id' => $guide_id,
             'agent_id' => $agent_id,
+            'agency_id' => $agency_id,
             'year'     => date('Y'),
             'quarter'  => ceil((date('n'))/3),
             'month'    => date('m'),
@@ -214,7 +217,6 @@ class Settlement extends \app\core\db\ActiveRecord
     }
 
 
-
     public static function refund($refund)
     {
 
@@ -222,15 +224,18 @@ class Settlement extends \app\core\db\ActiveRecord
 
         $guide_id = 0;
         $agent_id = 0;
+        $agency_id = 0;
         if (isset($order->tomb)) {
             $guide_id = $order->tomb->guide_id;
             $agent_id = $order->tomb->agent_id;
+            $agency_id = $order->tomb->agency_id;
         }
 
         $data = [
             'op_id'    => Yii::$app->user->id,
             'guide_id' => $guide_id,
             'agent_id' => $agent_id,
+            'agency_id' => $agency_id,
             'year'     => date('Y'),
             'quarter'  => ceil((date('n'))/3),
             'month'    => date('m'),
@@ -274,11 +279,13 @@ class Settlement extends \app\core\db\ActiveRecord
 
         $guide_id = $tomb->guide_id;
         $agent_id = $tomb->agent_id;
+        $agency_id = $tomb->agency_id;
 
         $data = [
             'op_id'    => Yii::$app->user->id,
             'guide_id' => $guide_id,
             'agent_id' => $agent_id,
+            'agency_id'=> $agency_id,
             'year'     => date('Y'),
             'quarter'  => ceil((date('n'))/3),
             'month'    => date('m'),
@@ -480,7 +487,8 @@ class Settlement extends \app\core\db\ActiveRecord
     {
         return [
             [['order_id', 'op_id', 'type', 'pay_type', 'price'], 'required'],
-            [['order_id', 'op_id', 'guide_id', 'agent_id', 'type', 'pay_type', 'year', 'month', 'week', 'day', 'quarter', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['order_id', 'op_id', 'guide_id', 'agent_id', 'type', 'pay_type', 'year','agency_id',
+                'month', 'week', 'day', 'quarter', 'status', 'created_at', 'updated_at'], 'integer'],
             [['price'], 'number'],
             [['settle_time', 'pay_time'], 'safe'],
             [['intro'], 'string'],

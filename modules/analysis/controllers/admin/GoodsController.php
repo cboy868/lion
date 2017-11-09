@@ -10,7 +10,6 @@ use app\modules\shop\models\Goods;
 /**
  * Class GoodsController
  * @package app\modules\analysis\controllers\admin
- * todo 各种统计最后都应该加上缓存
  */
 class GoodsController extends \app\core\web\BackController
 {
@@ -31,7 +30,7 @@ class GoodsController extends \app\core\web\BackController
 
          if ($info === false) {
 
-             $info = SettlementRel::find()->where(['year'=>$date[0]])
+             $info = SettlementRel::find()->where(['year'=>$date[0], 'status'=>1])
                  ->andWhere(['res_name'=>'goods'])
                  ->select(['month', 'sum(price) as total'])
                  ->indexBy('month')
@@ -59,7 +58,7 @@ class GoodsController extends \app\core\web\BackController
 
         if ($result === false) {
 
-            $info = SettlementRel::find()->where(['year'=>date('Y')])
+            $info = SettlementRel::find()->where(['year'=>date('Y'), 'status'=>1])
 //            ->andWhere(['month'=>$month])
                 ->andWhere(['res_name'=>'goods'])
                 ->select(['goods_id', 'sum(price) as total'])
@@ -103,7 +102,7 @@ class GoodsController extends \app\core\web\BackController
         $result = $cache->get('goods_hot_num');
 
         if ($result === false) {
-            $num_info = SettlementRel::find()->where(['year'=>date('Y')])
+            $num_info = SettlementRel::find()->where(['year'=>date('Y'), 'status'=>1])
 //            ->andWhere(['month'=>$month])
                 ->andWhere(['res_name'=>'goods'])
                 ->select(['goods_id', 'sum(num) as num'])
@@ -145,7 +144,7 @@ class GoodsController extends \app\core\web\BackController
         $result = $cache->get('goods_cate');
 
         if ($result === false) {
-            $info = SettlementRel::find()->where(['year'=>date('Y')])
+            $info = SettlementRel::find()->where(['year'=>date('Y'), 'status'=>1])
 //            ->andWhere(['month'=>$month])
                 ->andWhere(['<>', 'category_id', 0])
                 ->andWhere(['res_name'=>'goods'])

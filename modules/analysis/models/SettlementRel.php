@@ -32,13 +32,24 @@ class SettlementRel extends \app\core\db\ActiveRecord
     {
         $rels = $order->rels;
 
+        $guide_id = 0;
+        $agent_id = 0;
+        $agency_id = 0;
+        if (isset($order->tomb)) {
+            $guide_id = $order->tomb->guide_id;
+            $agent_id = $order->tomb->agent_id;
+            $agency_id = $order->tomb->agency_id;
+        }
+
+
         $cdata = [
             'order_id' => $order->id,
             'op_id'     => Yii::$app->user->id,
             'settlement_id' => $settlement->id,
             'settle_time'   => $settlement->settle_time,
-            'guide_id' => 0,
-            'agent_id' => 0,
+            'guide_id' => $guide_id,
+            'agent_id' => $agent_id,
+            'agency_id'=> $agency_id,
             'year'     => $settlement->year,
             'month'    => $settlement->month,
             'week'     => $settlement->week,
@@ -92,8 +103,9 @@ class SettlementRel extends \app\core\db\ActiveRecord
             'op_id'     => Yii::$app->user->id,
             'settlement_id' => $settlement->id,
             'settle_time'   => $settlement->settle_time,
-            'guide_id' => 0,
-            'agent_id' => 0,
+            'guide_id' => $settlement->guide_id,
+            'agent_id' => $settlement->agent_id,
+            'agency_id'=> $settlement->agency_id,
             'year'     => $settlement->year,
             'month'    => $settlement->month,
             'week'     => $settlement->week,
@@ -109,7 +121,7 @@ class SettlementRel extends \app\core\db\ActiveRecord
                 'ori_price'   => $rel->price,
                 'price'       => -$rels[$rel->id]['price'],//$rel->price,
                 'res_name'    => $res_name,
-                'num'         => $rels[$rel->id]['num']
+                'num'         => -$rels[$rel->id]['num']
             ];
 
             $srel = new self;
@@ -133,8 +145,9 @@ class SettlementRel extends \app\core\db\ActiveRecord
             'op_id'     => Yii::$app->user->id,
             'settlement_id' => $settlement->id,
             'settle_time'   => $settlement->settle_time,
-            'guide_id' => 0,
-            'agent_id' => 0,
+            'guide_id' => $tomb->guide_id,
+            'agent_id' => $tomb->agent_id,
+            'agency_id'=> $tomb->agency_id,
             'year'     => $settlement->year,
             'month'    => $settlement->month,
             'week'     => $settlement->week,
@@ -145,15 +158,12 @@ class SettlementRel extends \app\core\db\ActiveRecord
             'ori_price'   => $tomb->price,
             'price'       => $withdraw->price ? -$withdraw->price : 0,//$rel->price,
             'res_name'    => 'tomb',
-            'num'         => 1
+            'num'         => -1
         ];
 
         $srel = new self;
         $srel->load($cdata, '');
         $srel->save();
-
-//        Yii::error($srel->getErrors());
-
 
         return true;
 
@@ -173,8 +183,11 @@ class SettlementRel extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'op_id', 'category_id', 'goods_id', 'sku_id', 'ori_price', 'price', 'settlement_id','num'], 'required'],
-            [['order_id', 'op_id', 'guide_id', 'agent_id', 'category_id', 'goods_id', 'sku_id', 'type', 'year', 'month', 'week', 'day', 'status', 'created_at', 'updated_at', 'num'], 'integer'],
+            [['order_id', 'op_id', 'category_id', 'goods_id', 'sku_id',
+                'ori_price', 'price', 'settlement_id','num'], 'required'],
+            [['order_id', 'op_id', 'guide_id', 'agent_id', 'category_id',
+                'goods_id', 'sku_id', 'type', 'year', 'month', 'week', 'day',
+                'status', 'created_at', 'updated_at', 'num','agency_id'], 'integer'],
             [['ori_price', 'price'], 'number'],
             [['settle_time', 'pay_time'], 'safe'],
             [['intro'], 'string'],

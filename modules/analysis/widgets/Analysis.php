@@ -38,7 +38,6 @@ class Analysis extends \yii\base\Widget
         return $this->$method();
     }
 
-
     /**
      * @return string
      * @name 总销量及金额
@@ -122,6 +121,34 @@ class Analysis extends \yii\base\Widget
     private function goodsCate()
     {
         return $this->render('goods/cate');
+    }
+
+
+    //----------------办事处 业务员统计
+
+    private function agencyYear()
+    {
+        return $this->render('agency/year');
+    }
+
+    private function agencySelf()
+    {
+        return $this->render('agency/self');
+    }
+
+    private function agencyMonth()
+    {
+        return $this->render('agency/month');
+    }
+
+    private function agentYear()
+    {
+        return $this->render('agency/agent-year');
+    }
+
+    private function agentMonth()
+    {
+        return $this->render('agency/agent-month');
     }
 
 
