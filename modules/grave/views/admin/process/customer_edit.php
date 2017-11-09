@@ -28,7 +28,6 @@ $this->title="购墓流程"
         	<?php  echo $this->render('_step'); ?>
         </div><!-- /.page-header -->
 
-
         <?=\app\core\widgets\Alert::widget();?>
         
         <div class="row">

@@ -70,7 +70,7 @@ class Order extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['wechat_uid', 'type', 'progress', 'created_at', 'updated_at', 'status', 'user_id', 'op_id', 'tid'], 'integer'],
+            [['wechat_uid', 'type', 'progress', 'created_at', 'updated_at', 'status', 'user_id', 'op_id', 'tid', 'agency_id'], 'integer'],
             [['price', 'origin_price'], 'number'],
             [['note'], 'string'],
             [['user_id'], 'required'],
@@ -252,6 +252,7 @@ class Order extends \app\core\db\ActiveRecord
         }
         $model->type = isset($extra['type']) ? $extra['type'] : 1;
         $model->note = isset($extra['order_note']) ? $extra['order_note'] : '';
+        $model->agency_id = isset($extra['agency_id']) ? $extra['agency_id'] : 0;
 
         if (!$model->tid && isset($extra['tid'])) {
             $model->tid = $extra['tid'];

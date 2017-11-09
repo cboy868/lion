@@ -32,11 +32,12 @@ class Order extends \app\modules\order\models\Order
         try {
             $extra['type'] = self::TYPE_TOMB;
             $extra['tid']  = $tomb->id;
+            $extra['agency_id'] = $tomb->agency_id;
 
             $order = self::getValidOrder($user_id, $extra);
 
             OrderRel::createTombOrder($order, $tomb, $extra);
-           $a = OrderRel::createCardOrder($order, $tomb);
+            OrderRel::createCardOrder($order, $tomb);
             $order->updatePrice();
         } catch (\Exception $e) {
             echo $e->getMessage();
