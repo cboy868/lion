@@ -102,4 +102,27 @@ class Analysis extends \yii\base\Widget
     }
 
 
+    //-----------------商品统计部分---------------//
+
+    private function goodsSale()
+    {
+        return $this->render('goods/sale');
+    }
+
+    private function goodsHotPrice()
+    {
+        return $this->render('goods/hot-price');
+    }
+
+    private function goodsHotNum()
+    {
+        return $this->render('goods/hot-num');
+    }
+
+    private function goodsCate()
+    {
+        return $this->render('goods/cate');
+    }
+
+
 }
