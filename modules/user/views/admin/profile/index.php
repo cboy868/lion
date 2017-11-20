@@ -5,13 +5,10 @@ use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\user\models\UserSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '个人中心';
 $this->params['breadcrumbs'][] = $this->title;
-
+$this->params['profile_nav'] = 'user';
 ?>
 <div class="page-content">
     <div class="page-content-area">
@@ -20,19 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- user profile start -->
                 <!-- person panel nav -->
                 <ul class="nav nav-tabs padding-18">
-                    <li class="active">
-                        <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>">
-                            <i class="bigger-120 blue fa fa-user"></i>
-                            个人信息
-                        </a>
-                    </li>
-
-                    <li class="">
-                        <a href="<?=Url::toRoute(['/task/admin/profile/index'])?>">
-                            <i class="bigger-120 blue fa fa-file-text"></i>
-                            我的任务
-                        </a>
-                    </li>
+                    <?=$this->render('@app/modules/user/views/admin/profile/nav');?>
                 </ul>
 
                 <!-- content -->

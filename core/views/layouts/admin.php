@@ -64,7 +64,6 @@ AdminAsset::register($this);
                     <!-- #section:basics/navbar.layout.brand -->
                     <a href="#" class="navbar-brand">
                         <small>
-                            <i class="fa fa-leaf"></i>
                             LION管理中心
                         </small>
                     </a>
@@ -76,39 +75,71 @@ AdminAsset::register($this);
                     <!-- /section:basics/navbar.toggle -->
                 </div>
 
-                <!-- #section:basics/navbar.dropdown -->
-                <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                <!--
+                <div class="navbar-buttons navbar-header pull-left" role="navigation">
                     <ul class="nav ace-nav">
-
-                        <li class="blue">
-                            <!--
-                            <a href="<?=Url::toRoute(['/'])?>" target="_blank">
-                                网站前台
-                            </a>
-                            -->
-                            <a href="http://www.zhuo-xun.com" target="_blank">
-                                网站前台
-                            </a>
-                        </li>
-
-
-
-                        <li class="dark">
-                            <a href="http://screen.ibagou.com:8080/?rows=4" target="_blank">
-                                微信大屏
-                            </a>
-                        </li>
-
                         <li class="dark2">
                             <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
                                 纪念馆
                             </a>
                         </li>
-
-                        <li class="green">
-                            <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
-                                工作台
+                        <li>
+                            <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
+                                纪念馆1
                             </a>
+                        </li>
+                        <li class="blue2">
+                            <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
+                                纪念馆2
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
+                                纪念馆3
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                -->
+
+
+                <!-- #section:basics/navbar.dropdown -->
+                <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                    <ul class="nav ace-nav">
+
+                        <li class="grey">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="ace-icon fa fa-tasks"></i>
+
+                                <span class="badge badge-grey">快捷链接</span>
+                            </a>
+
+                            <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                                <li class="blue">
+                                    <a href="http://www.zhuo-xun.com" target="_blank">
+                                        网站前台
+                                    </a>
+                                </li>
+
+                                <li class="dark">
+                                    <a href="http://screen.ibagou.com:8080/?rows=4" target="_blank">
+                                        微信大屏
+                                    </a>
+                                </li>
+
+                                <li class="dark2">
+                                    <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
+                                        纪念馆
+                                    </a>
+                                </li>
+
+                                <li class="green">
+                                    <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
+                                        工作台
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
 
 <!--                        <li class="green">-->
@@ -400,7 +431,7 @@ AdminAsset::register($this);
                                 <li>
                                     <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">
                                         <i class="ace-icon fa fa-cog"></i>
-                                        个人设置
+                                        个人中心
                                     </a>
                                 </li>
 
@@ -436,6 +467,39 @@ AdminAsset::register($this);
                 <script type="text/javascript">
                     try{ace.settings.check('sidebar' , 'fixed')}catch(e){ }
                 </script>
+
+                <!--
+                <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                        <button class="btn btn-success">
+                            <i class="ace-icon fa fa-signal"></i>
+                            oa
+                        </button>
+
+                        <button class="btn btn-info">
+                            <i class="ace-icon fa fa-pencil"></i>
+                        </button>
+
+                        <button class="btn btn-warning">
+                            <i class="ace-icon fa fa-users"></i>
+                        </button>
+
+                        <button class="btn btn-danger">
+                            <i class="ace-icon fa fa-cogs"></i>
+                        </button>
+                    </div>
+
+                    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                        <span class="btn btn-success"></span>
+
+                        <span class="btn btn-info"></span>
+
+                        <span class="btn btn-warning"></span>
+
+                        <span class="btn btn-danger"></span>
+                    </div>
+                </div>
+                -->
 
 
                 <ul class="nav nav-list">

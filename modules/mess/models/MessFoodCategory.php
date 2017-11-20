@@ -3,6 +3,7 @@
 namespace app\modules\mess\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_food_category}}".
@@ -58,5 +59,11 @@ class MessFoodCategory extends \app\core\db\ActiveRecord
             'status' => '状态',
             'created_at' => '添加时间',
         ];
+    }
+
+    public static function sel()
+    {
+        $cate = self::find()->where(['<>','status',MessFoodCategory::STATUS_DELETE])->all();
+        return ArrayHelper::map($cate, 'id', 'name');
     }
 }

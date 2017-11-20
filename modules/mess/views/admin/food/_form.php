@@ -1,27 +1,22 @@
 <?php
 
 use app\core\helpers\Html;
-use app\core\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
+use app\modules\mess\models\MessFoodCategory;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\mess\models\MessFood */
-/* @var $form yii\widgets\ActiveForm */
+$units = Yii::$app->getModule('mess')->params['unit'];
+
 ?>
 
 <div class="mess-food-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropDownList(MessFoodCategory::sel(),['prompt'=>'请选择分类']) ?>
 
     <?= $form->field($model, 'food_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'unit_id')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
+    <?= $form->field($model, 'unit_id')->dropDownList($units) ?>
 
 	<div class="form-group">
         <div class="col-sm-offset-2 col-sm-3">

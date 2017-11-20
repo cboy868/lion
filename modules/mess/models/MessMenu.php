@@ -3,7 +3,7 @@
 namespace app\modules\mess\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_menu}}".
  *
@@ -28,18 +28,29 @@ class MessMenu extends \app\core\db\ActiveRecord
         return '{{%mess_menu}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+            ]
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['category_id', 'name', 'default_price', 'real_price', 'note', 'cover', 'created_at', 'updated_at'], 'required'],
+            [['category_id', 'name', 'default_price'], 'required'],
             [['category_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['default_price', 'real_price'], 'number'],
             [['name'], 'string', 'max' => 50],
             [['note'], 'string', 'max' => 200],
-            [['cover'], 'string', 'max' => 512],
+            [['cover'], 'safe'],
+            [['note'], 'string'],
+
         ];
     }
 
@@ -50,15 +61,21 @@ class MessMenu extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'name' => 'Name',
-            'default_price' => 'Default Price',
-            'real_price' => 'Real Price',
-            'note' => 'Note',
-            'cover' => 'Cover',
-            'status' => 'Status',
-            'created_at' => 'Created At',
+            'category_id' => '分类',
+            'name' => '菜单名',
+            'default_price' => '默认单价',
+            'real_price' => '价格',
+            'note' => '备注',
+            'cover' => '封面',
+            'status' => '状态',
+            'category.name' => '分类',
+            'created_at' => '添加时间',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(MessMenuCategory::className(), ['id'=>'category_id']);
     }
 }

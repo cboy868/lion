@@ -2,13 +2,14 @@
 
 namespace app\modules\mess\controllers\admin;
 
+use app\modules\mess\models\MessMenuCategory;
 use Yii;
 use app\modules\mess\models\MessMenu;
 use app\modules\mess\models\SearchMessMenu;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\core\base\Upload;
 /**
  * MenuController implements the CRUD actions for MessMenu model.
  */
@@ -32,12 +33,24 @@ class MenuController extends BackController
      */
     public function actionIndex()
     {
+        $params = Yii::$app->request->queryParams;
+
+        if (isset($params['category_id']) && $params['category_id']) {
+            $params['SearchMessMenu']['category_id'] = $params['category_id'];
+        }
+
+        if (isset($params['SearchMessMenu']['category_id']) && $params['SearchMessMenu']['category_id']) {
+            $params['category_id'] = $params['SearchMessMenu']['category_id'];
+        }
+
         $searchModel = new SearchMessMenu();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'cates' => MessMenuCategory::sel(),
+            'params' => $params
         ]);
     }
 
@@ -62,13 +75,40 @@ class MenuController extends BackController
     {
         $model = new MessMenu();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $req = Yii::$app->getRequest();
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        if (Yii::$app->request->isPost) {
+
+            try {
+                $model->load($req->post());
+                $upload = Upload::getInstance($model, 'cover', 'mess_menu');
+
+                if ($upload) {
+                    $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+                    $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                    $upload->save();
+
+                    $info = $upload->getInfo();
+                    $model->cover = $info['mid'];
+                }
+                $model->save();
+
+                $transaction->commit();
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+
+
+            return $this->redirect(['index']);
         }
+
+
+        return $this->renderAjax('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -80,14 +120,32 @@ class MenuController extends BackController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldcover = $model->cover;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $upload = Upload::getInstance($model, 'cover', 'mess_menu');
+
+            if ($upload) {
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\helpers\Image', 'thumb']);
+                $upload->on(Upload::EVENT_AFTER_UPLOAD, ['app\core\models\Attachment', 'db']);
+                $upload->save();
+
+                $info = $upload->getInfo();
+
+                $model->cover = $info['mid'];
+            } else{
+                $model->cover = $oldcover;
+            }
+
+            if ($model->save()) {
+                return $this->redirect(['index']);
+            }
         }
+
+
+        return $this->renderAjax('update', [
+            'model' => $model,
+        ]);
     }
 
     /**

@@ -295,6 +295,7 @@ class Order extends \app\core\db\ActiveRecord
     {
         return $this->hasMany(OrderRel::className(), ['order_id' => 'id'])
             ->andWhere(['status'=>OrderRel::STATUS_NORMAL])
+            ->andWhere(['is_refund'=>0])
             ->orderBy('price desc');
     }
 

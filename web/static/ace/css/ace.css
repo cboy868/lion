@@ -416,6 +416,10 @@
 .ace-nav>li .dropdown-menu {
     z-index: 1031
 }
+.dropdown-menu.dropdown-menu-right.dropdown-caret:after {
+    left: auto;
+    right: 10px;
+}
 
 .ace-nav .nav-user-photo {
     margin: -4px 8px 0 0;

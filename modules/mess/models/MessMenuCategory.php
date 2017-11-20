@@ -2,6 +2,7 @@
 
 namespace app\modules\mess\models;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -57,5 +58,11 @@ class MessMenuCategory extends \app\core\db\ActiveRecord
             'status' => '状态',
             'created_at' => '添加时间',
         ];
+    }
+
+    public static function sel()
+    {
+        $cate = self::find()->where(['<>','status',MessMenuCategory::STATUS_DELETE])->all();
+        return ArrayHelper::map($cate, 'id', 'name');
     }
 }

@@ -35,7 +35,20 @@ $this->params['breadcrumbs'][] = $this->title;
             </h1>
         </div>
     <?php endif ?>
-        
+
+
+        <?php
+        Modal::begin([
+            'header' => '新增',
+            'id' => 'modalAdd',
+            'clientOptions' => ['backdrop' => 'static', 'show' => false, 'keyboard'=>false]
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="modalContent"></div>';
+
+        Modal::end();
+        ?>
         <!-- /.page-header -->
         <?php 
             Modal::begin([
@@ -205,15 +218,22 @@ $this->params['breadcrumbs'][] = $this->title;
                      <td><?=$pay->method?></td>
                       <td><?=$pay->user->username?></td>
                       <td><?=date("Y-m-d H:i", $pay->updated_at)?></td>
-                    <td><a title="收款打印" ylw-simple-remote="true" href="#"><i class="icon icon-print"></i> 打印本次收款单</a>
-                        <input class="pay_item" type="checkbox" name="pay_item" value="59610">
-                    </td>
+                        <td>
+                            <a title="收款打印" class="modalAddButton"
+                               href="<?=Url::toRoute(['/admin/pdf/order', 'pay_id'=>$pay->id])?>">
+                                <i class="icon icon-print"></i> 打印本次收款单
+                            </a>
+                            <input class="pay_item" type="checkbox" name="pay_item" value="<?=$pay->id?>">
+                        </td>
                     </tr>
                     <?php endforeach ?>
                                <tr>
                        <td colspan="5">
-                        <a ylw-simple-remote="true" href="#" id="all-pay-list" data-datas="" class="pull-right btn btn-xs btn-success radius4"><i class="icon icon-print"></i>  打印所选收款</a>
-                         <a class="pull-right btn btn-xs btn-primary radius4" ylw-simple-remote="true" href="#"> 打印全款</a>
+                        <a href="#" class="pull-right btn btn-xs btn-success radius4">
+                            <i class="icon icon-print"></i>
+                            打印所选收款</a>
+                         <a class="pull-right btn btn-xs btn-primary modalAddButton"
+                            href="<?=Url::toRoute(['/admin/pdf/order', 'order_id'=>$model->id])?>"> 打印全款</a>
                         </td>
                      </tr>
                   </tbody>

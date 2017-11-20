@@ -2,6 +2,7 @@
 
 namespace app\modules\mess\controllers\admin;
 
+use app\modules\mess\models\MessFoodCategory;
 use Yii;
 use app\modules\mess\models\MessFood;
 use app\modules\mess\models\SearchMessFood;
@@ -32,12 +33,25 @@ class FoodController extends BackController
      */
     public function actionIndex()
     {
+
+        $params = Yii::$app->request->queryParams;
+
+        if (isset($params['category_id']) && $params['category_id']) {
+            $params['SearchMessFood']['category_id'] = $params['category_id'];
+        }
+
+        if (isset($params['SearchMessFood']['category_id']) && $params['SearchMessFood']['category_id']) {
+            $params['category_id'] = $params['SearchMessFood']['category_id'];
+        }
+
         $searchModel = new SearchMessFood();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'cates' => MessFoodCategory::sel(),
+            'params' => $params
         ]);
     }
 
@@ -63,9 +77,9 @@ class FoodController extends BackController
         $model = new MessFood();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -82,9 +96,9 @@ class FoodController extends BackController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }

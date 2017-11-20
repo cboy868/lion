@@ -84,4 +84,13 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
     }
 
+
+    public function getCoverImg($size, $default="/static/images/default.png")
+    {
+        return \app\core\models\Attachment::getById($this->cover, $size, $default);
+
+    }
+
+
+
 }

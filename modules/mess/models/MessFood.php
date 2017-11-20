@@ -3,7 +3,7 @@
 namespace app\modules\mess\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_food}}".
  *
@@ -30,9 +30,22 @@ class MessFood extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'food_name', 'unit_id', 'created_at'], 'required'],
+            [['category_id', 'food_name'], 'required'],
             [['category_id', 'unit_id', 'status', 'created_at'], 'integer'],
             [['food_name'], 'string', 'max' => 50],
+        ];
+    }
+
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
         ];
     }
 
@@ -43,11 +56,16 @@ class MessFood extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'food_name' => 'Food Name',
-            'unit_id' => 'Unit ID',
+            'category_id' => '分类',
+            'food_name' => '食材名',
+            'unit_id' => '单位',
             'status' => 'Status',
-            'created_at' => 'Created At',
+            'created_at' => '添加时间',
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(MessFoodCategory::className(), ['id'=>'category_id']);
     }
 }

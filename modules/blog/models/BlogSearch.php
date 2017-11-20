@@ -44,11 +44,12 @@ class BlogSearch extends Blog
     public function search($params)
     {
         $query = Blog::find()->orderBy('id desc');
+        $query->andWhere(['<>', 'status', self::STATUS_DELETE]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => 20,
             ],
         ]);
 

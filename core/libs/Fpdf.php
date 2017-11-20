@@ -59,6 +59,7 @@ class Fpdf extends PDF_Chinese
 				$start_x += $td[0];
 			}
 		}
+
 		return $result;
 	}
 

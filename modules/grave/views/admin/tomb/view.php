@@ -8,8 +8,6 @@ use app\modules\grave\models\Tomb as GraveTomb;
 use yii\bootstrap\Modal;
 use app\core\helpers\Url;
 \app\assets\ExtAsset::register($this);
-/* @var $this yii\web\View */
-/* @var $model app\modules\grave\models\Tomb */
 $this->params['current_menu'] = 'grave/tomb/index';
 
 $this->title = $model->tomb_no;
@@ -41,7 +39,6 @@ $this->params['breadcrumbs'][] = ['label' => '墓位管理', 'url' => ['index']]
                     <a class="btn btn-info btn-sm pull-right modalEditButton"
                        href="<?=Url::toRoute(['/grave/admin/tomb/card','tomb_id'=>$model->id])?>"
                        target="_blank">打印墓证</a>
-
 
                 </small>
             </h1>

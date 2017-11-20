@@ -2,6 +2,12 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\core\widgets\GridView;
+$this->params['profile_nav'] = 'task';
+
+$this->title = '我的任务';
+$this->params['breadcrumbs'][] = ['label' => '个人中心', 'url' => ['/user/admin/profile/index']];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="page-content">
     <div class="col-sm-12">
@@ -9,19 +15,7 @@ use app\core\widgets\GridView;
         <div id="user-profile-2" class="user-profile">
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-18">
-                    <li class="">
-                        <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>">
-                            <i class="bigger-120 blue fa fa-user"></i>
-                            个人信息
-                        </a>
-                    </li>
-
-                    <li class="active">
-                        <a href="<?=Url::toRoute(['/task/admin/profile/index'])?>">
-                            <i class="bigger-120 blue fa fa-file-text"></i>
-                            我的任务
-                        </a>
-                    </li>
+                    <?=$this->render('@app/modules/user/views/admin/profile/nav');?>
                 </ul>
 
                 <div class="tab-content padding-12">
@@ -98,6 +92,4 @@ use app\core\widgets\GridView;
             </div>
         </div>
     </div>
-
-
 </div>

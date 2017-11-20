@@ -3,6 +3,7 @@
 namespace app\modules\admin\models;
 
 use app\core\helpers\StringHelper;
+use app\modules\grave\models\Customer;
 use app\modules\grave\models\Grave;
 use app\modules\grave\models\OrderRel;
 use app\modules\grave\models\Tomb;
@@ -167,6 +168,12 @@ class Pdf extends \yii\base\Model
         return $user->username;
     }
 
+    public function getCustomerName()
+    {
+        $customer = Customer::findOne($this->tomb->customer_id);
+        return $customer->name;
+    }
+
     public function getGrave()
     {
         $grave = Grave::findOne($this->tomb->grave_id);
@@ -185,9 +192,39 @@ class Pdf extends \yii\base\Model
             'type'=>OrderRel::TYPE_TOMB,
             'status'=>OrderRel::STATUS_NORMAL])
             ->one();
+        if (!$rel) {
+            return 0;
+        }
 
         return $rel->price;
     }
+
+    /**
+     * @return int
+     * todo 待
+     */
+    public function getBuryPrice()
+    {
+        return 0;
+    }
+
+    /**
+     * todo 待
+     */
+    public function getInsPrice()
+    {
+        return 0;
+    }
+
+    /**
+     * @return int
+     * todo 待
+     */
+    public function getGoodsPrice()
+    {
+        return 0;
+    }
+
 
     public function getGuideName()
     {
