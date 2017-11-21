@@ -28,7 +28,6 @@ use app\modules\user\models\Addition;
 class User extends \app\core\models\User
 {
 
-
     const STAFF_AGENT = 2;//业务员
     const STAFF_YES = 1;
     const STAFF_NO  = 0;
@@ -60,7 +59,7 @@ class User extends \app\core\models\User
             [['status', 'created_at', 'updated_at', 'avatar', 'is_staff', 'category'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['mobile',], 'string', 'max' => 15, 'min'=>8],
-            [['auth_key'], 'string', 'max' => 32],
+            [['auth_key', 'py'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email','mobile'], 'unique'],
             [['email'], 'email'],

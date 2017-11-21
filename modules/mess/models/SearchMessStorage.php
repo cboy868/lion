@@ -10,7 +10,7 @@ use app\modules\mess\models\MessStockLog;
 /**
  * SearchMessStockLog represents the model behind the search form about `app\modules\mess\models\MessStockLog`.
  */
-class SearchMessStockLog extends MessStockLog
+class SearchMessStorage extends MessStorage
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class SearchMessStockLog extends MessStockLog
      */
     public function search($params)
     {
-        $query = MessStockLog::find();
+        $query = MessStorage::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

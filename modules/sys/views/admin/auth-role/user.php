@@ -54,7 +54,9 @@ ul, ol, li {
 		<div class="row">
     		<div class="col-xs-12">
     			<?php foreach($user as $k=>$v): ?>
-					<h5> <a id="<?=$k?>" href="#" class="btn btn-xs pinyin" title="全选"><?=$k?></a><small class="pinyin">全选</small></h5>
+                <?php if ($k):?>
+                <h5> <a id="<?=$k?>" href="#" class="btn btn-xs pinyin" title="全选"><?=$k?></a><small class="pinyin">全选</small></h5>
+                <?php endif;?>
 					<ul class="user-list">
 						<?php foreach($v as $key=>$val): ?>
 					    <li rel="user-id" data-user_id="<?=$key?>" class="<?php if($val['is_sel'] == 1) echo 'selected';?> user">

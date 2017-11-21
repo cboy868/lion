@@ -3,7 +3,7 @@
 namespace app\modules\mess\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_day_menu}}".
  *
@@ -35,10 +35,17 @@ class MessDayMenu extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['day_time', 'menu_id', 'real_price', 'check_price', 'type', 'mess_id', 'created_at', 'updated_at'], 'required'],
+            [['day_time', 'menu_id', 'real_price', 'type', 'mess_id'], 'required'],
             [['day_time'], 'safe'],
             [['menu_id', 'type', 'is_special', 'mess_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['real_price', 'check_price'], 'number'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+                'class'=>TimestampBehavior::className(),
         ];
     }
 
@@ -49,16 +56,27 @@ class MessDayMenu extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'day_time' => 'Day Time',
-            'menu_id' => 'Menu ID',
-            'real_price' => 'Real Price',
-            'check_price' => 'Check Price',
-            'type' => 'Type',
-            'is_special' => 'Is Special',
             'mess_id' => 'Mess ID',
-            'status' => 'Status',
-            'created_at' => 'Created At',
+            'day_time' => '日期',
+            'menu_id' => '菜单',
+            'real_price' => '时价',
+            'check_price' => '核算价',
+            'type' => '类别',//早午晚
+            'is_special' => 'Is Special',//0正常 1小炒
+            'status' => '状态',
+            'created_at' => '添加时间',
             'updated_at' => 'Updated At',
         ];
     }
+
+    public function getMenu()
+    {
+        return $this->hasOne(MessMenu::className(), ['id'=>'menu_id']);
+    }
+
+    public function getMess()
+    {
+        return $this->hasOne(Mess::className(), ['id'=>'mess_id']);
+    }
+
 }

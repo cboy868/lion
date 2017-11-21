@@ -68,14 +68,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            'mess.name',
             'name',
+            [
+                'label' => '食堂',
+                'value' => function($model) {
+                    return isset($model->mess->name) ? $model->mess->name : '共用';
+                }
+            ],
             'note',
-            'status',
             // 'created_at',
             // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'操作',
+                'template' => '{update} {delete} ',
+            ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

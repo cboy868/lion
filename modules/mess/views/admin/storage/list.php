@@ -6,7 +6,7 @@ use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
 use yii\bootstrap\Modal;
 
-$this->title = '出入库记录';
+$this->title = '库存';
 $this->params['breadcrumbs'][] = ['label' => '食堂', 'url' => ['/mess/admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -18,48 +18,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-            <!-- 
-                <?=  Html::a($this->title, ['index']) ?> 
-            -->
-                <small>
-                    <a href="<?=Url::to(['create'])?>"
-                       class='btn btn-info btn-sm modalAddButton' title="入库"
-                       data-loading-text="页面加载中, 请稍后..." onclick="return false">
-                        <i class="fa fa-plus"></i>入库
-                    </a>
-                </small>
+                <?= $this->title ?>
             </h1>
         </div><!-- /.page-header -->
-
-        <?php
-        Modal::begin([
-            'header' => '添加',
-            'id' => 'modalAdd',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false],
-        ]) ;
-
-        echo '<div id="modalContent"></div>';
-
-        Modal::end();
-        ?>
-
-        <?php
-        Modal::begin([
-            'header' => '编辑',
-            'id' => 'modalEdit',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false],
-            'size' => 'modal-lg'
-        ]) ;
-
-        echo '<div id="editContent"></div>';
-
-        Modal::end();
-        ?>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="search-box search-outline">
-                        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+                        <?php  echo $this->render('_search_storage', ['model' => $searchModel]); ?>
                 </div>
             </div>
 
@@ -71,15 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         // 'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'supplier.name',
             'mess.name',
             'food.food_name',
-            'number',
-             'unit_price',
-             'count_price',
-             'type',
-            'dt',
+            'num',
             // 'created_at',
             [
                 'class' => 'yii\grid\ActionColumn',

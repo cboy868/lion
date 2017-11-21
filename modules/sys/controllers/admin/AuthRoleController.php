@@ -39,17 +39,17 @@ class AuthRoleController extends AuthController
         $auth = Yii::$app->authManager;
         $users = User::find()->where(['status' => 10, 'is_staff'=>User::STAFF_YES])
                              // ->andWhere('id>1')
-                             ->orderBy('username')
+                             ->orderBy('py asc')
                              ->all();
 
         $item = \app\modules\sys\models\AuthItem::findOne($id);
 
         $users_info = [];
         foreach ($users as $k => $v) {
-            $pin = strtoupper(substr(Pinyin::pinyin($v['username']), 0, 1));
+            $pin = strtoupper(substr($v['py'], 0, 1));
             $users_info[$pin][$v['id']] = [
                 'username' => $v['username'],
-                'pinyin' => Pinyin::pinyin($v['username']),
+                'pinyin' => $v['py'],
                 'is_sel' => $auth->getAssignment($id, $v['id']) ? 1 : 0
             ];
         }

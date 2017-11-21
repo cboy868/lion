@@ -4,6 +4,8 @@ namespace app\modules\mess\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "{{%mess}}".
  *
@@ -60,6 +62,12 @@ class Mess extends \app\core\db\ActiveRecord
             'status' => '状态',
             'created_at' => '添加时间',
         ];
+    }
+
+    public static function sel()
+    {
+        $all = self::find()->where(['<>', 'status', self::STATUS_DEL])->all();
+        return ArrayHelper::map($all, 'id', 'name');
     }
 
 

@@ -81,7 +81,10 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="col-xs-10 mess-food-index">
 
-<?php $models = $dataProvider->getModels();?>
+<?php
+$units = Yii::$app->getModule('mess')->params['unit'];
+
+?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -92,8 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'category.name',
             [
                 'label' => '单位',
-                'value' => function($model){
-                    $units = Yii::$app->getModule('mess')->params['unit'];
+                'value' => function($model)use($units){
                     return isset($units[$model->unit_id])?$units[$model->unit_id]:'';
                 }
             ],

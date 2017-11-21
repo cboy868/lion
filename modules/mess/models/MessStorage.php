@@ -5,28 +5,24 @@ namespace app\modules\mess\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
- * This is the model class for table "{{%mess_storage_record}}".
+ * This is the model class for table "{{%mess_stock_log}}".
  *
  * @property integer $id
- * @property integer $supplier_id
  * @property integer $mess_id
  * @property integer $food_id
- * @property double $number
+ * @property double $num
  * @property string $unit_price
  * @property string $count_price
- * @property integer $type
  * @property integer $created_at
  */
-class MessStorageRecord extends \app\core\db\ActiveRecord
+class MessStorage extends \app\core\db\ActiveRecord
 {
-    const TYPE_IN = 1;
-    const TYPE_OUT = 2;
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%mess_storage_record}}';
+        return '{{%mess_storage}}';
     }
 
     /**
@@ -35,9 +31,9 @@ class MessStorageRecord extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['supplier_id', 'mess_id', 'food_id', 'type'], 'integer'],
-            [['mess_id', 'food_id', 'unit_price', 'count_price', 'dt'], 'required'],
-            [['number', 'unit_price', 'count_price'], 'number'],
+            [['mess_id', 'food_id'], 'required'],
+            [['mess_id', 'food_id', 'created_at'], 'integer'],
+            [['num'], 'number'],
         ];
     }
 
@@ -60,17 +56,27 @@ class MessStorageRecord extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'supplier_id' => '供应商',
             'mess_id' => '食堂',
-            'food_id' => '原材料',
-            'number' => '数量',
-            'unit_price' => '单价',
-            'count_price' => '总价',
-            'type' => '类型',
-            'dt' => '进货日期',
-            'created_at' => 'Created At',
+            'food_id' => '材料',
+            'num' => '数量',
         ];
     }
+
+    public static function up($mess_id, $food_id,$num,$type)
+    {
+        $model = self::find()->where(['mess_id'=>$mess_id,'food_id'=>$food_id])->one();
+
+        if (!$model) {
+            $model = new self();
+            $model->mess_id = $mess_id;
+            $model->food_id = $food_id;
+            $model->num = 0;
+        }
+
+        $model->num += $type == MessStorageRecord::TYPE_IN ? $num : -$num;
+        return $model->save();
+    }
+
 
     public function getMess()
     {
@@ -82,8 +88,4 @@ class MessStorageRecord extends \app\core\db\ActiveRecord
         return $this->hasOne(MessFood::className(), ['id'=>'food_id']);
     }
 
-    public function getSupplier()
-    {
-        return $this->hasOne(MessSupplier::className(), ['id'=>'supplier_id']);
-    }
 }

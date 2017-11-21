@@ -2,6 +2,7 @@
 
 namespace app\modules\mess\models;
 
+use app\core\helpers\ArrayHelper;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -62,5 +63,11 @@ class MessSupplier extends \app\core\db\ActiveRecord
     public function getMess()
     {
         return $this->hasOne(Mess::className(), ['id'=>'mess_id']);
+    }
+
+    public static function sel()
+    {
+        $all = self::find()->where(['<>', 'status', self::STATUS_DEL])->all();
+        return ArrayHelper::map($all, 'id', 'name');
     }
 }

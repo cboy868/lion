@@ -5,17 +5,16 @@ use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
 use app\modules\mess\models\MessSupplier;
 use app\modules\mess\models\Mess;
+use app\modules\mess\models\MessFood;
 ?>
 
 <div class="mess-storage-record-search">
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'supplier_id')->dropDownList(MessSupplier::sel(),['prompt'=>'不限']) ?>
+    <?= $form->field($model, 'mess_id')->dropDownList(Mess::sel(),['prompt'=>'--不限--']) ?>
 
-    <?= $form->field($model, 'mess_id')->dropDownList(Mess::sel(),['prompt'=>'不限']) ?>
-
-    <?php // $form->field($model, 'food_id') ?>
+    <?= $form->field($model, 'food_id')->dropDownList(MessFood::sel(),['prompt'=>'--不限--']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

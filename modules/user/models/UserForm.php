@@ -4,7 +4,7 @@ namespace app\modules\user\models;
 
 use Yii;
 use yii\base\Model;
-
+use app\core\helpers\Pinyin;
 /**
  * Signup form
  */
@@ -76,6 +76,8 @@ class UserForm extends Model
             $user->generateAuthKey();
             $user->is_staff = $this->is_staff;
             $user->status = User::STATUS_ACTIVE;
+            $user->py = Pinyin::pinyin($user->username);
+
             if ($user->save()) {
                 return $user;
             }

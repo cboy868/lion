@@ -2,8 +2,9 @@
 
 namespace app\modules\mess\models;
 
+use app\modules\user\models\User;
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_user_price}}".
  *
@@ -29,9 +30,18 @@ class MessUserPrice extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'price', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'price'], 'required'],
+            [['user_id', 'created_at', 'updated_at','status'], 'integer'],
             [['price'], 'number'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+            ]
         ];
     }
 
@@ -42,10 +52,15 @@ class MessUserPrice extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'price' => 'Price',
-            'created_at' => 'Created At',
+            'user_id' => '用户',
+            'price' => '总金额',
+            'created_at' => '添加时间',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id'=>'user_id']);
     }
 }

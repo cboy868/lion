@@ -2,14 +2,14 @@
 
 use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use app\modules\mess\models\Mess;
 ?>
 
 <div class="mess-supplier-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'mess_id')->textInput() ?>
+    <?= $form->field($model, 'mess_id')->dropDownList(['0'=>'共用']+Mess::sel(), ['prompt'=>'选择供应食堂']) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

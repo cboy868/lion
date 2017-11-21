@@ -4,6 +4,7 @@ namespace app\modules\mess\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "{{%mess_menu}}".
  *
@@ -77,5 +78,11 @@ class MessMenu extends \app\core\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(MessMenuCategory::className(), ['id'=>'category_id']);
+    }
+
+    public static function sel()
+    {
+        $all = self::find()->where(['<>', 'status', self::STATUS_DEL])->all();
+        return ArrayHelper::map($all, 'id', 'name');
     }
 }

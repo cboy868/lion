@@ -2,9 +2,11 @@
 
 namespace app\modules\mess\controllers\admin;
 
+use app\modules\mess\models\MessStorage;
 use Yii;
 use app\modules\mess\models\MessStorageRecord;
 use app\modules\mess\models\SearchMessStorageRecord;
+use app\modules\mess\models\SearchMessStorage;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,6 +26,20 @@ class StorageController extends BackController
                 ],
             ],
         ];
+    }
+
+    /**
+     * @name 总库存
+     */
+    public function actionList()
+    {
+        $searchModel = new SearchMessStorage();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -63,12 +79,13 @@ class StorageController extends BackController
         $model = new MessStorageRecord();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            MessStorage::up($model->mess_id, $model->food_id, $model->number, $model->type);
+            return $this->redirect(['index']);
         }
+
+        return $this->renderAjax('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -81,10 +98,13 @@ class StorageController extends BackController
     {
         $model = $this->findModel($id);
 
+        $onum = $model->number;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            MessStorage::up($model->mess_id, $model->food_id, $model->number - $onum, $model->type);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
