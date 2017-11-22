@@ -77,6 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php
                             $tomorrow =date('Y-m-d',strtotime('+1 day'));
                             $next =date('Y-m-d',strtotime('+2 day'));
+                            $next2 = date('Y-m-d',strtotime('+3 day'));
                             $current = Yii::$app->request->get('date');
 
                             ?>
@@ -89,6 +90,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </li>
                                 <li class="<?php if($current==$next) echo 'active'?>">
                                     <a href="<?=Url::toRoute(['index','date'=>$next])?>" aria-expanded="true">后天</a>
+                                </li>
+                                <li class="<?php if($current==$next2) echo 'active'?>">
+                                    <a href="<?=Url::toRoute(['index','date'=>$next2])?>" aria-expanded="true">大后天</a>
                                 </li>
                             </ul>
                         </div>
@@ -118,16 +122,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <?php
                                 if (isset($menus[$k][$key])):
-                                foreach ($menus[$k][$key] as $menu):
+                                    foreach ($menus[$k][$key] as $menu):
+                                        if($date >= date('Y-m-d')):
                             ?>
+                            <tr rid="<?=$menu->id?>">
+                                <td>
+                                    <?=Html::dropDownList('MessDayMenu[menu_id]',
+                                        $menu->menu_id,
+                                        $sel,
+                                        [
+                                            'class'=>'selmenu form-control',
+                                            'prompt'=>'请选择菜品'
+                                        ])?>
+                                </td>
+                                <td class="red">
+                                    <input type="text" name="MessDayMenu[real_price]"
+                                           class="real_price"
+                                           value="<?=$menu->real_price?>">
+                                    <span class="note" style="color:green;display: none;">菜单修改成功</span>
+                                    <span class="note_price" style="color:green;display: none;">菜价修改成功</span>
+                                </td>
+                            </tr>
+                                        <?php else:?>
                             <tr>
                                 <td><?=$menu->menu->name?></td>
                                 <td class="red">¥<?=$menu->real_price?></td>
                             </tr>
                             <?php
-                                endforeach;
+                                        endif;
+                                    endforeach;
                                 endif;
                             ?>
+
+                            <?php if($date >= date('Y-m-d')):?>
                             <tr >
                                 <td>
                                     <?=Html::dropDownList('MessDayMenu[menu_id]',
@@ -140,8 +167,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </td>
                                 <td class="red">
                                     <input type="text" name="MessDayMenu[real_price]" class="real_price">
+                                    <span class="note" style="color:green;display: none;">菜单保存成功</span>
+                                    <span class="note_price" style="color:green;display: none;">菜价修改成功</span>
                                 </td>
                             </tr>
+                            <?php endif;?>
 
                         </table>
 
@@ -157,12 +187,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.page-content-area -->
 </div>
 <div>
-
-<div class="s"></div>
-
-</div>
-<button class="abcd">abc</button>
-
 <?php $this->beginBlock('img') ?>
 $(function(){
     var csrf = "<?=Yii::$app->request->getCsrfToken()?>";
@@ -178,6 +202,7 @@ $(function(){
 
         var price = JSON.parse('<?=$price?>');
         var id = $(this).val();
+        var delid = $(this).closest('tr').attr('rid');
         try {
             var price = price[id];
         } catch (err) {
@@ -195,17 +220,22 @@ $(function(){
             day_time:"<?=$date?>",
             _csrf:csrf
         };
+        if(delid){
+            data.delid=delid;
+        }
         var selObj = $(this);
         var that = this;
         $.post("<?=Url::toRoute(['add'])?>",data,function (xhr) {
             if (xhr.status) {
-                selObj.select2('destroy');
-                var copy =selObj.parents('tr').clone();
-                $(that).parents('table').append(copy);
-                selObj.select2();
-                copy.find('.real_price').val('');
-                copy.find('.selmenu').select2();
-
+                if(!delid){
+                    selObj.select2('destroy');
+                    var copy =selObj.parents('tr').clone();
+                    $(that).parents('table').append(copy);
+                    selObj.select2();
+                    copy.find('.real_price').val('');
+                    copy.find('.selmenu').select2();
+                }
+                selObj.closest('tr').find('.note').show();
                 $(that).closest('tr').attr('rid', xhr.data);
             } else {
                 alert(xhr.info);
@@ -221,9 +251,11 @@ $(function(){
         if (!id || !price) {
             return ;
         }
+        var that = this;
 
         $.post("<?=Url::toRoute(['price'])?>",{id:id,price:price,_csrf:csrf},function(xhr){
             if (!xhr.status) {alert(xhr.info)}
+            else{$(that).closest('tr').find('.note_price').show();}
 
         },'json');
 

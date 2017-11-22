@@ -143,6 +143,11 @@ class DayController extends BackController
                 'menu_id' => $model->menu_id
             ])->one();
 
+            if (isset($post['delid']) && $post['delid']) {
+                $del_model = MessDayMenu::findOne($post['delid']);
+                $del_model->delete();
+            }
+
             if ($md) {
                 return $this->json(null, '此菜单已存在', 0);
             } else {
