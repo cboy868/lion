@@ -14,6 +14,12 @@ use yii\filters\VerbFilter;
  */
 class OrderController extends BackController
 {
+    public static $types = [
+        '1' => '早餐',
+        '2' => '午餐',
+        '3' => '晚餐'
+    ];
+
     public function behaviors()
     {
         return [
@@ -38,6 +44,7 @@ class OrderController extends BackController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'types'=> self::$types,
         ]);
     }
 

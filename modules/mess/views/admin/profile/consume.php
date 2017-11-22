@@ -34,7 +34,7 @@ $this->params['profile_nav'] = 'mess';
                         <div class="col-xs-12">
                             <h4>消费记录</h4>
                             <div class="search-box search-outline">
-                                <?php  echo $this->render('_search_recharge', ['model' => $searchModel]); ?>
+                                <?php  echo $this->render('_search_consume', ['model' => $searchModel]); ?>
                             </div>
                         </div>
                         <!-- table start -->

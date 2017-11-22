@@ -10,7 +10,9 @@ use app\core\widgets\ActiveForm;
 <div class="mess-user-recharge-search">
 
     <?php $form = ActiveForm::searchBegin(); ?>
-
+    <?= $form->field($model, 'mess_id')->dropDownList(\app\modules\mess\models\Mess::sel(),[
+        'prompt'=>'不限'
+    ]) ?>
     <div style="display: inline-block">
         <?= $form->field($model, 'start')->textInput(['dt'=>'true','dt-month'=>'true'])
             ->label('消费时间: ') ?> -

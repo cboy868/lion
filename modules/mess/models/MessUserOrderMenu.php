@@ -65,7 +65,7 @@ class MessUserOrderMenu extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'mess_id' => 'Mess ID',
+            'mess_id' => '食堂',
             'user_id' => 'User ID',
             'day_menu_id' => 'Day Menu ID',
             'menu_id' => '菜单',
