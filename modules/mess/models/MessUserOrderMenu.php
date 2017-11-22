@@ -2,7 +2,9 @@
 
 namespace app\modules\mess\models;
 
+use app\modules\user\models\User;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%mess_user_order_menu}}".
@@ -39,10 +41,20 @@ class MessUserOrderMenu extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mess_id', 'user_id', 'day_menu_id', 'real_price', 'created_at', 'updated_at'], 'required'],
-            [['mess_id', 'user_id', 'day_menu_id', 'menu_id', 'type', 'is_pre', 'is_over', 'is_mobile', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['mess_id', 'user_id', 'day_menu_id', 'real_price'], 'required'],
+            [['mess_id', 'user_id', 'day_menu_id', 'menu_id', 'type', 'is_pre',
+                'is_over', 'is_mobile', 'created_at', 'updated_at'], 'integer'],
             [['day_time'], 'safe'],
             [['real_price', 'num'], 'number'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+            ]
         ];
     }
 
@@ -56,17 +68,36 @@ class MessUserOrderMenu extends \app\core\db\ActiveRecord
             'mess_id' => 'Mess ID',
             'user_id' => 'User ID',
             'day_menu_id' => 'Day Menu ID',
-            'menu_id' => 'Menu ID',
-            'day_time' => 'Day Time',
-            'real_price' => 'Real Price',
-            'num' => 'Num',
-            'type' => 'Type',
+            'menu_id' => '菜单',
+            'day_time' => '日期',
+            'real_price' => '时价',
+            'num' => '数量',
+            'type' => '类型',
             'is_pre' => 'Is Pre',
             'is_over' => 'Is Over',
             'is_mobile' => 'Is Mobile',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getMenu()
+    {
+        return $this->hasOne(MessMenu::className(), ['id'=>'menu_id']);
+    }
+
+    public function getMess()
+    {
+        return $this->hasOne(Mess::className(), ['id'=>'mess_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id'=>'user_id']);
+    }
+
+    public function getDayMenu()
+    {
+        return $this->hasOne(MessDayMenu::className(), ['id'=>'day_menu_id']);
     }
 }

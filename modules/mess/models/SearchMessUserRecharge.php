@@ -12,6 +12,9 @@ use app\modules\mess\models\MessUserRecharge;
  */
 class SearchMessUserRecharge extends MessUserRecharge
 {
+
+    public $start;
+    public $end;
     /**
      * @inheritdoc
      */
@@ -20,6 +23,7 @@ class SearchMessUserRecharge extends MessUserRecharge
         return [
             [['id', 'user_id', 'op_id', 'created_at'], 'integer'],
             [['price'], 'number'],
+            [['start','end'], 'safe'],
         ];
     }
 
@@ -41,7 +45,7 @@ class SearchMessUserRecharge extends MessUserRecharge
      */
     public function search($params)
     {
-        $query = MessUserRecharge::find();
+        $query = MessUserRecharge::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,8 +60,16 @@ class SearchMessUserRecharge extends MessUserRecharge
             'user_id' => $this->user_id,
             'op_id' => $this->op_id,
             'price' => $this->price,
-            'created_at' => $this->created_at,
         ]);
+
+        if ($this->start) {
+            $query->andFilterWhere(['>=', 'created_at', strtotime($this->start)]);
+        }
+
+        if ($this->end) {
+            $end = strtotime('+1 day',strtotime($this->end));
+            $query->andFilterWhere(['<=', 'created_at', $end]);
+        }
 
         return $dataProvider;
     }

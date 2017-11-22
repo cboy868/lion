@@ -21,4 +21,10 @@ $profile_nav = $this->params['profile_nav'];
         我的博客
     </a>
 </li>
+<li class="<?php if($profile_nav == 'mess') echo 'active'?>">
+    <a href="<?=Url::toRoute(['/mess/admin/profile/index'])?>">
+        <i class="bigger-120 blue fa fa-file-text"></i>
+        我的食堂
+    </a>
+</li>
 

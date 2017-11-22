@@ -79,7 +79,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             $next =date('Y-m-d',strtotime('+2 day'));
                             $next2 = date('Y-m-d',strtotime('+3 day'));
                             $current = Yii::$app->request->get('date');
-
                             ?>
                             <ul class="nav nav-tabs">
                                 <li class="<?php if(!$current) echo 'active'?>">
@@ -117,6 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <tr>
                                     <th style="width:200px;">菜单名称</th>
                                     <th>单价</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
 
@@ -141,6 +141,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                            value="<?=$menu->real_price?>">
                                     <span class="note" style="color:green;display: none;">菜单修改成功</span>
                                     <span class="note_price" style="color:green;display: none;">菜价修改成功</span>
+                                </td>
+                                <td>
+                                    <a href="<?=Url::toRoute(['delete', 'id'=>$menu->id])?>"
+                                       title="删除" aria-label="删除"
+                                       data-confirm="您确定要删除此项吗？"
+                                       data-method="post" data-pjax="0">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
                                 </td>
                             </tr>
                                         <?php else:?>
@@ -170,6 +178,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <span class="note" style="color:green;display: none;">菜单保存成功</span>
                                     <span class="note_price" style="color:green;display: none;">菜价修改成功</span>
                                 </td>
+                                <td>
+                                    <a href="#"
+                                       title="删除" aria-label="删除"
+                                       data-confirm="您确定要删除此项吗？"
+                                       class="delete"
+                                       style="display: none"
+                                       data-method="post" data-pjax="0">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
                             </tr>
                             <?php endif;?>
 
@@ -197,9 +215,7 @@ $(function(){
 
     $('.selmenu').select2();
 
-
     $('body').on('change', '.selmenu', function () {
-
         var price = JSON.parse('<?=$price?>');
         var id = $(this).val();
         var delid = $(this).closest('tr').attr('rid');
@@ -235,6 +251,10 @@ $(function(){
                     copy.find('.real_price').val('');
                     copy.find('.selmenu').select2();
                 }
+                var href = selObj.closest('tr').find('.delete').attr('href');
+                selObj.closest('tr').find('.delete')
+                    .show()
+                    .attr('href','<?=Url::toRoute(['delete'])?>'+'?id='+xhr.data);
                 selObj.closest('tr').find('.note').show();
                 $(that).closest('tr').attr('rid', xhr.data);
             } else {
@@ -260,11 +280,6 @@ $(function(){
         },'json');
 
     });
-
-
 })
-
-
-
-    <?php $this->endBlock() ?>
+<?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['img'], \yii\web\View::POS_END); ?>

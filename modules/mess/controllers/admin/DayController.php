@@ -64,17 +64,6 @@ class DayController extends BackController
             'menus' => $menus,
             'date' => $date
         ]);
-
-
-
-
-        $searchModel = new SearchMessDayMenu();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**
@@ -210,9 +199,10 @@ class DayController extends BackController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+            $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'date'=>$model->day_time]);
     }
 
     /**

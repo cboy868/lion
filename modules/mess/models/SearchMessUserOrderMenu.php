@@ -12,14 +12,18 @@ use app\modules\mess\models\MessUserOrderMenu;
  */
 class SearchMessUserOrderMenu extends MessUserOrderMenu
 {
+    public $start;
+    public $end;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'mess_id', 'user_id', 'day_menu_id', 'menu_id', 'type', 'is_pre', 'is_over', 'is_mobile', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['day_time'], 'safe'],
+            [['id', 'mess_id', 'user_id', 'day_menu_id', 'menu_id', 'type',
+                'is_pre', 'is_over', 'is_mobile', 'created_at', 'updated_at'], 'integer'],
+            [['day_time','start','end'], 'safe'],
             [['real_price', 'num'], 'number'],
         ];
     }
@@ -58,17 +62,26 @@ class SearchMessUserOrderMenu extends MessUserOrderMenu
             'user_id' => $this->user_id,
             'day_menu_id' => $this->day_menu_id,
             'menu_id' => $this->menu_id,
-            'day_time' => $this->day_time,
             'real_price' => $this->real_price,
             'num' => $this->num,
             'type' => $this->type,
             'is_pre' => $this->is_pre,
             'is_over' => $this->is_over,
             'is_mobile' => $this->is_mobile,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+
+        if ($this->start) {
+            $start = $this->start;
+            $query->andFilterWhere(['>=', 'day_time', $start]);
+        }
+
+        if ($this->end) {
+            $end = date('Y-m-d',strtotime($this->end));
+            $query->andFilterWhere(['<=', 'day_time', $end]);
+        }
 
         return $dataProvider;
     }
