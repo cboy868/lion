@@ -3,7 +3,7 @@
 namespace app\modules\mess\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_reception_menu}}".
  *
@@ -32,9 +32,21 @@ class MessReceptionMenu extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['day_menu_id', 'type', 'reception_id', 'real_price', 'created_at'], 'required'],
+            [['day_menu_id', 'type', 'reception_id', 'real_price'], 'required'],
             [['day_menu_id', 'type', 'reception_id', 'status', 'created_at'], 'integer'],
             [['real_price', 'num'], 'number'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
         ];
     }
 
@@ -46,12 +58,12 @@ class MessReceptionMenu extends \app\core\db\ActiveRecord
         return [
             'id' => 'ID',
             'day_menu_id' => 'Day Menu ID',
-            'type' => 'Type',
-            'reception_id' => 'Reception ID',
-            'real_price' => 'Real Price',
-            'num' => 'Num',
-            'status' => 'Status',
-            'created_at' => 'Created At',
+            'type' => '类型',
+            'reception_id' => '接待',
+            'real_price' => '价格',
+            'num' => '数量',
+            'status' => '状态',
+            'created_at' => '添加时间',
         ];
     }
 }

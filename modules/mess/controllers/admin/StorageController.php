@@ -16,6 +16,11 @@ use yii\filters\VerbFilter;
  */
 class StorageController extends BackController
 {
+    public static $types = [
+        1=>'入库',
+        2=>'出库'
+    ];
+
     public function behaviors()
     {
         return [
@@ -54,6 +59,7 @@ class StorageController extends BackController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'types' => self::$types
         ]);
     }
 

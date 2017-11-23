@@ -14,11 +14,6 @@ use yii\filters\VerbFilter;
  */
 class OrderController extends BackController
 {
-    public static $types = [
-        '1' => '早餐',
-        '2' => '午餐',
-        '3' => '晚餐'
-    ];
 
     public function behaviors()
     {
@@ -41,10 +36,12 @@ class OrderController extends BackController
         $searchModel = new SearchMessUserOrderMenu();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $types = $this->module->params['menu_types'];
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'types'=> self::$types,
+            'types'=> $types,
         ]);
     }
 

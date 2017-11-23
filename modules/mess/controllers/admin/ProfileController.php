@@ -18,12 +18,6 @@ use app\modules\mess\models\SearchMessUserOrderMenu;
 class ProfileController extends BackController
 {
 
-    public static $types = [
-        '1' => '早餐',
-        '2' => '午餐',
-        '3' => '晚餐'
-    ];
-
     /**
      * Lists all MessDayMenu models.
      * @return mixed
@@ -50,9 +44,11 @@ class ProfileController extends BackController
             $self_menus[$menu->mess_id][$menu->type][$menu->day_menu_id] = $menu;
         }
 
+        $types = $this->module->params['menu_types'];
+
         return $this->render('index',[
             'mess' => Mess::sel(),
-            'types'=> self::$types,
+            'types'=> $types,
             'menus' => $menus,
             'self' => $self_menus,
             'self_menus' => $_self_menus,
@@ -67,9 +63,12 @@ class ProfileController extends BackController
             ->andWhere(['day_time'=>$date])
             ->orderBy('mess_id asc,type asc')
             ->all();
+
+        $types = $this->module->params['menu_types'];
+
         return $this->renderAjax('list',[
             'self_menus' => $self_menus,
-            'types'=> self::$types,
+            'types'=> $types,
             'date' => $date
         ]);
     }
@@ -149,10 +148,12 @@ class ProfileController extends BackController
 
         $dataProvider = $searchModel->search($params);
 
+        $types = $this->module->params['menu_types'];
+
         return $this->render('consume', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'types'=> self::$types,
+            'types'=> $types,
         ]);
     }
 

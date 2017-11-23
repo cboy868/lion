@@ -3,7 +3,7 @@
 namespace app\modules\mess\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_cashbook}}".
  *
@@ -33,10 +33,22 @@ class MessCashbook extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mess_id', 'note', 'unit_price', 'count_price', 'type', 'op_id', 'created_at', 'status'], 'required'],
+            [['mess_id', 'note', 'unit_price', 'count_price', 'type', 'op_id'], 'required'],
             [['mess_id', 'type', 'op_id', 'created_at', 'status'], 'integer'],
             [['unit_price', 'count_price'], 'number'],
             [['note'], 'string', 'max' => 200],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
         ];
     }
 
@@ -47,14 +59,14 @@ class MessCashbook extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'mess_id' => 'Mess ID',
-            'note' => 'Note',
-            'unit_price' => 'Unit Price',
-            'count_price' => 'Count Price',
-            'type' => 'Type',
-            'op_id' => 'Op ID',
-            'created_at' => 'Created At',
-            'status' => 'Status',
+            'mess_id' => '食堂',
+            'note' => '备注',
+            'unit_price' => '单价',
+            'count_price' => '总价',
+            'type' => '类型',
+            'op_id' => '操作人',
+            'created_at' => '添加时间',
+            'status' => '状态',
         ];
     }
 }

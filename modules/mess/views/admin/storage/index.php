@@ -78,7 +78,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'number',
              'unit_price',
              'count_price',
-             'type',
+            [
+                'label' => '类型',
+                'value' => function($model) use($types){
+                    return $types[$model->type];
+                }
+            ],
             'dt',
             // 'created_at',
             [

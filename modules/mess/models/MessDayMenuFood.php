@@ -3,7 +3,7 @@
 namespace app\modules\mess\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "{{%mess_day_menu_food}}".
  *
@@ -33,9 +33,21 @@ class MessDayMenuFood extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['day_menu_id', 'menu_id', 'food_id', 'num', 'created_at', 'updated_at'], 'required'],
+            [['day_menu_id', 'menu_id', 'food_id', 'num'], 'required'],
             [['day_menu_id', 'menu_id', 'food_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['num', 'unit_price'], 'number'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ]
+            ]
         ];
     }
 
@@ -46,13 +58,13 @@ class MessDayMenuFood extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'day_menu_id' => 'Day Menu ID',
-            'menu_id' => 'Menu ID',
-            'food_id' => 'Food ID',
-            'num' => 'Num',
-            'unit_price' => 'Unit Price',
-            'status' => 'Status',
-            'created_at' => 'Created At',
+            'day_menu_id' => '菜单',
+            'menu_id' => '菜单',
+            'food_id' => '原料',
+            'num' => '数量',
+            'unit_price' => '单价',
+            'status' => '状态',
+            'created_at' => '添加时间',
             'updated_at' => 'Updated At',
         ];
     }

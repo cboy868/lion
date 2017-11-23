@@ -17,14 +17,6 @@ use yii\filters\VerbFilter;
 class DayController extends BackController
 {
 
-    public static $types = [
-        '1' => '早餐',
-        '2' => '午餐',
-        '3' => '晚餐'
-    ];
-
-
-
     public function behaviors()
     {
         return [
@@ -56,11 +48,11 @@ class DayController extends BackController
             $menus[$menu->mess_id][$menu->type][] = $menu;
         }
 
-
+        $types = $this->module->params['menu_types'];
 
         return $this->render('index',[
             'mess' => Mess::sel(),
-            'types'=> self::$types,
+            'types'=> $types,
             'menus' => $menus,
             'date' => $date
         ]);
