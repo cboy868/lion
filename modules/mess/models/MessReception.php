@@ -2,6 +2,7 @@
 
 namespace app\modules\mess\models;
 
+use app\modules\user\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 /**
@@ -32,8 +33,8 @@ class MessReception extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mess_id', 'reception_name', 'reception_customer', 'reception_number', 'comment'], 'required'],
-            [['mess_id', 'reception_number', 'status', 'created_at'], 'integer'],
+            [['reception_name', 'reception_customer', 'reception_number', 'day_time'], 'required'],
+            [['reception_number', 'status', 'created_at'], 'integer'],
             [['reception_name'], 'string', 'max' => 20],
             [['reception_customer'], 'string', 'max' => 50],
             [['comment'], 'string', 'max' => 200],
@@ -59,13 +60,23 @@ class MessReception extends \app\core\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'mess_id' => 'Mess ID',
             'reception_name' => '接待人',
             'reception_customer' => '客户名',
             'reception_number' => '接待人数',
             'comment' => '评价',
             'status' => '状态',
             'created_at' => '添加时间',
+            'day_time' => '接待时间'
         ];
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'reception_name']);
+    }
+
+    public function getMenus()
+    {
+        return $this->hasMany(MessReceptionMenu::className(),['reception_id'=>'id'])->orderBy('day_time asc');
     }
 }

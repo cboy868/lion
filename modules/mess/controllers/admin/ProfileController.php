@@ -112,6 +112,7 @@ class ProfileController extends BackController
 
         $model->real_price = $menu->real_price;
         $model->num = $post['num'];
+        $model->is_pre = 1;
 
 
         if ($model->save()) {

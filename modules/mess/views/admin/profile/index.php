@@ -18,7 +18,6 @@ $this->title = '我的食堂';
 $this->params['breadcrumbs'][] = ['label' => '个人中心', 'url' => ['/user/admin/profile/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-
 $this->params['profile_nav'] = 'mess';
 ?>
 <style>
@@ -145,6 +144,7 @@ $this->params['profile_nav'] = 'mess';
                             <td><?=$menu->menu->name?></td>
                             <td class="red">¥<?=$menu->real_price?></td>
                             <td width="100">
+                                <?php if($date>=date('Y-m-d')):?>
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <button class="btn btn-danger btn-minus" type="button">
@@ -164,6 +164,7 @@ $this->params['profile_nav'] = 'mess';
                                         </button>
                                     </span>
                                 </div>
+                                <?php endif;?>
                             </td>
                         </tr>
                         <?php
@@ -210,7 +211,6 @@ $(function(){
     });
 
 
-
     $('.mnum').change(function(){
         var num = $(this).val();
         var id = $(this).data('id');
@@ -225,72 +225,6 @@ $(function(){
         },'json');
     });
 
-
-    $('body').on('change', '.selmenu', function () {
-        var price = JSON.parse('<?=$price?>');
-        var id = $(this).val();
-        var delid = $(this).closest('tr').attr('rid');
-        try {
-            var price = price[id];
-        } catch (err) {
-            var price = 0;
-        }
-        $(this).closest('tr').find('.real_price').val(price);
-        var mess_id = $(this).closest('table').data('mess_id');
-        var type = $(this).closest('table').data('type');
-
-        var data = {
-            mess_id:mess_id,
-            type:type,
-            menu_id:id,
-            real_price:price,
-            day_time:"<?=$date?>",
-            _csrf:csrf
-        };
-        if(delid){
-            data.delid=delid;
-        }
-        var selObj = $(this);
-        var that = this;
-        $.post("<?=Url::toRoute(['add'])?>",data,function (xhr) {
-            if (xhr.status) {
-                if(!delid){
-                    selObj.select2('destroy');
-                    var copy =selObj.parents('tr').clone();
-                    $(that).parents('table').append(copy);
-                    selObj.select2();
-                    copy.find('.real_price').val('');
-                    copy.find('.selmenu').select2();
-                }
-                var href = selObj.closest('tr').find('.delete').attr('href');
-                selObj.closest('tr').find('.delete')
-                    .show()
-                    .attr('href','<?=Url::toRoute(['delete'])?>'+'?id='+xhr.data);
-                selObj.closest('tr').find('.note').show();
-                $(that).closest('tr').attr('rid', xhr.data);
-            } else {
-                alert(xhr.info);
-            }
-        },'json');
-
-    });
-
-    $('.real_price').change(function () {
-        var price = $(this).val();
-        var id = $(this).closest('tr').attr('rid');
-
-        if (!id || !price) {
-            return ;
-        }
-        var that = this;
-
-        $.post("<?=Url::toRoute(['price'])?>",{id:id,price:price,_csrf:csrf},function(xhr){
-            if (!xhr.status) {alert(xhr.info)}
-            else{$(that).closest('tr').find('.note_price').show();}
-
-        },'json');
-
-    });
 })
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['img'], \yii\web\View::POS_END); ?>

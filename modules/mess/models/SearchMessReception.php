@@ -18,7 +18,7 @@ class SearchMessReception extends MessReception
     public function rules()
     {
         return [
-            [['id', 'mess_id', 'reception_number', 'status', 'created_at'], 'integer'],
+            [['id', 'reception_number', 'status', 'created_at'], 'integer'],
             [['reception_name', 'reception_customer', 'comment'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class SearchMessReception extends MessReception
      */
     public function search($params)
     {
-        $query = MessReception::find();
+        $query = MessReception::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -53,7 +53,6 @@ class SearchMessReception extends MessReception
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'mess_id' => $this->mess_id,
             'reception_number' => $this->reception_number,
             'status' => $this->status,
             'created_at' => $this->created_at,

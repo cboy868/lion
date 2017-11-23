@@ -21,6 +21,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class MessDayMenu extends \app\core\db\ActiveRecord
 {
+    const STATUS_FEE = 2;//已扣款
     /**
      * @inheritdoc
      */
@@ -78,5 +79,7 @@ class MessDayMenu extends \app\core\db\ActiveRecord
     {
         return $this->hasOne(Mess::className(), ['id'=>'mess_id']);
     }
+
+
 
 }

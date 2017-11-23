@@ -17,6 +17,18 @@
     background-color: #FFF
 }
 
+.red{
+    color:red;
+}
+
+.btn.btn-white {
+    border-width: 1px;
+    border-color: #CCC;
+    color: #444!important;
+    text-shadow: none!important;
+    background-color: #FFF!important;
+}
+
 .main-container.container,.rtl .main-container.container {
     padding-left: 0;
     padding-right: 0

@@ -32,8 +32,8 @@ class MessReceptionMenu extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['day_menu_id', 'type', 'reception_id', 'real_price'], 'required'],
-            [['day_menu_id', 'type', 'reception_id', 'status', 'created_at'], 'integer'],
+            [['day_menu_id', 'type', 'reception_id', 'real_price', 'mess_id','day_time','menu_id'], 'required'],
+            [['day_menu_id', 'type', 'reception_id', 'status', 'created_at', 'mess_id','menu_id'], 'integer'],
             [['real_price', 'num'], 'number'],
         ];
     }
@@ -64,6 +64,18 @@ class MessReceptionMenu extends \app\core\db\ActiveRecord
             'num' => '数量',
             'status' => '状态',
             'created_at' => '添加时间',
+            'mess_id' => '食堂',
+            'day_time' => '用餐时间'
         ];
+    }
+
+    public function getMess()
+    {
+        return $this->hasOne(Mess::className(), ['id'=>'mess_id']);
+    }
+
+    public function getMenu()
+    {
+        return $this->hasOne(MessMenu::className(), ['id'=>'menu_id']);
     }
 }

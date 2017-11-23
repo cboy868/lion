@@ -4,9 +4,6 @@ use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\mess\models\MessMenu */
-
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Mess Menus', 'url' => ['index']];
 ?>

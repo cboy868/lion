@@ -18,8 +18,11 @@ class SearchMessReceptionMenu extends MessReceptionMenu
     public function rules()
     {
         return [
-            [['id', 'day_menu_id', 'type', 'reception_id', 'status', 'created_at'], 'integer'],
+            [['day_menu_id', 'type', 'reception_id',
+                'status', 'created_at','mess_id'], 'integer'],
             [['real_price', 'num'], 'number'],
+            [['day_time'], 'safe'],
+
         ];
     }
 

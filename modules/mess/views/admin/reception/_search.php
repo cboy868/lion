@@ -1,33 +1,33 @@
 <?php
-
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
+use kartik\select2\Select2;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\mess\models\SearchMessReception */
-/* @var $form yii\widgets\ActiveForm */
+$users = \app\modules\user\models\User::staffs();
+$users = \yii\helpers\ArrayHelper::map($users, 'id', 'username');
 ?>
 
 <div class="mess-reception-search">
 
     <?php $form = ActiveForm::searchBegin(); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'mess_id') ?>
-
-    <?= $form->field($model, 'reception_name') ?>
+    <style>
+        .select2-container--krajee{
+            display: inline-block;
+        }
+    </style>
+    <?= $form->field($model, 'reception_name')->widget(Select2::classname(), [
+        'data' => $users,
+        'options' => [
+            'placeholder' => '不限',
+        ],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'width'=>'200px'
+        ],
+    ])->label('接待人员');?>
 
     <?= $form->field($model, 'reception_customer') ?>
-
-    <?= $form->field($model, 'reception_number') ?>
-
-    <?php // echo $form->field($model, 'comment') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>
