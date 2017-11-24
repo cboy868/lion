@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
-
+use yii\helpers\Html;
 \app\assets\ExtAsset::register($this);
 
 $this->title = '厨师工作台';
@@ -16,6 +16,20 @@ $this->params['breadcrumbs'][] = $this->title;
             <span class="red">【日期：<?=$date?>】</span>
         </h1>
     </div>
+
+
+    <?php
+    Modal::begin([
+        'header' => '点餐',
+        'id' => 'modalAdd',
+        'clientOptions' => ['backdrop' => 'static', 'show' => false]
+        // 'size' => 'modal'
+    ]) ;
+
+    echo '<div id="modalContent"></div>';
+
+    Modal::end();
+    ?>
 
     <?php
     Modal::begin([
@@ -32,6 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-xs-10">
+            <?=\app\core\widgets\Alert::widget()?>
+        </div>
+        <div class="col-xs-10">
             <div class="search-box search-outline">
                 菜单日期
                 <input type="text" dt="true" value="<?=$date?>" class="date_sel">
@@ -44,6 +61,100 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach;?>
                 </ul>
             </div>
+            <hr>
+
+            <?php if($receptions):?>
+            <table class="table table-bordered table-condensed table-hover">
+                <caption>
+                    接待用餐
+                </caption>
+                <thead>
+                <tr>
+                    <th width="120">
+                        接待人
+                    </th>
+                    <th>客户</th>
+                    <th>来访时间</th>
+                    <th>
+                        <table style="margin:-1px 0px 0px 0px;" class="table table-condensed intable">
+                            <thead>
+                            <tr>
+                                <th>                                用餐时间
+                                </th>
+                                <th>菜品</th>
+                                <th width="50">数量</th>
+                                <th width="50">单价</th>
+                                <th width="50">合计</th>
+                                <th width="50">操作</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </th>
+                    <th width="70">总计</th>
+                    <td width="50">操作</td>
+                </tr>
+                </thead>
+                <tbody id="order-day-info">
+                <?php foreach ($receptions as $reception):?>
+                    <tr>
+                        <td class="middle-center">
+                            <?=$reception->user->username;?>
+                        </td>
+                        <td>
+                            <?=$reception->reception_customer?>
+                        </td>
+                        <td>
+                            <?=$reception->day_time?>
+                        </td>
+                        <td style="padding:0px;" class="sub-box">
+                            <table style="margin:-1px 0px 0px 0px;" class="table table-condensed table-hover">
+                                <tbody>
+                                <?php $total=0;$fg=0;foreach ($reception_menus[$reception->id] as $mu):?>
+                                    <?php
+                                    if (!$mu->is_over) {
+                                        $fg = 1;
+                                    }
+                                    ?>
+                                    <tr class="<?=$mu->orderColor()?>" data-is-over="1">
+                                        <td class="blue2"><?=$mu->menu->name?></td>
+                                        <td width="50" class="blue text-center"><?=$mu->num?>份</td>
+                                        <td width="50" class="green text-right">
+                                            <?=$mu->real_price?>元
+                                        </td>
+                                        <td width="50" class="red text-right">
+                                            <?=$t=$mu->real_price * $mu->num?>元
+                                        </td>
+                                        <td width="50" style="text-align: right">
+                                            <a class="btn btn-default btn-xs drop"
+                                               href="<?=Url::toRoute(['drop', 'id'=>$mu->id])?>">
+                                                <i class="fa fa-times red"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php $total+=$t;endforeach;?>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="middle-center"><strong><?=$total?>元</strong></td>
+                        <td class="middle-center">
+                            <?php if ($fg && $date==date('Y-m-d')):?>
+                                <a class="btn btn-default btn-xs take-reception"
+                                   href="<?=Url::toRoute(['take-reception','reception_id'=>$reception->id,
+                                       'date'=>$date,
+                                       'type'=>$now_type,
+                                       'mess_id'=>$now_mess])?>">
+                                    <i class="red fa fa-check-circle-o"></i>
+                                    领 取
+                                </a>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
+                </tbody>
+            </table>
+            <?php endif;?>
+
+
             <table class="table table-bordered table-condensed table-hover">
                 <caption>
                     用户订餐信息,可输入用户名、全拼、或首字母进行查找
@@ -74,7 +185,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </thead>
                 <tbody id="order-day-info">
-                <?php foreach ($menus as $menu):?>
+                <?php foreach ($menus[0] as $menu):?>
                     <?php $cuser = current($menu);?>
                 <tr class="menu-tr"
                         data-pinyin="<?=$cuser->user->py?>"
@@ -115,8 +226,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </td>
                     <td class="middle-center"><strong><?=$total?>元</strong></td>
                     <td class="middle-center">
-                        <?php if ($fg && $date=='Y-m-d'):?>
-                        <a class="btn btn-default btn-white take"
+                        <?php if ($fg && $date==date('Y-m-d')):?>
+                        <a class="btn btn-default btn-xs take"
                            href="<?=Url::toRoute(['take','user_id'=>$user_id,
                                'date'=>$date,
                                'type'=>$now_type,
@@ -128,10 +239,45 @@ $this->params['breadcrumbs'][] = $this->title;
                     </td>
                 </tr>
                 <?php endforeach;?>
+                <?php foreach ($menus[1] as $menu):?>
+                    <?php $cuser = current($menu);?>
+                    <tr class="menu-tr"
+                        data-pinyin="<?=$cuser->user->py?>"
+                        data-title="<?=$cuser->user->username?>"
+                    >
+                        <td class="middle-center">
+                            <?=$cuser->user->username;?>
+                        </td>
+                        <td style="padding:0px;" class="sub-box">
+                            <table style="margin:-1px 0px 0px 0px;" class="table table-condensed table-hover">
+                                <tbody>
+                                <?php $total=0;foreach ($menu as $mu):?>
+                                    <tr class="<?=$mu->orderColor()?>" data-is-over="1">
+                                        <td class="blue2"><?=$mu->menu->name?></td>
+                                        <td width="50" class="blue text-center"><?=$mu->num?>份</td>
+                                        <td width="50" class="green text-right">
+                                            <?=$mu->real_price?>元
+                                        </td>
+                                        <td width="50" class="red text-right">
+                                            <?=$t=$mu->real_price * $mu->num?>元
+                                        </td>
+                                        <td width="50" style="text-align: right">
+                                            <a class="btn btn-default btn-xs drop"
+                                               href="<?=Url::toRoute(['drop', 'id'=>$mu->id])?>">
+                                                <i class="fa fa-times red"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php $total+=$t;endforeach;?>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="middle-center"><strong><?=$total?>元</strong></td>
+                        <td class="middle-center"></td>
+                    </tr>
+                <?php endforeach;?>
                 </tbody>
             </table>
-
-
         </div>
         <div class="col-xs-2">
             <div class="btn-group-vertical" role="group" style="display: block">
@@ -148,22 +294,26 @@ $this->params['breadcrumbs'][] = $this->title;
             <table class="table table-bordered table-condensed" style="margin-top:10px;">
                 <tbody>
                 <tr>
-                    <td class="danger text-center"><small>预定 未领取 未扣款</small></td>
+                    <td class="danger text-center"><small>未领取</small></td>
                 </tr>
                 <tr>
-                    <td class="warning text-center"><small>预定 已领取 未扣款</small></td>
+                    <td class="success text-center"><small>已领取</small></td>
                 </tr>
                 <tr>
-                    <td class="success text-center"><small>预定 已领取 已扣款</small></td>
-                </tr>
-                <tr>
-                    <td class="info text-center"><small>临时 已领取 未扣款</small></td>
-                </tr>
-                <tr>
-                    <td class="active text-center"><small>临时 已领取 已扣款</small></td>
+                    <td class="info text-center"><small>临时订餐</small></td>
                 </tr>
                 </tbody>
             </table>
+
+            <?=  Html::a('<i class="fa fa-plus"></i> <span class="h4" style="font-weight: 900">点 餐</span>',
+                ['order', 'mess_id'=>$now_mess,'type'=>$now_mess,'date'=>$date],
+                [
+                    'class' => 'btn btn-info btn-block btn-lg modalAddButton',
+                    'data-loading-text'=>"页面加载中, 请稍后...",
+                    'onclick'=>"return false"
+                ])
+            ?>
+
             <style>
                 ul.list-inline a{
                     color:#666;
@@ -185,7 +335,7 @@ $this->params['breadcrumbs'][] = $this->title;
                            data-loading-text="页面加载中, 请稍后..."
                            onclick="return false">
                             <span class="blue"><?=$v['menu_name']?>
-                                <span class="red"><?=$v['over']?>/<?=$v['cnt']?></span>份
+                                <span class="red"><?=$v['cnt'] - $v['over']?>/<?=$v['cnt']?></span>份
                             </span>
                         </a>
                     </li>
@@ -235,6 +385,23 @@ $(function(){
             }
         },'json')
     });
+
+    $('.take-reception').click(function(e){
+        e.preventDefault();
+        if (!confirm('确定领取吗?')) {return false;}
+
+        var href = $(this).attr('href');
+        var that = this;
+        $.post(href,{_csrf:csrf},function(xhr){
+            if(xhr.status) {
+                location.reload();
+            } else {
+                alert(xhr.info);
+            }
+        },'json')
+    });
+
+
     var pyh;
     var trs = $('tr.menu-tr');
     $('.py_search').keyup(function(e){ //拼音查找

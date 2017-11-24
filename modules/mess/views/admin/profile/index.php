@@ -157,7 +157,7 @@ $this->params['profile_nav'] = 'mess';
                                            class="form-control mnum"
                                            name="value" type="text"
                                            value="<?=isset($self[$k][$key][$menu->id]->num) ? $self[$k][$key][$menu->id]->num : 0?>"
-                                           style="padding:4px 3px;width:50px" value="0">
+                                           style="padding:4px 3px;width:50px">
                                     <span class="input-group-btn">
                                         <button class="btn btn-success btn-plus" type="button">
                                             <i class="fa fa-plus"></i>

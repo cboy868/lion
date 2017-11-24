@@ -33,7 +33,7 @@ class MessReceptionMenu extends \app\core\db\ActiveRecord
     {
         return [
             [['day_menu_id', 'type', 'reception_id', 'real_price', 'mess_id','day_time','menu_id'], 'required'],
-            [['day_menu_id', 'type', 'reception_id', 'status', 'created_at', 'mess_id','menu_id'], 'integer'],
+            [['day_menu_id', 'type', 'reception_id', 'status', 'created_at', 'mess_id','menu_id','is_over'], 'integer'],
             [['real_price', 'num'], 'number'],
         ];
     }
@@ -69,6 +69,21 @@ class MessReceptionMenu extends \app\core\db\ActiveRecord
         ];
     }
 
+    public function orderColor()
+    {
+        $is_over = $this->is_over;
+
+        // 预定的 未扣款 未领取
+        if ($is_over == 0 ) {
+            return 'danger';
+        }
+
+        // 预定的未扣款已经领取
+        if ($is_over == 1 ) {
+            return 'success';
+        }
+    }
+
     public function getMess()
     {
         return $this->hasOne(Mess::className(), ['id'=>'mess_id']);
@@ -77,5 +92,10 @@ class MessReceptionMenu extends \app\core\db\ActiveRecord
     public function getMenu()
     {
         return $this->hasOne(MessMenu::className(), ['id'=>'menu_id']);
+    }
+
+    public function getReception()
+    {
+        return $this->hasOne(MessReception::className(), ['id'=>'reception_id']);
     }
 }

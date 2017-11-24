@@ -4,7 +4,6 @@ use app\core\helpers\Html;
 use app\core\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\core\widgets\GridView;
-use yii\bootstrap\Modal;
 use yii\helpers\ArrayHelper;
 use app\modules\mess\models\MessMenu;
 \app\assets\SelectizeAsset::register($this);
@@ -41,33 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </small>
             </h1>
         </div><!-- /.page-header -->
-
-
-        <?php
-        Modal::begin([
-            'header' => '添加新菜单',
-            'id' => 'modalAdd',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false]
-            // 'size' => 'modal'
-        ]) ;
-
-        echo '<div id="modalContent"></div>';
-
-        Modal::end();
-        ?>
-
-        <?php
-        Modal::begin([
-            'header' => '编辑',
-            'id' => 'modalEdit',
-            'clientOptions' => ['backdrop' => 'static', 'show' => false]
-            // 'size' => 'modal'
-        ]) ;
-
-        echo '<div id="editContent"></div>';
-
-        Modal::end();
-        ?>
 
         <div class="row">
             <div class="col-xs-12">

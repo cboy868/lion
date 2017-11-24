@@ -41,7 +41,7 @@ class MessUserOrderMenu extends \app\core\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mess_id', 'user_id', 'day_menu_id', 'real_price'], 'required'],
+            [['mess_id', 'user_id', 'real_price'], 'required'],
             [['mess_id', 'user_id', 'day_menu_id', 'menu_id', 'type', 'is_pre',
                 'is_over', 'is_mobile', 'created_at', 'updated_at', 'status'], 'integer'],
             [['day_time'], 'safe'],
@@ -85,31 +85,19 @@ class MessUserOrderMenu extends \app\core\db\ActiveRecord
     {
         $is_pre  = $this->is_pre;
         $is_over = $this->is_over;
-        $status  = $this->status;
 
-        // 预定的 未扣款 未领取
-        if ( $status == 1 and $is_pre == 1 and $is_over == 0 ) {
+        // 预定的 未领取
+        if ($is_pre == 1 and $is_over == 0 ) {
             return 'danger';
         }
 
-        // 预定的未扣款已经领取
-        if ( $status == 1 and $is_pre == 1 and $is_over == 1 ) {
-            return 'warning';
-        }
-
-        // 预定的 已经扣款 已经领取，
-        if ( $status == 2 and $is_pre == 1 and $is_over == 1 ) {
+        // 预定的 已经领取
+        if ($is_pre == 1 and $is_over == 1 ) {
             return 'success';
         }
-
-        // 临时的 未扣款 已经领取
-        if ( $status == 1 and $is_pre == 0 and $is_over==1) {
+        // 临时的
+        if ($is_pre == 0) {
             return 'info';
-        }
-
-        // 临时的 已经扣款 已经领取
-        if ( $status == 2 and $is_pre == 0 and $is_over==1) {
-            return 'active';
         }
     }
 

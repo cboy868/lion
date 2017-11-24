@@ -12,4 +12,12 @@
         <td><?=$menu->num?></td>
     </tr>
     <?php endforeach;?>
+
+    <?php foreach ($reception_menus as $m):?>
+        <tr>
+            <td><?=$m->reception->user->username?>(接待:<?=$m->reception->reception_customer?>)</td>
+            <td><?=$m->num?></td>
+        </tr>
+    <?php endforeach;?>
+
 </table>
