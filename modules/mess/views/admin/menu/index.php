@@ -132,9 +132,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]);
                     },
                     'food' => function($url, $model, $key) {
-                        return Html::a('食材', $url,
+                        return Html::a('食材核算', $url,
                             [
-                                'title' => '食材',
+                                'title' => '食材核算',
                                 'class'=>'modalEditButton',
                                 "data-loading-text"=>"页面加载中, 请稍后...",
                                 "onclick"=>"return false"
