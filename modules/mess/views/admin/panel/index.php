@@ -185,6 +185,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </thead>
                 <tbody id="order-day-info">
+                <?php if (isset($menus[0])): ?>
+                    
+                
                 <?php foreach ($menus[0] as $menu):?>
                     <?php $cuser = current($menu);?>
                 <tr class="menu-tr"
@@ -239,43 +242,47 @@ $this->params['breadcrumbs'][] = $this->title;
                     </td>
                 </tr>
                 <?php endforeach;?>
-                <?php foreach ($menus[1] as $menu):?>
-                    <?php $cuser = current($menu);?>
-                    <tr class="menu-tr"
-                        data-pinyin="<?=$cuser->user->py?>"
-                        data-title="<?=$cuser->user->username?>"
-                    >
-                        <td class="middle-center">
-                            <?=$cuser->user->username;?>
-                        </td>
-                        <td style="padding:0px;" class="sub-box">
-                            <table style="margin:-1px 0px 0px 0px;" class="table table-condensed table-hover">
-                                <tbody>
-                                <?php $total=0;foreach ($menu as $mu):?>
-                                    <tr class="<?=$mu->orderColor()?>" data-is-over="1">
-                                        <td class="blue2"><?=$mu->menu->name?></td>
-                                        <td width="50" class="blue text-center"><?=$mu->num?>份</td>
-                                        <td width="50" class="green text-right">
-                                            <?=$mu->real_price?>元
-                                        </td>
-                                        <td width="50" class="red text-right">
-                                            <?=$t=$mu->real_price * $mu->num?>元
-                                        </td>
-                                        <td width="50" style="text-align: right">
-                                            <a class="btn btn-default btn-xs drop"
-                                               href="<?=Url::toRoute(['drop', 'id'=>$mu->id])?>">
-                                                <i class="fa fa-times red"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <?php $total+=$t;endforeach;?>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="middle-center"><strong><?=$total?>元</strong></td>
-                        <td class="middle-center"></td>
-                    </tr>
-                <?php endforeach;?>
+                <?php endif ?>
+
+                <?php if (isset($menus[0])): ?>
+                    <?php foreach ($menus[1] as $menu):?>
+                        <?php $cuser = current($menu);?>
+                        <tr class="menu-tr"
+                            data-pinyin="<?=$cuser->user->py?>"
+                            data-title="<?=$cuser->user->username?>"
+                        >
+                            <td class="middle-center">
+                                <?=$cuser->user->username;?>
+                            </td>
+                            <td style="padding:0px;" class="sub-box">
+                                <table style="margin:-1px 0px 0px 0px;" class="table table-condensed table-hover">
+                                    <tbody>
+                                    <?php $total=0;foreach ($menu as $mu):?>
+                                        <tr class="<?=$mu->orderColor()?>" data-is-over="1">
+                                            <td class="blue2"><?=$mu->menu->name?></td>
+                                            <td width="50" class="blue text-center"><?=$mu->num?>份</td>
+                                            <td width="50" class="green text-right">
+                                                <?=$mu->real_price?>元
+                                            </td>
+                                            <td width="50" class="red text-right">
+                                                <?=$t=$mu->real_price * $mu->num?>元
+                                            </td>
+                                            <td width="50" style="text-align: right">
+                                                <a class="btn btn-default btn-xs drop"
+                                                   href="<?=Url::toRoute(['drop', 'id'=>$mu->id])?>">
+                                                    <i class="fa fa-times red"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php $total+=$t;endforeach;?>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="middle-center"><strong><?=$total?>元</strong></td>
+                            <td class="middle-center"></td>
+                        </tr>
+                    <?php endforeach;?>
+                <?php endif;?>
                 </tbody>
             </table>
         </div>

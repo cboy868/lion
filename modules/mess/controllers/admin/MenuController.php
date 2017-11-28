@@ -10,6 +10,9 @@ use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\core\base\Upload;
+use yii\helpers\ArrayHelper;
+use app\modules\mess\models\MessMenuFood;
+use app\modules\mess\models\MessFood;
 /**
  * MenuController implements the CRUD actions for MessMenu model.
  */
@@ -142,9 +145,60 @@ class MenuController extends BackController
             }
         }
 
-
         return $this->renderAjax('update', [
             'model' => $model,
+        ]);
+    }
+
+    /**
+     * 菜单的食材选择
+     * @name 菜单食材
+     * @return [type] [description]
+     */
+    public function actionFood($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+            $menu_id = $post['menu_id'];
+            $food_ids = $post['food_id'];
+            $num = $post['num'];
+
+            if (!$menu_id) {
+                Yii::$app->session->setFlash('error', '请选择相应菜单');
+            }
+
+            $foods_ids = array_filter($food_ids);
+            $data = [
+                'menu_id' => $menu_id,
+            ];
+            foreach ($foods_ids as $k =>$food) {
+                if (!isset($num[$k]) || !$num[$k]) {continue;}
+                $data['food_id'] = $food;
+                $data['num'] = $num[$k];
+
+                $model = new MessMenuFood();
+                $model->load($data, '');
+                $model->save();
+
+            }
+            Yii::$app->session->setFlash('success', '食材选择完成');
+
+            return $this->redirect('index');
+
+        }
+
+        $foods = MessFood::find()->where(['status'=>1])->all();
+        $result = [];
+        $units = Yii::$app->getModule('mess')->params['menu_unit'];
+        foreach ($foods as $k => $food) {
+            $result[$food->id] = $food->food_name . '(' . $units[$food->unit_id] . ')';
+        }
+
+        $menu = $this->findModel($id);
+
+        return $this->renderAjax('food',[
+            'foods' => $result,
+            'menu'  => $menu
         ]);
     }
 

@@ -85,4 +85,9 @@ class MessMenu extends \app\core\db\ActiveRecord
         $all = self::find()->where(['<>', 'status', self::STATUS_DEL])->all();
         return ArrayHelper::map($all, 'id', 'name');
     }
+
+    public function getFoods()
+    {
+        return $this->hasMany(MessMenuFood::className(), ['menu_id'=>'id']);
+    }
 }

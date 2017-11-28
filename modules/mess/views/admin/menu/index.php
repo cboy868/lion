@@ -10,7 +10,7 @@ $this->title = '菜单管理';
 $this->params['breadcrumbs'][] = ['label' => '食堂', 'url' => ['/mess/admin/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-
+\app\assets\JqueryuiAsset::register($this);
 ?>
 
 <div class="page-content">
@@ -58,6 +58,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
             <div class="col-xs-12">
+            <?=\app\core\widgets\Alert::widget()?>
+            </div>
+            <div class="col-xs-12">
                 <div class="search-box search-outline">
                         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
@@ -93,6 +96,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'name',
             'category.name',
+            [
+                'label' => '原材料',
+                'value' => function($model){
+                    $foods = $model->foods;
+                    $str = '';
+                    $units = Yii::$app->getModule('mess')->params['menu_unit'];
+
+                    foreach ($foods as $k => $food) {
+                        if (!isset($food->food->food_name)) {
+                            continue;
+                        }
+                        $str .= $food->food->food_name . ':' .$food->num .$units[$food->food->unit_id]. ',';
+                    };
+                    return $str;
+                }
+            ],
             'default_price',
             'note',
 //             'status',
@@ -101,12 +120,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete} ',
+                'template' => '{update} {delete} {food}',
                 'buttons' => [
                     'update' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url,
                             [
                                 'title' => '编辑',
+                                'class'=>'modalEditButton',
+                                "data-loading-text"=>"页面加载中, 请稍后...",
+                                "onclick"=>"return false"
+                            ]);
+                    },
+                    'food' => function($url, $model, $key) {
+                        return Html::a('食材', $url,
+                            [
+                                'title' => '食材',
                                 'class'=>'modalEditButton',
                                 "data-loading-text"=>"页面加载中, 请稍后...",
                                 "onclick"=>"return false"
