@@ -28,4 +28,9 @@ class HelloController extends Controller
         echo 'sss';die;
     }
 
+    public function actionMess()
+    {
+        echo 'sssabc';die;
+    }
+
 }

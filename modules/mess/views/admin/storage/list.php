@@ -19,6 +19,28 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header">
             <h1>
                 <?= $this->title ?>
+
+                <small>
+                    <div class="pull-right nc">
+                        <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/default/index'])?>">
+                            <i class="fa fa-cog fa-2x"></i>  食堂基础设置</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/storage/index'])?>">
+                            <i class="fa fa-server fa-2x"></i>  库存记录</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/mess/admin/day/index'])?>">
+                            <i class="fa fa-list fa-2x"></i>  菜单安排制作</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/mess/admin/panel/index'])?>">
+                            <i class="fa fa-puzzle-piece fa-2x"></i>  厨师操作台</a>
+                    </div>
+                </small>
             </h1>
         </div><!-- /.page-header -->
 

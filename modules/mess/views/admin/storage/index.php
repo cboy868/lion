@@ -27,6 +27,26 @@ $this->params['breadcrumbs'][] = $this->title;
                        data-loading-text="页面加载中, 请稍后..." onclick="return false">
                         <i class="fa fa-plus"></i>入库
                     </a>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/default/index'])?>">
+                            <i class="fa fa-cog fa-2x"></i>  食堂基础设置</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/storage/list'])?>">
+                            <i class="fa fa-server fa-2x"></i>  库存</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/mess/admin/panel/index'])?>">
+                            <i class="fa fa-puzzle-piece fa-2x"></i>  厨师操作台</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/mess/admin/day/index'])?>">
+                            <i class="fa fa-list fa-2x"></i>  菜单安排制作</a>
+                    </div>
                 </small>
             </h1>
         </div><!-- /.page-header -->

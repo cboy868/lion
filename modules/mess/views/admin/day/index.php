@@ -37,6 +37,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 <small>
                     菜单日期
                     <input type="text" dt="true" value="<?=$date?>" class="date_sel">
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/default/index'])?>">
+                            <i class="fa fa-cog fa-2x"></i>  食堂基础设置</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/storage/list'])?>">
+                            <i class="fa fa-list fa-2x"></i>  库存</a>
+                    </div>
+
+                    <div class="pull-right nc">
+                        <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/mess/admin/panel/index', 'date'=>$date])?>">
+                            <i class="fa fa-puzzle-piece fa-2x"></i>  厨师操作台</a>
+                    </div>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -53,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $current = Yii::$app->request->get('date');
                             ?>
                             <ul class="nav nav-tabs">
-                                <li class="<?php if(!$current) echo 'active'?>">
+                                <li class="<?php if(!$current || $current==date('Y-m-d')) echo 'active'?>">
                                     <a href="<?=Url::toRoute(['index'])?>" aria-expanded="true">今天</a>
                                 </li>
                                 <li class="<?php if($current==$tomorrow) echo 'active'?>">

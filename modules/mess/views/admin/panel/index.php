@@ -14,6 +14,24 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1>
             <?=$mess[$now_mess]?><?=$types[$now_type]?>
             <span class="red">【日期：<?=$date?>】</span>
+
+            <small>
+                <div class="pull-right nc">
+                    <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/default/index'])?>">
+                        <i class="fa fa-cog fa-2x"></i>  食堂基础设置</a>
+                </div>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-default btn-sm" href="<?=Url::toRoute(['/mess/admin/storage/list'])?>">
+                        <i class="fa fa-list fa-2x"></i>  库存</a>
+                </div>
+
+                <div class="pull-right nc">
+                    <a class="btn btn-info btn-sm" href="<?=Url::toRoute(['/mess/admin/day/index', 'date'=>$date])?>">
+                        <i class="fa fa-list fa-2x"></i>  菜单安排制作</a>
+                </div>
+
+            </small>
         </h1>
     </div>
 
@@ -311,7 +329,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </tbody>
             </table>
-
+<?php if($date>=date('Y-m-d')):?>
             <?=  Html::a('<i class="fa fa-plus"></i> <span class="h4" style="font-weight: 900">点 餐</span>',
                 ['order', 'mess_id'=>$now_mess,'type'=>$now_mess,'date'=>$date],
                 [
@@ -320,7 +338,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'onclick'=>"return false"
                 ])
             ?>
-
+<?php endif;?>
             <style>
                 ul.list-inline a{
                     color:#666;

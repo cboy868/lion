@@ -1,8 +1,6 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * 有时控制器不起作用，改个名字有可能就好了，名字有一部分与系统中的控制器重复也会失败
  */
 
 namespace app\commands;
