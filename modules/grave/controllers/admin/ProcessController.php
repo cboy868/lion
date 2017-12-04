@@ -166,7 +166,7 @@ class ProcessController extends BackController
 
 
         $tpl = $customer->isNewRecord ? 'customer' : 'customer_edit' ;
-p($user);die;
+
 
         return $this->render($tpl,[
                 'model'=> $customer,
