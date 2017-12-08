@@ -14,9 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div id="user-profile-2" class="user-profile">
             <div class="tabbable">
-                <ul class="nav nav-tabs padding-18">
-                    <?=$this->render('@app/modules/user/views/admin/profile/nav');?>
-                </ul>
 
                 <div class="tab-content padding-12">
                     <div class="tab-pane active">

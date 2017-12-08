@@ -1,10 +1,6 @@
 <?php
 
-use app\core\helpers\Html;
 use app\core\helpers\Url;
-use yii\widgets\Breadcrumbs;
-use app\core\widgets\GridView;
-
 
 $this->title = '个人中心';
 $this->params['breadcrumbs'][] = $this->title;
@@ -16,10 +12,6 @@ $this->params['profile_nav'] = 'user';
     <div class="col-sm-12">
         <!-- user profile start -->
                 <!-- person panel nav -->
-                <ul class="nav nav-tabs padding-18">
-                    <?=$this->render('@app/modules/user/views/admin/profile/nav');?>
-                </ul>
-
                 <!-- content -->
                 <div class="tab-content padding-12">
                     <div class="tab-pane active">

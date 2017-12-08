@@ -5,14 +5,13 @@ namespace app\modules\task\controllers\admin;
 use Yii;
 use app\modules\task\models\Task;
 use app\modules\task\models\search\TaskSearch;
-use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * DefaultController implements the CRUD actions for Task model.
  */
-class ProfileController extends BackController
+class ProfileController extends \app\core\web\ProfileController
 {
     public function behaviors()
     {

@@ -59,10 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'操作',
-                'template' => '{update} {delete}',
-                'visibleButtons' =>[
-                    'update' =>Yii::$app->user->can('cms/nav/update'),
-                    'delete' =>Yii::$app->user->can('cms/nav/delete'),
+                'template' => '{update} {delete} {language}',
+                'buttons' => [
+                    'language' => function($url, $model, $key) {
+                        if (Yii::$app->params['i18n']['flag']) {
+                            return Html::a('多语言编辑', $url, ['title' => '多语言编辑'] );
+                        }
+                    }
                 ],
                 'headerOptions' => ['width' => '240',"data-type"=>"html"]
             ]

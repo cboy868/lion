@@ -5,17 +5,15 @@ namespace app\modules\blog\controllers\admin;
 use app\modules\blog\models\Blog;
 use app\modules\blog\models\BlogSearch;
 use Yii;
-use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\modules\memorial\models\Memorial;
 use app\core\models\TagRel;
 use yii\helpers\ArrayHelper;
 
 /**
  * DefaultController implements the CRUD actions for Task model.
  */
-class ProfileController extends BackController
+class ProfileController extends \app\core\web\ProfileController
 {
     public function behaviors()
     {

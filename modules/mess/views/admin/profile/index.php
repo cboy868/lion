@@ -30,6 +30,25 @@ $this->params['profile_nav'] = 'mess';
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
+
+
+        <div class="page-header">
+            <h1>
+                <small>
+                    <span style="line-height: 32px;margin-left: 10px;">
+                         食堂余额: <code><?=$amount?>元</code>
+                    </span>
+                    <a href="<?=Url::toRoute(['/mess/admin/profile/recharge'])?>"
+                       class="radius4 btn btn-xs btn-white pull-right">
+                        <i class="fa fa-list"></i>
+                        我的充值记录</a>
+                    <a href="<?=Url::toRoute(['/mess/admin/profile/consume'])?>"
+                       class="radius4 btn btn-xs btn-white pull-right">
+                        <i class="fa fa-list"></i>
+                        我的消费记录</a>
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
         <?php
         Modal::begin([
             'header' => '添加新菜单',
@@ -57,24 +76,6 @@ $this->params['profile_nav'] = 'mess';
         ?>
 
         <div class="row">
-
-            <div class="col-xs-12">
-
-                <ul class="nav nav-tabs padding-18">
-                    <?=$this->render('@app/modules/user/views/admin/profile/nav');?>
-                    <span style="line-height: 32px;margin-left: 10px;">
-                         食堂余额: <code>¥500.00元</code>
-                    </span>
-                    <a href="<?=Url::toRoute(['/mess/admin/profile/recharge'])?>"
-                       class="radius4 btn btn-xs btn-white pull-right">
-                        <i class="fa fa-list"></i>
-                        我的充值记录</a>
-                    <a href="<?=Url::toRoute(['/mess/admin/profile/consume'])?>"
-                       class="radius4 btn btn-xs btn-white pull-right">
-                        <i class="fa fa-list"></i>
-                        我的消费记录</a>
-                </ul>
-            </div>
             <div class="col-sm-3">
                 <div style="color: #999;padding-top: 8px;padding-bottom: 8px;">菜单日期</div>
                 <div class="search-box search-outline">

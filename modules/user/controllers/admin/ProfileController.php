@@ -5,19 +5,15 @@ namespace app\modules\user\controllers\admin;
 use app\modules\user\models\Log;
 use Yii;
 use app\modules\user\models\User;
-use app\modules\user\models\UserForm;
 use app\modules\user\models\UserField;
 use app\modules\user\models\Addition;
-use app\modules\user\models\UserSearch;
-use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use app\core\base\Upload;
 
 /**
  * DefaultController implements the CRUD actions for User model.
  */
-class ProfileController extends BackController
+class ProfileController extends \app\core\web\ProfileController
 {
 
     public function beforeAction($action)

@@ -4,18 +4,16 @@ namespace app\modules\mess\controllers\admin;
 
 use app\modules\mess\models\Mess;
 use app\modules\mess\models\MessUserOrderMenu;
+use app\modules\mess\models\MessUserPrice;
 use Yii;
 use app\modules\mess\models\MessDayMenu;
-use app\modules\mess\models\SearchMessDayMenu;
-use app\core\web\BackController;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use app\modules\mess\models\SearchMessUserRecharge;
 use app\modules\mess\models\SearchMessUserOrderMenu;
 /**
  * DayController implements the CRUD actions for MessDayMenu model.
  */
-class ProfileController extends BackController
+class ProfileController extends \app\core\web\ProfileController
 {
 
     /**
@@ -46,13 +44,20 @@ class ProfileController extends BackController
 
         $types = $this->module->params['menu_types'];
 
+        $price = MessUserPrice::find()->where([
+            'user_id'=>Yii::$app->user->id,
+            'status'=>MessUserPrice::STATUS_NORMAL
+        ])->one();
+        $amount = $price->price;
+
         return $this->render('index',[
             'mess' => Mess::sel(),
             'types'=> $types,
             'menus' => $menus,
             'self' => $self_menus,
             'self_menus' => $_self_menus,
-            'date' => $date
+            'date' => $date,
+            'amount' => $amount
         ]);
     }
 

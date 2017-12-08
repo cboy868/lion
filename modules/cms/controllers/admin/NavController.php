@@ -2,12 +2,15 @@
 
 namespace app\modules\cms\controllers\admin;
 
+use app\modules\cms\models\LgNav;
+use app\modules\news\models\LgNews;
 use Yii;
 use app\modules\cms\models\Nav;
 use app\modules\cms\models\NavSearch;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Model;
 
 /**
  * NavController implements the CRUD actions for Nav model.
@@ -92,6 +95,42 @@ class NavController extends BackController
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionLanguage($id)
+    {
+        $model = $this->findModel($id);
+
+        $params = Yii::$app->params['i18n'];
+        $lgs = array_keys($params['languages']);
+        $data['model'] = $model;
+
+        $lg_models = LgNav::find()->where(['language'=>$lgs])
+            ->andWhere(['nav_id'=>$model->id])
+            ->indexBy('language')
+            ->all();
+
+
+        foreach ($lgs as $v) {
+            if (!array_key_exists($v, $lg_models)) {
+                $lg_models[$v] = new LgNav();
+                $lg_models[$v]->language = $v;
+                $lg_models[$v]->nav_id = $id;
+            }
+        }
+
+        if (Model::loadMultiple($lg_models, \Yii::$app->request->post()) && Model::validateMultiple($lg_models)) {
+
+            foreach ($lg_models as $lg_model) {
+                $lg_model->save(false);
+            }
+
+            return $this->redirect(['index']);
+        }
+
+        $data['lg_models'] = $lg_models;
+        $data['languages'] = $params['languages'];
+        return $this->render('lanuage', $data);
     }
 
     /**
