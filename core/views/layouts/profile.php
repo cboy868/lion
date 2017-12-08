@@ -414,6 +414,9 @@ $(function(){
 //            $(".main-right-slid .gotop").fadeOut();
 //        }
 //    }
+
+
+    $('#sidebar').addClass('menu-min');
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>
 
