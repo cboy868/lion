@@ -3,29 +3,31 @@
 use app\core\helpers\Html;
 use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\modules\approval\models\SearchApprovalLeave */
-/* @var $form yii\widgets\ActiveForm */
+use app\modules\approval\models\ApprovalLeave;
+use kartik\select2\Select2;
+$types = Yii::$app->getModule('approval')->params['leave_type'];
+$staffs = \app\modules\user\models\User::staffs();
+$staffs = \yii\helpers\ArrayHelper::map($staffs, 'id', 'username');
 ?>
 
 <div class="approval-leave-search">
 
     <?php $form = ActiveForm::searchBegin(); ?>
 
-    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'approval_id') ?>
+    <div class="form-group field-searchapprovalleave-created_by">
+        <?=Select2::widget([
+            'name' => 'SearchApprovalLeave[created_by]',
+            'data' => $staffs,
+            'options' => [
+                'placeholder' => '请假人',
+                'class' => 'form-control'
+            ]
+        ]);
+        ?>
+    </div>
 
-    <?= $form->field($model, 'start_time') ?>
-
-    <?= $form->field($model, 'end_time') ?>
-
-    <?= $form->field($model, 'note') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
+    <?= $form->field($model, 'type')->dropDownList($types); ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-search"></i>  查找', ['class' => 'btn btn-primary btn-sm']) ?>

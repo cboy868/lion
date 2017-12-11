@@ -3,12 +3,13 @@
 namespace app\modules\test\controllers\admin;
 
 
-
 use app\core\helpers\Ip;
+use app\core\helpers\Tree;
 use app\core\models\TagRel;
 use app\core\libs\Fpdf;
 use app\modules\order\models\Order;
 use app\modules\shop\models\Sku;
+use app\modules\sys\models\Menu;
 use app\modules\sys\models\Msg;
 use app\modules\task\models\Task;
 use app\modules\user\models\UserSearch;
@@ -16,9 +17,17 @@ use app\modules\wechat\models\Template;
 use yii;
 use kartik\export\ExportMenu;
 use EasyWeChat\Foundation\Application;
+use yii\helpers\Html;
 
 class DefaultController extends \app\core\web\BackController
 {
+    public function actionMenu()
+    {
+        $categories = Menu::find()->orderBy('level desc, sort desc')->indexBy('id')->all();
+        p(Tree::treeShow($categories, ['\app\core\helpers\Tree', 'createMenuLink']));
+
+    }
+
 
     public function actionIp()
     {

@@ -18,6 +18,8 @@ $(function(){
                         $('#modalAdd').modal('show');
                         btn.button().button('reset');
                     });
+
+        return false;
     });
 
     $('.modalEditButton').click(function(e){
@@ -28,6 +30,7 @@ $(function(){
                         $('#modalEdit').modal('show');
                         btn.button('reset');
                     });
+        return false;
     });
 
 
@@ -39,6 +42,7 @@ $(function(){
                 $('#modalView').modal('show');
                 btn.button('reset');
             });
+        return false;
     });
 
 

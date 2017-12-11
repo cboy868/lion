@@ -56,9 +56,20 @@ LN = {
     dttimeInit : function(){
 
         $('body').on('click', 'input[dttime=true]', function(e){
+            $.datetimepicker.setLocale('ch');
            var $this = $(this);
            if ( !$this.data('dttimeInit') ) {
-               $this.datetimepicker({format:'Y-m-d H:i'});
+               var setting = {format:'Y-m-d H:i'};
+
+               if ($this.attr('step')) {
+                   setting['step'] = $this.attr('step');
+               }
+
+               if ($this.attr('defaultTime')) {
+                   setting['defaultTime'] = $this.attr('defaultTime');
+               }
+
+               $this.datetimepicker(setting);
                $this.data('dttimeInit', true);
                $this.blur();
                $this.focus();
@@ -80,7 +91,6 @@ LN = {
         });
     }
 };
-
 $(function(){
     LN.dtInit();
     LN.dttimeInit();

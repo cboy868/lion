@@ -12,17 +12,37 @@ use app\core\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'approval_id')->textInput() ?>
+    <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'approval_id')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'year')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'start_day')->textInput() ?>
+
+    <?= $form->field($model, 'end_day')->textInput() ?>
 
     <?= $form->field($model, 'start_time')->textInput() ?>
 
     <?= $form->field($model, 'end_time')->textInput() ?>
 
-    <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'hours')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?= $form->field($model, 'back_at')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'created_by')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'created_dtime')->textInput() ?>
+
+    <?= $form->field($model, 'reviewed_by')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'reviewed_dtime')->textInput() ?>
 
 
 	<div class="form-group">

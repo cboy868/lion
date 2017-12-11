@@ -129,5 +129,48 @@ class Tree
 
         return $result;
     }
+
+
+    public static function treeShow($categories, $userFunc)
+    {
+        $treeMenu   = array();
+//        $userFunc = ['\app\core\helpers\Tree', 'createMenuLink']
+
+        foreach($categories as $category)
+        {
+            $linkHtml = call_user_func($userFunc, $category);
+
+            if(isset($treeMenu[$category->id]) and !empty($treeMenu[$category->id]))
+            {
+                if(!isset($treeMenu[$category->pid])) $treeMenu[$category->pid] = '';
+                $treeMenu[$category->pid] .= "<li>$linkHtml";
+                $treeMenu[$category->pid] .= "<ul>".$treeMenu[$category->id]."</ul>\n";
+
+            }
+            else
+            {
+                if(isset($treeMenu[$category->pid]) and !empty($treeMenu[$category->pid]))
+                {
+                    $treeMenu[$category->pid] .= "<li>$linkHtml\n";
+                }
+                else
+                {
+                    $treeMenu[$category->pid] = "<li>$linkHtml\n";
+                }
+            }
+            $treeMenu[$category->pid] .= "</li>\n";
+
+
+        }
+
+
+        $lastMenu = "<ul class='tree'>" . @array_pop($treeMenu) . "</ul>\n";
+        return $lastMenu;
+    }
+
+    public static function createMenuLink($category)
+    {
+        return Html::a($category->name,['#'] );
+    }
 }
 

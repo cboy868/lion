@@ -270,25 +270,6 @@ AdminAsset::register($this);
                     <script type="text/javascript">
                         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
                     </script>
-                    <style>
-                        ul.nav-profile li a{
-                            padding: 10px 15px;
-                            line-height: 20px;
-                        }
-                        ul.nav-profile li.active a{
-                            background-color: lightseagreen;
-                            color: #fff;
-                        }
-                        ul.nav-profile li a:hover{
-                            background-color: lightseagreen;
-                            color: #fff;
-                        }
-                        .page-header{
-                            padding-top: 0;
-                            padding-bottom: 0;
-                        }
-                    </style>
-
                     <?php
                     $profile_nav = $this->params['profile_nav'];
                     ?>
@@ -309,12 +290,13 @@ AdminAsset::register($this);
                                 博客
                             </a>
                         </li>
+                        <!--
+
                         <li class="<?php if($profile_nav == 'mess') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/mess/admin/profile/index'])?>">
                                 食堂
                             </a>
                         </li>
-                        <!--
                         <li class="<?php if($profile_nav == 'work') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/approval/admin/profile/work'])?>">
                                 考勤
@@ -332,6 +314,22 @@ AdminAsset::register($this);
                     <!-- /section:basics/content.searchbox -->
                 </div>
                 <style>
+                    ul.nav-profile li a{
+                        padding: 10px 15px;
+                        line-height: 20px;
+                    }
+                    ul.nav-profile li.active a{
+                        background-color: lightseagreen;
+                        color: #fff;
+                    }
+                    ul.nav-profile li a:hover{
+                        background-color: lightseagreen;
+                        color: #fff;
+                    }
+                    .page-header{
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
                     .page-content{
                         /*margin-right:50px;*/
                     }
@@ -396,27 +394,8 @@ AdminAsset::register($this);
 <?php $this->beginBlock('menu') ?>
 $(function(){
     $('.submenu>.active').parents('.p-menu').addClass('active open');
-//    gotop();
-//    $(window).scroll(function(){
-//        gotop();
-//    });
-//    $(".main-right-slid .gotop").click(function(){
-//        $('html,body').animate({'scrollTop':0},500);
-//    });
-});
-
-//    function gotop()
-//    {
-//        if($(window).scrollTop()>120){
-//            $(".main-right-slid .gotop").fadeIn();
-//        }
-//        else{
-//            $(".main-right-slid .gotop").fadeOut();
-//        }
-//    }
-
-
     $('#sidebar').addClass('menu-min');
+})
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>
 

@@ -45,15 +45,16 @@
                 <table>
                     <caption>历史操作记录</caption>
                     <?php foreach ($list as $model):?>
-                        <tr>
-                            <td>
-                                <?=$model->dt?>, 由 <strong><?=$model->op_name?></strong> <?=$model->type?>。
-                                <?php if($model->intro):?>
-                                备注:<?=$model->intro?>
-                                <?php endif;?>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><?=$model->dt?>, 由 <strong><?=$model->op_name?></strong> <?=$model->type?>。</td>
+                    </tr>
                     <?php endforeach;?>
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            2017-12-11 11:06:14, 由 <strong>admin</strong> 审核 拒绝。-->
+<!--                            理由 <span style="color:green;">不可以</span>-->
+<!--                        </td>-->
+<!--                    </tr>-->
                 </table>
             </div><!-- /.col -->
         </div><!-- /.row -->

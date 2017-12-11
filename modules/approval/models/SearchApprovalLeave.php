@@ -18,8 +18,11 @@ class SearchApprovalLeave extends ApprovalLeave
     public function rules()
     {
         return [
-            [['id', 'approval_id', 'created_at', 'status'], 'integer'],
-            [['start_time', 'end_time', 'note'], 'safe'],
+            [['approval_id'], 'integer'],
+            [['year', 'start_day', 'end_day', 'start_time', 'end_time', 'back_at',
+                'type', 'desc', 'status', 'created_by', 'created_dtime', 'reviewed_by',
+                'reviewed_dtime'], 'safe'],
+            [['hours','month'], 'number'],
         ];
     }
 
@@ -54,13 +57,21 @@ class SearchApprovalLeave extends ApprovalLeave
         $query->andFilterWhere([
             'id' => $this->id,
             'approval_id' => $this->approval_id,
+            'start_day' => $this->start_day,
+            'end_day' => $this->end_day,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
-            'created_at' => $this->created_at,
+            'hours' => $this->hours,
+            'year' => $this->year,
+            'month' => $this->month,
+            'back_at' => $this->back_at,
+            'type' => $this->type,
+            'created_by' => $this->created_by,
+            'reviewed_by' => $this->reviewed_by,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'note', $this->note]);
+        $query->andFilterWhere(['like', 'desc', $this->desc]);
 
         return $dataProvider;
     }
