@@ -290,7 +290,6 @@ AdminAsset::register($this);
                                 博客
                             </a>
                         </li>
-                        <!--
 
                         <li class="<?php if($profile_nav == 'mess') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/mess/admin/profile/index'])?>">
@@ -302,6 +301,7 @@ AdminAsset::register($this);
                                 考勤
                             </a>
                         </li>
+                        <!--
                         <li class="<?php if($profile_nav == 'approval') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/approval/admin/profile/index'])?>">
                                 审批
