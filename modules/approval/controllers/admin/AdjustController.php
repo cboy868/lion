@@ -13,7 +13,7 @@ use app\core\helpers\ArrayHelper;
 /**
  * LeaveController implements the CRUD actions for ApprovalLeave model.
  */
-class LeaveController extends BackController
+class AdjustController extends BackController
 {
     public function behaviors()
     {
@@ -48,14 +48,14 @@ class LeaveController extends BackController
             $params['month'] = $params['SearchApprovalLeave']['month'] = date('m');
         }
 
-        $params['SearchApprovalLeave']['genre'] = ApprovalLeave::GENRE_LEAVE;
+        $params['SearchApprovalLeave']['genre'] = ApprovalLeave::GENRE_ADJUST;
 
 
         $dataProvider = $searchModel->search($params);
 
         $cates = ApprovalLeave::find()->select(['year', 'month'])
             ->where(['<>', 'month', 0])
-            ->andWhere(['genre'=>ApprovalLeave::GENRE_LEAVE])
+            ->andWhere(['genre'=>ApprovalLeave::GENRE_ADJUST])
             ->orderBy('year desc, month desc')
             ->groupBy('year,month')
             ->asArray()

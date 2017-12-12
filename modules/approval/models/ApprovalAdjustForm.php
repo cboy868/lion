@@ -4,6 +4,7 @@ namespace app\modules\approval\models;
 
 use Yii;
 use yii\base\Model;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "{{%approval_leave}}".
@@ -25,7 +26,7 @@ use yii\base\Model;
  * @property string $reviewed_by
  * @property string $reviewed_dtime
  */
-class ApprovalLeaveForm extends Model
+class ApprovalAdjustForm extends Model
 {
     public $start;
     public $end;
@@ -33,6 +34,7 @@ class ApprovalLeaveForm extends Model
     public $type;
     public $desc;
     public $genre;
+    public $overtime_ids;
 
     /**
      * @inheritdoc
@@ -40,9 +42,10 @@ class ApprovalLeaveForm extends Model
     public function rules()
     {
         return [
-            [['start', 'end','hours','type'], 'required'],
+            [['start', 'end','hours'], 'required'],
             [['hours','type', 'genre'], 'number'],
             [['desc'], 'string'],
+            ['overtime_ids', 'safe']
         ];
     }
 
@@ -58,6 +61,7 @@ class ApprovalLeaveForm extends Model
             'type' => '请假类型',
             'desc' => '请假事由',
             'status' => '请假状态',
+            'overtime_ids' => '加班记录'
         ];
     }
 
@@ -66,8 +70,9 @@ class ApprovalLeaveForm extends Model
         $model = new ApprovalLeave();
         $start = explode(' ', $this->start);
         $end = explode(' ', $this->end);
+        $post = Yii::$app->request->post();
 
-        if ($this->load(Yii::$app->request->post()) && $this->validate()) {
+        if ($this->load($post) && $this->validate()) {
             $model->start_day = $start[0];
             $model->start_time = $start[1];
             $model->end_day = $end[0];
@@ -76,15 +81,16 @@ class ApprovalLeaveForm extends Model
             $model->created_dtime = date('Y-m-d H:i:s');
             $model->year = date('Y', strtotime($this->start));
             $model->hours = $this->hours;
-            $model->type = $this->type;
+            $model->type = 0;
             $model->desc = $this->desc;
             $model->genre = $this->genre;
             $model->month = date('m', strtotime($model->start_day));
+            $model->overtime_ids = implode(',', $this->overtime_ids);
 
             if ($model->save()) {
                 return $model;
             } else {
-                return false;
+                throw new NotFoundHttpException('数据出错');
             }
         }
     }
@@ -101,7 +107,7 @@ class ApprovalLeaveForm extends Model
             $leave->end_time = $end[1];
             $leave->year = date('Y', strtotime($this->start));
             $leave->hours = $this->hours;
-            $leave->type = $this->type;
+            $leave->type = 0;
             $leave->desc = $this->desc;
             $leave->month = date('m', strtotime($leave->start_day));
             $leave->status = ApprovalLeave::STATUS_NORMAL;

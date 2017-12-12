@@ -3,6 +3,7 @@
 namespace app\modules\approval\controllers\admin;
 
 use app\core\helpers\ArrayHelper;
+use app\modules\approval\models\ApprovalAdjustForm;
 use app\modules\approval\models\ApprovalLeave;
 use app\modules\approval\models\ApprovalLeaveForm;
 use app\modules\approval\models\SearchApprovalLeave;
@@ -21,17 +22,20 @@ use yii\filters\VerbFilter;
  */
 class ProfileController extends \app\core\web\ProfileController
 {
+
+    public static $genre_views = [
+        ApprovalLeave::GENRE_LEAVE => 'leave',
+        ApprovalLeave::GENRE_OVERTIME => 'overtime',
+        ApprovalLeave::GENRE_ADJUST => 'adjust',
+        ApprovalLeave::GENRE_OUT => 'out',
+        ApprovalLeave::GENRE_TRIP => 'trip'
+    ];
     /**
      * Lists all Approval models.
      * @return mixed
      */
     public function actionIndex()
     {
-
-
-
-
-
         return $this->render('index');
     }
 
@@ -40,16 +44,19 @@ class ProfileController extends \app\core\web\ProfileController
         return $this->render('work');
     }
 
+
     /**
+     * @param int $genre
      * @return string
-     * @name 请假
+     * @name 个人考勤 请假 加班 调休等
      */
-    public function actionLeave()
+    public function actionList($genre=ApprovalLeave::GENRE_LEAVE)
     {
         $searchModel = new SearchApprovalLeave();
         $params = Yii::$app->request->queryParams;
 
         $params['SearchApprovalLeave']['created_by'] = Yii::$app->user->id;
+        $params['SearchApprovalLeave']['genre'] = $genre;
 
         if (isset($params['year'])) {
             $params['SearchApprovalLeave']['year'] = $params['year'];
@@ -68,6 +75,7 @@ class ProfileController extends \app\core\web\ProfileController
         $cates = ApprovalLeave::find()->select(['year', 'month'])
             ->where(['<>', 'month', 0])
             ->andWhere(['created_by'=>Yii::$app->user->id])
+            ->andWhere(['genre'=>$genre])
             ->orderBy('year desc, month desc')
             ->groupBy('year,month')
             ->asArray()
@@ -75,7 +83,7 @@ class ProfileController extends \app\core\web\ProfileController
 
         $cates  = ArrayHelper::index($cates, 'month', 'year');
 
-        return $this->render('leave', [
+        return $this->render(self::$genre_views[$genre], [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'cates' => $cates,
@@ -92,53 +100,40 @@ class ProfileController extends \app\core\web\ProfileController
         ]);
     }
 
-    /**
-     * @return string
-     * @name 加班
-     */
-    public function actionOvertime()
-    {
-        return $this->render('overtime');
-    }
-
-    /**
-     * @return string
-     * @name 调休
-     */
-    public function actionAdjust()
-    {
-        return $this->render('adjust');
-    }
-
-    /**
-     * @return string
-     * @name 出差
-     */
-    public function actionTrip()
-    {
-        return $this->render('trip');
-    }
-
-    /**
-     * @return string
-     * @name 外出
-     */
-    public function actionOut()
-    {
-        return $this->render('out');
-    }
-
-    public function actionLeaveCreate()
+    public function actionLeaveCreate($genre)
     {
         $model = new ApprovalLeaveForm();
 
         if ($model->load(Yii::$app->request->post()) && $leave = $model->create()) {
-            SysLog::create('leave', $leave->id, 'create');
-            Yii::$app->session->setFlash('success', '请假申请提交完成，待审批');
-            return $this->redirect(['leave']);
+            $res_name = $model->genre == ApprovalLeave::GENRE_LEAVE ? 'leave' : 'overtime';
+
+            SysLog::create($res_name, $leave->id, 'create');
+            Yii::$app->session->setFlash('success', '申请提交完成，待审批');
+
+            return $this->redirect(['list', 'genre'=>$genre]);
         }
         $model->type = 1;
+        $model->genre = $genre;
         return $this->renderAjax('leave-create', [
+            'model' => $model,
+        ]);
+    }
+
+
+    public function actionAdjustCreate()
+    {
+        $model = new ApprovalAdjustForm();
+
+        if ($model->load(Yii::$app->request->post()) && $leave = $model->create()) {
+
+            SysLog::create('adjust', $leave->id, 'create');
+
+            Yii::$app->session->setFlash('success', '申请提交完成，待审批');
+
+            return $this->redirect(['list', 'genre'=>ApprovalLeave::GENRE_ADJUST]);
+        }
+        $model->genre = ApprovalLeave::GENRE_ADJUST;
+        return $this->renderAjax('adjust-create', [
             'model' => $model,
         ]);
     }
@@ -149,16 +144,42 @@ class ProfileController extends \app\core\web\ProfileController
         $model = new ApprovalLeaveForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->update($leave)) {
-            SysLog::create('leave', $id, 'update');
-            Yii::$app->session->setFlash('success', '请假申请提交完成，待审批');
-            return $this->redirect(['leave']);
+            $res_name = $model->genre == ApprovalLeave::GENRE_LEAVE ? 'leave' : 'overtime';
+            SysLog::create($res_name, $id, 'update');
+            Yii::$app->session->setFlash('success', '申请提交完成，待审批');
+            return $this->redirect(['list', 'genre'=>$model->genre]);
         }
         $model->start = $leave->start_day . ' ' . $leave->start_time;
         $model->end = $leave->end_day . ' ' . $leave->end_time;
         $model->hours = $leave->hours;
         $model->desc = $leave->desc;
         $model->type = $leave->type;
+        $model->genre = $leave->genre;
         return $this->renderAjax('leave-update', [
+            'model' => $model,
+        ]);
+    }
+
+
+    public function actionAdjustUpdate($id)
+    {
+        $leave = ApprovalLeave::findOne($id);
+        $model = new ApprovalAdjustForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->update($leave)) {
+            SysLog::create('adjust', $id, 'update');
+            Yii::$app->session->setFlash('success', '申请提交完成，待审批');
+            return $this->redirect(['list','genre'=>ApprovalLeave::GENRE_ADJUST]);
+        }
+        $model->start = $leave->start_day . ' ' . $leave->start_time;
+        $model->end = $leave->end_day . ' ' . $leave->end_time;
+        $model->hours = $leave->hours;
+        $model->desc = $leave->desc;
+        $model->type = $leave->type;
+        $model->genre = $leave->genre;
+        $model->overtime_ids = explode(',', $leave->overtime_ids);
+
+        return $this->renderAjax('adjust-update', [
             'model' => $model,
         ]);
     }

@@ -3,12 +3,21 @@
 use app\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\modules\approval\models\ApprovalLeave;
-if ($model->genre == ApprovalLeave::GENRE_LEAVE) {
-    $types = Yii::$app->getModule('approval')->params['leave_type'];
-} else if ($model->genre == ApprovalLeave::GENRE_OVERTIME) {
-    $types = Yii::$app->getModule('approval')->params['overtime_type'];
+use kartik\select2\Select2;
+
+$overtimes = ApprovalLeave::find()->where(['genre'=>ApprovalLeave::GENRE_OVERTIME])
+    ->andWhere(['status'=>ApprovalLeave::STATUS_PASS])
+    ->indexBy('id')
+    ->asArray()
+    ->all();
+
+$o = [];
+
+foreach ($overtimes as $v){
+    $o[$v['id']] = $v['start_day'].' ' . $v['start_time'] . '-'.$v['end_day'] .' ' .$v['end_time'];
 }
 
+$json_overtimes = json_encode($overtimes);
 
 \app\assets\ExtAsset::register($this);
 \app\assets\DateTimeAsset::register($this);
@@ -32,10 +41,27 @@ if ($model->genre == ApprovalLeave::GENRE_LEAVE) {
         'options' => ['class' => '']
     ]);
     ?>
-    <?= $form->field($model, 'genre')->hiddenInput()->label(false)?>
+    <div class="form-group field-start required">
+        <label class="control-label" for="start">加班记录(<font color="red">*</font>)</label>
+        <?=Select2::widget([
+            'name' => 'ApprovalAdjustForm[overtime_ids]',
+            'data' => $o,
+            'value' => $model->overtime_ids,
+            'options' => [
+                'placeholder' => '选择加班记录',
+                'multiple' => true,
+                'class'=>'overtime'
+            ],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+        ?>
+        <div class="help-block"></div>
+        <div class="hint-block">加班共计<span class="total"></span>小时</div>
+    </div>
 
-    <?= $form->field($model, 'type')->radioList($types)
-        ->label('类型(<font color="red">*</font>)')?>
+    <?= $form->field($model, 'genre')->hiddenInput()->label(false)?>
 
     <?= $form->field($model, 'start')->textInput(['dttime'=>'true','step'=>'30','id'=>'start', 'defaultTime'=>'09:00'])
         ->label('开始(<font color="red">*</font>)') ?>
@@ -57,6 +83,15 @@ if ($model->genre == ApprovalLeave::GENRE_LEAVE) {
 
 <?php $this->beginBlock('foo') ?>
 $(function(){
+
+    var overtimes = '<?=$json_overtimes?>';
+    overtimes = eval('(' + overtimes + ')');
+
+    calHours(overtimes);
+
+    $('.overtime').change(function () {
+        calHours(overtimes);
+    })
 
     $('#start, #end').change(function(){
         var end    = $('#end').val();
@@ -123,6 +158,17 @@ $(function(){
         }
     });
 })
+    function calHours(overtimes)
+    {
+        var oids = $('.overtime').val();
+        var hours = 0;
+
+        for (i in oids) {
+            hours += parseInt(overtimes[oids[i]]['hours']);
+        }
+
+        $('.total').text(hours);
+    }
 
 
     // 对Date的扩展，将 Date 转化为指定格式的String

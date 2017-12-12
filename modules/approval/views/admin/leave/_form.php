@@ -28,7 +28,7 @@ use app\core\widgets\ActiveForm;
 
     <?= $form->field($model, 'hours')->textInput() ?>
 
-    <?= $form->field($model, 'back_at')->textInput() ?>
+    <?= $form->field($model, 'finish_at')->textInput() ?>
 
     <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 

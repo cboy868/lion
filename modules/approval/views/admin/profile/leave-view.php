@@ -1,3 +1,6 @@
+<?php
+use app\modules\approval\models\ApprovalLeave;
+?>
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -20,7 +23,7 @@
                         <th>总时长</th>
                         <td><?=$model->hours?>小时</td>
                         <th>报到时间</th>
-                        <td><?=$model->back_at?></td>
+                        <td><?=$model->finish_at?></td>
                     </tr>
                     <tr>
                         <th>事由</th>
@@ -41,7 +44,11 @@
                     </tbody>
                 </table>
 
-                <?php $list = \app\modules\sys\models\SysLog::rlist('leave', $model->id);?>
+
+                <?php
+                $res_name = $model->genre == ApprovalLeave::GENRE_LEAVE ? 'leave' : 'overtime';
+
+                $list = \app\modules\sys\models\SysLog::rlist($res_name, $model->id);?>
                 <table>
                     <caption>历史操作记录</caption>
                     <?php foreach ($list as $model):?>
@@ -49,12 +56,7 @@
                         <td><?=$model->dt?>, 由 <strong><?=$model->op_name?></strong> <?=$model->type?>。</td>
                     </tr>
                     <?php endforeach;?>
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            2017-12-11 11:06:14, 由 <strong>admin</strong> 审核 拒绝。-->
-<!--                            理由 <span style="color:green;">不可以</span>-->
-<!--                        </td>-->
-<!--                    </tr>-->
+
                 </table>
             </div><!-- /.col -->
         </div><!-- /.row -->

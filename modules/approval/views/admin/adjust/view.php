@@ -1,7 +1,6 @@
 <?php
 use app\modules\approval\models\ApprovalLeave;
 ?>
-
 <div class="page-content">
     <!-- /section:settings.box -->
     <div class="page-content-area">
@@ -44,7 +43,6 @@ use app\modules\approval\models\ApprovalLeave;
                     </tr>
                     </tbody>
                 </table>
-
 
                 <?php
                 $res_name = $model->genre == ApprovalLeave::GENRE_LEAVE ? 'leave' : 'overtime';

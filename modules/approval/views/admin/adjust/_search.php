@@ -5,7 +5,7 @@ use app\core\helpers\Url;
 use app\core\widgets\ActiveForm;
 use app\modules\approval\models\ApprovalLeave;
 use kartik\select2\Select2;
-$types = Yii::$app->getModule('approval')->params['leave_type'];
+$types = Yii::$app->getModule('approval')->params['overtime_type'];
 $staffs = \app\modules\user\models\User::staffs();
 $staffs = \yii\helpers\ArrayHelper::map($staffs, 'id', 'username');
 ?>
@@ -22,7 +22,7 @@ $staffs = \yii\helpers\ArrayHelper::map($staffs, 'id', 'username');
             'name' => 'SearchApprovalLeave[created_by]',
             'data' => $staffs,
             'options' => [
-                'placeholder' => '请假人',
+                'placeholder' => '加班人',
                 'class' => 'form-control'
             ]
         ]);

@@ -19,9 +19,9 @@ class SearchApprovalLeave extends ApprovalLeave
     {
         return [
             [['approval_id'], 'integer'],
-            [['year', 'start_day', 'end_day', 'start_time', 'end_time', 'back_at',
+            [['year', 'start_day', 'end_day', 'start_time', 'end_time', 'finish_at',
                 'type', 'desc', 'status', 'created_by', 'created_dtime', 'reviewed_by',
-                'reviewed_dtime'], 'safe'],
+                'reviewed_dtime', 'genre'], 'safe'],
             [['hours','month'], 'number'],
         ];
     }
@@ -64,11 +64,12 @@ class SearchApprovalLeave extends ApprovalLeave
             'hours' => $this->hours,
             'year' => $this->year,
             'month' => $this->month,
-            'back_at' => $this->back_at,
+            'finish_at' => $this->finish_at,
             'type' => $this->type,
             'created_by' => $this->created_by,
             'reviewed_by' => $this->reviewed_by,
             'status' => $this->status,
+            'genre' => $this->genre
         ]);
 
         $query->andFilterWhere(['like', 'desc', $this->desc]);

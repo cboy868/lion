@@ -262,7 +262,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach;?>
                 <?php endif ?>
 
-                <?php if (isset($menus[0])): ?>
+                <?php if (isset($menus[1])): ?>
                     <?php foreach ($menus[1] as $menu):?>
                         <?php $cuser = current($menu);?>
                         <tr class="menu-tr"

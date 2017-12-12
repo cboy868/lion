@@ -16,7 +16,7 @@ use Yii;
  * @property string $start_time
  * @property string $end_time
  * @property double $hours
- * @property string $back_at
+ * @property string finish_at
  * @property string $type
  * @property string $desc
  * @property string $status
@@ -30,6 +30,15 @@ class ApprovalLeave extends \app\core\db\ActiveRecord
     const STATUS_DRAFT = 3;//草稿
     const STATUS_PASS  = 2;//通过
     const STATUS_REFUSE = 4;//拒绝
+
+    const STATUS_ADJUST = 9;//已调休 加班的一种状态
+
+    const GENRE_LEAVE = 1;//请假
+    const GENRE_OVERTIME = 2;//加班
+    const GENRE_ADJUST = 3;//调休
+    const GENRE_OUT = 4; //外出
+    const GENRE_TRIP = 5;//出差
+
     /**
      * @inheritdoc
      */
@@ -45,10 +54,11 @@ class ApprovalLeave extends \app\core\db\ActiveRecord
     {
         return [
             [['start_day', 'end_day', 'start_time', 'end_time','hours'], 'required'],
-            [['id', 'approval_id','created_by','reviewed_by', 'month','type', 'status'], 'integer'],
-            [['start_day', 'end_day', 'start_time', 'end_time', 'back_at', 'created_dtime', 'reviewed_dtime'], 'safe'],
+            [['id', 'approval_id','created_by','reviewed_by', 'month','type', 'status', 'genre'], 'integer'],
+            [['start_day', 'end_day', 'start_time', 'end_time', 'finish_at',
+                'created_dtime', 'reviewed_dtime'], 'safe'],
             [['hours'], 'number'],
-            [['desc'], 'string'],
+            [['desc', 'reason', 'overtime_ids'], 'string'],
             [['year'], 'string', 'max' => 4]
         ];
     }
@@ -68,7 +78,7 @@ class ApprovalLeave extends \app\core\db\ActiveRecord
             'start_time' => '开始时间',
             'end_time' => '结束时间',
             'hours' => '总时长',
-            'back_at' => '报到时间',
+            'finish_at' => '报到时间',
             'type' => '请假类型',
             'desc' => '请假事由',
             'status' => '请假状态',
@@ -76,7 +86,8 @@ class ApprovalLeave extends \app\core\db\ActiveRecord
             'created_dtime' => '创建时间',
             'reviewed_by' => '审批人',
             'reviewed_dtime' => '审批时间',
-            'typeLabel' => '请假类型'
+            'typeLabel' => '请假类型',
+            'reason' => '拒绝原因'
         ];
     }
 
@@ -85,7 +96,16 @@ class ApprovalLeave extends \app\core\db\ActiveRecord
      */
     public function getTypeLabel()
     {
-        $types = Yii::$app->getModule('approval')->params['leave_type'];
+        $module = Yii::$app->getModule('approval');
+        switch ($this->genre) {
+            case ApprovalLeave::GENRE_LEAVE:
+                $types = $module->params['leave_type'];
+                break;
+            case ApprovalLeave::GENRE_OVERTIME:
+                $types = $module->params['overtime_type'];
+                break;
+        }
+
         return isset($types[$this->type]) ? $types[$this->type] : '';
     }
 

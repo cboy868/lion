@@ -7,7 +7,7 @@ use app\core\widgets\GridView;
 use app\modules\approval\models\ApprovalLeave;
 use yii\bootstrap\Modal;
 
-$this->title = '请假管理';
+$this->title = '调休管理';
 $this->params['breadcrumbs'][] = ['label' => '考勤管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \app\assets\Treeview::register($this);
@@ -27,7 +27,7 @@ $mth = Yii::$app->request->get('month');
         </div><!-- /.page-header -->
         <?php
         Modal::begin([
-            'header' => '请假详情',
+            'header' => '调休详情',
             'id' => 'modalView',
             // 'size' => 'modal'
         ]) ;
@@ -36,6 +36,7 @@ $mth = Yii::$app->request->get('month');
 
         Modal::end();
         ?>
+
 
         <?php
         Modal::begin([

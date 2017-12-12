@@ -2,18 +2,18 @@
 
 namespace app\modules\approval\controllers\admin;
 
-use app\modules\sys\models\SysLog;
 use Yii;
 use app\modules\approval\models\ApprovalLeave;
-use app\modules\approval\models\SearchApprovalLeave;
 use app\core\web\BackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\approval\models\SearchApprovalLeave;
 use app\core\helpers\ArrayHelper;
+use app\modules\sys\models\SysLog;
 /**
- * LeaveController implements the CRUD actions for ApprovalLeave model.
+ * OvertimeController implements the CRUD actions for ApprovalOvertime model.
  */
-class LeaveController extends BackController
+class OvertimeController extends BackController
 {
     public function behaviors()
     {
@@ -28,9 +28,8 @@ class LeaveController extends BackController
     }
 
     /**
-     * Lists all ApprovalLeave models.
+     * Lists all ApprovalOvertime models.
      * @return mixed
-     *
      */
     public function actionIndex()
     {
@@ -48,14 +47,13 @@ class LeaveController extends BackController
             $params['month'] = $params['SearchApprovalLeave']['month'] = date('m');
         }
 
-        $params['SearchApprovalLeave']['genre'] = ApprovalLeave::GENRE_LEAVE;
-
+        $params['SearchApprovalLeave']['genre'] = ApprovalLeave::GENRE_OVERTIME;
 
         $dataProvider = $searchModel->search($params);
 
         $cates = ApprovalLeave::find()->select(['year', 'month'])
             ->where(['<>', 'month', 0])
-            ->andWhere(['genre'=>ApprovalLeave::GENRE_LEAVE])
+            ->andWhere(['genre'=>ApprovalLeave::GENRE_OVERTIME])
             ->orderBy('year desc, month desc')
             ->groupBy('year,month')
             ->asArray()
@@ -72,7 +70,7 @@ class LeaveController extends BackController
     }
 
     /**
-     * Displays a single ApprovalLeave model.
+     * Displays a single ApprovalOvertime model.
      * @param string $id
      * @return mixed
      */
@@ -83,26 +81,10 @@ class LeaveController extends BackController
         ]);
     }
 
-    /**
-     * Creates a new ApprovalLeave model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new ApprovalLeave();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
 
     /**
-     * Updates an existing ApprovalLeave model.
+     * Updates an existing ApprovalOvertime model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -121,7 +103,7 @@ class LeaveController extends BackController
     }
 
     /**
-     * Deletes an existing ApprovalLeave model.
+     * Deletes an existing ApprovalOvertime model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -139,7 +121,7 @@ class LeaveController extends BackController
         $model->status = ApprovalLeave::STATUS_PASS;
 
         if ($model->save() &&
-            SysLog::create('leave', $id, 'pass')) {
+            SysLog::create('overtime', $id, 'pass')) {
             return $this->json();
         }
 
@@ -151,7 +133,7 @@ class LeaveController extends BackController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            SysLog::create('leave', $id, 'refuse', $model->reason);
+            SysLog::create('overtime', $id, 'refuse', $model->reason);
             Yii::$app->session->setFlash('success', '操作成功');
             return $this->redirect(['index','year'=>$year,'month'=>$month]);
         }
@@ -163,14 +145,11 @@ class LeaveController extends BackController
 
     }
 
-
-
-
     /**
-     * Finds the ApprovalLeave model based on its primary key value.
+     * Finds the ApprovalOvertime model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return ApprovalLeave the loaded model
+     * @return ApprovalOvertime the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

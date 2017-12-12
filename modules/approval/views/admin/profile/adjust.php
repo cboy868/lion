@@ -19,8 +19,10 @@ $this->params['profile_nav'] = 'work';
                     <?=$this->render('nav')?>
 
                     <div class="pull-right nc">
-                        <a class="btn btn-info btn-sm modalAddButton" href="<?=Url::toRoute(['leave-create','genre'=>ApprovalLeave::GENRE_OVERTIME])?>">
-                            <i class="fa fa-plus"></i>  申请加班</a>
+                        <a class="btn btn-info btn-sm modalAddButton"
+                           href="<?=Url::toRoute(['adjust-create'])?>">
+                            <i class="fa fa-plus"></i>  申请调休
+                        </a>
                     </div>
                 </small>
             </h1>
@@ -28,7 +30,7 @@ $this->params['profile_nav'] = 'work';
 
         <?php
         Modal::begin([
-            'header' => '加班申请',
+            'header' => '调休申请',
             'id' => 'modalAdd',
             'clientOptions' => ['backdrop' => 'static', 'show' => false, 'keyboard'=>false]
             // 'size' => 'modal'
@@ -41,7 +43,7 @@ $this->params['profile_nav'] = 'work';
 
         <?php
         Modal::begin([
-            'header' => '编辑加班申请',
+            'header' => '编辑调休申请',
             'id' => 'modalEdit',
             'clientOptions' => ['backdrop' => 'static', 'show' => false, 'keyboard'=>false]
             // 'size' => 'modal'
@@ -54,7 +56,7 @@ $this->params['profile_nav'] = 'work';
 
         <?php
         Modal::begin([
-            'header' => '加班申请详情',
+            'header' => '调休申请详情',
             'id' => 'modalView',
             // 'size' => 'modal'
         ]) ;
@@ -96,7 +98,6 @@ $this->params['profile_nav'] = 'work';
                         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
                         // 'filterModel' => $searchModel,
                         'columns' => [
-                            'typeLabel',
                             [
                                 'label' => '开始时间',
                                 'value' => function($model){
@@ -126,7 +127,7 @@ $this->params['profile_nav'] = 'work';
                                 'header' => '操作',
                                 'headerOptions' => ["data-type"=>"html",'width'=>'150'],
                                 'class' => 'yii\grid\ActionColumn',
-                                'template' => '{leave-view} {leave-update} {leave-undo} {report} {leave-delete}',
+                                'template' => '{leave-view} {adjust-update} {leave-undo} {report} {leave-delete}',
 
                                 'buttons' => [
                                     'leave-view' =>function($url, $model, $key) {
@@ -137,7 +138,7 @@ $this->params['profile_nav'] = 'work';
                                                 "onclick"=>"return false"
                                             ] );
                                     },
-                                    'leave-update' =>function($url, $model, $key) {
+                                    'adjust-update' =>function($url, $model, $key) {
 
                                         if (in_array($model->status, [ApprovalLeave::STATUS_PASS])) {
                                             return Html::a('编辑', '#',
