@@ -2,9 +2,9 @@
 
 use app\core\helpers\Html;
 use yii\widgets\Breadcrumbs;
-$this->title = ' ' . ' ' . $model->id;
+$this->title = '修改墓区【'.$model->name.'】内容';
 $this->params['breadcrumbs'][] = ['label' => '墓区管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = '修改';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="page-content">
@@ -13,9 +13,6 @@ $this->params['breadcrumbs'][] = '修改';
         <div class="page-header">
             <h1>
                 <?= Html::encode($this->title) ?>
-                <small>
-                    修改详细信息
-                </small>
             </h1>
         </div><!-- /.page-header -->
 		<div class="row">

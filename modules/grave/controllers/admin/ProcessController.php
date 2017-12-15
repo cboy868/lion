@@ -75,6 +75,7 @@ class ProcessController extends BackController
             $step = 5;
         }
         $this->layout = '@app/modules/grave/views/admin/process/layout';
+        $this->layout = '@app/core/views/layouts/admin.php';
     	$method = Process::$step[$step]['method'];
         // Process::$tomb_id = $tomb_id;
     	return $this->$method();

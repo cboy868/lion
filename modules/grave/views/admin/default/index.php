@@ -8,6 +8,8 @@ use yii\bootstrap\Modal;
 use app\modules\Grave\models\Tomb;
 use app\core\widgets\DetailView;
 use yii\helpers\ArrayHelper;
+
+\app\assets\Treeview::register($this);
 $this->title = '墓区管理';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -26,9 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-content-area">
         <div class="page-header">
             <h1>
-                <?=  Html::encode($this->title) ?> 
+                <a href="<?=Url::toRoute(['/grave/admin/default/index'])?>">墓区墓位</a>
                 <small>
-                    墓区管理页面
+
+                    <?php if (Yii::$app->user->can('grave/default/create')):?>
+                        <div class="pull-right nc">
+                            <?=  Html::a('<i class="fa fa-plus fa-2x"></i> 添加新墓区', ['create'],
+                                ['class' => 'btn btn-success btn-sm']) ?>
+                        </div>
+                    <?php endif;?>
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -36,92 +44,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <?php $id = Yii::$app->request->get('id');?>
 
-            <div class="col-xs-2">
-                 <ul class="nav nav-list">
-                     <?php if (Yii::$app->user->can('grave/default/create')):?>
-                     <?=  Html::a('<i class="fa fa-plus"></i> 添加新墓区', ['create'], ['class' => 'btn btn-primary btn-sm ', 'style'=>'width:100%']) ?>
-                     <?php endif;?>
-                     <li class="<?php if (!$id) { echo 'active'; } ?>" >
-                         <a href="<?=Url::toRoute(['index'])?>" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-circle"></i>
-                            <span class="menu-text">所有墓区</span>
-                        </a>
-                     </li>
-                    <?php foreach ($cates as $key => $value): ?>
-                        <li class="<?php if(isset($value['child'])){echo 'p-menu';}?> <?php if ($value['id'] == $id) { echo 'active'; } ?>">
-                                <a href="<?=$value['url']?>" class="dropdown-toggle">
-                                    <i class="menu-icon fa fa-bars"></i>
-                                    <span class="menu-text"><?=$value['name']?></span>
-                                    <b class="arrow"></b>
-                                </a>
-                            <b class="arrow"></b>
-                            <?php if (!isset($value['child'])) { continue; } ?>
-                            <ul class="submenu" style="display:block;">
-                                <?php foreach ($value['child'] as $k => $val): ?>
-                                    <?php if (!isset($val['child'])): ?>
-                                        <li class="<?php if ($val['id'] == $id) { echo 'active'; } ?>" rel="">
-                                            <a href="<?=$val['url']?>">
-                                                <i class="menu-icon"></i>
-                                                <?=$val['name']?>
-                                                <b class="arrow"></b>
-                                            </a>
-                                            <b class="arrow"></b>
-                                        </li>
-                                    <?php else: ?>
-                                        <li class="p-menu <?php if ($val['id'] == $id) { echo 'active'; } ?>">
-                                            <a href="<?=$val['url']?>" class="dropdown-toggle">
-                                                <i class="menu-icon fa fa-caret-right"></i>
-                                                <?=$val['name']?>
-                                                <b class="arrow "></b>
-                                            </a>
-                                            <b class="arrow"></b>
-                                            <ul class="submenu" style="display:block;">
-                                                <?php foreach ($val['child'] as $k => $last):?>
-                                                    <?php if (!isset($last['child'])): ?>
-                                                        <li class="<?php if ($last['id'] == $id) { echo 'active'; } ?>" rel="">
-                                                            <a href="<?=$last['url']?>">
-                                                                <i class="menu-icon"></i>
-                                                                <?=$last['name']?>
-                                                                <b class="arrow"></b>
-                                                            </a>
-                                                            <b class="arrow"></b>
-                                                        </li>
-                                                    <?php else: ?>
-                                                        <li class="p-menu <?php if ($last['id'] == $id) { echo 'active'; } ?>">
-                                                            <a href="<?=$last['url']?>" class="dropdown-toggle">
-                                                                <i class="menu-icon fa fa-caret-right"></i>
-                                                                <?=$last['name']?>
-                                                                <b class="arrow "></b>
-                                                            </a>
-                                                            <b class="arrow"></b>
-                                                            <ul class="submenu" style="display:block;">
-                                                                <?php foreach ($last['child'] as $k => $l1):?>
-                                                                    <li class="<?php if ($l1['id'] == $id) {echo 'active';}?>">
-                                                                        <a href="<?=$l1['url'];?>">
-                                                                            <i class="menu-icon fa fa-caret-right"></i>
-                                                                            <?=$l1['name']?>
-                                                                            <b class="arrow "></b>
-                                                                        </a>
-                                                                        <b class="arrow"></b>
-                                                                    </li>
-                                                                <?php endforeach;?>
-                                                            </ul>
-                                                        </li>
-                                                    <?php endif;?>
-                                                <?php endforeach;?>
-                                            </ul>
-                                        </li>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </ul>
-                        </li>
-                    <?php endforeach;?>
-                </ul><!-- /.nav-list -->
-                
-            </div>
+
+                <div class="left-side">
+                    <div class="panel panel-sm">
+                        <div class="panel-body" style="padding: 10px;">
+                            <?=$c_menu?>
+                        </div>
+                    </div>
+                </div>
 
 
-            <div class="col-xs-10 grave-index">
+            <div class="main grave-index">
                 <?php if (isset($model) && $model):?>
                 <div class="rows">
                     <div class="col-xs-12">
@@ -220,6 +153,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 墓位总计 <strong><?=$tomb_cnt?> </strong> 座,销售情况如右图
                             </p>
                             <p>更多详细情况，请点击左侧墓区列表</p>
+                        </div>
+                        <div class="col-md-5">
+                            <?=\app\modules\analysis\widgets\Analysis::widget([
+                                'name'=>'graveStatus'
+                            ])?>
+                        </div>
+                        <div class="col-md-12">
                             <table class="table table-bordered">
                                 <caption>所有墓区销售情况统计</caption>
                                 <tr>
@@ -293,17 +233,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php endforeach;?>
                             </table>
                         </div>
-                        <div class="col-md-5">
-                            <?=\app\modules\analysis\widgets\Analysis::widget([
-                                'name'=>'graveStatus'
-                                ])?>
-                        </div>
                     </div>
-
-
-
-
-
                 <?php endif;?>
 
                 <div class="hr hr-18 dotted hr-double"></div>
@@ -321,79 +251,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     Modal::end();
                     ?>
                 <div class="col-md-12">
-                    <style type="text/css">
-                        .table ul {
-                            margin-top: 5px;
-                            margin-right: 10px;
-                            margin-bottom: 5px;
-                            margin-left: 40px;
-                            list-style-image: none;
-                            list-style-type: none;
-                            white-space: nowrap;
-                            padding: 0px;
-                        }
-                        .table ul li {
-                            margin: 0px;
-                            padding: 0px;
-                            display: block;
-                            width: 40px;
-                            height:48px;
-                            float: left;
-                            padding:2px;
-                        }
-                        .table ul li span {
-                            padding: 0px;
-                            display: block;
-                            height: 14px;
-                            width: 40px;
-                            margin-top: 0px;
-                            margin-right: auto;
-                            margin-bottom: 0px;
-                            margin-left: auto;
-                            line-height: 14px;
-                            text-align: center;
-                            color: #000000;
-                            font-size: 12px;
-                        }
-                        .table ul li img {
-                            display: block;
-                            height: 34px;
-                            width: 34px;
-                            margin-top: 0px;
-                            margin-right: auto;
-                            margin-bottom: 0px;
-                            margin-left: auto;
-                            border: 1px solid #FFF;
-                        }
-                        .search label{
-                            /*width:40px;*/
-                            margin-left:10px;
-                            /*text-align: right;*/
-                        }
-                        .table ul li.on{
-                            background: green;
-                            padding:10px;
-                            width: 60px;
-                            height: 68px;
-                        }
-                        @-webkit-keyframes twinkling{    /*透明度由0到1*/
-                            0%{
-                                opacity:0; /*透明度为0*/
-                            }
-                            100%{
-                                opacity:1; /*透明度为1*/
-                            }
-                        }
-                        .table > tbody > tr > td{
-                            padding:2px;
-                        }
-                        div.search{
-                            border: solid 1px #186f1a;
-                            padding: 8px;
-                            border-radius: 5px;
-                        }
 
-                    </style>
                     <h2>本区墓位 <small>(<?=count($tombs)?>座墓) 点击图标可直接办理业务</small></h2>
 
                     <?php
@@ -447,20 +305,114 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.page-content-area -->
 </div>
 
+<style type="text/css">
+    .table ul {
+        margin-top: 5px;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        margin-left: 40px;
+        list-style-image: none;
+        list-style-type: none;
+        white-space: nowrap;
+        padding: 0px;
+    }
+    .table ul li {
+        margin: 0px;
+        padding: 0px;
+        display: block;
+        width: 40px;
+        height:48px;
+        float: left;
+        padding:2px;
+    }
+    .table ul li span {
+        padding: 0px;
+        display: block;
+        height: 14px;
+        width: 40px;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-bottom: 0px;
+        margin-left: auto;
+        line-height: 14px;
+        text-align: center;
+        color: #000000;
+        font-size: 12px;
+    }
+    .table ul li img {
+        display: block;
+        height: 34px;
+        width: 34px;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-bottom: 0px;
+        margin-left: auto;
+        border: 1px solid #FFF;
+    }
+    .search label{
+        /*width:40px;*/
+        margin-left:10px;
+        /*text-align: right;*/
+    }
+    .table ul li.on{
+        background: green;
+        padding:10px;
+        width: 60px;
+        height: 68px;
+    }
+    @-webkit-keyframes twinkling{    /*透明度由0到1*/
+        0%{
+            opacity:0; /*透明度为0*/
+        }
+        100%{
+            opacity:1; /*透明度为1*/
+        }
+    }
+    .table > tbody > tr > td{
+        padding:2px;
+    }
+    div.search{
+        border: solid 1px #186f1a;
+        padding: 8px;
+        border-radius: 5px;
+    }
+    .left-side {
+        left: 20px;
+        position: absolute;
+        width: 170px;
+    }
+    .main {
+        padding-left: 180px;
+        margin-right: 0;
+    }
+    a.disabled, a.disabled:focus, a.disabled:hover, a[disabled], a[disabled]:focus, a[disabled]:hover {
+        color: #aaa;
+        text-decoration: none;
+        cursor: default;
+    }
 
+</style>
 <?php $this->beginBlock('img') ?>
 $(function(){
+
+    $('.tree').each(function() {
+        var $this = $(this);
+        $this.treeview({collapsed: false, unique: false});
+    });
+    var id = '<?=Yii::$app->request->get('id')?>';
+    $('.tree li.li'+id).addClass('active');
+    $('.tree li.li'+id).parents('li').addClass('active');
+    //$('.tree li.li'+id).parents('li').find('.hitarea').click();
 
     $('.tsearch').change(function(){
         var row = $('.tomb_row').val();
         var col = $('.tomb_col').val();
         var obj = 'item_' + row + '_' + col;
 
-$('li').css({"-webkit-animation":""});
-$('.'+obj).css({"-webkit-animation":"twinkling 1s infinite ease-in-out"});
+        $('li').css({"-webkit-animation":""});
+        $('.'+obj).css({"-webkit-animation":"twinkling 2s infinite ease-in-out"});
         //$('.'+obj).addClass('on');
     });
-
 
     $('.recommend').click(function(e){
         e.preventDefault();
@@ -482,6 +434,5 @@ $('.'+obj).css({"-webkit-animation":"twinkling 1s infinite ease-in-out"});
 })
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['img'], \yii\web\View::POS_END); ?>
-
 
 

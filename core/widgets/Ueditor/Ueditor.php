@@ -91,24 +91,40 @@ class Ueditor extends InputWidget {
         $jsOptions = [
             'serverUrl' => $serverUrl,
             'initialFrameWidth' => '100%',
-            'initialFrameHeight' => '400',
+            'initialFrameHeight' => '350',
             'zIndex' => 1,
             'lang' => (strtolower(\Yii::$app->language) == 'en-us') ? 'en' : 'zh-cn',
             'autoFloatEnabled' => false,
-            'toolbars' => [[
-                    'fullscreen', 'source', '|', 'undo', 'redo', '|',
-                    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch',
-                    'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
-                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-                    'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+            'toolbars' => [
+
+                [
+                    'fullscreen', 'source', 'undo', 'redo', '|',
+                    'fontsize',
+                    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat',
+                    'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
+                    'forecolor', 'backcolor', '|',
+                    'lineheight', 'simpleupload', 'insertimage','|',
                     'indent', '|',
-                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-                    'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                    'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'insertcode', 'pagebreak', 'background', '|',//'template',
-                    'horizontal', 'spechars', '|',
-                    'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-                    'print'
-                ]]
+                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify',
+                ],
+
+
+
+//                [
+//                    'fullscreen', 'source', '|', 'undo', 'redo', '|',
+//                    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch',
+//                    'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
+//                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+//                    'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+//                    'indent', '|',
+//                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+//                    'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+//                    'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'insertcode', 'pagebreak', 'background', '|',//'template',
+//                    'horizontal', 'spechars', '|',
+//                    'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+//                    'print'
+//                ]
+            ]
         ];
 
         $this->jsOptions = array_merge($jsOptions, $this->jsOptions);

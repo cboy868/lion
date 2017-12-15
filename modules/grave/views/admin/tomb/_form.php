@@ -74,8 +74,9 @@ $this->params['current_menu'] = 'grave/tomb/index';
             <td colspan="3"><?= $form->field($model, 'note')->textarea(['rows' => 6])->label(false) ?></td>
         </tr>
         <tr>
-            <td colspan="4" style="text-align: center">
-                <?=  Html::submitButton(' 生成墓位 ', ['class' => 'btn btn-primary btn-lg']) ?>
+            <td>&nbsp;</td>
+            <td colspan="3" style="text-align: left">
+                <?=  Html::submitButton(' 生成墓位 ', ['class' => 'btn btn-success btn-lg']) ?>
             </td>
         </tr>
     </table>

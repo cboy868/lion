@@ -189,46 +189,6 @@ $tomb = Tomb::findOne($tomb_id);
                 try{ace.settings.check('main-container' , 'fixed')}catch(e){}
             </script>
 
-            <!-- #section:basics/sidebar -->
-            <div id="sidebar" class="sidebar responsive">
-                <script type="text/javascript">
-                    try{ace.settings.check('sidebar' , 'fixed')}catch(e){ }
-                </script>
-
-                <!--
-                <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-                    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                        <button class="btn btn-success">
-                            <i class="ace-icon fa fa-signal"></i>
-                            oa
-                        </button>
-
-                        <button class="btn btn-info">
-                            <i class="ace-icon fa fa-pencil"></i>
-                        </button>
-
-                        <button class="btn btn-warning">
-                            <i class="ace-icon fa fa-users"></i>
-                        </button>
-
-                        <button class="btn btn-danger">
-                            <i class="ace-icon fa fa-cogs"></i>
-                        </button>
-                    </div>
-
-                    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-                        <span class="btn btn-success"></span>
-
-                        <span class="btn btn-info"></span>
-
-                        <span class="btn btn-warning"></span>
-
-                        <span class="btn btn-danger"></span>
-                    </div>
-                </div>
-                -->
-
-
             <ul class="nav nav-list">
                 <?php foreach ($menu as $key => $value): ?>
                     <li class="<?php if(isset($value['child'])){echo 'p-menu';}?>">
@@ -295,111 +255,45 @@ $tomb = Tomb::findOne($tomb_id);
 
             </ul><!-- /.nav-list -->
 
-
-
-                <!-- #section:basics/sidebar.layout.minimize -->
-                <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-                    <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-                </div>
-
-                <!-- /section:basics/sidebar.layout.minimize -->
-                <script type="text/javascript">
-                    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){ }
-                </script>
+            <!-- /section:basics/sidebar.layout.minimize -->
+            <script type="text/javascript">
+                try{ace.settings.check('sidebar' , 'collapsed')}catch(e){ }
+            </script>
 
             <div style="clear:both;"></div>
         </div>
 
+            <?php
+                Modal::begin([
+                    'header' => '购买商品',
+                    'id' => 'modalAdd',
+                    'size' => 'modal-lg',
+                    'clientOptions' => ['backdrop' => 'static', 'show' => false]
+                ]) ;
+
+                echo '<div id="modalContent"></div>';
+                Modal::end();
+            ?>
+
+
             <!-- /section:basics/sidebar -->
-            <div class="main-content">
+            <!-- <div class="main-content"> -->
+
                 <!-- #section:basics/content.breadcrumbs -->
-                <div class="breadcrumbs" id="breadcrumbs">
-                    <script type="text/javascript">
-                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-                    </script>
 
-<?php
-echo Breadcrumbs::widget([
-    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    'encodeLabels' => false
-]);
-?><!-- /.breadcrumb -->
-
-                    <!-- #section:basics/content.searchbox -->
-                   <!--  <div class="nav-search" id="nav-search">
-                        <form class="form-search">
-                            <span class="input-icon">
-                                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-                                <i class="ace-icon fa fa-search nav-search-icon"></i>
-                            </span>
-                        </form>
-                    </div> --><!-- /.nav-search -->
-
-                    <!-- /section:basics/content.searchbox -->
-                </div>
-                <style>
-                    .page-content{
-                        /*margin-right:50px;*/
-                    }
-                    .main-short-btn{
-                        padding: 1px 5px;
-                        font-size: 6px;
-                        font-weight: 400;
-                        margin-bottom: 1px;
-                    }
-                    .main-short-btn .fa-app{
-                        margin-bottom: 1px;
-                        height:auto;
-                        width:48px;
-                    }
-                    .gotop{
-                        /*display: none;*/
-                    }
-                    .fa-app{
-                        display: block;
-                        margin-bottom: 5px;
-                    }
-                    /*.btn img{*/
-                        /*height: 48px;*/
-                    /*}*/
-                    .widget-main .btn-default{
-                        border-radius: 5px;
-                        margin: 5px;
-                        width: 78px;
-                    }
-
-                </style>
 
                 <!-- /section:basics/content.breadcrumbs -->
                 <?=$content?>
                 <!-- /.page-content -->
-                <!--
-                <div class="main-right-slid" style="width:60px; position: fixed;bottom:100px;right: 0;">
-                    <a href="javascript:;" target="_blank" class="btn btn-default main-short-btn gotop" style="display: none">
-                        <img src="/static/images/icons/up.png" class="fa-app">
-                        Top
-                    </a>
-                </div>
-                -->
-
-            </div><!-- /.main-content -->
+            <!-- </div> -->
+            <!-- /.main-content -->
 
 
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
         </div><!-- /.main-container -->
-    <?php
-    Modal::begin([
-        'header' => '购买商品',
-        'id' => 'modalAdd',
-        'size' => 'modal-lg',
-        'clientOptions' => ['backdrop' => 'static', 'show' => false]
-    ]) ;
 
-    echo '<div id="modalContent"></div>';
-    Modal::end();
-    ?>
         <!-- basic scripts -->
 
 
@@ -407,17 +301,7 @@ echo Breadcrumbs::widget([
           <script src="static/ace/js/excanvas.min.js"></script>
         <![endif]-->
 
-<?php $this->beginBlock('menu') ?>
-$(function(){
-    //$('.submenu>.active').parents('.p-menu').addClass('active open');
-    //$('#sidebar').addClass('menu-min');
-    $('.sidebar-collapse').trigger('click');
-})
-<?php $this->endBlock() ?>
-<?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>
-
-
-    <?php $this->endBody()?>
+       <?php $this->endBody()?>
     </body>
 </html>
 <?php $this->endPage()?>

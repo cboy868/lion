@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </h1>
         </div><!-- /.page-header -->
 		<div class="row">
-			<div class="col-xs-10 grave-create">
+			<div class="col-md-10 col-sm-12 grave-create">
 				<?= $this->render('_form', [
 			        'model' => $model,
 			    ]) ?>

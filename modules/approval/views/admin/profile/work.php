@@ -11,40 +11,7 @@ $this->params['profile_nav'] = 'work';
         <div class="page-header">
             <h1>
                 <small>
-
-                    <ul class="nav navbar-nav nav-work">
-                        <li class="active">
-                            <a href="<?=Url::toRoute(['/approval/admin/profile/work'])?>">
-                                出勤情况
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="<?=Url::toRoute(['/approval/admin/profile/leave'])?>">
-                                请假
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="<?=Url::toRoute(['/approval/admin/profile/overtime'])?>">
-                                加班
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="<?=Url::toRoute(['/approval/admin/profile/index'])?>">
-                                调休
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="<?=Url::toRoute(['/approval/admin/profile/index'])?>">
-                                出差
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="<?=Url::toRoute(['/approval/admin/profile/index'])?>">
-                                外出
-                            </a>
-                        </li>
-                    </ul>
+                    <?=$this->render('nav')?>
                 </small>
             </h1>
         </div><!-- /.page-header -->

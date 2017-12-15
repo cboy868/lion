@@ -143,7 +143,7 @@ class Tree
             if(isset($treeMenu[$category->id]) and !empty($treeMenu[$category->id]))
             {
                 if(!isset($treeMenu[$category->pid])) $treeMenu[$category->pid] = '';
-                $treeMenu[$category->pid] .= "<li>$linkHtml";
+                $treeMenu[$category->pid] .= "<li class='li".$category->id."'>$linkHtml";
                 $treeMenu[$category->pid] .= "<ul>".$treeMenu[$category->id]."</ul>\n";
 
             }
@@ -151,26 +151,29 @@ class Tree
             {
                 if(isset($treeMenu[$category->pid]) and !empty($treeMenu[$category->pid]))
                 {
-                    $treeMenu[$category->pid] .= "<li>$linkHtml\n";
+                    $treeMenu[$category->pid] .= "<li class='li".$category->id."'>$linkHtml\n";
                 }
                 else
                 {
-                    $treeMenu[$category->pid] = "<li>$linkHtml\n";
+                    $treeMenu[$category->pid] = "<li class='li".$category->id."'>$linkHtml\n";
                 }
             }
             $treeMenu[$category->pid] .= "</li>\n";
-
-
         }
 
-
         $lastMenu = "<ul class='tree'>" . @array_pop($treeMenu) . "</ul>\n";
+
         return $lastMenu;
     }
 
     public static function createMenuLink($category)
     {
         return Html::a($category->name,['#'] );
+    }
+
+    public static function createGraveLink($category)
+    {
+        return Html::a($category->name, ['/grave/admin/default/index', 'id'=>$category->id], ['class'=>'l'.$category->id]);
     }
 }
 

@@ -474,7 +474,7 @@ class TombController extends BackController
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->create()) {
 
-            return $this->redirect(['/grave/admin/default/index', 'id'=>$model->grave_id]);
+            return $this->redirect(['/grave/admin/tomb/create', 'grave_id'=>$model->grave_id]);
             
         } else {
 

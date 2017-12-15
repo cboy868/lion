@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\core\helpers\Tree;
 use app\core\models\Attachment;
 use app\core\models\AttachmentRel;
 use Yii;
@@ -64,7 +65,16 @@ class DefaultController extends BackController
 
         $data['tomb_cnt'] = Tomb::find()->where(['<>', 'status', Tomb::STATUS_DELETE])->count();
 
+
+
+
+        $a = Grave::find()->orderBy('level desc, sort desc')->indexBy('id')->all();
+
+
+        $c = Tree::treeShow($a, '\app\core\helpers\Tree::createGraveLink');
+
         $data['cates'] = $cates;
+        $data['c_menu'] = $c;
 
         if ($id) {
             $model = $this->findModel($id);

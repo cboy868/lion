@@ -30,7 +30,7 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?php if (isset($imgs)): ?>
+    <?php if (isset($imgs) && $imgs): ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">已上传图片</h3>
@@ -58,16 +58,22 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'is_show')->radioList([1=>'显示',0=>'不显示'])->label('门户显示') ?>
 
-	<div class="form-group">
-        <div class="col-sm-3">
-            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
-        </div>
+    <div class="clearfix form-actions marb0" style="text-align: center;">
+            <?=  Html::submitButton('保 存', ['class' => 'btn btn-success btn-lg']) ?>
     </div>
-    
     <?php ActiveForm::end(); ?>
 
 </div>
-
+<style>
+    .form-actions {
+        display: block;
+        background-color: #f5f5f5;
+        border-top: 1px solid #e5e5e5;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        padding: 19px 20px 20px;
+    }
+</style>
 
 <?php $this->beginBlock('img') ?>
 $(function(){
