@@ -1335,6 +1335,7 @@ class InsPro extends Ins
         if (empty($current_ins_info)) {return $this->initFront();}
 
         $i= 0 ;
+        $newdata = [];
         foreach ($deads as $k=>$v) {
             if ($v['is_ins']) {
 
@@ -1367,6 +1368,8 @@ class InsPro extends Ins
             }
             $i++;
         }
+
+        if (empty($newdata)) {return $this->initFront();}
 
         $data['dead'] = $newdata;
 

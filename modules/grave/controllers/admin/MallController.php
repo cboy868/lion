@@ -269,8 +269,8 @@ class MallController extends BackController
 
         $op_id = $post['op_id'];
 //        $is_shop = $post['is_shop'];
-        $customer_name = $post['customer_name'];
-        $mobile = $post['mobile'];
+//        $customer_name = $post['customer_name'];
+//        $mobile = $post['mobile'];
         $use_time = $post['use_time'];
         $des = $post['des'];
         $goods_info = (array) json_decode($post['goods_info']);

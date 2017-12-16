@@ -1553,7 +1553,7 @@ class InsProcess extends Ins
 
     public static function getInsGoodsShape($goods_id)
     {
-        $cnf = Yii::$app->controller->module->params['ins']['goods_attr'];
+        $cnf = Yii::$app->getModule('grave')->params['ins']['goods_attr'];
         $attr_id = $cnf['id'];
         $shape = $cnf['shape'];
         $rel = AvRel::find()->where(['goods_id'=>$goods_id, 'attr_id'=>$attr_id])->asArray()->one();

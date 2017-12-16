@@ -58,6 +58,7 @@ class Process extends \yii\base\Model
         3 => ['method' => 'ins','title'=>'碑文信息'],
         4 => ['method' => 'portrait','title'=>'瓷像信息'],
         5 => ['method' => 'bury','title'=>'安葬'],
+        6 => ['method' => 'mall','title'=>'购买商品'],
         // 6 => ['method' => 'order','title'=>'订单'],
     ];
 
@@ -226,6 +227,7 @@ class Process extends \yii\base\Model
         if (!$ins) {
             $ins = new InsPro();
             $ins->tomb_id = self::$tomb_id;
+            $ins->type = InsPro::TYPE_AUTO;
         }
 
         return $ins;

@@ -33,10 +33,6 @@ PluploadAssets::register($this);
     .modal .table > thead > tr > th, .table > tbody > tr > th, .table > tbody > tr > td {
         padding: 2px;
     }
-    .gbox{
-        border: 1px solid #ccc !important;
-        border-radius: 3px;
-    }
 </style>
 
 
@@ -49,148 +45,170 @@ PluploadAssets::register($this);
 
         <?=\app\core\widgets\Alert::widget();?>
 
+
         <?php 
         	$tomb = Tomb::findOne(Yii::$app->request->get('tomb_id'));
         	$back = $ins_info['back'];
         	$front = $ins_info['front'];
          ?>
         <?php if ($tomb->hasIns()): ?>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
+
+                    <div style="display:inline-block;float:left;">
+                        碑名: <?=$goods->name?> <br>
+                        碑属性:
+                        <?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
+                            <?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Nav tabs -->
+
+        <?php if (!$model->is_confirm):?>
+		<ul class="nav nav-tabs col-xs-6">
+			<li class="sel-type" rel="3">
+			  	<a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
+			</li>
+		  <li class="active sel-type" rel="1">
+		  	<a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
+		  </li>
+            <li class="sel-type" rel="1">
+                <a href="<?=Url::current(['type'=>2])?>">自由碑文</a>
+            </li>
+		</ul>
+        <?php endif;?>
 
 		<!-- Tab panes -->
 			<div class="row" role="">
-
-                <div class="col-md-12">
-                    <div class="widget-box transparent ui-sortable-handle gbox">
-
-                        <div class="widget-body">
-                            <div class="widget-main padding-6 no-padding-left no-padding-right">
-                                <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
-
-                                <div style="display:inline-block;float:left;">
-                                    碑名: <?=$goods->name?> <br>
-                                    碑属性:
-                                    <?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
-                                        <?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
-                                    <?php endforeach ?>
-                                </div>
-                                <div class="clearfix"></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
 				<?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'form-horizontal']]); ?>
-
 				<!-- <form role="form" id='auto-ins-form' method='post' action='' class="tab-content"> -->
 					<div class="col-xs-12">
-                        <?php if (!$model->is_confirm):?>
-                            <ul class="nav nav-tabs col-xs-12" style="margin-bottom: 5px;">
-                                <li class="sel-type" rel="3">
-                                    <a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
-                                </li>
-                                <li class="active sel-type" rel="1">
-                                    <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
-                                </li>
-                                <li class="sel-type" rel="1">
-                                    <a href="<?=Url::current(['type'=>2])?>">自由碑文</a>
-                                </li>
-                                    <div style="margin-top:10px;">
-                                    <?php if(!$model['is_stand']):?>
-                                        <span class="pull-right">繁体简体
-                                            <select name="is_tc" id="is_tc">
-                                                <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
-                                                <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
-                                            </select>
-                                        </span>
-
-                                        <span class="pull-right">字体
-                                            <select name="font_style" id="font_style">
-                                                <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
-                                                <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
-                                                <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
-                                            </select>
-                                        </span>
-                                    <?php else:?>
-                                        <input type="hidden" name="is_tc" value="<?=$model->is_tc?>"/>
-                                        <input type="hidden" name="font" value="<?=$model->font?>"/>
-                                    <?php endif;?>
-
-                                    <span class="pull-right">碑后文快速修改&nbsp;
-                                        <select name="text" id="selectback">
-                                            <option>点此更换碑后文</option>
-                                            <?php foreach ($back_word as $v): ?>
-                                                <option value="<?=$v?>"><?=$v?></option>
-                                            <?php endforeach ?>
-                                            <option value="">空</option>
-                                        </select>
-                                    </span>
-                                    </div>
-                            </ul>
-                        <?php endif;?>
 						<div class="panel panel-default ">
+				          <div class="panel-heading">&nbsp;
+				          	<span>
+				          		<a  href="javascript:;" class="btn btn-info" data-toggle="collapse" data-target="#select-ins">
+	                              选择碑文样式
+	                            </a>
+				          	</span>
+                              <button type="button" class="btn btn-default"
+                                      id="edit_front"
+                                      data-toggle="modal"
+                                      data-target="#ins_front"
+                                      data-keyboard=false
+                                      data-backdrop="static"
+                              >
+                                  修改正面
+                              </button>
+                              <button type="button" class="btn btn-default"
+                                      id="edit_back"
+                                      data-toggle="modal"
+                                      data-target="#ins_back"
+                                      data-keyboard=false
+                                      data-backdrop="static"
+                              >
+                                  修改背面
+                              </button>
+	                          <?php if(!$model['is_stand']):?>
+	                            <span class="pull-right">繁体简体
+	                                <select name="is_tc" id="is_tc">
+	                                    <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
+	                                    <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
+	                                </select>
+	                            </span>
+
+	                            <span class="pull-right">字体
+	                                <select name="font_style" id="font_style">
+	                                    <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
+	                                    <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
+	                                    <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
+	                                </select>
+	                            </span>
+	                          <?php else:?>
+		                          <input type="hidden" name="is_tc" value="<?=$model->is_tc?>"/>
+		                          <input type="hidden" name="font" value="<?=$model->font?>"/>
+	                          <?php endif;?>
+				        	
+				            <span class="pull-right">碑后文快速修改&nbsp;
+					            <select name="text" id="selectback">
+					                <option>点此更换碑后文</option>
+					                <?php foreach ($back_word as $v): ?>
+					                	<option value="<?=$v?>"><?=$v?></option>
+					                <?php endforeach ?>
+                                    <option value="">空</option>
+					            </select>
+				            </span>
+				          </div>
+
 				        <div id="front_prices" style="display:none;"></div>
 		                <div id="back_prices" style="display:none;"></div>
 
 				          <div class="panel-body">
 						    <div class="row">
-                                <div class="col-md-8 col-sm-12">
-                                    <div class="row-fluid ">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">&nbsp;
-                                                碑前文 <span style="font-size:11px;color:red;">此功能只适用于常规碑文，如果碑文排版过于特殊，请使用图片上传方式保存碑文</span>
-                                            </div>
-                                            <div class="panel-body front_images">
-                                                <?php foreach ($cases['front_cases'] as $case): ?>
-                                                    <div style="float:left;" class="ins_image">
-                                                        <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
-                                                        <div class="caption">
-                                                            <h5><?=$case['note']?>
-                                                                <span class="sel_style">
-                                                                <?php if ($case['id'] == $cases['front_current_case_id']): ?>
-                                                                    (<i class="red fa fa-check fa-2"></i>)
-                                                                <?php endif ?>
-                                                                </span>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                <?php endforeach ?>
-                                            </div>
-                                        </div>
-                                    </div><!-- PAGE CONTENT ENDS -->
-                                </div>
 
-                                <div class="col-md-4 col-sm-12">
-                                    <div class="row-fluid">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">&nbsp;
-                                                碑后文
-                                            </div>
-                                            <div class="panel-body back_images">
-                                                <?php foreach ($cases['back_cases'] as $case): ?>
-                                                    <div style="float:left;">
-                                                        <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
-                                                        <div class="caption">
-                                                            <h5><?=$case['note']?>
-                                                                <span class="sel_style">
-                                                                    <?php if ($case['id'] == $cases['back_current_case_id']): ?>
-                                                                        (<i class="red fa fa-check fa-2"></i>)
-                                                                    <?php endif ?>
-                                                                </span>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                <?php endforeach ?>
-                                            </div>
-                                        </div>
-                                    </div><!-- PAGE CONTENT ENDS -->
-                                </div>
+                                <div class="col-xs-12">
+                                    <div id="select-ins" class="collapse">
+                                        <div class="row-fluid ">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">&nbsp;
+                                                    碑前文 <span style="font-size:11px;color:red;">此功能只适用于常规碑文，如果碑文排版过于特殊，请使用图片上传方式保存碑文</span>
+                                                </div>
+                                                <div class="panel-body front_images">
+                                                    <?php foreach ($cases['front_cases'] as $case): ?>
+                                                        <div style="float:left;" class="ins_image">
+                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['front_current_case_id']): ?>front_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" style="width: 140px; height: 140px;" rel="front">
+                                                            <div class="caption">
+                                                                <h5><?=$case['note']?>
+                                                                    <span class="sel_style">
 
-								<div class="col-xs-8">
+								        	<?php if ($case['id'] == $cases['front_current_case_id']): ?>
+                                                (<i class="red fa fa-check fa-2"></i>)
+                                            <?php endif ?>
+								        	</span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach ?>
+                                                </div>
+                                            </div>
+                                        </div><!-- PAGE CONTENT ENDS -->
+
+                                        <div class="row-fluid">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">&nbsp;
+                                                    碑后文
+                                                </div>
+                                                <div class="panel-body back_images">
+                                                    <?php foreach ($cases['back_cases'] as $case): ?>
+                                                        <div style="float:left;">
+                                                            <img cfg_id="<?=$case['cfg_id']?>" case_id="<?=$case['id']?>" class="img-thumbnail sel <?php if ($case['id'] == $cases['back_current_case_id']): ?>back_selected<?php endif ?>" alt="140x140" src="<?=$case['img']?>" rel="back" style="width: 140px; height: 140px;">
+                                                            <div class="caption">
+                                                                <h5><?=$case['note']?>
+                                                                    <span class="sel_style">
+										        	<?php if ($case['id'] == $cases['back_current_case_id']): ?>
+                                                        (<i class="red fa fa-check fa-2"></i>)
+                                                    <?php endif ?>
+										        </span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach ?>
+
+                                                </div>
+
+                                            </div>
+                                        </div><!-- PAGE CONTENT ENDS -->
+
+                                        <!-- PAGE CONTENT ENDS -->
+                                        <!-- PAGE CONTENT ENDS -->
+                                    </div>
+                                </div>
+								<div class="col-xs-12">
 									<div class="row">
-										<div class="col-sm-12 col-md-6">
+										<div class="col-sm-6 col-md-5">
 										    <div class="thumbnail">
 	                                            <a href="<?=$model->getImg('front')?>" class="artimg ">
 	                                              <img class="front_img image" src="<?=$model->getImg('front')?>" alt="...">
@@ -207,7 +225,7 @@ PluploadAssets::register($this);
 										      </div>
 										    </div>
 										</div>
-										<div class="col-sm-12 col-md-6">
+										<div class="col-sm-6 col-md-5">
 										    <div class="thumbnail">
 										      <a href="<?=$model->getImg('back')?>" class="artimg">
 											      <img class="back_img image" src="<?=$model->getImg('back')?>" alt="...">
@@ -221,6 +239,8 @@ PluploadAssets::register($this);
 							                       颜料费<i class='back_paint_price'>0</i>元&nbsp;
 	                                                </span>
 	                                            </p>
+
+										        
 										      </div>
 										    </div>
 										</div>
@@ -228,116 +248,13 @@ PluploadAssets::register($this);
 									</div>
 								</div>
 
-                                <div class="col-md-4">
-                                    <div style="border:1px solid #ccc;border-radius: 5px;">
-
-                                        <?php foreach ($front['dead'] as $key=>$vo): ?>
-
-                                            <?php if($dead_list[$key]['is_ins']==0):?>
-                                            <?php else:?>
-                                                <table class="table noborder detail detail-<?=$key?>" style="margin-bottom: 0;">
-                                                    <caption><?=$vo['title']['content']?> <?=$vo['name']['content']?></caption>
-                                                    <input type="hidden" name="dead[<?=$key?>][name][is_die]"  value="<?=$vo['name']['is_die']?>" />
-                                                    <tr>
-                                                        <td>称谓</td>
-                                                        <td><input type="text" name="dead[<?=$key?>][title][content]" class="form-control input-sm" value="<?=$vo['title']['content']?>" /></td>
-                                                        <td>姓名</td>
-                                                        <td><input type="text" name="dead[<?=$key?>][name][content]" class="form-control input-sm" value="<?=$vo['name']['content']?>" /></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>生日</td>
-                                                        <td><input name="dead[<?=$key?>][birth][content]" value="<?=$vo['birth']['content']?>"  type="text" class="form-control input-sm"></td>
-                                                        <td>携子</td>
-                                                        <td><input name="dead[<?=$key?>][follow][content]" value="" type="text" class="form-control input-sm"></td>
-                                                    </tr>
-
-                                                    <?php if($dead_list[$key]['is_alive']==0):?>
-                                                        <tr>
-                                                            <td>祭日</td><td><input name="dead[<?=$key?>][fete][content]" value="<?=$vo['fete']['content']?>"  type="text" class="form-control input-sm"></td>
-                                                            <td>享年</td><td><input name="dead[<?=$key?>][age][content]" value="<?=$vo['age']['content']?>" type="text" class="form-control input-sm"></td>
-                                                        </tr>
-                                                    <?php endif;?>
-                                                    <notempty name="is_god">
-                                                        <tr>
-                                                            <td>圣名</td>
-                                                            <td><input  name="dead[<?=$key?>][second_name][content]" value="<?=$vo['second_name']['content']?>" type="text" class="form-control input-sm"></td>
-                                                        </tr>
-                                                    </notempty>
-                                                </table>
-                                            <?php endif;?>
-                                        <?php endforeach ?>
-                                        <table class="table noborder" style="margin-bottom: 5px;">
-                                            <caption>公共信息</caption>
-                                            <tr>
-                                                <td>生于</td>
-                                                <td><input type="text" name="front[born][content]" class="input-sm" value="<?=isset($front['born'][0]['content']) ? $front['born'][0]['content'] : ''?>"></td>
-                                                <td>故于</td>
-                                                <td><input type="text" name="front[die][content]" class="form-control input-sm" value="<?=isset($front['die'][0]['content']) ? $front['die'][0]['content'] : ''?>"></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>尊称</td>
-                                                <td><input type="text" name="front[honorific][content]" class="form-control input-sm" value="<?=isset($front['honorific'][0]['content']) ? $front['honorific'][0]['content'] : ''?>"></td>
-                                                <td>之墓</td>
-                                                <td><input name="front[tail][content]" type="text" class="form-control input-sm" value="<?=isset($front['tail'][0]['content']) ? $front['tail'][0]['content'] : ''?>"></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>落款</td><td><input type="text" name="front[inscribe][content]" class="form-control input-sm" value="<?= isset($front['inscribe'][0]['content']) ? $front['inscribe'][0]['content'] : '' ?>"></td>
-                                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm" value="<?=isset($front['inscribe_date'][0]['content']) ? $front['inscribe_date'][0]['content'] : ''?>"></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>享年</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>"></td>
-                                                <td>享年尾</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>"></td>
-                                            </tr>
-
-                                            <tr>
-                                                <?php if($is_god):?>
-                                                    <td>圣名标签</td>
-                                                    <td><input type="text" name="front[second_name_label][content]" class="form-control input-sm" value="<?=isset($front['second_name_label'][0]['content']) ? $front['second_name_label'][0]['content'] : ''?>"></td>
-                                                <?php endif;?>
-                                            </tr>
-
-                                        </table>
-                                    </div>
-                                    <div style="border:1px solid #ccc;border-radius: 5px;margin-top:5px;">
-
-                                        <table class="table noborder back-line">
-                                            <caption>碑后文</caption>
-                                            <?php foreach ($back['main']['content'] as $key => $bk): ?>
-                                                <tr class="main-line">
-                                                    <td>正文</td>
-                                                    <td><input name="back[main][content][]" value="<?=$bk?>" type="text" class="form-control input-sm"></td>
-                                                    <td  colspan="2">
-                                                        <?php if($key==0):?>
-                                                            <button type="button" class="btn btn-default add-line"> 添 加 </button>
-                                                        <?php else:?>
-                                                            <button type="button" class="btn btn-default del-line"> 删 除 </button>
-                                                        <?php endif;?>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                        </table>
-
-                                        <table class="table noborder">
-                                            <tr>
-                                                <td style="text-align: center;">
-                                                    <button class="btn btn-info btn-sm edit-save">修改</button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-
 							</div>
 						  </div>
 				        </div>
 					</div> 
 
 					<div class="col-xs-12">
-						<div class="panel panel-info">
+						<div class="panel panel-default">
 					  		<div class="panel-heading">明细</div>
 				  			<div class="panel-body  form-horizontal row" role="form">
 				  			<?php 
@@ -395,6 +312,154 @@ PluploadAssets::register($this);
 					</div>
 				<!-- Button trigger modal -->
 				<!-- Modal -->
+				<div class="modal fade" id="ins_front" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 class="modal-title" id="myModalLabel">修改碑正文</h4>
+				      </div>
+				      <div class="modal-body">
+				        	<div class="panel panel-default">
+							  <div class="panel-heading">公共部分</div>
+							  <div class="panel-body">
+							  	<table class="table" style="margin-bottom: 5px;">
+							  		<tr>
+							  			<td>标签一</td>
+							  			<td><input type="text" name="front[born][content]" class="form-control input-sm" value="<?=isset($front['born'][0]['content']) ? $front['born'][0]['content'] : ''?>"></td>
+							  		</tr>
+
+		                            <tr>
+		                                <td>标签二</td>
+		                                <td><input type="text" name="front[die][content]" class="form-control input-sm" value="<?=isset($front['die'][0]['content']) ? $front['die'][0]['content'] : ''?>"></td>
+		                            </tr>
+
+
+							  		<tr>
+							  			<td>尊称</td>
+							  			<td><input type="text" name="front[honorific][content]" class="form-control input-sm" value="<?=isset($front['honorific'][0]['content']) ? $front['honorific'][0]['content'] : ''?>"></td>
+							  		</tr>
+
+		                            <tr>
+		                                <td>之墓</td>
+		                                <td><input name="front[tail][content]" type="text" class="form-control input-sm" value="<?=isset($front['tail'][0]['content']) ? $front['tail'][0]['content'] : ''?>"></td>
+		                            </tr>
+
+							  		<tr>
+							  			<td>落款</td><td><input type="text" name="front[inscribe][content]" class="form-control input-sm" value="<?= isset($front['inscribe'][0]['content']) ? $front['inscribe'][0]['content'] : '' ?>"></td>
+							  		</tr>
+		                            <tr>
+		                                <td>落款时间</td><td><input type="text" name="front[inscribe_date][content]"  class="form-control input-sm" value="<?=isset($front['inscribe_date'][0]['content']) ? $front['inscribe_date'][0]['content'] : ''?>"></td>
+		                            </tr>
+
+		                            <tr>
+		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>"></td>
+		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>"></td>
+		                            </tr>
+
+		                            <tr>
+		                                <td>享年标签</td><td><input type="text" name="front[agelabel1][content]" class="form-control input-sm" value="<?=isset($front['agelabel1'][0]['content']) ? $front['agelabel1'][0]['content'] : ''?>"></td>
+		                                <td>享年尾标签</td><td><input type="text" name="front[agelabel2][content]"  class="form-control input-sm" value="<?=isset($front['agelabel2'][0]['content']) ? $front['agelabel2'][0]['content'] : ''?>"></td>
+		                            </tr>
+		                            <tr>
+		                                <?php if($is_god):?>
+		                                <td>圣名标签</td>
+		                                <td><input type="text" name="front[second_name_label][content]" class="form-control input-sm" value="<?=isset($front['second_name_label'][0]['content']) ? $front['second_name_label'][0]['content'] : ''?>"></td>
+		                                <?php endif;?>
+		                            </tr>
+							  	</table>
+								</div>
+							  </div>
+				        	<div class="panel panel-default">
+
+				        		<?php foreach ($front['dead'] as $key=>$vo): ?>
+
+				       				<?php if($dead_list[$key]['is_ins']==0):?>
+				       				<?php else:?>
+							  			<div class="panel-heading">
+		                                    <a class="btn btn-info btn-dis btn-xs" href="#" rel="detail-<?=$key?>">
+		                                        <?=$vo['title']['content']?> <?=$vo['name']['content']?>
+		                                    </a>
+		                                </div>
+									  	<div class="panel-body">
+									  	<table class="table table-noborder detail detail-<?=$key?>" style="margin-bottom: 0;">
+		                                    <input type="hidden" name="dead[<?=$key?>][name][is_die]"  value="<?=$vo['name']['is_die']?>" />
+									  		<tr>
+									  			<td>称谓</td>
+									  			<td><input type="text" name="dead[<?=$key?>][title][content]" class="form-control input-sm" value="<?=$vo['title']['content']?>" /></td>
+									  			<td>姓名</td>
+									  			<td><input type="text" name="dead[<?=$key?>][name][content]" class="form-control input-sm" value="<?=$vo['name']['content']?>" /></td>
+									  		</tr>
+
+									  		<tr>
+									  			<td>生日</td>
+									  			<td><input name="dead[<?=$key?>][birth][content]" value="<?=$vo['birth']['content']?>"  type="text" class="form-control input-sm"></td>
+									  			<td>携子</td>
+									  			<td><input name="dead[<?=$key?>][follow][content]" value="" type="text" class="form-control input-sm"></td>
+									  		</tr>
+									  		
+									  		<?php if($dead_list[$key]['is_alive']==0):?>
+										  		<tr>
+										  			<td>祭日</td><td><input name="dead[<?=$key?>][fete][content]" value="<?=$vo['fete']['content']?>"  type="text" class="form-control input-sm"></td>
+										  			<td>享年</td><td><input name="dead[<?=$key?>][age][content]" value="<?=$vo['age']['content']?>" type="text" class="form-control input-sm"></td>
+										  		</tr>
+										  	<?php endif;?>
+										  	<notempty name="is_god">
+										  	<tr>
+									  			<td>圣名</td>
+									  			<td><input  name="dead[<?=$key?>][second_name][content]" value="<?=$vo['second_name']['content']?>" type="text" class="form-control input-sm"></td>
+									  		</tr>
+									  		</notempty>
+									  	</table>
+									  </div>
+									<?php endif;?>
+				    			<?php endforeach ?>
+							</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
+				        <button type="button" class="btn btn-primary front-edit-save"> 保 存 </button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
+				<div class="modal fade" id="ins_back" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 class="modal-title" id="myModalLabel">修改碑后文</h4>
+				      </div>
+				      <div class="modal-body">
+				        	<table class="table table-noborder back-line">
+		                        <?php foreach ($back['main']['content'] as $key => $bk): ?>
+		                        	<tr class="main-line">
+						            	<td>正文</td>
+						            	<td><input name="back[main][content][]" value="<?=$bk?>" type="text" class="form-control input-sm"></td>
+							  			<td  colspan="2">
+							  				<eq name="key" value="0">
+							  					<button type="button" class="btn btn-default add-line"> 添 加 </button>
+							                </eq>
+							  				
+							  				<neq name="key" value="0">
+							  					<button type="button" class="btn btn-default del-line"> 删 除 </button>
+							                </neq>
+							  			</td>
+						            </tr>
+		                        <?php endforeach ?>
+						  	</table>
+		                  <!-- <a href="#" target="_blank">碑文范例</a> -->
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
+				        <button type="button" class="btn btn-primary back-edit-save"> 保 存 </button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
+
 				<input type="hidden" name="tomb_id" value="<?=$model->tomb_id?>" />
 				<input type="hidden" name="type" value="<?=$model->type?>" />
 
@@ -536,7 +601,7 @@ $(function(){
 	    var driect = $(this).attr('rel');
 	    var cla = driect + '_selected';
 	    //调整样式
-	    $(this).closest('.panel-body').find('.sel_style').html('');
+	    $(this).parents('.panel-body').find('.sel_style').html('');
 	    $(this).parent().find('.sel_style').html('(<i class="red fa fa-check fa-2"></i>)');
 
 	    //选择标识
@@ -559,16 +624,17 @@ $(function(){
         };
 	});
 
-
-    $('.edit-save', insContainer).click(function(e){
-        e.preventDefault();
+    $('.front-edit-save', insContainer).click(function(){
         getImage('front_selected');
-        getImage('back_selected');
-        getPrice();
-        $('#ins_front').modal('hide');
+	    getPrice();
+	    $('#ins_front').modal('hide');
     });
 
-
+    $('.back-edit-save', insContainer).click(function(){
+    	getImage('back_selected');
+	    getPrice();
+	    $('#ins_back').modal('hide');
+    });
 
     $('#selectback', insContainer).change(function(){
         var str = $(this).val();
@@ -605,7 +671,7 @@ $(function(){
 	$('body').on('click','.add-line',function(){
 		var obj = $(this).parents('tr');
 		var line_obj = obj.clone();
-		line_obj.find('button').removeClass('add-line').addClass('del-line').html('删 除');
+		//line_obj.find('button').removeClass('add-line').addClass('del-line').html('删 除');
 		line_obj.find('input').val('');
 		$('.back-line').append(line_obj);
 	});

@@ -2,7 +2,10 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\modules\grave\models\Grave;
 use app\modules\order\models\Order;
+use app\modules\shop\models\Bag;
+use app\modules\shop\models\Category;
 use app\modules\user\models\User;
 use Yii;
 use app\core\web\BackController;
@@ -71,14 +74,53 @@ class ProcessController extends BackController
      */
     public function actionIndex($step, $tomb_id)
     {
-        if ($step > 5) {
-            $step = 5;
+        if ($step > 6) {
+            $step = 6;
         }
         $this->layout = '@app/modules/grave/views/admin/process/layout';
-        $this->layout = '@app/core/views/layouts/admin.php';
+//        $this->layout = '@app/core/views/layouts/admin.php';
     	$method = Process::$step[$step]['method'];
+
         // Process::$tomb_id = $tomb_id;
     	return $this->$method();
+    }
+
+    protected function mall()
+    {
+
+        $tomb_id = Process::$tomb_id;
+        $tomb = Process::tomb();
+
+
+        $data = [];
+
+        $graves = Grave::find()->where(['<>','status',Grave::STATUS_DELETE])
+            ->andWhere(['is_leaf'=>1])
+            ->all();
+        $graves = ArrayHelper::map($graves, 'id', 'name');
+        $data['graves'] = $graves;
+
+        $show_cates = Category::find()->where(['is_leaf'=>1,'status'=>Category::STATUS_NORMAL,'is_show'=>1])->all();
+        $show_cate_ids = ArrayHelper::getColumn($show_cates, 'id');
+        $show_goods = Goods::find()->where(['category_id'=>$show_cate_ids,'status'=>Goods::STATUS_NORMAL])
+            ->andWhere(['is_show'=>1])
+            ->all();
+
+        $staffs = User::staffs();
+        $staffs = ArrayHelper::map($staffs, 'id', 'username');
+
+        $goods = ArrayHelper::index($show_goods, 'id', 'category_id');
+
+        //礼包
+        $bags = Bag::find()->where(['status'=>Bag::STATUS_NORMAL])->all();
+
+        $data['goods'] = $goods;
+        $data['bags'] = $bags;
+        $data['tomb_id'] = $tomb_id;
+        $data['guide_id'] = $tomb->guide_id;
+        $data['order'] = Process::getOrder();
+
+        return $this->render('mall',$data);
     }
 
     protected function customer()
@@ -272,7 +314,11 @@ class ProcessController extends BackController
         $deads = $model->deads();
 
         if (!$deads) {
-            return $this->error('没有需要刻碑的使用人');
+            return $this->error('添加使用人，如不需添加，您可选择直接付款');
+        }
+
+        if (!$tomb->hasInsDead) {
+            return $this->error('没有要立碑的使用人');
         }
 
         $ins_cfg = Yii::$app->controller->module->params['ins'];
@@ -367,93 +413,6 @@ class ProcessController extends BackController
         }
     }
 
-    protected function ins1()
-    {
-        $dead = Process::dead();
-
-        if (count($dead) == 0) {
-            Yii::$app->session->setFlash('error', '请先填写使用人信息');
-            return $this->pre(2);
-        }
-
-        $model = Process::insProcess();
-        $model->type = 1;
-
-        $tomb = Process::tomb();
-
-        $req = Yii::$app->request;
-        if ($req->isPost) {
-
-
-            if ($model->load($req->post())) {
-
-                $model->guide_id = $tomb->guide_id;
-                $model->user_id = $tomb->user_id;
-
-                $method = $req->post('type') == 1 ? 'autoSave' : 'imgSave';
-
-                // if ($req->post('type') == 1) {
-                //     $model->autoSave();
-                // } elseif ($req->post('type') == 3) {
-                //     $model->imgSave();
-                // }
-
-                $pdata = $req->post('InsProcess');
-                $big_new = $pdata['big_new'];
-                $small_new = $pdata['small_new'];
-
-                $model->new_font_num = json_encode(['big'=>$big_new, 'small'=>$small_new]);
-
-                if ($model->$method()) {
-
-                    $note = '大字%s小字%s刻字费%s颜料费%s繁体字费%s';
-
-                    $insData = [
-                        'price' => $model->letter_price + $model->paint_price + $model->tc_price,
-                        'num' => $model->big_new + $model->small_new - $model->font_num,
-                        'note' => sprintf($note, $model->big_new, $model->small_new, $model->letter_price, $model->paint_price, $model->tc_price)
-                    ];
-
-                    $goods_id = $this->module->params['goods']['id']['insword'];
-                    $goods = Goods::findOne($goods_id);
-                    $goods->order($model->user_id, $insData);
-
-                    return $this->next();
-                }
-            }
-        }
-
-        $cases = $model->getInsCfgCases();
-
-        if (!$cases) {
-            $model->type = InsProcess::TYPE_IMG;
-        }
-
-        $back_word = Yii::$app->controller->module->params['ins']['back_word'];
-        $paint = Yii::$app->controller->module->params['ins']['paint'];
-
-        $ins_info = $model->getInsInfo();
-
-
-        //取碑的产品信息
-
-        return $this->render('ins-auto', [
-            'model' => $model,
-            'imgs'  => $model->img ? json_decode($model->img) : '',
-            'pos' => Yii::$app->controller->module->params['ins']['position'],
-            'get' => Yii::$app->request->get(),
-            'cases' => $cases,
-            'back_word' => $back_word,
-            'paint' => $paint,
-            'front' => $ins_info['front'],
-            'back' => $ins_info['back'],
-            'dead_list' => $model->getDead(),
-            'order' => Process::getOrder(),
-            'goods' => $model->getGoodsInfo(),
-            'is_god' => false,
-        ]);
-    }
-
 
     /**
      * @return array
@@ -509,9 +468,13 @@ class ProcessController extends BackController
     protected function portrait()
     {
         $dead = Process::dead();
-        if (count($dead) == 0) {
-            Yii::$app->session->setFlash('error', '请先填写使用人信息');
-            return $this->pre(2);
+
+        $tomb = Process::tomb();
+        $deads = $tomb->deads;
+
+
+        if (count($deads) == 0) {
+            return $this->error('未添加使用人');
         }
 
         $models = Process::portrait();
@@ -562,10 +525,12 @@ class ProcessController extends BackController
     protected function bury()
     {
 
-        $dead = Process::dead();
-        if (count($dead) == 0) {
-            Yii::$app->session->setFlash('error', '请先填写使用人信息');
-            return $this->pre(2);
+        $tomb = Process::tomb();
+        $deads = $tomb->deads;
+
+
+        if (count($deads) == 0) {
+            return $this->error('没有待安葬的逝者');
         }
 
         $burys = Process::burys();

@@ -301,6 +301,19 @@ class Tomb extends \app\core\db\ActiveRecord
         return $this->hasMany(Dead::className(),['tomb_id'=>'id'])->where(['status'=>self::STATUS_NORMAL]);
     }
 
+    public function getHasInsDead()
+    {
+        $deads = $this->deads;
+
+        foreach ($deads as $dead) {
+            if ($dead->is_ins) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public function pre($flag = true, $client_id=null)
     {
