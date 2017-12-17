@@ -61,6 +61,14 @@ class DefaultController extends \app\core\web\BackController
     }
 
     /**
+     * @name 工作
+     */
+    public function actionWork()
+    {
+        return $this->render('work');
+    }
+
+    /**
      * @name 工作台
      */
     public function actionWorkbench()

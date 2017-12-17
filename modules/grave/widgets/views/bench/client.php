@@ -47,11 +47,14 @@ use yii\bootstrap\Modal;
                                     <?=$model->mobile?> <?=date('Y-m-d H:i', $model->created_at)?>
                                 </small>
                                 <small class="btns pull-right">
-                                    <a href="<?=Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id])?>" class="btn btn-xs btn-info" target="_blank">接待记录</a>
-                                    <a href="<?=Url::toRoute(['/grave/admin/tomb/search', 'client_id'=>$model->id])?>" class="btn btn-xs btn-info modalAddButton" target="_blank" data-loading-text="页面加载中, 请稍后..." onclick="return false">办业务</a>
+                                    <a href="<?=Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id])?>"
+                                       class="btn btn-xs btn-info" target="_blank">接待记录</a>
+                                    <a href="<?=Url::toRoute(['/grave/admin/tomb/search', 'client_id'=>$model->id])?>"
+                                       class="btn btn-xs btn-info modalAddButton" target="_blank"
+                                       data-loading-text="页面加载中, 请稍后..."
+                                       onclick="return false">办业务</a>
                                 </small>
                             </h4>
-
                         </div>
                     </li>
                 <?php endforeach ?>

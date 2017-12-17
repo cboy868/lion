@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\core\helpers\Tree;
 use app\modules\grave\models\Grave;
 use app\modules\order\models\Order;
 use app\modules\shop\models\Bag;
@@ -114,11 +115,26 @@ class ProcessController extends BackController
         //礼包
         $bags = Bag::find()->where(['status'=>Bag::STATUS_NORMAL])->all();
 
+
+        $cates = Category::find()->andWhere(['status'=>Category::STATUS_NORMAL,'is_show'=>1])
+            ->orderBy('level desc, sort desc')
+            ->indexBy('id')
+            ->all();
+
+        $cates_tree = Tree::treeShow($cates, ['\app\core\helpers\Tree', 'createGoodsCateLink']);
+
+
+
+
         $data['goods'] = $goods;
         $data['bags'] = $bags;
         $data['tomb_id'] = $tomb_id;
         $data['guide_id'] = $tomb->guide_id;
         $data['order'] = Process::getOrder();
+
+        $data['pre_bury_date'] = Process::preBuryDate();
+        $data['get'] = Yii::$app->request->get();
+        $data['cates_tree'] = $cates_tree;
 
         return $this->render('mall',$data);
     }
@@ -375,7 +391,10 @@ class ProcessController extends BackController
             $model->type = InsProcess::TYPE_IMG;
         }
 
-        $model->pre_finish = $model->pre_finish == null ? '' : $model->pre_finish;
+
+        $pre_bury_date = Process::preBuryDate();
+
+        $model->pre_finish = $model->pre_finish == null ? $pre_bury_date : $model->pre_finish;
 
         $ins_data = [
             'model' => $model,
@@ -514,11 +533,14 @@ class ProcessController extends BackController
             $d_sel[$v['id']] = $v['dead_name'];
         }
 
+        $pre_bury_date = Process::preBuryDate();
+
     	return $this->render('portrait',[
             'models' => $models,
             'get' => Yii::$app->request->get(),
             'order' => Process::getOrder(),
-            'dead' => $d_sel
+            'dead' => $d_sel,
+            'pre_bury_date' => $pre_bury_date
             ]);
     }
 

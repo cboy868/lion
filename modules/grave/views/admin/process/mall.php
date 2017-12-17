@@ -7,7 +7,7 @@ use app\assets\ExtAsset;
 use app\assets\PluploaduiAssets;
 use app\core\models\Attachment;
 use kartik\select2\Select2;
-
+\app\assets\Treeview::register($this);
 \app\assets\ExtAsset::register($this);
 \app\assets\JqueryuiAsset::register($this);
 \app\assets\MustacheAsset::register($this);
@@ -22,27 +22,40 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
             <?php  echo $this->render('_step'); ?>
         </div><!-- /.page-header -->
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="active"><a data-toggle="tab" href="#goods-list-box">全部</a></li>
                     <li class=""><a data-toggle="tab" href="#bag-list-box">礼包</a></li>
                 </ul>
-
                 <div class="tab-content" style="height:800px;overflow:auto">
                     <div role="tabpanel" id="goods-list-box" class="tab-pane in active">
+
+
+                        <div class="left-side">
+                            <div class="panel panel-sm">
+                                <div class="panel-body" style="padding: 10px;">
+                                    <?=$cates_tree?>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="main">
                         <table class="table table-goods">
                             <tr>
-                                <th style="width:37px;">图片</th>
-                                <th>商品名称</th>
+                                <th>图片</th>
                                 <th>规格选择</th>
                                 <th>价格</th>
                                 <th>选择</th>
                             </tr>
                             <?php foreach($goods as $key=>$val):?>
+
+
                                 <?php foreach($val as $g):?>
                                     <?php $sku_cnt = count($g->sku);?>
                                     <tr class="goods-tr g<?=$g->id?>"
                                         data-pinyin="<?=$g->pinyin?>"
+                                        data-cate="#c<?=$g->category_id?>"
                                         data-serial="<?=$g->serial?>"
                                         data-title="<?=$g->name?>"
                                         data-id="<?=$g->id?>"
@@ -50,18 +63,16 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                         data-img="<?=$g->getThumb('110x110')?>"
                                     >
                                         <td>
-                                            <img class="img-rounded" width="35" height="35"
+                                            <img class="img-rounded" width="35" height="35" style="display: inline-block"
                                                  src="<?=$g->getThumb()?>" />
-                                        </td>
-                                        <td>
-                                            <a target="_blank" title="{$goods.title}" href="#"><?=$g->name?> </a>
-
-
+                                            <br>
+                                            <a target="_blank" title="{$goods.title}" href="javascript:;"><?=$g->name?> </a>
 
                                             <?php if($g->unit):?>
                                                 [<?=$g->unit?>]
                                             <?php endif;?>
                                         </td>
+
                                         <td>
                                             <?php if ($sku_cnt > 1): ?>
                                                 <p>
@@ -81,11 +92,11 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                         <td><?=$g->price?>元</td>
                                         <td width=100>
                                             <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-danger btn-minus" type="button">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </span>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-danger btn-minus" type="button">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </span>
                                                 <input data-type="goods"
                                                        data-id="<?=$g->id?>"
                                                        data-title="<?=$g->name?>"
@@ -94,10 +105,10 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                                        style="padding:4px 3px;width:50px"
                                                        value="0" />
                                                 <span class="input-group-btn">
-                                                <button class="btn btn-success btn-plus" type="button">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </span>
+                                                    <button class="btn btn-success btn-plus" type="button">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </span>
                                             </div><!-- /input-group -->
                                         </td>
                                     </tr>
@@ -105,6 +116,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                             <?php endforeach;?>
 
                         </table>
+                        </div>
                     </div>
                     <div id="bag-list-box" class="tab-pane in" >
 
@@ -134,11 +146,11 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                     <td><?=$g->price?>元</td>
                                     <td width=100>
                                         <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-danger btn-minus" type="button">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-                                        </span>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger btn-minus" type="button">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </span>
                                             <input data-type="bag"
                                                    data-id="<?=$g->id?>"
                                                    data-title="<?=$g->title?>"
@@ -147,10 +159,10 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                                    style="padding:4px 3px;width:50px"
                                                    value="0" />
                                             <span class="input-group-btn">
-                                            <button class="btn btn-success btn-plus" type="button">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </span>
+                                        <button class="btn btn-success btn-plus" type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </span>
                                         </div>
                                     </td>
                                 </tr>
@@ -164,7 +176,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                 </div>
             </div>
 
-            <div class="col-sm-6" id="use-info">
+            <div class="col-sm-5" id="use-info">
                 <div class="row">
                     <div class="col-xs-12" id="order-list">
                         <div class="" id="goods-selected-box" style="border:1px solid #ccc;">
@@ -205,7 +217,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                                 <input type="text"
                                                        dt=true
                                                        class="form-control input-sm use_time"
-                                                       name="use_time" value="">
+                                                       name="use_time" value="<?=$pre_bury_date?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -227,10 +239,14 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                         <input type="hidden" class="tomb_id" name="tomb_id" value="<?=$tomb_id?>" />
                                         <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
 
-                                        <div class="form-group">
-                                            <label class="col-xs-2 label-control"></label>
-                                            <div class="col-xs-4">
-                                                <button class="btn btn-primary btn-sm" id="submitOrder" type="submit">提交订单</button>
+
+                                        <div class="form-group" style="margin-top: 20px;">
+                                            <div class="col-sm-12" style="text-align:center;">
+                                                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']-1])?>" class="btn btn-info btn-lg"
+                                                   style='padding: 10px 36px'>上一步</a>
+                                                <button type="submit" id="submitOrder" class="btn btn-warning btn-lg" style="padding: 10px 36px">保 存</button>
+                                                <a href="<?=Url::toRoute(['index', 'tomb_id'=>$get['tomb_id'], 'step'=>$get['step']+1])?>" class="btn btn-info btn-lg"
+                                                   style='padding: 10px 36px'>下一步</a>
                                             </div>
                                         </div>
 
@@ -265,6 +281,20 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
         overflow: visible;
         border-radius:0;
     }
+    .left-side {
+        left: 20px;
+        position: absolute;
+        width: 140px;
+    }
+    .main {
+        padding-left: 160px;
+        margin-right: 0;
+    }
+    a.disabled, a.disabled:focus, a.disabled:hover, a[disabled], a[disabled]:focus, a[disabled]:hover {
+        color: #aaa;
+        text-decoration: none;
+        cursor: default;
+    }
 </style>
 <script id="template" type="x-tmpl-mustache">
 <tr class="gtr{{sku_id}} btr{{id}}" style="border-bottom:1px solid #eee;">
@@ -274,6 +304,16 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
     <td><a class="del-goods btn btn-xs btn-danger" data-id="{{ sku_id }}" href="#">删除</a></td>
 </tr>
 </script>
+
+<?php $this->beginBlock('foo') ?>
+$(function(){
+    var csrf = "<?=Yii::$app->request->getCsrfToken()?>";
+    $('.tree').each(function() {
+        $(this).treeview({collapsed: false, unique: false});
+    });
+})
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['foo'], \yii\web\View::POS_END); ?>
 
 
 

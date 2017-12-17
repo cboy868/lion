@@ -175,5 +175,14 @@ class Tree
     {
         return Html::a($category->name, ['/grave/admin/default/index', 'id'=>$category->id], ['class'=>'l'.$category->id]);
     }
+
+    public static function createGoodsCateLink($category)
+    {
+        if ($category->is_leaf) {
+            return Html::a($category->name, '#c'.$category->id, ['class'=>'gcategory']);
+        } else {
+            return Html::a($category->name, 'javascript:;');
+        }
+    }
 }
 

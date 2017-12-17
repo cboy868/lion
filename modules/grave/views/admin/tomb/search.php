@@ -37,6 +37,7 @@ use yii\bootstrap\Modal;
 ?>
 
 <div class="tomb-search">
+    <?php if ($tombs):?>
 <table class="table">
     <?php foreach ($tombs as $k => $tomb): ?>
         <tr>
@@ -50,6 +51,7 @@ use yii\bootstrap\Modal;
     <?php endforeach ?>
     
 </table>
+    <?php endif;?>
     <?php $form = ActiveForm::searchBegin();?>
     <?php $form->options['id'] = 'tsearch';
           $form->action = Url::toRoute(['/grave/admin/tomb/search-list']); 

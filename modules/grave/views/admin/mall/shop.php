@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use kartik\select2\Select2;
 use yii\helpers\Url;
-
+\app\assets\Treeview::register($this);
 \app\assets\ExtAsset::register($this);
 \app\assets\JqueryuiAsset::register($this);
 \app\assets\MustacheAsset::register($this);
@@ -13,7 +13,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
         <h1>商品部</h1>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active"><a data-toggle="tab" href="#goods-list-box">全部</a></li>
                 <li class=""><a data-toggle="tab" href="#bag-list-box">礼包</a></li>
@@ -21,6 +21,14 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
 
             <div class="tab-content" style="height:800px;overflow:auto">
                 <div role="tabpanel" id="goods-list-box" class="tab-pane in active">
+                    <div class="left-side">
+                        <div class="panel panel-sm">
+                            <div class="panel-body" style="padding: 10px;">
+                                <?=$cates_tree?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main">
                     <table class="table table-goods">
                         <tr>
                             <th style="width:37px;">图片</th>
@@ -35,6 +43,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                                 <tr class="goods-tr g<?=$g->id?>"
                                     data-pinyin="<?=$g->pinyin?>"
                                     data-serial="<?=$g->serial?>"
+                                    data-cate="#c<?=$g->category_id?>"
                                     data-title="<?=$g->name?>"
                                     data-id="<?=$g->id?>"
                                     data-price="<?=$g->price?>"
@@ -96,6 +105,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                         <?php endforeach;?>
 
                     </table>
+                    </div>
                 </div>
                 <div id="bag-list-box" class="tab-pane in" >
 
@@ -155,7 +165,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
             </div>
         </div>
 
-        <div class="col-sm-6" id="use-info">
+        <div class="col-sm-5" id="use-info">
             <div class="row">
                 <div class="col-xs-12" id="order-list">
                     <div class="" id="goods-selected-box" style="border:1px solid #ccc;">
@@ -309,6 +319,20 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
         width: 10em;
         overflow: visible;
         border-radius:0;
+    }
+    .left-side {
+        left: 20px;
+        position: absolute;
+        width: 140px;
+    }
+    .main {
+        padding-left: 160px;
+        margin-right: 0;
+    }
+    a.disabled, a.disabled:focus, a.disabled:hover, a[disabled], a[disabled]:focus, a[disabled]:hover {
+        color: #aaa;
+        text-decoration: none;
+        cursor: default;
     }
 </style>
 

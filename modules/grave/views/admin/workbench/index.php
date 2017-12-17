@@ -15,10 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <div class="page-content">
-
-<!-- Modal -->
-
-
     <div class="page-content-area">
         <div class="row">
             <div class="col-md-6">

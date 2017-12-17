@@ -131,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <!-- 
                         <th width="50" align="center">#</td>
                         -->
-                        <th align="center">名称</th>
+                        <th align="left">名称</th>
                         <!--<th align="center">单价</th>-->
                         <!-- <th align="center">原价</th> -->
                         <th align="center">总价</th>
@@ -145,22 +145,22 @@ $this->params['breadcrumbs'][] = $this->title;
                       </tr>
                       <?php foreach ($model->rels as $rel): ?>
                           <tr>
-                            <td align="center"><?=$rel->title?></td>
+                            <td align="left"><?=$rel->title?></td>
                             <!--<td align="center">500000.00</td>-->
                             <!-- <td align="center">500000.00</td> -->
-                            <td align="center"><?=$rel->price?>
+                            <td align="left"><?=$rel->price?>
                             <?php if (!$model->isFinish): ?>
                             <a href="<?=Url::toRoute(['m-price', 'id'=>$rel->id])?>" class="modalEditButton">***</a>
                             <?php endif ?>
                             </td>
-                            <td align="center"><?=$rel->note?></td>
-                            <td align="center"><?=$rel->num?></td>
-                            <td align="center"><?=$rel->user->username?></td>
-                            <td align="center"></td>
-                            <td align="center"><?=$rel->use_time?></td>
-                            <td align="center"><?=$rel->statusText?></td>  
-                            <td></td>  
-                          </tr> 
+                            <td align="left"><?=$rel->note?></td>
+                            <td align="left"><?=$rel->num?></td>
+                            <td align="left"><?=$rel->user->username?></td>
+                            <td align="left"></td>
+                            <td align="left"><?=$rel->use_time?></td>
+                            <td align="left"><?=$rel->statusText?></td>
+                            <td></td>
+                          </tr>
                       <?php endforeach ?>
                     </tbody>
                 </table>

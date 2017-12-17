@@ -201,6 +201,33 @@ $(function () {
         }, 500);
     });
 
+    var cg;
+    $('.gcategory').click(function (e) {
+        e.preventDefault();
+
+        var c = $(this).attr('href');
+        if (typeof cg != undefined ) {
+            clearTimeout( cg );
+        }
+
+        cg = setTimeout(function(){
+            trs.each(function(i, item){
+                var trElem = $(item);
+                var cate = trElem.data('cate');
+                try {
+                    if (cate.indexOf(c) !=-1) {
+                        trElem.fadeIn(100);
+                    } else {
+                        trElem.fadeOut(100);
+                    }
+                } catch (err) {
+                    trElem.hide();
+                }
+            });
+        }, 500);
+
+    });
+
     $('.grave,.trow,.tcol').change(function (e) {
         var grave = $('.grave').val();
         var row = $('.trow').val();

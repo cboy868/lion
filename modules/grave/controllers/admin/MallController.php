@@ -2,6 +2,7 @@
 
 namespace app\modules\grave\controllers\admin;
 
+use app\core\helpers\Tree;
 use app\modules\grave\models\Customer;
 use app\modules\grave\models\Grave;
 use app\modules\shop\models\Bag;
@@ -246,12 +247,21 @@ class MallController extends BackController
         $goods = ArrayHelper::index($show_goods, 'id', 'category_id');
 
 
+
+        $cates = Category::find()->andWhere(['status'=>Category::STATUS_NORMAL,'is_show'=>1])
+            ->orderBy('level desc, sort desc')
+            ->indexBy('id')
+            ->all();
+
+        $cates_tree = Tree::treeShow($cates, ['\app\core\helpers\Tree', 'createGoodsCateLink']);
+
         //礼包
         $bags = Bag::find()->where(['status'=>Bag::STATUS_NORMAL])->all();
 
         $data['goods'] = $goods;
         $data['bags'] = $bags;
         $data['staffs'] = $staffs;
+        $data['cates_tree'] = $cates_tree;
 
         return $this->render('shop',$data);
     }

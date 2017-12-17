@@ -52,12 +52,22 @@ class Process extends \yii\base\Model
 
     public static $dead_model_num = 0;
 
+//    public static $step = [
+//        1 => ['method' => 'customer','title'=>'办理人信息'],
+//        2 => ['method' => 'dead','title'=>'使用人信息'],
+//        3 => ['method' => 'ins','title'=>'碑文信息'],
+//        4 => ['method' => 'portrait','title'=>'瓷像信息'],
+//        5 => ['method' => 'bury','title'=>'安葬'],
+//        6 => ['method' => 'mall','title'=>'购买商品'],
+//        // 6 => ['method' => 'order','title'=>'订单'],
+//    ];
+
     public static $step = [
         1 => ['method' => 'customer','title'=>'办理人信息'],
         2 => ['method' => 'dead','title'=>'使用人信息'],
-        3 => ['method' => 'ins','title'=>'碑文信息'],
-        4 => ['method' => 'portrait','title'=>'瓷像信息'],
-        5 => ['method' => 'bury','title'=>'安葬'],
+        3 => ['method' => 'bury','title'=>'安葬'],
+        4 => ['method' => 'ins','title'=>'碑文信息'],
+        5 => ['method' => 'portrait','title'=>'瓷像信息'],
         6 => ['method' => 'mall','title'=>'购买商品'],
         // 6 => ['method' => 'order','title'=>'订单'],
     ];
@@ -117,8 +127,6 @@ class Process extends \yii\base\Model
             }
         }
 
-
-
         return $deads;
     }
 
@@ -134,7 +142,7 @@ class Process extends \yii\base\Model
                          ->all();
 
         $pre = Bury::find()->where(['tomb_id'=>self::$tomb_id])
-                            ->andWhere(['status'=>Dead::STATUS_NORMAL])
+                            ->andWhere(['status'=>Bury::STATUS_NORMAL])
                             ->all();
 
         $model = new Bury();
@@ -356,6 +364,26 @@ class Process extends \yii\base\Model
         $memorial = Memorial::create($tomb->user_id, $title, $tomb->id);
 
         return $memorial;
+    }
+
+
+    /**
+     * @name 获取最近一个预安葬记录的时间
+     */
+    public static function preBuryDate($time=false)
+    {
+
+        $pre_date = Bury::find()->where(['tomb_id'=>self::$tomb_id])
+            ->andWhere(['status'=>Bury::STATUS_NORMAL])
+            ->andWhere(['>', 'pre_bury_date', date('Y-m-d')])
+            ->min('pre_bury_date');
+
+        if ($time) {
+            return $pre_date ? $pre_date : '';
+        } else {
+            return $pre_date ? substr($pre_date, 0, 10) : '';
+        }
+
     }
 
     // public static function order()
