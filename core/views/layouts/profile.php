@@ -176,7 +176,7 @@ AdminAsset::register($this);
             </script>
 
             <!-- #section:basics/sidebar -->
-            <div id="sidebar" class="sidebar responsive">
+            <div id="sidebar" class="sidebar responsive menu-min">
                 <script type="text/javascript">
                     try{ace.settings.check('sidebar' , 'fixed')}catch(e){ }
                 </script>
@@ -252,7 +252,9 @@ AdminAsset::register($this);
 
                 <!-- #section:basics/sidebar.layout.minimize -->
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-                    <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+                    <i class="ace-icon fa fa-angle-double-right"
+                       data-icon1="ace-icon fa fa-angle-double-left"
+                       data-icon2="ace-icon fa fa-angle-double-right"></i>
                 </div>
 
                 <!-- /section:basics/sidebar.layout.minimize -->
@@ -271,9 +273,15 @@ AdminAsset::register($this);
                         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
                     </script>
                     <?php
-                    $profile_nav = $this->params['profile_nav'];
+                    $profile_nav = isset($this->params['profile_nav']) ? $this->params['profile_nav'] : '';
                     ?>
                     <ul class="nav navbar-nav nav-profile">
+                        <li class="<?php if($profile_nav == 'admin') echo 'active'?>">
+                            <a href="<?=Url::toRoute(['/admin/default/index'])?>">
+                                工作台
+                            </a>
+                        </li>
+
                         <li class="<?php if($profile_nav == 'user') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>">
                                 个人信息
@@ -296,12 +304,13 @@ AdminAsset::register($this);
                                 食堂
                             </a>
                         </li>
+                        <!--
+
                         <li class="<?php if($profile_nav == 'work') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/approval/admin/profile/work'])?>">
                                 考勤
                             </a>
                         </li>
-                        <!--
                         <li class="<?php if($profile_nav == 'approval') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/approval/admin/profile/index'])?>">
                                 审批
@@ -393,8 +402,8 @@ AdminAsset::register($this);
         <![endif]-->
 <?php $this->beginBlock('menu') ?>
 $(function(){
-    $('.submenu>.active').parents('.p-menu').addClass('active open');
-    $('#sidebar').addClass('menu-min');
+    //$('.submenu>.active').parents('.p-menu').addClass('active open');
+    //$('#sidebar').addClass('menu-min');
 })
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['menu'], \yii\web\View::POS_END); ?>

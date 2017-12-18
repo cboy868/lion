@@ -36,14 +36,14 @@ use yii\bootstrap\Modal;
 <!--        <h4 class="widget-title lighter"><i class="fa fa-cubes"></i> 业务</h4>-->
 <!--    </div>-->
     <?php if (Yii::$app->user->can('/grave/admin/tomb/search')):?>
-    <div class="widget-body">
-        <div class="widget-main padding-12 no-padding-left no-padding-right">
-            <a href="<?=Url::toRoute(['/grave/admin/tomb/search'])?>" class="btn btn-default modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">
-                <img src="/static/images/icons/deal.png" class="fa-app">
-                业务流程
-            </a>
-        </div>
-    </div>
+<!--    <div class="widget-body">-->
+<!--        <div class="widget-main padding-12 no-padding-left no-padding-right">-->
+<!--            <a href="--><?//=Url::toRoute(['/grave/admin/tomb/search'])?><!--" class="btn btn-default modalAddButton" data-loading-text="页面加载中, 请稍后..." onclick="return false">-->
+<!--                <img src="/static/images/icons/deal.png" class="fa-app">-->
+<!--                业务流程-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
     <?php endif;?>
 </div>
 <?php foreach ($menus as $k=>$v):?>

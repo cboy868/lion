@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\admin\models\LoginForm;
 use app\modules\user\models\Log as LoginLog;
+use app\modules\grave\models\search\TombSearch;
 
 class DefaultController extends \app\core\web\BackController
 {
@@ -56,8 +57,21 @@ class DefaultController extends \app\core\web\BackController
      */
     public function actionIndex()
     {
+        $searchModel = new TombSearch();
+        $params = Yii::$app->request->queryParams;
+        $dataProvider = $searchModel->searchWork($params);
+
         LoginLog::getLast();
-        return $this->render('index');
+
+        return $this->render('work', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+
+
+//        LoginLog::getLast();
+//        return $this->render('index');
     }
 
     /**
@@ -65,8 +79,29 @@ class DefaultController extends \app\core\web\BackController
      */
     public function actionWork()
     {
-        return $this->render('work');
+        $searchModel = new TombSearch();
+        $params = Yii::$app->request->queryParams;
+        $dataProvider = $searchModel->searchWork($params);
+        return $this->render('work', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
     }
+
+
+    public function actionTombs()
+    {
+        $searchModel = new TombSearch();
+        $params = Yii::$app->request->queryParams;
+        $dataProvider = $searchModel->searchWork($params);
+        return $this->renderAjax('tombs', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
 
     /**
      * @name 工作台

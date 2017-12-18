@@ -79,6 +79,7 @@ class CardController extends BackController
             if ($card->isNewRecord) {
                 $card->start = $model->start;
                 $card->end   = $model->end;
+                $card->serial= Card::serial($id);
                 // $card->total = date('Y', strtotime($model->end)) - date('Y', strtotime($model->start));
                 $card->created_by = Yii::$app->user->id;
                 $card->save();

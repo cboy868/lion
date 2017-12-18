@@ -24,10 +24,8 @@ use app\core\widgets\ActiveForm;
 				    <?php $i++;endforeach ?>
 			    <?php endif ?>
 
-				<div class="form-group">
-			        <div class="col-sm-offset-2 col-sm-3">
-			            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary btn-block']) ?>
-			        </div>
+				<div class="form-group" style="text-align: center;">
+			            <?=  Html::submitButton('保 存', ['class' => 'btn btn-primary','style'=>'margin-top:20px;']) ?>
 			    </div>
 			    
 			    <?php ActiveForm::end(); ?>

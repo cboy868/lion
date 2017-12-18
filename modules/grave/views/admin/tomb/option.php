@@ -57,7 +57,7 @@ use app\core\helpers\Url;
         <?php foreach($opt as $item): ?>
             <div>
 
-              <a class="<?php echo $item[2];?>" href="<?php echo $item[1];?>"><?php echo $item[0];?></a>
+              <a class="<?php echo $item[2];?>" href="<?php echo $item[1];?>" target="_blank"><?php echo $item[0];?></a>
             </div>
         <?php endforeach;?>
 

@@ -7,7 +7,7 @@ use app\core\widgets\GridView;
 
 $this->title = '个人中心';
 $this->params['breadcrumbs'][] = $this->title;
-
+$this->params['profile_nav'] = 'user';
 ?>
 
 <div class="page-content">

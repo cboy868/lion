@@ -615,7 +615,7 @@ class TombController extends BackController
         $model = $this->findModel($id);
 
         $config = Yii::$app->params['goods'];
-        $gid = $config['id']['renew'];
+        $gid = $config['id']['renew']['id'];
         $fee = $config['fee']['renew'];
 
         $ginfo = Goods::createVirtual($gid['id'], $gid['name']);
@@ -636,6 +636,7 @@ class TombController extends BackController
         }
         
         $ginfo = \app\modules\shop\models\Goods::findOne($gid);
+
         $ginfo->original_price = $ginfo->price = $model->price * $fee;
 
         return $this->render('renew', ['model'=>$model, 'ginfo'=>$ginfo]);

@@ -13,6 +13,7 @@ use app\modules\grave\models\Tomb;
 class TombSearch extends Tomb
 {
     public $customer_name; //<=====就是加在这里
+    public $mobile; //<=====就是加在这里
     /**
      * @inheritdoc
      */
@@ -21,7 +22,7 @@ class TombSearch extends Tomb
         return [
             [['id', 'grave_id', 'row', 'col', 'hole', 'user_id', 'customer_id',
                 'agent_id', 'agency_id', 'guide_id', 'thumb', 'created_at', 'status'], 'integer'],
-            [['special', 'tomb_no', 'sale_time', 'note', 'customer_name'], 'safe'],
+            [['special', 'tomb_no', 'sale_time', 'note', 'customer_name','mobile'], 'safe'],
             [['price', 'cost', 'area_total', 'area_use'], 'number'],
         ];
     }
@@ -92,9 +93,61 @@ class TombSearch extends Tomb
             ->andFilterWhere(['like', 'tomb_no', $this->tomb_no])
             ->andFilterWhere(['like', 'note', $this->note]);
         $query->andFilterWhere(['like', '{{%grave_customer}}.name', $this->customer_name]) ;//<=====加入这句
+        $query->andFilterWhere(['like', '{{%grave_customer}}.mobile', $this->mobile]) ;//<=====加入这句
 
         return $dataProvider;
     }
+
+    public function searchWork($params)
+    {
+        $query = Tomb::find()->joinWith(['customer'])
+            ->where(['not in','grave_tomb.status',[Tomb::STATUS_DELETE,Tomb::STATUS_RETURN]])
+            ->orderBy('id desc');
+
+        if (count($params)==0) {
+            $query->andWhere(['<', 'grave_tomb.id', 0]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->orderBy('row asc, col asc'),
+            'pagination' => [
+                'pageSize' => 15,
+            ],
+        ]);
+        $dataProvider->setSort([
+            'attributes' => [
+                /*  下面这段是加入的 */
+                /*=============*/
+                'customer_name' => [
+                    'asc' => ['customer.name' => SORT_ASC],
+                    'desc' => ['customer.name' => SORT_DESC],
+                    'label' => '客户'
+                ],
+                /*=============*/
+            ]
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'grave_tomb.id' => $this->id,
+            'grave_id' => $this->grave_id,
+            'row' => $this->row,
+            'col' => $this->col,
+            'grave_tomb.guide_id' => $this->guide_id,
+            'grave_tomb.status' => $this->status,
+        ]);
+
+        $query->andFilterWhere(['like', '{{%grave_customer}}.name', $this->customer_name]) ;//<=====加入这句
+        $query->andFilterWhere(['like', '{{%grave_customer}}.mobile', $this->mobile]) ;//<=====加入这句
+
+        return $dataProvider;
+    }
+
+
+
 
     public function minCol($params)
     {

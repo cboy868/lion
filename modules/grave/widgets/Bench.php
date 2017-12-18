@@ -10,7 +10,7 @@ use app\modules\mod\models\Code;
 use app\core\db\ActiveRecord;
 use app\modules\client\models\Client;
 use app\core\helpers\Url;
-
+use app\modules\grave\models\Tomb;
 /**
  * The ZActiveForm widget extend ActiveForm.
  *
@@ -70,6 +70,10 @@ class Bench extends \yii\base\Widget
         return $this->render('bench/task', ['models'=>$result]);
     }
 
+    /**
+     * @return string
+     * @name 我的客户
+     */
     private function client()
     {
 
@@ -79,6 +83,22 @@ class Bench extends \yii\base\Widget
                          ->all();
 
       return $this->render('bench/client', ['models'=>$client]);
+    }
+
+    /**
+     * @name 我经手的墓位
+     */
+    private function tombs()
+    {
+        $tombs = Tomb::find()->where(['guide_id'=>Yii::$app->user->id])
+            ->andWhere(['not in','status',[Tomb::STATUS_DELETE,Tomb::STATUS_RETURN]])
+            ->orderBy('sale_time desc')
+            ->limit($this->limit)
+            ->all();
+
+        return $this->render('bench/tomb',[
+            'models' => $tombs
+        ]);
     }
 
     private function post()

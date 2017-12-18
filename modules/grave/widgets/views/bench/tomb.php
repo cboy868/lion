@@ -13,11 +13,10 @@ use yii\bootstrap\Modal;
     ]) ;
 
     echo '<div id="modalContent"></div>';
-
     Modal::end();
 ?>
 <style type="text/css">
-    .client .btns{
+    .tb .btns{
         display: none;
         margin-right: 20px;
         position: absolute;
@@ -31,9 +30,9 @@ use yii\bootstrap\Modal;
     }
 </style>
 
-<div class="widget-box transparent ui-sortable-handle client" style="opacity: 1;">
+<div class="widget-box transparent ui-sortable-handle tb" style="opacity: 1;">
     <div class="widget-header">
-        <h4 class="widget-title lighter"><i class="fa fa-user"></i> 我的客户</h4>
+        <h4 class="widget-title lighter"><i class="fa fa-cubes"></i> 我最近操作过的墓位</h4>
     </div>
     <div class="widget-body">
         <div class="widget-main padding-12 no-padding-left no-padding-right">
@@ -42,14 +41,13 @@ use yii\bootstrap\Modal;
                 <?php foreach ($models as $k => $model): ?>
                     <li class="media" style="position:relative;">
                         <div class="media-body">
-                            <h5 class="media-heading"><?=$model->name?>
+                            <h5 class="media-heading"><?=$model->tomb_no?>
                                 <small>
-                                    <?=$model->mobile?> <?=date('Y-m-d H:i', $model->created_at)?>
+                                    <?=$model->customer?$model->customer->name : '';?>
+                                    <?=$model->customer?$model->customer->mobile : '';?>
                                 </small>
                                 <small class="btns pull-right">
-                                    <a href="<?=Url::toRoute(['/client/admin/recep/index', 'id'=>$model->id])?>"
-                                       class="btn btn-xs btn-info" target="_blank">接待记录</a>
-                                    <a href="<?=Url::toRoute(['/grave/admin/tomb/search', 'client_id'=>$model->id])?>"
+                                    <a href="<?=Url::toRoute(['/grave/admin/tomb/option', 'id'=>$model->id])?>"
                                        class="btn btn-xs btn-info modalAddButton" target="_blank"
                                        data-loading-text="页面加载中, 请稍后..."
                                        onclick="return false">办业务</a>
@@ -67,11 +65,11 @@ use yii\bootstrap\Modal;
 
 <?php $this->beginBlock('cate') ?>  
 $(function(){
-   $('.client li').mouseover(function(){
+   $('.tb li').mouseover(function(){
     $('.btns', this).show();
    });
 
-   $('.client li').mouseleave(function(){
+   $('.tb li').mouseleave(function(){
     $('.btns', this).hide();
    });
 

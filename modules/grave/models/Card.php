@@ -193,4 +193,9 @@ class Card extends \app\core\db\ActiveRecord
         return false;
     }
 
+    public static function serial($tomb_id)
+    {
+        return date('Ymd') . str_pad($tomb_id, 5, '0', STR_PAD_LEFT );
+    }
+
 }
