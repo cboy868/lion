@@ -70,9 +70,40 @@ class Nav extends \app\core\db\ActiveRecord
         ];
     }
 
-    public static function navs()
+    public static function navs1()
     {
         return self::find()->where(['show'=>1])->orderBy('sort asc')->asArray()->all();
+    }
+	
+	public static function navs()
+    {
+        if (Yii::$app->params['i18n']['flag']) {
+            $items = self::find()->where(['show'=>1])->orderBy('sort asc')->asArray()->all();
+
+            $lg = LgNav::find()->where(['language'=>Yii::$app->language])
+                ->indexBy('nav_id')
+                ->asArray()
+                ->all();
+
+            foreach ($items as &$item) {
+                if (!isset($lg[$item['id']])) {continue;}
+
+                $item['title'] = $lg[$item['id']]['title'] ?
+                    $lg[$item['id']]['title'] : $item['title'];
+                $item['keywords'] = $lg[$item['id']]['keywords'] ?
+                    $lg[$item['id']]['keywords'] : $item['keywords'];
+                $item['description'] = $lg[$item['id']]['description'] ?
+                    $lg[$item['id']]['description'] : $item['description'];
+
+            }unset($item);
+
+
+            return $items;
+
+
+        } else {
+            return self::find()->where(['show'=>1])->orderBy('sort asc')->asArray()->all();
+        }
     }
 
     public static function nav($name)
