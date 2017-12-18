@@ -519,9 +519,9 @@ class ProcessController extends BackController
                     $outerTransaction->rollBack();
                 }
 
-                if (!Dead::hasUnPreBury(Process::$tomb_id)) {
-                    return $this->end();
-                }
+//                if (!Dead::hasUnPreBury(Process::$tomb_id)) {
+//                    return $this->end();
+//                }
 
                 return $this->next();
             }
@@ -728,6 +728,10 @@ class ProcessController extends BackController
     protected function end()
     {
         $order = Process::getOrder();
+        if (!$order) {
+            Yii::$app->session->setFlash('error', '本流程未产生新的订单,请注意');
+            return $this->pre();
+        }
         return $this->redirect(['/order/admin/default/view', 'id'=>$order->id]);
     }
   
