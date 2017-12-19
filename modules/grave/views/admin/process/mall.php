@@ -209,7 +209,7 @@ $this->registerJsFile("@web/static/site/shop/admin/shop.min.js");
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <form method="post" action="<?=\yii\helpers\Url::toRoute('/grave/admin/mall/order')?>" class="form-horizontal" role="form">
-                                        <input type="hidden" name="op_id" value="<?=$guide_id?>">
+                                        <input type="hidden" name="op_id" value="<?=$guide_id?>" class="op_id">
 
                                         <div class="form-group">
                                             <label class="col-xs-2 label-control">使用时间</label>
