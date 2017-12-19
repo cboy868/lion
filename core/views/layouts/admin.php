@@ -64,7 +64,7 @@ AdminAsset::register($this);
                     <!-- #section:basics/navbar.layout.brand -->
                     <a href="#" class="navbar-brand">
                         <small>
-                            LION管理中心
+                            卓迅公墓系统管理中心
                         </small>
                     </a>
 
