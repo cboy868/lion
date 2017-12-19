@@ -28,6 +28,7 @@ class DefaultController extends BackController
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'delete-rel' => ['post']
                 ],
             ],
         ];
@@ -461,6 +462,30 @@ class DefaultController extends BackController
 
         return $this->redirect(['index']);
     }
+
+    /**
+     * @param $id
+     * @name 删除或恢复子订单
+     */
+    public function actionDeal($id)
+    {
+        $model = OrderRel::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        $status = Yii::$app->request->post('st');
+
+        $model->status = $status;
+
+        if ($model->save()) {
+            $model->order->updatePrice();
+            return $this->json();
+        }
+
+        return $this->json(null, '操作,请联系管理员',0);
+    }
+
 
     /**
      * Finds the Order model based on its primary key value.

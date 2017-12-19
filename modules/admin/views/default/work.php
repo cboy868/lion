@@ -118,7 +118,7 @@ Modal::end();
                                     ->label(false)?>
 
                                 <button class="btn btn-info btn-lg btn-search-tomb"><i class="fa fa-search"></i> 查找 </button>
-                                <button class="btn btn-info btn-lg" type="reset">重置</button>
+                                <button class="btn btn-info btn-lg reset" type="reset">重置</button>
 
                                 <?php ActiveForm::end(); ?>
 
@@ -146,6 +146,19 @@ Modal::end();
 $(function(){
     $('.btn-search-tomb').click(function (e) {
         e.preventDefault();
+        var data = $("#search-tomb").serialize();
+        $('.table-box').load("<?=Url::toRoute(['/admin/default/tombs'])?>", data);
+    });
+
+    $('.reset').click(function(e){
+
+        $('.table-box').html('');
+    });
+
+    $('.form-control').change(function(e){
+        e.preventDefault();
+        var val = $(this).val();
+        if (!val){return false;}
         var data = $("#search-tomb").serialize();
         $('.table-box').load("<?=Url::toRoute(['/admin/default/tombs'])?>", data);
     });

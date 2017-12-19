@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <div class="modal-body">
                             <p style="color:green;">
-                                1、本功能会把所有已添加的商品中数量不为0人商品同步到所选仓库 <br>
+                                1、本功能会把所有已添加的商品中数量不为0的商品同步到所选仓库 <br>
                                 2、本功能会删除原有仓库中已有商品，请慎用。<br>
                                 3、建议只在第一次使用系统时使用
                             </p>

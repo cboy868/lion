@@ -107,6 +107,11 @@ AdminAsset::register($this);
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
 
+                        <li class="green">
+                            <a href="<?=Url::toRoute(['/admin'])?>">
+                                工作台
+                            </a>
+                        </li>
                         <li class="grey">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-tasks"></i>
@@ -130,12 +135,6 @@ AdminAsset::register($this);
                                 <li class="dark2">
                                     <a href="<?=Url::toRoute(['/memorial/home/site/index'])?>" target="_blank">
                                         纪念馆
-                                    </a>
-                                </li>
-
-                                <li class="green">
-                                    <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
-                                        工作台
                                     </a>
                                 </li>
 
@@ -419,7 +418,7 @@ AdminAsset::register($this);
                                         <i class="ace-icon fa fa-cog"></i>
                                         网站设置
                                     </a>
-                                </li> -->
+                                </li>
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/member'])?>">
@@ -427,6 +426,8 @@ AdminAsset::register($this);
                                         会员中心
                                     </a>
                                 </li>
+
+                                -->
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">

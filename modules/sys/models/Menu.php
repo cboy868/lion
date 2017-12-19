@@ -58,9 +58,9 @@ class Menu extends \app\core\models\Category
         $catch = Yii::$app->cache;
 //        $catch->delete('admin_menu');
         $uid = Yii::$app->user->id;
-        if ($catch->get('admin_menu_' . $uid) !== false) {
-            return $catch->get('admin_menu' . $uid);
-        } else {
+//        if ($catch->get('admin_menu_' . $uid) !== false) {
+//            return $catch->get('admin_menu' . $uid);
+//        } else {
             $menus = self::authMenu($condition);
             foreach ($menus as $k => &$v) {
                 if (empty($v['auth_name'])) {
@@ -72,7 +72,7 @@ class Menu extends \app\core\models\Category
 
             $menus = \app\core\helpers\Tree::recursion($menus,0,1);
             $catch->set('admin_menu' . $uid, $menus, 3600);
-        }
+//        }
         return $menus;
     }
 

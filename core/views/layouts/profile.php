@@ -79,6 +79,12 @@ AdminAsset::register($this);
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
 
+                        <li class="green">
+                            <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
+                                工作台
+                            </a>
+                        </li>
+
                         <li class="grey">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-tasks"></i>
@@ -105,12 +111,6 @@ AdminAsset::register($this);
                                     </a>
                                 </li>
 
-                                <li class="green">
-                                    <a href="<?=Url::toRoute(['/admin/grave/workbench'])?>">
-                                        工作台
-                                    </a>
-                                </li>
-
                             </ul>
                         </li>
 
@@ -132,7 +132,7 @@ AdminAsset::register($this);
                                         <i class="ace-icon fa fa-cog"></i>
                                         网站设置
                                     </a>
-                                </li> -->
+                                </li>
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/member'])?>">
@@ -140,6 +140,7 @@ AdminAsset::register($this);
                                         会员中心
                                     </a>
                                 </li>
+                                -->
 
                                 <li>
                                     <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>" target="_blank">
@@ -276,12 +277,6 @@ AdminAsset::register($this);
                     $profile_nav = isset($this->params['profile_nav']) ? $this->params['profile_nav'] : '';
                     ?>
                     <ul class="nav navbar-nav nav-profile">
-                        <li class="<?php if($profile_nav == 'admin') echo 'active'?>">
-                            <a href="<?=Url::toRoute(['/admin/default/index'])?>">
-                                工作台
-                            </a>
-                        </li>
-
                         <li class="<?php if($profile_nav == 'user') echo 'active'?>">
                             <a href="<?=Url::toRoute(['/user/admin/profile/index'])?>">
                                 个人信息

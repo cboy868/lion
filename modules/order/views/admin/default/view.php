@@ -140,11 +140,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th align="center">下单用户</th>
                         <th align="center">操作员</th>
                         <th align="center">使用时间</th>
-                        <th align="center">状态</th> 
+<!--                        <th align="center">状态</th> -->
                         <th align="center"></th> 
                       </tr>
-                      <?php foreach ($model->rels as $rel): ?>
-                          <tr>
+                      <?php foreach ($model->trels as $rel): ?>
+                          <tr class="<?php if($rel->status==-1) echo 'delline'?>">
                             <td align="left"><?=$rel->title?></td>
                             <!--<td align="center">500000.00</td>-->
                             <!-- <td align="center">500000.00</td> -->
@@ -158,8 +158,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td align="left"><?=$rel->user->username?></td>
                             <td align="left"></td>
                             <td align="left"><?=$rel->use_time?></td>
-                            <td align="left"><?=$rel->statusText?></td>
-                            <td></td>
+<!--                            <td align="left">--><?//=$rel->statusText?><!--</td>-->
+                            <td class="deal">
+                                <?php if ($rel->status != -1):?>
+                                    <a href="<?=Url::toRoute(['/order/admin/default/deal','id'=>$rel->id])?>" class="dealRel">删除</a>
+                                <?php else:?>
+                                    <a href="<?=Url::toRoute(['/order/admin/default/deal','id'=>$rel->id])?>" class="dealRel recover">恢复</a>
+                                <?php endif;?>
+                            </td>
                           </tr>
                       <?php endforeach ?>
                     </tbody>
@@ -227,29 +233,61 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     </tr>
                     <?php endforeach ?>
-                               <tr>
-                       <td colspan="5">
-                        <a href="#" class="pull-right btn btn-xs btn-success radius4">
-                            <i class="icon icon-print"></i>
-                            打印所选收款</a>
-                         <a class="pull-right btn btn-xs btn-primary modalAddButton"
-                            href="<?=Url::toRoute(['/admin/pdf/order', 'order_id'=>$model->id])?>"> 打印全款</a>
-                        </td>
-                     </tr>
+                    <?php if ($model->pays): ?>
+                        <tr>
+                           <td colspan="5">
+                            <a href="#" class="pull-right btn btn-xs btn-success radius4">
+                                <i class="icon icon-print"></i>
+                                打印所选收款</a>
+                             <a class="pull-right btn btn-xs btn-primary modalAddButton"
+                                href="<?=Url::toRoute(['/admin/pdf/order', 'order_id'=>$model->id])?>"> 打印全款</a>
+                            </td>
+                         </tr>
+                    <?php endif;?>
                   </tbody>
                 </table>
             </div>
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
+<style>
+    .delline td{
+        text-decoration: line-through;
+        background-color: #aaa !important;
+    }
 
+    .delline td.deal{
+        text-decoration: none;
+        background-color: #abc !important;
+    }
+</style>
 
 <?php $this->beginBlock('order') ?>  
 
 $(function() {
+    $('.dealRel').click(function (e) {
+        e.preventDefault();
+        if (!confirm('确认进行此操作吗?')) {return false;}
 
-    
+        var url = $(this).attr('href');
+        var that = this;
+        var st = $(this).hasClass('recover') ? 1 : -1;
+        $.post(url,{st:st},function (xhr) {
+            if (xhr.status) {
 
+                location.reload();
+
+               // if (st == 1) {
+                //    $(that).text('删除').removeClass('recover').closest('tr').removeClass('delline');
+                //} else {
+                //    $(that).text('恢复').addClass('recover').closest('tr').addClass('delline');
+                //}
+            } else {
+                alert(xhr.info);
+            }
+        },'json');
+
+    });
 });
 
 <?php $this->endBlock() ?>  

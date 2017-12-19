@@ -299,6 +299,14 @@ class Order extends \app\core\db\ActiveRecord
             ->orderBy('price desc');
     }
 
+    public function getTrels()
+    {
+        return $this->hasMany(OrderRel::className(), ['order_id' => 'id'])
+//            ->andWhere(['status'=>OrderRel::STATUS_NORMAL])
+            ->andWhere(['is_refund'=>0])
+            ->orderBy('status desc,price desc');
+    }
+
     // public function getUser()
     // {
     //     return $this->hasOne(\modules\wechat\models\User::className(), ['id' => 'wechat_uid']);

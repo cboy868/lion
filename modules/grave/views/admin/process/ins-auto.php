@@ -193,7 +193,7 @@ PluploadAssets::register($this);
 										<div class="col-sm-12 col-md-6">
 										    <div class="thumbnail">
 	                                            <a href="<?=$model->getImg('front')?>" class="artimg ">
-	                                              <img class="front_img image" src="<?=$model->getImg('front')?>" alt="...">
+	                                              <img class="front_img image" src="<?=$model->getImg('front')?>?t=<?=time()?>" alt="...">
 	                                              <input type="hidden" name="front_img" />
 	                                            </a>
 										      <div class="caption">
@@ -210,7 +210,7 @@ PluploadAssets::register($this);
 										<div class="col-sm-12 col-md-6">
 										    <div class="thumbnail">
 										      <a href="<?=$model->getImg('back')?>" class="artimg">
-											      <img class="back_img image" src="<?=$model->getImg('back')?>" alt="...">
+											      <img class="back_img image" src="<?=$model->getImg('back')?>?t=<?=time()?>" alt="...">
 											      <input type="hidden" name="back_img" />
 											  </a>
 										      <div class="caption">
