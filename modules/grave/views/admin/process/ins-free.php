@@ -29,10 +29,14 @@ PluploadAssets::register($this);
     {
         padding: 2px;
     }
-    /*.detail{display: none;}*/
+
     .insnote img{max-width: 100px;}
-    .blank{
-        margin-width:20px;
+    .modal .table > thead > tr > th, .table > tbody > tr > th, .table > tbody > tr > td {
+        padding: 2px;
+    }
+    .gbox{
+        border: 1px solid #ccc !important;
+        border-radius: 3px;
     }
 </style>
 
@@ -45,8 +49,6 @@ PluploadAssets::register($this);
         </div><!-- /.page-header -->
 
         <?=\app\core\widgets\Alert::widget();?>
-
-
         <?php
         $tomb = Tomb::findOne(Yii::$app->request->get('tomb_id'));
         $back = $ins_info['back'];
@@ -54,72 +56,78 @@ PluploadAssets::register($this);
         $attach = isset($ins_info['attach']) ? $ins_info['attach'] : [];
         ?>
         <?php if ($tomb->hasIns()): ?>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
-
-                    <div style="display:inline-block;float:left;margin-left:20px;">
-                        碑名: <?=$goods->name?> <br>
-                        碑属性:
-
-                        <?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
-                            <?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
-                        <?php endforeach ?>
-                    </div>
-                </div>
-            </div>
-            <!-- Nav tabs -->
-
-            <?php if (!$model->is_confirm):?>
-                <ul class="nav nav-tabs col-xs-12">
-                    <li class="sel-type" rel="3">
-                        <a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
-                    </li>
-                    <li class="sel-type" rel="1">
-                        <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
-                    </li>
-                    <li class="active sel-type" rel="1">
-                        <a href="<?=Url::current(['type'=>2])?>">自由碑文</a>
-                    </li>
-
-                </ul>
-            <?php endif;?>
 
             <?php $form = ActiveForm::begin(['id'=>'auto-ins-form', 'options'=>['class'=> 'form-horizontal']]); ?>
             <div class="row">
+                <div class="col-md-12">
+                    <div class="widget-box transparent ui-sortable-handle gbox">
+
+                        <div class="widget-body">
+                            <div class="widget-main padding-6 no-padding-left no-padding-right">
+                                <img class="img-rounded" style="float:left;max-height: 100px;max-width: 100px;" src="<?=$goods->getThumb('100x100')?>">
+
+                                <div style="display:inline-block;float:left;">
+                                    碑名: <?=$goods->name?> <br>
+                                    碑属性:
+                                    <?php foreach ($goods->getAv()['attr'] as $k => $av): ?>
+                                        <?=$av['attr_name'] ?> : <?=$av['attr_val']?$av['attr_val']:$av['value']?>,
+                                    <?php endforeach ?>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Nav tabs -->
 
                 <div class="col-md-12">
 
+                    <?php if (!$model->is_confirm):?>
+                        <ul class="nav nav-tabs col-xs-12" style="margin-bottom:5px;">
+                            <li class="sel-type" rel="3">
+                                <a href="<?=Url::current(['type'=>0])?>" >上传图片</a>
+                            </li>
+                            <li class="sel-type" rel="1">
+                                <a href="<?=Url::current(['type'=>1])?>">自动碑文</a>
+                            </li>
+                            <li class="active sel-type" rel="1">
+                                <a href="<?=Url::current(['type'=>2])?>">自由碑文</a>
+                            </li>
+
+                            <div style="margin-top:10px;">
+                                <?php if(!$model['is_stand']):?>
+                                    <span class="pull-right">繁体简体
+                                            <select name="is_tc" id="is_tc">
+                                                <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
+                                                <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
+                                            </select>
+                                        </span>
+
+                                    <span class="pull-right">字体
+                                            <select name="font_style" id="font_style">
+                                                <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
+                                                <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
+                                                <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
+                                            </select>
+                                        </span>
+                                <?php else:?>
+                                    <input type="hidden" name="is_tc" value="<?=$model->is_tc?>"/>
+                                    <input type="hidden" name="font" value="<?=$model->font?>"/>
+                                <?php endif;?>
+
+                            </div>
+
+                        </ul>
+                    <?php endif;?>
+
                     <div class="panel panel-default">
-                        <div class="panel-heading">&nbsp;
-                            <span class="blank">
-                                <a  href="javascript:;" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#select-ins">
-                                    选择碑文样式
-                                </a>
-                            </span>
-                            <?php if(!$model['is_stand']):?>
-                                <span class="blank">繁体简体
-                                    <select name="is_tc" id="is_tc">
-                                        <option value="0" <?php if ($model->is_tc == 0): ?>selected<?php endif ?>>简体</option>
-                                        <option value="1" <?php if ($model->is_tc == 1): ?>selected<?php endif ?>>繁体</option>
-                                    </select>
-                                </span>
-                                <span class="blank">字体
-                                    <select name="font_style" id="font_style">
-                                        <option value="0" <?php if ($model->font == 0): ?>selected<?php endif ?>>华文新魏</option>
-                                        <option value="2" <?php if ($model->font == 2): ?>selected<?php endif ?>>方正隶书</option>
-                                        <option value="3" <?php if ($model->font == 3): ?>selected<?php endif ?>>宋 体</option>
-                                    </select>
-                                </span>
-                            <?php else:?>
-                                <input type="hidden" name="is_tc" id="is_tc" value="<?=$model->is_tc?>"/>
-                                <input type="hidden" name="font" value="<?=$model->font?>"/>
-                            <?php endif;?>
-                        </div>
+
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div id="select-ins" class="collapse">
+                                <div class="col-md-8 col-sm-12">
                                         <div class="row-fluid ">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">&nbsp;
@@ -143,7 +151,8 @@ PluploadAssets::register($this);
                                                 </div>
                                             </div>
                                         </div><!-- PAGE CONTENT ENDS -->
-
+                                </div>
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="row-fluid">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">&nbsp;
@@ -166,10 +175,8 @@ PluploadAssets::register($this);
                                                     <?php endforeach ?>
 
                                                 </div>
-
                                             </div>
                                         </div><!-- PAGE CONTENT ENDS -->
-                                    </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="canvas" style="border:1px solid #ccc;;width:702px;float:left;margin-right:20px;">
