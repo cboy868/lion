@@ -72,7 +72,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'buttons' => [
                     'delete' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
+                        return Html::a(' <span class="glyphicon glyphicon-trash"></span>', $url, ['title' => '删除','aria-label'=>"删除", 'data-confirm'=>"您确定要删除此项吗？", 'data-method'=>"post", 'data-pjax'=>"0"] );
+                    },
+                    'view' => function($url, $model, $key) {
+                        return Html::a(' <span class="glyphicon glyphicon glyphicon-eye-open"></span>查看详情', $url,
+                            ['title' => '查看', 'data-pjax'=>"0"] );
                     },
 
                     'refund' => function($url, $model, $key) {
@@ -86,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
 
                 ],
-               'headerOptions' => ['width' => '100',"data-type"=>"html"]
+               'headerOptions' => ['width' => '120',"data-type"=>"html"]
             ]
         ],
     ]); ?>

@@ -121,11 +121,6 @@ class PdfController extends \app\core\web\BackController
 
         $info['detail'] = $detail;
 
-
-
-
-
-
         return $this->renderAjax('order', [
             'info' => $info
         ]);
@@ -183,13 +178,10 @@ class PdfController extends \app\core\web\BackController
         ];
 
         return $table;
-
-
     }
 
     private function dealOrderData($info)
     {
-
 
         $cfg = [
             'title' => ['content'=>'收 据','x'=>100, 'y'=>-5, 'b'=>true, 'font_size'=>20],
@@ -225,18 +217,6 @@ class PdfController extends \app\core\web\BackController
             'date_label'   => ['content'=>'日期','x'=>130, 'y'=>73, 'b'=>true, 'font_size'=>15],
             'pay_time'   => ['x'=>155, 'y'=>73, 'b'=>true, 'font_size'=>15],
 
-
-//            'tomb_no' => $model->getTombNo(),
-//            'tomb_price' => $model->getTombPrice(),
-//            'bury_price' => $model->getBuryPrice(),
-//            'ins_price'  => $model->getInsPrice(),
-//            'goods_price'=> $model->getGoodsPrice(),
-//            'should_pay'      => $model->getShouldPay(),//应付款
-//            'aready_total'  => $model->getAlreadyPay(),//已付款
-//            'guide_name'         => $model->getGuideName(),
-//            'op_name'       => Yii::$app->user->identity->username,
-//            'customer_name' => $model->getCustomerName(),
-//            'pay_time'      => $model->getTime()
         ];
 
 
@@ -248,11 +228,7 @@ class PdfController extends \app\core\web\BackController
             ];
         }
 
-
         $result = array_merge($cfg, $result);
-
-
-
         return $result;
     }
 
@@ -268,12 +244,10 @@ class PdfController extends \app\core\web\BackController
             'total'     => $model->getTotal(),
             'tomb_price'=> $model->getTombPrice(),
 
-
             'expand'        => 10,
             'burial'        => 10,
             'inscription'   => 10,
             'smallware'     => 10,
-
 
             'already_pay'   => $model->getAlreadyPay(),
             'should_pay'    => $model->getShouldPay(),
@@ -307,6 +281,39 @@ class PdfController extends \app\core\web\BackController
         ob_end_clean();
         $pdf->Output();
 
+    }
+
+    /**
+     * @param $order_id
+     * @name 确认单
+     */
+    public function actionConfirm($order_id)
+    {
+        $model = new Pdf(['order_id'=>$order_id]);
+
+        $info = [
+            'tomb_no' => $model->getTombNo(),
+            'tomb_price' => $model->getTombPrice(),
+            'bury_price' => $model->getBuryPrice(),
+            'ins_price'  => $model->getInsPrice(),
+            'goods_price'=> $model->getGoodsPrice(),
+            'should_pay'      => $model->getShouldPay(),//应付款
+            'aready_total'  => $model->getAlreadyPay(),//已付款
+            'aready_total_payment' => StringHelper::num2rmb($model->getAlreadyPay()) . '整',
+            'this_total' => $model->getAlreadyPay(),
+            'this_total_payment' => StringHelper::num2rmb($model->getAlreadyPay()) . '整',
+            'guide_name'         => $model->getGuideName(),
+            'op_name'       => Yii::$app->user->identity->username,
+            'customer_name' => $model->getCustomerName(),
+            'pay_time'      => $model->getTime(),
+            'ins' => $model->getIns(),
+            'rels'          => $model->getOrderRels(),
+            'deads' => $model->getDeads()
+        ];
+
+        return $this->render('confirm',[
+            'info' => $info
+        ]);
     }
 
 }

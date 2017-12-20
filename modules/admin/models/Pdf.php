@@ -4,6 +4,7 @@ namespace app\modules\admin\models;
 
 use app\core\helpers\StringHelper;
 use app\modules\grave\models\Customer;
+use app\modules\grave\models\Dead;
 use app\modules\grave\models\Grave;
 use app\modules\grave\models\OrderRel;
 use app\modules\grave\models\Tomb;
@@ -285,6 +286,36 @@ class Pdf extends \yii\base\Model
     public function getTime()
     {
         return  date('Y-m-d',$this->order->updated_at);
+    }
+
+    /**
+     * @name 取碑文
+     */
+    public function getIns()
+    {
+        $ins = $this->tomb->ins;
+
+        if (!$ins) {
+            return false;
+        }
+        $result = $ins->toArray();
+        $result['front_img'] = $ins->getFront();
+        $result['back_img'] = $ins->getBack();
+
+        return $result;
+    }
+
+    public function getOrderRels()
+    {
+        $rels = $this->order->rels;
+        if (!$rels) return false;
+
+        return $rels;
+    }
+
+    public function getDeads()
+    {
+        return $this->tomb->deads;
     }
 
 

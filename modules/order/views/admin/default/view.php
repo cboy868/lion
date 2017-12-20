@@ -8,7 +8,7 @@ use yii\bootstrap\Modal;
 use app\modules\order\models\Order;
 use app\modules\order\models\Delay;
 
-
+\app\assets\JqueryuiAsset::register($this);
 $this->params['current_menu'] = 'order/default/index';
 
 $this->title = $model->id . '号订单明细';
@@ -233,6 +233,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     </tr>
                     <?php endforeach ?>
+
                     <?php if ($model->pays): ?>
                         <tr>
                            <td colspan="5">
@@ -241,6 +242,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 打印所选收款</a>
                              <a class="pull-right btn btn-xs btn-primary modalAddButton"
                                 href="<?=Url::toRoute(['/admin/pdf/order', 'order_id'=>$model->id])?>"> 打印全款</a>
+                        <?php if ($model->progress >= Order::PRO_PAY): ?>
+                            <a class="pull-right btn btn-xs btn-info" target="_blank"
+                                href="<?=Url::toRoute(['/admin/pdf/confirm', 'order_id'=>$model->id])?>"> 打印确认单</a>
+                        <?php endif;?>
                             </td>
                          </tr>
                     <?php endif;?>
