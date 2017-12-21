@@ -101,7 +101,7 @@ class WechatProUserController extends WechatController
                 $error = $error[0];
             }
 
-            return $error;
+            return $errors;
 
             $outerTransaction->commit();
 
