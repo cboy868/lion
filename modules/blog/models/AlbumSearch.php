@@ -18,7 +18,9 @@ class AlbumSearch extends Album
     public function rules()
     {
         return [
-            [['id', 'thumb', 'sort', 'recommend', 'is_customer', 'is_top', 'memorial_id', 'privacy', 'view_all', 'com_all', 'num', 'created_by', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['id', 'thumb', 'sort', 'recommend', 'is_customer', 'is_top',
+                'memorial_id', 'privacy', 'view_all', 'com_all', 'num', 'created_by',
+                'created_at', 'updated_at', 'status'], 'integer'],
             [['title', 'summary', 'body', 'ip'], 'safe'],
         ];
     }

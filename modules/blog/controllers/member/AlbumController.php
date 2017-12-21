@@ -64,7 +64,8 @@ class AlbumController extends MemberController
 
         $params = Yii::$app->request->queryParams;
 
-        $params['AlbumSearch']['user_id'] = Yii::$app->user->id;
+        $params['AlbumSearch']['created_by'] = Yii::$app->user->id;
+
         $searchModel = new AlbumSearch();
         $dataProvider = $searchModel->search($params);
 

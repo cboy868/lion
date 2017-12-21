@@ -41,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ;
 
             echo '<div id="modalContent"></div>';
-
             Modal::end();
         ?>
 
