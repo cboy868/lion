@@ -104,6 +104,7 @@ class WechatProUserController extends WechatController
             $outerTransaction->commit();
 
         } catch (\Exception $e) {
+            return $e->getMessage();die;
             $outerTransaction->rollBack();
             return ['errno'=>1, 'error'=>'账户创建失败 '];
 
@@ -143,19 +144,6 @@ class WechatProUserController extends WechatController
         $umodel->headimgurl = $udata['avatarUrl'];
 
         $umodel->save();
-
-
-
-//        if (!$umodel) {
-//
-//            $umodel->load($udata, '');
-//            $umodel->openid = $openid;
-//            $umodel->type = $umodel::TYPE_MINI;
-//            $umodel->nickname = $udata['nickName'];
-//            $umodel->sex = $udata['gender'];
-//            $umodel->headimgurl = $udata['avatarUrl'];
-//            $umodel->save();
-//        }
 
         $expand = [];
         if ($umodel->sysUser) {
