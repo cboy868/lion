@@ -81,9 +81,6 @@ class UserForm extends Model
             }
         }
 
-
-        return $this->getErrors();die;
-
         return null;
     }
 }
