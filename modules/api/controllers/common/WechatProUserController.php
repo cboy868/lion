@@ -90,7 +90,7 @@ class WechatProUserController extends WechatController
             $uform->password = $post['passwd'];
             $uform->repassword = $post['repasswd'];
             $uform->mobile = $post['mobile'];
-            $user = $uform->create();
+            return $user = $uform->create();
 
             $wecheat_user->user_id = $user->id;
             $wecheat_user->save();
