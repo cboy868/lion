@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\grave\widgets;
 
+use app\modules\sys\models\Announce;
 use app\modules\sys\models\Menu;
 use app\modules\user\models\MenuRel;
 use yii;
@@ -34,6 +35,24 @@ class Bench extends \yii\base\Widget
       $method = $this->name;
       $this->uid = Yii::$app->user->id;
       return $this->$method();
+    }
+
+    /**
+     * @name 公告
+     */
+    private function announce()
+    {
+        $d = date('Y-m-d');
+        $list = Announce::find()->where(['status'=>Announce::STATUS_NORMAL])
+            ->andWhere(['type'=>Announce::TYPE_SYS])
+            ->andWhere(['<=', 'start', $d])
+            ->andWhere(['>=', 'end', $d])
+            ->orderBy('id desc')
+            ->limit($this->limit)
+            ->all();
+
+
+        return $this->render('bench/announce', ['models'=>$list]);
     }
 
     private function task()

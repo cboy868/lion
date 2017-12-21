@@ -36,6 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
             </h1>
         </div><!-- /.page-header -->
 
+        <?php
+        Modal::begin([
+            'header' => '公告详情',
+            'id' => 'modalView',
+            // 'size' => 'modal'
+        ]) ;
+
+        echo '<div id="viewContent"></div>';
+
+        Modal::end();
+        ?>
 
         <?php
         Modal::begin([
@@ -52,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php
         Modal::begin([
-            'header' => '编辑',
+            'header' => '编辑公告',
             'id' => 'modalEdit',
             'clientOptions' => ['backdrop' => 'static', 'show' => false]
             // 'size' => 'modal'
@@ -79,6 +90,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'tableOptions'=>['class'=>'table table-striped table-hover table-bordered table-condensed'],
         'columns' => [
+            [
+                'label'=>'标题',
+                'value' => function($model){
+                    return Html::a($model->title, ['view', 'id'=>$model->id],[
+                        'class'=>'modalViewButton',
+                        "data-loading-text"=>"页面加载中, 请稍后...",
+                        "onclick"=>"return false"
+                    ]);
+                },
+                'format' => 'raw'
+            ],
             'title',
             'content:ntext',
             'author',
@@ -88,7 +110,25 @@ $this->params['breadcrumbs'][] = $this->title;
              'view_num',
              'created_at:datetime',
             // 'status',
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' =>[
+                    'update' =>Yii::$app->user->can('sys/announce/update'),
+                    'view' =>Yii::$app->user->can('sys/announce/view'),
+                    'delete' =>Yii::$app->user->can('sys/announce/delete'),
+                ],
+                'template' => '{update} {delete} {view}',
+                'buttons' => [
+                    'update' => function($url, $model, $key) {
+                        return Html::a('编辑', $url, [
+                                'class' => 'btn btn-info btn-xs  modalEditButton',
+                                'title'=>'更新',
+                                "data-loading-text"=>"页面加载中, 请稍后...",
+                                "onclick"=>"return false" ]);
+                    }
+
+                ],
+            ],
         ],
     ]); ?>
                 <div class="hr hr-18 dotted hr-double"></div>

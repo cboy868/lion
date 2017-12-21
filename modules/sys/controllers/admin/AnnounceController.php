@@ -48,7 +48,7 @@ class AnnounceController extends BackController
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -93,10 +93,15 @@ class AnnounceController extends BackController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', '公告更改成功');
+                return $this->json();
+            } else {
+                return $this->json(null, '公告更改失败，请重试',0);
+            }
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }

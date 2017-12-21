@@ -5,6 +5,8 @@ use kartik\select2\Select2;
 use app\core\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 
+\app\assets\JqueryuiAsset::register($this);
+
 $this->title = '我的工作台';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['profile_nav'] = 'admin';
@@ -47,15 +49,29 @@ $this->params['profile_nav'] = 'admin';
         vertical-align: middle;
     }
 </style>
+
 <?php
 Modal::begin([
-    'header' => '业务操作',
+    'header' => '<h4 class="modal-title">业务操作</h4>',
     'id' => 'modalAdd',
     'size' => Modal::SIZE_LARGE,
     'footer' => '<button class="btn btn-info" data-dismiss="modal">取消</button>',
 ]) ;
 
 echo '<div id="modalContent"></div>';
+
+Modal::end();
+?>
+
+<?php
+Modal::begin([
+    'header' => '<h4 class="modal-title"></h4>',
+    'id' => 'modalEdit',
+    'clientOptions' => ['backdrop' => 'static', 'show' => false]
+    // 'size' => 'modal'
+]) ;
+
+echo '<div id="editContent"></div>';
 
 Modal::end();
 ?>
@@ -109,7 +125,7 @@ Modal::end();
                                 <br>
 
                                 <?=$form->field($searchModel, 'customer_name')
-                                    ->textInput(['class'=>'form-control input-lg','placeholder'=>'客户名'])
+                                    ->textInput(['class'=>'form-control input-lg','placeholder'=>'客户名','style'=>'width:120px;'])
                                     ->label(false)?>
 
 
@@ -118,7 +134,7 @@ Modal::end();
                                     ->label(false)?>
 
                                 <button class="btn btn-info btn-lg btn-search-tomb"><i class="fa fa-search"></i> 查找 </button>
-                                <button class="btn btn-info btn-lg reset" type="reset">重置</button>
+                                <button class="btn btn-danger btn-lg reset" type="reset">重置</button>
 
                                 <?php ActiveForm::end(); ?>
 
@@ -132,6 +148,21 @@ Modal::end();
                 </div>
             </div>
             <div class="col-md-6">
+                <!--
+                <div class="widget-box transparent ui-sortable-handle" style="opacity: 1;">
+                    <div class="widget-body">
+                        <div class="widget-main padding-12 no-padding-left no-padding-right">
+                            <div style="border: 1px solid #ccc;border-radius: 3px;padding:5px;">
+                                <a href="#"
+                                   class='btn btn-info'
+                                   onclick="return false">这里是最重要的几个按扭</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <?=\app\modules\grave\widgets\Bench::widget(['name'=>'announce'])?>
+
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'task'])?>
 
                 <?=\app\modules\grave\widgets\Bench::widget(['name'=>'client'])?>
@@ -151,7 +182,6 @@ $(function(){
     });
 
     $('.reset').click(function(e){
-
         $('.table-box').html('');
     });
 

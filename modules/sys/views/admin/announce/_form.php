@@ -15,9 +15,9 @@ use app\modules\sys\models\Announce;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'start')->textInput(['dt'=>'true']) ?>
+    <?= $form->field($model, 'start')->textInput(['dt'=>'true'])->hint('如不填写，则从即日起展示') ?>
 
-    <?= $form->field($model, 'end')->textInput(['dt'=>'true']) ?>
+    <?= $form->field($model, 'end')->textInput(['dt'=>'true'])->hint('如不填写，则从展示截止本月底') ?>
 
     <?php if ($model->type):?>
         <?= $form->field($model, 'type')->hiddenInput()->label(false) ?>
@@ -26,10 +26,14 @@ use app\modules\sys\models\Announce;
     <?php endif;?>
 
 	<div class="form-group">
-            <?=  Html::submitButton('保 存', [
-                    'class' => 'btn btn-warning btn-lg pull-right saveAnn',
-                    'data-loading-text'=>"<i class='fa fa-spinner fa-spin '></i> 保存中，请稍后"
-            ]) ?>
+        <?=  Html::button('取 消', [
+            'class' => 'btn btn-lg pull-right cancel'
+        ]) ?>
+
+        <?=  Html::submitButton('保 存', [
+                'class' => 'btn btn-warning btn-lg pull-right saveAnn',
+                'data-loading-text'=>"<i class='fa fa-spinner fa-spin '></i> 保存中，请稍后"
+        ]) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
@@ -51,6 +55,9 @@ $(function(){
 
         return false;
     })
+    $('.cancel').click(function(e){
+        $('#modalEdit').modal('hide')
+    });
 });
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['auth'], \yii\web\View::POS_END); ?>

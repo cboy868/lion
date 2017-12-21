@@ -41,7 +41,7 @@ class AnnounceSearch extends Announce
      */
     public function search($params)
     {
-        $query = Announce::find();
+        $query = Announce::find()->orderBy('id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
