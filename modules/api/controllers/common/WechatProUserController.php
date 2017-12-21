@@ -104,6 +104,7 @@ class WechatProUserController extends WechatController
             $outerTransaction->commit();
 
         } catch (\Exception $e) {
+            return $wecheat_user;
             return $e->getMessage();die;
             $outerTransaction->rollBack();
             return ['errno'=>1, 'error'=>'账户创建失败 '];
