@@ -94,17 +94,18 @@ class WechatProUserController extends WechatController
             $user = $uform->create();
 
             if (!$user) {
-                throw new \Exception($uform->getErrors(), 1);
+                $error='';
+                if ($errors = $uform->getErrors()) {
+                    $error =array_shift($errors);
+                    $error = $error[0];
+                }
+                throw new \Exception($error, 1);
             }
 
             $wecheat_user->user_id = $user->id;
             $wecheat_user->save();
 
-            $error='';
-            if ($errors = $uform->getErrors()) {
-                $error =array_shift($errors);
-                $error = $error[0];
-            }
+
 
             $outerTransaction->commit();
 
