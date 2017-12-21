@@ -2,6 +2,16 @@
 
 return [
     'params' =>[
+        'order' =>[
+            [
+                'discount'  => 20,
+                'change'    => 1000,
+            ],
+            [
+                'discount'  => 10,
+                'change'    => 500,
+            ],
+        ],
         'process'  =>  [
             'user' =>  [
                 //'url'   =>  '/admin/tomb/process',

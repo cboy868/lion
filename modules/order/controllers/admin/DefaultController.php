@@ -53,6 +53,20 @@ class DefaultController extends BackController
         ]);
     }
 
+    /**
+     * @name 打折申请
+     */
+    public function actionDiscount($id)
+    {
+        $rel = OrderRel::find()->where(['order_id'=>$id,'type'=>9])
+            ->one();
+
+        return $this->render('discount', [
+            'model' => $this->findModel($id),
+            'rel'   => $rel
+        ]);
+    }
+
     private function excel($dp)
     {
         $columns = [

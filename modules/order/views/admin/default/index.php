@@ -31,8 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => '关联墓位',
                 'value' => function($model){
-                    return $model->tomb ? $model->tomb->tomb_no : '';
-                }
+                    $tomb = $model->tomb ? $model->tomb->tomb_no : '';
+                    return Html::a($tomb, ['/grave/admin/tomb/view', 'id'=>$model->tid], ['target'=>'_blank']);
+                },
+                'format' => 'raw'
             ],
             // 'wechat_uid',
             'user.username',
@@ -45,8 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '项目',
                 'value' => function($model) {
                     $rels = $model->rels;
-                    return implode('+', \yii\helpers\ArrayHelper::getColumn($rels, 'title'));
-                }
+                    $items = implode('+', \yii\helpers\ArrayHelper::getColumn($rels, 'title'));
+                    return Html::a($items, ['view', 'id'=>$model->id]);
+                },
+                'format' => 'raw'
             ],
             'price',
             'origin_price',

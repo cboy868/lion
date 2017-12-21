@@ -105,8 +105,6 @@ class WechatProUserController extends WechatController
             $wecheat_user->user_id = $user->id;
             $wecheat_user->save();
 
-
-
             $outerTransaction->commit();
 
         } catch (\Exception $e) {

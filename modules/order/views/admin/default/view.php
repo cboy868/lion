@@ -25,6 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <small>
                     <?php if ($model->progress <= Order::PRO_PAY):?>
                     <div class="btn-group pull-right" role="group">
+                        <?php if ($model->progress == Order::PRO_INIT): ?>
+                            <?= Html::a('...', ['discount', 'id' => $model->id], ['class' => 'btn btn-warning btn-lg']) ?>
+                        <?php endif ?>
                     <?php if ($model->progress != Order::PRO_DELAY): ?>
                         <?= Html::a('申请延期支付', ['delay', 'id' => $model->id], ['class' => 'btn btn-danger btn-lg']) ?>
                     <?php endif ?>
@@ -158,7 +161,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td align="left"><?=$rel->user->username?></td>
                             <td align="left"></td>
                             <td align="left"><?=$rel->use_time?></td>
-<!--                            <td align="left">--><?//=$rel->statusText?><!--</td>-->
                             <td class="deal">
                                 <?php if ($rel->status != -1):?>
                                     <a href="<?=Url::toRoute(['/order/admin/default/deal','id'=>$rel->id])?>" class="dealRel">删除</a>
@@ -199,59 +201,59 @@ $this->params['breadcrumbs'][] = $this->title;
                         </table>
                     </div>
             <?php endif ?>
-            
 
+    <?php if(count($model->pays)>0):?>
+        <div class="col-xs-12">
+          <h4>收款记录</h4>
+          <table class="table table-striped table-hover table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>支付金额</th>
+                <th>支付方式</th>
+                <th>操作员</th>
+                <th>支付时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
 
-            <div class="col-xs-12">
-              <h4>收款记录</h4>
-              <table class="table table-striped table-hover table-bordered table-condensed">
-                <thead>
-                  <tr>
-                    <th>支付金额</th>
-                    <th>支付方式</th>
-                    <th>操作员</th>
-                    <th>支付时间</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
+                <?php foreach ($model->pays as $pay):
+                    if (!$pay->pay_result) continue;
+                    ?>
+                 <tr>
+                  <td><?=$pay->total_pay?></td>
+                 <td><?=$pay->method?></td>
+                  <td><?=$pay->user->username?></td>
+                  <td><?=date("Y-m-d H:i", $pay->updated_at)?></td>
+                    <td>
+                        <a title="收款打印" class="modalAddButton"
+                           href="<?=Url::toRoute(['/admin/pdf/order', 'pay_id'=>$pay->id])?>">
+                            <i class="icon icon-print"></i> 打印本次收款单
+                        </a>
+                        <input class="pay_item" type="checkbox" name="pay_item" value="<?=$pay->id?>">
+                    </td>
+                </tr>
+                <?php endforeach ?>
 
-                    <?php foreach ($model->pays as $pay):
-                        if (!$pay->pay_result) continue;
-                        ?>
-                     <tr>
-                      <td><?=$pay->total_pay?></td>
-                     <td><?=$pay->method?></td>
-                      <td><?=$pay->user->username?></td>
-                      <td><?=date("Y-m-d H:i", $pay->updated_at)?></td>
-                        <td>
-                            <a title="收款打印" class="modalAddButton"
-                               href="<?=Url::toRoute(['/admin/pdf/order', 'pay_id'=>$pay->id])?>">
-                                <i class="icon icon-print"></i> 打印本次收款单
-                            </a>
-                            <input class="pay_item" type="checkbox" name="pay_item" value="<?=$pay->id?>">
-                        </td>
-                    </tr>
-                    <?php endforeach ?>
-
-                    <?php if ($model->pays): ?>
-                        <tr>
-                           <td colspan="5">
-                            <a href="#" class="pull-right btn btn-xs btn-success radius4">
-                                <i class="icon icon-print"></i>
-                                打印所选收款</a>
-                             <a class="pull-right btn btn-xs btn-primary modalAddButton"
-                                href="<?=Url::toRoute(['/admin/pdf/order', 'order_id'=>$model->id])?>"> 打印全款</a>
-                        <?php if ($model->progress >= Order::PRO_PAY): ?>
-                            <a class="pull-right btn btn-xs btn-info" target="_blank"
-                                href="<?=Url::toRoute(['/admin/pdf/confirm', 'order_id'=>$model->id])?>"> 打印确认单</a>
-                        <?php endif;?>
-                            </td>
-                         </tr>
+                <?php if ($model->pays): ?>
+                    <tr>
+                       <td colspan="5">
+                        <a href="#" class="pull-right btn btn-xs btn-success radius4">
+                            <i class="icon icon-print"></i>
+                            打印所选收款</a>
+                         <a class="pull-right btn btn-xs btn-primary modalAddButton"
+                            href="<?=Url::toRoute(['/admin/pdf/order', 'order_id'=>$model->id])?>"> 打印全款</a>
+                    <?php if ($model->progress >= Order::PRO_PAY): ?>
+                        <a class="pull-right btn btn-xs btn-info" target="_blank"
+                            href="<?=Url::toRoute(['/admin/pdf/confirm', 'order_id'=>$model->id])?>"> 打印确认单</a>
                     <?php endif;?>
-                  </tbody>
-                </table>
-            </div>
+                        </td>
+                     </tr>
+                <?php endif;?>
+              </tbody>
+          </table>
+        </div>
+    <?php endif;?>
         </div><!-- /.row -->
     </div><!-- /.page-content-area -->
 </div>
