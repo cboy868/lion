@@ -129,16 +129,33 @@ class WechatProUserController extends WechatController
         $class = $this->modelClass;
 
         $umodel = $class::find()->where(['openid'=>$openid, 'type'=>1])->one();
+
         if (!$umodel) {
             $umodel = new $class;
-            $umodel->load($udata, '');
             $umodel->openid = $openid;
-            $umodel->type = $umodel::TYPE_MINI;
-            $umodel->nickname = $udata['nickName'];
-            $umodel->sex = $udata['gender'];
-            $umodel->headimgurl = $udata['avatarUrl'];
-            $umodel->save();
+        } else { //如果 已存在，则更新数据
+            $umodel->load($udata, '');
         }
+        $umodel->load($udata, '');
+        $umodel->type = $umodel::TYPE_MINI;
+        $umodel->nickname = $udata['nickName'];
+        $umodel->sex = $udata['gender'];
+        $umodel->headimgurl = $udata['avatarUrl'];
+
+        $umodel->save();
+
+
+
+//        if (!$umodel) {
+//
+//            $umodel->load($udata, '');
+//            $umodel->openid = $openid;
+//            $umodel->type = $umodel::TYPE_MINI;
+//            $umodel->nickname = $udata['nickName'];
+//            $umodel->sex = $udata['gender'];
+//            $umodel->headimgurl = $udata['avatarUrl'];
+//            $umodel->save();
+//        }
 
         $expand = [];
         if ($umodel->sysUser) {
