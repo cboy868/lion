@@ -94,7 +94,7 @@ class WechatProUserController extends WechatController
             $user = $uform->create();
 
             if (!$user) {
-                throw new \Exception($uform->getErrors());
+                throw new \Exception($uform->getErrors(), 1);
             }
 
             $wecheat_user->user_id = $user->id;
